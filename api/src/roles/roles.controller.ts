@@ -16,7 +16,7 @@ export class RolesController {
     return this.roleService.createRole(roleDto);
   }
 
-  @ApiOperation({ summary: "Получение роли по занчению" })
+  @ApiOperation({ summary: "Получение роли по значению" })
   @ApiResponse({ status: 200, type: Role })
   @Get("/:value")
   getByValue(@Param("value") value: string) {

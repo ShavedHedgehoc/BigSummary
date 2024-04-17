@@ -4,6 +4,8 @@ import { UsersModule } from "./users/users.module";
 import { ConfigModule } from "@nestjs/config";
 import { RolesModule } from "./roles/roles.module";
 import { AuthModule } from './auth/auth.module';
+import { WorkersModule } from './workers/workers.module';
+import { OccupationsModule } from './occupations/occupations.module';
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./roles/user-roles.model";
@@ -28,6 +30,8 @@ import UserRoles from "./roles/user-roles.model";
     UsersModule,
     RolesModule,
     AuthModule,
+    WorkersModule,
+    OccupationsModule,
   ],
 })
 export default class AppModule {}
