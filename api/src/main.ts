@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 async function start() {
   const PORT = process.env.PORT || 5000;
   const app = await NestFactory.create(AppModule);
+  // app.setGlobalPrefix("api");
 
   const config = new DocumentBuilder()
     .setTitle("Summary API")
@@ -14,7 +15,7 @@ async function start() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("/api/docs", app, document);
+  SwaggerModule.setup("/api/documentation", app, document);
 
   await app.listen(PORT, () => console.log(`API started on ${PORT}`));
 }

@@ -6,10 +6,12 @@ import {
   Column,
   DataType,
   Default,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
+import History from "src/histories/histories.model";
 import Role from "src/roles/roles.model";
 import UserRoles from "src/roles/user-roles.model";
 
@@ -49,4 +51,7 @@ export default class User extends Model<User, UserCreationsAttrs> {
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
+
+  @HasMany(() => History)
+  histories: History[];
 }

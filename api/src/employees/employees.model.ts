@@ -1,14 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AllowNull, AutoIncrement, BelongsTo, Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import History from "src/histories/histories.model";
 import Occupation from "src/occupations/occupations.model";
 
-interface WorkerCreationsAttrs {
+interface EmployeeCreationsAttrs {
   name: string;
   barcode: string;
 }
 
-@Table({ tableName: "workers" })
-export default class Worker extends Model<Worker, WorkerCreationsAttrs> {
+@Table({ tableName: "employees" })
+export default class Employee extends Model<Employee, EmployeeCreationsAttrs> {
   @ApiProperty({ example: "1", description: "Уникальный id пользователя рабочей станции" })
   @PrimaryKey
   @AutoIncrement
@@ -25,6 +37,13 @@ export default class Worker extends Model<Worker, WorkerCreationsAttrs> {
   @Column({ type: DataType.STRING, unique: true })
   barcode: string;
 
+  @ForeignKey(() => Occupation)
+  @Column
+  occupationId: number;
+
   @BelongsTo(() => Occupation)
   occupation: Occupation;
+
+  @HasMany(() => History)
+  histories: History[];
 }
