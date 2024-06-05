@@ -18,6 +18,7 @@ import { CansModule } from "./cans/cans.module";
 import { WorkshopsModule } from "./workshops/workshops.module";
 import { HistoriesModule } from "./histories/histories.module";
 import { HistoryTypesModule } from "./history_types/hystory_types.module";
+import { TokenModule } from "./token/token.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./roles/user-roles.model";
@@ -35,6 +36,7 @@ import Conveyor from "./conveyors/conveyor.model";
 import Workshop from "./workshops/workshop.model";
 import History from "./histories/histories.model";
 import HistoryType from "./history_types/history_types.model";
+import Token from "./token/token.model";
 
 @Module({
   controllers: [],
@@ -68,6 +70,7 @@ import HistoryType from "./history_types/history_types.model";
         Workshop,
         History,
         HistoryType,
+        Token,
       ],
       autoLoadModels: true,
     }),
@@ -88,6 +91,7 @@ import HistoryType from "./history_types/history_types.model";
     WorkshopsModule,
     HistoriesModule,
     HistoryTypesModule,
+    TokenModule,
   ],
 })
 export default class AppModule {}

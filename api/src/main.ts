@@ -1,4 +1,5 @@
 import { NestFactory } from "@nestjs/core";
+import * as cookieParser from "cookie-parser";
 import AppModule from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
@@ -17,6 +18,7 @@ async function start() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("/api/documentation", app, document);
 
+  app.use(cookieParser());
   await app.listen(PORT, () => console.log(`API started on ${PORT}`));
 }
 

@@ -1,11 +1,10 @@
 :root {
-    /* --main-background-color: #f5f5f5; */
-
-    /* --main-color: #FFFFFF; */
+    /* --main-background-color: #f5f5f5;
+    --main-color: #000000; */
 
     --main-background-color: #030613;
     --main-color: #e2e603;
-    /* --main-color: #e6871c; */
+
 
     --main-border-color: #d6d6d6;
     --save-color: #f9fafb;

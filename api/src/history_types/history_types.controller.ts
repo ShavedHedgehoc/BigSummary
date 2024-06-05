@@ -17,7 +17,7 @@ export class HistoryTypesController {
   }
 
   @ApiOperation({ summary: "Создание нового типа записи" })
-  @ApiResponse({ status: 201, type: HistoryType })
+  @ApiResponse({ status: 201, type: [HistoryType] })
 
   //   @ApiResponse({ status: 400, type: Error })
   @Post()

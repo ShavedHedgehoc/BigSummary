@@ -3,6 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { HistoriesService } from "./histories.service";
 import History from "./histories.model";
 import { CreateHistoryDto } from "./dto/create-history.dto";
+import { AddHistoriesDto } from "./dto/add-histories.dto";
 
 @ApiTags("Записи")
 @Controller("histories")
@@ -23,10 +24,19 @@ export class HistoriesController {
     return this.historiesService.getLastHistoryByRecId(Number(recordId));
   }
 
+  @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
+  @ApiResponse({ status: 200, type: [History] })
+  @Get("/last_ten")
+  getLastTenHistories() {
+    return this.historiesService.getLastTenHistories();
+  }
+
   @ApiOperation({ summary: "Создание новой записи" })
   @ApiResponse({ status: 201, type: History })
   @Post()
-  create(@Body() dto: CreateHistoryDto) {
-    return this.historiesService.createHistory(dto);
+  create(@Body() dto: AddHistoriesDto) {
+    return this.historiesService.addHistoriesToRecords(dto);
+    // create(@Body() dto: CreateHistoryDto) {
+    //   return this.historiesService.createHistory(dto);
   }
 }

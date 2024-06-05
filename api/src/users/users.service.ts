@@ -4,6 +4,7 @@ import User from "./users.model";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { RolesService } from "src/roles/roles.service";
 import { AddRoleDto } from "./dto/add-role.dto";
+import Role from "src/roles/roles.model";
 
 @Injectable()
 export class UsersService {
@@ -25,8 +26,16 @@ export class UsersService {
     return users;
   }
 
+  async getByPk(id: number) {
+    const user = await this.userRepository.findByPk(id, { include: { model: Role, as: "roles" } });
+    return user;
+  }
+
   async getUserByEmail(email: string) {
-    const user = await this.userRepository.findOne({ where: { email: email }, include: { all: true } });
+    const user = await this.userRepository.findOne({
+      where: { email: email },
+      include: { model: Role, as: "roles" },
+    });
     return user;
   }
 

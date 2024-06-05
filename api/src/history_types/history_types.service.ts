@@ -20,6 +20,11 @@ export class HistoryTypesService {
     return historyType;
   }
 
+  async getById(id: number) {
+    const historyType = await this.historyTypesRepository.findByPk(id);
+    return historyType;
+  }
+
   async createHistoryType(dto: CreateHistoryTypeDto) {
     const historyType = await this.historyTypesRepository.create(dto);
     return historyType;

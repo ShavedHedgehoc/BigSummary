@@ -1,0 +1,7 @@
+.record_container {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    margin-top: 100px;
+    color: var(--secondary-color)
+}

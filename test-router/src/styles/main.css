@@ -1,0 +1,30 @@
+:root {
+    --body-background-color: #eef0f1;
+    --content-background-color: #ffffff;
+    --menu-color: #6d6c86;
+    --menu-secondary-color: #9fa3b0;
+    --content-border-color: #e9e9ee;
+    --content-color: #161619;
+    --selected-color: orange;
+
+    /* --global-width: 100vw; */
+    --global-width: 1400px;
+    --global-margin: 15px;
+    --global-padding: 5px;
+    --header-height: 40px;
+    --side-nav-width: 300px;
+    --global-border-radius: 10px;
+}
+
+body>#root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto";
+    background-color: var(--body-background-color)
+}

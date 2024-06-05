@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+//Удалить
 
 export class CreateHistoryDto {
   @ApiProperty({ example: "1", description: "id записи сводки" })

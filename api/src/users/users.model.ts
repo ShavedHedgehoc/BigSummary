@@ -7,6 +7,8 @@ import {
   DataType,
   Default,
   HasMany,
+  HasOne,
+  Length,
   Model,
   PrimaryKey,
   Table,
@@ -14,6 +16,7 @@ import {
 import History from "src/histories/histories.model";
 import Role from "src/roles/roles.model";
 import UserRoles from "src/roles/user-roles.model";
+import Token from "src/token/token.model";
 
 interface UserCreationsAttrs {
   name: string;
@@ -31,6 +34,7 @@ export default class User extends Model<User, UserCreationsAttrs> {
 
   @ApiProperty({ example: "Иванов А.В.", description: "Имя пользователя" })
   @AllowNull(false)
+  @Length({ min: 1, max: 60 })
   @Column({ type: DataType.STRING })
   name: string;
 
@@ -54,4 +58,7 @@ export default class User extends Model<User, UserCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @HasMany(() => Token)
+  token: Token;
 }

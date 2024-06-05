@@ -10,6 +10,8 @@ import { ApparatusesModule } from "src/apparatuses/apparatuses.module";
 import { CansModule } from "src/cans/cans.module";
 import { ConveyorsModule } from "src/conveyors/conveyors.module";
 import { WorkshopsModule } from "src/workshops/workshops.module";
+import { DocsModule } from "src/docs/docs.module";
+import { PlantsModule } from "src/plants/plants.module";
 
 @Module({
   controllers: [RecordsController],
@@ -23,6 +25,8 @@ import { WorkshopsModule } from "src/workshops/workshops.module";
     CansModule,
     ConveyorsModule,
     WorkshopsModule,
+    DocsModule,
+    PlantsModule,
   ],
   exports: [RecordsService],
 })

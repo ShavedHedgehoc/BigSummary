@@ -1,0 +1,56 @@
+.message_container {
+
+    color: var(--content-color);
+    background-color: var(--content-background-color);
+    border-radius: var(--global-border-radius);
+    border: var(--content-border-color) 0.5px solid;
+    box-shadow: -1px 1px 5px 0px var(--content-border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    border: var(--border-color) 2px solid;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.success {
+    color: mediumseagreen;
+    font-weight: bold;
+}
+
+.fail {
+    color: tomato;
+    font-weight: bold;
+}
+
+.message_text {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+
+.message_pane {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 50%;
+    width: 400px;
+    right: 0px;
+    bottom: 0px;
+    justify-content: flex-end;
+    padding-bottom: 40px;
+    padding-right: 40px;
+
+}
+
+.message_pane_hide {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}

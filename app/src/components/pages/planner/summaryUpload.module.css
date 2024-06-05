@@ -1,0 +1,63 @@
+.summary_upload__container {
+    width: calc(100% - 2 * var(--global-margin));
+    height: calc(100% - 2 * var(--global-margin));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    /* background-color: aqua; */
+}
+
+.summary_upload__header {
+    display: flex;
+    color: var(--selected-color);
+    font-weight: bold;
+    height: 20px;
+    align-items: center;
+}
+
+.laboratory_page__selector_field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+    gap: 10px;
+}
+
+.laboratory_page__plant_selector {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 0.5px var(--body-background-color) solid
+}
+
+.laboratory_page__plant_selector:focus {
+    outline: 0;
+}
+
+
+.upload__date_plant_picker {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border: solid 0.5px #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+.upload__picker {
+
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}

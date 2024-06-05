@@ -6,9 +6,9 @@ const botSender = () => {
   dotenv.config();
   const bot = new Telegraf(process.env.BOT_TOKEN);
   bot.start((ctx) => ctx.reply("Дратути!"));
-  bot.on(message("WTF"), (ctx) =>
-    ctx.sendSticker(CAACAgUAAxkBAAEL8gNmITgFuLgVlf8vGUpuqV_0sc8dXAACkwMAAukKyAPkNw0xOZ05JjQE)
-  );
+  // bot.on(message("WTF"), (ctx) =>
+  //   ctx.sendSticker(CAACAgUAAxkBAAEL8gNmITgFuLgVlf8vGUpuqV_0sc8dXAACkwMAAukKyAPkNw0xOZ05JjQE)
+  // );
   bot.hears("стикер", (ctx) => {
     ctx.reply("Кто-то сказал стикер?");
     ctx.sendSticker("CAACAgUAAxkBAAEL8gNmITgFuLgVlf8vGUpuqV_0sc8dXAACkwMAAukKyAPkNw0xOZ05JjQE");
@@ -20,7 +20,7 @@ const botSender = () => {
     bot.telegram.sendMessage("-1001979618368", "test message from Iozh bot");
   }
 
-  // send();
+  send();
 
   bot.launch().then();
 };
