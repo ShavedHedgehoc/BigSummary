@@ -1,4 +1,4 @@
-import * as React from "react";
+// import * as React from "react";
 import { IRecord } from "../../services/SummaryService";
 import classes from "./laboratoryTable.module.css";
 

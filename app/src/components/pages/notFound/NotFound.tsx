@@ -1,9 +1,9 @@
-import * as React from "react";
+// import * as React from "react";
 import SinglePageWrapper from "../../ui/singlePageWrapper/SinglePageWrapper";
 
 export default function NotFound() {
   return (
-    <SinglePageWrapper>
+    <SinglePageWrapper errorElement={<></>}>
       <>Not found</>
     </SinglePageWrapper>
   );

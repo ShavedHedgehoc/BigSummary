@@ -42,7 +42,7 @@ export default function Home() {
   };
 
   return (
-    <SinglePageWrapper>
+    <SinglePageWrapper errorElement={<></>}>
       <div className={classes.summary_page_container}>
         <div className={classes.summary_page_header}>Текущая сводка</div>
         <div className={classes.summary_page_selector}>
