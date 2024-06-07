@@ -29,6 +29,28 @@ services:
     restart: unless-stopped
     networks:
       - postgres
+  api:
+    container_name: api
+    build:
+      context: /
+      dockerfile: docker/api/Dockerfile.dev
+      args:
+        - NODE_ENV=development
+    environment:
+      POSTGRESHOST: "postgres"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USERNAME: "admin"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "summary"
+      PORT: "7000"
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - "5000:5000"
+    networks:
+      - postgres
+    
 volumes:
   summary-data:
   pgadmin-data:
