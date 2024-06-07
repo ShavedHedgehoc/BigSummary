@@ -1,0 +1,38 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_DB: "summary"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - summary-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:7.2
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "eagle221174@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "1"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    networks:
+      - postgres
+volumes:
+  summary-data:
+  pgadmin-data:
+networks:
+  postgres:
+    driver: bridge
+
