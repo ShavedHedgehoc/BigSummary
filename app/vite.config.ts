@@ -5,12 +5,16 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5173,
-    proxy: {
-      "/api": {
-        target: "http://localhost:7000",
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
+    host: true,
+    port: 3000,
+    // define: {
+    //   BACKEND_URL: "http://api:7000"
+    // }
+    // proxy: {
+    //   "/api": {
+    //     target: "http://localhost:7000",
+    //     rewrite: (path) => path.replace(/^\/api/, ""),
+    //   },
+    // },
   },
 });

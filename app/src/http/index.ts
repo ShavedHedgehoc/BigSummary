@@ -1,7 +1,9 @@
 import axios from "axios";
 import { ApiRoutes } from "./apiRoutes";
 
-export const apiUrl = "/api";
+
+
+export const apiUrl = `/api`;
 
 const $api = axios.create({
   withCredentials: true,
