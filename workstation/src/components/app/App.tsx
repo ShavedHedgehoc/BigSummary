@@ -121,13 +121,13 @@ function App() {
 
   return (
     <>
-      {store.HealthStore.error.length !== 0 && (
+      {store.HealthStore.error?.length !== 0 && (
         <div className={classes.disconnect}>
           <h1>¯\_(ツ)_/¯</h1>
           <h1> Сервер упал и давай валяться...</h1>
         </div>
       )}
-      {store.HealthStore.error.length === 0 && (
+      {store.HealthStore.error?.length === 0 && (
         <div className={classes.main_container}>
           <div className={classes.center_window}>
             <div className={classes.icon}>
