@@ -9,14 +9,16 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    // define: {
-    //   BACKEND_URL: "http://api:7000"
-    // }
-    // proxy: {
-    //   "/api": {
-    //     target: "http://localhost:7000",
-    //     rewrite: (path) => path.replace(/^\/api/, ""),
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "http://localhost:7000",
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+
   },
+  // define: {
+  //   BACKEND_URL: "http://api:7000"
+  // }
+
 });
