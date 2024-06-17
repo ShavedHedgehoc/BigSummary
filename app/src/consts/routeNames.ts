@@ -9,6 +9,6 @@ export enum RouteNames {
   USERS = "/admin/users",
   TECHNOLOGIST = "/technologist",
   PLANNER = "/planner",
-  SUMMARY_UPLOAD = "/planner/upload",
+  SUMMARY_UPLOAD = "/upload",
   REPORT1 = "/reports/1",
 }

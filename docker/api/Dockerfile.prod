@@ -1,0 +1,15 @@
+FROM node:18
+
+WORKDIR /api
+
+COPY ./api/package*.json ./
+COPY ./api/tsconfig*.json ./
+COPY ./api/src ./src
+
+RUN npm install
+
+COPY ./api .
+
+RUN npm run build
+
+CMD ["npm", "run", "start:prod"]
