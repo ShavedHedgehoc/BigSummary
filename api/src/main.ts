@@ -8,6 +8,14 @@ async function start() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
 
+
+
+  console.log(process.env.POSTGRES_HOST)
+  // port: Number(process.env.POSTGRES_PORT),
+  // username: process.env.POSTGRES_USERNAME,
+  // password: process.env.POSTGRES_PASSWORD,
+  // database: process.env.POSTGRES_DB,
+
   const config = new DocumentBuilder()
     .setTitle("Summary API")
     .setDescription("API for summary list database")

@@ -43,16 +43,18 @@ services:
     container_name: api_container
     build:
       context: .
-      dockerfile: docker/api/Dockerfile.dev
+      dockerfile: docker/api/Dockerfile.prod
       args:
-        - NODE_ENV=development
+        - NODE_ENV=production
     environment:
-      POSTGRESHOST: "postgres"
+      POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
-      POSTGRES_USERNAME: "admin"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: "summary"
       PORT: "7000"
+      BOT_TOKEN: ${BOT_TOKEN}
+      CHAT_ID: ${CHAT_ID}
     depends_on:
       - postgres
     restart: always
@@ -78,7 +80,7 @@ services:
       context: .
       dockerfile: docker/workstation/Dockerfile.prod
       args:
-        - NODE_ENV=production
+        - NODE_ENV=development
     depends_on:
       - api
     networks:
