@@ -8,7 +8,6 @@ import Conveyor from "src/conveyors/conveyor.model";
 import History from "src/histories/histories.model";
 import Plant from "src/plants/plant.model";
 import { Sequelize } from "sequelize-typescript";
-import { group } from "console";
 
 @Injectable()
 export class DocsService {
@@ -16,30 +15,35 @@ export class DocsService {
     @InjectModel(Doc)
     private docRepository: typeof Doc,
     private plantService: PlantsService
-  ) { }
+  ) {}
 
   async getAllDocs() {
     const docs = await this.docRepository.findAll({
-      attributes: ["id", "plantId", "date",
-        [Sequelize.literal(`
+      attributes: [
+        "id",
+        "plantId",
+        "date",
+        [
+          Sequelize.literal(`
           (SELECT COUNT (*) FROM Records Where doc_id = "Doc"."id")
-        `), "records_count"],
-        [Sequelize.literal(`
+        `),
+          "records_count",
+        ],
+        [
+          Sequelize.literal(`
           (SELECT COUNT (*) FROM Histories JOIN Records ON records.id = Histories.record_id Where doc_id = "Doc"."id")
-        `), "histories_count"]
+        `),
+          "histories_count",
+        ],
       ],
       include: {
         model: Plant,
-        attributes: ["value"]
+        attributes: ["value"],
       },
-      order: [
-        "date"
-      ]
-    })
-    return docs
+      order: ["date"],
+    });
+    return docs;
   }
-
-
 
   async getDocByPlantAndDate(date: string, plantId: number) {
     const existsDoc = await this.docRepository.findOne({
