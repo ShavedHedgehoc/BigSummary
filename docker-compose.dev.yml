@@ -1,31 +1,10 @@
-# version: '3.5'
-
 services:
-  nginx:
-    container_name: nginx_container
-    build:
-      context: ./docker/nginx
-      dockerfile: Dockerfile.dev
-    restart: always
-    ports:
-      - "80:80"
-    # links:
-    #   - app
-    networks:
-      - general
-      # depends_on:
-      #   - app
-
-      # - postgres
-      # - api
-
-  postgres:
     container_name: postgres_container
     image: postgres:16.2-alpine
     environment:
       POSTGRES_DB: "summary"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - summary-data:/var/lib/postgresql/data
     ports:
@@ -47,46 +26,46 @@ services:
     restart: unless-stopped
     networks:
       - postgres
-  api:
-    container_name: api_container
-    build:
-      context: .
-      dockerfile: docker/api/Dockerfile.dev
-      args:
-        - NODE_ENV=development
-    environment:
-      POSTGRESHOST: "postgres"
-      POSTGRES_PORT: "5432"
-      POSTGRES_USERNAME: "admin"
-      POSTGRES_PASSWORD: "password"
-      POSTGRES_DB: "summary"
-      PORT: "7000"
-    depends_on:
-      - postgres
-    restart: always
-    ports:
-      - "7000:7000"
-    networks:
-      - postgres
-      - general
+  # api:
+  #   container_name: api_container
+  #   build:
+  #     context: .
+  #     dockerfile: docker/api/Dockerfile.dev
+  #     args:
+  #       - NODE_ENV=development
+  #   environment:
+  #     POSTGRESHOST: "postgres"
+  #     POSTGRES_PORT: "5432"
+  #     POSTGRES_USERNAME: "admin"
+  #     POSTGRES_PASSWORD: "password"
+  #     POSTGRES_DB: "summary"
+  #     PORT: "7000"
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  #   ports:
+  #     - "7000:7000"
+  #   networks:
+  #     - postgres
+  #     - general
 
-  app:
-    container_name: app_container
-    build:
-      context: .
-      dockerfile: docker/app/Dockerfile.dev
-      args:
-        - NODE_ENV=development
-    ports:
-      - "3000:3000"
-    networks:
-      - general
+  # app:
+  #   container_name: app_container
+  #   build:
+  #     context: .
+  #     dockerfile: docker/app/Dockerfile.dev
+  #     args:
+  #       - NODE_ENV=development
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - general
 
 volumes:
   summary-data:
   pgadmin-data:
 networks:
-  general:
-    driver: bridge
+  # general:
+  #   driver: bridge
   postgres:
     driver: bridge

@@ -42,7 +42,7 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @ForeignKey(() => Doc)
   @Column
-  docId: number;
+  doc_id: number;
 
   @ForeignKey(() => Product)
   @Column

@@ -40,6 +40,7 @@ export default class Doc extends Model<Doc, DocsCreationsAttrs> {
   @BelongsTo(() => Plant)
   plants: Plant[];
 
+
   @HasMany(() => Record)
   records: Record[];
 }

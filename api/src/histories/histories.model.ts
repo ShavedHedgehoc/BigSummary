@@ -24,7 +24,7 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @ApiProperty({ example: "1", description: "id строки сводки" })
   @ForeignKey(() => Record)
   @Column
-  recordId: number;
+  record_id: number;
 
   @ApiProperty({ example: "1", description: "id типа записи" })
   @ForeignKey(() => HistoryType)

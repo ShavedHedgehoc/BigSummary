@@ -18,7 +18,7 @@ interface RoleCreationsAttrs {
   description: string;
 }
 
-@Table({ tableName: "roles" })
+@Table({ tableName: "roles", createdAt: false, updatedAt: false })
 export default class Role extends Model<Role, RoleCreationsAttrs> {
   @ApiProperty({ example: "1", description: "Уникальный id роли" })
   @PrimaryKey

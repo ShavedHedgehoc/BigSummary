@@ -18,9 +18,7 @@ services:
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
     volumes:
-      - summary-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - summary-data:/var/lib/postgresql/data    
     networks:
       - postgres
 

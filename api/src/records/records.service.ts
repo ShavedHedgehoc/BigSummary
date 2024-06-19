@@ -30,7 +30,7 @@ export class RecordsService {
     private workshopsService: WorkshopsService,
     private docsService: DocsService,
     private plantService: PlantsService
-  ) {}
+  ) { }
 
   async getAllRecords() {
     const records = await this.recordsRepository.findAll();
@@ -122,7 +122,7 @@ export class RecordsService {
     for (let index = 0; index < dto.rows.length; index++) {
       const createDto: CreateRecordDto = {
         ...dto.rows[index],
-        docId: doc.id,
+        doc_id: doc.id,
       };
       await this.createRecord(createDto);
     }

@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateRecordDto {
   //   @ApiProperty({ example: "Колпино", description: "Наименование площадки" })
   @ApiProperty({ example: "", description: "" })
-  readonly docId: number;
+  readonly doc_id: number;
   @ApiProperty({ example: "", description: "" })
   readonly code1C: string;
   @ApiProperty({ example: "", description: "" })

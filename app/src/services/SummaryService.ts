@@ -103,14 +103,23 @@ export interface SummaryResponse {
   records: IRecord[];
 }
 
-export interface DocResponse {}
+export interface IDoc {
+  id: number;
+  plantId: number;
+  date: Date;
+  records_count: string;
+  histories_count: string;
+  plants: IPlant;
+}
+
+
 
 export default class SummaryService {
   static async getRecords(plantId: string): Promise<AxiosResponse<SummaryResponse>> {
     return $api.get(`/docs/${plantId}`);
   }
 
-  static async getDocs(): Promise<AxiosResponse<DocResponse>> {
+  static async getDocs(): Promise<AxiosResponse<IDoc[]>> {
     return $api.get(`/docs`);
   }
 

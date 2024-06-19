@@ -21,7 +21,7 @@ export class HistoriesService {
     private historyTypesService: HistoryTypesService,
     private recordsService: RecordsService,
     private userServise: UsersService
-  ) {}
+  ) { }
 
   // async createHistory(dto: CreateHistoryDto) {
   //   const historyType = await this.historyTypesService.getByValue(dto.historyType);
@@ -86,11 +86,11 @@ export class HistoriesService {
       userRoles = user.roles ? user.roles.map((x) => x.description) : [];
     }
     // console.log(userRoles);
-    const recDto = records.map((item) => ({ ...dto, recordId: item.id, historyTypeId: historyType.id }));
+    const recDto = records.map((item) => ({ ...dto, record_id: item.id, historyTypeId: historyType.id }));
 
     let histories: History[] = [];
     for (let index = 0; index < recDto.length; index++) {
-      const lastHistory = await this.getLastHistoryByRecId(recDto[index].recordId);
+      const lastHistory = await this.getLastHistoryByRecId(recDto[index].record_id);
       const lastHistoryType = lastHistory !== null ? lastHistory.historyType.value : null;
 
       switch (recDto[index].historyType) {
@@ -228,7 +228,7 @@ export class HistoriesService {
     if (record) {
       const history = await this.historyRepository.findAll({
         limit: 1,
-        where: { recordId: recordId },
+        where: { record_id: recordId },
         include: {
           model: HistoryType,
           as: "historyType",

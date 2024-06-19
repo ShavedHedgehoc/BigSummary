@@ -1,0 +1,45 @@
+.planner_main__container {
+    width: calc(100% - 2 * var(--global-margin));
+    height: calc(100% - 2 * var(--global-margin));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    /* background-color: aqua; */
+}
+
+.planner_main__header {
+    display: flex;
+    color: var(--selected-color);
+    font-weight: bold;
+    height: 20px;
+    align-items: center;
+}
+
+.planner_main__button_container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.planner_main_page__button {
+    color: var(--content-background-color);
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 0.8rem;
+    box-shadow: none;
+    text-decoration: none;
+    background-color: var(--selected-color);
+    border: 1px var(--selected-color) solid;
+}
+
+.planner_main_page__button:hover {
+    border: 1px var(--body-background-color) solid;
+}
+
+.planner_main_page__button:active {
+    color: var(--selected-color);
+    background-color: var(--content-background-color);
+}

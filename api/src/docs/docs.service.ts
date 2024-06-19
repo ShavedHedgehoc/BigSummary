@@ -16,139 +16,30 @@ export class DocsService {
     @InjectModel(Doc)
     private docRepository: typeof Doc,
     private plantService: PlantsService
-  ) {}
+  ) { }
 
   async getAllDocs() {
     const docs = await this.docRepository.findAll({
-      attributes: ["id", [Sequelize.fn("COUNT", Sequelize.col("records")), "hists"]],
-
-      include: [
-        {
-          model: Record,
-          attributes: {
-            exclude: [
-              "id",
-              "docId",
-              "productId",
-              "boilId",
-              "apparatusId",
-              "canId",
-              "conveyorId",
-              "plan",
-              "bbf",
-              "note",
-              "workshopId",
-              "createdAt",
-              "updatedAt",
-              "records",
-            ],
-            include: [[Sequelize.fn("COUNT", Sequelize.col('"records->histories"."id"')), "hists"]],
-          },
-
-          // required: true,
-          include: [
-            {
-              model: History,
-              required: true,
-              attributes: [],
-            },
-          ],
-          // attributes: {
-          // include: [[Sequelize.fn("COUNT", Sequelize.col("history.id")), "histsum"]],
-          // },
-        },
+      attributes: ["id", "plantId", "date",
+        [Sequelize.literal(`
+          (SELECT COUNT (*) FROM Records Where doc_id = "Doc"."id")
+        `), "records_count"],
+        [Sequelize.literal(`
+          (SELECT COUNT (*) FROM Histories JOIN Records ON records.id = Histories.record_id Where doc_id = "Doc"."id")
+        `), "histories_count"]
       ],
-      group: ["Doc.id", "records.id", "records->histories.id"],
-      // attributes: ["*"],
-      //       attributes: ["id"],
-      //       include: [
-      //         {
-      //           model: Record,
-      //           as: "records",
-      //           attributes: ["sum"],
-      //           include: [
-      //             {
-      //               model: History,
-      //               as: "histories",
-      //               attributes: [
-      //                 [
-      //                   Sequelize.literal(`(SELECT COUNT (*) as hist
-      // FROM "histories"
-      // WHERE "histories"."recordId" = "records"."id")`),
-      //                   "sum",
-      //                 ],
-      //               ],
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //       include: {
-      //         attributes: [
-      //           [
-      //             Sequelize.literal(`(
-
-      // Select   * from "docs"
-      // join(
-      // 	Select "docId", sum("hist") from
-      // (Select "docId" , (SELECT COUNT (*) as hist
-      // FROM "histories"
-      // WHERE "histories"."recordId" = "records"."id")
-      // From "records")
-      // group by "docId"
-      //             )
-
-      //                 )`),
-      //             "count",
-      //           ],
-      //         ],
-      //       },
-
-      // include: { all: true },
-      // attributes: ["id", "date", [Sequelize.fn("count", "records.id"), "rows"]],
-      //       include: [
-      //         // {
-      //         //   model: Plant,
-      //         //   as: "plants",
-      //         //   attributes: ["id", "value"],
-      //         // },
-      //         {
-      //           model: Record,
-      //           as: "records",
-      //           attributes: [
-      //             [
-      //               Sequelize.literal(`(
-      // 	SELECT COUNT (*) as hist
-      // FROM "histories"
-      // WHERE "histories"."recordId" = "records"."id"
-
-      //           )`),
-      //               "count",
-      //             ],
-      //           ],
-      // attributes: [[Sequelize.literal("select * from History where History.recordId = records.id"), "ff"]],
-      // include: [
-      //   {
-      //     model: History,
-      //     as: "histories",
-      //     //               attributes: [
-      //     //                 [
-      //     //                   Sequelize.literal(`(
-      //     // 	SELECT COUNT (*) as hist
-      //     // FROM "histories"
-      //     // WHERE "histories"."recordId" = "records"."id"
-
-      //     //           )`),
-      //     //                   "count",
-      //     //                 ],
-      //     //               ],
-      //   },
-      // ],
-      //   },
-      // ],
-      // group: ["Doc.id", "Doc.date", "plants.id", "plants.value"],
-    });
-    return docs;
+      include: {
+        model: Plant,
+        attributes: ["value"]
+      },
+      order: [
+        "date"
+      ]
+    })
+    return docs
   }
+
+
 
   async getDocByPlantAndDate(date: string, plantId: number) {
     const existsDoc = await this.docRepository.findOne({

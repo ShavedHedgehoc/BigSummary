@@ -56,6 +56,8 @@ export default class SummaryStore {
     try {
       this.setPending(true);
       this.setError([]);
+
+
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);

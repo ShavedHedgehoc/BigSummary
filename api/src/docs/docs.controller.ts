@@ -7,12 +7,13 @@ import { CreateDocDto } from "./dto/create-doc.dto";
 @ApiTags("Сводки")
 @Controller("docs")
 export class DocsController {
-  constructor(private docsService: DocsService) {}
+  constructor(private docsService: DocsService) { }
 
   @ApiOperation({ summary: "Получить все сводки" })
   @ApiResponse({ status: 200, type: [Doc] })
   @Get()
   getAll() {
+    // return this.docsService.getAllDocs();
     return this.docsService.getAllDocs();
   }
 
