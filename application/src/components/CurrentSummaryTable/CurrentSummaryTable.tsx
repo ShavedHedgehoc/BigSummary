@@ -5,6 +5,7 @@ import { Context } from "../../main";
 import withVisible from "../WithVisible";
 import TableComponent from "./TableComponent";
 import TableMdComponent from "./TableMdComponent";
+import TableListComponent from "./TableListComponent";
 
 export interface CurrentSummaryTableProps {
   role: "user" | "technologist" | "laboratory";
@@ -15,7 +16,7 @@ function CurrentSummaryTable(props: CurrentSummaryTableProps) {
 
   React.useEffect(() => {
     if (store.PlantStore.currentPlant != null) {
-      console.log(`render all table after change plant ${store.PlantStore.currentPlant.value}`);
+      // console.log(`render all table after change plant ${store.PlantStore.currentPlant.value}`);
       store.SummaryStore.fetchRecords(store.PlantStore.currentPlant?.id?.toString());
     }
   }, [store.PlantStore.currentPlant]);
@@ -29,6 +30,7 @@ function CurrentSummaryTable(props: CurrentSummaryTableProps) {
       <NotFound visible={store.SummaryStore.noRecordsFound} />
       {store.SummaryStore.renderTable && <TableComponent role={props.role} />}
       {store.SummaryStore.renderTable && <TableMdComponent role={props.role} />}
+      {store.SummaryStore.renderTable && <TableListComponent role={props.role} />}
     </React.Fragment>
   );
 }

@@ -9,7 +9,7 @@ const TableComponent = (props: CurrentSummaryTableProps) => {
   const { mode, systemMode } = useColorScheme();
   systemMode;
   const { store } = React.useContext(Context);
-  React.useEffect(() => console.log("Render table"), []);
+  // React.useEffect(() => console.log("Render table"), []);
   return (
     <React.Fragment>
       <Sheet

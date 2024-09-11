@@ -11,7 +11,6 @@ import withVisible from "./WithVisible";
 function Laboratory() {
   const [initial, setInitial] = React.useState(false);
   const Selector = withVisible(PlantSelector);
-  // const title = getPageTitle(props.role);
   const { store } = React.useContext(Context);
   React.useEffect(() => {
     console.log("render page currentsummary");
@@ -21,7 +20,6 @@ function Laboratory() {
     <React.Fragment>
       <React.Fragment>
         <BreadCrumbHeader breadcrumbs={["Лаборатория"]} />
-
         <MainPageHeaderWithRenew title={"Лаборатория"} />
         <Selector visible={store.PlantStore.currentPlantExists && initial} />
         {initial && <CurrentSummaryTable role={"laboratory"} />}
