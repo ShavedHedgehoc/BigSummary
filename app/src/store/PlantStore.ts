@@ -5,6 +5,7 @@ import PlantService, { IPlant } from "../services/PlantService";
 
 export default class PlantsStore {
   plants = {} as IPlant[];
+  currentPlant = {} as IPlant;
   pending = false;
   error = {} as string[];
 
@@ -14,6 +15,13 @@ export default class PlantsStore {
 
   setPlants(plants: IPlant[] | []) {
     this.plants = [...plants];
+  }
+
+  setCurrentPlants(id: number) {
+    const plantById = this.plants.find((x) => x.id === id);
+    if (plantById) {
+      this.currentPlant = plantById;
+    }
   }
 
   setPending(bool: boolean) {

@@ -13,7 +13,7 @@ function App() {
 
   let currPage: number;
   currPage = 0;
-  const cardsPerPage = 10;
+  const cardsPerPage = 23;
 
   const setData = (perPage: number) => {
     const recCount = store.SummaryStore.count;

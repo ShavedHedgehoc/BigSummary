@@ -18,7 +18,7 @@ services:
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
     volumes:
-      - summary-data:/var/lib/postgresql/data    
+      - summary-data:/var/lib/postgresql/data
     networks:
       - postgres
 
@@ -60,11 +60,23 @@ services:
       - postgres
       - general
 
+  # app:
+  #   container_name: app_container
+  #   build:
+  #     context: .
+  #     dockerfile: docker/app/Dockerfile.prod
+  #     args:
+  #       - NODE_ENV=production
+  #   depends_on:
+  #     - api
+  #   networks:
+  #     - general
+
   app:
     container_name: app_container
     build:
       context: .
-      dockerfile: docker/app/Dockerfile.prod
+      dockerfile: docker/application/Dockerfile.prod
       args:
         - NODE_ENV=production
     depends_on:
@@ -84,17 +96,17 @@ services:
     networks:
       - general
 
-  dashboard:
-    container_name: dash_container
-    build:
-      context: .
-      dockerfile: docker/dashboard/Dockerfile.prod
-      args:
-        - NODE_ENV=production
-    depends_on:
-      - api
-    networks:
-      - general
+  # dashboard:
+  #   container_name: dash_container
+  #   build:
+  #     context: .
+  #     dockerfile: docker/dashboard/Dockerfile.prod
+  #     args:
+  #       - NODE_ENV=production
+  #   depends_on:
+  #     - api
+  #   networks:
+  #     - general
 
 volumes:
   summary-data:

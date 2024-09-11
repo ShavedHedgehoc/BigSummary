@@ -7,7 +7,7 @@ import { CreateDocDto } from "./dto/create-doc.dto";
 @ApiTags("Сводки")
 @Controller("docs")
 export class DocsController {
-  constructor(private docsService: DocsService) { }
+  constructor(private docsService: DocsService) {}
 
   @ApiOperation({ summary: "Получить все сводки" })
   @ApiResponse({ status: 200, type: [Doc] })
@@ -22,6 +22,13 @@ export class DocsController {
   @Get("/:plantId")
   getCurrentDoc(@Param("plantId") plantId: string) {
     return this.docsService.getCurrentDoc(plantId);
+  }
+
+  @ApiOperation({ summary: "Получить сводку по id" })
+  @ApiResponse({ status: 200, type: [Doc] })
+  @Get("/doc/:docId")
+  getDocByid(@Param("docId") docId: string) {
+    return this.docsService.getDocByid(docId);
   }
 
   @ApiOperation({ summary: "Создание новой сводки" })

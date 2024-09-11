@@ -11,12 +11,6 @@ import Message from "../message/Message";
 import MainInput from "../mainInput/MainInput";
 import Records from "../records/Records";
 
-// 064290#NZ#1074D4#22.04.2024#0 nz
-//064007#A/GD100#1074D4#22.04.2024#12#3282404251603361
-
-//054238#BBY/S30#1065D4#01.04.2024#60#3282404251603361 gp
-//054238#LO#1065D4#01.04.2024#60#3282404251603361 gp
-
 function App() {
   const { store } = React.useContext(Context);
 

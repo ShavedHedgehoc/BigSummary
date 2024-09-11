@@ -1,0 +1,33 @@
+import * as React from "react";
+import BreadCrumbHeader from "./BreadCrumbHeader";
+import MainPageHeaderWithRenew from "./MainPageHeaderWithRenew";
+import PlantSelector from "./PlantSelector";
+
+import CurrentSummaryTable from "./CurrentSummaryTable/CurrentSummaryTable";
+import { observer } from "mobx-react-lite";
+import { Context } from "../main";
+import withVisible from "./WithVisible";
+
+function Laboratory() {
+  const [initial, setInitial] = React.useState(false);
+  const Selector = withVisible(PlantSelector);
+  // const title = getPageTitle(props.role);
+  const { store } = React.useContext(Context);
+  React.useEffect(() => {
+    console.log("render page currentsummary");
+    store.PlantStore.fetchPlants().then(() => setInitial(true));
+  }, []);
+  return (
+    <React.Fragment>
+      <React.Fragment>
+        <BreadCrumbHeader breadcrumbs={["Лаборатория"]} />
+
+        <MainPageHeaderWithRenew title={"Лаборатория"} />
+        <Selector visible={store.PlantStore.currentPlantExists && initial} />
+        {initial && <CurrentSummaryTable role={"laboratory"} />}
+      </React.Fragment>
+    </React.Fragment>
+  );
+}
+
+export default observer(Laboratory);

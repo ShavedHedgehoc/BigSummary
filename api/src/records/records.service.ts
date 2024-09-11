@@ -30,7 +30,7 @@ export class RecordsService {
     private workshopsService: WorkshopsService,
     private docsService: DocsService,
     private plantService: PlantsService
-  ) { }
+  ) {}
 
   async getAllRecords() {
     const records = await this.recordsRepository.findAll();
@@ -81,6 +81,14 @@ export class RecordsService {
 
   async getById(id: number) {
     const record = await this.recordsRepository.findByPk(id);
+    return record;
+  }
+
+  async getByIdWithDetails(id: string) {
+    const record = await this.recordsRepository.findOne({
+      where: { id: Number(id) },
+      include: { all: true, nested: true },
+    });
     return record;
   }
 

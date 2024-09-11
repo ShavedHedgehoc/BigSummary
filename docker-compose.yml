@@ -6,8 +6,6 @@ services:
       POSTGRES_DB: "summary"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
-      TZ: "Europe/Moscow"
-      DEBIAN_FRONTEND: "noninteractive"
     volumes:
       - summary-data:/var/lib/postgresql/data
     ports:

@@ -7,6 +7,7 @@ import { ISummaryUploadData } from "../components/pages/planner/SummaryUpload";
 export default class SummaryStore {
   records = {} as IRecord[];
   pending = false;
+  recordPending = false;
   error = {} as string[];
   plants = {} as IPlant;
 
@@ -29,6 +30,10 @@ export default class SummaryStore {
   }
   setPending(bool: boolean) {
     this.pending = bool;
+  }
+
+  setRecordPending(bool: boolean) {
+    this.recordPending = bool;
   }
 
   setError(error: string[]) {
@@ -56,8 +61,6 @@ export default class SummaryStore {
     try {
       this.setPending(true);
       this.setError([]);
-
-
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);

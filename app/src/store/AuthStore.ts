@@ -41,7 +41,7 @@ export default class AuthStore {
       this.setPending(true);
       this.setError([]);
       const response = await AuthService.login(email, password);
-      localStorage.setItem("accessToken", response.data.accessToken);
+      await localStorage.setItem("accessToken", response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);
     } catch (error) {
@@ -89,7 +89,7 @@ export default class AuthStore {
     this.setError([]);
     try {
       const response = await AuthService.check();
-      localStorage.setItem("accessToken", response.data.token);
+      localStorage.setItem("accessToken", response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);
     } catch (error) {

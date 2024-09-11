@@ -34,7 +34,6 @@ function Login() {
   };
 
   return (
-    // <div>
     <div className={classes.login_container}>
       <div className={classes.login_header}>{isLogin ? "Вход" : "Регистрация"}</div>
       <div className={classes.login_form}>

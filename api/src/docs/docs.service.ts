@@ -98,4 +98,17 @@ export class DocsService {
     }
     throw new HttpException("Площадка на найдена", HttpStatus.NOT_FOUND);
   }
+
+  async getDocByid(id: string) {
+    const doc = await this.docRepository.findOne({
+      where: { id: Number(id) },
+      include: {
+        model: Plant,
+      },
+    });
+    if (doc) {
+      return doc;
+    }
+    throw new HttpException("Документ не найден", HttpStatus.NOT_FOUND);
+  }
 }

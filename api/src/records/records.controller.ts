@@ -30,4 +30,11 @@ export class RecordsController {
   getRecordsByBoil(@Param("boil") boil: string) {
     return this.recordsService.getCurrentRecordsByBoil(boil);
   }
+
+  @ApiOperation({ summary: "Получить строку сводки с деталями по id" })
+  @ApiResponse({ status: 200, type: [Record] })
+  @Get("/detail/:id")
+  getRecordsById(@Param("id") id: string) {
+    return this.recordsService.getByIdWithDetails(id);
+  }
 }
