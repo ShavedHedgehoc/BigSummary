@@ -85,7 +85,8 @@ const RowComponent = ({ row, role }: { row: IRecord; role: string }) => {
         <td scope={selClass(row)} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
           <Typography
             level="body-xs"
-            sx={(theme) => ({
+            // sx={(theme) => ({
+            sx={() => ({
               color:
                 mode === "dark"
                   ? selClass(row) === "fail"

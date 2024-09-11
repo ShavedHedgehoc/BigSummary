@@ -1,6 +1,6 @@
 import * as React from "react";
 import BreadCrumbHeader from "./BreadCrumbHeader";
-import MainPageHeader from "./MainPageHeader";
+// import MainPageHeader from "./MainPageHeader";
 import SummaryListTable from "./SummaryListTable";
 import { Context } from "../main";
 import MainPageHeaderWithRenew from "./MainPageHeaderWithRenew";
@@ -13,7 +13,8 @@ export default function SummaryList() {
   return (
     <React.Fragment>
       <BreadCrumbHeader breadcrumbs={["Планировщик", "Список сводок"]} />
-      <MainPageHeaderWithRenew title={"Список сводок"} renewData={() => store.DocStore.fetchDocs()} />
+      {/* <MainPageHeaderWithRenew title={"Список сводок"} renewData={() => store.DocStore.fetchDocs()} /> */}
+      <MainPageHeaderWithRenew title={"Список сводок"} />
       <SummaryListTable />
     </React.Fragment>
   );

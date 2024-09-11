@@ -39,7 +39,7 @@ const Selector = observer(function Selector(props: SelectorProps) {
 });
 
 function PlantSelector() {
-  const { store } = React.useContext(Context);
+  // const { store } = React.useContext(Context);
   React.useEffect(() => {
     console.log("Render plantselector");
   }, []);

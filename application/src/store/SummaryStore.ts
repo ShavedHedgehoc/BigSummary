@@ -1,7 +1,7 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import SummaryService from "../services/SummaryService";
 import handleError from "../http/handleError";
-import { IPlant, IRecord, ISummaryUploadData } from "../types";
+import { IRecord, ISummaryUploadData } from "../types";
 
 export default class SummaryStore {
   records = {} as IRecord[];

@@ -5,7 +5,6 @@ import { formatDateToString } from "../utils";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Context } from "../main";
-import { Store } from "@mui/icons-material";
 
 function SummaryListTable() {
   const { store } = React.useContext(Context);
