@@ -20,17 +20,15 @@ function Login() {
       } else {
         navigate("/");
       }
-      // if (store.AuthStore.isAuth) {
-      //   redirect("/");
-      //   console.log("redirect");
-      // }
     });
   };
 
   const handleRegister = () => {
     store.AuthStore.register(name, email, password).then(() => {
       if (store.AuthStore.error.length) {
-        // props.showMessage(store.AuthStore.error, "fail");
+        console.log("fail");
+      } else {
+        navigate("/");
       }
     });
   };
