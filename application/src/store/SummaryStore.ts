@@ -8,7 +8,6 @@ export default class SummaryStore {
   pending = false;
   recordPending = false;
   error = {} as string[];
-  // plants = {} as IPlant;
   updateRecordId: null | number = null;
 
   constructor() {
@@ -18,9 +17,6 @@ export default class SummaryStore {
       renderTable: computed,
       renderLoader: computed,
       fetchRecords: action,
-      //
-      // recordsIds: computed,
-      // recordById: computed,
     });
   }
 
@@ -39,20 +35,10 @@ export default class SummaryStore {
   get count() {
     return this.records.length;
   }
-  // get recordById() {
-  //   return (id: number) => this.records.find((x) => x.id === id);
-  // }
-  // get recordsIds() {
-  //   return this.records.map((rec) => rec.id);
-  // }
 
   setRecords(records: IRecord[] | []) {
     this.records = [...records];
   }
-
-  // setPlant(plants: IPlant) {
-  //   this.plants = plants;
-  // }
 
   setPending(bool: boolean) {
     this.pending = bool;

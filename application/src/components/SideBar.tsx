@@ -20,10 +20,13 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 // import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 // import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
+import ScienceRoundedIcon from "@mui/icons-material/ScienceRounded";
+
+import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
 // import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
 // import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 // import SupportRoundedIcon from "@mui/icons-material/SupportRounded";
-// import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 // import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 // import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 // import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
@@ -230,8 +233,8 @@ function SideBar() {
                   sx={{ display: "flex", gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
-                  <HomeRoundedIcon />
-                  <Typography level="title-sm">Главный технолог</Typography>
+                  <OilBarrelRoundedIcon />
+                  <Typography level="title-sm">Технолог</Typography>
                 </Link>
               </ListItemContent>
             </ListItemButton>
@@ -247,8 +250,25 @@ function SideBar() {
                   sx={{ display: "flex", gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
-                  <HomeRoundedIcon />
+                  <ScienceRoundedIcon />
                   <Typography level="title-sm">Лаборатория</Typography>
+                </Link>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton role="menuitem">
+              <ListItemContent>
+                <Link
+                  component={RouterLink}
+                  to={RouteNames.EMPLOYERS}
+                  color="neutral"
+                  underline="none"
+                  sx={{ display: "flex", gap: 1 }}
+                  onClick={() => closeSidebar()}
+                >
+                  <SettingsRoundedIcon />
+                  <Typography level="title-sm">Пользователи рабочей станции</Typography>
                 </Link>
               </ListItemContent>
             </ListItemButton>

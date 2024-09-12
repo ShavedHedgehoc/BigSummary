@@ -4,6 +4,7 @@ import Employee from "./employees.model";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { AddOccupationDto } from "./dto/add-occupation.dto";
 import { OccupationsService } from "src/occupations/occupations.service";
+import Occupation from "src/occupations/occupations.model";
 
 @Injectable()
 export class EmployeesService {
@@ -19,7 +20,12 @@ export class EmployeesService {
   }
 
   async getAllEmployees() {
-    const employees = await this.employeeRepository.findAll({ include: { all: true } });
+    const employees = await this.employeeRepository.findAll({
+      attributes: ["id", "name", "barcode"],
+      include:
+        // { all: true }
+        [{ model: Occupation }],
+    });
     return employees;
   }
 

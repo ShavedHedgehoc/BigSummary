@@ -56,7 +56,16 @@ export interface IUser {
 export interface IEmployee {
   id: number;
   name: string;
+  barcode: string;
+  occupation: IOccupation;
 }
+
+export interface IOccupation {
+  id: number;
+  value: string;
+  description: string;
+}
+
 export interface IHistory {
   id: number;
   recordId: number;

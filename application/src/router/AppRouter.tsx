@@ -13,6 +13,7 @@ import SummaryUpload from "../components/SummaryUpload";
 import SummaryList from "../components/SummaryList";
 import Technologist from "../components/Technologist";
 import Laboratory from "../components/Laboratory";
+import Employers from "../components/Employees";
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -54,6 +55,10 @@ const AppRouter = () => {
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
               <Route path={RouteNames.TECHNOLOGIST} element={<Technologist />} />
             </Route>
+            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.EMPLOYERS} />}>
+              <Route path={RouteNames.EMPLOYERS} element={<Employers />} />
+            </Route>
+
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.SUMMARY_LIST} element={<SummaryList />} />
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />

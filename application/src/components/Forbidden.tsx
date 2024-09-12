@@ -1,21 +1,27 @@
-import { Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 import { observer } from "mobx-react-lite";
 import * as React from "react";
-import { Context } from "../main";
+import NotInterestedRoundedIcon from "@mui/icons-material/NotInterestedRounded";
+
 function Forbidden() {
-  const { store } = React.useContext(Context);
   return (
     <React.Fragment>
-      <Typography level="h2" component="h1">
-        Forbidden
-      </Typography>
-      <Typography level="h2" component="h1">
-        {store.AuthStore.user.name}
-      </Typography>
-      <div>{store.AuthStore.isAuth && !store.AuthStore.pending && <div>{store.AuthStore.user.name}</div>}</div>
-      {store.AuthStore.user?.roles?.map((item) => (
-        <div>{item}</div>
-      ))}
+      <Box
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 3,
+        }}
+      >
+        <NotInterestedRoundedIcon sx={{ fontSize: 60, color: "red" }} />
+        <Typography level="h1">403</Typography>
+        <Typography level="body-lg" sx={{ textAlign: "justify", mx: 8 }}>
+          К сожалению, Ваших прав для посещения этой страницы недостаточно...
+        </Typography>
+      </Box>
     </React.Fragment>
   );
 }

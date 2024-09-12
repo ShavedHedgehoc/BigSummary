@@ -21,7 +21,6 @@ function CurrentSummary() {
       <BreadCrumbHeader breadcrumbs={["Текущая сводка"]} />
       <MainPageHeaderWithRenew title={"Текущая сводка"} />
       <Selector visible={store.PlantStore.currentPlantExists && initial} />
-
       {initial && <CurrentSummaryTable role={"user"} />}
     </React.Fragment>
   );

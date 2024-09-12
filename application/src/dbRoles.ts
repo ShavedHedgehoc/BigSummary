@@ -6,5 +6,6 @@ export enum DbRoles {
   TECHNOLOGIST = "Технолог",
   PLANNER = "Планировщик",
   REPORTS = "Отчеты",
+  EMPLOYERS = "Администратор рабочей станции",
   TEST = "Тест",
 }

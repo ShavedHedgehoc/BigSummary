@@ -16,4 +16,5 @@ export enum RouteNames {
   // PLANNER = "/planner",
 
   // REPORT1 = "/reports/1",
+  EMPLOYERS = "/employers",
 }

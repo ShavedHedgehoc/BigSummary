@@ -1,14 +1,12 @@
-import * as React from "react";
 import { Box, Button, Typography } from "@mui/joy";
 import CachedIcon from "@mui/icons-material/Cached";
-import { Context } from "../main";
 
-export interface MainPageHeaderWithRenewProps {
+export interface MainPageHeaderWithRenewPropProps {
   title: string;
-  // renewData(): void;
+  renewData(): void;
 }
-export default function MainPageHeaderWithRenew(props: MainPageHeaderWithRenewProps) {
-  const { store } = React.useContext(Context);
+
+export default function MainPageHeaderWithRenewProp(props: MainPageHeaderWithRenewPropProps) {
   return (
     <Box
       sx={{
@@ -30,13 +28,7 @@ export default function MainPageHeaderWithRenew(props: MainPageHeaderWithRenewPr
           startDecorator={<CachedIcon />}
           size={"lg"}
           sx={{ display: "flex", minWidth: "100%" }}
-          // onClick={() => props.renewData()}
-          onClick={() => {
-            if (store.PlantStore.currentPlant != null) {
-              const id = store.PlantStore.currentPlant?.id?.toString();
-              store.SummaryStore.fetchRecords(id);
-            }
-          }}
+          onClick={() => props.renewData()}
         >
           Обновить
         </Button>
@@ -47,13 +39,7 @@ export default function MainPageHeaderWithRenew(props: MainPageHeaderWithRenewPr
           startDecorator={<CachedIcon />}
           size={"sm"}
           sx={{ fontWeight: "normal", fontSize: "small" }}
-          // onClick={() => props.renewData()}>
-          onClick={() => {
-            if (store.PlantStore.currentPlant != null) {
-              const id = store.PlantStore.currentPlant?.id?.toString();
-              store.SummaryStore.fetchRecords(id);
-            }
-          }}
+          onClick={() => props.renewData()}
         >
           Обновить
         </Button>
