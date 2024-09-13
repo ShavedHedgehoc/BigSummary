@@ -1,19 +1,5 @@
 import * as React from "react";
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Link,
-  List,
-  ListDivider,
-  ListItem,
-  ListItemContent,
-  ListItemDecorator,
-  Sheet,
-  Table,
-  Typography,
-  useColorScheme,
-} from "@mui/joy";
+import { Box, Link, List, ListDivider, ListItem, ListItemContent, Typography } from "@mui/joy";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../main";
 import { CurrentSummaryTableProps } from "./CurrentSummaryTable";

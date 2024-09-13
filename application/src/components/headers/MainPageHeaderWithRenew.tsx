@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Button, Typography } from "@mui/joy";
 import CachedIcon from "@mui/icons-material/Cached";
-import { Context } from "../main";
+import { Context } from "../../main";
 
 export interface MainPageHeaderWithRenewProps {
   title: string;

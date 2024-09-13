@@ -21,7 +21,7 @@ export class HistoriesService {
     private historyTypesService: HistoryTypesService,
     private recordsService: RecordsService,
     private userServise: UsersService
-  ) { }
+  ) {}
 
   // async createHistory(dto: CreateHistoryDto) {
   //   const historyType = await this.historyTypesService.getByValue(dto.historyType);
@@ -57,10 +57,11 @@ export class HistoriesService {
   async sendMessages(hystories: History[]) {
     hystories.forEach(async (history) => {
       const $record = await history.$get("record");
+      const $user = await history.$get("user");
       const $product = await $record.$get("product");
       const $boil = await $record.$get("boil");
       const $historyType = await history.$get("historyType");
-      const msg = `${$product.marking} - ${$boil.value} - ${$historyType.description} `;
+      const msg = `${$user.name}: ${$product.marking} - ${$boil.value} - ${$historyType.description} `;
       await axios.get(
         `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`
       );
@@ -241,5 +242,13 @@ export class HistoriesService {
       return null;
     }
     throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
+  }
+
+  async deleteHistory(id: number) {
+    const history = await this.historyRepository.findByPk(id);
+    if (history) {
+      await history.destroy();
+    }
+    throw new HttpException("Строка не найдена", HttpStatus.NOT_FOUND);
   }
 }

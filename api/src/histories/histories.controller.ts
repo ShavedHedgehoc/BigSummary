@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { HistoriesService } from "./histories.service";
 import History from "./histories.model";
@@ -38,5 +38,12 @@ export class HistoriesController {
     return this.historiesService.addHistoriesToRecords(dto);
     // create(@Body() dto: CreateHistoryDto) {
     //   return this.historiesService.createHistory(dto);
+  }
+
+  @ApiOperation({ summary: "Удалить запись по id записи" })
+  @ApiResponse({ status: 201 })
+  @Delete("/:recordId")
+  deleteByRecordId(@Param("recordId") recordId: string) {
+    return this.historiesService.deleteHistory(Number(recordId));
   }
 }

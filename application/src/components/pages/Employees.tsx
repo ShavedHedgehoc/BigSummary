@@ -1,13 +1,13 @@
 import * as React from "react";
-import BreadCrumbHeader from "./BreadCrumbHeader";
-import { Context } from "../main";
+import BreadCrumbHeader from "../headers/BreadCrumbHeader";
+import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
-import MainPageHeaderWithRenewProp from "./MainPageHeaderWithRenewProp";
-import TableLoaderComponent from "./common/TableLoaderComponent";
-import withVisible from "./WithVisible";
-import TableNotFoundComponent from "./common/TableNotFoundComponent";
+import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
+import TableLoaderComponent from "../tables/TableLoaderComponent";
+import withVisible from "../common/WithVisible";
+import TableNotFoundComponent from "../tables/TableNotFoundComponent";
 import { Box, Button, Sheet, Table, Typography } from "@mui/joy";
-import { IEmployee } from "../types";
+import { IEmployee } from "../../types";
 
 function EmployeeTableComponent() {
   const { store } = React.useContext(Context);
@@ -108,7 +108,7 @@ function EmployeeRowComponent({ row }: { row: IEmployee }) {
 }
 function AddUserButtonComponent() {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mt: 2 }}>
+    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", mt: 2 }}>
       <Button
         size="sm"
         sx={{ fontWeight: "normal", fontSize: "small" }}
@@ -126,7 +126,7 @@ function Employees() {
     store.EmployeeStore.fetchEmployees().then(() => setInitial(true));
   }, []);
 
-  const AddUser = withVisible(AddUserButtonComponent);
+  // const AddUser = withVisible(AddUserButtonComponent);
   return (
     <React.Fragment>
       <BreadCrumbHeader breadcrumbs={["Пользователи рабочей станции"]} />
@@ -134,8 +134,8 @@ function Employees() {
         title={"Пользователи рабочей станции"}
         renewData={() => store.EmployeeStore.fetchEmployees()}
       />
+      {initial && <AddUserButtonComponent />}
       {initial && <RenderEmployeeTable />}
-      {initial && <AddUser visible={!store.EmployeeStore.pending} />}
     </React.Fragment>
   );
 }

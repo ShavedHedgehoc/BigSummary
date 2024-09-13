@@ -1,9 +1,9 @@
 import * as React from "react";
 import { observer } from "mobx-react-lite";
-import { Context } from "../main";
+import { Context } from "../../main";
 import { Box, FormControl, FormLabel, Input, Sheet, Typography, Button } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
-import PendingModal from "./PendingModal";
+import PendingModal from "../PendingModal";
 
 function Login() {
   const [isLogin, setIsLogin] = React.useState(true);

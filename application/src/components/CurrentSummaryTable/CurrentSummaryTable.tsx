@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, Typography } from "@mui/joy";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../main";
-import withVisible from "../WithVisible";
+import withVisible from "../common/WithVisible";
 import TableComponent from "./TableComponent";
 import TableMdComponent from "./TableMdComponent";
 import TableListComponent from "./TableListComponent";

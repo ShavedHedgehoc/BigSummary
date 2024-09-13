@@ -1,13 +1,13 @@
 import * as React from "react";
-import { Context } from "../main";
-import { IPlant, ISummary, ISummaryUploadData, IXLSData } from "../types";
+import { Context } from "../../main";
+import { IPlant, ISummary, ISummaryUploadData, IXLSData } from "../../types";
 import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
-import BreadCrumbHeader from "./BreadCrumbHeader";
-import MainPageHeader from "./MainPageHeader";
-import SummaryUploadForm, { SummaryUploadFormProps } from "./SummaryUploadForm";
+import BreadCrumbHeader from "../headers/BreadCrumbHeader";
+import MainPageHeader from "../headers/MainPageHeader";
+import SummaryUploadForm, { SummaryUploadFormProps } from "../SummaryUploadForm";
 import { observer } from "mobx-react-lite";
-import { getTomorrowDate } from "../utils";
+import { getTomorrowDate } from "../../utils";
 
 function SummaryUpload() {
   const { store } = React.useContext(Context);

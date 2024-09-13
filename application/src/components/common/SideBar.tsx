@@ -34,13 +34,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 
-import { closeSidebar } from "../utils";
+import { closeSidebar } from "../../utils";
 
-import { Context } from "../main";
+import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
-import { RouteNames } from "../router/routeNames";
+import { RouteNames } from "../../router/routeNames";
 import { Link as RouterLink } from "react-router-dom";
-import { IUser } from "../store/AuthStore";
+import { IUser } from "../../store/AuthStore";
 
 function Toggler({
   defaultExpanded = false,

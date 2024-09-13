@@ -1,12 +1,12 @@
 import * as React from "react";
-import BreadCrumbHeader from "./BreadCrumbHeader";
-import MainPageHeaderWithRenew from "./MainPageHeaderWithRenew";
-import PlantSelector from "./PlantSelector";
+import BreadCrumbHeader from "../headers/BreadCrumbHeader";
+import MainPageHeaderWithRenew from "../headers/MainPageHeaderWithRenew";
+import PlantSelector from "../PlantSelector";
 
-import CurrentSummaryTable from "./CurrentSummaryTable/CurrentSummaryTable";
+import CurrentSummaryTable from "../CurrentSummaryTable/CurrentSummaryTable";
 import { observer } from "mobx-react-lite";
-import { Context } from "../main";
-import withVisible from "./WithVisible";
+import { Context } from "../../main";
+import withVisible from "../common/WithVisible";
 
 function Laboratory() {
   const [initial, setInitial] = React.useState(false);

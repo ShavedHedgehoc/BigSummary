@@ -1,9 +1,9 @@
 import * as React from "react";
-import BreadCrumbHeader from "./BreadCrumbHeader";
+import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 // import MainPageHeader from "./MainPageHeader";
-import SummaryListTable from "./SummaryListTable";
-import { Context } from "../main";
-import MainPageHeaderWithRenew from "./MainPageHeaderWithRenew";
+import SummaryListTable from "../SummaryListTable";
+import { Context } from "../../main";
+import MainPageHeaderWithRenew from "../headers/MainPageHeaderWithRenew";
 
 export default function SummaryList() {
   const { store } = React.useContext(Context);

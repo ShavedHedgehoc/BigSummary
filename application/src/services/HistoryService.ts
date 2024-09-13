@@ -25,4 +25,7 @@ export default class HistoryService {
   static async createHistory(data: HistoryCreateDto): Promise<AxiosResponse<HistoryCreateResponce>> {
     return $api.post(`/histories`, data);
   }
+  static async deleteHistory(id: number): Promise<AxiosResponse> {
+    return $api.delete(`/histories/${id}`);
+  }
 }

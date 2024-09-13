@@ -4,16 +4,16 @@ import { Context } from "../main";
 import { Routes, Navigate, Outlet, Route, BrowserRouter } from "react-router-dom";
 import { RouteNames } from "./routeNames";
 import { DbRoles } from "../dbRoles";
-import Layout from "../components/Layout";
-import CurrentSummary from "../components/CurrentSummary";
-import Login from "../components/Login";
-import Forbidden from "../components/Forbidden";
+import Layout from "../components/common/Layout";
+import CurrentSummary from "../components/pages/CurrentSummary";
+import Login from "../components/pages/Login";
+import Forbidden from "../components/pages/Forbidden";
 import SummaryDetail from "../components/SummaryDetail";
-import SummaryUpload from "../components/SummaryUpload";
-import SummaryList from "../components/SummaryList";
-import Technologist from "../components/Technologist";
-import Laboratory from "../components/Laboratory";
-import Employers from "../components/Employees";
+import SummaryUpload from "../components/pages/SummaryUpload";
+import SummaryList from "../components/pages/SummaryList";
+import Technologist from "../components/pages/Technologist";
+import Laboratory from "../components/pages/Laboratory";
+import Employers from "../components/pages/Employees";
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);

@@ -22,6 +22,10 @@ const RowComponent = ({ row, role }: { row: IRecord; role: string }) => {
     store.HistoryStore.createHistory(data).then(() => store.SummaryStore.updateRecord(id));
   };
 
+  const deleteHistoryRecord = (historyId: number, id: number) => {
+    store.HistoryStore.deleteHistory(historyId).then(() => store.SummaryStore.updateRecord(id));
+  };
+
   const selClass = (item: IRecord) => {
     if (item.histories.length == 0) {
       return "list-group-item list-group-item-light";
@@ -110,11 +114,22 @@ const RowComponent = ({ row, role }: { row: IRecord; role: string }) => {
               variant="outlined"
               color="success"
               size="sm"
-              // onClick={() => makeHistoryRecord(row.boil.value, row.product.code1C, "plug_pass", row.id)}
               onClick={() => makeHistoryRecord(row.boil.value, row.product.code1C, "plug_pass", row.id)}
             >
               <Typography level="body-xs" variant="plain" color="success">
                 Подключение
+              </Typography>
+            </Button>
+          )}
+          {row.histories.length == 1 && row.histories[0].historyType.value === "plug_pass" && (
+            <Button
+              variant="outlined"
+              color="success"
+              size="sm"
+              onClick={() => deleteHistoryRecord(row.histories[0].id, row.id)}
+            >
+              <Typography level="body-xs" variant="plain" color="success">
+                Я ошибся!
               </Typography>
             </Button>
           )}

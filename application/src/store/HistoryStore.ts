@@ -37,4 +37,24 @@ export default class HistoryStore {
       this.setPending(false);
     }
   }
+
+  async deleteHistory(id: number) {
+    try {
+      this.setPending(true);
+      this.setError([]);
+      await HistoryService.deleteHistory(id);
+    } catch (error) {
+      const errValue = handleError(error);
+
+      if (typeof errValue === "object") {
+        this.setError([...errValue]);
+      } else {
+        this.setError([errValue]);
+      }
+
+      //   console.log(errValue);
+    } finally {
+      this.setPending(false);
+    }
+  }
 }
