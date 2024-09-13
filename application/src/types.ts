@@ -132,6 +132,7 @@ export interface IDoc {
   records_count: string;
   histories_count: string;
   plants: IPlant;
+  records: IRecord[];
 }
 
 export interface ISummaryUploadData {

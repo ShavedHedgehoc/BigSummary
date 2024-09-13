@@ -103,8 +103,16 @@ export class DocsService {
     const doc = await this.docRepository.findOne({
       where: { id: Number(id) },
       include: {
-        model: Plant,
+        all: true,
+        nested: true,
       },
+      order: [
+        [{ model: Record, as: "records" }, { model: Conveyor, as: "conveyor" }, "value", "ASC"],
+        [{ model: Record, as: "records" }, "id", "ASC"],
+        [{ model: Record, as: "records" }, { model: History, as: "histories" }, "id", "ASC"],
+      ],
+
+      // [{ model: Plant }, { model: Record }],
     });
     if (doc) {
       return doc;

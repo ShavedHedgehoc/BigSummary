@@ -81,17 +81,17 @@ export default class SummaryStore {
     }
   }
 
-  async fetchDocs() {
-    try {
-      this.setPending(true);
-      this.setError([]);
-    } catch (error) {
-      const errValue = handleError(error);
-      this.setError([...errValue]);
-    } finally {
-      this.setPending(false);
-    }
-  }
+  // async fetchDocs() {
+  //   try {
+  //     this.setPending(true);
+  //     this.setError([]);
+  //   } catch (error) {
+  //     const errValue = handleError(error);
+  //     this.setError([...errValue]);
+  //   } finally {
+  //     this.setPending(false);
+  //   }
+  // }
 
   async uploadData(data: ISummaryUploadData) {
     try {
@@ -101,7 +101,7 @@ export default class SummaryStore {
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);
-      console.log(errValue);
+      // console.log(errValue);
     } finally {
       this.setPending(false);
     }

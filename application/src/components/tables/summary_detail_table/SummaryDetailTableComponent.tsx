@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Sheet, Table, useColorScheme } from "@mui/joy";
 import { observer } from "mobx-react-lite";
-import { Context } from "../../main";
-import { CurrentSummaryTableProps } from "./CurrentSummaryTable";
-import RowComponent from "./RowComponent";
+import { Context } from "../../../main";
+import SummaryDetailRowComponent from "./SummaryDetailRowComponent";
 
-const TableComponent = (props: CurrentSummaryTableProps) => {
+const SummaryDetailTableComponent = () => {
   const { mode, systemMode } = useColorScheme();
   systemMode;
   const { store } = React.useContext(Context);
@@ -73,35 +72,22 @@ const TableComponent = (props: CurrentSummaryTableProps) => {
               <th scope="col" style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
                 Конвейер
               </th>
-              {props.role === "user" && (
-                <th scope="col" style={{ width: 200, textAlign: "center", padding: "12px 6px" }}>
-                  Примечание
-                </th>
-              )}
+
+              <th scope="col" style={{ width: 200, textAlign: "center", padding: "12px 6px" }}>
+                Примечание
+              </th>
 
               <th scope="col" style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
                 Статус
               </th>
-              {props.role === "technologist" && (
-                <th scope="col" style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
-                  Допуск
-                </th>
-              )}
-              {props.role === "laboratory" && (
-                <th scope="col" style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
-                  Допуск
-                </th>
-              )}
-              {props.role === "laboratory" && (
-                <th scope="col" style={{ width: 160, textAlign: "center", padding: "12px 6px" }}>
-                  Карантин
-                </th>
-              )}
+              <th scope="col" style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
+                Действия
+              </th>
             </tr>
           </thead>
           <tbody>
-            {store.SummaryStore.records.map((row) => (
-              <RowComponent row={{ ...row }} role={props.role} key={row.id} />
+            {store.DocDetailStore.doc?.records.map((row) => (
+              <SummaryDetailRowComponent row={{ ...row }} key={row.id} />
             ))}
           </tbody>
         </Table>
@@ -110,4 +96,4 @@ const TableComponent = (props: CurrentSummaryTableProps) => {
   );
 };
 
-export default observer(TableComponent);
+export default observer(SummaryDetailTableComponent);

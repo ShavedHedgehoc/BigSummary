@@ -1,7 +1,7 @@
 import * as React from "react";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import MainPageHeaderWithRenew from "../headers/MainPageHeaderWithRenew";
-import PlantSelector from "../PlantSelector";
+import PlantSelector from "../ui/PlantSelector";
 
 import CurrentSummaryTable from "../CurrentSummaryTable/CurrentSummaryTable";
 import { observer } from "mobx-react-lite";

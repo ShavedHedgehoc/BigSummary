@@ -4,7 +4,7 @@ import { Context } from "../../main";
 import withVisible from "../common/WithVisible";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import MainPageHeaderWithRenew from "../headers/MainPageHeaderWithRenew";
-import PlantSelector from "../PlantSelector";
+import PlantSelector from "../ui/PlantSelector";
 import CurrentSummaryTable from "../CurrentSummaryTable/CurrentSummaryTable";
 
 function Technologist() {

@@ -8,12 +8,19 @@ import Layout from "../components/common/Layout";
 import CurrentSummary from "../components/pages/CurrentSummary";
 import Login from "../components/pages/Login";
 import Forbidden from "../components/pages/Forbidden";
-import SummaryDetail from "../components/SummaryDetail";
+
 import SummaryUpload from "../components/pages/SummaryUpload";
 import SummaryList from "../components/pages/SummaryList";
 import Technologist from "../components/pages/Technologist";
 import Laboratory from "../components/pages/Laboratory";
 import Employers from "../components/pages/Employees";
+import SummaryDetail from "../components/pages/SummaryDetail";
+import RecordDetail from "../components/pages/RecordDetail";
+
+export enum Params {
+  SUMMARY_PARAMS = "summary_id",
+  RECORD_PARAMS = "record_id",
+}
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -63,6 +70,7 @@ const AppRouter = () => {
               <Route path={RouteNames.SUMMARY_LIST} element={<SummaryList />} />
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<SummaryDetail />} />
+              <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>

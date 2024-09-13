@@ -94,7 +94,7 @@ function EmployeeRowComponent({ row }: { row: IEmployee }) {
       </td>
       <td style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
         <Button
-          // variant="outlined"
+          variant="outlined"
           // color="neutral"
           size="sm"
           sx={{ fontWeight: "normal", fontSize: "small" }}
@@ -108,7 +108,7 @@ function EmployeeRowComponent({ row }: { row: IEmployee }) {
 }
 function AddUserButtonComponent() {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", mt: 2 }}>
+    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", mb: 1 }}>
       <Button
         size="sm"
         sx={{ fontWeight: "normal", fontSize: "small" }}
