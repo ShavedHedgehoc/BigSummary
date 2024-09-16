@@ -101,6 +101,7 @@ export interface IRecord {
   conveyor: IConveyor;
   workshop: IWorkshop;
   histories: IHistory[] | [];
+  doc: IDoc;
 }
 
 export interface SummaryResponse {
@@ -154,11 +155,11 @@ export interface IXLSData {
   workshop: string;
 }
 
-export interface IDoc {
-  id: number;
-  plantId: number;
-  date: Date;
-  records_count: string;
-  histories_count: string;
-  plants: IPlant;
-}
+// export interface IDoc {
+//   id: number;
+//   plantId: number;
+//   date: Date;
+//   records_count: string;
+//   histories_count: string;
+//   plants: IPlant;
+// }

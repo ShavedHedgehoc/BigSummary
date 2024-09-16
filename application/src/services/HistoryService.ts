@@ -1,5 +1,6 @@
 import { $api } from "../http";
 import { AxiosResponse } from "axios";
+import { IHistory } from "../types";
 
 export interface HistoryCreateDto {
   boil: string;
@@ -27,5 +28,8 @@ export default class HistoryService {
   }
   static async deleteHistory(id: number): Promise<AxiosResponse> {
     return $api.delete(`/histories/${id}`);
+  }
+  static async getHistoriesByRecordId(id: string): Promise<AxiosResponse<IHistory[]>> {
+    return $api.get(`/histories/all/${id}`);
   }
 }

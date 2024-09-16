@@ -11,6 +11,8 @@ import { Op } from "sequelize";
 import HistoryType from "src/history_types/history_types.model";
 import { UsersService } from "src/users/users.service";
 import { DbRoles } from "src/resources/dbRoles";
+import User from "src/users/users.model";
+import Employee from "src/employees/employees.model";
 // import Record from "src/records/records.model";
 
 @Injectable()
@@ -58,10 +60,17 @@ export class HistoriesService {
     hystories.forEach(async (history) => {
       const $record = await history.$get("record");
       const $user = await history.$get("user");
+      const $employee = await history.$get("employee");
       const $product = await $record.$get("product");
       const $boil = await $record.$get("boil");
       const $historyType = await history.$get("historyType");
-      const msg = `${$user.name}: ${$product.marking} - ${$boil.value} - ${$historyType.description} `;
+
+      const msg = $user
+        ? `${$user.name}: ${$product.marking} - ${$boil.value} - ${$historyType.description} `
+        : $employee
+          ? `${$employee.name}: ${$product.marking} - ${$boil.value} - ${$historyType.description} `
+          : "smth wrong";
+
       await axios.get(
         `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`
       );
@@ -96,7 +105,7 @@ export class HistoriesService {
 
       switch (recDto[index].historyType) {
         case "base_check":
-          if (lastHistoryType !== null && lastHistoryType !== "base_fail")
+          if (lastHistoryType !== null && lastHistoryType !== "base_fail" && userRoles.indexOf(DbRoles.GODMODE) === -1)
             throw new HttpException(
               `Чтобы запись могла быть внесена, запись должна быть первой или статус сводки должен быть "Брак основы"...`,
               HttpStatus.BAD_REQUEST
@@ -244,6 +253,25 @@ export class HistoriesService {
     throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
   }
 
+  async getAllHistoriesByRecId(recordId: number) {
+    const record = await this.recordsService.getById(recordId);
+    if (record) {
+      const histories = await this.historyRepository.findAll({
+        where: { record_id: recordId },
+        include: [
+          {
+            model: HistoryType,
+            as: "historyType",
+          },
+          { model: User, as: "user" },
+          { model: Employee, as: "employee" },
+        ],
+        order: [["createdAt", "DESC"]],
+      });
+      return histories;
+    }
+    throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
+  }
   async deleteHistory(id: number) {
     const history = await this.historyRepository.findByPk(id);
     if (history) {

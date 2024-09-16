@@ -31,6 +31,13 @@ export class HistoriesController {
     return this.historiesService.getLastTenHistories();
   }
 
+  @ApiOperation({ summary: "Получить все записи по id строки сводки" })
+  @ApiResponse({ status: 200, type: [History] })
+  @Get("/all/:recordId")
+  getAllHistoriesByRecordId(@Param("recordId") recordId: string) {
+    return this.historiesService.getAllHistoriesByRecId(Number(recordId));
+  }
+
   @ApiOperation({ summary: "Создание новой записи" })
   @ApiResponse({ status: 201, type: History })
   @Post()

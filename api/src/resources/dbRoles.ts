@@ -5,4 +5,5 @@ export enum DbRoles {
   LABORATORY = "Лаборант",
   TECHNOLOGIST = "Технолог",
   MASTER = "Мастер",
+  GODMODE = "Добавление записей истории",
 }
