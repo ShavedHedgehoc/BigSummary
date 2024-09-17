@@ -5,7 +5,7 @@ import History from "./histories.model";
 import { HistoryTypesService } from "src/history_types/history_types.service";
 import { RecordsService } from "src/records/records.service";
 import axios from "axios";
-import { AddHistoriesDto } from "./dto/add-histories.dto";
+import { AddHistoriesDto, AddHistoryDirectDto } from "./dto/add-histories.dto";
 // import Record from "src/records/records.model";
 import { Op } from "sequelize";
 import HistoryType from "src/history_types/history_types.model";
@@ -77,6 +77,24 @@ export class HistoriesService {
     });
   }
 
+  async directAddHistorie(dto: AddHistoryDirectDto) {
+    let userRoles = [];
+    if (dto.userId) {
+      const user = await this.userServise.getByPk(dto.userId);
+      userRoles = user.roles ? user.roles.map((x) => x.description) : [];
+    }
+    if (userRoles.indexOf(DbRoles.GODMODE) === -1) {
+      throw new HttpException(`НЕдостаточно прав для прямого внесения записей...`, HttpStatus.BAD_REQUEST);
+    }
+    const historyType = await this.historyTypesService.getByValue(dto.historyType);
+    if (!historyType) {
+      throw new HttpException("Тип записи не найден", HttpStatus.NOT_FOUND);
+    }
+    const recDto = { ...dto, historyTypeId: historyType.id };
+    const history = await this.historyRepository.create(recDto);
+    await this.sendMessages([history]);
+    return history;
+  }
   async addHistoriesToRecords(dto: AddHistoriesDto) {
     const records = dto.code
       ? await this.recordsService.getCurrentRecordsByBoilAndcode(dto.boil, dto.code)
@@ -266,7 +284,7 @@ export class HistoriesService {
           { model: User, as: "user" },
           { model: Employee, as: "employee" },
         ],
-        order: [["createdAt", "DESC"]],
+        order: [["createdAt", "ASC"]],
       });
       return histories;
     }

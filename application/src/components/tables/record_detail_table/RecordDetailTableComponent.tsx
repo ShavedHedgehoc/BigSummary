@@ -67,9 +67,12 @@ const RecordDetailTableComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {store.RecordDetailStore.record?.histories.map((row) => (
-              <RecordDetailRowComponent row={{ ...row }} key={row.id} />
-            ))}
+            {store.RecordDetailStore.record?.histories
+              .slice()
+              .sort((a, b) => a.id - b.id)
+              .map((row) => (
+                <RecordDetailRowComponent row={{ ...row }} key={row.id} />
+              ))}
           </tbody>
         </Table>
       </Sheet>

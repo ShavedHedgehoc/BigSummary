@@ -3,7 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { HistoriesService } from "./histories.service";
 import History from "./histories.model";
 import { CreateHistoryDto } from "./dto/create-history.dto";
-import { AddHistoriesDto } from "./dto/add-histories.dto";
+import { AddHistoriesDto, AddHistoryDirectDto } from "./dto/add-histories.dto";
 
 @ApiTags("Записи")
 @Controller("histories")
@@ -43,8 +43,13 @@ export class HistoriesController {
   @Post()
   create(@Body() dto: AddHistoriesDto) {
     return this.historiesService.addHistoriesToRecords(dto);
-    // create(@Body() dto: CreateHistoryDto) {
-    //   return this.historiesService.createHistory(dto);
+  }
+
+  @ApiOperation({ summary: "Создание новой записи напрямую" })
+  @ApiResponse({ status: 201, type: History })
+  @Post("/direct")
+  createDirect(@Body() dto: AddHistoryDirectDto) {
+    return this.historiesService.directAddHistorie(dto);
   }
 
   @ApiOperation({ summary: "Удалить запись по id записи" })

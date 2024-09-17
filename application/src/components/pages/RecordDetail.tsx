@@ -21,7 +21,7 @@ import {
 import { DbRoles } from "../../dbRoles";
 import AddIcon from "@mui/icons-material/Add";
 import { observer } from "mobx-react-lite";
-import { HistoryCreateDto } from "../../services/HistoryService";
+import { HistoryCreateDirectDto, HistoryCreateDto } from "../../services/HistoryService";
 
 interface GoModeModalProps {
   open: boolean;
@@ -75,16 +75,15 @@ function GodModeModal(props: GoModeModalProps) {
               sx={{ fontWeight: "normal", fontSize: "small" }}
               onClick={() => {
                 if (store.RecordDetailStore.record && store.HistoryTypeStore.currentHistoryType) {
-                  const data: HistoryCreateDto = {
-                    boil: store.RecordDetailStore.record.boil.value,
-                    code: store.RecordDetailStore.record.product.code1C,
+                  const data: HistoryCreateDirectDto = {
+                    record_id: store.RecordDetailStore.record.id,
                     historyType: store.HistoryTypeStore.currentHistoryType.value,
                     userId: store.AuthStore.user.id,
                     employeeId: null,
                     note: "Создано из тестовой обработки",
                   };
                   console.log(data);
-                  store.HistoryStore.createHistory(data)
+                  store.HistoryStore.createHistoryDirect(data)
                     .then(() => {
                       if (store.RecordDetailStore.record) {
                         store.RecordDetailStore.updateHistories(store.RecordDetailStore.record.id.toString());

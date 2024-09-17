@@ -11,6 +11,14 @@ export interface HistoryCreateDto {
   note: string | null;
 }
 
+export interface HistoryCreateDirectDto {
+  record_id: number;
+  historyType: string;
+  userId: number | null;
+  employeeId: number | null;
+  note: string | null;
+}
+
 export interface HistoryCreateResponce {
   id: number;
   userId: number | null;
@@ -25,6 +33,9 @@ export interface HistoryCreateResponce {
 export default class HistoryService {
   static async createHistory(data: HistoryCreateDto): Promise<AxiosResponse<HistoryCreateResponce>> {
     return $api.post(`/histories`, data);
+  }
+  static async createHistoryDirect(data: HistoryCreateDirectDto): Promise<AxiosResponse<HistoryCreateResponce>> {
+    return $api.post(`/histories/direct`, data);
   }
   static async deleteHistory(id: number): Promise<AxiosResponse> {
     return $api.delete(`/histories/${id}`);

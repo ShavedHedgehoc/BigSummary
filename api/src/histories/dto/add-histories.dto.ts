@@ -14,3 +14,11 @@ export class AddHistoriesDto {
   @ApiProperty({ example: "Комментарий к записи", description: "Комментарий к записи" })
   readonly note: string;
 }
+
+export class AddHistoryDirectDto {
+  readonly record_id: number;
+  readonly historyType: string;
+  readonly userId: number;
+  readonly employeeId: number;
+  readonly note: string;
+}

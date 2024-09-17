@@ -70,7 +70,7 @@ export default class RecordDetailStore {
         this.setError([]);
         this.setRecord(null);
         const response = await SummaryService.getRecordById(id);
-        this.setRecord(response.data);
+        await this.setRecord(response.data);
       } catch (error) {
         const errValue = handleError(error);
         this.setError([...errValue]);
@@ -90,6 +90,7 @@ export default class RecordDetailStore {
       } catch (error) {
         const errValue = handleError(error);
         this.setError([...errValue]);
+        console.log([...errValue]);
       } finally {
         this.setPending(false);
       }
