@@ -13,6 +13,9 @@ import { UsersService } from "src/users/users.service";
 import { DbRoles } from "src/resources/dbRoles";
 import User from "src/users/users.model";
 import Employee from "src/employees/employees.model";
+import { BoilsService } from "src/boils/boils.service";
+import { CreateHistoryDto } from "./dto/create-history.dto";
+
 // import Record from "src/records/records.model";
 
 @Injectable()
@@ -22,39 +25,9 @@ export class HistoriesService {
     private historyRepository: typeof History,
     private historyTypesService: HistoryTypesService,
     private recordsService: RecordsService,
-    private userServise: UsersService
+    private userService: UsersService,
+    private boilService: BoilsService
   ) {}
-
-  // async createHistory(dto: CreateHistoryDto) {
-  //   const historyType = await this.historyTypesService.getByValue(dto.historyType);
-  //   if (historyType) {
-  //     const lastHistory = await this.getLastHistoryByRecId(dto.recordId);
-  //     const lastHistoryType = lastHistory !== null ? lastHistory.historyType.value : null;
-
-  //     switch (dto.historyType) {
-  //       case "base_check":
-  //         if (lastHistoryType !== null || lastHistoryType !== "base_fail")
-  //           throw new HttpException("Последний статус сводки не позволяет внести запись...", HttpStatus.BAD_REQUEST);
-
-  //         break;
-
-  //       default:
-  //         break;
-  //     }
-
-  //     const history = await this.historyRepository.create({ ...dto, historyTypeId: historyType.id });
-  //     const $record = await history.$get("record");
-  //     const $product = await $record.$get("product");
-  //     const $boil = await $record.$get("boil");
-  //     const $historyType = await history.$get("historyType");
-  //     const msg = `${$product.marking} - ${$boil.value} - ${$historyType.description} `;
-  //     await axios.get(
-  //       `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`
-  //     );
-  //     return history;
-  //   }
-  //   throw new HttpException("Тип записи не найден", HttpStatus.NOT_FOUND);
-  // }
 
   async sendMessages(hystories: History[]) {
     hystories.forEach(async (history) => {
@@ -80,7 +53,7 @@ export class HistoriesService {
   async directAddHistorie(dto: AddHistoryDirectDto) {
     let userRoles = [];
     if (dto.userId) {
-      const user = await this.userServise.getByPk(dto.userId);
+      const user = await this.userService.getByPk(dto.userId);
       userRoles = user.roles ? user.roles.map((x) => x.description) : [];
     }
     if (userRoles.indexOf(DbRoles.GODMODE) === -1) {
@@ -95,6 +68,25 @@ export class HistoriesService {
     await this.sendMessages([history]);
     return history;
   }
+
+  async addHistoriesNew(dto: AddHistoriesDto) {
+    const historyType = await this.historyTypesService.getByValue(dto.historyType);
+    if (!historyType) {
+      throw new HttpException("Тип записи не найден", HttpStatus.NOT_FOUND);
+    }
+    if (dto.historyType === "base_check") {
+      const boil = await this.boilService.getOrCreateByValue(dto.boil);
+      const recDto = {
+        ...dto,
+        boilId: boil.id,
+        historyTypeId: historyType.id,
+      };
+      const history = await this.historyRepository.create(recDto);
+      await this.sendMessages([history]);
+      return history;
+    }
+  }
+
   async addHistoriesToRecords(dto: AddHistoriesDto) {
     const records = dto.code
       ? await this.recordsService.getCurrentRecordsByBoilAndcode(dto.boil, dto.code)
@@ -110,7 +102,7 @@ export class HistoriesService {
     //Move to userService
     let userRoles = [];
     if (dto.userId) {
-      const user = await this.userServise.getByPk(dto.userId);
+      const user = await this.userService.getByPk(dto.userId);
       userRoles = user.roles ? user.roles.map((x) => x.description) : [];
     }
     // console.log(userRoles);
@@ -253,10 +245,19 @@ export class HistoriesService {
 
   async getLastHistoryByRecId(recordId: number) {
     const record = await this.recordsService.getById(recordId);
+    // const record = await this.recordsService.findOne({
+    //   where: { recordId: recordId },
+    // });
+
     if (record) {
+      const boil = await this.boilService.getByValue(record.boil.value);
       const history = await this.historyRepository.findAll({
         limit: 1,
-        where: { record_id: recordId },
+        where: {
+          [Op.or]: [{ record_id: recordId }, { boil_id: boil.id }],
+          // record_id: recordId,
+        },
+
         include: {
           model: HistoryType,
           as: "historyType",
@@ -273,9 +274,15 @@ export class HistoriesService {
 
   async getAllHistoriesByRecId(recordId: number) {
     const record = await this.recordsService.getById(recordId);
+
     if (record) {
+      const boil = await this.boilService.getByValue(record.boil.value);
+
       const histories = await this.historyRepository.findAll({
-        where: { record_id: recordId },
+        where: {
+          //  record_id: recordId
+          [Op.or]: [{ record_id: recordId }, { boil_id: boil.id }],
+        },
         include: [
           {
             model: HistoryType,

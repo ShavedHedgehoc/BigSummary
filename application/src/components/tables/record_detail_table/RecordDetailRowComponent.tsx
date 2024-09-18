@@ -22,6 +22,10 @@ const RowDetailRowComponent = ({ row }: { row: IHistory }) => {
         return "success";
       case "product_pass":
         return "success";
+      case "product_in_progress":
+        return "wait";
+      case "product_finished":
+        return "success";
       case "cancelled":
         return "cancelled";
       default:

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import Boil from "src/boils/boil.model";
 import Employee from "src/employees/employees.model";
 import HistoryType from "src/history_types/history_types.model";
 import Record from "src/records/records.model";
@@ -7,6 +8,7 @@ import User from "src/users/users.model";
 
 interface HistoriesCreationsAttrs {
   recordId: number;
+  boilId: number;
   historyTypeId: number;
   userId: number;
   employeeId: number;
@@ -25,6 +27,11 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @ForeignKey(() => Record)
   @Column
   record_id: number;
+
+  @ApiProperty({ example: "1", description: "id партии" })
+  @ForeignKey(() => Boil)
+  @Column
+  boil_id: number;
 
   @ApiProperty({ example: "1", description: "id типа записи" })
   @ForeignKey(() => HistoryType)

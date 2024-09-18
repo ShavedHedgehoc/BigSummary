@@ -80,7 +80,11 @@ export class RecordsService {
   }
 
   async getById(id: number) {
-    const record = await this.recordsRepository.findByPk(id);
+    // const record = await this.recordsRepository.findByPk(id);
+    const record = await this.recordsRepository.findOne({
+      where: { id: id },
+      include: [{ model: Boil }],
+    });
     return record;
   }
 

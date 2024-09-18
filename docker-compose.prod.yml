@@ -60,18 +60,6 @@ services:
       - postgres
       - general
 
-  # app:
-  #   container_name: app_container
-  #   build:
-  #     context: .
-  #     dockerfile: docker/app/Dockerfile.prod
-  #     args:
-  #       - NODE_ENV=production
-  #   depends_on:
-  #     - api
-  #   networks:
-  #     - general
-
   app:
     container_name: app_container
     build:
@@ -95,18 +83,6 @@ services:
       - api
     networks:
       - general
-
-  # dashboard:
-  #   container_name: dash_container
-  #   build:
-  #     context: .
-  #     dockerfile: docker/dashboard/Dockerfile.prod
-  #     args:
-  #       - NODE_ENV=production
-  #   depends_on:
-  #     - api
-  #   networks:
-  #     - general
 
 volumes:
   summary-data:

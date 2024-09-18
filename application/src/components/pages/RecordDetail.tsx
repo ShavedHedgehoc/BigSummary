@@ -155,7 +155,8 @@ export default function RecordDetail() {
 
   const reloadData = () => {
     if (recordId) {
-      store.RecordDetailStore.fetchRecordById(recordId);
+      // store.RecordDetailStore.fetchRecordById(recordId);
+      store.RecordDetailStore.updateHistories(recordId);
     }
   };
 

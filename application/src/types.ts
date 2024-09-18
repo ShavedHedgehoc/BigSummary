@@ -69,6 +69,8 @@ export interface IOccupation {
 export interface IHistory {
   id: number;
   recordId: number;
+  record_id: number;
+  boil_id: number;
   historyTypeId: number;
   userId: number;
   employeeId: number;

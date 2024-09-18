@@ -4,6 +4,7 @@ import { Context } from "../../main";
 import { IRecord } from "../../types";
 import { HistoryCreateDto } from "../../services/HistoryService";
 import { Box, Button, Typography, useColorScheme } from "@mui/joy";
+import { statusCondition } from "../../utils";
 
 const RowComponent = ({ row, role }: { row: IRecord; role: string }) => {
   const { mode, systemMode } = useColorScheme();
@@ -31,80 +32,69 @@ const RowComponent = ({ row, role }: { row: IRecord; role: string }) => {
       return "list-group-item list-group-item-light";
     }
     const status = item.histories[item.histories.length - 1]?.historyType.value;
-    switch (status) {
-      case "base_fail":
-        return "fail";
-      case "product_fail":
-        return "fail";
-      case "base_check":
-        return "wait";
-      case "product_check":
-        return "wait";
-      case "plug_pass":
-        return "success";
-      case "product_pass":
-        return "success";
-      case "cancelled":
-        return "cancelled";
-      default:
-        return "und";
-    }
+    return statusCondition(status);
+  };
+
+  const StyledTypography = ({ row, text }: { row: IRecord; text: string | number }) => {
+    return (
+      <Typography
+        level="body-xs"
+        sx={() => ({
+          color:
+            mode === "dark"
+              ? selClass(row) === "fail"
+                ? "danger.plainColor"
+                : selClass(row) === "success"
+                ? "success.plainColor"
+                : selClass(row) === "wait"
+                ? "warning.plainColor"
+                : "neutral"
+              : "neutral",
+        })}
+      >
+        {text}
+      </Typography>
+    );
   };
 
   return (
     <tr key={row.id}>
       <td scope={selClass(row)} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.product.code1C}</Typography>
+        <StyledTypography text={row.product.code1C} row={row} />
       </td>
       <td scope={selClass(row)} style={{ width: 96, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.product.marking}</Typography>
+        <StyledTypography text={row.product.marking} row={row} />
       </td>
       <td scope={selClass(row)} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.boil.value}</Typography>
+        <StyledTypography text={row.boil.value} row={row} />
       </td>
       <td scope={selClass(row)} style={{ width: 48, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.plan}</Typography>
+        <StyledTypography text={row.plan} row={row} />
       </td>
       <td scope={selClass(row)} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.apparatus.value}</Typography>
+        <StyledTypography text={row.apparatus.value} row={row} />
       </td>
       <td scope={selClass(row)} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.can.value}</Typography>
+        <StyledTypography text={row.can.value} row={row} />
       </td>
       <td scope={selClass(row)} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
-        <Typography level="body-xs">{row.conveyor.value}</Typography>
+        <StyledTypography text={row.conveyor.value} row={row} />
       </td>
-
       {role === "user" && (
         <td scope={selClass(row)} style={{ width: 200, textAlign: "justify", padding: "12px 6px" }}>
-          <Typography level="body-xs">{row.note}</Typography>
+          <StyledTypography text={row.note} row={row} />
         </td>
       )}
-
       {store.SummaryStore.recordPending && store.SummaryStore.updateRecordId == row.id ? (
         <td scope={selClass(row)} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
           <Typography level="body-xs">Обновление...</Typography>
         </td>
       ) : (
         <td scope={selClass(row)} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-          <Typography
-            level="body-xs"
-            // sx={(theme) => ({
-            sx={() => ({
-              color:
-                mode === "dark"
-                  ? selClass(row) === "fail"
-                    ? "danger.plainColor"
-                    : selClass(row) === "success"
-                    ? "success.plainColor"
-                    : selClass(row) === "wait"
-                    ? "warning.plainColor"
-                    : "neutral"
-                  : "neutral",
-            })}
-          >
-            {row.histories.length ? row.histories[row.histories.length - 1].historyType.description : "-"}
-          </Typography>
+          <StyledTypography
+            text={row.histories.length ? row.histories[row.histories.length - 1].historyType.description : "-"}
+            row={row}
+          />
         </td>
       )}
       {role === "technologist" && (
@@ -187,6 +177,7 @@ const RowComponent = ({ row, role }: { row: IRecord; role: string }) => {
                 Основа
               </Typography>
             </Button>
+
             <Button
               variant="outlined"
               color="danger"

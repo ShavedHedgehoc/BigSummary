@@ -20,6 +20,11 @@ export class BoilsService {
     return boils;
   }
 
+  async getByValue(value: string) {
+    const boil = await this.boilsRepository.findOne({ where: { value: value } });
+    return boil;
+  }
+
   async createBoil(dto: CreateBoilDto) {
     const boils = await this.boilsRepository.create(dto);
     return boils;

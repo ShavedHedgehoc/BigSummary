@@ -38,3 +38,28 @@ export function formatTimeToString(dateToFormat: Date) {
   const date = new Date(dateToFormat);
   return ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + date.getSeconds();
 }
+
+export function statusCondition(status: string) {
+  switch (status) {
+    case "base_fail":
+      return "fail";
+    case "product_fail":
+      return "fail";
+    case "base_check":
+      return "wait";
+    case "product_check":
+      return "wait";
+    case "plug_pass":
+      return "success";
+    case "product_pass":
+      return "success";
+    case "product_in_progress":
+      return "wait";
+    case "product_finished":
+      return "success";
+    case "cancelled":
+      return "cancelled";
+    default:
+      return "und";
+  }
+}

@@ -7,11 +7,18 @@ import Role from "src/roles/roles.model";
 import UserRoles from "src/roles/user-roles.model";
 import { RolesModule } from "src/roles/roles.module";
 import { AuthModule } from "src/auth/auth.module";
+import { SeederModule } from "nestjs-sequelize-seeder";
+import { SeedUser } from "src/seeds/user.seed";
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
-  imports: [SequelizeModule.forFeature([User, Role, UserRoles]), RolesModule, forwardRef(() => AuthModule)],
+  imports: [
+    SequelizeModule.forFeature([User, Role, UserRoles]),
+    RolesModule,
+    forwardRef(() => AuthModule),
+    SeederModule.forFeature(SeedUser),
+  ],
   exports: [UsersService],
 })
 export class UsersModule {}

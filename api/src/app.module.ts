@@ -37,6 +37,7 @@ import Workshop from "./workshops/workshop.model";
 import History from "./histories/histories.model";
 import HistoryType from "./history_types/history_types.model";
 import Token from "./token/token.model";
+import { SeederModule } from "nestjs-sequelize-seeder";
 
 @Module({
   controllers: [],
@@ -73,6 +74,10 @@ import Token from "./token/token.model";
         Token,
       ],
       autoLoadModels: true,
+    }),
+    SeederModule.forRoot({
+      runOnlyIfTableIsEmpty: true,
+      foreignDelay: 10000,
     }),
     AuthModule,
     UsersModule,
