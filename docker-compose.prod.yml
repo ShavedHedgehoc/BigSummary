@@ -9,6 +9,9 @@ services:
       - "5000:5000"
     networks:
       - general
+    depends_on:
+      - app
+      - workstation
 
   postgres:
     container_name: postgres_container
@@ -35,6 +38,8 @@ services:
       - "5050:80"
     restart: unless-stopped
     networks:
+      - postgres
+    depends_on:
       - postgres
 
   api:
