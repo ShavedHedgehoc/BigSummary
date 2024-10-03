@@ -1,18 +1,4 @@
 services:
-  nginx:
-    container_name: nginx_container
-    build: ./docker/nginx
-    restart: always
-    ports:
-      - "80:80"
-      - "3000:3000"
-      - "5000:5000"
-    networks:
-      - general
-    depends_on:
-      - app
-      - workstation
-
   postgres:
     container_name: postgres_container
     image: postgres:16.2-alpine
@@ -88,6 +74,20 @@ services:
       - api
     networks:
       - general
+
+  nginx:
+    container_name: nginx_container
+    build: ./docker/nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "3000:3000"
+      - "5000:5000"
+    networks:
+      - general
+    depends_on:
+      - app
+      - workstation
 
 volumes:
   summary-data:
