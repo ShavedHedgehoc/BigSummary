@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import Boil from "./boil.model";
-import { CreateBoilDto } from "./dto/create-boil.dto";
+import { Op } from "sequelize";
 
 @Injectable()
 export class BoilsService {
@@ -11,22 +11,33 @@ export class BoilsService {
   ) {}
 
   async getAllBoils() {
-    const boils = await this.boilsRepository.findAll();
+    const boils = await this.boilsRepository.findAll({ where: { base_id: { [Op.ne]: null } } });
     return boils;
   }
 
-  async getOrCreateByValue(value: string) {
-    const [boils, _] = await this.boilsRepository.findOrCreate({ where: { value: value } });
-    return boils;
-  }
-
-  async getByValue(value: string) {
-    const boil = await this.boilsRepository.findOne({ where: { value: value } });
+  async getById(id: number) {
+    const boil = await this.boilsRepository.findByPk(id);
     return boil;
   }
 
-  async createBoil(dto: CreateBoilDto) {
-    const boils = await this.boilsRepository.create(dto);
-    return boils;
+  async getBoilListRow(id: number) {
+    const boil = await this.boilsRepository.findOne({ where: { id: id } });
+    return boil;
+  }
+
+  async getOrCreateByValue(value: string) {
+    if (value === "-" || !value) {
+      return null;
+    }
+    const [boil, _] = await this.boilsRepository.findOrCreate({ where: { value: value } });
+    return boil;
+  }
+
+  async getByValue(value: string) {
+    if (value === "-" || !value) {
+      return null;
+    }
+    const boil = await this.boilsRepository.findOne({ where: { value: value } });
+    return boil;
   }
 }

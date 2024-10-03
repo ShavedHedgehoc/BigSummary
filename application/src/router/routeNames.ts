@@ -17,4 +17,9 @@ export enum RouteNames {
 
   // REPORT1 = "/reports/1",
   EMPLOYERS = "/employers",
+  BOILS_LIST = "/boils_list",
+  BOILS_REPORT = "/boils_report",
+  SUMMARY_REPORT = "/summary_report",
+  FOREMAN = "/foreman",
+  USERS_LIST = "/users_list",
 }

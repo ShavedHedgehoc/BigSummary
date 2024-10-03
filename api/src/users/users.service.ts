@@ -5,12 +5,14 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { RolesService } from "src/roles/roles.service";
 import { AddRoleDto } from "./dto/add-role.dto";
 import Role from "src/roles/roles.model";
+import { UserRolesService } from "src/user-roles/user-roles.service";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User) private userRepository: typeof User,
-    private roleService: RolesService
+    private roleService: RolesService,
+    private userRoleService: UserRolesService
   ) {}
 
   async createUser(dto: CreateUserDto) {
@@ -22,8 +24,17 @@ export class UsersService {
   }
 
   async getAllUsers() {
-    const users = await this.userRepository.findAll({ include: { all: true } });
-    return users;
+    const users = await this.userRepository.findAll({
+      attributes: ["id", "name", "email", "banned"],
+    });
+    const result = await Promise.all(
+      await users.map(async (item) => {
+        const roles = await this.userRoleService.getRolesListByUserId(item.id);
+        return { ...JSON.parse(JSON.stringify(item)), roles: roles };
+      })
+    );
+
+    return result;
   }
 
   async getByPk(id: number) {

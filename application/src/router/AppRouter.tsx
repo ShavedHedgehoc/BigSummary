@@ -8,14 +8,18 @@ import Layout from "../components/common/Layout";
 import CurrentSummary from "../components/pages/CurrentSummary";
 import Login from "../components/pages/Login";
 import Forbidden from "../components/pages/Forbidden";
-
 import SummaryUpload from "../components/pages/SummaryUpload";
 import SummaryList from "../components/pages/SummaryList";
-import Technologist from "../components/pages/Technologist";
+// import Technologist from "../components/pages/Technologist";
 import Laboratory from "../components/pages/Laboratory";
 import Employers from "../components/pages/Employees";
 import SummaryDetail from "../components/pages/SummaryDetail";
 import RecordDetail from "../components/pages/RecordDetail";
+import BoilsList from "../components/pages/BoilsList";
+import Foreman from "../components/pages/Foreman";
+import BoilsReport from "../components/pages/BoilReport";
+import SummaryListReport from "../components/pages/SummaryListReport";
+import UsersList from "../components/pages/UsersList";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -56,14 +60,21 @@ const AppRouter = () => {
         <Route element={<ObservedProtectedRoutes />}>
           <Route path={RouteNames.HOME} element={<Layout />}>
             <Route index element={<CurrentSummary />} />
+            <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
+            <Route path={RouteNames.SUMMARY_REPORT} element={<SummaryListReport />} />
+
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
+              <Route path={RouteNames.BOILS_LIST} element={<BoilsList />} />
               <Route path={RouteNames.LABORATORY} element={<Laboratory />} />
             </Route>
-            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
+            {/* <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
               <Route path={RouteNames.TECHNOLOGIST} element={<Technologist />} />
-            </Route>
+            </Route> */}
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.EMPLOYERS} />}>
               <Route path={RouteNames.EMPLOYERS} element={<Employers />} />
+            </Route>
+            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.FOREMAN} />}>
+              <Route path={RouteNames.FOREMAN} element={<Foreman />} />
             </Route>
 
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
@@ -71,6 +82,9 @@ const AppRouter = () => {
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<SummaryDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
+            </Route>
+            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
+              <Route path={RouteNames.USERS_LIST} element={<UsersList />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>

@@ -4,9 +4,12 @@ import SummaryStore from "./SummaryStore";
 import HistoryStore from "./HistoryStore";
 import DocStore from "./DocStore";
 import EmployeeStore from "./EmployeeStore";
-import DocDetailStore from "./DocDetailStore";
+
 import RecordDetailStore from "./RecordDetailStore";
 import HistoryTypeStore from "./HistoryTypeStore";
+import BoilStore from "./BoilStore";
+import RoleStore from "./RoleStore";
+import UserStore from "./UserStore";
 
 export default class RootStore {
   AuthStore;
@@ -14,10 +17,13 @@ export default class RootStore {
   PlantStore;
   HistoryStore;
   DocStore;
-  DocDetailStore;
+
   EmployeeStore;
   RecordDetailStore;
   HistoryTypeStore;
+  BoilStore;
+  RoleStore;
+  UserStore;
 
   constructor() {
     this.AuthStore = new AuthStore();
@@ -25,9 +31,11 @@ export default class RootStore {
     this.PlantStore = new PlantsStore();
     this.HistoryStore = new HistoryStore();
     this.DocStore = new DocStore();
-    this.DocDetailStore = new DocDetailStore();
     this.EmployeeStore = new EmployeeStore();
     this.RecordDetailStore = new RecordDetailStore();
     this.HistoryTypeStore = new HistoryTypeStore();
+    this.BoilStore = new BoilStore();
+    this.RoleStore = new RoleStore();
+    this.UserStore = new UserStore();
   }
 }

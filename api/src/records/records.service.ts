@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable, forwardRef } from "@nestjs/common";
 import Record from "./records.model";
 import { InjectModel } from "@nestjs/sequelize";
 import { CreateRecordDto } from "./dto/create-record.dto";
@@ -15,6 +15,11 @@ import Product from "src/products/products.model";
 import { BulkCreateRecordsDto } from "./dto/bulk-create-records.dto";
 import { DocsService } from "src/docs/docs.service";
 import { PlantsService } from "src/plants/plants.service";
+import Apparatus from "src/apparatuses/apparatuses.model";
+import Can from "src/cans/cans.model";
+import Conveyor from "src/conveyors/conveyor.model";
+import Workshop from "src/workshops/workshop.model";
+import Plant from "src/plants/plant.model";
 
 @Injectable()
 export class RecordsService {
@@ -31,6 +36,51 @@ export class RecordsService {
     private docsService: DocsService,
     private plantService: PlantsService
   ) {}
+
+  async getRecordsByDocId(docId: number) {
+    const records = await this.recordsRepository.findAll({
+      where: { doc_id: docId },
+      include: [
+        { model: Product, as: "product" },
+        { model: Boil, as: "boil" },
+        { model: Apparatus, as: "apparatus" },
+        { model: Can, as: "can" },
+        { model: Conveyor, as: "conveyor" },
+        { model: Workshop, as: "workshop" },
+      ],
+    });
+    return records;
+  }
+
+  async getRecordById(id: number) {
+    const record = await this.recordsRepository.findOne({
+      where: { id: id },
+      include: [
+        { model: Product, as: "product" },
+        { model: Boil, as: "boil" },
+        { model: Apparatus, as: "apparatus" },
+        { model: Can, as: "can" },
+        { model: Conveyor, as: "conveyor" },
+        { model: Workshop, as: "workshop" },
+      ],
+    });
+    return record;
+  }
+
+  async getRecordsByBoilId(id: number) {
+    const record = await this.recordsRepository.findAll({
+      where: { boilId: id },
+      include: [
+        { model: Product, as: "product" },
+        { model: Boil, as: "boil" },
+        { model: Apparatus, as: "apparatus" },
+        { model: Can, as: "can" },
+        { model: Conveyor, as: "conveyor" },
+        { model: Workshop, as: "workshop" },
+      ],
+    });
+    return record;
+  }
 
   async getAllRecords() {
     const records = await this.recordsRepository.findAll();
@@ -56,10 +106,10 @@ export class RecordsService {
     return records;
   }
 
-  async getCurrentRecordsByBoilAndcode(boil: string, code: string) {
+  async getCurrentRecordByBoilAndCode(boil: string, code: string) {
     const currDate = new Date();
     currDate.setHours(12, 0, 0, 0);
-    const records = await this.recordsRepository.findAll({
+    const record = await this.recordsRepository.findOne({
       where: {},
       include: [
         {
@@ -76,17 +126,54 @@ export class RecordsService {
         },
       ],
     });
-    return records;
+    return record;
   }
 
   async getById(id: number) {
-    // const record = await this.recordsRepository.findByPk(id);
+    const record = await this.recordsRepository.findByPk(id);
+    return record;
+  }
+
+  async getByIdWitDetailsNew(id: number) {
     const record = await this.recordsRepository.findOne({
       where: { id: id },
-      include: [{ model: Boil }],
+
+      include: [
+        { model: Product, as: "product" },
+        { model: Boil, as: "boil" },
+        { model: Apparatus, as: "apparatus" },
+        { model: Can, as: "can" },
+        { model: Conveyor, as: "conveyor" },
+        { model: Workshop, as: "workshop" },
+        { model: Doc, as: "doc", include: [{ model: Plant }] },
+      ],
     });
     return record;
   }
+
+  // async getByIdWitDetailsNew(id: number) {
+  //   // const record = await this.recordsRepository.findByPk(id);
+  //   const record = await this.recordsRepository.findOne({
+  //     where: { id: id },
+  //     // include: [{ model: Boil }],
+  //     include: [
+  //       { model: Product, as: "product" },
+  //       { model: Boil, as: "boil" },
+  //       { model: Apparatus, as: "apparatus" },
+  //       { model: Can, as: "can" },
+  //       { model: Conveyor, as: "conveyor" },
+  //       { model: Workshop, as: "workshop" },
+  //       { model: Doc, as: "doc" },
+  //     ],
+  //   });
+  //   if (record) {
+  //     const histories = await this.historyService.getAllHistoriesByRecId(id);
+  //     record.histories = histories;
+  //     return record;
+  //     // { ...record, histories: histories };
+  //   }
+  //   throw new HttpException(`Запись не найдена`, HttpStatus.NOT_FOUND);
+  // }
 
   async getByIdWithDetails(id: string) {
     const record = await this.recordsRepository.findOne({
@@ -108,9 +195,9 @@ export class RecordsService {
       ...dto,
       plan: Number(dto.plan),
       productId: product.id,
-      boilId: boil.id,
-      apparatusId: apparatus.id,
-      canId: can.id,
+      boilId: boil ? boil.id : null,
+      apparatusId: apparatus ? apparatus.id : null,
+      canId: can ? can.id : null,
       conveyorId: conveyor.id,
       workshopId: workshop.id,
     });

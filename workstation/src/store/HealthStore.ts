@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, computed, makeAutoObservable } from "mobx";
 import { $api } from "../http";
 import handleError from "../http/handleError";
 
@@ -6,7 +6,7 @@ export default class HealthStore {
   pending: boolean = false;
   error = "";
   constructor() {
-    makeAutoObservable(this, {});
+    makeAutoObservable(this, { serverFalldown: computed, serverOk: computed, checkHealth: action });
   }
 
   setPending(bool: boolean) {
@@ -15,6 +15,13 @@ export default class HealthStore {
 
   setError(error: string) {
     this.error = error;
+  }
+
+  get serverFalldown() {
+    return this.error.length > 0;
+  }
+  get serverOk() {
+    return !this.pending && this.error.length === 0;
   }
 
   async checkHealth() {
@@ -26,6 +33,7 @@ export default class HealthStore {
       const errValue = handleError(error);
       this.setError(errValue);
     } finally {
+      await new Promise((r) => setTimeout(r, 500));
       this.setPending(false);
     }
   }

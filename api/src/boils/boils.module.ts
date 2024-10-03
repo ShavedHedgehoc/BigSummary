@@ -3,7 +3,6 @@ import { BoilsController } from "./boils.controller";
 import { BoilsService } from "./boils.service";
 import { SequelizeModule } from "@nestjs/sequelize";
 import Boil from "./boil.model";
-import Record from "src/records/records.model";
 
 @Module({
   controllers: [BoilsController],

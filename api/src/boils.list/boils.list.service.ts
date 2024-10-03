@@ -1,0 +1,51 @@
+import { Injectable } from "@nestjs/common";
+import { BasesService } from "src/bases/bases.service";
+import Boil from "src/boils/boil.model";
+import { BoilsService } from "src/boils/boils.service";
+import { HistoriesService } from "src/histories/histories.service";
+import { RecordsService } from "src/records/records.service";
+
+@Injectable()
+export class BoilsListService {
+  constructor(
+    private boilsService: BoilsService,
+    private recordsService: RecordsService,
+    private historiesService: HistoriesService,
+    private basesService: BasesService
+  ) {}
+
+  async getBoilListRowData(item: Boil) {
+    function replacer(key, value) {
+      if (key !== "records" && key !== "histories") {
+        return value;
+      }
+      return undefined;
+    }
+    const records = await this.recordsService.getRecordsByBoilId(item.id);
+    const histories = await this.historiesService.getHistoriesByBoilId(item.id);
+    const recordsCount = records.length;
+    const historiesCount = histories.length;
+    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
+    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
+    const base = await this.basesService.getByid(item.base_id);
+    return {
+      ...JSON.parse(JSON.stringify(item, replacer)),
+      base_code: base ? base.code : null,
+      base_marking: base ? base.marking : null,
+      recordsCount: recordsCount,
+      historiesCount: historiesCount,
+      state: state,
+      stateValue: stateValue,
+    };
+  }
+  async getBoilsList() {
+    const boils = await this.boilsService.getAllBoils();
+    const result = await Promise.all(await boils.map((item) => this.getBoilListRowData(item)));
+    return result;
+  }
+
+  async getBoilsListRow(boilId: number) {
+    const boil = await this.boilsService.getBoilListRow(boilId);
+    return await this.getBoilListRowData(boil);
+  }
+}

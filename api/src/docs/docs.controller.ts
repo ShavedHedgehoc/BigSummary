@@ -17,19 +17,19 @@ export class DocsController {
     return this.docsService.getAllDocs();
   }
 
-  @ApiOperation({ summary: "Получить текущую сводку" })
-  @ApiResponse({ status: 200, type: [Doc] })
-  @Get("/:plantId")
-  getCurrentDoc(@Param("plantId") plantId: string) {
-    return this.docsService.getCurrentDoc(plantId);
-  }
+  // @ApiOperation({ summary: "Получить текущую сводку" })
+  // @ApiResponse({ status: 200, type: [Doc] })
+  // @Get("/:plantId")
+  // getCurrentDoc(@Param("plantId") plantId: string) {
+  //   return this.docsService.getCurrentDoc(plantId);
+  // }
 
-  @ApiOperation({ summary: "Получить сводку по id" })
-  @ApiResponse({ status: 200, type: [Doc] })
-  @Get("/doc/:docId")
-  getDocByid(@Param("docId") docId: string) {
-    return this.docsService.getDocByid(docId);
-  }
+  // @ApiOperation({ summary: "Получить сводку по id" })
+  // @ApiResponse({ status: 200, type: [Doc] })
+  // @Get("/doc/:docId")
+  // getDocByid(@Param("docId") docId: string) {
+  //   return this.docsService.getDocByid(docId);
+  // }
 
   @ApiOperation({ summary: "Создание новой сводки" })
   @ApiResponse({ status: 201, type: Doc })

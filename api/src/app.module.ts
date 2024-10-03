@@ -21,7 +21,7 @@ import { HistoryTypesModule } from "./history_types/hystory_types.module";
 import { TokenModule } from "./token/token.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
-import UserRoles from "./roles/user-roles.model";
+import UserRoles from "./user-roles/user-roles.model";
 import Employee from "./employees/employees.model";
 import Occupation from "./occupations/occupations.model";
 import Product from "./products/products.model";
@@ -38,6 +38,15 @@ import History from "./histories/histories.model";
 import HistoryType from "./history_types/history_types.model";
 import Token from "./token/token.model";
 import { SeederModule } from "nestjs-sequelize-seeder";
+import { TestModule } from "./test/test.module";
+import { BoilsListModule } from "./boils.list/boils.list.module";
+import { DocDetailModule } from "./doc.detail/doc.detail.module";
+import { DocsListModule } from "./docs.list/docs.list.module";
+import { RecordDetailModule } from "./record.detail/record.detail.module";
+import { UserRolesModule } from "./user-roles/user-roles.module";
+import { UserRolesListModule } from "./user-roles.list/user-roles.list.module";
+import { BasesModule } from "./bases/bases.module";
+import Base from "./bases/bases.model";
 
 @Module({
   controllers: [],
@@ -72,6 +81,7 @@ import { SeederModule } from "nestjs-sequelize-seeder";
         History,
         HistoryType,
         Token,
+        Base,
       ],
       autoLoadModels: true,
     }),
@@ -97,6 +107,14 @@ import { SeederModule } from "nestjs-sequelize-seeder";
     HistoriesModule,
     HistoryTypesModule,
     TokenModule,
+    TestModule,
+    BoilsListModule,
+    DocDetailModule,
+    DocsListModule,
+    RecordDetailModule,
+    UserRolesModule,
+    UserRolesListModule,
+    BasesModule,
   ],
 })
 export default class AppModule {}

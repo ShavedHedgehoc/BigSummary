@@ -3,7 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { HistoriesService } from "./histories.service";
 import History from "./histories.model";
 import { CreateHistoryDto } from "./dto/create-history.dto";
-import { AddHistoriesDto, AddHistoryDirectDto } from "./dto/add-histories.dto";
+import { AddHistoriesDto, AddHistoryDirectDto, AddHistoryDtoNew } from "./dto/add-histories.dto";
 
 @ApiTags("Записи")
 @Controller("histories")
@@ -17,12 +17,12 @@ export class HistoriesController {
     return this.historiesService.getAllHistories();
   }
 
-  @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
-  @ApiResponse({ status: 200, type: [History] })
-  @Get("/last/:recordId")
-  getLastByRecordId(@Param("recordId") recordId: string) {
-    return this.historiesService.getLastHistoryByRecId(Number(recordId));
-  }
+  // @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
+  // @ApiResponse({ status: 200, type: [History] })
+  // @Get("/last/:recordId")
+  // getLastByRecordId(@Param("recordId") recordId: string) {
+  //   return this.historiesService.getLastHistoryByRecId(Number(recordId));
+  // }
 
   @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
   @ApiResponse({ status: 200, type: [History] })
@@ -41,14 +41,15 @@ export class HistoriesController {
   @ApiOperation({ summary: "Создание новой записи" })
   @ApiResponse({ status: 201, type: History })
   @Post()
-  create(@Body() dto: AddHistoriesDto) {
-    return this.historiesService.addHistoriesToRecords(dto);
+  create(@Body() dto: AddHistoryDtoNew) {
+    return this.historiesService.addHistorie(dto);
   }
 
   @ApiOperation({ summary: "Создание новой записи напрямую" })
   @ApiResponse({ status: 201, type: History })
   @Post("/direct")
-  createDirect(@Body() dto: AddHistoryDirectDto) {
+  // createDirect(@Body() dto: AddHistoryDirectDto) {
+  createDirect(@Body() dto: AddHistoryDtoNew) {
     return this.historiesService.directAddHistorie(dto);
   }
 
@@ -58,4 +59,10 @@ export class HistoriesController {
   deleteByRecordId(@Param("recordId") recordId: string) {
     return this.historiesService.deleteHistory(Number(recordId));
   }
+  // @ApiOperation({ summary: "Создание новой записи типа base_check" })
+  // @ApiResponse({ status: 201, type: History })
+  // @Post("/base_check")
+  // createBaseCheck(@Body() dto: AddHistoryDtoNew) {
+  //   return this.historiesService.addBaseCheckHistory(dto);
+  // }
 }

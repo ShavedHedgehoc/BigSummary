@@ -35,6 +35,14 @@ export class SeedRole implements OnSeederInit {
         value: "GODMODE",
         description: "Добавление записей истории",
       },
+      {
+        value: "FOREMAN",
+        description: "Мастер",
+      },
+      {
+        value: "REPORTS",
+        description: "Отчеты",
+      },
     ];
     return data;
   }

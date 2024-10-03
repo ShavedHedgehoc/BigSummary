@@ -8,6 +8,9 @@ import { RecordsModule } from "src/records/records.module";
 import { HttpModule } from "@nestjs/axios";
 import { UsersModule } from "src/users/users.module";
 import { BoilsModule } from "src/boils/boils.module";
+import { EmployeesModule } from "src/employees/employees.module";
+import { ProductsModule } from "src/products/products.module";
+import { BasesModule } from "src/bases/bases.module";
 
 @Module({
   controllers: [HistoriesController],
@@ -15,10 +18,13 @@ import { BoilsModule } from "src/boils/boils.module";
   imports: [
     SequelizeModule.forFeature([History]),
     HistoryTypesModule,
-    RecordsModule,
     HttpModule,
     UsersModule,
     BoilsModule,
+    RecordsModule,
+    EmployeesModule,
+    ProductsModule,
+    BasesModule,
   ],
   exports: [HistoriesService],
 })

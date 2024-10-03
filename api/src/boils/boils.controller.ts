@@ -9,19 +9,17 @@ import { BoilsService } from "./boils.service";
 export class BoilsController {
   constructor(private boilsService: BoilsService) {}
 
-  @ApiOperation({ summary: "Получить все варки" })
-  @ApiResponse({ status: 200, type: [Boil] })
-  @Get()
-  getAll() {
-    return this.boilsService.getAllBoils();
-  }
+  // @ApiOperation({ summary: "Получить все варки" })
+  // @ApiResponse({ status: 200, type: [Boil] })
+  // @Get()
+  // getAll() {
+  //   return this.boilsService.getAllBoils();
+  // }
 
-  @ApiOperation({ summary: "Создание новой варки" })
-  @ApiResponse({ status: 201, type: Boil })
-
-  //   @ApiResponse({ status: 400, type: Error })
-  @Post()
-  create(@Body() dto: CreateBoilDto) {
-    return this.boilsService.createBoil(dto);
-  }
+  // @ApiOperation({ summary: "Создание новой варки" })
+  // @ApiResponse({ status: 201, type: Boil })
+  // @Post()
+  // create(@Body() dto: CreateBoilDto) {
+  //   return this.boilsService.createBoil(dto);
+  // }
 }

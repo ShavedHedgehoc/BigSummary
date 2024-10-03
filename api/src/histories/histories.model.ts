@@ -55,6 +55,9 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @BelongsTo(() => Record)
   record: Record;
 
+  @BelongsTo(() => Boil)
+  boil: Boil;
+
   @BelongsTo(() => HistoryType)
   historyType: HistoryType;
 

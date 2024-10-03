@@ -4,9 +4,10 @@ export enum ProcessMessages {
   USER_NOT_FOUND = "Пользователь не найден",
   NOTE = "Создано с рабочей станции",
   NOT_BOIL_BARCODE = "Отсканированный штрихкод не является штрихкодом весового листа",
-  SUCCESS_ADD = "Успешно внесены записи... Количество строк - ",
+  SUCCESS_ADD = "Запись успешно внесена...",
   BARCODE_SCAN_PROMPT = "Отсканируйте свой штрихкод",
   LABEL_SCAN_PROMPT = "Отсканируйте ярлык",
   NOT_PRODUCT_BARCODE = "Не удается распознать данные с ярлыка",
   EMPLOYEE_LABEL = "Пользователь: ",
+  EMPLOYEE_UNDEFINED = "Пользователь не определен",
 }

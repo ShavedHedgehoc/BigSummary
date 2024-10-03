@@ -57,6 +57,10 @@ export function statusCondition(status: string) {
       return "wait";
     case "product_finished":
       return "success";
+    case "base_correct":
+      return "wait";
+    case "base_continue":
+      return "success";
     case "cancelled":
       return "cancelled";
     default:

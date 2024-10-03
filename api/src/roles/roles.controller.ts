@@ -22,4 +22,11 @@ export class RolesController {
   getByValue(@Param("value") value: string) {
     return this.roleService.getroleByValue(value);
   }
+
+  @ApiOperation({ summary: "Получить все роли" })
+  @ApiResponse({ status: 200, type: [Role] })
+  @Get()
+  getAll() {
+    return this.roleService.getAllRoles();
+  }
 }

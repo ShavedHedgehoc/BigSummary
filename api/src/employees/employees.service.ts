@@ -19,6 +19,11 @@ export class EmployeesService {
     return employee;
   }
 
+  async getById(id: number) {
+    const employee = await this.employeeRepository.findByPk(id);
+    return employee;
+  }
+
   async getAllEmployees() {
     const employees = await this.employeeRepository.findAll({
       attributes: ["id", "name", "barcode"],

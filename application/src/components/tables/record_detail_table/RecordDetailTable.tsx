@@ -15,7 +15,7 @@ function RecordDetailTable() {
   return (
     <React.Fragment>
       <Loader visible={store.RecordDetailStore.renderLoader} />
-      <NotFound visible={store.RecordDetailStore.noRecordsFound} />
+      <NotFound visible={store.RecordDetailStore.noHistoriesFound} />
       {store.RecordDetailStore.renderTable && <RecordDetailTableComponent />}
       {/* {store.SummaryStore.renderTable && <SummaryDetailTableComponent role={props.role} />}
       {store.SummaryStore.renderTable && <TableMdComponent role={props.role} />}

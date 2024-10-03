@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Params } from "../../router/AppRouter";
 import SummaryDetailTable from "../tables/summary_detail_table/SummaryDetailTable";
 import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
+import { formatDateToString } from "../../utils";
 
 export default function SummaryDetail() {
   const [initial, setInitial] = React.useState(false);
@@ -14,13 +15,13 @@ export default function SummaryDetail() {
 
   const reloadData = () => {
     if (summaryId) {
-      store.DocDetailStore.fetchDocByid(summaryId);
+      store.SummaryStore.fetchRecordsByDocId(summaryId);
     }
   };
 
   React.useEffect(() => {
     if (summaryId) {
-      store.DocDetailStore.fetchDocByid(summaryId).then(() => setInitial(true));
+      store.SummaryStore.fetchRecordsByDocId(summaryId).then(() => setInitial(true));
     }
   });
 
@@ -29,17 +30,18 @@ export default function SummaryDetail() {
       {initial && (
         <BreadCrumbHeader
           breadcrumbs={[
-            "Планировщик",
-            "Список сводок",
-            store.DocDetailStore.doc
-              ? `${store.DocDetailStore.doc?.plants.value} - ${store.DocDetailStore.stringDate}`
+            "Сводка",
+            store.SummaryStore.doc
+              ? `${store.SummaryStore.doc.plant} - ${formatDateToString(store.SummaryStore.doc.date)}`
               : "",
           ]}
         />
       )}
-      {initial && store.DocDetailStore.doc && (
+      {initial && store.SummaryStore.doc && (
         <MainPageHeaderWithRenewProp
-          title={`Подробная сводка (${store.DocDetailStore.doc?.plants.value} - ${store.DocDetailStore.stringDate})`}
+          title={`Подробная сводка (${store.SummaryStore.doc.plant} - ${formatDateToString(
+            store.SummaryStore.doc.date
+          )})`}
           renewData={() => reloadData()}
         />
       )}

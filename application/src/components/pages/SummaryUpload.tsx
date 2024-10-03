@@ -5,7 +5,7 @@ import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import MainPageHeader from "../headers/MainPageHeader";
-import SummaryUploadForm, { SummaryUploadFormProps } from "../SummaryUploadForm";
+import SummaryUploadForm, { SummaryUploadFormProps } from "../forms/SummaryUploadForm";
 import { observer } from "mobx-react-lite";
 import { getTomorrowDate } from "../../utils";
 

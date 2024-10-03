@@ -1,5 +1,18 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import Base from "src/bases/bases.model";
+import History from "src/histories/histories.model";
 import Record from "src/records/records.model";
 
 interface BoilsCreationsAttrs {
@@ -19,6 +32,16 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
   @Column({ type: DataType.STRING, unique: true })
   value: string;
 
+  @ForeignKey(() => Base)
+  @Column
+  base_id: number;
+
+  @BelongsTo(() => Base)
+  base: Base;
+
   @HasMany(() => Record)
   records: Record[];
+
+  @HasMany(() => History)
+  histories: History[];
 }

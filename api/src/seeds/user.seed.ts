@@ -23,6 +23,8 @@ export class SeedUser implements OnSeederInit {
       data.password = hashSync(data.password, salt);
       data.salt = salt;
     }
+    data.created_at = new Date().toISOString();
+    data.updated_at = new Date().toISOString();
     return data;
   }
 }

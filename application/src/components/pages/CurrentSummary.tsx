@@ -2,7 +2,7 @@ import * as React from "react";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import MainPageHeaderWithRenew from "../headers/MainPageHeaderWithRenew";
 import PlantSelector from "../ui/PlantSelector";
-import CurrentSummaryTable from "../CurrentSummaryTable/CurrentSummaryTable";
+import CurrentSummaryTable from "../tables/current_summary_table/CurrentSummaryTable";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../main";
 import withVisible from "../common/WithVisible";

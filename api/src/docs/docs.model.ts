@@ -38,8 +38,7 @@ export default class Doc extends Model<Doc, DocsCreationsAttrs> {
   date: Date;
 
   @BelongsTo(() => Plant)
-  plants: Plant[];
-
+  plants: Plant;
 
   @HasMany(() => Record)
   records: Record[];

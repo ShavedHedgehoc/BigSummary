@@ -5,7 +5,7 @@ import withVisible from "../common/WithVisible";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import MainPageHeaderWithRenew from "../headers/MainPageHeaderWithRenew";
 import PlantSelector from "../ui/PlantSelector";
-import CurrentSummaryTable from "../CurrentSummaryTable/CurrentSummaryTable";
+import CurrentSummaryTable from "../tables/current_summary_table/CurrentSummaryTable";
 
 function Technologist() {
   const [initial, setInitial] = React.useState(false);

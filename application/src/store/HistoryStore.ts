@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import HistoryService, { HistoryCreateDirectDto, HistoryCreateDto } from "../services/HistoryService";
+import HistoryService, { AddHistoryDto, HistoryCreateDirectDto } from "../services/HistoryService";
 import handleError from "../http/handleError";
 
 export default class HistoryStore {
@@ -18,7 +18,25 @@ export default class HistoryStore {
     this.error = error;
   }
 
-  async createHistory(data: HistoryCreateDto) {
+  async createHistoryBaseCheck(data: HistoryCreateDirectDto) {
+    try {
+      this.setPending(true);
+      this.setError([]);
+      await HistoryService.createHistoryBaseCheck(data);
+    } catch (error) {
+      const errValue = handleError(error);
+
+      if (typeof errValue === "object") {
+        this.setError([...errValue]);
+      } else {
+        this.setError([errValue]);
+      }
+    } finally {
+      this.setPending(false);
+    }
+  }
+
+  async createHistory(data: AddHistoryDto) {
     try {
       this.setPending(true);
       this.setError([]);
@@ -67,8 +85,6 @@ export default class HistoryStore {
       } else {
         this.setError([errValue]);
       }
-
-      //   console.log(errValue);
     } finally {
       this.setPending(false);
     }

@@ -20,8 +20,12 @@ export class ProductsService {
 
   async getAllProducts() {
     const products = await this.productRepository.findAll({ include: { all: true } });
-
     return products;
+  }
+
+  async getById(id: number) {
+    const product = await this.productRepository.findByPk(id);
+    return product;
   }
 
   async getOrCreateByCode(code: string, marking: string, serieId: number) {
