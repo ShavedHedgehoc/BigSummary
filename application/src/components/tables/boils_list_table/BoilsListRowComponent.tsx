@@ -146,7 +146,8 @@ const BoilListRowComponent = ({
                 variant="outlined"
                 color={mode === "dark" ? "warning" : "primary"}
                 size="sm"
-                onClick={() => makeHistoryRecord(row.value, "base_correct", null)}
+                // onClick={() => makeHistoryRecord(row.value, "base_correct", null)}
+                onClick={() => makeRecord({ boil: row, state: "base_correct" })}
               >
                 <Typography level="body-xs" variant="plain" color={mode === "dark" ? "warning" : "primary"}>
                   Корректировка
