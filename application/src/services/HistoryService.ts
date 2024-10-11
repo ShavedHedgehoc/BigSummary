@@ -18,6 +18,7 @@ export interface HistoryCreateDirectDto {
   userId: number | null;
   employeeId: number | null;
   note: string | null;
+  history_note: string | null;
 }
 
 export interface AddHistoryDtoNew {
@@ -45,6 +46,7 @@ export interface AddHistoryDto {
   userId: number | null;
   employeeId: number | null;
   note: string | null;
+  history_note: string | null;
 }
 
 export default class HistoryService {
@@ -63,5 +65,9 @@ export default class HistoryService {
   }
   static async getHistoriesByRecordId(id: string): Promise<AxiosResponse<IHistory[]>> {
     return $api.get(`/histories/all/${id}`);
+  }
+
+  static async getHistoriesByBoilId(id: string): Promise<AxiosResponse<IHistory[]>> {
+    return $api.get(`/histories/boil/${id}`);
   }
 }

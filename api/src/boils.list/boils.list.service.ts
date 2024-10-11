@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { BasesService } from "src/bases/bases.service";
 import Boil from "src/boils/boil.model";
 import { BoilsService } from "src/boils/boils.service";
+import { GetBoilsDto } from "src/boils/dto/get-boils.dto";
 import { HistoriesService } from "src/histories/histories.service";
 import { RecordsService } from "src/records/records.service";
 
@@ -42,6 +43,12 @@ export class BoilsListService {
     const boils = await this.boilsService.getAllBoils();
     const result = await Promise.all(await boils.map((item) => this.getBoilListRowData(item)));
     return result;
+  }
+
+  async getBoilsListWithFilter(dto: GetBoilsDto) {
+    const { boils, count } = await this.boilsService.getBoilsWithFilter(dto);
+    const result = await Promise.all(await boils.map((item) => this.getBoilListRowData(item)));
+    return { rows: result, total: count };
   }
 
   async getBoilsListRow(boilId: number) {

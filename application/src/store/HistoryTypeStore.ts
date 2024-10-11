@@ -1,4 +1,4 @@
-import { computed, makeAutoObservable } from "mobx";
+import { action, computed, makeAutoObservable } from "mobx";
 import handleError from "../http/handleError";
 import { IHistoryType } from "../types";
 import HistoryTypeService from "../services/HistoryTypeService";
@@ -10,7 +10,11 @@ export default class HistoryTypeStore {
   error = {} as string[];
 
   constructor() {
-    makeAutoObservable(this, { selectorOptions: computed, currentHystoryTypeExists: computed });
+    makeAutoObservable(this, {
+      selectorOptions: computed,
+      currentHystoryTypeExists: computed,
+      historyTypeDecription: action,
+    });
   }
 
   get selectorOptions() {
@@ -19,6 +23,14 @@ export default class HistoryTypeStore {
 
   get currentHystoryTypeExists() {
     return this.currentHistoryType != null;
+  }
+
+  historyTypeDecription(val: string) {
+    const historyType = this.historyTypes.find((historeTypeName) => historeTypeName.value === val);
+    if (!historyType) {
+      return null;
+    }
+    return historyType.description;
   }
 
   setPending(bool: boolean) {
@@ -45,8 +57,8 @@ export default class HistoryTypeStore {
       this.setError([]);
       this.setHistoryTypes([]);
       const response = await HistoryTypeService.getHistories();
-      await this.setHistoryTypes([...response.data]);
-      await this.setCurrentHistoryType(response.data[0].id);
+      this.setHistoryTypes([...response.data]);
+      this.setCurrentHistoryType(response.data[0].id);
     } catch (error) {
       const errValue = handleError(error);
       await this.setError([...errValue]);

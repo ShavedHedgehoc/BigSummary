@@ -32,4 +32,5 @@ export class AddHistoryDtoNew {
   readonly note: string;
   readonly code: string;
   readonly base_code: string;
+  readonly history_note: string;
 }

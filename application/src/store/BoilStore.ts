@@ -1,87 +1,301 @@
 import { action, computed, makeAutoObservable } from "mobx";
-import { IBoilsListItem } from "../types";
 import handleError from "../http/handleError";
 import BoilService from "../services/BoilService";
+import { perPageValues } from "../components/tables/PaginationComponent";
+
+export interface BoilState {
+  data: IBoilData;
+  pending: boolean;
+  error: string[];
+  page: number;
+  limit: number;
+  filter: IBoilFilter;
+  updateRowId: null | number;
+  rowPending: boolean;
+  // init: boolean;
+}
+
+export interface IBoilData {
+  rows: IBoilRow[];
+  // month_selector_options: IMonthData[];
+  // year_selector_options: IYearData[];
+  // plant_selector_options: IPlantData[];
+  total: number;
+}
+
+export interface IBoilRow {
+  id: number;
+  value: string;
+  recordsCount: number;
+  historiesCount: number;
+  state: string;
+  stateValue: string;
+  base_code: string;
+  base_marking: string;
+}
+
+export interface IBoilFilter {
+  boil: string;
+  baseCode: string;
+  marking: string;
+  haveRecord: boolean;
+  // date: string;
+  // month: string;
+  // year: string;
+  // plant: string;
+}
+
+export interface IBoilFetchDto {
+  filter: IBoilFilter;
+  page: number;
+  limit: number;
+}
+
+const initFilter: IBoilFilter = {
+  baseCode: "",
+  boil: "",
+  marking: "",
+  haveRecord: true,
+};
+
+const initData: IBoilData = {
+  rows: [],
+  total: 0,
+};
+
+const initBoilState: BoilState = {
+  data: initData,
+  pending: false,
+  error: [],
+  page: 1,
+  limit: perPageValues[0],
+  filter: initFilter,
+  updateRowId: null,
+  rowPending: false,
+  // init: boolean;
+};
+
+export enum BoilFilterParams {
+  BOIL = "boil",
+  MARKING = "marking",
+  BASE = "baseCode",
+  HAVE_RECORD = "haveRecord",
+
+  // DATE = "date",
+  // MONTH = "month",
+  // YEAR = "year",
+  // PLANT = "plant",
+}
+
+export interface IBoilFormField {
+  key: string;
+  value: string;
+}
 
 export default class BoilStore {
-  pending = false;
-  error = {} as string[];
-  boils = {} as IBoilsListItem[] | [];
-  boilPending = false;
-  updateBoilId: null | number = null;
+  state: BoilState = initBoilState;
 
   constructor() {
     makeAutoObservable(this, {
       noRecordsFound: computed,
       renderTable: computed,
       renderLoader: computed,
+      page: computed,
+      pages: computed,
+      firstRecord: computed,
+      lastRecord: computed,
+      dto: computed,
+      clearFilterDisabled: computed,
+      boil: computed,
       fetchBoils: action,
+      nextPage: action,
+      prevPage: action,
+      lastPage: action,
+      firstPage: action,
+      changeLimit: action,
+      changeFilter: action,
+      clearFilter: action,
     });
   }
 
   get noRecordsFound() {
-    if (this.boils.length === 0 && !this.pending) {
-      return true;
-    }
-    return false;
+    // if (this.boils.length === 0 && !this.pending) {
+    return this.state.data.rows.length === 0 && !this.state.pending;
+    // ) {
+    //   return true;
+    // }
+    // return false;
   }
 
   get renderTable() {
-    return this.boils.length > 0;
+    return this.state.data.rows.length > 0 && !this.state.pending;
   }
 
   get renderLoader() {
-    return this.pending;
+    return this.state.pending;
+  }
+  get page() {
+    return this.state.page;
+  }
+  get pages() {
+    return Math.ceil(this.state.data.total / this.state.limit);
+  }
+
+  get firstRecord(): number {
+    if (this.state.data.total === 0) {
+      return 0;
+    }
+    return 1 + (this.state.page - 1) * this.state.limit;
+  }
+  get lastRecord(): number {
+    return this.state.page * this.state.limit > this.state.data.total
+      ? this.state.data.total
+      : this.state.page * this.state.limit;
+  }
+
+  get dto(): IBoilFetchDto {
+    return { filter: this.state.filter, page: this.state.page, limit: this.state.limit };
+  }
+
+  get clearFilterDisabled() {
+    return JSON.stringify(this.state.filter) === JSON.stringify(initFilter);
+  }
+  get boil() {
+    return this.state.filter.boil;
   }
 
   setPending(bool: boolean) {
-    this.pending = bool;
+    this.state.pending = bool;
   }
 
   setError(error: string[]) {
-    this.error = error;
+    this.state.error = error;
   }
 
-  setBoils(boils: IBoilsListItem[] | []) {
-    this.boils = [...boils];
+  setData(data: IBoilData) {
+    // this.state.data = data;
+    this.state = { ...this.state, data: { rows: data.rows, total: data.total } };
   }
 
-  setBoilPending(bool: boolean) {
-    this.boilPending = bool;
+  setPage(num: number) {
+    this.state = { ...this.state, page: num };
   }
 
-  setUpdateBoilId(boilId: number | null) {
-    this.updateBoilId = boilId;
+  setLimit(num: number) {
+    this.state = { ...this.state, limit: num };
+  }
+
+  increasePage() {
+    this.state.page = this.state.page + 1;
+  }
+
+  decreasePage() {
+    this.state.page = this.state.page - 1;
+  }
+
+  purgeRows() {
+    this.state = { ...this.state, data: { total: this.state.data.total, rows: [] } };
+  }
+
+  setRowPending(bool: boolean) {
+    this.state.rowPending = bool;
+  }
+
+  setUpdateRowId(rowId: number | null) {
+    this.state.updateRowId = rowId;
+  }
+
+  clearFilter() {
+    this.state.filter = initFilter;
   }
 
   async fetchBoils() {
     try {
-      this.setPending(true);
       this.setError([]);
-      this.setBoils([]);
-      const response = await BoilService.getBoilsList();
-      await this.setBoils(response.data);
+      this.setPending(true);
+
+      // this.purgeRows();
+      const response = await BoilService.getBoilsListWithParams(this.dto);
+      this.setData(response.data);
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);
     } finally {
+      await new Promise((r) => setTimeout(r, 500));
       this.setPending(false);
     }
   }
 
-  async updateBoil(boilId: number) {
+  async nextPage() {
+    this.increasePage();
+    this.fetchBoils();
+  }
+
+  async prevPage() {
+    this.decreasePage();
+    this.fetchBoils();
+  }
+
+  async firstPage() {
+    this.setPage(1);
+    this.fetchBoils();
+  }
+  async lastPage() {
+    this.setPage(this.pages);
+    this.fetchBoils();
+  }
+
+  async changeLimit(num: number) {
+    this.setLimit(num);
+    this.setPage(1);
+    this.fetchBoils();
+  }
+
+  async changeFilter({ key, value }: IBoilFormField) {
+    console.log(key);
+    switch (key) {
+      case BoilFilterParams.BOIL:
+        this.state = { ...this.state, filter: { ...this.state.filter, boil: value }, page: 1 };
+        break;
+      case BoilFilterParams.BASE:
+        this.state = { ...this.state, filter: { ...this.state.filter, baseCode: value }, page: 1 };
+        break;
+      case BoilFilterParams.MARKING:
+        this.state = { ...this.state, filter: { ...this.state.filter, marking: value }, page: 1 };
+        break;
+      case BoilFilterParams.HAVE_RECORD:
+        this.state = {
+          ...this.state,
+          filter: { ...this.state.filter, haveRecord: value === "true" ? true : false },
+          page: 1,
+        };
+        break;
+
+      default:
+        break;
+    }
+    // await new Promise((r) => setTimeout(r, 500));
+    // this.fetchBoils();
+  }
+
+  async updateBoil(rowId: number) {
     try {
-      this.setUpdateBoilId(boilId);
-      this.setBoilPending(true);
-      const response = await BoilService.getUpdatedBoilRow(boilId.toString());
-      this.boils = this.boils.map((item) => (item.id == boilId ? response.data : item));
+      this.setUpdateRowId(rowId);
+      this.setRowPending(true);
+      const response = await BoilService.getUpdatedBoilRow(rowId.toString());
+      this.state = {
+        ...this.state,
+        data: {
+          total: this.state.data.total,
+          rows: this.state.data.rows.map((item) => (item.id == rowId ? response.data : item)),
+        },
+      };
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);
-      console.log(errValue);
     } finally {
-      this.setBoilPending(false);
-      this.setUpdateBoilId(null);
+      this.setRowPending(false);
+      this.setUpdateRowId(null);
     }
   }
 }

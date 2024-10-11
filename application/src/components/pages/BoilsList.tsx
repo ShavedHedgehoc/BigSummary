@@ -1,8 +1,9 @@
 import * as React from "react";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import { Context } from "../../main";
-import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
+// import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
 import BoilsListTable from "../tables/boils_list_table/BoilsListTable";
+import MainPageHeader from "../headers/MainPageHeader";
 
 export default function BoilsList() {
   const [initial, setInitial] = React.useState(false);
@@ -12,12 +13,15 @@ export default function BoilsList() {
   React.useEffect(() => {
     store.BoilStore.fetchBoils()
       .then(() => store.HistoryTypeStore.fetchHistoryTypes())
-      .then(() => setInitial(true));
-  });
+      .then(() => store.BoilStore.clearFilter())
+      .then(() => setInitial(true))
+      .then(() => store.BoilStore.fetchBoils());
+  }, []);
+
   return (
     <React.Fragment>
       <BreadCrumbHeader breadcrumbs={["Лаборатория", "Основы"]} />
-      <MainPageHeaderWithRenewProp title={"Основы"} renewData={() => store.BoilStore.fetchBoils()} />
+      <MainPageHeader pageTitle={"Основы"} />
       {initial && <BoilsListTable role={"laboratory"} />}
     </React.Fragment>
   );

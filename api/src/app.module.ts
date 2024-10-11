@@ -46,7 +46,9 @@ import { RecordDetailModule } from "./record.detail/record.detail.module";
 import { UserRolesModule } from "./user-roles/user-roles.module";
 import { UserRolesListModule } from "./user-roles.list/user-roles.list.module";
 import { BasesModule } from "./bases/bases.module";
+import { NotesModule } from "./notes/notes.module";
 import Base from "./bases/bases.model";
+import Note from "./notes/notes.model";
 
 @Module({
   controllers: [],
@@ -82,6 +84,7 @@ import Base from "./bases/bases.model";
         HistoryType,
         Token,
         Base,
+        Note,
       ],
       autoLoadModels: true,
     }),
@@ -115,6 +118,7 @@ import Base from "./bases/bases.model";
     UserRolesModule,
     UserRolesListModule,
     BasesModule,
+    NotesModule,
   ],
 })
 export default class AppModule {}

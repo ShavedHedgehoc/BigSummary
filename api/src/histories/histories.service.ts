@@ -15,6 +15,7 @@ import { DbRoles } from "src/resources/dbRoles";
 import { EmployeesService } from "src/employees/employees.service";
 import { ProductsService } from "src/products/products.service";
 import { BasesService } from "src/bases/bases.service";
+import { NotesService } from "src/notes/notes.service";
 
 @Injectable()
 export class HistoriesService {
@@ -28,7 +29,8 @@ export class HistoriesService {
     private boilService: BoilsService,
     private employeeService: EmployeesService,
     private productService: ProductsService,
-    private basesService: BasesService
+    private basesService: BasesService,
+    private notesService: NotesService
   ) {}
 
   async sendMessages(hystories: History[]) {
@@ -79,7 +81,11 @@ export class HistoriesService {
     }
     const record_id = isBase ? null : dto.record_id;
     const boil_id = isBase ? boil.id : null;
-    const recDto = { ...dto, historyTypeId: historyType.id, record_id: record_id, boil_id: boil_id };
+
+    const note = await this.notesService.create(dto.history_note);
+
+    const note_id = note ? note.id : null;
+    const recDto = { ...dto, historyTypeId: historyType.id, record_id: record_id, boil_id: boil_id, note_id: note_id };
     const history = await this.historyRepository.create(recDto);
     await this.sendMessages([history]);
     return history;
@@ -140,6 +146,7 @@ export class HistoriesService {
         throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
       }
     }
+
     const history = await this.createHistory({ ...dto, record_id: record_id });
     return history;
   }
@@ -218,6 +225,7 @@ export class HistoriesService {
   }
 
   async getAllHistoriesByRecIdAndBoilId(recordId: number, boilId: number | null) {
+    // Это для запроса использовать
     const histories = await this.historyRepository.findAll({
       // where: { [Op.or]: [{ record_id: recordId }, { boil_id: boilId }] },
       where: boilId ? { [Op.or]: [{ record_id: recordId }, { boil_id: boilId }] } : { record_id: recordId },
@@ -317,6 +325,24 @@ export class HistoriesService {
       return histories;
     }
     throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
+  }
+
+  async getAllHistoriesByBoilId(boilId: number) {
+    const histories = await this.historyRepository.findAll({
+      where: {
+        boil_id: boilId,
+      },
+      include: [
+        {
+          model: HistoryType,
+          as: "historyType",
+        },
+        { model: User, as: "user" },
+        { model: Employee, as: "employee" },
+      ],
+      order: [["createdAt", "ASC"]],
+    });
+    return histories;
   }
 
   // async addHistoriesNew(dto: AddHistoriesDto) {

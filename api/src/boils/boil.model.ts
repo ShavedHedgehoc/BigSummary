@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   AllowNull,
   AutoIncrement,
+  BeforeCreate,
   BelongsTo,
   Column,
   DataType,
@@ -36,6 +37,15 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
   @Column
   base_id: number;
 
+  @Column({ type: DataType.STRING })
+  letter: string;
+
+  @Column({ type: DataType.NUMBER })
+  number: number;
+
+  @Column({ type: DataType.NUMBER })
+  year: number;
+
   @BelongsTo(() => Base)
   base: Base;
 
@@ -44,4 +54,19 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @BeforeCreate
+  static addMonthLetter(instance: Boil) {
+    const val = instance.value;
+    const lastSymbol = val.substring(val.length - 1);
+    if (["Z", "Y", "S"].includes(lastSymbol)) {
+      instance.letter = val.substring(val.length - 3, val.length - 2);
+      instance.year = Number("202" + val.substring(val.length - 2, val.length - 1));
+      instance.number = Number(val.substring(0, val.length - 3));
+    } else {
+      instance.letter = val.substring(val.length - 2, val.length - 1);
+      instance.year = Number("202" + val.substring(val.length - 1));
+      instance.number = Number(val.substring(0, val.length - 2));
+    }
+  }
 }

@@ -9,14 +9,21 @@ function TableSkeleton({ children }: { children: React.ReactNode }) {
     <Sheet
       className="CurrenSummaryTableContainer"
       variant="outlined"
-      sx={{
-        display: { xs: "none", xl: "initial" },
-        width: "100%",
-        borderRadius: "sm",
-        flexShrink: 1,
-        overflow: "auto",
-        minHeight: 0,
-      }}
+      sx={[
+        {
+          display: { xs: "none", xl: "initial" },
+          width: "100%",
+          borderRadius: "sm",
+          flexShrink: 1,
+          overflow: "auto",
+          minHeight: 0,
+          height: "100%",
+          mb: 1,
+        },
+        // (theme) => ({
+        //   backgroundColor: theme.variants.soft.neutral,
+        // }),
+      ]}
     >
       <Table
         aria-labelledby="tableTitle"

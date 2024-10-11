@@ -43,6 +43,17 @@ export interface IRecordDetailRecord {
   conveyor: string;
 }
 
+export interface IBoilFilter {
+  baseCode: string;
+  boil: string;
+}
+
+export interface IBoilParams {
+  filter: IBoilFilter;
+  limit: number;
+  page: number;
+}
+
 //////////////
 export interface IPlant {
   id: number;
@@ -126,6 +137,7 @@ export interface IHistory {
   historyType: IHistoryType;
   user: IUser | null;
   employee: IEmployee | null;
+  note_id: number;
 }
 
 export interface IRole {

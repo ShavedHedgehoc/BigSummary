@@ -38,6 +38,13 @@ export class HistoriesController {
     return this.historiesService.getAllHistoriesByRecId(Number(recordId));
   }
 
+  @ApiOperation({ summary: "Получить все записи по id варки" })
+  @ApiResponse({ status: 200, type: [History] })
+  @Get("/boil/:boilId")
+  getAllHistoriesByBoilId(@Param("boilId") boilId: string) {
+    return this.historiesService.getAllHistoriesByBoilId(Number(boilId));
+  }
+
   @ApiOperation({ summary: "Создание новой записи" })
   @ApiResponse({ status: 201, type: History })
   @Post()

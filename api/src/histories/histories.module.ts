@@ -11,6 +11,7 @@ import { BoilsModule } from "src/boils/boils.module";
 import { EmployeesModule } from "src/employees/employees.module";
 import { ProductsModule } from "src/products/products.module";
 import { BasesModule } from "src/bases/bases.module";
+import { NotesModule } from "src/notes/notes.module";
 
 @Module({
   controllers: [HistoriesController],
@@ -25,6 +26,7 @@ import { BasesModule } from "src/bases/bases.module";
     EmployeesModule,
     ProductsModule,
     BasesModule,
+    NotesModule,
   ],
   exports: [HistoriesService],
 })
