@@ -16,10 +16,15 @@ export class HistoryTypesController {
     return this.historyTypesService.getAllHistoryTypes();
   }
 
+  @ApiOperation({ summary: "Получить все типы записей для основ" })
+  @ApiResponse({ status: 200, type: [HistoryType] })
+  @Get("/for_bases")
+  getAllForBases() {
+    return this.historyTypesService.getAllBaseHistoryTypes();
+  }
+
   @ApiOperation({ summary: "Создание нового типа записи" })
   @ApiResponse({ status: 201, type: [HistoryType] })
-
-  //   @ApiResponse({ status: 400, type: Error })
   @Post()
   create(@Body() dto: CreateHistoryTypeDto) {
     return this.historyTypesService.createHistoryType(dto);

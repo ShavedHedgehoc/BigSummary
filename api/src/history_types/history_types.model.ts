@@ -24,6 +24,11 @@ export default class HistoryType extends Model<HistoryType, HistoryTypesCreation
   @Column({ type: DataType.STRING, unique: true })
   description: string;
 
+  @ApiProperty({ example: "true", description: "Статусы принадлежат основе" })
+  @AllowNull(false)
+  @Column({ type: DataType.BOOLEAN })
+  for_boil: boolean;
+
   @HasMany(() => History)
   hystorys: History[];
 }

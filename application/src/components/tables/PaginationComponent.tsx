@@ -18,7 +18,7 @@ function PaginationComponent() {
   return (
     <React.Fragment>
       <Sheet
-        className="PaginationComponentContainer"
+        className="Container"
         variant="outlined"
         sx={[
           {

@@ -39,6 +39,8 @@ export interface IBoilFilter {
   baseCode: string;
   marking: string;
   haveRecord: boolean;
+  boilAsc: boolean;
+  states: number[] | [];
   // date: string;
   // month: string;
   // year: string;
@@ -56,6 +58,8 @@ const initFilter: IBoilFilter = {
   boil: "",
   marking: "",
   haveRecord: true,
+  boilAsc: false,
+  states: [],
 };
 
 const initData: IBoilData = {
@@ -80,6 +84,8 @@ export enum BoilFilterParams {
   MARKING = "marking",
   BASE = "baseCode",
   HAVE_RECORD = "haveRecord",
+  BOIL_ASC = "boilAsc",
+  STATES = "states",
 
   // DATE = "date",
   // MONTH = "month",
@@ -90,6 +96,7 @@ export enum BoilFilterParams {
 export interface IBoilFormField {
   key: string;
   value: string;
+  values?: number[];
 }
 
 export default class BoilStore {
@@ -251,7 +258,18 @@ export default class BoilStore {
     this.fetchBoils();
   }
 
-  async changeFilter({ key, value }: IBoilFormField) {
+  async clearStates() {
+    this.state = {
+      ...this.state,
+      filter: {
+        ...this.state.filter,
+        states: [],
+      },
+      page: 1,
+    };
+  }
+
+  async changeFilter({ key, value, values }: IBoilFormField) {
     console.log(key);
     switch (key) {
       case BoilFilterParams.BOIL:
@@ -267,6 +285,23 @@ export default class BoilStore {
         this.state = {
           ...this.state,
           filter: { ...this.state.filter, haveRecord: value === "true" ? true : false },
+          page: 1,
+        };
+        break;
+      case BoilFilterParams.BOIL_ASC:
+        this.state = {
+          ...this.state,
+          filter: { ...this.state.filter, boilAsc: value === "true" ? true : false },
+          page: 1,
+        };
+        break;
+      case BoilFilterParams.STATES:
+        this.state = {
+          ...this.state,
+          filter: {
+            ...this.state.filter,
+            states: values?.length ? [...values] : [...this.state.filter.states],
+          },
           page: 1,
         };
         break;

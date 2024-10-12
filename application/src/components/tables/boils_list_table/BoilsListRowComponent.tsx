@@ -7,11 +7,10 @@ import { statusCondition } from "../../../utils";
 import { AddHistoryDto } from "../../../services/HistoryService";
 import IconButton from "@mui/joy/IconButton";
 import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+// import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const BoilListRowComponent = ({
@@ -128,12 +127,12 @@ const BoilListRowComponent = ({
                 startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
                 // endDecorator={<DoubleArrowOutlinedIcon />}
                 variant="outlined"
-                color={mode === "dark" ? "success" : "primary"}
+                color={mode === "dark" ? "success" : "neutral"}
                 size="sm"
                 onClick={() => makeHistoryRecord(row.value, "base_continue", null)}
                 // sx={{ fontWeight: "normal" }}
               >
-                <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "primary"}>
+                <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
                   Продолжение
                 </Typography>
               </Button>
@@ -144,12 +143,12 @@ const BoilListRowComponent = ({
               <Button
                 startDecorator={<LoopOutlinedIcon />}
                 variant="outlined"
-                color={mode === "dark" ? "warning" : "primary"}
+                color={mode === "dark" ? "warning" : "neutral"}
                 size="sm"
                 // onClick={() => makeHistoryRecord(row.value, "base_correct", null)}
                 onClick={() => makeRecord({ boil: row, state: "base_correct" })}
               >
-                <Typography level="body-xs" variant="plain" color={mode === "dark" ? "warning" : "primary"}>
+                <Typography level="body-xs" variant="plain" color={mode === "dark" ? "warning" : "neutral"}>
                   Корректировка
                 </Typography>
               </Button>
@@ -161,11 +160,11 @@ const BoilListRowComponent = ({
               <Button
                 startDecorator={<CheckOutlinedIcon />}
                 variant="outlined"
-                color={mode === "dark" ? "success" : "primary"}
+                color={mode === "dark" ? "success" : "neutral"}
                 size="sm"
                 onClick={() => makeHistoryRecord(row.value, "plug_pass", null)}
               >
-                <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "primary"}>
+                <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
                   Допуск
                 </Typography>
               </Button>
@@ -186,11 +185,11 @@ const BoilListRowComponent = ({
             {row.recordsCount > 0 && (
               <Button
                 variant="outlined"
-                color="primary"
+                color="neutral"
                 size="sm"
                 // onClick={() => makeHistoryRecord(row.value, "base_fail", null)}
               >
-                <Typography level="body-xs" variant="plain" color="primary">
+                <Typography level="body-xs" variant="plain" color="neutral">
                   Сводки
                 </Typography>
               </Button>
@@ -200,11 +199,11 @@ const BoilListRowComponent = ({
             {row.historiesCount > 0 && (
               <Button
                 variant="outlined"
-                color="primary"
+                color="neutral"
                 size="sm"
                 // onClick={() => makeHistoryRecord(row.value, "plug_pass", null)}
               >
-                <Typography level="body-xs" variant="plain" color="primary">
+                <Typography level="body-xs" variant="plain" color="neutral">
                   Подробнее
                 </Typography>
               </Button>

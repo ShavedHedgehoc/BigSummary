@@ -5,6 +5,8 @@ interface IBoilFilter {
   boil: string;
   marking: string;
   haveRecord: boolean;
+  boilAsc: boolean;
+  states: number[];
 }
 
 export class GetBoilsDto {

@@ -10,7 +10,6 @@ export class NotesService {
   ) {}
 
   async create(value: string) {
-    console.log(value);
     if (!value || value === "") {
       return null;
     }

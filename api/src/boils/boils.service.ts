@@ -1,11 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import Boil from "./boil.model";
-import { Op, fn, col } from "sequelize";
+import { Op, fn, col, literal, where } from "sequelize";
 import { GetBoilsDto } from "./dto/get-boils.dto";
 import Base from "src/bases/bases.model";
 import History from "src/histories/histories.model";
 import Product from "src/products/products.model";
+import HistoryType from "src/history_types/history_types.model";
+import { group } from "console";
+import sequelize from "sequelize";
 
 @Injectable()
 export class BoilsService {
@@ -29,25 +32,63 @@ export class BoilsService {
     });
     return boils;
   }
+  async getBoilsIdsByHistoryTypeIds(typeArr: number[] | []): Promise<number[] | []> {
+    interface RespItem {
+      id: number;
+    }
+    const qry = `
+    select boils.id 
+    from boils as boils
+    join
+    (select  max (id) as hid, boil_id as boil_id from
+    histories
+    group by boil_id    
+    ) as maxids
+    on boils.id = maxids.boil_id
+    join
+    histories as histories
+    on histories.id = maxids.hid
+    join history_types as htypes
+    on htypes.id = histories."historyTypeId"
+    where htypes.id IN (:ids)
+    `;
+    if (typeArr.length === 0) {
+      return [];
+    }
+    const result: RespItem[] = await this.boilsRepository.sequelize.query(qry, {
+      replacements: { ids: typeArr },
+      type: sequelize.QueryTypes.SELECT,
+    });
+    return [...result.map((i) => i.id)];
+  }
 
   async getBoilsWithFilter(dto: GetBoilsDto) {
-    console.log(dto);
-    const boilFilter = { [Op.like]: `%${dto.filter.boil}%` };
-    const baseFilter = { [Op.like]: `%${dto.filter.baseCode}%` };
-    const markingFilter = { [Op.like]: `%${dto.filter.marking}%` };
+    const boilOrder = dto.filter.boilAsc ? "ASC" : "DESC";
+    let filter = {};
+    if (dto.filter.boil !== "") {
+      const boilFilter = { [Op.like]: `%${dto.filter.boil}%` };
+      filter = { ...filter, value: boilFilter };
+    }
+
+    if (dto.filter.states.length > 0) {
+      const ids = await this.getBoilsIdsByHistoryTypeIds(dto.filter.states);
+      const typeFilter = { [Op.in]: [...ids] };
+      filter = { ...filter, id: typeFilter };
+    }
 
     let baseCond = {};
     if (dto.filter.baseCode !== "") {
+      const baseFilter = { [Op.like]: `%${dto.filter.baseCode}%` };
       baseCond = { ...baseCond, code: baseFilter };
     }
     if (dto.filter.marking !== "") {
+      const markingFilter = { [Op.like]: `%${dto.filter.marking}%` };
       baseCond = { ...baseCond, marking: markingFilter };
     }
 
-    const count = await this.boilsRepository.findAll({
-      where: { value: boilFilter },
+    const count = await this.boilsRepository.count({
+      where: { ...filter },
       include: [
-        { model: History, attributes: [], required: dto.filter.haveRecord },
         {
           model: Base,
           attributes: [],
@@ -57,9 +98,8 @@ export class BoilsService {
       ],
     });
     const boils = await this.boilsRepository.findAll({
-      where: { value: boilFilter },
+      where: { ...filter },
       include: [
-        { model: History, attributes: [], required: dto.filter.haveRecord },
         {
           model: Base,
           attributes: [],
@@ -69,16 +109,15 @@ export class BoilsService {
       ],
 
       order: [
-        ["year", "ASC"],
-        ["letter", "ASC"],
-        ["number", "ASC"],
-        ["value", "ASC"],
+        ["year", boilOrder],
+        ["letter", boilOrder],
+        ["number", boilOrder],
       ],
       limit: dto.limit,
       offset: dto.limit * (dto.page - 1),
     });
 
-    return { boils: boils, count: count.length };
+    return { boils: boils, count: count };
   }
 
   async getById(id: number) {

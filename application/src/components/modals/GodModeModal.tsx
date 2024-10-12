@@ -63,6 +63,7 @@ export default function GodModeModal(props: GoModeModalProps) {
           userId: store.AuthStore.user.id,
           employeeId: null,
           note: "Создано из тестовой обработки",
+          history_note: null,
         };
         store.HistoryStore.createHistoryDirect(data)
           .then(() => {

@@ -5,6 +5,7 @@ import { BoilsService } from "src/boils/boils.service";
 import { GetBoilsDto } from "src/boils/dto/get-boils.dto";
 import { HistoriesService } from "src/histories/histories.service";
 import { RecordsService } from "src/records/records.service";
+import { BoilsListResponse, BoilsListRow } from "./dto/boils-list-response.dto";
 
 @Injectable()
 export class BoilsListService {
