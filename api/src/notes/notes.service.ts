@@ -16,4 +16,9 @@ export class NotesService {
     const note = await this.notesRepository.create({ value: value });
     return note;
   }
+
+  async getById(id: number) {
+    const note = await this.notesRepository.findByPk(id);
+    return note;
+  }
 }

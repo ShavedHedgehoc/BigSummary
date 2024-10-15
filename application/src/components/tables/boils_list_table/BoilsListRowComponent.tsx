@@ -17,10 +17,12 @@ const BoilListRowComponent = ({
   row,
   role,
   makeRecord,
+  showStatesList,
 }: {
   row: IBoilsListItem;
   role: string;
   makeRecord({ boil, state }: { boil: IBoilsListItem; state: string }): void;
+  showStatesList(boil: IBoilsListItem): void;
 }) => {
   const { mode, systemMode } = useColorScheme();
   systemMode;
@@ -112,7 +114,7 @@ const BoilListRowComponent = ({
               variant="plain"
               // color={mode === "dark" ? "warning" : "neutral"}
               size="sm"
-              // onClick={() => makeRecord({ boil: row, state: "base_fail" })}
+              onClick={() => showStatesList(row)}
             >
               <InfoOutlinedIcon />
             </IconButton>

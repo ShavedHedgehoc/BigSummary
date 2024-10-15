@@ -8,6 +8,7 @@ import TableSkeleton from "../TableSkeleton";
 
 interface BoilListTableComponentProps extends BoilListTableProps {
   makeRecord({ boil, state }: { boil: IBoilsListItem; state: string }): void;
+  showStatesList(boil: IBoilsListItem): void;
 }
 
 const BoilsListTableComponent = (props: BoilListTableComponentProps) => {
@@ -62,6 +63,7 @@ const BoilsListTableComponent = (props: BoilListTableComponentProps) => {
               makeRecord={({ boil, state }: { boil: IBoilsListItem; state: string }) =>
                 props.makeRecord({ boil, state })
               }
+              showStatesList={(boil: IBoilsListItem) => props.showStatesList(boil)}
             />
           ))}
         </tbody>

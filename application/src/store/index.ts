@@ -10,6 +10,8 @@ import HistoryTypeStore from "./HistoryTypeStore";
 import BoilStore from "./BoilStore";
 import RoleStore from "./RoleStore";
 import UserStore from "./UserStore";
+import BoilDetailStore from "./BoilDetailStore";
+import NoteStore from "./NoteStore";
 
 export default class RootStore {
   AuthStore;
@@ -24,6 +26,8 @@ export default class RootStore {
   BoilStore;
   RoleStore;
   UserStore;
+  BoilDetailStore;
+  NoteStore;
 
   constructor() {
     this.AuthStore = new AuthStore();
@@ -37,5 +41,7 @@ export default class RootStore {
     this.BoilStore = new BoilStore();
     this.RoleStore = new RoleStore();
     this.UserStore = new UserStore();
+    this.BoilDetailStore = new BoilDetailStore();
+    this.NoteStore = new NoteStore();
   }
 }
