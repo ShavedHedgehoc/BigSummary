@@ -11,6 +11,7 @@ export interface HistoriePayload {
   userId: null;
   employeeId: number;
   note: string;
+  plant_id: number | null;
 }
 
 // export interface IHistorie {

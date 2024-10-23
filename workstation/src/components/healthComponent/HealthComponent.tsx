@@ -33,6 +33,17 @@ const healthMessage = () => {
 
 const ObservedHeathMessage = observer(healthMessage);
 
+const PlantComponent = () => {
+  const { store } = React.useContext(Context);
+  return (
+    <Box>
+      <Typography level="body-xs">{store.PlantStore.plant ? store.PlantStore.plant.value : "Не найдено"}</Typography>
+    </Box>
+  );
+};
+
+const ObservedPlantName = observer(PlantComponent);
+
 function HealthComponent() {
   return (
     <React.Fragment>
@@ -41,7 +52,7 @@ function HealthComponent() {
         variant="soft"
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           alignItems: "center",
           borderRadius: "10px",
           height: "var(--Footer-height)",
@@ -53,6 +64,37 @@ function HealthComponent() {
           px: "var(--Global-margin)",
         }}
       >
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography level="body-xs">Площадка:</Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <ObservedPlantName />
+            </Box>
+          </Box>
+        </Box>
+
         <Box sx={{ display: "flex", gap: 1 }}>
           <Box
             sx={{

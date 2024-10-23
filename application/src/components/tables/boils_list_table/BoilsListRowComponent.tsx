@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import { Button, Typography, useColorScheme } from "@mui/joy";
 import { Context } from "../../../main";
-import { IBoilsListItem } from "../../../types";
+
 import { statusCondition } from "../../../utils";
 import { AddHistoryDto } from "../../../services/HistoryService";
 import IconButton from "@mui/joy/IconButton";
@@ -12,6 +12,7 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
 // import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { IBoilRow } from "../../../store/BoilStore";
 
 const BoilListRowComponent = ({
   row,
@@ -19,10 +20,10 @@ const BoilListRowComponent = ({
   makeRecord,
   showStatesList,
 }: {
-  row: IBoilsListItem;
+  row: IBoilRow;
   role: string;
-  makeRecord({ boil, state }: { boil: IBoilsListItem; state: string }): void;
-  showStatesList(boil: IBoilsListItem): void;
+  makeRecord({ boil, state }: { boil: IBoilRow; state: string }): void;
+  showStatesList(boil: IBoilRow): void;
 }) => {
   const { mode, systemMode } = useColorScheme();
   systemMode;
@@ -41,14 +42,14 @@ const BoilListRowComponent = ({
     store.HistoryStore.createHistory(data).then(() => store.BoilStore.updateBoil(row.id));
   };
 
-  const selClass = (item: IBoilsListItem) => {
+  const selClass = (item: IBoilRow) => {
     if (!item.stateValue) {
       return "list-group-item list-group-item-light";
     }
     return statusCondition(item.stateValue);
   };
 
-  const StyledTypography = ({ row, text }: { row: IBoilsListItem; text: string | number }) => {
+  const StyledTypography = ({ row, text }: { row: IBoilRow; text: string | number }) => {
     return (
       <Typography
         level="body-xs"
@@ -78,9 +79,11 @@ const BoilListRowComponent = ({
       <td scope={selClass(row)} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
         <Typography level="body-xs">{row.base_marking ? row.base_marking : "-"}</Typography>
       </td>
-
       <td scope={selClass(row)} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.base_code ? row.base_code : "-"}</Typography>
+      </td>
+      <td scope={selClass(row)} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+        <Typography level="body-xs">{row.plant ? row.plant : "-"}</Typography>
       </td>
       <td scope={selClass(row)} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
         <Typography

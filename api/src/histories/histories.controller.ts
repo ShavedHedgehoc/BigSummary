@@ -26,9 +26,9 @@ export class HistoriesController {
 
   @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
   @ApiResponse({ status: 200, type: [History] })
-  @Get("/last_ten")
-  getLastTenHistories() {
-    return this.historiesService.getLastTenHistories();
+  @Get("/last_ten/:plant_id")
+  getLastTenHistories(@Param("plant_id") plant_id: string) {
+    return this.historiesService.getLastTenHistories(Number(plant_id));
   }
 
   @ApiOperation({ summary: "Получить все записи по id строки сводки" })

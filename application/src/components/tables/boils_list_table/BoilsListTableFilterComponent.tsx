@@ -3,14 +3,11 @@ import {
   Box,
   Input,
   Sheet,
-  Typography,
   Button,
   IconButton,
   FormControl,
   useColorScheme,
   FormHelperText,
-  RadioGroup,
-  Radio,
   Select,
   Option,
   Checkbox,
@@ -24,14 +21,7 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { Context } from "../../../main";
 import { observer } from "mobx-react-lite";
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
-
 import CloseRounded from "@mui/icons-material/CloseRounded";
-
-// interface InputFieldComponentProps {
-//   filterParameter: string;
-//   helperText: string;
-//   value: string;
-// }
 
 function BoilsListTableFilterComponent() {
   const { store } = React.useContext(Context);
@@ -41,7 +31,7 @@ function BoilsListTableFilterComponent() {
   return (
     <React.Fragment>
       <Sheet
-        className="BoilsListTableFolterContainer"
+        className="BoilsListTableFilterContainer"
         variant="outlined"
         sx={[
           {
@@ -229,7 +219,6 @@ function BoilsListTableFilterComponent() {
                   event &&
                     newValue &&
                     store.BoilStore.changeFilter({ key: BoilFilterParams.STATES, value: "", values: newValue });
-                  // store.BoilStore.fetchBoils();
                 }}
                 {...(store.BoilStore.state.filter.states.length > 0 && {
                   endDecorator: (
@@ -263,38 +252,68 @@ function BoilsListTableFilterComponent() {
                   </Option>
                 ))}
               </Select>
-              <FormHelperText>Поиск по статусу. Чтобы применить изменения - нажмите "Обновить"</FormHelperText>
+              <FormHelperText>Поиск по статусу</FormHelperText>
             </FormControl>
           </Box>
-          {/* <Box sx={{ display: "flex", pl: 2 }}>
-            <FormControl>
-              <RadioGroup
-                value={store.BoilStore.state.filter.haveRecord}
-                onChange={(e) => {
-                  store.BoilStore.changeFilter({ key: BoilFilterParams.HAVE_RECORD, value: e.target.value });
-                  store.BoilStore.fetchBoils();
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <FormControl size="sm" id={BoilFilterParams.PLANTS}>
+              <Select
+                action={action}
+                size="sm"
+                multiple
+                placeholder="Выберите площадку"
+                value={[...store.BoilStore.state.filter.plants]}
+                slotProps={{
+                  button: { sx: { whiteSpace: "nowrap" } },
+                  listbox: { sx: { zIndex: 999999 } },
                 }}
+                sx={{
+                  minWidth: "220px",
+                  maxWidth: "220px",
+                  display: "flex",
+                  flexShrink: 1,
+                }}
+                onChange={(event: React.SyntheticEvent | null, newValue: number[] | null) => {
+                  event &&
+                    newValue &&
+                    store.BoilStore.changeFilter({ key: BoilFilterParams.PLANTS, value: "", values: newValue });
+                }}
+                {...(store.BoilStore.state.filter.plants.length > 0 && {
+                  endDecorator: (
+                    <IconButton
+                      color="neutral"
+                      onMouseDown={(event) => {
+                        event.stopPropagation();
+                      }}
+                      onClick={() => {
+                        console.log("try");
+                        store.BoilStore.clearPlants();
+                        store.BoilStore.fetchBoils();
+                        action.current?.focusVisible();
+                      }}
+                    >
+                      <CloseRounded />
+                    </IconButton>
+                  ),
+                  indicator: null,
+                })}
               >
-                <Radio
-                  value={true}
-                  label={<Typography level="body-xs">Только с записями</Typography>}
-                  variant="plain"
-                  size="sm"
-                  color={mode === "dark" ? "neutral" : "neutral"}
-                />
-                <Radio
-                  value={false}
-                  label={<Typography level="body-xs">Не важно</Typography>}
-                  variant="plain"
-                  size="sm"
-                  color={mode === "dark" ? "neutral" : "neutral"}
-                />
-              </RadioGroup>
-          
+                {store.PlantStore.selectorOptions.map((plant) => (
+                  <Option value={plant.id} key={plant.id}>
+                    <FormControl size="sm">
+                      <Checkbox
+                        color="neutral"
+                        checked={[...store.BoilStore.state.filter.plants].includes(plant.id)}
+                        label={plant.value}
+                      />
+                    </FormControl>
+                  </Option>
+                ))}
+              </Select>
+              <FormHelperText>Поиск по площадке</FormHelperText>
             </FormControl>
-          </Box> */}
+          </Box>
         </Box>
-
         <Box sx={{ display: "flex", justifyContent: "flex-start", gap: 2 }}>
           <Button
             color={mode === "dark" ? "neutral" : "neutral"}
@@ -308,7 +327,6 @@ function BoilsListTableFilterComponent() {
           >
             Обновить
           </Button>
-
           <Button
             color={mode === "dark" ? "neutral" : "neutral"}
             variant="outlined"
@@ -323,13 +341,9 @@ function BoilsListTableFilterComponent() {
           >
             Сбросить
           </Button>
-          {/* <IconButton>
-            <DeleteOutlineIcon />
-          </IconButton> */}
         </Box>
       </Sheet>
     </React.Fragment>
   );
 }
 export default observer(BoilsListTableFilterComponent);
-// export default BoilsListTableFilterComponent;

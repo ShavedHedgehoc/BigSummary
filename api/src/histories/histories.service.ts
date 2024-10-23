@@ -75,8 +75,9 @@ export class HistoriesService {
       ["base_check", "plug_pass", "base_fail", "base_correct", "base_continue"].indexOf(dto.historyType) !== -1;
     const boil = await this.boilService.getOrCreateByValue(dto.boil_value);
     const base = await this.basesService.getOrCreateByCode(dto.base_code);
-    if (boil && base) {
+    if (boil && base && dto.plant_id) {
       boil.base_id = base.id;
+      boil.plant_id = dto.plant_id;
       await boil.save();
     }
     const record_id = isBase ? null : dto.record_id;
@@ -247,12 +248,11 @@ export class HistoriesService {
     return histories;
   }
 
-  async getLastTenHistories() {
+  async getLastTenHistories(plant_id: number) {
     const histories = await this.historyRepository.findAll({
       where: {
-        employeeId: {
-          [Op.ne]: null,
-        },
+        employeeId: { [Op.ne]: null },
+        plant_id: plant_id,
       },
       limit: 10,
       order: [["id", "DESC"]],

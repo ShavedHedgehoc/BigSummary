@@ -14,6 +14,7 @@ import Boil from "src/boils/boil.model";
 import Employee from "src/employees/employees.model";
 import HistoryType from "src/history_types/history_types.model";
 import Note from "src/notes/notes.model";
+import Plant from "src/plants/plant.model";
 import Record from "src/records/records.model";
 import User from "src/users/users.model";
 
@@ -68,6 +69,10 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @Column
   note_id: number;
 
+  @ForeignKey(() => Plant)
+  @Column
+  plant_id: number;
+
   @BelongsTo(() => Record)
   record: Record;
 
@@ -85,4 +90,7 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
 
   @BelongsTo(() => Note)
   history_note: Note;
+
+  @BelongsTo(() => Plant)
+  plant: Plant;
 }

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Sheet, Table, useColorScheme } from "@mui/joy";
 import { observer } from "mobx-react-lite";
 
-function TableSkeleton({ children }: { children: React.ReactNode }) {
+function TableLayout({ children }: { children: React.ReactNode }) {
   const { mode, systemMode } = useColorScheme();
   systemMode;
   return (
@@ -57,4 +57,4 @@ function TableSkeleton({ children }: { children: React.ReactNode }) {
     </Sheet>
   );
 }
-export default observer(TableSkeleton);
+export default observer(TableLayout);

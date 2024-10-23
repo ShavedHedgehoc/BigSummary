@@ -1,32 +1,30 @@
 import * as React from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../../main";
-import TableSkeleton from "../TableSkeleton";
+import TableLayout from "../TableLayout";
 import SummaryListRowComponent from "./SummaryListRowComponent";
 import { SummaryListTableProps } from "./SummaryListTable";
 
 const SummaryListTableComponent = (props: SummaryListTableProps) => {
   const { store } = React.useContext(Context);
+  const commonThead = [
+    { width: 64, value: "Дата" },
+    { width: 64, value: "Площадка" },
+    { width: 64, value: "Строк сводки" },
+    { width: 64, value: "Записей" },
+    { width: 64, value: "Действия" },
+  ];
   return (
     <React.Fragment>
-      <TableSkeleton>
+      <TableLayout>
         <thead>
           <tr>
-            <th scope="col" style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-              Дата
-            </th>
-            <th scope="col" style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-              Площадка
-            </th>
-            <th scope="col" style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-              Строк сводки
-            </th>
-            <th scope="col" style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-              Записей
-            </th>
-            <th scope="col" style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
-              Действия
-            </th>
+            {[...commonThead].map((item, key) => (
+              <th key={key} scope="col" style={{ width: item.width, textAlign: "center", padding: "12px 6px" }}>
+                {item.value}
+              </th>
+            ))}
+            {/*  */}
           </tr>
         </thead>
         <tbody>
@@ -34,7 +32,7 @@ const SummaryListTableComponent = (props: SummaryListTableProps) => {
             <SummaryListRowComponent row={{ ...row }} role={props.role} key={row.id} />
           ))}
         </tbody>
-      </TableSkeleton>
+      </TableLayout>
     </React.Fragment>
   );
 };

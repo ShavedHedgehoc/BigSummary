@@ -19,6 +19,20 @@ import { WorkshopsModule } from "./workshops/workshops.module";
 import { HistoriesModule } from "./histories/histories.module";
 import { HistoryTypesModule } from "./history_types/hystory_types.module";
 import { TokenModule } from "./token/token.module";
+import { SeederModule } from "nestjs-sequelize-seeder";
+import { TestModule } from "./test/test.module";
+import { BoilsListModule } from "./boils.list/boils.list.module";
+import { DocDetailModule } from "./doc.detail/doc.detail.module";
+import { DocsListModule } from "./docs.list/docs.list.module";
+import { RecordDetailModule } from "./record.detail/record.detail.module";
+import { UserRolesModule } from "./user-roles/user-roles.module";
+import { UserRolesListModule } from "./user-roles.list/user-roles.list.module";
+import { BasesModule } from "./bases/bases.module";
+import { NotesModule } from "./notes/notes.module";
+import { TraceBatchModule } from "./trace_batch/trace_batch.module";
+import { TraceWeightingsModule } from "./trace_weightings/trace_weightings.module";
+import { TraceLoadsModule } from "./trace_loads/trace_loads.module";
+import { TraceTechnologyModule } from './trace_technology/trace_technology.module';
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -37,18 +51,23 @@ import Workshop from "./workshops/workshop.model";
 import History from "./histories/histories.model";
 import HistoryType from "./history_types/history_types.model";
 import Token from "./token/token.model";
-import { SeederModule } from "nestjs-sequelize-seeder";
-import { TestModule } from "./test/test.module";
-import { BoilsListModule } from "./boils.list/boils.list.module";
-import { DocDetailModule } from "./doc.detail/doc.detail.module";
-import { DocsListModule } from "./docs.list/docs.list.module";
-import { RecordDetailModule } from "./record.detail/record.detail.module";
-import { UserRolesModule } from "./user-roles/user-roles.module";
-import { UserRolesListModule } from "./user-roles.list/user-roles.list.module";
-import { BasesModule } from "./bases/bases.module";
-import { NotesModule } from "./notes/notes.module";
 import Base from "./bases/bases.model";
 import Note from "./notes/notes.model";
+import TraceBatch from "./trace_models/trace_batch.model";
+import TraceWeighting from "./trace_models/trace_weighting.model";
+import TraceProduct from "./trace_models/trace_product.model";
+import TraceAuthor from "./trace_models/trace_author.model";
+import TraceLot from "./trace_models/trace_lot.model";
+import TraceManufacturer from "./trace_models/trace_manufacturer.model";
+import TraceManufacturerLot from "./trace_models/trace_manufacturer_lot.model";
+import TraceSeller from "./trace_models/trace_seller.model";
+import TraceTrademark from "./trace_models/trace_trademark.model";
+import TraceDocument from "./trace_models/trace_document.model";
+import TraceContainer from "./trace_models/trace_container.model";
+import TraceLoad from "./trace_models/trace_loads.model";
+import TraceBoil from "./trace_models/trace_boils.model";
+import TraceOperation from "./trace_models/trace_operation.model";
+import TraceBoilRecord from "./trace_models/trace_boil_record.model";
 
 @Module({
   controllers: [],
@@ -56,6 +75,35 @@ import Note from "./notes/notes.model";
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    SequelizeModule.forRoot({
+      dialect: "mssql",
+      host: process.env.MSSQL_HOST,
+      username: process.env.MSSQL_USERNAME,
+      password: process.env.MSSQL_PASSWORD,
+      database: process.env.MSSQL_DB,
+      define: {
+        createdAt: false,
+        updatedAt: false,
+      },
+      name: "trace_connection",
+      models: [
+        TraceAuthor,
+        TraceBatch,
+        TraceBoil,
+        TraceBoilRecord,
+        TraceContainer,
+        TraceDocument,
+        TraceLoad,
+        TraceLot,
+        TraceManufacturer,
+        TraceManufacturerLot,
+        TraceOperation,
+        TraceProduct,
+        TraceSeller,
+        TraceTrademark,
+        TraceWeighting,
+      ],
     }),
     SequelizeModule.forRoot({
       dialect: "postgres",
@@ -120,6 +168,10 @@ import Note from "./notes/notes.model";
     UserRolesListModule,
     BasesModule,
     NotesModule,
+    TraceBatchModule,
+    TraceWeightingsModule,
+    TraceLoadsModule,
+    TraceTechnologyModule,
   ],
 })
 export default class AppModule {}

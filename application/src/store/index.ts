@@ -12,6 +12,8 @@ import RoleStore from "./RoleStore";
 import UserStore from "./UserStore";
 import BoilDetailStore from "./BoilDetailStore";
 import NoteStore from "./NoteStore";
+import EmployeePaginationStore from "./EmployeePaginationStore";
+import EmployeeFilterStore from "./EmployeeFilterStore";
 
 export default class RootStore {
   AuthStore;
@@ -21,6 +23,8 @@ export default class RootStore {
   DocStore;
 
   EmployeeStore;
+  EmployeeFilterStore;
+  EmployeePaginationStore;
   RecordDetailStore;
   HistoryTypeStore;
   BoilStore;
@@ -43,5 +47,7 @@ export default class RootStore {
     this.UserStore = new UserStore();
     this.BoilDetailStore = new BoilDetailStore();
     this.NoteStore = new NoteStore();
+    this.EmployeePaginationStore = new EmployeePaginationStore(this.EmployeeStore);
+    this.EmployeeFilterStore = new EmployeeFilterStore(this.EmployeeStore);
   }
 }

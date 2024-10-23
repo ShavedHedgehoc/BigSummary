@@ -76,6 +76,11 @@ export class BoilsService {
       filter = { ...filter, id: typeFilter };
     }
 
+    if (dto.filter.plants.length > 0) {
+      const plantFilter = { [Op.in]: [...dto.filter.plants] };
+      filter = { ...filter, plant_id: plantFilter };
+    }
+
     let baseCond = {};
     if (dto.filter.baseCode !== "") {
       const baseFilter = { [Op.like]: `%${dto.filter.baseCode}%` };
@@ -97,6 +102,7 @@ export class BoilsService {
         },
       ],
     });
+
     const boils = await this.boilsRepository.findAll({
       where: { ...filter },
       include: [

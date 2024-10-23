@@ -9,9 +9,9 @@ import { IBoilsListItem } from "../../../types";
 import { AddHistoryDto } from "../../../services/HistoryService";
 import BoilAddHistoryModal from "../../modals/BoilsAddHistoryModal";
 import BoilsListTableFilterComponent from "./BoilsListTableFilterComponent";
-import PaginationComponent from "../PaginationComponent";
 import BoilHistoriesListModal from "../../modals/BoilHistoriesListModal";
 import NoteModal from "../../modals/NoteModal";
+import BoilListTablePaginationComponent from "./BoilListTablePaginationComponent";
 
 export interface BoilListTableProps {
   role: "reports" | "laboratory";
@@ -24,7 +24,6 @@ function BoilsListTable(props: BoilListTableProps) {
   const [openNoteModal, setOpenNoteModal] = React.useState(false);
   const [currBoil, setCurrBoil] = React.useState({} as IBoilsListItem);
   const [state, setState] = React.useState("");
-  // const [historyNote, setHistoryNote] = React.useState<string>("");
 
   const makeRecord = (boil: IBoilsListItem, state: string) => {
     setCurrBoil({ ...boil });
@@ -43,8 +42,6 @@ function BoilsListTable(props: BoilListTableProps) {
     setOpenNoteModal(true);
   };
 
-  // const processRecord = () => {
-  // const processRecord = (note:string) => {  state менять в модалке !!!
   const processRecord = (historyNote: string) => {
     const data: AddHistoryDto = {
       record_id: null,
@@ -56,27 +53,22 @@ function BoilsListTable(props: BoilListTableProps) {
       history_note: historyNote,
     };
     store.HistoryStore.createHistory(data).then(() => store.BoilStore.updateBoil(currBoil.id));
-    // .then(() => setHistoryNote(""));
   };
 
   const processCloseAddModal = () => {
     setOpenAddModal(false);
-    // setHistoryNote("");
   };
 
   const processCloseInfoModal = () => {
     setOpenInfoModal(false);
-    //
   };
 
   const processCloseNoteModal = () => {
     setOpenNoteModal(false);
-    //
   };
 
   const Loader = withVisible(TableLoaderComponent);
   const NotFound = withVisible(TableNotFoundComponent);
-  // const Pagination = withVisible(PaginationComponent);
   const Filter = withVisible(BoilsListTableFilterComponent);
 
   return (
@@ -99,8 +91,6 @@ function BoilsListTable(props: BoilListTableProps) {
           stateDescription={store.HistoryTypeStore.historyTypeDecription(state)}
           boil={currBoil}
           processRecord={(note) => processRecord(note)}
-          // historyNote={historyNote}
-          // setHistoryNote={(val) => setHistoryNote(val)}
         />
       )}
 
@@ -115,10 +105,8 @@ function BoilsListTable(props: BoilListTableProps) {
       {store.BoilStore.renderTable && props.role === "laboratory" && (
         <NoteModal open={openNoteModal} onClose={() => processCloseNoteModal()} />
       )}
-      {/* {store.SummaryStore.renderTable && <SummaryDetailTableComponent role={props.role} />}
-      {store.SummaryStore.renderTable && <TableMdComponent role={props.role} />}
-      {store.SummaryStore.renderTable && <TableListComponent role={props.role} />} */}
-      <PaginationComponent />
+
+      <BoilListTablePaginationComponent />
     </React.Fragment>
   );
 }

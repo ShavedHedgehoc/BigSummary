@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { PlantsService } from "./plants.service";
 import Plant from "./plant.model";
@@ -14,6 +14,13 @@ export class PlantsController {
   @Get()
   getAll() {
     return this.plantService.getAllPlants();
+  }
+
+  @ApiOperation({ summary: "Получить площадку по имени" })
+  @ApiResponse({ status: 200, type: Plant })
+  @Get("/:plantName")
+  getByName(@Param("plantName") plantName: string) {
+    return this.plantService.getPlantByValue(plantName);
   }
 
   @ApiOperation({ summary: "Создание новой площадки" })

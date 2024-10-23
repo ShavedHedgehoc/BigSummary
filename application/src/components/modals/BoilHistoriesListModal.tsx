@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Typography, useColorScheme } from "@mui/joy";
 import { IBoilsListItem, IHistory } from "../../types";
-import TableSkeleton from "../tables/TableSkeleton";
+import TableSkeleton from "../tables/TableLayout";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../main";
 import TableLoaderComponent from "../tables/TableLoaderComponent";

@@ -9,12 +9,12 @@ function InfoComponent() {
   const { store } = React.useContext(Context);
 
   React.useEffect(() => {
-    store.RecordsStore.fetchRecords();
+    store.PlantStore.plant && store.RecordsStore.fetchRecords(store.PlantStore.plant.id);
   }, []);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      store.RecordsStore.fetchRecords();
+      store.PlantStore.plant && store.RecordsStore.fetchRecords(store.PlantStore.plant.id);
     }, 30 * 1000);
     return () => {
       clearInterval(timer);

@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../../../main";
 import { CurrentSummaryTableProps } from "./CurrentSummaryTable";
 import RowComponent from "./RowComponent";
-import TableSkeleton from "../TableSkeleton";
+import TableSkeleton from "../TableLayout";
 
 const TableComponent = (props: CurrentSummaryTableProps) => {
   const { store } = React.useContext(Context);

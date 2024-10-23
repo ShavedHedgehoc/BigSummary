@@ -71,11 +71,11 @@ export default class RecordsStore {
     this.error = error;
   }
 
-  async fetchRecords() {
+  async fetchRecords(plant_id: number) {
     try {
       this.setError("");
       this.setPending(true);
-      const responce = await $api.get(`/histories/last_ten`);
+      const responce = await $api.get(`/histories/last_ten/${plant_id}`);
       this.setRecords(responce.data);
     } catch (error) {
       const errValue = handleError(error);

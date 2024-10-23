@@ -6,6 +6,7 @@ import { GetBoilsDto } from "src/boils/dto/get-boils.dto";
 import { HistoriesService } from "src/histories/histories.service";
 import { RecordsService } from "src/records/records.service";
 import { BoilsListResponse, BoilsListRow } from "./dto/boils-list-response.dto";
+import { PlantsService } from "src/plants/plants.service";
 
 @Injectable()
 export class BoilsListService {
@@ -13,7 +14,8 @@ export class BoilsListService {
     private boilsService: BoilsService,
     private recordsService: RecordsService,
     private historiesService: HistoriesService,
-    private basesService: BasesService
+    private basesService: BasesService,
+    private plantService: PlantsService
   ) {}
 
   async getBoilListRowData(item: Boil) {
@@ -28,8 +30,10 @@ export class BoilsListService {
     const recordsCount = records.length;
     const historiesCount = histories.length;
     const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
+    const state_id = historiesCount > 0 ? histories[histories.length - 1].historyType.id : null;
     const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
     const base = await this.basesService.getByid(item.base_id);
+    const plant = await this.plantService.getPlantByPk(item.plant_id);
     return {
       ...JSON.parse(JSON.stringify(item, replacer)),
       base_code: base ? base.code : null,
@@ -37,7 +41,9 @@ export class BoilsListService {
       recordsCount: recordsCount,
       historiesCount: historiesCount,
       state: state,
+      state_id: state_id,
       stateValue: stateValue,
+      plant: plant ? plant.abb : null,
     };
   }
   async getBoilsList() {

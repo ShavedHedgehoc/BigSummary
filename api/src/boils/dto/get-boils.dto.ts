@@ -7,6 +7,7 @@ interface IBoilFilter {
   haveRecord: boolean;
   boilAsc: boolean;
   states: number[];
+  plants: number[];
 }
 
 export class GetBoilsDto {

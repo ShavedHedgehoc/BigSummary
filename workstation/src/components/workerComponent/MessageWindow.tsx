@@ -16,7 +16,7 @@ export default function MessageWindow(props: MessageWindowProps) {
         </Typography>
       </Box>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", ml: 10, mr: 10 }}>
-        <Typography level="h3" color="warning" textAlign={"justify"}>
+        <Typography level="h3" color="warning" textAlign={"center"}>
           {props.infoMessage}
         </Typography>
       </Box>

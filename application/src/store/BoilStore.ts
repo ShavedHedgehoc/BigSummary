@@ -12,14 +12,10 @@ export interface BoilState {
   filter: IBoilFilter;
   updateRowId: null | number;
   rowPending: boolean;
-  // init: boolean;
 }
 
 export interface IBoilData {
   rows: IBoilRow[];
-  // month_selector_options: IMonthData[];
-  // year_selector_options: IYearData[];
-  // plant_selector_options: IPlantData[];
   total: number;
 }
 
@@ -29,9 +25,11 @@ export interface IBoilRow {
   recordsCount: number;
   historiesCount: number;
   state: string;
+  state_id: number;
   stateValue: string;
   base_code: string;
   base_marking: string;
+  plant: string;
 }
 
 export interface IBoilFilter {
@@ -41,6 +39,7 @@ export interface IBoilFilter {
   haveRecord: boolean;
   boilAsc: boolean;
   states: number[] | [];
+  plants: number[] | [];
   // date: string;
   // month: string;
   // year: string;
@@ -60,6 +59,7 @@ const initFilter: IBoilFilter = {
   haveRecord: true,
   boilAsc: false,
   states: [],
+  plants: [],
 };
 
 const initData: IBoilData = {
@@ -90,7 +90,7 @@ export enum BoilFilterParams {
   // DATE = "date",
   // MONTH = "month",
   // YEAR = "year",
-  // PLANT = "plant",
+  PLANTS = "plant",
 }
 
 export interface IBoilFormField {
@@ -122,16 +122,13 @@ export default class BoilStore {
       changeLimit: action,
       changeFilter: action,
       clearFilter: action,
+      clearStates: action,
+      clearPlants: action,
     });
   }
 
   get noRecordsFound() {
-    // if (this.boils.length === 0 && !this.pending) {
     return this.state.data.rows.length === 0 && !this.state.pending;
-    // ) {
-    //   return true;
-    // }
-    // return false;
   }
 
   get renderTable() {
@@ -180,7 +177,6 @@ export default class BoilStore {
   }
 
   setData(data: IBoilData) {
-    // this.state.data = data;
     this.state = { ...this.state, data: { rows: data.rows, total: data.total } };
   }
 
@@ -200,9 +196,9 @@ export default class BoilStore {
     this.state.page = this.state.page - 1;
   }
 
-  purgeRows() {
-    this.state = { ...this.state, data: { total: this.state.data.total, rows: [] } };
-  }
+  // purgeRows() {
+  //   this.state = { ...this.state, data: { total: this.state.data.total, rows: [] } };
+  // }
 
   setRowPending(bool: boolean) {
     this.state.rowPending = bool;
@@ -220,8 +216,6 @@ export default class BoilStore {
     try {
       this.setError([]);
       this.setPending(true);
-
-      // this.purgeRows();
       const response = await BoilService.getBoilsListWithParams(this.dto);
       this.setData(response.data);
     } catch (error) {
@@ -269,6 +263,17 @@ export default class BoilStore {
     };
   }
 
+  async clearPlants() {
+    this.state = {
+      ...this.state,
+      filter: {
+        ...this.state.filter,
+        plants: [],
+      },
+      page: 1,
+    };
+  }
+
   async changeFilter({ key, value, values }: IBoilFormField) {
     console.log(key);
     switch (key) {
@@ -306,11 +311,20 @@ export default class BoilStore {
         };
         break;
 
+      case BoilFilterParams.PLANTS:
+        this.state = {
+          ...this.state,
+          filter: {
+            ...this.state.filter,
+            plants: values?.length ? [...values] : [...this.state.filter.plants],
+          },
+          page: 1,
+        };
+        break;
+
       default:
         break;
     }
-    // await new Promise((r) => setTimeout(r, 500));
-    // this.fetchBoils();
   }
 
   async updateBoil(rowId: number) {
@@ -329,8 +343,11 @@ export default class BoilStore {
       const errValue = handleError(error);
       this.setError([...errValue]);
     } finally {
+      await new Promise((r) => setTimeout(r, 500));
       this.setRowPending(false);
       this.setUpdateRowId(null);
+      await new Promise((r) => setTimeout(r, 300));
+      await this.fetchBoils();
     }
   }
 }

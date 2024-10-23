@@ -14,6 +14,7 @@ import {
 } from "sequelize-typescript";
 import Base from "src/bases/bases.model";
 import History from "src/histories/histories.model";
+import Plant from "src/plants/plant.model";
 import Record from "src/records/records.model";
 
 interface BoilsCreationsAttrs {
@@ -37,6 +38,10 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
   @Column
   base_id: number;
 
+  @ForeignKey(() => Plant)
+  @Column
+  plant_id: number;
+
   @Column({ type: DataType.STRING })
   letter: string;
 
@@ -48,6 +53,9 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
 
   @BelongsTo(() => Base)
   base: Base;
+
+  @BelongsTo(() => Plant)
+  plant: Plant;
 
   @HasMany(() => Record)
   records: Record[];

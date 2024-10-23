@@ -1,0 +1,355 @@
+import * as React from "react";
+import {
+  Box,
+  Input,
+  Sheet,
+  Button,
+  IconButton,
+  FormControl,
+  useColorScheme,
+  FormHelperText,
+  Select,
+  Option,
+  Checkbox,
+  SelectStaticProps,
+} from "@mui/joy";
+import SearchIcon from "@mui/icons-material/Search";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { BoilFilterParams } from "../../../store/BoilStore";
+import CachedIcon from "@mui/icons-material/Cached";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import { Context } from "../../../main";
+import { observer } from "mobx-react-lite";
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
+import CloseRounded from "@mui/icons-material/CloseRounded";
+
+function EmployeeTableFilterComponent() {
+  const { store } = React.useContext(Context);
+  const { mode, systemMode } = useColorScheme();
+  const action: SelectStaticProps["action"] = React.useRef(null);
+  const RenewButtonComponent = observer(() => (
+    <Button
+      color={mode === "dark" ? "neutral" : "neutral"}
+      variant="outlined"
+      startDecorator={<CachedIcon />}
+      size={"sm"}
+      sx={{ fontWeight: "normal", fontSize: "small" }}
+      onClick={() => {
+        store.EmployeeFilterStore.renewData();
+      }}
+    >
+      Обновить
+    </Button>
+  ));
+
+  const ClearFilterComponent = observer(() => (
+    <Button
+      color={mode === "dark" ? "neutral" : "neutral"}
+      variant="outlined"
+      startDecorator={<DeleteOutlineIcon />}
+      size={"sm"}
+      sx={{ fontWeight: "normal", fontSize: "small" }}
+      disabled={store.BoilStore.clearFilterDisabled}
+      onClick={() => {
+        store.EmployeeFilterStore.clearFilter();
+      }}
+    >
+      Сбросить
+    </Button>
+  ));
+
+  return (
+    <React.Fragment>
+      <Sheet
+        className="BoilsListTableFilterContainer"
+        variant="outlined"
+        sx={[
+          {
+            display: { xs: "none", xl: "flex" },
+            width: "100%",
+            borderRadius: "sm",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 2,
+            px: 2,
+            py: 1,
+            borderWidth: "1px",
+            mb: 1,
+          },
+          (theme) => ({
+            backgroundColor: theme.variants.soft.neutral,
+          }),
+        ]}
+      >
+        {/* <Box sx={{ display: "flex", gap: 2, alignItems: "center", pl: 2 }}>
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <FormControl size="sm" id={BoilFilterParams.BOIL}>
+              <Input
+                sx={{
+                  "&:focus-within": {
+                    "--Input-focusedHighlight":
+                      mode === "light" ? "var(--joy-palette-neutral-400)" : "var(--joy-palette-neutral-400)",
+                  },
+                  minWidth: "150px",
+                  maxWidth: "150px",
+                  display: "flex",
+                  flexShrink: 1,
+                }}
+                autoComplete="false"
+                value={store.BoilStore.state.filter.boil}
+                onChange={(e) => store.BoilStore.changeFilter({ key: e.target.id, value: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    store.BoilStore.fetchBoils();
+                  }
+                }}
+                placeholder="Партия"
+                startDecorator={
+                  <IconButton
+                    variant="plain"
+                    // color={mode === "dark" ? "warning" : "neutral"}
+
+                    onClick={() => {
+                      store.BoilStore.changeFilter({
+                        key: BoilFilterParams.BOIL_ASC,
+                        value: store.BoilStore.state.filter.boilAsc ? "false" : "true",
+                      });
+                      store.BoilStore.fetchBoils();
+                    }}
+                    sx={[
+                      store.BoilStore.state.filter.boilAsc
+                        ? { "& svg": { transform: "rotate(0deg)" } }
+                        : { "& svg": { transform: "rotate(180deg)" } },
+                    ]}
+                  >
+                    <FilterListOutlinedIcon />
+                  </IconButton>
+                }
+                endDecorator={
+                  <React.Fragment>
+                    <IconButton
+                      color={mode === "dark" ? "neutral" : "neutral"}
+                      disabled={store.BoilStore.state.filter.boil === ""}
+                      onClick={() => {
+                        store.BoilStore.changeFilter({ key: BoilFilterParams.BOIL, value: "" });
+                        store.BoilStore.fetchBoils();
+                      }}
+                    >
+                      <ClearOutlinedIcon />
+                    </IconButton>
+                  </React.Fragment>
+                }
+              />
+              <FormHelperText>Поиск по партии</FormHelperText>
+            </FormControl>
+          </Box>
+
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <FormControl size="sm" id={BoilFilterParams.MARKING}>
+              <Input
+                sx={{
+                  "&:focus-within": {
+                    "--Input-focusedHighlight":
+                      mode === "light" ? "var(--joy-palette-neutral-400)" : "var(--joy-palette-neutral-400)",
+                  },
+                  minWidth: "150px",
+                  maxWidth: "150px",
+                  display: "flex",
+                  flexShrink: 1,
+                }}
+                autoComplete="false"
+                value={store.BoilStore.state.filter.marking}
+                onChange={(e) => store.BoilStore.changeFilter({ key: e.target.id, value: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    store.BoilStore.fetchBoils();
+                  }
+                }}
+                placeholder="Артикул"
+                startDecorator={<SearchIcon />}
+                endDecorator={
+                  <React.Fragment>
+                    <IconButton
+                      color={mode === "dark" ? "neutral" : "neutral"}
+                      disabled={store.BoilStore.state.filter.marking === ""}
+                      onClick={() => {
+                        store.BoilStore.changeFilter({ key: BoilFilterParams.MARKING, value: "" });
+                        store.BoilStore.fetchBoils();
+                      }}
+                    >
+                      <ClearOutlinedIcon />
+                    </IconButton>
+                  </React.Fragment>
+                }
+              />
+              <FormHelperText>Поиск по артикулу</FormHelperText>
+            </FormControl>
+          </Box>
+
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <FormControl size="sm" id={BoilFilterParams.BASE}>
+              <Input
+                sx={{
+                  "&:focus-within": {
+                    "--Input-focusedHighlight":
+                      mode === "light" ? "var(--joy-palette-neutral-400)" : "var(--joy-palette-neutral-400)",
+                  },
+                  minWidth: "150px",
+                  maxWidth: "150px",
+                  display: "flex",
+                  flexShrink: 1,
+                }}
+                autoComplete="false"
+                value={store.BoilStore.state.filter.baseCode}
+                onChange={(e) => store.BoilStore.changeFilter({ key: e.target.id, value: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    store.BoilStore.fetchBoils();
+                  }
+                }}
+                placeholder="Код 1С"
+                startDecorator={<SearchIcon />}
+                endDecorator={
+                  <React.Fragment>
+                    <IconButton
+                      color={mode === "dark" ? "neutral" : "neutral"}
+                      disabled={store.BoilStore.state.filter.baseCode === ""}
+                      onClick={() => {
+                        store.BoilStore.changeFilter({ key: BoilFilterParams.BASE, value: "" });
+                        store.BoilStore.fetchBoils();
+                      }}
+                    >
+                      <ClearOutlinedIcon />
+                    </IconButton>
+                  </React.Fragment>
+                }
+              />
+              <FormHelperText>Поиск по коду 1С</FormHelperText>
+            </FormControl>
+          </Box>
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <FormControl size="sm" id={BoilFilterParams.STATES}>
+              <Select
+                action={action}
+                size="sm"
+                multiple
+                placeholder="Выберите статус"
+                value={[...store.BoilStore.state.filter.states]}
+                slotProps={{
+                  button: { sx: { whiteSpace: "nowrap" } },
+                  listbox: { sx: { zIndex: 999999 } },
+                }}
+                sx={{
+                  minWidth: "220px",
+                  maxWidth: "220px",
+                  display: "flex",
+                  flexShrink: 1,
+                }}
+                onChange={(event: React.SyntheticEvent | null, newValue: number[] | null) => {
+                  event &&
+                    newValue &&
+                    store.BoilStore.changeFilter({ key: BoilFilterParams.STATES, value: "", values: newValue });
+                }}
+                {...(store.BoilStore.state.filter.states.length > 0 && {
+                  endDecorator: (
+                    <IconButton
+                      color="neutral"
+                      onMouseDown={(event) => {
+                        event.stopPropagation();
+                      }}
+                      onClick={() => {
+                        console.log("try");
+                        store.BoilStore.clearStates();
+                        store.BoilStore.fetchBoils();
+                        action.current?.focusVisible();
+                      }}
+                    >
+                      <CloseRounded />
+                    </IconButton>
+                  ),
+                  indicator: null,
+                })}
+              >
+                {store.HistoryTypeStore.baseSelectorOptions.map((historyType) => (
+                  <Option value={historyType.id} key={historyType.id}>
+                    <FormControl size="sm">
+                      <Checkbox
+                        color="neutral"
+                        checked={[...store.BoilStore.state.filter.states].includes(historyType.id)}
+                        label={historyType.description}
+                      />
+                    </FormControl>
+                  </Option>
+                ))}
+              </Select>
+              <FormHelperText>Поиск по статусу</FormHelperText>
+            </FormControl>
+          </Box>
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <FormControl size="sm" id={BoilFilterParams.PLANTS}>
+              <Select
+                action={action}
+                size="sm"
+                multiple
+                placeholder="Выберите площадку"
+                value={[...store.BoilStore.state.filter.plants]}
+                slotProps={{
+                  button: { sx: { whiteSpace: "nowrap" } },
+                  listbox: { sx: { zIndex: 999999 } },
+                }}
+                sx={{
+                  minWidth: "220px",
+                  maxWidth: "220px",
+                  display: "flex",
+                  flexShrink: 1,
+                }}
+                onChange={(event: React.SyntheticEvent | null, newValue: number[] | null) => {
+                  event &&
+                    newValue &&
+                    store.BoilStore.changeFilter({ key: BoilFilterParams.PLANTS, value: "", values: newValue });
+                }}
+                {...(store.BoilStore.state.filter.plants.length > 0 && {
+                  endDecorator: (
+                    <IconButton
+                      color="neutral"
+                      onMouseDown={(event) => {
+                        event.stopPropagation();
+                      }}
+                      onClick={() => {
+                        console.log("try");
+                        store.BoilStore.clearPlants();
+                        store.BoilStore.fetchBoils();
+                        action.current?.focusVisible();
+                      }}
+                    >
+                      <CloseRounded />
+                    </IconButton>
+                  ),
+                  indicator: null,
+                })}
+              >
+                {store.PlantStore.selectorOptions.map((plant) => (
+                  <Option value={plant.id} key={plant.id}>
+                    <FormControl size="sm">
+                      <Checkbox
+                        color="neutral"
+                        checked={[...store.BoilStore.state.filter.plants].includes(plant.id)}
+                        label={plant.value}
+                      />
+                    </FormControl>
+                  </Option>
+                ))}
+              </Select>
+              <FormHelperText>Поиск по площадке</FormHelperText>
+            </FormControl>
+          </Box>
+        </Box> */}
+        <Box sx={{ display: "flex", justifyContent: "flex-start", gap: 2 }}>
+          <RenewButtonComponent />
+          <ClearFilterComponent />
+        </Box>
+      </Sheet>
+    </React.Fragment>
+  );
+}
+export default observer(EmployeeTableFilterComponent);

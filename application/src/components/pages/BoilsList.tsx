@@ -11,6 +11,7 @@ export default function BoilsList() {
 
   React.useEffect(() => {
     store.HistoryTypeStore.fetchHistoryTypes()
+      .then(() => store.PlantStore.fetchPlants())
       .then(() => store.HistoryTypeStore.fetchHistoryTypesForBases())
       .then(() => store.BoilStore.clearFilter())
       .then(() =>

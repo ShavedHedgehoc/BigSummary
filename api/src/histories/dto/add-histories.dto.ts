@@ -33,4 +33,5 @@ export class AddHistoryDtoNew {
   readonly code: string;
   readonly base_code: string;
   readonly history_note: string;
+  readonly plant_id: number;
 }

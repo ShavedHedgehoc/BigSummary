@@ -10,4 +10,5 @@ export enum ProcessMessages {
   NOT_PRODUCT_BARCODE = "Не удается распознать данные с ярлыка",
   EMPLOYEE_LABEL = "Пользователь: ",
   EMPLOYEE_UNDEFINED = "Пользователь не определен",
+  PLANT_UNDEFINED = "Площадка не определена",
 }

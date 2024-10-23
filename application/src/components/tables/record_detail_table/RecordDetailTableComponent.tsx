@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../../main";
 import RecordDetailRowComponent from "./RecordDetailRowComponent";
-import TableSkeleton from "../TableSkeleton";
+import TableSkeleton from "../TableLayout";
 import { DbRoles } from "../../../dbRoles";
 
 const RecordDetailTableComponent = () => {

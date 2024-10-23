@@ -25,6 +25,7 @@ function MainFormComponent() {
       store.EmployeeStore.employee.occupation.value === "OPERATOR" &&
       processProductCard(barcode);
   };
+
   const processBarcode = async (value: string) => {
     const isBarcode = checkBarcode(value);
     if (isBarcode) {
@@ -46,13 +47,17 @@ function MainFormComponent() {
       processMessage(ProcessMessages.EMPLOYEE_UNDEFINED, "fail");
       return;
     }
+    if (!store.PlantStore.plant) {
+      processMessage(ProcessMessages.PLANT_UNDEFINED, "fail");
+      return;
+    }
     const [boil, baseCode] = parseBoilCard(value);
     if (boil && baseCode) {
       const payload: HistoriePayload = {
         record_id: null,
         code: null,
         base_code: baseCode,
-        //insert base code here
+        plant_id: store.PlantStore.plant.id,
         boil_value: boil,
         historyType: "base_check",
         userId: null,
@@ -77,6 +82,7 @@ function MainFormComponent() {
         boil_value: boil,
         code: code,
         base_code: null,
+        plant_id: null,
         userId: null,
         employeeId: store.EmployeeStore.employee.id,
         historyType: "product_check",
@@ -95,7 +101,9 @@ function MainFormComponent() {
         processMessage(store.HistoriesStore.error, "fail");
       } else {
         processMessage(ProcessMessages.SUCCESS_ADD, "success");
-        store.RecordsStore.fetchRecords();
+        if (store.PlantStore.plant) {
+          store.RecordsStore.fetchRecords(store.PlantStore.plant.id);
+        }
       }
     });
   };

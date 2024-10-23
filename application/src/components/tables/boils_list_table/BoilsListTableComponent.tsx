@@ -4,7 +4,7 @@ import { Context } from "../../../main";
 import BoilsListRowComponent from "./BoilsListRowComponent";
 import { BoilListTableProps } from "./BoilsListTable";
 import { IBoilsListItem } from "../../../types";
-import TableSkeleton from "../TableSkeleton";
+import TableSkeleton from "../TableLayout";
 
 interface BoilListTableComponentProps extends BoilListTableProps {
   makeRecord({ boil, state }: { boil: IBoilsListItem; state: string }): void;
@@ -18,6 +18,7 @@ const BoilsListTableComponent = (props: BoilListTableComponentProps) => {
     { width: 64, value: "Партия" },
     { width: 64, value: "Артикул" },
     { width: 64, value: "Код 1C" },
+    { width: 50, value: "Площадка" },
     { width: 50, value: "В сводках" },
     { width: 50, value: "Записей" },
     { width: 96, value: "Статус" },

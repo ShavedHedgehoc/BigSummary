@@ -2,7 +2,7 @@ import * as React from "react";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import { Context } from "../../main";
 import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
-import TableSkeleton from "../tables/TableSkeleton";
+import TableSkeleton from "../tables/TableLayout";
 import { Box, Button, Typography, useColorScheme } from "@mui/joy";
 
 export default function UsersList() {
@@ -82,7 +82,6 @@ export default function UsersList() {
           </tbody>
         </TableSkeleton>
       )}
-      {/* {initial && <BoilsListTable role={"laboratory"} />} */}
     </React.Fragment>
   );
 }

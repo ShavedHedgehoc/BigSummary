@@ -48,15 +48,15 @@ export default class EmployeeStore {
 
   async fetchEmployees() {
     try {
-      this.setPending(true);
       this.setError([]);
-      this.setEmployees([]);
+      this.setPending(true);
       const response = await EmployeeService.getEmployees();
-      await this.setEmployees([...response.data]);
+      this.setEmployees([...response.data]);
     } catch (error) {
       const errValue = handleError(error);
       await this.setError([...errValue]);
     } finally {
+      await new Promise((r) => setTimeout(r, 500));
       await this.setPending(false);
     }
   }
