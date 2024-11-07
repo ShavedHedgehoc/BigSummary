@@ -19,6 +19,7 @@ const RowComponent = ({ row, role }: { row: IDocRow; role: string }) => {
       userId: store.AuthStore.user.id,
       employeeId: null,
       note: null,
+      history_note: null,
     };
     store.HistoryStore.createHistory(data).then(() => {
       if (id) {
@@ -67,6 +68,11 @@ const RowComponent = ({ row, role }: { row: IDocRow; role: string }) => {
       <td scope={selClass(row)} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
         <Typography level="body-xs">{row.boil}</Typography>
       </td>
+      {/* For test */}
+      <td scope={selClass(row)} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+        <Typography level="body-xs">{row.isSet ? "Да" : "Нет"}</Typography>
+      </td>
+      {/* For test */}
       <td scope={selClass(row)} style={{ width: 48, textAlign: "center", padding: "12px 6px" }}>
         <Typography level="body-xs">{row.plan}</Typography>
       </td>

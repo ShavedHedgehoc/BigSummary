@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 import NoteService from "../services/NoteService";
 
 export default class NoteStore {

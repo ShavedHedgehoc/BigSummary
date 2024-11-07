@@ -13,6 +13,7 @@ export interface IDocRow {
   historiesCount: number;
   state: string;
   stateValue: string;
+  isSet: boolean;
 }
 
 export interface SummaryResponse {
@@ -58,6 +59,7 @@ export interface IBoilParams {
 export interface IPlant {
   id: number;
   value: string;
+  abb: string;
 }
 
 export interface ISerie {
@@ -125,7 +127,7 @@ export interface IOccupation {
 
 export interface IHistory {
   id: number;
-  // recordId: number;
+
   record_id: number;
   boil_id: number;
   historyTypeId: number;

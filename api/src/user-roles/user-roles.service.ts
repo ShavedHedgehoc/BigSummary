@@ -8,12 +8,39 @@ export class UserRolesService {
   constructor(@InjectModel(UserRoles) private userRoleRepository: typeof UserRoles) {}
 
   async getRolesListByUserId(id: number) {
-    const userRoles = this.userRoleRepository.findAll({
+    const userRoles = await this.userRoleRepository.findAll({
+      where: { userId: id },
+      attributes: [],
+      // include: { model: Role, attributes: ["value"] },
+      include: { model: Role, attributes: ["id", "value", "description"] },
+    });
+    const result = userRoles.map((item) => {
+      return { id: item.role.id, value: item.role.value, description: item.role.description };
+    });
+
+    return result;
+    // return userRoles;
+  }
+
+  async getRolesIdsByUserId(id: number) {
+    const userRoles = await this.userRoleRepository.findAll({
+      where: { userId: id },
+      attributes: [],
+      include: { model: Role, attributes: ["id"] },
+    });
+    const result = userRoles.map((item) => item.role.id);
+
+    return result;
+  }
+
+  async getRolesValuesByUserId(id: number) {
+    const userRoles = await this.userRoleRepository.findAll({
       where: { userId: id },
       attributes: [],
       include: { model: Role, attributes: ["value"] },
     });
-    const result = (await userRoles).map((item) => item.role.value);
+    const result = userRoles.map((item) => item.role.value);
+
     return result;
   }
 

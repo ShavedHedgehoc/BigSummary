@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { DocsService } from "./docs.service";
 import Doc from "./docs.model";
@@ -17,12 +17,12 @@ export class DocsController {
     return this.docsService.getAllDocs();
   }
 
-  // @ApiOperation({ summary: "Получить текущую сводку" })
-  // @ApiResponse({ status: 200, type: [Doc] })
-  // @Get("/:plantId")
-  // getCurrentDoc(@Param("plantId") plantId: string) {
-  //   return this.docsService.getCurrentDoc(plantId);
-  // }
+  @ApiOperation({ summary: "Удалить сводку по id" })
+  @ApiResponse({ status: 201 })
+  @Delete("/:id")
+  getCurrentDoc(@Param("id") id: string) {
+    return this.docsService.deleteDoc(Number(id));
+  }
 
   // @ApiOperation({ summary: "Получить сводку по id" })
   // @ApiResponse({ status: 200, type: [Doc] })

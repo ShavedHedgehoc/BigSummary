@@ -75,6 +75,10 @@ function MainFormComponent() {
       processMessage(ProcessMessages.EMPLOYEE_UNDEFINED, "fail");
       return;
     }
+    if (!store.PlantStore.plant) {
+      processMessage(ProcessMessages.PLANT_UNDEFINED, "fail");
+      return;
+    }
     const [code, boil] = parseProductCard(value);
     if (code && boil) {
       const payload: HistoriePayload = {
@@ -82,7 +86,8 @@ function MainFormComponent() {
         boil_value: boil,
         code: code,
         base_code: null,
-        plant_id: null,
+        // plant_id: null,
+        plant_id: store.PlantStore.plant.id,
         userId: null,
         employeeId: store.EmployeeStore.employee.id,
         historyType: "product_check",

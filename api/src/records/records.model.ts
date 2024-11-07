@@ -2,9 +2,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   AllowNull,
   AutoIncrement,
+  BeforeCreate,
   BelongsTo,
   Column,
   DataType,
+  Default,
   ForeignKey,
   HasMany,
   Model,
@@ -80,6 +82,10 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   @Column
   workshopId: number;
 
+  @Default(false)
+  @Column
+  isSet: boolean;
+
   @BelongsTo(() => Doc)
   doc: Doc;
 
@@ -103,4 +109,15 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @BeforeCreate
+  static addSetProperty(instance: Record) {
+    const apparatus = instance.apparatusId;
+    const can = instance.canId;
+    if (can || apparatus) {
+      instance.isSet = false;
+    } else {
+      instance.isSet = true;
+    }
+  }
 }

@@ -12,6 +12,7 @@ import { SeedUser } from "src/seeds/user.seed";
 import { SeedRole } from "src/seeds/role.seed";
 import { SeedUserRole } from "src/seeds/userRoles.seed";
 import { UserRolesModule } from "src/user-roles/user-roles.module";
+import { TokenModule } from "src/token/token.module";
 
 @Module({
   controllers: [UsersController],
@@ -19,6 +20,7 @@ import { UserRolesModule } from "src/user-roles/user-roles.module";
   imports: [
     SequelizeModule.forFeature([User, Role, UserRoles]),
     RolesModule,
+    TokenModule,
     UserRolesModule,
     forwardRef(() => AuthModule),
     SeederModule.forFeature([SeedUser]),

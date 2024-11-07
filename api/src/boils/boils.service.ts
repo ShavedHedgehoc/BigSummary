@@ -1,14 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
+import sequelize, { Op } from "sequelize";
 import Boil from "./boil.model";
-import { Op, fn, col, literal, where } from "sequelize";
-import { GetBoilsDto } from "./dto/get-boils.dto";
 import Base from "src/bases/bases.model";
-import History from "src/histories/histories.model";
-import Product from "src/products/products.model";
-import HistoryType from "src/history_types/history_types.model";
-import { group } from "console";
-import sequelize from "sequelize";
+import { GetBoilsDto } from "./dto/get-boils.dto";
 
 @Injectable()
 export class BoilsService {
@@ -19,19 +14,16 @@ export class BoilsService {
 
   async getAllBoils() {
     const boils = await this.boilsRepository.findAll({
-      // attributes: ["id", "value"],
-      // where: { base_id: { [Op.ne]: null } },
-      // where: { year: { [Op.ne]: null } },
       order: [
         ["year", "ASC"],
         ["letter", "ASC"],
         ["number", "ASC"],
         ["value", "ASC"],
       ],
-      // order: [["month_letter", "ASC"]],
     });
     return boils;
   }
+
   async getBoilsIdsByHistoryTypeIds(typeArr: number[] | []): Promise<number[] | []> {
     interface RespItem {
       id: number;

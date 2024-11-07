@@ -4,6 +4,7 @@ import { DocsService } from "src/docs/docs.service";
 import { HistoriesService } from "src/histories/histories.service";
 import Record from "src/records/records.model";
 import { RecordsService } from "src/records/records.service";
+import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
 
 @Injectable()
 export class DocDetailService {
@@ -13,7 +14,25 @@ export class DocDetailService {
     private historiesService: HistoriesService
   ) {}
 
-  async recordResult(item: Record) {
+  async recordResult<
+    Type extends {
+      id: number;
+      productId: string;
+      product: string;
+      boil: string;
+      plan: number;
+      apparatus: string;
+      bbf: string;
+      note: string;
+      can: string;
+      conveyor: string;
+      workshop: string;
+      historiesCount: number;
+      state: string;
+      stateValue: string;
+      isSet: boolean;
+    },
+  >(item: Record) {
     const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(item.id, item.boilId);
     const historiesCount = histories.length;
     const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
@@ -33,6 +52,7 @@ export class DocDetailService {
       historiesCount: historiesCount,
       state: state,
       stateValue: stateValue,
+      isSet: item.isSet,
     };
   }
 
@@ -43,9 +63,35 @@ export class DocDetailService {
       }
       return undefined;
     };
+
     const records = await this.recordsService.getRecordsByDocId(doc.id);
+
     const recordsResult = await Promise.all(await records.map(async (item) => this.recordResult(item)));
-    return { ...JSON.parse(JSON.stringify(doc, replacer)), plant: doc.plants.value, records: [...recordsResult] };
+    const res = {
+      ...JSON.parse(JSON.stringify(doc, replacer)),
+      plant: doc.plants.value,
+      records: [...recordsResult],
+    };
+    return res;
+  }
+
+  async getDocDetailDataWithFilter(doc: Doc, dto: GetCurrentDocDto) {
+    const replacer = (key, value) => {
+      if (key !== "plants") {
+        return value;
+      }
+      return undefined;
+    };
+
+    const records = await this.recordsService.getRecordsByDocIdWithFilter(doc.id, dto);
+
+    const recordsResult = await Promise.all(await records.map(async (item) => this.recordResult(item)));
+    const res = {
+      ...JSON.parse(JSON.stringify(doc, replacer)),
+      plant: doc.plants.value,
+      records: [...recordsResult],
+    };
+    return res;
   }
 
   async getDocRowDetailData(recordId: number) {
@@ -53,13 +99,15 @@ export class DocDetailService {
     if (!record) {
       throw new HttpException("Запись на найдена", HttpStatus.NOT_FOUND);
     }
-    return await this.recordResult(record);
+    const result = await this.recordResult(record);
+    return result;
   }
 
   async getCurrentDocDetail(plantId: number) {
     const doc = await this.docsService.getCurrentDocByPlantId(plantId);
     if (!doc) {
-      throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
+      return { records: [] };
+      // throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
     }
     const result = await this.getDocDetailData(doc);
     return result;
@@ -71,6 +119,17 @@ export class DocDetailService {
       throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
     }
     const result = await this.getDocDetailData(doc);
+    return result;
+  }
+
+  // async getCurrentDocDetailWithFilter(plantId: number, dto: GetCurrentDocDto) {
+  async getCurrentDocDetailWithFilter(dto: GetCurrentDocDto) {
+    console.log(dto);
+    const doc = await this.docsService.getCurrentDocByPlantId(dto.filter.plant);
+    if (!doc) {
+      return { records: [] };
+    }
+    const result = await this.getDocDetailDataWithFilter(doc, dto);
     return result;
   }
 }

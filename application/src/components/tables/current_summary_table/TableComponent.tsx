@@ -21,6 +21,11 @@ const TableComponent = (props: CurrentSummaryTableProps) => {
             <th scope="col" style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
               Партия
             </th>
+            {/* For test */}
+            <th scope="col" style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+              Набор
+            </th>
+            {/* For test */}
             <th scope="col" style={{ width: 48, textAlign: "center", padding: "12px 6px" }}>
               План
             </th>

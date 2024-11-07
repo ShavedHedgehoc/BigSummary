@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { DocDetailService } from "./doc.detail.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
 
 @ApiTags("Сводки тест")
 @Controller("doc_detail")
@@ -26,5 +27,13 @@ export class DocDetailController {
   @Get("/record/:record_id")
   getRecordDetail(@Param("record_id") record_id: string) {
     return this.docDetailService.getDocRowDetailData(Number(record_id));
+  }
+
+  @ApiOperation({ summary: "Получить все записи с параметрами" })
+  //   @ApiResponse({ status: 200, type: [History] })
+  @Post()
+  // getCurrentDocWithParams(@Param("plantId") plantId: string, @Body() dto: GetCurrentDocDto) {
+  getCurrentDocWithParams(@Body() dto: GetCurrentDocDto) {
+    return this.docDetailService.getCurrentDocDetailWithFilter(dto);
   }
 }

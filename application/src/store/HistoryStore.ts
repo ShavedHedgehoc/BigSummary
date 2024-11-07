@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import HistoryService, { AddHistoryDto, HistoryCreateDirectDto } from "../services/HistoryService";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 
 export default class HistoryStore {
   pending = false;

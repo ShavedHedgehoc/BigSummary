@@ -9,7 +9,6 @@ import RecordDetailStore from "./RecordDetailStore";
 import HistoryTypeStore from "./HistoryTypeStore";
 import BoilStore from "./BoilStore";
 import RoleStore from "./RoleStore";
-import UserStore from "./UserStore";
 import BoilDetailStore from "./BoilDetailStore";
 import NoteStore from "./NoteStore";
 import EmployeePaginationStore from "./EmployeePaginationStore";
@@ -29,7 +28,6 @@ export default class RootStore {
   HistoryTypeStore;
   BoilStore;
   RoleStore;
-  UserStore;
   BoilDetailStore;
   NoteStore;
 
@@ -44,7 +42,7 @@ export default class RootStore {
     this.HistoryTypeStore = new HistoryTypeStore();
     this.BoilStore = new BoilStore();
     this.RoleStore = new RoleStore();
-    this.UserStore = new UserStore();
+
     this.BoilDetailStore = new BoilDetailStore();
     this.NoteStore = new NoteStore();
     this.EmployeePaginationStore = new EmployeePaginationStore(this.EmployeeStore);

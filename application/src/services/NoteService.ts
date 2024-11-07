@@ -1,4 +1,4 @@
-import { $api } from "../http";
+import { $api } from "../shared/api/http";
 import { AxiosResponse } from "axios";
 
 export interface NoteResponse {

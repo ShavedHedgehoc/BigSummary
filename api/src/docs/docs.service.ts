@@ -19,9 +19,9 @@ export class DocsService {
       where: { plantId: plantId, date: date },
       include: { model: Plant },
     });
-    if (!doc) {
-      throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
-    }
+    // if (!doc) {
+    //   throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
+    // }
     return doc;
   }
 
@@ -61,5 +61,24 @@ export class DocsService {
       return doc;
     }
     throw new HttpException("Площадка на найдена", HttpStatus.NOT_FOUND);
+  }
+
+  async deleteDoc(id: number) {
+    const doc = await this.docRepository.findByPk(id);
+    if (!doc) {
+      throw new HttpException("Документ для удаления не найден", HttpStatus.NOT_FOUND);
+    }
+    try {
+      await doc.destroy();
+    } catch (error) {
+      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+        throw new HttpException(
+          "Существуют записи, связанные с этой сводкой. Удаление невозможно...",
+          HttpStatus.BAD_REQUEST
+        );
+      } else {
+        throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { $api } from "../http";
+import { $api } from "../shared/api/http";
 import { AxiosResponse } from "axios";
 import { IBoilParams, IBoilsListItem } from "../types";
 import { IBoilData, IBoilRow } from "../store/BoilStore";

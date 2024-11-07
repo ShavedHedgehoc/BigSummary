@@ -5,6 +5,9 @@ import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { AddOccupationDto } from "./dto/add-occupation.dto";
 import { OccupationsService } from "src/occupations/occupations.service";
 import Occupation from "src/occupations/occupations.model";
+import { GetEmployeesDto } from "./dto/get-employees.dto";
+import { Op } from "sequelize";
+import { UpdateEmployeeDto } from "./dto/update-employee.dto";
 
 @Injectable()
 export class EmployeesService {
@@ -15,8 +18,16 @@ export class EmployeesService {
   ) {}
 
   async createEmployee(dto: CreateEmployeeDto) {
-    const employee = await this.employeeRepository.create(dto);
-    return employee;
+    try {
+      const employee = await this.employeeRepository.create(dto);
+      return employee;
+    } catch (error) {
+      if (error instanceof Error && error.name === "SequelizeUniqueConstraintError") {
+        throw new HttpException("Пользователь с таким ФИО или штрихкодом уже существует", HttpStatus.BAD_REQUEST);
+      } else {
+        throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 
   async getById(id: number) {
@@ -34,9 +45,76 @@ export class EmployeesService {
     return employees;
   }
 
+  async getAllEmployeesWithFilter(dto: GetEmployeesDto) {
+    const nameOrder = dto.filter.nameAsc ? "ASC" : "DESC";
+    let filter = {};
+    if (dto.filter.nameFilter !== "") {
+      const nameFilter = { [Op.iLike]: `%${dto.filter.nameFilter}%` };
+      filter = { ...filter, name: nameFilter };
+    }
+    if (dto.filter.occupations.length > 0) {
+      const occupationsFilter = { [Op.in]: [...dto.filter.occupations] };
+      filter = { ...filter, occupationId: occupationsFilter };
+    }
+    const count = await this.employeeRepository.count({
+      where: { ...filter },
+    });
+
+    const employees = await this.employeeRepository.findAll({
+      attributes: ["id", "name", "barcode"],
+      include: [{ model: Occupation }],
+      where: { ...filter },
+      order: [["name", nameOrder]],
+      limit: dto.limit,
+      offset: dto.limit * (dto.page - 1),
+    });
+    return { employees: employees, total: count };
+  }
+
   async getEmployeeByBarcode(barcode: string) {
     const employee = await this.employeeRepository.findOne({ where: { barcode: barcode }, include: { all: true } });
     return employee;
+  }
+
+  async deleteEmployee(id: number) {
+    const employee = await this.employeeRepository.findByPk(id);
+    if (!employee) {
+      throw new HttpException("Пользователь не найден", HttpStatus.NOT_FOUND);
+    }
+    try {
+      await employee.destroy();
+    } catch (error) {
+      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+        throw new HttpException(
+          "Существуют записи, связанные с этим пользователем. Удаление невозможно...",
+          HttpStatus.BAD_REQUEST
+        );
+      } else {
+        throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+      }
+    }
+  }
+
+  async updateEmployee(dto: UpdateEmployeeDto) {
+    const employee = await this.employeeRepository.findByPk(dto.id);
+    if (!employee) {
+      throw new HttpException("Пользователь не найден", HttpStatus.NOT_FOUND);
+    }
+    try {
+      employee.set({
+        name: dto.name,
+        barcode: dto.barcode,
+        occupationId: dto.occupationId,
+      });
+      await employee.save();
+      return employee;
+    } catch (error) {
+      if (error instanceof Error && error.name === "SequelizeUniqueConstraintError") {
+        throw new HttpException("Пользователь с таким ФИО или штрихкодом уже существует", HttpStatus.BAD_REQUEST);
+      } else {
+        throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 
   async addOccupation(dto: AddOccupationDto) {

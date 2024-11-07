@@ -1,6 +1,6 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import SummaryService from "../services/SummaryService";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 import { IDoc } from "../types";
 
 export default class DocStore {
@@ -54,6 +54,21 @@ export default class DocStore {
 
       const response = await SummaryService.getDocs();
       this.setDocs([...response.data]);
+    } catch (error) {
+      const errValue = handleError(error);
+      this.setError([...errValue]);
+    } finally {
+      this.setPending(false);
+    }
+  }
+
+  async deleteDoc(id: number) {
+    try {
+      this.setPending(true);
+      this.setError([]);
+
+      await SummaryService.deleteDoc(id);
+      await this.fetchDocs();
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);

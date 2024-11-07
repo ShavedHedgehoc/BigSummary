@@ -202,12 +202,7 @@ const BoilListRowComponent = ({
           </td>
           <td scope={selClass(row)} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
             {row.historiesCount > 0 && (
-              <Button
-                variant="outlined"
-                color="neutral"
-                size="sm"
-                // onClick={() => makeHistoryRecord(row.value, "plug_pass", null)}
-              >
+              <Button variant="outlined" color="neutral" size="sm" onClick={() => showStatesList(row)}>
                 <Typography level="body-xs" variant="plain" color="neutral">
                   Подробнее
                 </Typography>

@@ -105,6 +105,7 @@ export class HistoriesService {
   }
 
   async addHistorie(dto: AddHistoryDtoNew) {
+    console.log(dto);
     const findRecordId = async () => {
       if (dto.boil_value && dto.code) {
         const record = await this.recordsService.getCurrentRecordByBoilAndCode(dto.boil_value, dto.code);
@@ -135,16 +136,53 @@ export class HistoriesService {
       if (!record_id) {
         throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
       }
-      if (
-        (lastHistory &&
-          lastHistory.historyType.value !== "plug_pass" &&
-          lastHistory.historyType.value !== "product_check") ||
-        !lastHistory
-      ) {
-        throw new HttpException('Для фиксации пробы необходим статус "Допуск на подключение"', HttpStatus.BAD_REQUEST);
-      }
-      if (lastHistory && lastHistory.historyType.value === "product_check") {
+      const record = await this.recordsService.getById(record_id);
+
+      // Set
+      if (record.isSet && lastHistory && lastHistory.historyType.value === "product_check") {
         throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
+      }
+
+      if (
+        record.isSet &&
+        lastHistory &&
+        lastHistory.historyType.value !== "product_check" &&
+        lastHistory.historyType.value !== "product_fail"
+      ) {
+        throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
+      }
+
+      // Not set
+
+      if (!record.isSet && !lastHistory) {
+        throw new HttpException('Необходимо статус "Допуск на подключение"', HttpStatus.BAD_REQUEST);
+      }
+
+      if (
+        !record.isSet &&
+        lastHistory &&
+        lastHistory.historyType.value !== "plug_pass" &&
+        lastHistory.historyType.value !== "product_fail"
+      ) {
+        console.log(lastHistory.historyType.value);
+        if (lastHistory.historyType.value === "product_check") {
+          throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
+        } else {
+          throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
+        }
+      }
+
+      if (
+        !record.isSet &&
+        lastHistory &&
+        !record.isSet &&
+        lastHistory.historyType.value !== "plug_pass" &&
+        lastHistory.historyType.value !== "product_check"
+      ) {
+        throw new HttpException(
+          'Для фиксации пробы необходим статус "Допуск на подключение" или "Брак продукта"',
+          HttpStatus.BAD_REQUEST
+        );
       }
     }
 

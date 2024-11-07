@@ -1,6 +1,6 @@
 import { action, computed, makeAutoObservable } from "mobx";
 
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 import { IRole } from "../types";
 import RoleService from "../services/RoleService";
 

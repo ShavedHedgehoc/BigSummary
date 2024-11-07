@@ -32,6 +32,8 @@ import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
 // import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 // import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 
@@ -39,7 +41,7 @@ import { closeSidebar } from "../../utils";
 
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
-import { RouteNames } from "../../router/routeNames";
+import { RouteNames } from "../../shared/router/routeNames";
 import { Link as RouterLink } from "react-router-dom";
 import { IUser } from "../../store/AuthStore";
 
@@ -344,7 +346,7 @@ function SideBar() {
                   sx={{ display: "flex", gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
-                  <SettingsRoundedIcon />
+                  <PersonRoundedIcon />
                   <Typography level="title-sm">Пользователи рабочей станции</Typography>
                 </Link>
               </ListItemContent>

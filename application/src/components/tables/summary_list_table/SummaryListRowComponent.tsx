@@ -62,7 +62,7 @@ const SummaryListRowComponent = ({ row, role }: { row: IDoc; role: string }) => 
               variant="outlined"
               color="danger"
               size="sm"
-              // onClick={() => props.makeHistoryRecord(row.boil.value, null, "product_fail")}
+              onClick={() => store.DocStore.deleteDoc(row.id)}
               disabled={row.historiesCount !== 0}
             >
               <Typography level="body-xs" variant="plain" color={row.historiesCount === 0 ? "danger" : "neutral"}>

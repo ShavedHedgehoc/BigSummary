@@ -20,6 +20,9 @@ import Can from "src/cans/cans.model";
 import Conveyor from "src/conveyors/conveyor.model";
 import Workshop from "src/workshops/workshop.model";
 import Plant from "src/plants/plant.model";
+import { GetCurrentDocDto } from "src/doc.detail/dto/get-current-doc.dto";
+import { Op } from "sequelize";
+import sequelize from "sequelize";
 
 @Injectable()
 export class RecordsService {
@@ -43,6 +46,74 @@ export class RecordsService {
       include: [
         { model: Product, as: "product" },
         { model: Boil, as: "boil" },
+        { model: Apparatus, as: "apparatus" },
+        { model: Can, as: "can" },
+        { model: Conveyor, as: "conveyor" },
+        { model: Workshop, as: "workshop" },
+      ],
+    });
+    return records;
+  }
+
+  async getRecordsIdsByHistoryTypeIds(typeArr: number[] | []): Promise<number[] | []> {
+    interface RespItem {
+      id: number;
+    }
+    const qry = `
+    select records.id 
+    from records as records
+    join
+    (select  max (id) as hid, record_id as record_id from
+    histories
+    group by record_id    
+    ) as maxids
+    on records.id = maxids.record_id
+    join
+    histories as histories
+    on histories.id = maxids.hid
+    join history_types as htypes
+    on htypes.id = histories."historyTypeId"
+    where htypes.id IN (:ids)
+    `;
+    if (typeArr.length === 0) {
+      return [];
+    }
+    const result: RespItem[] = await this.recordsRepository.sequelize.query(qry, {
+      replacements: { ids: typeArr },
+      type: sequelize.QueryTypes.SELECT,
+    });
+    return [...result.map((i) => i.id)];
+  }
+
+  async getRecordsByDocIdWithFilter(docId: number, dto: GetCurrentDocDto) {
+    let filter = {};
+    if (dto.filter.states.length > 0) {
+      const ids = await this.getRecordsIdsByHistoryTypeIds(dto.filter.states);
+      const typeFilter = { [Op.in]: [...ids] };
+      filter = { ...filter, id: typeFilter };
+    }
+
+    let boilCond = {};
+    if (dto.filter.boil !== "") {
+      const boilFilter = { [Op.iLike]: `%${dto.filter.boil}%` };
+      boilCond = { ...boilCond, value: boilFilter };
+    }
+
+    let productCond = {};
+    if (dto.filter.productCode !== "") {
+      const productFilter = { [Op.iLike]: `%${dto.filter.productCode}%` };
+      productCond = { ...productCond, code1C: productFilter };
+    }
+    if (dto.filter.marking !== "") {
+      const markingFilter = { [Op.iLike]: `%${dto.filter.marking}%` };
+      productCond = { ...productCond, marking: markingFilter };
+    }
+
+    const records = await this.recordsRepository.findAll({
+      where: { doc_id: docId, ...filter },
+      include: [
+        { model: Product, as: "product", where: { ...productCond } },
+        { model: Boil, as: "boil", where: { ...boilCond } },
         { model: Apparatus, as: "apparatus" },
         { model: Can, as: "can" },
         { model: Conveyor, as: "conveyor" },

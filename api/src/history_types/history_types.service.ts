@@ -22,6 +22,13 @@ export class HistoryTypesService {
     return historyTypes;
   }
 
+  async getAllProductHistoryTypes() {
+    const historyTypes = await this.historyTypesRepository.findAll({
+      where: { for_boil: false },
+    });
+    return historyTypes;
+  }
+
   async getByValue(value: string) {
     const historyType = await this.historyTypesRepository.findOne({ where: { value: value } });
     return historyType;

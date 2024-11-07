@@ -1,5 +1,5 @@
 import { action, computed, makeAutoObservable } from "mobx";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 import { IHistoryType } from "../types";
 import HistoryTypeService from "../services/HistoryTypeService";
 

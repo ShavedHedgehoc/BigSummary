@@ -1,6 +1,6 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import { IEmployee } from "../types";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 import EmployeeService from "../services/EmployeeService";
 
 export default class EmployeeStore {

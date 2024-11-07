@@ -94,7 +94,7 @@ function BoilsListTable(props: BoilListTableProps) {
         />
       )}
 
-      {store.BoilStore.renderTable && props.role === "laboratory" && (
+      {store.BoilStore.renderTable && (
         <BoilHistoriesListModal
           open={openInfoModal}
           onClose={() => processCloseInfoModal()}
@@ -102,9 +102,7 @@ function BoilsListTable(props: BoilListTableProps) {
           showNote={(noteId: number) => showNote(noteId)}
         />
       )}
-      {store.BoilStore.renderTable && props.role === "laboratory" && (
-        <NoteModal open={openNoteModal} onClose={() => processCloseNoteModal()} />
-      )}
+      {store.BoilStore.renderTable && <NoteModal open={openNoteModal} onClose={() => processCloseNoteModal()} />}
 
       <BoilListTablePaginationComponent />
     </React.Fragment>

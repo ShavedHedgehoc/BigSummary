@@ -1,5 +1,5 @@
 import { computed, makeAutoObservable } from "mobx";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 
 import PlantService from "../services/PlantService";
 import { IPlant } from "../types";

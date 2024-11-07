@@ -1,6 +1,6 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import SummaryService from "../services/SummaryService";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 import { IDocRow, ISummaryUploadData, SummaryResponse } from "../types";
 
 export default class SummaryStore {

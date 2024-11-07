@@ -1,5 +1,5 @@
-import { $api, $clearApi } from "../http";
-import { ApiRoutes } from "../http/apiRoutes";
+import { $api, $clearApi } from "../shared/api/http";
+import { ApiRoutes } from "../shared/api/http/apiRoutes";
 import { AxiosResponse } from "axios";
 // import { AuthResponce } from "../models/responce/AuthResponce";
 import { IUser } from "../store/AuthStore";
