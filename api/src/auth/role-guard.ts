@@ -24,7 +24,6 @@ export class RoleGuard implements CanActivate {
         context.getHandler(),
         context.getClass(),
       ]);
-      // console.log(requiredRoles);
       if (!requiredRoles) {
         return true;
       }
@@ -32,16 +31,15 @@ export class RoleGuard implements CanActivate {
       const authHeader = req.headers.authorization;
       const bearer = authHeader.split(" ")[0];
       const token = authHeader.split(" ")[1];
-
       if (bearer !== "Bearer" || !token) {
         throw new UnauthorizedException({ message: "Пользователь не авторизован" });
       }
 
-      const user = this.jwtService.verify(token);
+      const user = this.jwtService.verify(token, { secret: "JWT_ACCESS_SECRET" });
       req.user = user;
       return user.roles.some((role) => requiredRoles.includes(role.value));
     } catch (error) {
-      throw new HttpException("Прав недостаточно", HttpStatus.FORBIDDEN);
+      throw new HttpException("Прав недостаточно (Role guard)", HttpStatus.BAD_REQUEST);
     }
   }
 }

@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { HistoriesService } from "./histories.service";
 import History from "./histories.model";
-import { CreateHistoryDto } from "./dto/create-history.dto";
-import { AddHistoriesDto, AddHistoryDirectDto, AddHistoryDtoNew } from "./dto/add-histories.dto";
+
+import { AddHistoryDtoNew } from "./dto/add-histories.dto";
+import { Roles } from "src/auth/roles-auth.decorator";
+import { RoleGuard } from "src/auth/role-guard";
 
 @ApiTags("Записи")
 @Controller("histories")
@@ -16,13 +18,6 @@ export class HistoriesController {
   getAll() {
     return this.historiesService.getAllHistories();
   }
-
-  // @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
-  // @ApiResponse({ status: 200, type: [History] })
-  // @Get("/last/:recordId")
-  // getLastByRecordId(@Param("recordId") recordId: string) {
-  //   return this.historiesService.getLastHistoryByRecId(Number(recordId));
-  // }
 
   @ApiOperation({ summary: "Получить последнюю запись по id строки сводки" })
   @ApiResponse({ status: 200, type: [History] })
@@ -54,22 +49,19 @@ export class HistoriesController {
 
   @ApiOperation({ summary: "Создание новой записи напрямую" })
   @ApiResponse({ status: 201, type: History })
+  @Roles("GODMODE", "LABORATORY")
+  @UseGuards(RoleGuard)
   @Post("/direct")
-  // createDirect(@Body() dto: AddHistoryDirectDto) {
   createDirect(@Body() dto: AddHistoryDtoNew) {
     return this.historiesService.directAddHistorie(dto);
   }
 
   @ApiOperation({ summary: "Удалить запись по id записи" })
   @ApiResponse({ status: 201 })
+  @Roles("GODMODE")
+  @UseGuards(RoleGuard)
   @Delete("/:recordId")
   deleteByRecordId(@Param("recordId") recordId: string) {
     return this.historiesService.deleteHistory(Number(recordId));
   }
-  // @ApiOperation({ summary: "Создание новой записи типа base_check" })
-  // @ApiResponse({ status: 201, type: History })
-  // @Post("/base_check")
-  // createBaseCheck(@Body() dto: AddHistoryDtoNew) {
-  //   return this.historiesService.addBaseCheckHistory(dto);
-  // }
 }

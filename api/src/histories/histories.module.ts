@@ -12,6 +12,7 @@ import { EmployeesModule } from "src/employees/employees.module";
 import { ProductsModule } from "src/products/products.module";
 import { BasesModule } from "src/bases/bases.module";
 import { NotesModule } from "src/notes/notes.module";
+import { AuthModule } from "src/auth/auth.module";
 
 @Module({
   controllers: [HistoriesController],
@@ -27,6 +28,7 @@ import { NotesModule } from "src/notes/notes.module";
     ProductsModule,
     BasesModule,
     NotesModule,
+    AuthModule,
   ],
   exports: [HistoriesService],
 })

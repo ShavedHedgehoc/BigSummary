@@ -119,6 +119,7 @@ export class RecordsService {
         { model: Conveyor, as: "conveyor" },
         { model: Workshop, as: "workshop" },
       ],
+      order: [["id", "ASC"]],
     });
     return records;
   }

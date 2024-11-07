@@ -99,7 +99,7 @@ export class HistoriesService {
     ) {
       throw new HttpException("Нет основы, прикрепленной к строке сводки", HttpStatus.CONFLICT);
     }
-    await this.checkUserRole(dto.userId, DbRoles.GODMODE);
+    // await this.checkUserRole(dto.userId, DbRoles.GODMODE);
     const history = await this.createHistory(dto);
     return history;
   }
