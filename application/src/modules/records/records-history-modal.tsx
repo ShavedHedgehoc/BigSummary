@@ -8,7 +8,7 @@ import Button from "@mui/joy/Button";
 import ModalLayout from "../../shared/layouts/modal-layout";
 import TableLayout from "../../shared/layouts/table-layout";
 
-import { useRecordHistories } from "./use-record-histories";
+import { useRecordHistories } from "../../shared/api/use-record-histories";
 import { useRecordHistoryModalStore } from "./store/use-record-history-modal-store";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { rowScope } from "../../shared/helpers/status-conditions";

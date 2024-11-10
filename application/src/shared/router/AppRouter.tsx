@@ -10,17 +10,16 @@ import Login from "../../components/pages/Login";
 import Forbidden from "../../components/pages/Forbidden";
 import SummaryUpload from "../../components/pages/SummaryUpload";
 import SummaryList from "../../components/pages/SummaryList";
-// import Technologist from "../components/pages/Technologist";
-import Laboratory from "../../components/pages/Laboratory";
+
 import Employers from "../../components/pages/employees/Employees";
 import SummaryDetail from "../../components/pages/SummaryDetail";
 import RecordDetail from "../../components/pages/RecordDetail";
-import BoilsList from "../../components/pages/BoilsList";
+
 import Foreman from "../../components/pages/Foreman";
 import BoilsReport from "../../components/pages/BoilReport";
 import SummaryListReport from "../../components/pages/SummaryListReport";
-import UsersList from "../../components/pages/UsersList";
-import Users from "../../components/pages/users/Users";
+
+import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
 import Boils from "../../modules/boils/boils";
 

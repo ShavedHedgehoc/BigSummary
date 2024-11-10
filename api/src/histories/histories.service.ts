@@ -161,7 +161,8 @@ export class HistoriesService {
         !record.isSet &&
         lastHistory &&
         lastHistory.historyType.value !== "plug_pass" &&
-        lastHistory.historyType.value !== "product_fail"
+        lastHistory.historyType.value !== "product_fail" &&
+        lastHistory.historyType.value !== "product_correct"
       ) {
         if (lastHistory.historyType.value === "product_check") {
           throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);

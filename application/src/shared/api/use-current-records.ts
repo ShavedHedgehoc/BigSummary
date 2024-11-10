@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import RecordService from "../../shared/api/services/record-service";
+import RecordService from "./services/record-service";
 
 export const useCurrentRecords = (dto: FetchProductsDto) =>
   useQuery({

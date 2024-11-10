@@ -47,7 +47,6 @@ export default function RowComponent({ row }: { row: IDocRow }) {
   const { store } = React.useContext(Context);
   const setOpen = useAddRecordModalStore(useShallow((state) => state.setOpen));
   const setTitle = useAddRecordModalStore(useShallow((state) => state.setTitle));
-  //   const setId = useAddRecordModalStore(useShallow((state) => state.setId));
   const setRecordId = useAddRecordModalStore(useShallow((state) => state.setRecordId));
   const setState = useAddRecordModalStore(useShallow((state) => state.setState));
   const setNoteRequired = useAddRecordModalStore(useShallow((state) => state.setNoteRequired));

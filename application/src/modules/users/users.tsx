@@ -1,6 +1,6 @@
 import * as React from "react";
-import BreadCrumbHeader from "../../headers/BreadCrumbHeader";
-import MainPageHeader from "../../headers/MainPageHeader";
+import BreadCrumbHeader from "../../components/headers/BreadCrumbHeader";
+import MainPageHeader from "../../components/headers/MainPageHeader";
 import { TableComponent } from "./TableComponent";
 import { ChangeUserRolesModal } from "./ChangeUserRolesModal";
 
@@ -12,10 +12,10 @@ const Users = () => {
       <TableComponent />
       <ChangeUserRolesModal />
       {/* <FilterComponent />
-      <TableComponent />
+     
       <PaginationComponent />
-      <AddEmployeeModal />
-      <EditEmployeeModal /> */}
+      
+      <EditUserModal /> */}
     </React.Fragment>
   );
 };

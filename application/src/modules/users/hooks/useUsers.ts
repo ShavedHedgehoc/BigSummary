@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import UserService from "../../../../services/UserService";
+import UserService from "../../../services/UserService";
 
 // const GetFilter = (): IEmployeeGetDto => {
 //   const page = usePaginationStore.getState().page;

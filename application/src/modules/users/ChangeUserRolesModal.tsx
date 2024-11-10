@@ -3,15 +3,15 @@ import Button from "@mui/joy/Button";
 import Box from "@mui/joy/Box";
 import Checkbox from "@mui/joy/Checkbox";
 import Sheet from "@mui/joy/Sheet";
-import ModalLayout, { ModalLayoutProps } from "../../modals/ModalLayout";
+import ModalLayout, { ModalLayoutProps } from "../../components/modals/ModalLayout";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
 import { useShallow } from "zustand/shallow";
 import { useRoles } from "./hooks/useRoles";
 import { useRolesListStore } from "./hooks/useRolesListStore";
 import { enqueueSnackbar } from "notistack";
-import handleError from "../../../shared/api/http/handleError";
-import UserService from "../../../services/UserService";
+import handleError from "../../shared/api/http/handleError";
+import UserService from "../../services/UserService";
 
 const ContentComponent = () => {
   const { isPending, isRefetching, data } = useRoles();

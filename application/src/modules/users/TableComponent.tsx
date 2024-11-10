@@ -4,17 +4,17 @@ import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
-import TableLayout from "../../tables/TableLayout";
-import TableLoaderComponent from "../../tables/TableLoaderComponent";
-import TableNotFoundComponent from "../../tables/TableNotFoundComponent";
+import TableLayout from "../../components/tables/TableLayout";
+import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
+import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
-import handleError from "../../../shared/api/http/handleError";
+import handleError from "../../shared/api/http/handleError";
 
 import { useShallow } from "zustand/shallow";
 import { useUsers } from "./hooks/useUsers";
-import UserService, { IUserRow } from "../../../services/UserService";
+import UserService, { IUserRow } from "../../services/UserService";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
 import { useRolesListStore } from "./hooks/useRolesListStore";
 

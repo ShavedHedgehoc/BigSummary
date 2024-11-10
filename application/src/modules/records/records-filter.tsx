@@ -98,25 +98,7 @@ const BatchInput = () => {
           value={filter.boil}
           onChange={(e) => changeFilter({ key: e.target.id, value: e.target.value })}
           placeholder="Партия"
-          startDecorator={<SearchIcon />}
-          // startDecorator={
-          //   <IconButton
-          //     variant="plain"
-          //     onClick={() => {
-          //       changeFilter({
-          //         key: RecordsFilterParams.BOIL_ASC,
-          //         value: filter.boilAsc ? "false" : "true",
-          //       });
-          //     }}
-          //     sx={[
-          //       filter.boilAsc
-          //         ? { "& svg": { transform: "rotate(0deg)" } }
-          //         : { "& svg": { transform: "rotate(180deg)" } },
-          //     ]}
-          //   >
-          //     <FilterListOutlinedIcon />
-          //   </IconButton>
-          // }
+          startDecorator={<SearchIcon />}          
           endDecorator={
             <React.Fragment>
               <IconButton
