@@ -97,10 +97,10 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
 
   return (
     <tr key={row.id}>
-      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.value}</Typography>
       </td>
-      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.base_marking ? row.base_marking : "-"}</Typography>
       </td>
       <td scope={scope} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
@@ -109,7 +109,7 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
       <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.plant ? row.plant : "-"}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography
           level="body-xs"
           sx={{ color: mode === "dark" ? (row.recordsCount !== 0 ? "success.plainColor" : "neutral") : "neutral" }}
@@ -117,7 +117,7 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
           {row.recordsCount}
         </Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography
           level="body-xs"
           sx={{ color: mode === "dark" ? (row.historiesCount !== 0 ? "success.plainColor" : "neutral") : "neutral" }}
@@ -126,7 +126,7 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
         </Typography>
       </td>
 
-      <td scope={scope} style={{ width: 96, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 96, textAlign: "center", padding: "18px 6px" }}>
         <StyledTypography text={row.state} state={row.stateValue} />
       </td>
 

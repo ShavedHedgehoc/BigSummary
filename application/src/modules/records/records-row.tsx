@@ -87,25 +87,25 @@ export default function RowComponent({ row }: { row: IDocRow }) {
 
   return (
     <tr key={row.id}>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.productId}</Typography>
       </td>
-      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.product}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.boil}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.apparatus}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.can}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.conveyor}</Typography>
       </td>
-      <td scope={scope} style={{ width: 110, textAlign: "center", padding: "12px 6px" }}>
+      <td scope={scope} style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
         <StyledTypography text={row.state} state={row.stateValue} />
       </td>
       <td scope={scope} style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
