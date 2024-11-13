@@ -6,9 +6,13 @@ export enum ProcessMessages {
   NOT_BOIL_BARCODE = "Отсканированный штрихкод не является штрихкодом весового листа",
   SUCCESS_ADD = "Запись успешно внесена...",
   BARCODE_SCAN_PROMPT = "Отсканируйте свой штрихкод",
+  CONVEYOR_SCAN_PROMPT = "Отсканируйте штрихкод конвейера",
   LABEL_SCAN_PROMPT = "Отсканируйте ярлык",
   NOT_PRODUCT_BARCODE = "Не удается распознать данные с ярлыка",
   EMPLOYEE_LABEL = "Пользователь: ",
   EMPLOYEE_UNDEFINED = "Пользователь не определен",
   PLANT_UNDEFINED = "Площадка не определена",
+  MORE_THEN_ONE_RECORD = "Найдено больше одной записи",
+  CONVEYOR_NOT_FOUND = "Конвейер с этим штрихкодом не найден",
+  RECORD_NOT_FOUND = "Запись в сводке не найдена",
 }

@@ -6,4 +6,5 @@ export const useCurrentRecords = (dto: FetchProductsDto) =>
     queryKey: ["current_products", dto],
     queryFn: () => RecordService.getCurrentRecordsList(dto),
     enabled: !!dto.filter.plant,
+    refetchInterval: 1000 * 10,
   });

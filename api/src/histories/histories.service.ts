@@ -112,8 +112,21 @@ export class HistoriesService {
       }
       return dto.record_id;
     };
+
+    const findBoilValue = async () => {
+      if (!dto.boil_value && dto.record_id) {
+        const record = await this.recordsService.getById(record_id);
+        return (await record.$get("boil")).value;
+      }
+      return dto.boil_value;
+    };
+
     const record_id = await findRecordId();
-    const lastHistory = await this.getLastHistory(dto.boil_value, record_id);
+    const boil_value = await findBoilValue();
+
+    // const lastHistory = await this.getLastHistory(dto.boil_value, record_id);
+    const lastHistory = await this.getLastHistory(boil_value, record_id);
+    console.log(lastHistory);
 
     if (dto.historyType === "base_check") {
       if (lastHistory && lastHistory.historyType.value === "base_check") {
@@ -146,7 +159,8 @@ export class HistoriesService {
         record.isSet &&
         lastHistory &&
         lastHistory.historyType.value !== "product_check" &&
-        lastHistory.historyType.value !== "product_fail"
+        lastHistory.historyType.value !== "product_fail" &&
+        lastHistory.historyType.value !== "product_correct" // !!! Это добавил
       ) {
         throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
       }
@@ -171,18 +185,19 @@ export class HistoriesService {
         }
       }
 
-      if (
-        !record.isSet &&
-        lastHistory &&
-        !record.isSet &&
-        lastHistory.historyType.value !== "plug_pass" &&
-        lastHistory.historyType.value !== "product_check"
-      ) {
-        throw new HttpException(
-          'Для фиксации пробы необходим статус "Допуск на подключение" или "Брак продукта"',
-          HttpStatus.BAD_REQUEST
-        );
-      }
+      // !!!!! Это закомментировал
+      // if (
+      //   !record.isSet &&
+      //   lastHistory &&
+      //   !record.isSet &&
+      //   lastHistory.historyType.value !== "plug_pass" &&
+      //   lastHistory.historyType.value !== "product_check"
+      // ) {
+      //   throw new HttpException(
+      //     'Для фиксации пробы необходим статус "Допуск на подключение" или "Брак продукта"',
+      //     HttpStatus.BAD_REQUEST
+      //   );
+      // }
     }
 
     const history = await this.createHistory({ ...dto, record_id: record_id });

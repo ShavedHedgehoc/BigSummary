@@ -31,7 +31,7 @@ export default class Product extends Model<Product, ProductCreationsAttrs> {
   @ApiProperty({ example: "058671", description: "Код 1С продукта" })
   @AllowNull(false)
   @Column({ type: DataType.STRING, unique: true })
-  code1C: number;
+  code1C: string;
 
   @ApiProperty({ example: "CNT9/65", description: "Артикул продукта" })
   @AllowNull(false)

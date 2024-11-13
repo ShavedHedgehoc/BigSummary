@@ -4,6 +4,7 @@ import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import Record from "./records.model";
 import { CreateRecordDto } from "./dto/create-record.dto";
 import { BulkCreateRecordsDto } from "./dto/bulk-create-records.dto";
+import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 
 @ApiTags("Записи сводок")
 @Controller("records")
@@ -29,6 +30,13 @@ export class RecordsController {
   @Get("/:boil")
   getRecordsByBoil(@Param("boil") boil: string) {
     return this.recordsService.getCurrentRecordsByBoil(boil);
+  }
+
+  @ApiOperation({ summary: "Получить строки текущей сводки по партии, коду продукта и коду площадки" })
+  @ApiResponse({ status: 200, type: [Record] })
+  @Post("/related")
+  getRelatedRecords(@Body() dto: FetchRelatedRecordsDto) {
+    return this.recordsService.getRelatedRecords(dto);
   }
 
   @ApiOperation({ summary: "Получить строку сводки с деталями по id" })

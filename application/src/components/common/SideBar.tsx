@@ -221,6 +221,18 @@ function SideBar() {
                     <Typography level="title-sm">Загрузка сводок</Typography>
                   </Link>
                 </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.CONVEYORS}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Конвейеры</Typography>
+                  </Link>
+                </ListItem>
               </List>
             </Toggler>
           </ListItem>

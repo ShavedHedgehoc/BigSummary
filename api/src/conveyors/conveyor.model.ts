@@ -19,6 +19,10 @@ export default class Conveyor extends Model<Conveyor, ConveyorsCreationsAttrs> {
   @Column({ type: DataType.STRING, unique: true })
   value: string;
 
+  @ApiProperty({ example: "2000000000012", description: "Штрихкод" })
+  @Column({ type: DataType.STRING, unique: true })
+  barcode: string;
+
   @HasMany(() => Record)
   records: Record[];
 }

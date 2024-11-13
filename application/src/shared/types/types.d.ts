@@ -116,6 +116,18 @@ interface IBoilRow {
   plant: string;
 }
 
+interface IConveyor {
+  id: number;
+  value: string;
+  barcode: string;
+}
+
+interface IConveyorUpdateDto {
+  id: number;
+  value: string;
+  barcode: string | null;
+}
+
 interface PaginationStore {
   page: number;
   limit: number;

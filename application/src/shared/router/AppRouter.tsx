@@ -22,6 +22,7 @@ import SummaryListReport from "../../components/pages/SummaryListReport";
 import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
 import Boils from "../../modules/boils/boils";
+import Conveyors from "../../modules/conveyors/conveyors";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -86,6 +87,7 @@ const AppRouter = () => {
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<SummaryDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
+              <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
               {/* <Route path={RouteNames.USERS_LIST} element={<UsersList />} /> */}

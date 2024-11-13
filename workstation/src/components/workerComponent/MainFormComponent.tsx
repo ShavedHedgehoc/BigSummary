@@ -14,7 +14,11 @@ function MainFormComponent() {
   const { store } = React.useContext(Context);
 
   const handleInput = async (value: string) => {
-    store.EmployeeStore.employee ? await processLabel(value) : await processBarcode(value);
+    store.EmployeeStore.employee
+      ? store.RelatedRecordsStore.records.length > 1
+        ? await processConveyor(value)
+        : await processLabel(value)
+      : await processBarcode(value);
   };
 
   const processLabel = async (barcode: string) => {
@@ -81,27 +85,77 @@ function MainFormComponent() {
     }
     const [code, boil] = parseProductCard(value);
     if (code && boil) {
-      const payload: HistoriePayload = {
-        record_id: null,
-        boil_value: boil,
+      //
+
+      await store.RelatedRecordsStore.fetchRelatedRecords({
         code: code,
-        base_code: null,
-        // plant_id: null,
         plant_id: store.PlantStore.plant.id,
-        userId: null,
-        employeeId: store.EmployeeStore.employee.id,
-        historyType: "product_check",
-        note: ProcessMessages.NOTE,
-      };
-      await processHistory(payload);
-      return;
+        boil_value: boil,
+      });
+
+      if (store.RelatedRecordsStore.records.length > 1) {
+        return;
+      } else {
+        const payload: HistoriePayload = {
+          record_id: null,
+          boil_value: boil,
+          code: code,
+          base_code: null,
+          plant_id: store.PlantStore.plant.id,
+          userId: null,
+          employeeId: store.EmployeeStore.employee.id,
+          historyType: "product_check",
+          note: ProcessMessages.NOTE,
+        };
+
+        await processHistory(payload);
+        return;
+      }
     }
     processMessage(ProcessMessages.NOT_PRODUCT_BARCODE, "fail");
+  };
+
+  const processConveyor = async (value: string) => {
+    if (!store.EmployeeStore.employee) {
+      processMessage(ProcessMessages.EMPLOYEE_UNDEFINED, "fail");
+      return;
+    }
+    if (!store.PlantStore.plant) {
+      processMessage(ProcessMessages.PLANT_UNDEFINED, "fail");
+      return;
+    }
+    await store.ConveyorStore.fetchConveyor(value);
+    if (store.ConveyorStore.conveyor) {
+      const relatedRecord = store.RelatedRecordsStore.records.filter(
+        (item) => item.conveyorId === store.ConveyorStore.conveyor?.id
+      );
+      if (relatedRecord.length > 0) {
+        const payload: HistoriePayload = {
+          record_id: relatedRecord[0].id,
+          boil_value: null,
+          code: "",
+          base_code: null,
+          plant_id: store.PlantStore.plant.id,
+          userId: null,
+          employeeId: store.EmployeeStore.employee.id,
+          historyType: "product_check",
+          note: ProcessMessages.NOTE,
+        };
+
+        await processHistory(payload);
+        return;
+      }
+      processMessage(ProcessMessages.RECORD_NOT_FOUND, "fail");
+      return;
+    }
+    processMessage(ProcessMessages.CONVEYOR_NOT_FOUND, "fail");
+    return;
   };
 
   const processHistory = async (payload: HistoriePayload) => {
     await store.HistoriesStore.addHistories(payload).then(() => {
       store.EmployeeStore.clearEmployee();
+      store.RelatedRecordsStore.setRecords([]); //added
       if (store.HistoriesStore.isError) {
         processMessage(store.HistoriesStore.error, "fail");
       } else {
@@ -116,6 +170,8 @@ function MainFormComponent() {
   const processMessage = (msg: string, severity: "fail" | "success") => {
     showInfo(msg, severity);
     store.EmployeeStore.clearEmployee();
+    store.ConveyorStore.clearConveyor();
+    store.RelatedRecordsStore.clearRelatedRecords();
   };
   const [showMessage, setShowMessage] = React.useState(false);
   const [infoMessage, setInfoMessage] = React.useState<string>("");
@@ -137,7 +193,9 @@ function MainFormComponent() {
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Typography level="h3" color="warning">
             {store.EmployeeStore.employee
-              ? `Пользователь: ${store.EmployeeStore.employee.name}`
+              ? store.RelatedRecordsStore.records.length > 1
+                ? "Требуется выбор конвейера"
+                : `Пользователь: ${store.EmployeeStore.employee.name}`
               : "Требуется авторизация"}
           </Typography>
         </Box>
@@ -148,7 +206,11 @@ function MainFormComponent() {
 
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Typography level="h4">
-            {!store.EmployeeStore.employee ? ProcessMessages.BARCODE_SCAN_PROMPT : ProcessMessages.LABEL_SCAN_PROMPT}
+            {!store.EmployeeStore.employee
+              ? ProcessMessages.BARCODE_SCAN_PROMPT
+              : store.RelatedRecordsStore.records.length > 1
+              ? ProcessMessages.CONVEYOR_SCAN_PROMPT
+              : ProcessMessages.LABEL_SCAN_PROMPT}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", ml: 30, mr: 30 }}>

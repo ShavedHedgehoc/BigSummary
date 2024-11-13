@@ -6,5 +6,5 @@ export const useBoils = (dto: FetchBoilsDto) =>
     queryKey: ["boils_list", dto],
     queryFn: () => BoilService.getBoilsListWithParams(dto),
     enabled: !!dto,
-    refetchInterval: 1000 * 30,
+    refetchInterval: 1000 * 10,
   });

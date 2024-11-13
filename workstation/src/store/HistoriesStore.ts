@@ -4,7 +4,7 @@ import handleError from "../http/handleError";
 
 export interface HistoriePayload {
   record_id: number | null;
-  boil_value: string;
+  boil_value: string | null;
   base_code: string | null;
   code: string | null;
   historyType: string;
@@ -14,17 +14,7 @@ export interface HistoriePayload {
   plant_id: number | null;
 }
 
-// export interface IHistorie {
-//   id: number;
-//   userId: number | null;
-//   employeeId: number;
-//   note: string | null;
-//   recordId: number;
-//   historyTypeId: number;
-// }
-
 export default class HistoriesStore {
-  // histories: IHistorie[] = [];
   pending: boolean = false;
   error = "";
   constructor() {
@@ -33,10 +23,6 @@ export default class HistoriesStore {
       addHistories: action,
     });
   }
-
-  // setHistories(histories: IHistorie[]) {
-  //   this.histories = histories;
-  // }
 
   get isError() {
     return !this.pending && this.error.length > 0;
@@ -56,8 +42,6 @@ export default class HistoriesStore {
       this.setError("");
       this.setPending(true);
       await $api.post(`/histories`, json);
-      // const response = await $api.post(`/histories`, json);
-      // this.setHistories(response.data);
     } catch (error) {
       const errValue = handleError(error);
       this.setError(errValue);

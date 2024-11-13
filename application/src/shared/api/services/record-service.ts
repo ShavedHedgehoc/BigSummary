@@ -1,5 +1,5 @@
 import { $api } from "../http";
-import { IHistory, IRecordDetailRecord } from "../../../types";
+// import { IHistory } from "../../../types";
 
 export interface RecordHistoriesResponse {
   histories: IHistory[];

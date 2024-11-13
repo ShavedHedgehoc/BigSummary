@@ -7,6 +7,7 @@ export enum RouteNames {
   SUMMARY_DETAIL = "/summary/:summary_id",
   RECORD_DETAIL = "/record/:record_id",
   LABORATORY = "/laboratory",
+  CONVEYORS = "/conveyors",
 
   // REPORTS = "/reports",
   ADMIN = "/admin",

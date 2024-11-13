@@ -23,6 +23,7 @@ import Plant from "src/plants/plant.model";
 import { GetCurrentDocDto } from "src/doc.detail/dto/get-current-doc.dto";
 import { Op } from "sequelize";
 import sequelize from "sequelize";
+import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 
 @Injectable()
 export class RecordsService {
@@ -172,6 +173,30 @@ export class RecordsService {
         {
           model: Boil,
           where: { "$boil.value$": boil },
+        },
+      ],
+    });
+    return records;
+  }
+
+  async getRelatedRecords(dto: FetchRelatedRecordsDto) {
+    console.log(dto);
+    const currDate = new Date();
+    currDate.setHours(12, 0, 0, 0);
+    const records = await this.recordsRepository.findAll({
+      where: {},
+      include: [
+        {
+          model: Doc,
+          where: { "$doc.date$": currDate, "$doc.plantId$": dto.plant_id },
+        },
+        {
+          model: Boil,
+          where: { "$boil.value$": dto.boil_value },
+        },
+        {
+          model: Product,
+          where: { "$product.code1C$": dto.code },
         },
       ],
     });
