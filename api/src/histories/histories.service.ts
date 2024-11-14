@@ -158,16 +158,22 @@ export class HistoriesService {
       if (
         record.isSet &&
         lastHistory &&
-        lastHistory.historyType.value !== "product_check" &&
-        lastHistory.historyType.value !== "product_fail" &&
-        lastHistory.historyType.value !== "product_correct" // !!! Это добавил
+        (lastHistory.historyType.value === "product_pass" ||
+          lastHistory.historyType.value === "product_in_progress" ||
+          lastHistory.historyType.value === "product_finished") // !!! Это добавил
       ) {
-        throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
+        console.log("1");
+        console.log(lastHistory);
+        throw new HttpException(
+          'Необходимо отсутствие записей или статусы "Брак продукта" или "Требуется доработка"',
+          HttpStatus.BAD_REQUEST
+        );
       }
 
       // Not set
 
       if (!record.isSet && !lastHistory) {
+        console.log("2");
         throw new HttpException('Необходимо статус "Допуск на подключение"', HttpStatus.BAD_REQUEST);
       }
 
@@ -179,8 +185,10 @@ export class HistoriesService {
         lastHistory.historyType.value !== "product_correct"
       ) {
         if (lastHistory.historyType.value === "product_check") {
+          console.log("3");
           throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
         } else {
+          console.log("4");
           throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
         }
       }
