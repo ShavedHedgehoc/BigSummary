@@ -52,6 +52,7 @@ export class RecordsService {
         { model: Conveyor, as: "conveyor" },
         { model: Workshop, as: "workshop" },
       ],
+      order: [["id", "ASC"]],
     });
     return records;
   }
@@ -180,7 +181,6 @@ export class RecordsService {
   }
 
   async getRelatedRecords(dto: FetchRelatedRecordsDto) {
-    console.log(dto);
     const currDate = new Date();
     currDate.setHours(12, 0, 0, 0);
     const records = await this.recordsRepository.findAll({
@@ -283,16 +283,21 @@ export class RecordsService {
   async createRecord(dto: CreateRecordDto) {
     const serie = await this.seriesService.getOrCreateByValue(dto.serie);
     const product = await this.productsService.getOrCreateByCode(dto.code1C, dto.product, serie.id);
-    const boil = await this.boilsService.getOrCreateByValue(dto.boil);
+    // const boil = await this.boilsService.getOrCreateByValue(dto.boil);
+    const boil = await this.boilsService.getOrCreateByValue(dto.batch);
     const apparatus = await this.apparatusesService.getOrCreateByValue(dto.apparatus);
     const can = await this.cansService.getOrCreateByValue(dto.can);
     const conveyor = await this.conveyorsService.getOrCreateByValue(dto.conveyor);
     const workshop = await this.workshopsService.getOrCreateByValue(dto.workshop);
+    const water_base = await this.boilsService.getOrCreateByValue(dto.boil1);
+    const organic_base = await this.boilsService.getOrCreateByValue(dto.boil2);
     const record = await this.recordsRepository.create({
       ...dto,
       plan: Number(dto.plan),
       productId: product.id,
       boilId: boil ? boil.id : null,
+      water_base_id: water_base ? water_base.id : null,
+      organic_base_id: organic_base ? organic_base.id : null,
       apparatusId: apparatus ? apparatus.id : null,
       canId: can ? can.id : null,
       conveyorId: conveyor.id,

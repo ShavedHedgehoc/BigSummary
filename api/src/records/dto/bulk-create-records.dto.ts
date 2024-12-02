@@ -4,7 +4,8 @@ export interface Row {
   code1C: string;
   product: string;
   serie: string;
-  boil: string;
+  // boil: string;
+  batch: string;
   apparatus: string;
   can: string;
   conveyor: string;
@@ -12,6 +13,8 @@ export interface Row {
   bbf: string;
   note: string;
   workshop: string;
+  boil1: string;
+  boil2: string;
 }
 
 export class BulkCreateRecordsDto {

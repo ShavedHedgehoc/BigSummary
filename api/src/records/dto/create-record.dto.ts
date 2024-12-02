@@ -11,7 +11,8 @@ export class CreateRecordDto {
   @ApiProperty({ example: "", description: "" })
   readonly serie: string;
   @ApiProperty({ example: "", description: "" })
-  readonly boil: string;
+  // readonly boil: string;
+  readonly batch: string;
   @ApiProperty({ example: "", description: "" })
   readonly apparatus: string;
   @ApiProperty({ example: "", description: "" })
@@ -26,4 +27,8 @@ export class CreateRecordDto {
   readonly note: string;
   @ApiProperty({ example: "", description: "" })
   readonly workshop: string;
+  @ApiProperty({ example: "", description: "" })
+  readonly boil1: string;
+  @ApiProperty({ example: "", description: "" })
+  readonly boil2: string;
 }

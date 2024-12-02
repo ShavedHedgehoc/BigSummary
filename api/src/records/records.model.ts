@@ -32,6 +32,8 @@ interface RecordsCreationsAttrs {
   bbf: string;
   note: string;
   workshopId: number;
+  water_base_id: number;
+  organic_base_id: number;
 }
 
 @Table({ tableName: "records" })
@@ -82,6 +84,14 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   @Column
   workshopId: number;
 
+  @ForeignKey(() => Boil)
+  @Column
+  water_base_id: number;
+
+  @ForeignKey(() => Boil)
+  @Column
+  organic_base_id: number;
+
   @Default(false)
   @Column
   isSet: boolean;
@@ -94,6 +104,12 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @BelongsTo(() => Boil)
   boil: Boil;
+
+  @BelongsTo(() => Boil)
+  organic_base: Boil;
+
+  @BelongsTo(() => Boil)
+  water_base: Boil;
 
   @BelongsTo(() => Apparatus)
   apparatus: Apparatus;

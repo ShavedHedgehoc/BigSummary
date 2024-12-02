@@ -275,7 +275,6 @@ export default class BoilStore {
   }
 
   async changeFilter({ key, value, values }: IBoilFormField) {
-    console.log(key);
     switch (key) {
       case BoilFilterParams.BOIL:
         this.state = { ...this.state, filter: { ...this.state.filter, boil: value }, page: 1 };

@@ -104,7 +104,6 @@ export default class RecordDetailStore {
       } catch (error) {
         const errValue = handleError(error);
         this.setError([...errValue]);
-        console.log([...errValue]);
       } finally {
         this.setPending(false);
       }

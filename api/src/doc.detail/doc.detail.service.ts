@@ -37,6 +37,9 @@ export class DocDetailService {
     const historiesCount = histories.length;
     const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
     const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
+    const stateTime = historiesCount > 0 ? histories[histories.length - 1].createdAt : null;
+    const isUpdated = stateTime ? new Date().getTime() - new Date(stateTime).getTime() < 1000 * 60 * 2 : false;
+
     return {
       id: item.id,
       productId: item.product.code1C,
@@ -52,6 +55,8 @@ export class DocDetailService {
       historiesCount: historiesCount,
       state: state,
       stateValue: stateValue,
+      stateTime: stateTime,
+      isUpdated: isUpdated,
       isSet: item.isSet,
     };
   }
@@ -124,7 +129,6 @@ export class DocDetailService {
 
   // async getCurrentDocDetailWithFilter(plantId: number, dto: GetCurrentDocDto) {
   async getCurrentDocDetailWithFilter(dto: GetCurrentDocDto) {
-    console.log(dto);
     const doc = await this.docsService.getCurrentDocByPlantId(dto.filter.plant);
     if (!doc) {
       return { records: [] };

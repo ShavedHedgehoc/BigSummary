@@ -199,13 +199,16 @@ export interface ISummary {
   code1C: string;
   product: string;
   serie: string;
-  boil: string;
+  // boil: string;
+  batch: string;
   apparatus: string;
   can: string;
   plan: string;
   bbf: string;
   note: string;
   workshop: string;
+  boil1: string;
+  boil2: string;
 }
 
 export interface ISummaryUploadData {
@@ -218,13 +221,16 @@ export interface IXLSData {
   code1C: string;
   product: string;
   serie: string;
-  boil: string;
+  // boil: string;
+  batch: string;
   apparatus: string;
   can: string;
   plan: string;
   bbf: string;
   note: string;
   workshop: string;
+  boil1: string;
+  boil2: string;
 }
 
 export interface IBoilsListItem {

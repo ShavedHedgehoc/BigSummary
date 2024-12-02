@@ -120,7 +120,6 @@ export default class SummaryStore {
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);
-      console.log(errValue);
     } finally {
       this.setRecordPending(false);
       this.setUpdateRecordId(null);

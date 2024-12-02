@@ -124,9 +124,7 @@ export class HistoriesService {
     const record_id = await findRecordId();
     const boil_value = await findBoilValue();
 
-    // const lastHistory = await this.getLastHistory(dto.boil_value, record_id);
     const lastHistory = await this.getLastHistory(boil_value, record_id);
-    console.log(lastHistory);
 
     if (dto.historyType === "base_check") {
       if (lastHistory && lastHistory.historyType.value === "base_check") {
@@ -162,8 +160,6 @@ export class HistoriesService {
           lastHistory.historyType.value === "product_in_progress" ||
           lastHistory.historyType.value === "product_finished") // !!! Это добавил
       ) {
-        console.log("1");
-        console.log(lastHistory);
         throw new HttpException(
           'Необходимо отсутствие записей или статусы "Брак продукта" или "Требуется доработка"',
           HttpStatus.BAD_REQUEST
@@ -173,7 +169,6 @@ export class HistoriesService {
       // Not set
 
       if (!record.isSet && !lastHistory) {
-        console.log("2");
         throw new HttpException('Необходимо статус "Допуск на подключение"', HttpStatus.BAD_REQUEST);
       }
 
@@ -185,10 +180,8 @@ export class HistoriesService {
         lastHistory.historyType.value !== "product_correct"
       ) {
         if (lastHistory.historyType.value === "product_check") {
-          console.log("3");
           throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
         } else {
-          console.log("4");
           throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
         }
       }

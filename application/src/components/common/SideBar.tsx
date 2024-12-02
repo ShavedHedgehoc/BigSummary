@@ -84,8 +84,7 @@ const UserComponent = observer((user: IUser) => (
 
 function SideBar() {
   const { store } = React.useContext(Context);
-  // const navigate = useNavigate();
-  // console.log("render sidebar");
+
   return (
     <Sheet
       className="SideBar"

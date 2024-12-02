@@ -182,7 +182,6 @@ export default function SummaryUploadForm(props: SummaryUploadFormProps) {
                 slotProps={{ button: { sx: { whiteSpace: "nowrap" } } }}
                 // onChange={(event: React.SyntheticEvent | null, newValue: number | null) => {
                 onChange={(event: React.SyntheticEvent | null, newValue: number | null) => {
-                  console.log(event);
                   newValue && props.changePlant(newValue);
                 }}
               >
