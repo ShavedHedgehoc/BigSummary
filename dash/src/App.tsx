@@ -9,6 +9,7 @@ function CardComponent(item: IDocRow) {
       onDoubleClick={() => alert(`Какие-то данные по ${item.boil}`)}
       className={`h-36 w-full rounded-md relative
               ${item.stateValue === "plug_pass" && "bg-slate-600"} 
+              ${item.stateValue === "base_correct" && "bg-slate-600"} 
               ${item.stateValue === "product_in_progress" && "bg-green-700"} 
               ${item.stateValue === "product_pass" && "bg-lime-700"} 
               ${(item.stateValue === "product_check" || item.stateValue === "product_correct") && "bg-yellow-700"} 
@@ -28,17 +29,18 @@ function CardComponent(item: IDocRow) {
       <div
         className={`font-ultralight text-lg  pl-3 pt-1
         ${
-          item.stateValue === "base_check"
-            ? "text-yellow-600"
+          item.stateValue === "base_check" || item.stateValue === "base_correct"
+            ? "text-yellow-500"
             : item.stateValue === "base_fail"
-            ? "text-red-600"
+            ? "text-red-500"
             : item.stateValue === "plug_pass"
-            ? "text-green-600"
+            ? "text-green-500"
             : "text-slate-200"
         }
         `}
       >
         {item.state}
+        {/* {item.stateValue} */}
       </div>
       <div className={`${item.stateValue === "product_in_progress" ? "absolute top-2 right-2 " : "invisible"}`}>
         <svg
@@ -143,7 +145,11 @@ function App() {
   }, []);
 
   return (
-    <div className=" h-dvh bg-gray-950 overflow-hidden " onTouchMove={() => resetTimer()}>
+    <div
+      className=" h-dvh bg-gray-950 overflow-hidden "
+      onTouchMove={() => resetTimer()}
+      onMouseMove={() => resetTimer()}
+    >
       <div className="overflow-y-auto h-full  scrollbar-none">
         <div
           className={`grid md:grid-cols-4 md:grid-row-12 lg:grid-cols-3 lg:grid-rows-10 gap-2  overflow-hidden pb-2
