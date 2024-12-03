@@ -9,6 +9,7 @@ function CardComponent(item: IDocRow) {
       onDoubleClick={() => alert(`Какие-то данные по ${item.boil}`)}
       className={`h-36 w-full rounded-md relative
               ${item.stateValue === "plug_pass" && "bg-slate-600"} 
+              ${item.stateValue === "base_continue" && "bg-slate-600"} 
               ${item.stateValue === "base_correct" && "bg-slate-600"} 
               ${item.stateValue === "product_in_progress" && "bg-green-700"} 
               ${item.stateValue === "product_pass" && "bg-lime-700"} 
@@ -29,7 +30,7 @@ function CardComponent(item: IDocRow) {
       <div
         className={`font-ultralight text-lg  pl-3 pt-1
         ${
-          item.stateValue === "base_check" || item.stateValue === "base_correct"
+          item.stateValue === "base_check" || item.stateValue === "base_correct" || item.stateValue === "base_continue"
             ? "text-yellow-500"
             : item.stateValue === "base_fail"
             ? "text-red-500"
