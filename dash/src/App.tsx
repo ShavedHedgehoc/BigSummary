@@ -1,3 +1,4 @@
+import React from "react";
 import { IDocRow } from "./records-service";
 import { useRecords } from "./use-records";
 
@@ -5,41 +6,40 @@ function CardComponent(item: IDocRow) {
   return (
     <div
       key={item.id}
-      onClick={() => alert(`Какие-то данные по ${item.boil}`)}
-      className={`h-24 w-full rounded-md relative
-              ${item.stateValue === "plug_pass" && "bg-slate-900"} 
+      onDoubleClick={() => alert(`Какие-то данные по ${item.boil}`)}
+      className={`h-36 w-full rounded-md relative
+              ${item.stateValue === "plug_pass" && "bg-slate-600"} 
               ${item.stateValue === "product_in_progress" && "bg-green-700"} 
               ${item.stateValue === "product_pass" && "bg-lime-700"} 
               ${(item.stateValue === "product_check" || item.stateValue === "product_correct") && "bg-yellow-700"} 
               ${item.stateValue === "product_fail" && "bg-red-700"} 
-              ${item.stateValue === "base_check" && "bg-slate-900"}
-              ${item.stateValue === "base_fail" && "bg-slate-900"}
-              ${item.stateValue === "product_finished" && "bg-slate-600"}
+              ${item.stateValue === "base_check" && "bg-slate-600"}
+              ${item.stateValue === "base_fail" && "bg-slate-600"}
+              ${item.stateValue === "product_finished" && "bg-green-900"}
               ${item.stateValue === null && "bg-slate-900"}
               ${item.isUpdated && "animate-pulse"}
               `}
     >
-      <div className="text-slate-200 font-semibold pl-3 pt-2">Конвейер {item.conveyor}</div>
-      <div className="grid grid-cols-6 pl-3 pr-3 pt-2">
-        <div className="text-slate-400 col-span-4 text-left"> {item.product}</div>
-        <div className="text-slate-400 col-span-2 font-semibold text-right"> {item.boil}</div>
+      <div className="text-slate-200 text-5xl font-semibold pl-3 pt-2 ">{item.conveyor}</div>
+      <div className="grid grid-cols-6 pl-3 pr-3 pt-3">
+        <div className="text-slate-200 col-span-4 text-left text-xl"> {item.product}</div>
+        <div className="text-slate-200 col-span-2 font-semibold text-right text-xl"> {item.boil}</div>
       </div>
       <div
-        className={`font-ultralight text-sm  pl-3 
-        ${item.stateValue === "base_check" ? "text-yellow-600" : "text-slate-400"}
-        ${item.stateValue === "base_fail" ? "text-red-600" : "text-slate-400"}
-        ${item.stateValue === "plug_pass" ? "text-green-600" : "text-slate-400"}
-        
+        className={`font-ultralight text-lg  pl-3 pt-1
+        ${
+          item.stateValue === "base_check"
+            ? "text-yellow-600"
+            : item.stateValue === "base_fail"
+            ? "text-red-600"
+            : item.stateValue === "plug_pass"
+            ? "text-green-600"
+            : "text-slate-200"
+        }
         `}
       >
         {item.state}
       </div>
-      {/* <div
-        className={`${
-          item.stateValue === "product_in_progress" &&
-          "absolute top-2.5 right-1 rounded-full bg-green-500  w-2.5 h-2.5 me-1.5 animate-pulse"
-        }`}
-      /> */}
       <div className={`${item.stateValue === "product_in_progress" ? "absolute top-2 right-2 " : "invisible"}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -128,12 +128,38 @@ function CardComponent(item: IDocRow) {
 
 function App() {
   const { data, isSuccess } = useRecords();
+  const [touched, setTouched] = React.useState(false);
+
+  const resetTimer = () => {
+    setTouched(false);
+    const timeoutId = setTimeout(() => {
+      setTouched(true);
+    }, 20000);
+    return () => clearTimeout(timeoutId);
+  };
+
+  React.useEffect(() => {
+    resetTimer();
+  }, []);
 
   return (
-    <div className=" h-dvh bg-gray-950 ">
-      {/* <div className="grid md:grid-cols-4 md:grid-row-16 lg:grid-cols-7 lg:grid-rows-9 gap-2 p-2"> */}
-      <div className="grid md:grid-cols-4 md:grid-row-16 lg:grid-cols-4 lg:grid-rows-16 gap-2 p-2">
-        {isSuccess && data.records && data.records.map((item) => <CardComponent {...item} />)}
+    <div className=" h-dvh bg-gray-950 overflow-hidden " onTouchMove={() => resetTimer()}>
+      <div className="overflow-y-auto h-full  scrollbar-none">
+        <div
+          className={`grid md:grid-cols-4 md:grid-row-12 lg:grid-cols-3 lg:grid-rows-10 gap-2  overflow-hidden pb-2
+          ${touched && "animate-[slide1_15s_linear_infinite] absolute top-0 w-full"}
+          `}
+        >
+          {isSuccess && data.records && data.records.map((item) => <CardComponent {...item} />)}
+        </div>
+
+        <div
+          className={`grid md:grid-cols-4 md:grid-row-12 lg:grid-cols-3 lg:grid-rows-10 gap-2 overflow-hidden absolute top-0 w-full pb-2 ${
+            touched ? "animate-[slide2_15s_linear_infinite]" : "invisible"
+          }`}
+        >
+          {isSuccess && data.records && data.records.map((item) => <CardComponent {...item} />)}
+        </div>
       </div>
     </div>
   );
