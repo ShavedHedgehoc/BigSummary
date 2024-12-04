@@ -56,6 +56,9 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   @Column
   boilId: number;
 
+  @BelongsTo(() => Boil, "boilId")
+  boil: Boil;
+
   @ForeignKey(() => Apparatus)
   @Column
   apparatusId: number;
@@ -88,9 +91,15 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   @Column
   water_base_id: number;
 
+  @BelongsTo(() => Boil, "water_base_id")
+  water_base: Boil;
+
   @ForeignKey(() => Boil)
   @Column
   organic_base_id: number;
+
+  @BelongsTo(() => Boil, "organic_base_id")
+  organic_base: Boil;
 
   @Default(false)
   @Column
@@ -101,15 +110,6 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @BelongsTo(() => Product)
   product: Product;
-
-  @BelongsTo(() => Boil)
-  boil: Boil;
-
-  @BelongsTo(() => Boil)
-  organic_base: Boil;
-
-  @BelongsTo(() => Boil)
-  water_base: Boil;
 
   @BelongsTo(() => Apparatus)
   apparatus: Apparatus;

@@ -57,8 +57,14 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
   @BelongsTo(() => Plant)
   plant: Plant;
 
-  @HasMany(() => Record)
+  @HasMany(() => Record, "boilId")
   records: Record[];
+
+  @HasMany(() => Record, "water_base_id")
+  water_base_records: Record[];
+
+  @HasMany(() => Record, "organic_base_id")
+  organic_base_records: Record[];
 
   @HasMany(() => History)
   histories: History[];

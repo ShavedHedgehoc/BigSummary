@@ -173,6 +173,7 @@ export class RecordsService {
         },
         {
           model: Boil,
+          as: "boil",
           where: { "$boil.value$": boil },
         },
       ],
@@ -192,6 +193,7 @@ export class RecordsService {
         },
         {
           model: Boil,
+          as: "boil",
           where: { "$boil.value$": dto.boil_value },
         },
         {
@@ -215,6 +217,7 @@ export class RecordsService {
         },
         {
           model: Boil,
+          as: "boil",
           where: { "$boil.value$": boil },
         },
         {
@@ -247,30 +250,6 @@ export class RecordsService {
     });
     return record;
   }
-
-  // async getByIdWitDetailsNew(id: number) {
-  //   // const record = await this.recordsRepository.findByPk(id);
-  //   const record = await this.recordsRepository.findOne({
-  //     where: { id: id },
-  //     // include: [{ model: Boil }],
-  //     include: [
-  //       { model: Product, as: "product" },
-  //       { model: Boil, as: "boil" },
-  //       { model: Apparatus, as: "apparatus" },
-  //       { model: Can, as: "can" },
-  //       { model: Conveyor, as: "conveyor" },
-  //       { model: Workshop, as: "workshop" },
-  //       { model: Doc, as: "doc" },
-  //     ],
-  //   });
-  //   if (record) {
-  //     const histories = await this.historyService.getAllHistoriesByRecId(id);
-  //     record.histories = histories;
-  //     return record;
-  //     // { ...record, histories: histories };
-  //   }
-  //   throw new HttpException(`Запись не найдена`, HttpStatus.NOT_FOUND);
-  // }
 
   async getByIdWithDetails(id: string) {
     const record = await this.recordsRepository.findOne({

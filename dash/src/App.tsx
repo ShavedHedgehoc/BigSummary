@@ -159,7 +159,6 @@ function App() {
         >
           {isSuccess && data.records && data.records.map((item) => <CardComponent {...item} />)}
         </div>
-
         <div
           className={`grid md:grid-cols-4 md:grid-row-12 lg:grid-cols-3 lg:grid-rows-10 gap-2 overflow-hidden absolute top-0 w-full pb-2 ${
             touched ? "animate-[slide2_15s_linear_infinite]" : "invisible"
