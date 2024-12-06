@@ -105,6 +105,7 @@ export class HistoriesService {
   }
 
   async addHistorie(dto: AddHistoryDtoNew) {
+    // console.log(dto);
     const findRecordId = async () => {
       if (dto.boil_value && dto.code) {
         const record = await this.recordsService.getCurrentRecordByBoilAndCode(dto.boil_value, dto.code);
@@ -116,7 +117,12 @@ export class HistoriesService {
     const findBoilValue = async () => {
       if (!dto.boil_value && dto.record_id) {
         const record = await this.recordsService.getById(record_id);
-        return (await record.$get("boil")).value;
+        return (await record.$get("water_base")).value;
+      }
+
+      const record = await this.recordsService.getById(record_id);
+      if (record) {
+        return (await record.$get("water_base")).value;
       }
       return dto.boil_value;
     };
@@ -124,7 +130,11 @@ export class HistoriesService {
     const record_id = await findRecordId();
     const boil_value = await findBoilValue();
 
+    // console.log(record_id);
+    // console.log(boil_value);
+
     const lastHistory = await this.getLastHistory(boil_value, record_id);
+    // console.log((await lastHistory.$get("historyType")).value);
 
     if (dto.historyType === "base_check") {
       if (lastHistory && lastHistory.historyType.value === "base_check") {
@@ -215,6 +225,7 @@ export class HistoriesService {
       });
       return history;
     }
+
     const history = await this.historyRepository.findOne({
       where: { record_id: recordId },
       include: [{ model: HistoryType, as: "historyType" }],

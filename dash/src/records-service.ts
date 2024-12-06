@@ -29,9 +29,11 @@ export interface SummaryResponse {
   updatedAt: Date;
   records: IDocRow[];
 }
+
 export default class RecordService {
-  static async getCurrentRecordsList(): Promise<SummaryResponse> {
-    const res = await axios.get(`/api/doc_detail/current/2`);
+  static async getCurrentRecordsList(plant_id: number | null): Promise<SummaryResponse> {
+    const res = await axios.get(`/api/doc_detail/current/${plant_id}`);
+
     return res.data;
   }
 }

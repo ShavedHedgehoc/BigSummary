@@ -9,7 +9,7 @@ export default function MainPageHeader(props: MainPageHeaderProps) {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: { xs: "none", sm: "flex" },
         mb: 1,
         gap: 1,
         flexDirection: { xs: "column", sm: "row" },

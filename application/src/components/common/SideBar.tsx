@@ -303,6 +303,23 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
+          {/* <ListItem>
+            <ListItemButton role="menuitem">
+              <ListItemContent>
+                <Link
+                  component={RouterLink}
+                  to={RouteNames.FOREMAN_NEW}
+                  color="neutral"
+                  underline="none"
+                  sx={{ display: "flex", gap: 1 }}
+                  onClick={() => closeSidebar()}
+                >
+                  <FactoryRoundedIcon />
+                  <Typography level="title-sm">Мастер_test</Typography>
+                </Link>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem> */}
           <ListItem nested>
             <Toggler
               renderToggle={({ open, setOpen }) => (

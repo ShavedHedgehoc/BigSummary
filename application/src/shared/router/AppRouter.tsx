@@ -23,6 +23,7 @@ import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
 import Boils from "../../modules/boils/boils";
 import Conveyors from "../../modules/conveyors/conveyors";
+import Foreman_new from "../../modules/foreman/foreman";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -80,6 +81,7 @@ const AppRouter = () => {
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.FOREMAN} />}>
               <Route path={RouteNames.FOREMAN} element={<Foreman />} />
+              <Route path={RouteNames.FOREMAN_NEW} element={<Foreman_new />} />
             </Route>
 
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>

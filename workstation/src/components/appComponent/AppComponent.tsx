@@ -19,7 +19,7 @@ function AppComponent() {
   const plant = searchParams.get("plant");
 
   if (plant === null) {
-    return <NoSelectPlantComponent msg="Отсутсвует выбор площадки в строке поиска..." />;
+    return <NoSelectPlantComponent msg="Отсутствует выбор площадки в строке поиска..." />;
   }
 
   React.useEffect(() => {

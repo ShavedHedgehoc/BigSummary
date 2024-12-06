@@ -20,6 +20,7 @@ function Foreman() {
     <React.Fragment>
       <BreadCrumbHeader breadcrumbs={["Мастер"]} />
       <MainPageHeaderWithRenew title={"Мастер"} />
+      {/* <MainPageHeader pageTitle="Мастер" /> */}
       <Selector visible={store.PlantStore.currentPlantExists && initial} />
       {initial && <CurrentSummaryTable role={"foreman"} />}
     </React.Fragment>

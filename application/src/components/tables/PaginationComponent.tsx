@@ -10,20 +10,6 @@ import { observer } from "mobx-react-lite";
 
 export const perPageValues = [10, 15, 20, 50, 90];
 
-// export interface PaginationComponentProps {
-//   firstRecord: number;
-//   lastRecord: number;
-//   total: number;
-//   limit: number;
-//   page: number;
-//   pages: number;
-//   changeLimit(val: number): void;
-//   firstPage(): void;
-//   lastPage(): void;
-//   prevPage(): void;
-//   nextPage(): void;
-// }
-
 function PaginationComponent() {
   const { store } = React.useContext(Context);
 
