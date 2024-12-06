@@ -37,7 +37,7 @@ function SummaryView(plant: IPlant) {
     setScrolling(false);
     clearInterval(interval.current);
     interval.current = setInterval(() => {
-      if (isSuccess && data.records && (cardsView ? data.records.length > 14 : data.records.length > 14)) {
+      if (isSuccess && data.records && (cardsView ? data.records.length > 42 : data.records.length > 14)) {
         setScrolling(true);
       }
     }, scrollDelay);

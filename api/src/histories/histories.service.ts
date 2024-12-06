@@ -121,7 +121,8 @@ export class HistoriesService {
       }
 
       const record = await this.recordsService.getById(record_id);
-      if (record) {
+      // if (record) {
+      if (record && !record.isSet) {
         return (await record.$get("water_base")).value;
       }
       return dto.boil_value;
