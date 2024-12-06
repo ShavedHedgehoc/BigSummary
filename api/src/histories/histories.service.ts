@@ -117,7 +117,11 @@ export class HistoriesService {
     const findBoilValue = async () => {
       if (!dto.boil_value && dto.record_id) {
         const record = await this.recordsService.getById(record_id);
-        return (await record.$get("water_base")).value;
+        if (!record.isSet) {
+          return (await record.$get("water_base")).value;
+        } else {
+          return (await record.$get("boil")).value;
+        }
       }
 
       const record = await this.recordsService.getById(record_id);
