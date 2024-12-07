@@ -298,12 +298,12 @@ function SideBar() {
                   onClick={() => closeSidebar()}
                 >
                   <FactoryRoundedIcon />
-                  <Typography level="title-sm">Мастер</Typography>
+                  <Typography level="title-sm">Мастер </Typography>
                 </Link>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          {/* <ListItem>
+          <ListItem>
             <ListItemButton role="menuitem">
               <ListItemContent>
                 <Link
@@ -315,11 +315,11 @@ function SideBar() {
                   onClick={() => closeSidebar()}
                 >
                   <FactoryRoundedIcon />
-                  <Typography level="title-sm">Мастер_test</Typography>
+                  <Typography level="title-sm">{`Мастер новая (Пробуем)`}</Typography>
                 </Link>
               </ListItemContent>
             </ListItemButton>
-          </ListItem> */}
+          </ListItem>
           <ListItem nested>
             <Toggler
               renderToggle={({ open, setOpen }) => (

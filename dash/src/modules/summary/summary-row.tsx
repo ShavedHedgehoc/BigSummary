@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { IDocRow } from "../../records-service";
 import { RouteNames } from "../../shared/router/route-names";
-export default function RowComponent(item: IDocRow) {
+export default function SummaryRow(item: IDocRow) {
   const navigate = useNavigate();
   return (
     <div
