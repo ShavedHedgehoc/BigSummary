@@ -24,6 +24,7 @@ import Products from "../../modules/records/records";
 import Boils from "../../modules/boils/boils";
 import Conveyors from "../../modules/conveyors/conveyors";
 import Foreman_new from "../../modules/foreman/foreman";
+import Dash from "../../modules/dash/dash";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -63,9 +64,10 @@ const AppRouter = () => {
       <Routes>
         <Route element={<ObservedProtectedRoutes />}>
           <Route path={RouteNames.HOME} element={<Layout />}>
-            <Route index element={<CurrentSummary />} />
+            <Route index element={<Dash />} />
             <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
             <Route path={RouteNames.SUMMARY_REPORT} element={<SummaryListReport />} />
+            {/* <Route path={RouteNames.DASH} element={<Dash />} /> */}
 
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
               {/* <Route path={RouteNames.BOILS_LIST} element={<BoilsList />} /> */}

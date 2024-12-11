@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { IDocRow } from "../../records-service";
 import { RouteNames } from "../../shared/router/route-names";
+import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
 export default function SummaryRow(item: IDocRow) {
   const navigate = useNavigate();
   return (
@@ -49,6 +50,20 @@ export default function SummaryRow(item: IDocRow) {
         `}
           >
             {item.state}
+          </div>
+          <div
+            className={`${
+              item.stateValue === "product_check" ||
+              item.stateValue === "product_pass" ||
+              item.stateValue === "product_fail" ||
+              item.stateValue === "product_correct" ||
+              item.stateValue === "product_in_progress" ||
+              item.stateValue === "product_finished"
+                ? " font-ultralight  text-center align-text-top text-slate-200"
+                : "invisible"
+            }`}
+          >
+            {formatTimeToString(item.stateTime)}
           </div>
         </div>
       </div>

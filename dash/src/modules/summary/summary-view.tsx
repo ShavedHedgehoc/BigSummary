@@ -12,9 +12,9 @@ import SummaryCard from "./summary-card";
 export default function SummaryView(plant: IPlant) {
   const notScrollingCardsQuantity = 42;
   const notScrollingRowsQuantity = 14;
-  const scrollDelay = 3000;
+  const scrollDelay = 30000;
 
-  const [cardsView, setCardsView] = React.useState(false);
+  const [cardsView, setCardsView] = React.useState(true);
   const [hideFinished, setHideFinished] = React.useState(false);
   const [scrolling, setScrolling] = React.useState(false);
   const [recordsCount, setRecordsCount] = React.useState(0);
@@ -74,31 +74,6 @@ export default function SummaryView(plant: IPlant) {
           resetTimer();
         }}
       >
-        {/* <div
-          className="absolute top-8 right-6 rounded-full w-24 h-24 z-50 flex items-center justify-center
-        text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium "
-        >
-          {scrolling ? "Scroll" : "Not scroll"}
-        </div>
-        <div
-          className="absolute top-32 right-6 rounded-full w-24 h-24 z-50 flex items-center justify-center
-        text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium "
-        >
-          {hideFinished ? "Hide" : "Not hide"}
-        </div>
-        <div
-          className="absolute top-56 right-6 rounded-full w-24 h-24 z-50 flex items-center justify-center
-        text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium "
-        >
-          All: {recordsCount}
-        </div>
-        <div
-          className="absolute top-80 right-6 rounded-full w-24 h-24 z-50 flex items-center justify-center
-        text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium "
-        >
-          Active: {activeRecordsCount}
-        </div> */}
-
         <div
           className="absolute bottom-8 right-6 rounded-full w-24 h-24 z-50 flex items-center justify-center
         text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium "

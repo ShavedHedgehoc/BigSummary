@@ -4,6 +4,7 @@ import MainPageHeader from "../../components/headers/MainPageHeader";
 import ForemanTable from "./foreman-table";
 import ForemanFilter from "./foreman-filter";
 import ForemanHistoryModal from "./foreman-history-modal";
+import ForemanList from "./foreman-list";
 
 export default function Foreman_new() {
   return (
@@ -12,6 +13,7 @@ export default function Foreman_new() {
       <MainPageHeader pageTitle={"Мастер"} />
       <ForemanFilter />
       <ForemanTable />
+      <ForemanList />
       <ForemanHistoryModal />
       {/* <BoilsFilter />
       <BoilsTable />

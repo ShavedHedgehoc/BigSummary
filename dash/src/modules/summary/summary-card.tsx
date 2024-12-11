@@ -6,6 +6,7 @@ import CheckIcon from "../../shared/components/icons/check-icon";
 import StarsIcon from "../../shared/components/icons/stars-icon";
 import ClockIcon from "../../shared/components/icons/clock-icon";
 import FlagIcon from "../../shared/components/icons/flag-icon";
+import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
 export default function SummaryCard(item: IDocRow) {
   const navigate = useNavigate();
   return (
@@ -46,6 +47,22 @@ export default function SummaryCard(item: IDocRow) {
       >
         {item.state}
       </div>
+
+      <div
+        className={`${
+          item.stateValue === "product_check" ||
+          item.stateValue === "product_pass" ||
+          item.stateValue === "product_fail" ||
+          item.stateValue === "product_correct" ||
+          item.stateValue === "product_in_progress" ||
+          item.stateValue === "product_finished"
+            ? "absolute bottom-2 right-2  text-slate-200 pr-1"
+            : "invisible"
+        }`}
+      >
+        {formatTimeToString(item.stateTime)}
+      </div>
+
       <div className={`${item.stateValue === "product_in_progress" ? "absolute top-2 right-2 " : "invisible"}`}>
         <StarsIcon />
       </div>

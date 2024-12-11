@@ -10,7 +10,7 @@ export default function TableLoaderComponent() {
         variant="outlined"
         sx={[
           {
-            display: "flex",
+            display: { xs: "none", sm: "flex" },
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
@@ -37,28 +37,34 @@ export default function TableLoaderComponent() {
           <Typography color="neutral">Загрузка...</Typography>
         </Box>
       </Sheet>
-      {/* <Sheet
-        variant="soft"
-        sx={{
-          display: "flex",
-          width: "100%",
-          borderRadius: "sm",
-          flexShrink: 1,
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "auto",
-          minHeight: "100%",
-          gap: 2,
-        }}
+
+      <Box
+        sx={[
+          {
+            display: { xs: "flex", sm: "none" },
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+            flexShrink: 1,
+            overflow: "auto",
+            minHeight: 0,
+            gap: 2,
+            p: 1,
+            borderWidth: "1px",
+            borderRadius: "sm",
+            mb: 1,
+          },
+        ]}
       >
         <Box>
-          <CircularProgress color="warning" variant="solid" />
+          <CircularProgress color="neutral" variant="solid" />
         </Box>
         <Box>
-          <Typography color="warning">Загрузка...</Typography>
+          <Typography color="neutral">Загрузка...</Typography>
         </Box>
-      </Sheet> */}
+      </Box>
     </React.Fragment>
   );
 }

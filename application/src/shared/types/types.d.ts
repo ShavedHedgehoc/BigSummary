@@ -154,7 +154,9 @@ interface IDocRow {
   historiesCount: number;
   state: string;
   stateValue: string;
+  stateTime: Date;
   isSet: boolean;
+  isUpdated: boolean;
 }
 
 interface SummaryResponse {
