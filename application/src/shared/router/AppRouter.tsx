@@ -82,8 +82,7 @@ const AppRouter = () => {
               <Route path={RouteNames.EMPLOYERS} element={<Employers />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.FOREMAN} />}>
-              <Route path={RouteNames.FOREMAN} element={<Foreman />} />
-              <Route path={RouteNames.FOREMAN_NEW} element={<Foreman_new />} />
+              <Route path={RouteNames.FOREMAN} element={<Foreman_new />} />
             </Route>
 
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>

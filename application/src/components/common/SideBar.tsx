@@ -303,7 +303,7 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          {/* <ListItem>
             <ListItemButton role="menuitem">
               <ListItemContent>
                 <Link
@@ -319,7 +319,7 @@ function SideBar() {
                 </Link>
               </ListItemContent>
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
           <ListItem nested>
             <Toggler
               renderToggle={({ open, setOpen }) => (
