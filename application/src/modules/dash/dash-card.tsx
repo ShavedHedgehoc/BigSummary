@@ -53,6 +53,11 @@ export default function DashCard({ row }: { row: IDocRow }) {
             color: "common.white",
             bgcolor: mode === "light" ? "#facc15" : "#a16207",
           }),
+          ...(!row.stateValue &&
+            row.isSet && {
+              color: "common.white",
+              bgcolor: mode === "light" ? "#94a3b8" : "#475569",
+            }),
           ...(row.stateValue === "product_correct" && {
             color: "common.white",
             bgcolor: mode === "light" ? "#facc15" : "#a16207",
@@ -128,7 +133,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
               color: mode === "light" ? "#fef08a" : "#fde047",
             }),
             ...(row.stateValue === "base_continue" && {
-              color: mode === "light" ? "#fef08a" : "#fde047",
+              color: mode === "light" ? "#bbf7d0" : "#86efac",
             }),
             ...(row.stateValue === "plug_pass" && {
               color: mode === "light" ? "#bbf7d0" : "#86efac",

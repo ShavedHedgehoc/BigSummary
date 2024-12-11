@@ -33,7 +33,6 @@ export class DocDetailService {
       isSet: boolean;
     },
   >(item: Record) {
-    // const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(item.id, item.boilId);
     const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(item.id, item.water_base_id);
     const historiesCount = histories.length;
     const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";

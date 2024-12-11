@@ -67,24 +67,16 @@ const AppRouter = () => {
             <Route index element={<Dash />} />
             <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
             <Route path={RouteNames.SUMMARY_REPORT} element={<SummaryListReport />} />
-            {/* <Route path={RouteNames.DASH} element={<Dash />} /> */}
-
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
-              {/* <Route path={RouteNames.BOILS_LIST} element={<BoilsList />} /> */}
-              {/* <Route path={RouteNames.LABORATORY} element={<Laboratory />} /> */}
               <Route path={RouteNames.BOILS_LIST} element={<Boils />} />
               <Route path={RouteNames.LABORATORY} element={<Products />} />
             </Route>
-            {/* <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
-              <Route path={RouteNames.TECHNOLOGIST} element={<Technologist />} />
-            </Route> */}
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.EMPLOYERS} />}>
               <Route path={RouteNames.EMPLOYERS} element={<Employers />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.FOREMAN} />}>
               <Route path={RouteNames.FOREMAN} element={<Foreman_new />} />
             </Route>
-
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.SUMMARY_LIST} element={<SummaryList />} />
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />
@@ -93,13 +85,11 @@ const AppRouter = () => {
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
-              {/* <Route path={RouteNames.USERS_LIST} element={<UsersList />} /> */}
               <Route path={RouteNames.USERS_LIST} element={<Users />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>
         </Route>
-
         <Route path={RouteNames.LOGIN} element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
