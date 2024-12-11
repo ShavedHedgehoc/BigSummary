@@ -16,17 +16,12 @@ export class DocsService {
   async getCurrentDocByPlantId(plantId: number) {
     var offset = 3;
     const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
-    // const date2 = new Date(new Date().getTime() + offset * 3600 * 1000);
-    // console.log(
-    //   ("0" + date2.getDate()).slice(-2) + "/" + ("0" + (date2.getMonth() + 1)).slice(-2) + "/" + date2.getFullYear()
-    // );
+
     const doc = await this.docRepository.findOne({
       where: { plantId: plantId, date: date },
       include: { model: Plant },
     });
-    // if (!doc) {
-    //   throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
-    // }
+
     return doc;
   }
 
