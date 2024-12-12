@@ -128,6 +128,15 @@ interface IConveyorUpdateDto {
   barcode: string | null;
 }
 
+interface BaseRow {
+  code: string;
+  marking: string;
+}
+
+interface BulkUpdateBasesDto {
+  bases: BaseRow[];
+}
+
 interface PaginationStore {
   page: number;
   limit: number;

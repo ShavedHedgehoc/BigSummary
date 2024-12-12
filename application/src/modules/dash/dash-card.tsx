@@ -133,7 +133,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
               color: mode === "light" ? "#fef08a" : "#fde047",
             }),
             ...(row.stateValue === "base_continue" && {
-              color: mode === "light" ? "#bbf7d0" : "#86efac",
+              color: mode === "light" ? "#fef08a" : "#fde047",
             }),
             ...(row.stateValue === "plug_pass" && {
               color: mode === "light" ? "#bbf7d0" : "#86efac",
