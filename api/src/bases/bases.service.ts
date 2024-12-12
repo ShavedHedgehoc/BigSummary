@@ -25,13 +25,9 @@ export class BasesService {
 
   async updateBase(row: BaseRow) {
     const base = await this.basesRepository.findOne({ where: { code: row.code } });
-    try {
-      base.set({
-        marking: row.marking,
-      });
+    if (base) {
+      base.set({ marking: row.marking });
       await base.save();
-    } catch (error) {
-      return;
     }
   }
 

@@ -232,6 +232,18 @@ function SideBar() {
                     <Typography level="title-sm">Конвейеры</Typography>
                   </Link>
                 </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.BASES_UPDATE}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Обновление основ</Typography>
+                  </Link>
+                </ListItem>
               </List>
             </Toggler>
           </ListItem>

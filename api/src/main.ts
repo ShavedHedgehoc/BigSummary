@@ -1,5 +1,6 @@
 import { NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
+import * as bodyParser from "body-parser";
 import AppModule from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { TraceBatchModule } from "./trace_batch/trace_batch.module";
@@ -34,6 +35,8 @@ async function start() {
   SwaggerModule.setup("/api/documentation/trace", app, traceFactory);
 
   app.use(cookieParser());
+  app.use(bodyParser.json({ limit: "10mb" }));
+  app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
   await app.listen(PORT, () => console.log(`API started on ${PORT}`));
 }
 

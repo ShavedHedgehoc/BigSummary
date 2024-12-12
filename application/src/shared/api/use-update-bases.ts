@@ -5,7 +5,7 @@ import { ClientMessages } from "../resources/client-messages";
 import handleError from "./http/handleError";
 
 export function useUpdateBases() {
-  const { mutate: updateBases } = useMutation({
+  const { mutate: updateBases, isPending } = useMutation({
     mutationFn: BaseService.bulkUpdateBases,
     onSuccess: () => {
       enqueueSnackbar(ClientMessages.RECORD_SUCCESFULLE_ADDED, {
@@ -20,5 +20,5 @@ export function useUpdateBases() {
       }
     },
   });
-  return updateBases;
+  return { updateBases, isPending };
 }

@@ -25,6 +25,7 @@ import Boils from "../../modules/boils/boils";
 import Conveyors from "../../modules/conveyors/conveyors";
 import Foreman_new from "../../modules/foreman/foreman";
 import Dash from "../../modules/dash/dash";
+import UpdateBases from "../../modules/bases/update-bases";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -83,6 +84,7 @@ const AppRouter = () => {
               <Route path={RouteNames.SUMMARY_DETAIL} element={<SummaryDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
+              <Route path={RouteNames.BASES_UPDATE} element={<UpdateBases />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />
