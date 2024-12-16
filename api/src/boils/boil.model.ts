@@ -79,7 +79,7 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
       instance.year = Number("202" + val.substring(val.length - 3, val.length - 2));
       instance.number = Number(val.substring(0, val.length - 4));
     } else {
-      if (["Z", "Y", "S", "R"].includes(lastSymbol)) {
+      if (["Z", "Y", "S", "R", "X"].includes(lastSymbol)) {
         instance.letter = val.substring(val.length - 3, val.length - 2);
         instance.year = Number("202" + val.substring(val.length - 2, val.length - 1));
         instance.number = Number(val.substring(0, val.length - 3));

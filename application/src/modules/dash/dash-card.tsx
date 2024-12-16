@@ -146,21 +146,26 @@ export default function DashCard({ row }: { row: IDocRow }) {
       >
         {row.state}
       </Box>
-      {row.state !== "-" && (
-        <Box
-          sx={{
-            position: "absolute",
-            top: "0.75rem",
-            right: "1rem",
-            display: "flex",
-            justifyContent: "flex-start",
-            color: "white",
-            fontSize: "0.75rem",
-          }}
-        >
-          {formatTimeToString(row.stateTime)}
-        </Box>
-      )}
+      {row.state !== "-" &&
+        row.stateValue !== "base_check" &&
+        row.stateValue !== "base_correct" &&
+        row.stateValue !== "base_continue" &&
+        row.stateValue !== "plug_pass" &&
+        row.stateValue !== "base_fail" && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: "0.75rem",
+              right: "1rem",
+              display: "flex",
+              justifyContent: "flex-start",
+              color: "white",
+              fontSize: "0.75rem",
+            }}
+          >
+            {formatTimeToString(row.stateTime)}
+          </Box>
+        )}
     </Sheet>
   );
 }
