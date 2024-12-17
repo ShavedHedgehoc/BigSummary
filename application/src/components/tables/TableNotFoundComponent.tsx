@@ -16,17 +16,17 @@ export default function TableNotFoundComponent() {
       minHeight: 0,
       gap: 2,
       p: 1,
-      borderWidth: "1px",
+      borderWidth: { xs: 0, sm: "1px" },
       borderRadius: "sm",
-      mb: 1,
+      mb: { xs: 0, sm: 1 },
     },
     (theme) => ({
-      backgroundColor: theme.variants.soft.neutral,
+      backgroundColor: { xs: "var(--joy-palette-background-body)", sm: theme.variants.soft.neutral },
     }),
   ];
   return (
     <React.Fragment>
-      <Sheet className="NoRecordsFoundContainer" variant="outlined" sx={sheetSxProps}>
+      <Sheet className="NoRecordsFoundContainer" variant={"outlined"} sx={sheetSxProps}>
         <Box>
           <Typography color="neutral" level="title-md" variant="plain">
             Записей не найдено

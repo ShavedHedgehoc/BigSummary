@@ -28,8 +28,8 @@ const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
   const setCancelFinishButtonEnabled = useForemanHistoryModalStore(
     useShallow((state) => state.setCancelFinishButtonEnabled)
   );
+
   const handleOpenHistoryModalButtonClick = () => {
-    // setCancelStartButtonEnabled(row.stateValue === "product_in_progress");
     setCancelFinishButtonEnabled(row.stateValue === "product_finished");
 
     if (row.stateValue === "product_in_progress") {

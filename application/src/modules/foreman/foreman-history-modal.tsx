@@ -19,11 +19,13 @@ import { useShallow } from "zustand/shallow";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
 import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
+import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
 
 export default function ForemanHistoryModal() {
   const { store } = React.useContext(Context);
 
   const open = useForemanHistoryModalStore(useShallow((state) => state.open));
+
   const cancelStartButtonEnabled = useForemanHistoryModalStore(useShallow((state) => state.cancelStartButtonEnabled));
   const cancelFinishButtonEnabled = useForemanHistoryModalStore(useShallow((state) => state.cancelFinishButtonEnabled));
   const record_id = useForemanHistoryModalStore(useShallow((state) => state.record_id));
@@ -85,6 +87,7 @@ export default function ForemanHistoryModal() {
     setNoteId(note_id);
     setNoteModalOpen(true);
   };
+
   const RowComponent = ({ row }: { row: IHistory }) => {
     const scope = rowScope(row.historyType.value);
     return (
@@ -119,7 +122,7 @@ export default function ForemanHistoryModal() {
           color="neutral"
           variant="outlined"
           size={"sm"}
-          sx={{ fontWeight: "normal", fontSize: "small" }}
+          sx={{ fontWeight: "normal", fontSize: "small", display: { xs: "none", sm: "block" } }}
           onClick={() => setOpen(false)}
         >
           Закрыть
@@ -146,6 +149,15 @@ export default function ForemanHistoryModal() {
             Отменить окончание фасовки
           </Button>
         )}
+        <Button
+          color="neutral"
+          variant="outlined"
+          size={"sm"}
+          sx={{ fontWeight: "normal", fontSize: "small", display: { xs: "block", sm: "none" } }}
+          onClick={() => setOpen(false)}
+        >
+          Закрыть
+        </Button>
       </Box>
     );
   };
@@ -153,6 +165,10 @@ export default function ForemanHistoryModal() {
   const HistoryTable = () => {
     if (isPending) {
       return <TableLoaderComponent />;
+    }
+
+    if (isSuccess && data.histories.length === 0) {
+      return <TableNotFoundComponent />;
     }
     return (
       <TableLayout thead={history_table_thead}>

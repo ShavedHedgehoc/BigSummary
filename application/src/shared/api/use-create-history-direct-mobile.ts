@@ -4,11 +4,10 @@ import { enqueueSnackbar } from "notistack";
 import handleError from "./http/handleError";
 import { ClientMessages } from "../resources/client-messages";
 
-export function useCreateHistory() {
+export function useCreateHistoryDirectMobile() {
   const client = useQueryClient();
-
   const { mutate: addHistory } = useMutation({
-    mutationFn: HistoryService.createHistory,
+    mutationFn: HistoryService.createHistoryDirect,
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["current_products"] });
       client.invalidateQueries({ queryKey: ["record_histories"] });
@@ -16,13 +15,13 @@ export function useCreateHistory() {
       client.invalidateQueries({ queryKey: ["boils_list"] });
       enqueueSnackbar(ClientMessages.RECORD_SUCCESFULLE_ADDED, {
         variant: "success",
-        anchorOrigin: { vertical: "top", horizontal: "right" },
+        anchorOrigin: { vertical: "bottom", horizontal: "right" },
       });
     },
     onError: (err) => {
       if (err instanceof Error) {
         const error = handleError(err);
-        enqueueSnackbar(error, { variant: "error", anchorOrigin: { vertical: "top", horizontal: "right" } });
+        enqueueSnackbar(error, { variant: "error", anchorOrigin: { vertical: "bottom", horizontal: "right" } });
       }
     },
   });

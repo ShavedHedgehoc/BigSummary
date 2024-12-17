@@ -71,8 +71,7 @@ const DashPlantSelector = () => {
 
 function MobileDashFilter() {
   const { data, isSuccess } = usePlants();
-  const { plantSelectorOptions, selectedPlant, setSelectedPlant, fillPlantSelectorOptions, changeFilter } =
-    useDashFilterStore();
+  const { plantSelectorOptions, setSelectedPlant, fillPlantSelectorOptions, changeFilter } = useDashFilterStore();
 
   React.useEffect(() => {
     if (isSuccess) {

@@ -181,7 +181,7 @@ function SideBar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -248,7 +248,7 @@ function SideBar() {
             </Toggler>
           </ListItem>
 
-          <ListItem nested>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -332,7 +332,7 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem> */}
-          <ListItem nested>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -375,7 +375,7 @@ function SideBar() {
             </Toggler>
           </ListItem>
 
-          <ListItem>
+          <ListItem sx={{ display: { xs: "none", sm: "initial" } }}>
             <ListItemButton role="menuitem">
               <ListItemContent>
                 <Link
@@ -393,7 +393,7 @@ function SideBar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -428,6 +428,7 @@ function SideBar() {
         <List
           size="sm"
           sx={{
+            display: { xs: "none", sm: "initial" },
             mt: "auto",
             flexGrow: 0,
             "--ListItem-radius": (theme) => theme.vars.radius.sm,

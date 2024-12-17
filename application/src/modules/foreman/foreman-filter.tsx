@@ -11,6 +11,7 @@ import Select, { SelectStaticProps } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import CloseRounded from "@mui/icons-material/CloseRounded";
@@ -21,7 +22,7 @@ import { useShallow } from "zustand/shallow";
 import PageFilterLayout from "../../shared/layouts/page-filter-layout";
 import { useForemanFilterStore } from "./store/use-foreman-filter-store";
 
-import { useColorScheme } from "@mui/joy";
+import { Dropdown, Menu, MenuItem, MenuButton, useColorScheme } from "@mui/joy";
 import { useProductsHistoryTypes } from "../../shared/api/use-products-history-types";
 import { ForemanFilterParams } from "./store/foreman-filter-params";
 
@@ -297,17 +298,59 @@ const ClearButton = () => {
   );
 };
 
+function MobileForemanFilter() {
+  const { data, isSuccess } = usePlants();
+  const { plantSelectorOptions, setSelectedPlant, fillPlantSelectorOptions, changeFilter } = useForemanFilterStore();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      fillPlantSelectorOptions(data);
+      setSelectedPlant(data[1].id);
+      changeFilter({ key: ForemanFilterParams.PLANT, value: "", values: [data[1].id] });
+    }
+  }, [data]);
+
+  const handleChange = (newValue: number | null) => {
+    newValue && setSelectedPlant(newValue);
+    newValue && changeFilter({ key: ForemanFilterParams.PLANT, value: "", values: [newValue] });
+  };
+  return (
+    <Box
+      sx={{ display: { xs: "initial", sm: "none" }, position: "absolute", right: "1rem", top: "4rem", zIndex: 99999 }}
+    >
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          slotProps={{ root: { variant: "soft", color: "neutral", size: "md" } }}
+        >
+          <FilterAltOutlinedIcon />
+        </MenuButton>
+        <Menu size="sm" sx={{ minWidth: 140 }}>
+          {plantSelectorOptions.map((plant) => (
+            <MenuItem key={`Record_filter_plant_option_${plant.id}`} onClick={() => handleChange(plant.id)}>
+              {plant.value}
+            </MenuItem>
+          ))}
+        </Menu>
+      </Dropdown>
+    </Box>
+  );
+}
+
 export default function ForemanFilter() {
   return (
-    <PageFilterLayout>
-      <Box sx={{ display: "flex", gap: 2, alignItems: "center", pl: 2 }}>
-        <CodeInput />
-        <MarkingInput />
-        <BatchInput />
-        <StateSelector />
-        <ForemanPlantSelector />
-      </Box>
-      <ClearButton />
-    </PageFilterLayout>
+    <>
+      <MobileForemanFilter />
+      <PageFilterLayout>
+        <Box sx={{ display: "flex", gap: 2, alignItems: "center", pl: 2 }}>
+          <CodeInput />
+          <MarkingInput />
+          <BatchInput />
+          <StateSelector />
+          <ForemanPlantSelector />
+        </Box>
+        <ClearButton />
+      </PageFilterLayout>
+    </>
   );
 }

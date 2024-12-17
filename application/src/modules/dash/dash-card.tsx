@@ -107,6 +107,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
         >
           {row.product}
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -116,6 +117,30 @@ export default function DashCard({ row }: { row: IDocRow }) {
           }}
         >
           {row.boil}
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: "0.75rem",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+        >
+          План:
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end    ",
+          }}
+        >
+          {row.plan}
         </Box>
       </Box>
       <Box

@@ -48,7 +48,7 @@ export default function ModalLayout({
           }
         }}
         sx={{
-          display: "flex",
+          display: { xs: "none", sm: "flex" },
           justifyContent: "center",
           alignItems: "center",
           zIndex: 999999,
