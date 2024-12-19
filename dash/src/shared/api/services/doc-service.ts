@@ -30,10 +30,14 @@ export interface SummaryResponse {
   records: IDocRow[];
 }
 
-export default class RecordService {
+export default class DocService {
   static async getCurrentRecordsList(plant_id: number | null): Promise<SummaryResponse> {
     const res = await axios.get(`/api/doc_detail/current/${plant_id}`);
+    return res.data;
+  }
 
+  static async getRecord(record_id: number | null): Promise<IDocRow> {
+    const res = await axios.get(`/api/doc_detail/record/${record_id}`);
     return res.data;
   }
 }

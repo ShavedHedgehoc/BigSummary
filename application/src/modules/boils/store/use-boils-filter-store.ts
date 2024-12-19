@@ -13,7 +13,6 @@ interface BoilsFilterStore {
   setSelectedPlant: (value: number) => void;
   fillPlantSelectorOptions: (values: IPlant[]) => void;
   fillStateSelectorOptions: (values: IHistoryType[]) => void;
-  //   disableBoilClearFilterButton: { derived: boolean };
 }
 
 const initFilterValue: FetchBoilsFilter = {
@@ -66,13 +65,5 @@ export const useBoilsFilterStore = create<BoilsFilterStore>()(
     fillPlantSelectorOptions: (values) =>
       set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Все", abb: "" }, ...values] })),
     fillStateSelectorOptions: (values) => set(() => ({ stateSelectorOptions: [...values] })),
-
-    // disableBoilClearFilterButton: {
-    //   get derived() {
-    //     const filter = get().filter;
-
-    //     return filter.boil === initFilterValue.boil;
-    //   },
-    // },
   }))
 );

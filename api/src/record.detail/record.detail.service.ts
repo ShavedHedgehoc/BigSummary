@@ -21,7 +21,6 @@ export class RecordDetailService {
       boil: record.boil ? record.boil.value : null,
       conveyor: record.conveyor.value,
     };
-    // const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(id, record.boilId);
     const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(id, record.water_base_id);
     const result = {
       ...JSON.parse(JSON.stringify(recordResult)),

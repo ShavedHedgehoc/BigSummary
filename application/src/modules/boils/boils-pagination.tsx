@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useBoilsPaginationStore } from "./store/use-boils-pagination-store";
 import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
 import { useShallow } from "zustand/shallow";
@@ -14,9 +13,5 @@ export default function BoilsPagination() {
     setPage: useBoilsPaginationStore(useShallow((state) => state.setPage)),
   };
 
-  return (
-    <React.Fragment>
-      <Pagination {...paginationProps} />
-    </React.Fragment>
-  );
+  return <Pagination {...paginationProps} />;
 }

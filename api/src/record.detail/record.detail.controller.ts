@@ -7,9 +7,8 @@ import { RecordDetailService } from "./record.detail.service";
 export class RecordDetailController {
   constructor(private recordDetailService: RecordDetailService) {}
   @ApiOperation({ summary: "Получить сводку по id документа" })
-  //   @ApiResponse({ status: 200, type: [Doc] })
   @Get("/:record_id")
-  getDocDetailByDocId(@Param("record_id") record_id: string) {
+  getRecordDetailByDocId(@Param("record_id") record_id: string) {
     return this.recordDetailService.getRecordDetail(Number(record_id));
   }
 }

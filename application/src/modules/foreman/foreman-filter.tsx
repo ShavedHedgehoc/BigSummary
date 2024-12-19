@@ -24,7 +24,7 @@ import { useForemanFilterStore } from "./store/use-foreman-filter-store";
 
 import { Dropdown, Menu, MenuItem, MenuButton, useColorScheme } from "@mui/joy";
 import { useProductsHistoryTypes } from "../../shared/api/use-products-history-types";
-import { ForemanFilterParams } from "./store/foreman-filter-params";
+import { ForemanFilterParams } from "./foreman-filter-params";
 
 const ForemanPlantSelector = () => {
   const { data, isSuccess } = usePlants();

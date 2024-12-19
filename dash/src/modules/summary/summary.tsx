@@ -1,6 +1,6 @@
 import React from "react";
 import { useSearchParams } from "react-router";
-import { usePlants } from "../../use-plants";
+import { usePlants } from "../../shared/api/use-plants";
 import InfoPage from "../../shared/components/info-page";
 import SummaryView from "./summary-view";
 

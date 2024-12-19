@@ -72,6 +72,37 @@ interface FetchBoilsFilter {
   plants: number[] | [];
 }
 
+interface FetchDocumentsFilter {
+  startDate: string;
+  endDate: string;
+  plants: number[] | [];
+}
+
+interface FetchDocumentsFilterFormField {
+  key: string;
+  value: string;
+  values?: number[];
+}
+
+interface FetchDocumentsDto {
+  filter: FetchDocumentsFilter;
+  page: number;
+  limit: number;
+}
+
+interface IDocumentRow {
+  id: number;
+  date: Date;
+  plant: string;
+  recordsCount: number;
+  historiesCount: number;
+}
+
+interface IDocumentData {
+  rows: IDocumentRow[];
+  total: number;
+}
+
 interface FetchProductFilter {
   boil: string;
   productCode: string;

@@ -19,3 +19,18 @@ export function formatTimeToString(dateToFormat: Date) {
     ("0" + date.getSeconds()).slice(-2)
   );
 }
+
+export function getFirstDayOfCurrentMonth() {
+  let date = new Date();
+  return new Date(date.getFullYear(), date.getMonth(), 1, 12);
+}
+
+export function getLastDayOfCurrentMonth() {
+  let date = new Date();
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0, 12);
+}
+
+export function getCurrentDay() {
+  let date = new Date();
+  return new Date(date.setHours(12));
+}

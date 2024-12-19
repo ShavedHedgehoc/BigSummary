@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { IDocRow } from "../../records-service";
+import { IDocRow } from "../../shared/api/services/doc-service";
 import { RouteNames } from "../../shared/router/route-names";
 import StopIcon from "../../shared/components/icons/stop-icon";
 import CheckIcon from "../../shared/components/icons/check-icon";
@@ -7,6 +7,7 @@ import StarsIcon from "../../shared/components/icons/stars-icon";
 import ClockIcon from "../../shared/components/icons/clock-icon";
 import FlagIcon from "../../shared/components/icons/flag-icon";
 import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
+
 export default function SummaryCard(item: IDocRow) {
   const navigate = useNavigate();
   return (

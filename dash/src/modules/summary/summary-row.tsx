@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
-import { IDocRow } from "../../records-service";
+import { IDocRow } from "../../shared/api/services/doc-service";
 import { RouteNames } from "../../shared/router/route-names";
 import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
+
 export default function SummaryRow(item: IDocRow) {
   const navigate = useNavigate();
   return (

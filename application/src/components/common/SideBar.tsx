@@ -198,7 +198,7 @@ function SideBar() {
                   <ListItemContent>
                     <Link
                       component={RouterLink}
-                      to={RouteNames.SUMMARY_LIST}
+                      to={RouteNames.DOCUMENTS}
                       color="neutral"
                       underline="none"
                       sx={{ display: "flex", gap: 1 }}
@@ -208,6 +208,7 @@ function SideBar() {
                     </Link>
                   </ListItemContent>
                 </ListItem>
+
                 <ListItem role="none">
                   <Link
                     component={RouterLink}
@@ -315,23 +316,7 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          {/* <ListItem>
-            <ListItemButton role="menuitem">
-              <ListItemContent>
-                <Link
-                  component={RouterLink}
-                  to={RouteNames.FOREMAN_NEW}
-                  color="neutral"
-                  underline="none"
-                  sx={{ display: "flex", gap: 1 }}
-                  onClick={() => closeSidebar()}
-                >
-                  <FactoryRoundedIcon />
-                  <Typography level="title-sm">{`Мастер новая (Пробуем)`}</Typography>
-                </Link>
-              </ListItemContent>
-            </ListItemButton>
-          </ListItem> */}
+
           <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (

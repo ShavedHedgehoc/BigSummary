@@ -33,6 +33,8 @@ export default function BoilsTable() {
   const setPage = useBoilsPaginationStore(useShallow((state) => state.setPage));
   const { isPending, data, isSuccess } = useBoils({ filter: filter, limit: limit, page: page });
 
+  //REmove useeffects
+
   React.useEffect(() => {
     if (data && data.total !== total) {
       setTotal(data.total);

@@ -8,6 +8,7 @@ export enum RouteNames {
   RECORD_DETAIL = "/record/:record_id",
   LABORATORY = "/laboratory",
   CONVEYORS = "/conveyors",
+  DOCUMENTS = "/documents",
   DASH = "/dash",
 
   // REPORTS = "/reports",
@@ -23,7 +24,7 @@ export enum RouteNames {
   BOILS_REPORT = "/boils_report",
   SUMMARY_REPORT = "/summary_report",
   FOREMAN = "/foreman",
-  FOREMAN_NEW = "/foreman_new",
+  // FOREMAN_NEW = "/foreman_new",
   USERS_LIST = "/users_list",
   BASES_UPDATE = "/bases_update",
 }

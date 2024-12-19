@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import PlantService, { IPlant } from "./plant-service";
+import PlantService, { IPlant } from "./services/plant-service";
 
 export const usePlants = (plant_name: string | null): UseQueryResult<IPlant> =>
   useQuery({

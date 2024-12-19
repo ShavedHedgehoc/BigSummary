@@ -1,6 +1,6 @@
 import React from "react";
-import { useRecords } from "../../use-records";
-import { IPlant } from "../../plant-service";
+import { useDoc } from "../../shared/api/use-doc";
+import { IPlant } from "../../shared/api/services/plant-service";
 import ListIcon from "../../shared/components/icons/list-icon";
 import CardIcon from "../../shared/components/icons/card-icon";
 import EyeIcon from "../../shared/components/icons/eye-icon";
@@ -22,7 +22,7 @@ export default function SummaryView(plant: IPlant) {
 
   const interval = React.useRef(scrollDelay);
 
-  const { data, isSuccess } = useRecords(plant.id);
+  const { data, isSuccess } = useDoc(plant.id);
 
   const resetTimer = () => {
     setScrolling(false);
