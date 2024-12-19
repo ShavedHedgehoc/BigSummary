@@ -9,7 +9,7 @@ export default function RecordDetail() {
   const recordId: string | undefined = params.record_id;
   const navigate = useNavigate();
 
-  const { isPending, isSuccess, data } = useRecord(Number(recordId));
+  const { isSuccess, data } = useRecord(Number(recordId));
 
   if (!recordId) {
     return <InfoPage message="Номeр строки отсутствует..." />;
