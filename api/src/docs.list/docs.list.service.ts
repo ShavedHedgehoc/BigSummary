@@ -38,9 +38,9 @@ export class DocsListService {
     return docsResult;
   }
   async getDocsListWithFilter(dto: GetDocsDto) {
-    const { count, docs } = await this.docsService.getAllDocsWithFilter(dto);
+    const { total, rows } = await this.docsService.getAllDocsWithFilter(dto);
     const docsResult = await Promise.all(
-      (await docs).map(async (item) => {
+      (await rows).map(async (item) => {
         const records = await this.recordsService.getRecordsByDocId(item.id);
         const recordsCount = records.length;
         const historiesCounts = await Promise.all(
@@ -60,6 +60,6 @@ export class DocsListService {
         };
       })
     );
-    return { rows: docsResult, total: count };
+    return { rows: docsResult, total: total };
   }
 }

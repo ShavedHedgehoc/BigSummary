@@ -69,7 +69,6 @@ export default class BoilDetailStore {
       const errValue = handleError(error);
       await this.setError([...errValue]);
     } finally {
-      //   await new Promise((r) => setTimeout(r, 500));
       await this.setPending(false);
     }
   }

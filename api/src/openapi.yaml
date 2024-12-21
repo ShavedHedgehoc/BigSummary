@@ -1,0 +1,96 @@
+openapi: 3.0.0
+paths:
+  /api/trace-batch/{batchName}:
+    get:
+      operationId: TraceBatchController_getTraceBatchByName
+      summary: Получить партию из прослеживаемости по имени варки
+      parameters:
+        - name: batchName
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Партия варки, полученная по имени
+          content:
+            application/json:
+              schema:
+                properties:
+                  BatchPK:
+                    description: id варки
+                    example: 180547
+                    type: number
+                  BatchName:
+                    description: Партия варки
+                    example: 93A3
+                    type: string
+                  BatchDate:
+                    description: Дата варки
+                    example: '2023-01-10T00:00:00.000Z'                    
+                  Plant:
+                    description: Первая буква площадки
+                    example: К
+                    type: string
+        '404':
+          description: Партия не найдена
+      tags:
+        - Варки (для теста)
+  /api/trace-weightings/{batchPK}:
+    get:
+      operationId: TraceWeightingsController_getWeightingsRows
+      summary: Получить строки взвешиваний из прослеживаемости по id партии
+      parameters:
+        - name: batchPK
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Взвешивания (для теста)
+  /api/trace-loads/{batchPK}:
+    get:
+      operationId: TraceLoadsController_getLoadsRows
+      summary: Получить строки загрузок из прослеживаемости по id партии
+      parameters:
+        - name: batchPK
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Загрузки (для теста)
+  /api/trace-technology/{batchPK}:
+    get:
+      operationId: TraceTechnologyController_getWeightingsRows
+      summary: >-
+        Получить строки технологии и взвешиваний из прослеживаемости по id
+        партии
+      parameters:
+        - name: batchPK
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Технология (для теста)
+info:
+  title: Trace API
+  description: API for trace database
+  version: '1.0'
+  contact: {}
+tags:
+  - name: Trace API
+    description: ''
+servers: []
+components:
+  schemas: {}

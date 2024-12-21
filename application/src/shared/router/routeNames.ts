@@ -27,4 +27,5 @@ export enum RouteNames {
   // FOREMAN_NEW = "/foreman_new",
   USERS_LIST = "/users_list",
   BASES_UPDATE = "/bases_update",
+  UI_PAGE = "/ui_page",
 }

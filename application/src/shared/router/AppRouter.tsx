@@ -26,6 +26,7 @@ import Foreman from "../../modules/foreman/foreman";
 import Dash from "../../modules/dash/dash";
 import UpdateBases from "../../modules/bases/update-bases";
 import Documents from "../../modules/documents/documents";
+import UiPage from "../../modules/ui-page/ui-page";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -67,7 +68,7 @@ const AppRouter = () => {
           <Route path={RouteNames.HOME} element={<Layout />}>
             <Route index element={<Dash />} />
             <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
-            <Route path={RouteNames.SUMMARY_REPORT} element={<SummaryListReport />} />
+            {/* <Route path={RouteNames.SUMMARY_REPORT} element={<SummaryListReport />} /> */}
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
               <Route path={RouteNames.BOILS_LIST} element={<Boils />} />
               <Route path={RouteNames.LABORATORY} element={<Products />} />
@@ -89,6 +90,7 @@ const AppRouter = () => {
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />
+              <Route path={RouteNames.UI_PAGE} element={<UiPage />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>

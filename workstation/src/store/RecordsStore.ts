@@ -81,7 +81,6 @@ export default class RecordsStore {
       const errValue = handleError(error);
       this.setError(errValue);
     } finally {
-      await new Promise((r) => setTimeout(r, 500));
       this.setPending(false);
     }
   }

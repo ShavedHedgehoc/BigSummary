@@ -5,7 +5,7 @@ import { PlantsService } from "src/plants/plants.service";
 import Doc from "./docs.model";
 import Plant from "src/plants/plant.model";
 import { GetDocsDto } from "src/docs.list/dto/get-docs.dto";
-import { Op } from "sequelize";
+import { Op, cast, col, fn } from "sequelize";
 import Record from "src/records/records.model";
 import History from "src/histories/histories.model";
 
@@ -17,21 +17,19 @@ export class DocsService {
     private plantService: PlantsService
   ) {}
 
+  // used in current summary
   async getCurrentDocByPlantId(plantId: number) {
-    var offset = 3;
-    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
-
+    // var offset = 3;
+    // const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
+    const date = new Date().setHours(12, 0, 0, 0);
     const doc = await this.docRepository.findOne({
       where: { plantId: plantId, date: date },
       include: { model: Plant },
     });
-
     return doc;
   }
 
   async getAllDocsWithFilter(dto: GetDocsDto) {
-    const startDate = new Date(dto.filter.startDate);
-    const endDate = new Date(dto.filter.endDate);
     let filter = {};
     const dateFilter = {
       [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
@@ -44,20 +42,33 @@ export class DocsService {
       const plantFilter = { [Op.in]: [...dto.filter.plants] };
       filter = { ...filter, plantId: plantFilter };
     }
-    const count = await this.docRepository.count({ where: { ...filter } });
+    const count = await this.docRepository.count({
+      where: { ...filter },
+    });
     const docs = await this.docRepository.findAll({
-      attributes: ["id", "date"],
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "plants"],
+        include: [
+          [col("plants.value"), "plant"],
+          [fn("COUNT", fn("DISTINCT", col("records.id"))), "recordsCount"],
+
+          [fn("COUNT", col("records.histories.id")), "historiesCount"],
+        ],
+      },
       include: [
-        { model: Plant, as: "plants" },
-        // { model: Record, as: "records", include: [{ model: History, required: true }] },
+        { model: Plant, as: "plants", attributes: [] },
+        { model: Record, attributes: [], include: [{ model: History, as: "histories", attributes: [] }] },
       ],
+      group: ["Doc.id", "plants.value"],
+      subQuery: false,
+
       where: { ...filter },
       order: [["date", "ASC"]],
       limit: dto.limit,
       offset: dto.limit * (dto.page - 1),
     });
 
-    return { count: count, docs: docs };
+    return { total: count, rows: docs };
   }
 
   async getDocByPlantAndDate(date: string, plantId: number) {
@@ -75,10 +86,23 @@ export class DocsService {
     return doc;
   }
 
+  // add filter here
   async getAllDocs() {
     const docs = await this.docRepository.findAll({
-      attributes: ["id", "date"],
-      include: [{ model: Plant, as: "plants" }],
+      attributes: {
+        exclude: ["plantId", "createdAt", "updatedAt"],
+        include: [
+          [col("plants.value"), "plant"],
+          [fn("COUNT", fn("DISTINCT", col("records.id"))), "recordsCount"],
+          [fn("COUNT", col("records.histories.id")), "historiesCount"],
+        ],
+      },
+      include: [
+        { model: Plant, as: "plants", attributes: [] },
+        { model: Record, attributes: [], include: [{ model: History, as: "histories", attributes: [] }] },
+      ],
+      group: ["Doc.id", "plants.value"],
+      order: [["date", "ASC"]],
     });
     return docs;
   }

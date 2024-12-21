@@ -20,8 +20,6 @@ export default function DocumentsFilterPlantSelector() {
       const data = await PlantService.getAllPlants();
       if (data) {
         fillPlantSelectorOptions(data);
-        // setSelectedPlant(data[1].id);
-        // changeFilter({ key: DocumentsFilterParams.PLANTS, value: "", values: [data[1].id] });
         return data;
       }
     },

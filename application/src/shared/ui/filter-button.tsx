@@ -4,7 +4,7 @@ import { Box, Button, useColorScheme } from "@mui/joy";
 export interface FilterButtonProps {
   label: string;
   disabled: boolean;
-  startDecorator: React.ReactNode;
+  startDecorator?: React.ReactNode;
   onClick: () => void;
 }
 

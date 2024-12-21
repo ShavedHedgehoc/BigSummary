@@ -2,7 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import * as cookieParser from "cookie-parser";
 import * as bodyParser from "body-parser";
 import AppModule from "./app.module";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from "@nestjs/swagger";
 import { TraceBatchModule } from "./trace_batch/trace_batch.module";
 import { TraceWeightingsModule } from "./trace_weightings/trace_weightings.module";
 import { TraceLoadsModule } from "./trace_loads/trace_loads.module";

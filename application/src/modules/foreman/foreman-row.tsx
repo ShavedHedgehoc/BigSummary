@@ -1,20 +1,18 @@
 import * as React from "react";
-import Button from "@mui/joy/Button";
+
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
-import { useColorScheme } from "@mui/joy";
-
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
 import { useForemanHistoryModalStore } from "./store/use-foreman-history-modal-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";
-import { rowScope } from "../../shared/helpers/status-conditions";
-import { StyledTypography } from "../../shared/ui/styled-typography";
+
+import { TableState } from "../../shared/ui/table-state";
+import TableButton from "../../shared/ui/table-button";
+import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 // import { useAddRecordModalStore } from "./store/use-add-record-modal-store";
 
@@ -67,59 +65,45 @@ export default function RowComponent({ row }: { row: IDocRow }) {
     addHistory(data);
   };
 
-  const { mode } = useColorScheme();
-  const scope = rowScope(row.stateValue);
-
   return (
     <tr key={row.id}>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.productId}</Typography>
       </td>
-      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.product}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.boil}</Typography>
       </td>
-
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.conveyor}</Typography>
       </td>
-      <td scope={scope} style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
-        <StyledTypography text={row.state} state={row.stateValue} />
+      <td style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
+        <TableState text={row.state} state={row.stateValue} />
       </td>
-      <td scope={scope} style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
+      <td style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
         {row.historiesCount !== 0 && <HistoryModalOpenButton row={row} />}
       </td>
 
-      <td scope={scope} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
         {row.stateValue === "product_pass" && (
-          <Button
-            startDecorator={<LoopOutlinedIcon />}
-            variant="outlined"
-            color={mode === "dark" ? "success" : "neutral"}
-            size="sm"
+          <TableButton
+            variant="success"
+            label="НАЧАТЬ"
             onClick={() => makeHistoryRecord(row.id, "product_in_progress")}
-          >
-            <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
-              Начать
-            </Typography>
-          </Button>
+            startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
+          />
         )}
       </td>
-      <td scope={scope} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
         {row.stateValue === "product_in_progress" && (
-          <Button
-            startDecorator={<LoopOutlinedIcon />}
-            variant="outlined"
-            color={mode === "dark" ? "success" : "neutral"}
-            size="sm"
+          <TableButton
+            variant="success"
+            label="ЗАКОНЧИТЬ"
             onClick={() => makeHistoryRecord(row.id, "product_finished")}
-          >
-            <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
-              Закончить
-            </Typography>
-          </Button>
+            startDecorator={<CheckOutlinedIcon />}
+          />
         )}
       </td>
     </tr>

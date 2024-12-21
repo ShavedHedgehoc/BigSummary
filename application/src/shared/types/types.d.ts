@@ -208,3 +208,5 @@ interface SummaryResponse {
   updatedAt: Date;
   records: IDocRow[];
 }
+
+type CustomColorsVariants = "success" | "danger" | "warning" | "primary";

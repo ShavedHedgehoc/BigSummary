@@ -16,6 +16,9 @@ import { useCreateHistory } from "../../shared/api/use-create-history";
 import { rowScope } from "../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../shared/ui/styled-typography";
 import { useAddRecordModalStore } from "./store/use-add-record-modal-store";
+import TableButton from "../../shared/ui/table-button";
+import { TableIconButton } from "../../shared/ui/table-icon-button";
+import { TableState } from "../../shared/ui/table-state";
 
 const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
   const setOpen = useRecordHistoryModalStore(useShallow((state) => state.setOpen));
@@ -82,67 +85,78 @@ export default function RowComponent({ row }: { row: IDocRow }) {
     setOpen(true);
   };
 
-  const { mode } = useColorScheme();
-  const scope = rowScope(row.stateValue);
-
   return (
     <tr key={row.id}>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.productId}</Typography>
       </td>
-      <td scope={scope} style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 64, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.product}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.boil}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.apparatus}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.can}</Typography>
       </td>
-      <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.conveyor}</Typography>
       </td>
-      <td scope={scope} style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
-        <StyledTypography text={row.state} state={row.stateValue} />
+      <td style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
+        {/* <StyledTypography text={row.state} state={row.stateValue} /> */}
+        <TableState text={row.state} state={row.stateValue} />
       </td>
-      <td scope={scope} style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
+      <td style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
         {row.historiesCount !== 0 && <HistoryModalOpenButton row={row} />}
       </td>
-      <td scope={scope} style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
         {row.stateValue === "product_check" && (
-          <Button
-            startDecorator={<LoopOutlinedIcon />}
-            variant="outlined"
-            color={mode === "dark" ? "warning" : "neutral"}
-            size="sm"
+          <TableButton
+            variant="warning"
+            label="ДОРАБОТКА"
             onClick={() => handleCorrectButtonClick()}
-          >
-            <Typography level="body-xs" variant="plain" color={mode === "dark" ? "warning" : "neutral"}>
-              Доработка
-            </Typography>
-          </Button>
+            startDecorator={<LoopOutlinedIcon />}
+          />
+
+          // <Button
+          //   startDecorator={<LoopOutlinedIcon />}
+          //   variant="outlined"
+          //   color={mode === "dark" ? "warning" : "neutral"}
+          //   size="sm"
+          //   onClick={() => handleCorrectButtonClick()}
+          // >
+          //   <Typography level="body-xs" variant="plain" color={mode === "dark" ? "warning" : "neutral"}>
+          //     Доработка
+          //   </Typography>
+          // </Button>
         )}
       </td>
 
-      <td scope={scope} style={{ width: 70, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 70, textAlign: "center", padding: "12px 6px" }}>
         {row.stateValue === "product_check" && (
-          <Button
-            startDecorator={<CheckOutlinedIcon />}
-            variant="outlined"
-            color={mode === "dark" ? "success" : "neutral"}
-            size="sm"
+          <TableButton
+            variant="success"
+            label="ДОПУСК"
             onClick={() => makeHistoryRecord(row.id, "product_pass")}
-          >
-            <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
-              Допуск
-            </Typography>
-          </Button>
+            startDecorator={<CheckOutlinedIcon />}
+          />
+          // <Button
+          //   startDecorator={<CheckOutlinedIcon />}
+          //   variant="outlined"
+          //   color={mode === "dark" ? "success" : "neutral"}
+          //   size="sm"
+          //   onClick={() => makeHistoryRecord(row.id, "product_pass")}
+          // >
+          //   <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
+          //     Допуск
+          //   </Typography>
+          // </Button>
         )}
       </td>
-      <td scope={scope} style={{ width: 60, textAlign: "center", padding: "6px 6px" }}>
+      <td style={{ width: 60, textAlign: "center", padding: "6px 6px" }}>
         {row.stateValue !== "product_fail" &&
           row.stateValue !== "base_check" &&
           row.stateValue !== "base_fail" &&
@@ -150,9 +164,12 @@ export default function RowComponent({ row }: { row: IDocRow }) {
           row.stateValue !== "base_continue" &&
           row.stateValue !== "product_finished" &&
           row.historiesCount !== 0 && (
-            <IconButton color="danger" size="sm" onClick={() => handleFailButtonClick()}>
+            <TableIconButton color="danger" onClick={() => handleFailButtonClick()}>
               <BlockOutlinedIcon />
-            </IconButton>
+            </TableIconButton>
+            // <IconButton color="danger" size="sm" onClick={() => handleFailButtonClick()}>
+            //   <BlockOutlinedIcon />
+            // </IconButton>
           )}
       </td>
     </tr>

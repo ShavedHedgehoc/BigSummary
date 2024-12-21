@@ -344,7 +344,7 @@ function SideBar() {
                     </Link>
                   </ListItemContent>
                 </ListItem>
-                <ListItem role="none">
+                {/* <ListItem role="none">
                   <Link
                     component={RouterLink}
                     to={RouteNames.SUMMARY_REPORT}
@@ -355,7 +355,7 @@ function SideBar() {
                   >
                     <Typography level="title-sm">Сводки</Typography>
                   </Link>
-                </ListItem>
+                </ListItem> */}
               </List>
             </Toggler>
           </ListItem>
@@ -402,6 +402,20 @@ function SideBar() {
                       onClick={() => closeSidebar()}
                     >
                       <Typography level="title-sm">Пользователи</Typography>
+                    </Link>
+                  </ListItemContent>
+                </ListItem>
+                <ListItem sx={{ mt: 0.5 }} role="none">
+                  <ListItemContent>
+                    <Link
+                      component={RouterLink}
+                      to={RouteNames.UI_PAGE}
+                      color="neutral"
+                      underline="none"
+                      sx={{ display: "flex", gap: 1 }}
+                      onClick={() => closeSidebar()}
+                    >
+                      <Typography level="title-sm">UI Page</Typography>
                     </Link>
                   </ListItemContent>
                 </ListItem>
