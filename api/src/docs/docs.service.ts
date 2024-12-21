@@ -19,9 +19,9 @@ export class DocsService {
 
   // used in current summary
   async getCurrentDocByPlantId(plantId: number) {
-    // var offset = 3;
-    // const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
-    const date = new Date().setHours(12, 0, 0, 0);
+    var offset = 3;
+    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
+    // const date = new Date().setHours(12, 0, 0, 0);
     const doc = await this.docRepository.findOne({
       where: { plantId: plantId, date: date },
       include: { model: Plant },
