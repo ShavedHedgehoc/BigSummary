@@ -51,7 +51,7 @@ export default function BoilsTable() {
     return <TableLoaderComponent />;
   }
 
-  if (isSuccess && data.rows.length === 0) {
+  if (isSuccess && data.total === 0) {
     return <TableNotFoundComponent />;
   }
 

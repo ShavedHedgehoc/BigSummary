@@ -7,7 +7,7 @@ export default function BoilsFilterBatchInput() {
   const filter = useBoilsFilterStore(useShallow((state) => state.filter));
   const changeFilter = useBoilsFilterStore(useShallow((state) => state.changeFilter));
 
-  const batchInputProps: FilterInputWithSortProps = {
+  const inputProps: FilterInputWithSortProps = {
     id: BoilsFilterParams.BOIL,
     value: filter.boil,
     sortAscValue: filter.boilAsc,
@@ -18,5 +18,5 @@ export default function BoilsFilterBatchInput() {
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 
-  return <FilterInputWithSort {...batchInputProps} />;
+  return <FilterInputWithSort {...inputProps} />;
 }

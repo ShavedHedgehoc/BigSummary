@@ -58,7 +58,7 @@ export class BoilsService {
     const boilOrder = dto.filter.boilAsc ? "ASC" : "DESC";
     let filter = {};
     if (dto.filter.boil !== "") {
-      const boilFilter = { [Op.like]: `%${dto.filter.boil}%` };
+      const boilFilter = { [Op.iLike]: `%${dto.filter.boil}%` };
       filter = { ...filter, value: boilFilter };
     }
 
@@ -79,7 +79,7 @@ export class BoilsService {
       baseCond = { ...baseCond, code: baseFilter };
     }
     if (dto.filter.marking !== "") {
-      const markingFilter = { [Op.like]: `%${dto.filter.marking}%` };
+      const markingFilter = { [Op.iLike]: `%${dto.filter.marking}%` };
       baseCond = { ...baseCond, marking: markingFilter };
     }
 

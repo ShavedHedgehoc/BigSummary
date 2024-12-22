@@ -8,6 +8,9 @@ import Role from "src/roles/roles.model";
 import { UserRolesService } from "src/user-roles/user-roles.service";
 import { UpdateRolesDto } from "./dto/update-roles.dto";
 import { TokenService } from "src/token/token.service";
+import { GethUsersDto } from "./dto/get-users-dto";
+import { Op } from "sequelize";
+import UserRoles from "src/user-roles/user-roles.model";
 
 @Injectable()
 export class UsersService {
@@ -39,19 +42,51 @@ export class UsersService {
     return result;
   }
 
-  async getAllUsersWithFilter() {
-    const count = await this.userRepository.count({});
+  async getAllUserWithFilter(dto: GethUsersDto) {
+    console.log(dto);
+    const nameOrder = dto.filter.nameAsc ? "ASC" : "DESC";
+    let filter = {};
+    if (dto.filter.name !== "") {
+      const nameFilter = { [Op.iLike]: `%${dto.filter.name}%` };
+      filter = { ...filter, name: nameFilter };
+    }
+    if (dto.filter.email !== "") {
+      const emailFilter = { [Op.iLike]: `%${dto.filter.email}%` };
+      filter = { ...filter, email: emailFilter };
+    }
+    let rolesFilter = {};
+    if (dto.filter.roles.length > 0) {
+      const rolesCond = { [Op.in]: [...dto.filter.roles] };
+      rolesFilter = { ...rolesFilter, id: rolesCond };
+    }
+
+    const count = await this.userRepository.count({ where: { ...filter } });
+
     const users = await this.userRepository.findAll({
+      where: { ...filter },
       attributes: ["id", "name", "email", "banned"],
-      order: [["name", "ASC"]],
+      include: [
+        {
+          model: Role,
+          as: "roles",
+          where: { ...rolesFilter },
+          required: dto.filter.roles.length > 0,
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+
+      order: [["name", nameOrder]],
     });
-    const result = await Promise.all(
-      await users.map(async (item) => {
-        const roles = await this.userRoleService.getRolesListByUserId(item.id);
-        return { ...JSON.parse(JSON.stringify(item)), roles: roles };
-      })
-    );
-    return { users: result, total: count };
+    // const result = await Promise.all(
+    //   await users.map(async (item) => {
+    //     const roles = await this.userRoleService.getRolesListByUserId(item.id);
+    //     return { ...JSON.parse(JSON.stringify(item)), roles: roles };
+    //   })
+    // );
+    // return { rows: result, total: count };
+    return { rows: users, total: count };
   }
 
   async changeBannedStatus(id: number) {

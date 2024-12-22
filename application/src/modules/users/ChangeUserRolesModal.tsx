@@ -7,7 +7,7 @@ import ModalLayout, { ModalLayoutProps } from "../../components/modals/ModalLayo
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
 import { useShallow } from "zustand/shallow";
-import { useRoles } from "./hooks/useRoles";
+import { useRoles } from "./use-roles";
 import { useRolesListStore } from "./hooks/useRolesListStore";
 import { enqueueSnackbar } from "notistack";
 import handleError from "../../shared/api/http/handleError";

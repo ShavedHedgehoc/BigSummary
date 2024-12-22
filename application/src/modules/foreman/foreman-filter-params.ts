@@ -5,4 +5,5 @@ export enum ForemanFilterParams {
   BOIL_ASC = "boilAsc",
   STATES = "states",
   PLANT = "plant",
+  CONVEYOR = "conveyor",
 }

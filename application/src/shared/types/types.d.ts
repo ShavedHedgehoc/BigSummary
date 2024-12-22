@@ -34,6 +34,18 @@ interface IEmployee {
   occupation: IOccupation;
 }
 
+interface IPlant {
+  id: number;
+  value: string;
+  abb: string;
+}
+
+interface IRole {
+  id: number;
+  value: string;
+  description: string;
+}
+
 interface IDocRow {
   id: number;
   productId: number;
@@ -70,6 +82,26 @@ interface FetchBoilsFilter {
   boilAsc: boolean;
   states: number[] | [];
   plants: number[] | [];
+}
+
+interface FetchUsersFilter {
+  name: string;
+  nameAsc: boolean;
+  email: string;
+  banned: number[] | [];
+  roles: number[] | [];
+}
+
+interface FetchUsersDto {
+  filter: FetchUsersFilter;
+  page: number;
+  limit: number;
+}
+
+interface FetchUsersFilterFormField {
+  key: string;
+  value: string;
+  values?: number[];
 }
 
 interface FetchDocumentsFilter {
@@ -111,6 +143,7 @@ interface FetchProductFilter {
   boilAsc: boolean;
   states: number[] | [];
   plant: number | null;
+  conveyor: string;
 }
 
 interface FetchBoilsDto {

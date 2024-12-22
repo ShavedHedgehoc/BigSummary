@@ -9,6 +9,7 @@ import { RoleGuard } from "src/auth/role-guard";
 import { AddRoleDto } from "./dto/add-role.dto";
 import { ValidationPipe } from "src/pipes/validation.pipe";
 import { UpdateRolesDto } from "./dto/update-roles.dto";
+import { GethUsersDto } from "./dto/get-users-dto";
 
 @ApiTags("Пользователи")
 @Controller("users")
@@ -27,8 +28,8 @@ export class UsersController {
   @ApiOperation({ summary: "Получить пользователей с параметрами" })
   @ApiResponse({ status: 201, type: [User] })
   @Post("/list")
-  getAllUsersWithFilter(@Body() dto: any) {
-    return this.usersService.getAllUsersWithFilter();
+  getAllUsersWithFilter(@Body() dto: GethUsersDto) {
+    return this.usersService.getAllUserWithFilter(dto);
   }
 
   @ApiOperation({ summary: "Создание нового пользователя" })

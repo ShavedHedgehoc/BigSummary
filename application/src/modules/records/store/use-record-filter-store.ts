@@ -19,6 +19,7 @@ const initFilterValue: FetchProductFilter = {
   productCode: "",
   boil: "",
   marking: "",
+  conveyor: "",
   haveRecord: true,
   boilAsc: false,
   states: [],

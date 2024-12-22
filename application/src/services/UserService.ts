@@ -16,7 +16,7 @@ export interface IUserRow {
 }
 
 export interface IUserResponse {
-  users: IUserRow[];
+  rows: IUserRow[];
   total: number;
 }
 
@@ -31,8 +31,8 @@ export default class UserService {
     return $api.get(`/users`);
   }
 
-  static async getUsersWithParams(): Promise<IUserResponse> {
-    const res = await $api.post(`/users/list`);
+  static async getUsersWithParams(dto: FetchUsersDto): Promise<IUserResponse> {
+    const res = await $api.post(`/users/list`, dto);
     return res.data;
   }
   static async updateUserRoles(data: IUpdateUserRolesDto): Promise<IUserResponse> {

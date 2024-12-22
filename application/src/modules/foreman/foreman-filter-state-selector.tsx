@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/shallow";
-import { useBoilsFilterStore } from "./store/use-boils-filter-store";
-import { BoilsFilterParams } from "./boils-filter-params";
+import { useForemanFilterStore } from "./store/use-foreman-filter-store";
+import { ForemanFilterParams } from "./foreman-filter-params";
 
 import { useQuery } from "@tanstack/react-query";
 import HistoryTypeService from "../../shared/api/services/history-types-service";
@@ -10,19 +10,18 @@ import FilterMultiSelector, {
   FilterMultiSelectorProps,
 } from "../../shared/ui/filter-multi-selector";
 
-export default function BoilsFilterStateSelector() {
-  const filter = useBoilsFilterStore(useShallow((state) => state.filter));
-  const changeFilter = useBoilsFilterStore(useShallow((state) => state.changeFilter));
-  const stateSelectorOptions = useBoilsFilterStore(useShallow((state) => state.stateSelectorOptions));
-  const fillStateSelectorOptions = useBoilsFilterStore(useShallow((state) => state.fillStateSelectorOptions));
+export default function ForemanFilterStateSelector() {
+  const filter = useForemanFilterStore(useShallow((state) => state.filter));
+  const changeFilter = useForemanFilterStore(useShallow((state) => state.changeFilter));
+  const stateSelectorOptions = useForemanFilterStore(useShallow((state) => state.stateSelectorOptions));
+  const fillStateSelectorOptions = useForemanFilterStore(useShallow((state) => state.fillStateSelectorOptions));
 
   useQuery({
-    queryKey: ["boil_states_options"],
+    queryKey: ["product_state_options"],
     queryFn: async () => {
-      const data = await HistoryTypeService.getBoilsHistoryTypes();
+      const data = await HistoryTypeService.getProductsHistoryTypes();
       if (data) {
         fillStateSelectorOptions(data);
-        changeFilter({ key: BoilsFilterParams.STATES, value: "", values: [1] });
         return data;
       }
     },
@@ -38,7 +37,7 @@ export default function BoilsFilterStateSelector() {
   ));
 
   const stateSelectorProps: FilterMultiSelectorProps = {
-    id: BoilsFilterParams.STATES,
+    id: ForemanFilterParams.STATES,
     selectedOptions: filter.states,
     placeholder: "Выберите статус",
     label: "Поиск по статусу",

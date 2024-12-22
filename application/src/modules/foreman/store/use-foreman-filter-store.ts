@@ -18,6 +18,7 @@ const initFilterValue: FetchProductFilter = {
   productCode: "",
   boil: "",
   marking: "",
+  conveyor: "",
   haveRecord: true,
   boilAsc: false,
   states: [],
@@ -53,6 +54,9 @@ export const useForemanFilterStore = create<ForemanFilterStore>()((set) => ({
         break;
       case ForemanFilterParams.MARKING:
         set((state) => ({ filter: { ...state.filter, marking: value } }));
+        break;
+      case ForemanFilterParams.CONVEYOR:
+        set((state) => ({ filter: { ...state.filter, conveyor: value } }));
         break;
       case ForemanFilterParams.BOIL_ASC:
         set((state) => ({ filter: { ...state.filter, boilAsc: value === "true" ? true : false } }));

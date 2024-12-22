@@ -64,6 +64,7 @@ export class RecordsService {
     const qry = `
     select records.id 
     from records as records
+   
     join
     (select  max (id) as hid, record_id as record_id from
     histories
@@ -76,6 +77,7 @@ export class RecordsService {
     join history_types as htypes
     on htypes.id = histories."historyTypeId"
     where htypes.id IN (:ids)
+     order by records.id  ASC
     `;
     if (typeArr.length === 0) {
       return [];
