@@ -49,8 +49,8 @@ export class HistoriesController {
 
   @ApiOperation({ summary: "Создание новой записи напрямую" })
   @ApiResponse({ status: 201, type: History })
-  @Roles("GODMODE", "LABORATORY", "FOREMAN")
-  @UseGuards(RoleGuard)
+  // @Roles("GODMODE", "LABORATORY", "FOREMAN")
+  // @UseGuards(RoleGuard)
   @Post("/direct")
   createDirect(@Body() dto: AddHistoryDtoNew) {
     return this.historiesService.directAddHistorie(dto);

@@ -95,6 +95,7 @@ export default class AuthStore {
     } catch (error) {
       console.log("auth error");
       localStorage.removeItem("accessToken");
+      // this.setUser({} as IUser);
       // localStorage.removeItem("user");
       const errValue = handleError(error);
       this.setError([...errValue]);
@@ -104,7 +105,14 @@ export default class AuthStore {
   }
   //&
   async refresh() {
-    const response = await AuthService.refresh();
-    await localStorage.setItem("accessToken", response.data.accessToken);
+    try {
+      const response = await AuthService.refresh();
+      await localStorage.setItem("accessToken", response.data.accessToken);
+    } catch (error) {
+      console.log("fail refresh");
+      localStorage.removeItem("accessToken");
+      this.setAuth(false);
+      this.setUser({} as IUser);
+    }
   }
 }

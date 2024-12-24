@@ -18,8 +18,8 @@ export class UsersController {
 
   @ApiOperation({ summary: "Получить всех пользователей" })
   @ApiResponse({ status: 201, type: [User] })
-  @Roles("ADMIN")
-  @UseGuards(RoleGuard)
+  // @Roles("ADMIN")
+  // @UseGuards(RoleGuard)
   @Post("/list")
   getAllUsers(@Body() dto: GethUsersDto) {
     return this.usersService.getAllUserWithFilter(dto);
