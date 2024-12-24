@@ -48,12 +48,11 @@ $api.interceptors.response.use(
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
         try {
-          console.log("refresh from interceptor");
           const response = await $clearApi.post(ApiRoutes.REFRESH);
-          localStorage.setItem("accessToken", response.data.token);
-
+          localStorage.setItem("accessToken", response.data.accessToken);
           return $api.request(originalRequest);
         } catch (error) {
+          // localStorage.removeItem("accessToken");
           return Promise.reject(error);
         }
       }

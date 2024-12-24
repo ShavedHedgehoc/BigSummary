@@ -8,7 +8,7 @@ export interface FilterSelectorOptionProps {
 
 export interface FilterSelectorProps {
   id: string;
-  selectedOption: number;
+  selectedOption: number | null;
   placeholder: string;
   label: string;
   options: React.ReactNode;

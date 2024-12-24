@@ -26,7 +26,7 @@ const initFilterValue: FetchBoilsFilter = {
 };
 
 export const useBoilsFilterStore = create<BoilsFilterStore>()(
-  devtools((set, get) => ({
+  devtools((set) => ({
     filter: initFilterValue,
     selectedPlant: 999999,
     plantSelectorOptions: [],

@@ -1,4 +1,4 @@
-import { Typography, Box, useColorScheme } from "@mui/joy";
+import { Typography, Box } from "@mui/joy";
 
 import { formatDateToString } from "../../utils";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import TableButton from "../../shared/ui/table-button";
 
 export default function DocumentsRow({ row }: { row: IDocumentRow }) {
-  const deleteDocument = useDeleteDocument();
+  const { deleteDocument, deletePending } = useDeleteDocument();
 
   const navigate = useNavigate();
 
@@ -68,7 +68,7 @@ export default function DocumentsRow({ row }: { row: IDocumentRow }) {
             label="УДАЛИТЬ"
             onClick={() => deleteDocument(row.id)}
             startDecorator={<ClearOutlinedIcon />}
-            disabled={Number(row.historiesCount) !== 0}
+            disabled={Number(row.historiesCount) !== 0 || deletePending}
           />
           <TableButton
             variant="success"

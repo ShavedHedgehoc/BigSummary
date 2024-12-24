@@ -25,7 +25,7 @@ import CloseRounded from "@mui/icons-material/CloseRounded";
 
 function BoilsListTableFilterComponent() {
   const { store } = React.useContext(Context);
-  const { mode, systemMode } = useColorScheme();
+  const { mode } = useColorScheme();
   const action: SelectStaticProps["action"] = React.useRef(null);
 
   return (

@@ -9,7 +9,7 @@ export default function NoteModal() {
   const open = useNoteModalStore(useShallow((state) => state.open));
   const id = useNoteModalStore(useShallow((state) => state.noteId));
   const setOpen = useNoteModalStore(useShallow((state) => state.setOpen));
-  const { isPending, isRefetching, data, isSuccess } = useNote(id);
+  const { data, isSuccess } = useNote(id);
 
   const modalProps = {
     open: open,

@@ -89,7 +89,7 @@ const SetButton = () => {
   const historyNote = useRecordHistoryNoteStore(useShallow((state) => state.historyNote));
   const setHistoryNote = useRecordHistoryNoteStore(useShallow((state) => state.setHistoryNote));
   const noteRequired = useAddRecordModalStore(useShallow((state) => state.noteRequired));
-  const addHistory = useCreateHistory();
+  const { addHistory } = useCreateHistory();
   const handleSetButtonClick = () => {
     const data: AddHistoryDto = {
       record_id: record_id,

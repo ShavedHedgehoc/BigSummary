@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 
 import { Button, Typography, useColorScheme } from "@mui/joy";
 // import { Context } from "../../../main";
-import { IDocRow, IRecord } from "../../../types";
+import { IDocRow } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import { statusCondition } from "../../../utils";
 

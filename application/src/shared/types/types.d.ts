@@ -20,6 +20,18 @@ interface IHistory {
   employee: IEmployee | null;
   note_id: number;
 }
+interface IOccupation {
+  id: number;
+  value: string;
+  description: string;
+}
+
+interface IUser {
+  id: number;
+  name: string;
+  email: string;
+  roles: string[];
+}
 
 interface IHistoryType {
   id: number;
@@ -82,6 +94,12 @@ interface FetchBoilsFilter {
   boilAsc: boolean;
   states: number[] | [];
   plants: number[] | [];
+}
+
+interface FetchEmployeesFilter {
+  name: string;
+  nameAsc: boolean;
+  occupations: number[] | [];
 }
 
 interface FetchUsersFilter {
@@ -148,6 +166,12 @@ interface FetchProductFilter {
 
 interface FetchBoilsDto {
   filter: FetchBoilsFilter;
+  page: number;
+  limit: number;
+}
+
+interface FetchEmployeesDto {
+  filter: FetchEmployeesFilter;
   page: number;
   limit: number;
 }

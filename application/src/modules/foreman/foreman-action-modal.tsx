@@ -1,20 +1,10 @@
 import * as React from "react";
-
-import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
 import Sheet from "@mui/joy/Sheet";
-
 import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
-
 import ModalMobileLayout from "../../shared/layouts/modal-mobile-layout";
-
 import { useColorScheme } from "@mui/joy";
-
-import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { useCreateHistoryMobile } from "../../shared/api/use-create-history-mobile";
 import { useCreateHistoryDirectMobile } from "../../shared/api/use-create-history-direct-mobile";
 import { useForemanActionModalStore } from "./store/use-foreman-action-modal-store";

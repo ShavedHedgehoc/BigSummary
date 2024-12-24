@@ -1,5 +1,4 @@
 import * as React from "react";
-import { observer } from "mobx-react-lite";
 import { Box, LinearProgress, Modal, Sheet, Typography } from "@mui/joy";
 
 export interface PendingModalProps {

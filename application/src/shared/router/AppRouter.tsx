@@ -9,14 +9,11 @@ import Layout from "../../components/common/Layout";
 import Login from "../../components/pages/Login";
 import Forbidden from "../../components/pages/Forbidden";
 import SummaryUpload from "../../components/pages/SummaryUpload";
-import SummaryList from "../../components/pages/SummaryList";
 
-import Employers from "../../components/pages/employees/Employees";
 import SummaryDetail from "../../components/pages/SummaryDetail";
 import RecordDetail from "../../components/pages/RecordDetail";
 
 import BoilsReport from "../../components/pages/BoilReport";
-import SummaryListReport from "../../components/pages/SummaryListReport";
 
 import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
@@ -27,6 +24,7 @@ import Dash from "../../modules/dash/dash";
 import UpdateBases from "../../modules/bases/update-bases";
 import Documents from "../../modules/documents/documents";
 import UiPage from "../../modules/ui-page/ui-page";
+import Employees from "../../modules/employees/employees";
 
 export enum Params {
   SUMMARY_PARAMS = "summary_id",
@@ -39,6 +37,7 @@ const AppRouter = () => {
     if (localStorage.getItem("accessToken")) {
       store.AuthStore.checkAuth();
     }
+
     if (!store.AuthStore.isAuth && !store.AuthStore.pending) {
       return <Navigate to={RouteNames.LOGIN} />;
     }
@@ -74,7 +73,7 @@ const AppRouter = () => {
               <Route path={RouteNames.LABORATORY} element={<Products />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.EMPLOYERS} />}>
-              <Route path={RouteNames.EMPLOYERS} element={<Employers />} />
+              <Route path={RouteNames.EMPLOYERS} element={<Employees />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.FOREMAN} />}>
               <Route path={RouteNames.FOREMAN} element={<Foreman />} />

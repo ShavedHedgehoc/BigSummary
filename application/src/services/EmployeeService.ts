@@ -24,7 +24,7 @@ export interface IEmployee {
 }
 
 export interface IEmployeeResponse {
-  employees: IEmployee[];
+  rows: IEmployee[];
   total: number;
 }
 
@@ -56,11 +56,11 @@ export interface IEmployeeUpdateDto {
 export default class EmployeeService {
   static async getEmployees(): Promise<IEmployee[]> {
     const res = await $api.get(`/employees`);
-    await new Promise((r) => setTimeout(r, 500));
+    // await new Promise((r) => setTimeout(r, 500));
     return res.data;
   }
 
-  static async getEmployeeListWithParams(dto: IEmployeeGetDto): Promise<IEmployeeResponse> {
+  static async getEmployeeListWithParams(dto: FetchEmployeesDto): Promise<IEmployeeResponse> {
     const res = await $api.post(`/employees/list`, dto);
     return res.data;
   }

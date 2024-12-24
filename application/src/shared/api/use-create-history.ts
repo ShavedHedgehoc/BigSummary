@@ -7,7 +7,7 @@ import { ClientMessages } from "../resources/client-messages";
 export function useCreateHistory() {
   const client = useQueryClient();
 
-  const { mutate: addHistory } = useMutation({
+  const { mutate: addHistory, isPending } = useMutation({
     mutationFn: HistoryService.createHistory,
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["current_products"] });
@@ -26,5 +26,5 @@ export function useCreateHistory() {
       }
     },
   });
-  return addHistory;
+  return { addHistory, isPending };
 }

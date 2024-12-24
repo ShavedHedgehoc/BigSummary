@@ -15,12 +15,12 @@ interface DashFilterStore {
 
 const initFilterValue: FetchProductFilter = {
   productCode: "",
+  conveyor: "",
   boil: "",
   marking: "",
   haveRecord: true,
   boilAsc: false,
   states: [],
-  //   plant: null,
   plant: 2,
 };
 
@@ -33,14 +33,10 @@ export const useDashFilterStore = create<DashFilterStore>()((set) => ({
     set((state) => ({
       filter: {
         ...state.filter,
-        // productCode: initFilterValue.productCode,
-        // boil: initFilterValue.boil,
-        // marking: initFilterValue.marking,
-        // states: initFilterValue.states,
       },
     })),
 
-  changeFilter: ({ key, value, values }) => {
+  changeFilter: ({ key, values }) => {
     switch (key) {
       case DashFilterParams.PLANT:
         set((state) => ({ filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant } }));

@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import { BoilFilterParams } from "../records-filter-params";
 import { IPlant } from "../../../types";
 import { RecordsFilterParams } from "../records-filter-params";
 
@@ -37,6 +36,7 @@ export const useRecordsFilterStore = create<RecordsFilterStore>()((set) => ({
         ...state.filter,
         productCode: initFilterValue.productCode,
         boil: initFilterValue.boil,
+        conveyor: initFilterValue.conveyor,
         marking: initFilterValue.marking,
         states: initFilterValue.states,
       },
@@ -55,6 +55,9 @@ export const useRecordsFilterStore = create<RecordsFilterStore>()((set) => ({
         break;
       case RecordsFilterParams.MARKING:
         set((state) => ({ filter: { ...state.filter, marking: value } }));
+        break;
+      case RecordsFilterParams.CONVEYOR:
+        set((state) => ({ filter: { ...state.filter, conveyor: value } }));
         break;
       case RecordsFilterParams.BOIL_ASC:
         set((state) => ({ filter: { ...state.filter, boilAsc: value === "true" ? true : false } }));

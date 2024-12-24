@@ -27,7 +27,7 @@ const initFilterValue: FetchDocumentsFilter = {
 };
 
 export const useDocumentsFilterStore = create<DocumentsFilterStore>()(
-  devtools((set, get) => ({
+  devtools((set) => ({
     filter: initFilterValue,
     selectedPlant: 999999,
     plantSelectorOptions: [],

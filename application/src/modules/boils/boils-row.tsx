@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Typography, useColorScheme } from "@mui/joy";
 
 import IconButton from "@mui/joy/IconButton";
@@ -10,12 +9,11 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { useShallow } from "zustand/shallow";
 import { useBoilHistoryModalStore } from "./store/use-boil-history-modal-store";
-import { Context } from "../../main";
-import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
-import { useCreateHistory } from "../../shared/api/use-create-history";
-import TableButton from "../../shared/ui/table-button";
+import TableButton, { TableButtonProps } from "../../shared/ui/table-button";
 import { TableIconButton } from "../../shared/ui/table-icon-button";
 import { TableState } from "../../shared/ui/table-state";
+
+import UseBoilsRowActions from "./use-boils-row-actions";
 
 const useHistoryModalOpen = ({ row }: { row: IBoilRow }) => {
   const setOpen = useBoilHistoryModalStore(useShallow((state) => state.setOpen));
@@ -43,61 +41,31 @@ const useHistoryModalOpen = ({ row }: { row: IBoilRow }) => {
 };
 
 const HistoryModalOpenButton = ({ row }: { row: IBoilRow }) => {
-  const handleContinueButtonClick = useHistoryModalOpen({ row });
+  const handleOpenHistoryModalButtonClick = useHistoryModalOpen({ row });
   return (
-    <IconButton variant="plain" size="sm" onClick={() => handleContinueButtonClick()}>
+    <IconButton variant="plain" size="sm" onClick={() => handleOpenHistoryModalButtonClick()}>
       <InfoOutlinedIcon />
     </IconButton>
   );
 };
 
-export default function RowComponent({ row }: { row: IBoilRow }) {
-  const { store } = React.useContext(Context);
-  const setOpen = useAddBoilModalStore(useShallow((state) => state.setOpen));
-  const setTitle = useAddBoilModalStore(useShallow((state) => state.setTitle));
-  const setBoilValue = useAddBoilModalStore(useShallow((state) => state.setBoilValue));
-  const setState = useAddBoilModalStore(useShallow((state) => state.setState));
-  const setNoteRequired = useAddBoilModalStore(useShallow((state) => state.setNoteRequired));
-
-  const addHistory = useCreateHistory();
-
-  const handleContinueButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: null,
-      boil_value: row.value,
-      historyType: "base_continue",
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: null,
-    };
-    addHistory(data);
-  };
-
-  const handleCorrectButtonClick = () => {
-    setBoilValue(row.value);
-    setTitle(`Партия - ${row.value}, статус - "Требуется корректировка"`);
-    setState("base_correct");
-    setNoteRequired(true);
-    setOpen(true);
-  };
-  const handlePassButtonClick = () => {
-    setBoilValue(row.value);
-    setTitle(`Партия - ${row.value}, статус - "Допуск на подключение"`);
-    setState("plug_pass");
-    setNoteRequired(false);
-    setOpen(true);
-  };
-
-  const handleFailButtonClick = () => {
-    setBoilValue(row.value);
-    setTitle(`Партия - ${row.value}, статус - "Брак основы"`);
-    setState("base_fail");
-    setNoteRequired(true);
-    setOpen(true);
-  };
-
+export default function BoilsRow({ row }: { row: IBoilRow }) {
+  const {
+    handleContinueButtonClick,
+    handleCorrectButtonClick,
+    handleFailButtonClick,
+    handlePassButtonClick,
+    isPending,
+  } = UseBoilsRowActions({ row });
   const { mode } = useColorScheme();
+
+  const passButtonProps: TableButtonProps = {
+    variant: "success",
+    label: "ДОПУСК",
+    disabled: isPending,
+    onClick: () => handlePassButtonClick(),
+    startDecorator: <CheckOutlinedIcon />,
+  };
 
   return (
     <tr key={row.id}>
@@ -123,7 +91,6 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
           {row.recordsCount}
         </Typography>
       </td>
-
       <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography
           level="body-xs"
@@ -132,11 +99,9 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
           {row.historiesCount}
         </Typography>
       </td>
-
       <td style={{ width: 96, textAlign: "center", padding: "18px 6px" }}>
         <TableState text={row.state} state={row.stateValue} />
       </td>
-
       <td style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
         {row.historiesCount !== 0 && <HistoryModalOpenButton row={row} />}
       </td>
@@ -146,6 +111,7 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
           <TableButton
             variant="success"
             label="ПРОДОЛЖЕНИЕ"
+            disabled={isPending}
             onClick={() => handleContinueButtonClick()}
             startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
           />
@@ -157,6 +123,7 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
           <TableButton
             variant="warning"
             label="КОРРЕКТИРОВКА"
+            disabled={isPending}
             onClick={() => handleCorrectButtonClick()}
             startDecorator={<LoopOutlinedIcon />}
           />
@@ -164,19 +131,12 @@ export default function RowComponent({ row }: { row: IBoilRow }) {
       </td>
 
       <td style={{ width: 70, textAlign: "center", padding: "12px 6px" }}>
-        {row.stateValue === "base_check" && (
-          <TableButton
-            variant="success"
-            label="ДОПУСК"
-            onClick={() => handlePassButtonClick()}
-            startDecorator={<CheckOutlinedIcon />}
-          />
-        )}
+        {row.stateValue === "base_check" && <TableButton {...passButtonProps} />}
       </td>
 
       <td style={{ width: 60, textAlign: "center", padding: "6px 6px" }}>
         {row.stateValue !== "base_fail" && row.historiesCount !== 0 && (
-          <TableIconButton color="danger" onClick={() => handleFailButtonClick()}>
+          <TableIconButton color="danger" disabled={isPending} onClick={() => handleFailButtonClick()}>
             <BlockOutlinedIcon />
           </TableIconButton>
         )}

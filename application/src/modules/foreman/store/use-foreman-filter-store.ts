@@ -36,6 +36,7 @@ export const useForemanFilterStore = create<ForemanFilterStore>()((set) => ({
         ...state.filter,
         productCode: initFilterValue.productCode,
         boil: initFilterValue.boil,
+        conveyor: initFilterValue.conveyor,
         marking: initFilterValue.marking,
         states: initFilterValue.states,
       },

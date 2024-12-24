@@ -20,22 +20,22 @@ const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
   const setOpen = useForemanHistoryModalStore(useShallow((state) => state.setOpen));
   const setRecordId = useForemanHistoryModalStore(useShallow((state) => state.setRecordId));
   const setTitle = useForemanHistoryModalStore(useShallow((state) => state.setTitle));
+
   const setCancelStartButtonEnabled = useForemanHistoryModalStore(
     useShallow((state) => state.setCancelStartButtonEnabled)
   );
+
   const setCancelFinishButtonEnabled = useForemanHistoryModalStore(
     useShallow((state) => state.setCancelFinishButtonEnabled)
   );
 
   const handleOpenHistoryModalButtonClick = () => {
     setCancelFinishButtonEnabled(row.stateValue === "product_finished");
-
     if (row.stateValue === "product_in_progress") {
       setCancelStartButtonEnabled(true);
     } else {
       setCancelStartButtonEnabled(false);
     }
-
     setRecordId(row.id);
     setTitle(`Историй статусов по продукту ${row.product}, партия - ${row.boil}`);
     setOpen(true);
@@ -50,7 +50,7 @@ const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
 export default function RowComponent({ row }: { row: IDocRow }) {
   const { store } = React.useContext(Context);
 
-  const addHistory = useCreateHistory();
+  const { addHistory, isPending } = useCreateHistory();
 
   const makeHistoryRecord = (id: number, state: string) => {
     const data: AddHistoryDto = {
@@ -91,6 +91,7 @@ export default function RowComponent({ row }: { row: IDocRow }) {
           <TableButton
             variant="success"
             label="НАЧАТЬ"
+            disabled={isPending}
             onClick={() => makeHistoryRecord(row.id, "product_in_progress")}
             startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
           />
@@ -101,6 +102,7 @@ export default function RowComponent({ row }: { row: IDocRow }) {
           <TableButton
             variant="success"
             label="ЗАКОНЧИТЬ"
+            disabled={isPending}
             onClick={() => makeHistoryRecord(row.id, "product_finished")}
             startDecorator={<CheckOutlinedIcon />}
           />

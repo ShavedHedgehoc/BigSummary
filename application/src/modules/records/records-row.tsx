@@ -1,8 +1,7 @@
 import * as React from "react";
-import Button from "@mui/joy/Button";
+
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
-import { useColorScheme } from "@mui/joy";
 
 import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
@@ -13,8 +12,7 @@ import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
 import { useRecordHistoryModalStore } from "./store/use-record-history-modal-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";
-import { rowScope } from "../../shared/helpers/status-conditions";
-import { StyledTypography } from "../../shared/ui/styled-typography";
+
 import { useAddRecordModalStore } from "./store/use-add-record-modal-store";
 import TableButton from "../../shared/ui/table-button";
 import { TableIconButton } from "../../shared/ui/table-icon-button";
@@ -54,7 +52,7 @@ export default function RowComponent({ row }: { row: IDocRow }) {
   const setState = useAddRecordModalStore(useShallow((state) => state.setState));
   const setNoteRequired = useAddRecordModalStore(useShallow((state) => state.setNoteRequired));
 
-  const addHistory = useCreateHistory();
+  const { addHistory, isPending } = useCreateHistory();
 
   const makeHistoryRecord = (id: number, state: string) => {
     const data: AddHistoryDto = {
@@ -106,7 +104,6 @@ export default function RowComponent({ row }: { row: IDocRow }) {
         <Typography level="body-xs">{row.conveyor}</Typography>
       </td>
       <td style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
-        {/* <StyledTypography text={row.state} state={row.stateValue} /> */}
         <TableState text={row.state} state={row.stateValue} />
       </td>
       <td style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
@@ -117,21 +114,10 @@ export default function RowComponent({ row }: { row: IDocRow }) {
           <TableButton
             variant="warning"
             label="ДОРАБОТКА"
+            disabled={isPending}
             onClick={() => handleCorrectButtonClick()}
             startDecorator={<LoopOutlinedIcon />}
           />
-
-          // <Button
-          //   startDecorator={<LoopOutlinedIcon />}
-          //   variant="outlined"
-          //   color={mode === "dark" ? "warning" : "neutral"}
-          //   size="sm"
-          //   onClick={() => handleCorrectButtonClick()}
-          // >
-          //   <Typography level="body-xs" variant="plain" color={mode === "dark" ? "warning" : "neutral"}>
-          //     Доработка
-          //   </Typography>
-          // </Button>
         )}
       </td>
 
@@ -140,20 +126,10 @@ export default function RowComponent({ row }: { row: IDocRow }) {
           <TableButton
             variant="success"
             label="ДОПУСК"
+            disabled={isPending}
             onClick={() => makeHistoryRecord(row.id, "product_pass")}
             startDecorator={<CheckOutlinedIcon />}
           />
-          // <Button
-          //   startDecorator={<CheckOutlinedIcon />}
-          //   variant="outlined"
-          //   color={mode === "dark" ? "success" : "neutral"}
-          //   size="sm"
-          //   onClick={() => makeHistoryRecord(row.id, "product_pass")}
-          // >
-          //   <Typography level="body-xs" variant="plain" color={mode === "dark" ? "success" : "neutral"}>
-          //     Допуск
-          //   </Typography>
-          // </Button>
         )}
       </td>
       <td style={{ width: 60, textAlign: "center", padding: "6px 6px" }}>
@@ -164,12 +140,9 @@ export default function RowComponent({ row }: { row: IDocRow }) {
           row.stateValue !== "base_continue" &&
           row.stateValue !== "product_finished" &&
           row.historiesCount !== 0 && (
-            <TableIconButton color="danger" onClick={() => handleFailButtonClick()}>
+            <TableIconButton color="danger" disabled={isPending} onClick={() => handleFailButtonClick()}>
               <BlockOutlinedIcon />
             </TableIconButton>
-            // <IconButton color="danger" size="sm" onClick={() => handleFailButtonClick()}>
-            //   <BlockOutlinedIcon />
-            // </IconButton>
           )}
       </td>
     </tr>

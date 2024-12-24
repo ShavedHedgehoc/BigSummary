@@ -51,7 +51,6 @@ export class DocsService {
         include: [
           [col("plants.value"), "plant"],
           [fn("COUNT", fn("DISTINCT", col("records.id"))), "recordsCount"],
-
           [fn("COUNT", col("records.histories.id")), "historiesCount"],
         ],
       },

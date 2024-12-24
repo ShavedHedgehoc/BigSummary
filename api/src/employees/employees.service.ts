@@ -46,10 +46,11 @@ export class EmployeesService {
   }
 
   async getAllEmployeesWithFilter(dto: GetEmployeesDto) {
+    console.log(dto);
     const nameOrder = dto.filter.nameAsc ? "ASC" : "DESC";
     let filter = {};
-    if (dto.filter.nameFilter !== "") {
-      const nameFilter = { [Op.iLike]: `%${dto.filter.nameFilter}%` };
+    if (dto.filter.name !== "") {
+      const nameFilter = { [Op.iLike]: `%${dto.filter.name}%` };
       filter = { ...filter, name: nameFilter };
     }
     if (dto.filter.occupations.length > 0) {
@@ -68,7 +69,7 @@ export class EmployeesService {
       limit: dto.limit,
       offset: dto.limit * (dto.page - 1),
     });
-    return { employees: employees, total: count };
+    return { rows: employees, total: count };
   }
 
   async getEmployeeByBarcode(barcode: string) {

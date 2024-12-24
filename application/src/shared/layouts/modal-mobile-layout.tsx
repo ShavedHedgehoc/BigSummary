@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, DialogContent, DialogTitle, Modal, ModalDialog, ModalOverflow } from "@mui/joy";
+import { Box, DialogContent, Modal, ModalDialog, ModalOverflow } from "@mui/joy";
 
 export interface ModalLMobileLayoutProps {
   open: boolean;

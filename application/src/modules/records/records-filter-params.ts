@@ -5,4 +5,5 @@ export enum RecordsFilterParams {
   BOIL_ASC = "boilAsc",
   STATES = "states",
   PLANT = "plant",
+  CONVEYOR = "conveyor",
 }

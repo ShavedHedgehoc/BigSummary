@@ -1,3 +1,5 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 interface FetchUsersFilter {
   name: string;
   nameAsc: boolean;
@@ -6,8 +8,11 @@ interface FetchUsersFilter {
   roles: number[] | [];
 }
 
-export interface GethUsersDto {
-  filter: FetchUsersFilter;
-  page: number;
-  limit: number;
+export class GethUsersDto {
+  @ApiProperty()
+  readonly filter: FetchUsersFilter;
+  @ApiProperty()
+  readonly page: number;
+  @ApiProperty()
+  readonly limit: number;
 }

@@ -17,18 +17,11 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @ApiOperation({ summary: "Получить всех пользователей" })
-  @ApiResponse({ status: 200 })
-  //   @Roles("USER")
-  //   @UseGuards(RoleGuard)
-  @Get()
-  getAll() {
-    return this.usersService.getAllUsers();
-  }
-
-  @ApiOperation({ summary: "Получить пользователей с параметрами" })
   @ApiResponse({ status: 201, type: [User] })
+  @Roles("ADMIN")
+  @UseGuards(RoleGuard)
   @Post("/list")
-  getAllUsersWithFilter(@Body() dto: GethUsersDto) {
+  getAllUsers(@Body() dto: GethUsersDto) {
     return this.usersService.getAllUserWithFilter(dto);
   }
 
@@ -36,30 +29,21 @@ export class UsersController {
   @ApiResponse({ status: 201, type: User })
   @UsePipes(ValidationPipe)
   @Post()
-  create(@Body() userDto: CreateUserDto) {
+  createUser(@Body() userDto: CreateUserDto) {
     return this.usersService.createUser(userDto);
   }
 
   @ApiOperation({ summary: "Поменять статус бана пользователя по id" })
   @ApiResponse({ status: 201 })
   @Get("change_banned/:id")
-  ChangeBannedById(@Param("id") id: string) {
+  changeUserBannedStatus(@Param("id") id: string) {
     return this.usersService.changeBannedStatus(Number(id));
   }
 
   @ApiOperation({ summary: "Обновить роли пользователя" })
   @ApiResponse({ status: 201 })
   @Post("/update_roles")
-  UpdateRoles(@Body() dto: UpdateRolesDto) {
+  updateUserRoles(@Body() dto: UpdateRolesDto) {
     return this.usersService.updateUserRoles(dto);
-  }
-
-  @ApiOperation({ summary: "Выдать роль пользователю" })
-  @ApiResponse({ status: 200 })
-  //   @Roles("USER")
-  //   @UseGuards(RoleGuard)
-  @Post("/role")
-  addRole(@Body() dto: AddRoleDto) {
-    return this.usersService.addRole(dto);
   }
 }

@@ -6,7 +6,6 @@ import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
 import { Box, Button, DialogContent, FormControl, Modal, ModalDialog, ModalOverflow, Typography } from "@mui/joy";
 import { useUpdateBases } from "../../shared/api/use-update-bases";
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
 
 interface IXLSData {
   code: string;

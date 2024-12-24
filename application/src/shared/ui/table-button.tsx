@@ -1,7 +1,6 @@
 import { Button } from "@mui/joy";
 
-interface TableButtonProps {
-  // variant: "success" | "danger" | "warning";
+export interface TableButtonProps {
   variant: CustomColorsVariants;
   startDecorator?: React.ReactNode;
   disabled?: boolean;
@@ -41,7 +40,7 @@ export default function TableButton(props: TableButtonProps) {
           border: "0.5px solid",
           px: 2,
           py: 0.5,
-          fontSize: "0.5rem",
+          fontSize: "xs",
           fontWeight: 100,
           color:
             (props.variant === "success" &&

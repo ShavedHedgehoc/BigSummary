@@ -1,5 +1,4 @@
 import { $api } from "../shared/api/http";
-import { AxiosResponse } from "axios";
 
 export interface IRole {
   id: number;
@@ -26,12 +25,7 @@ export interface IUpdateUserRolesDto {
 }
 
 export default class UserService {
-  //remove after new user page
-  static async getUsers(): Promise<AxiosResponse<IUserRow[]>> {
-    return $api.get(`/users`);
-  }
-
-  static async getUsersWithParams(dto: FetchUsersDto): Promise<IUserResponse> {
+  static async getUsers(dto: FetchUsersDto): Promise<IUserResponse> {
     const res = await $api.post(`/users/list`, dto);
     return res.data;
   }

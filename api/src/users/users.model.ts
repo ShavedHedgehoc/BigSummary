@@ -56,6 +56,9 @@ export default class User extends Model<User, UserCreationsAttrs> {
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
 
+  @BelongsToMany(() => Role, () => UserRoles)
+  roles_for_filter: Role[];
+
   @HasMany(() => History)
   histories: History[];
 

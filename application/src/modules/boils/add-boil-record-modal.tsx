@@ -91,7 +91,7 @@ const SetButton = () => {
   const historyNote = useBoilHistoryNoteStore(useShallow((state) => state.historyNote));
   const setHistoryNote = useBoilHistoryNoteStore(useShallow((state) => state.setHistoryNote));
   const noteRequired = useAddBoilModalStore(useShallow((state) => state.noteRequired));
-  const addHistory = useCreateHistory();
+  const { addHistory } = useCreateHistory();
   const handleSetButtonClick = () => {
     const data: AddHistoryDto = {
       record_id: null,

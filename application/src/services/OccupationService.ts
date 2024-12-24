@@ -7,7 +7,7 @@ export interface IOccupation {
 }
 
 export default class OccupationService {
-  static async getOccupation(): Promise<IOccupation[]> {
+  static async getOccupations(): Promise<IOccupation[]> {
     const res = await $api.get(`/occupations`);
     return res.data;
   }

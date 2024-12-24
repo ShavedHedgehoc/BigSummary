@@ -113,6 +113,12 @@ export class RecordsService {
       productCond = { ...productCond, marking: markingFilter };
     }
 
+    let conveyorCond = {};
+    if (dto.filter.conveyor !== "") {
+      const conveyorFilter = { [Op.iLike]: `%${dto.filter.conveyor}%` };
+      conveyorCond = { ...conveyorCond, value: conveyorFilter };
+    }
+
     const records = await this.recordsRepository.findAll({
       where: { doc_id: docId, ...filter },
       include: [
@@ -120,7 +126,7 @@ export class RecordsService {
         { model: Boil, as: "boil", where: { ...boilCond } },
         { model: Apparatus, as: "apparatus" },
         { model: Can, as: "can" },
-        { model: Conveyor, as: "conveyor" },
+        { model: Conveyor, as: "conveyor", where: { ...conveyorCond } },
         { model: Workshop, as: "workshop" },
       ],
       order: [["id", "ASC"]],

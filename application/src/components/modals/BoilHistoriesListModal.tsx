@@ -20,7 +20,7 @@ interface BoilHistoriesListModalProps {
 
 function BoilHistoriesListModal(props: BoilHistoriesListModalProps) {
   const { store } = React.useContext(Context);
-  const { mode, systemMode } = useColorScheme();
+  const { mode } = useColorScheme();
   const selClass = (item: IHistory) => {
     const status = item.historyType.value;
     return statusCondition(status);

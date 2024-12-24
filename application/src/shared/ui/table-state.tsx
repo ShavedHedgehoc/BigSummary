@@ -1,7 +1,6 @@
 import Typography from "@mui/joy/Typography";
 
 import { rowScope } from "../helpers/status-conditions";
-import { Chip, useColorScheme } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
 
 export function TableState({ state, text }: { state: string; text: string | number }) {
@@ -19,7 +18,7 @@ export function TableState({ state, text }: { state: string; text: string | numb
 
   return (
     <Typography level="body-xs" sx={colorSXProps}>
-      {text}
+      {text.toString().toUpperCase()}
     </Typography>
   );
 }

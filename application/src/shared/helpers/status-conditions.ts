@@ -24,6 +24,10 @@ export function statusCondition(status: string) {
       return "success";
     case "cancelled":
       return "cancelled";
+    case "fail":
+      return "fail";
+    case "success":
+      return "success";
     default:
       return "und";
   }

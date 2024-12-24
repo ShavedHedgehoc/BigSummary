@@ -4,9 +4,9 @@ export class IEmployeeFilter {
   @ApiProperty({ example: [], description: "ids ролей пользователя" })
   readonly occupations: number[] | [];
   @ApiProperty({ example: "", description: "Фильтр по имени" })
-  nameFilter: string;
+  readonly name: string;
   @ApiProperty({ example: true, description: "По возрастанию имени" })
-  nameAsc: boolean;
+  readonly nameAsc: boolean;
 }
 
 export class GetEmployeesDto {

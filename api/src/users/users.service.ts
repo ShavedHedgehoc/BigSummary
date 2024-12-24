@@ -3,13 +3,12 @@ import { InjectModel } from "@nestjs/sequelize";
 import User from "./users.model";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { RolesService } from "src/roles/roles.service";
-import { AddRoleDto } from "./dto/add-role.dto";
 import Role from "src/roles/roles.model";
 import { UserRolesService } from "src/user-roles/user-roles.service";
 import { UpdateRolesDto } from "./dto/update-roles.dto";
 import { TokenService } from "src/token/token.service";
 import { GethUsersDto } from "./dto/get-users-dto";
-import { Op } from "sequelize";
+import { Op, col, fn } from "sequelize";
 import UserRoles from "src/user-roles/user-roles.model";
 
 @Injectable()
@@ -28,22 +27,7 @@ export class UsersService {
     return user;
   }
 
-  async getAllUsers() {
-    const users = await this.userRepository.findAll({
-      attributes: ["id", "name", "email", "banned"],
-    });
-    const result = await Promise.all(
-      await users.map(async (item) => {
-        const roles = await this.userRoleService.getRolesListByUserId(item.id);
-        return { ...JSON.parse(JSON.stringify(item)), roles: roles };
-      })
-    );
-
-    return result;
-  }
-
   async getAllUserWithFilter(dto: GethUsersDto) {
-    console.log(dto);
     const nameOrder = dto.filter.nameAsc ? "ASC" : "DESC";
     let filter = {};
     if (dto.filter.name !== "") {
@@ -54,13 +38,35 @@ export class UsersService {
       const emailFilter = { [Op.iLike]: `%${dto.filter.email}%` };
       filter = { ...filter, email: emailFilter };
     }
+    if (dto.filter.banned.length > 0) {
+      const bannedFilter = dto.filter.banned[0] === 1 ? false : true;
+      filter = { ...filter, banned: bannedFilter };
+    }
     let rolesFilter = {};
     if (dto.filter.roles.length > 0) {
       const rolesCond = { [Op.in]: [...dto.filter.roles] };
       rolesFilter = { ...rolesFilter, id: rolesCond };
     }
 
-    const count = await this.userRepository.count({ where: { ...filter } });
+    const count = await this.userRepository
+      .count({
+        where: { ...filter },
+        include: [
+          {
+            model: Role,
+            as: "roles_for_filter",
+            where: { ...rolesFilter },
+            required: dto.filter.roles.length > 0,
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+        group: ["User.id"],
+      })
+      .then(function (count) {
+        return count.length;
+      });
 
     const users = await this.userRepository.findAll({
       where: { ...filter },
@@ -68,24 +74,24 @@ export class UsersService {
       include: [
         {
           model: Role,
-          as: "roles",
+          as: "roles_for_filter",
+          attributes: [],
           where: { ...rolesFilter },
           required: dto.filter.roles.length > 0,
           through: {
             attributes: [],
           },
         },
+        {
+          model: Role,
+          as: "roles",
+        },
       ],
-
-      order: [["name", nameOrder]],
+      order: [
+        ["name", nameOrder],
+        [{ model: Role, as: "roles" }, "description", "ASC"],
+      ],
     });
-    // const result = await Promise.all(
-    //   await users.map(async (item) => {
-    //     const roles = await this.userRoleService.getRolesListByUserId(item.id);
-    //     return { ...JSON.parse(JSON.stringify(item)), roles: roles };
-    //   })
-    // );
-    // return { rows: result, total: count };
     return { rows: users, total: count };
   }
 
@@ -150,13 +156,13 @@ export class UsersService {
     return user;
   }
 
-  async addRole(dto: AddRoleDto) {
-    const user = await this.userRepository.findByPk(dto.userId);
-    const role = await this.roleService.getroleByValue(dto.value);
-    if (role && user) {
-      await user.$add("role", role.id);
-      return dto;
-    }
-    throw new HttpException("Пользователь или роль не найдена", HttpStatus.NOT_FOUND);
-  }
+  // async addRole(dto: AddRoleDto) {
+  //   const user = await this.userRepository.findByPk(dto.userId);
+  //   const role = await this.roleService.getroleByValue(dto.value);
+  //   if (role && user) {
+  //     await user.$add("role", role.id);
+  //     return dto;
+  //   }
+  //   throw new HttpException("Пользователь или роль не найдена", HttpStatus.NOT_FOUND);
+  // }
 }

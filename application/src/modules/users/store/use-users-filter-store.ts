@@ -22,12 +22,12 @@ const initFilterValue: FetchUsersFilter = {
 };
 
 export const useUsersFilterStore = create<UsersFilterStore>()(
-  devtools((set, get) => ({
+  devtools((set) => ({
     filter: initFilterValue,
     selectedBannedOption: 999999,
     roleSelectorOptions: [],
     bannedSelectorOptions: [],
-    clearFilter: () => set(() => ({ filter: initFilterValue, selectedPlant: 999999 })),
+    clearFilter: () => set(() => ({ filter: initFilterValue, selectedBannedOption: 999999 })),
     changeFilter: ({ key, value, values }) => {
       switch (key) {
         case UsersFilterParams.NAME:

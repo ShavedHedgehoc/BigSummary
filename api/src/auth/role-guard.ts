@@ -39,7 +39,7 @@ export class RoleGuard implements CanActivate {
       req.user = user;
       return user.roles.some((role) => requiredRoles.includes(role.value));
     } catch (error) {
-      throw new HttpException("Прав недостаточно (Role guard)", HttpStatus.BAD_REQUEST);
+      throw new HttpException("Прав недостаточно (Role guard)", HttpStatus.UNAUTHORIZED);
     }
   }
 }
