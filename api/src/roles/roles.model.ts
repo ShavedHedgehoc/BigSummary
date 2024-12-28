@@ -11,7 +11,7 @@ import {
   Unique,
 } from "sequelize-typescript";
 import User from "src/users/users.model";
-import UserRoles from "./user-roles.model";
+import UserRoles from "../user-roles/user-roles.model";
 
 interface RoleCreationsAttrs {
   value: string;

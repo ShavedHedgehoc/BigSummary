@@ -18,10 +18,8 @@ export class BoilsController {
 
   @ApiOperation({ summary: "Создание новой варки" })
   @ApiResponse({ status: 201, type: Boil })
-
-  //   @ApiResponse({ status: 400, type: Error })
   @Post()
   create(@Body() dto: CreateBoilDto) {
-    return this.boilsService.createBoil(dto);
+    return this.boilsService.getOrCreateByValue(dto.value);
   }
 }

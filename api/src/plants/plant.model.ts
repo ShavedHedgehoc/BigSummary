@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import Boil from "src/boils/boil.model";
 import Doc from "src/docs/docs.model";
+import History from "src/histories/histories.model";
 
 interface PlantsCreationsAttrs {
   value: string;
@@ -19,6 +21,17 @@ export default class Plant extends Model<Plant, PlantsCreationsAttrs> {
   @Column({ type: DataType.STRING, unique: true })
   value: string;
 
+  @ApiProperty({ example: "КЛП", description: "Сокращение" })
+  @AllowNull(false)
+  @Column({ type: DataType.STRING, unique: true })
+  abb: string;
+
   @HasMany(() => Doc)
   docs: Doc[];
+
+  @HasMany(() => Boil)
+  boils: Boil[];
+
+  @HasMany(() => History)
+  histories: History[];
 }

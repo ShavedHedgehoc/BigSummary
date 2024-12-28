@@ -1,10 +1,11 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import SummaryService from "../services/SummaryService";
-import handleError from "../http/handleError";
-import { IRecord, ISummaryUploadData } from "../types";
+import handleError from "../shared/api/http/handleError";
+import { IDocRow, ISummaryUploadData, SummaryResponse } from "../types";
 
 export default class SummaryStore {
-  records = {} as IRecord[];
+  records = {} as IDocRow[];
+  doc: SummaryResponse | null = null;
   pending = false;
   recordPending = false;
   error = {} as string[];
@@ -36,8 +37,12 @@ export default class SummaryStore {
     return this.records.length;
   }
 
-  setRecords(records: IRecord[] | []) {
+  setRecords(records: IDocRow[] | []) {
     this.records = [...records];
+  }
+
+  setDoc(doc: SummaryResponse | null) {
+    this.doc = doc;
   }
 
   setPending(bool: boolean) {
@@ -61,38 +66,34 @@ export default class SummaryStore {
       this.setPending(true);
       this.setError([]);
       this.setRecords([]);
-
       const response = await SummaryService.getRecords(plantId);
-      // await setTimeout(() => {
-      //   this.setRecords([...response.data.records]);
-      //   this.setPending(false);
-      // }, 2000);
       await this.setRecords([...response.data.records]);
       await this.setPending(false);
     } catch (error) {
       const errValue = handleError(error);
       await this.setError([...errValue]);
-      // await setTimeout(() => {
-      //   this.setPending(false);
-      // }, 2000);
-      //  this.setPending(false);
     } finally {
       await this.setPending(false);
     }
   }
 
-  // async fetchDocs() {
-  //   try {
-  //     this.setPending(true);
-  //     this.setError([]);
-  //   } catch (error) {
-  //     const errValue = handleError(error);
-  //     this.setError([...errValue]);
-  //   } finally {
-  //     this.setPending(false);
-  //   }
-  // }
-
+  async fetchRecordsByDocId(docId: string) {
+    try {
+      this.setPending(true);
+      this.setError([]);
+      this.setRecords([]);
+      this.setDoc(null);
+      const response = await SummaryService.getRecordsByDocId(docId);
+      await this.setDoc({ ...response.data });
+      await this.setRecords([...response.data.records]);
+      await this.setPending(false);
+    } catch (error) {
+      const errValue = handleError(error);
+      await this.setError([...errValue]);
+    } finally {
+      await this.setPending(false);
+    }
+  }
   async uploadData(data: ISummaryUploadData) {
     try {
       this.setPending(true);
@@ -101,7 +102,6 @@ export default class SummaryStore {
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);
-      // console.log(errValue);
     } finally {
       this.setPending(false);
     }
@@ -115,12 +115,11 @@ export default class SummaryStore {
     try {
       this.setUpdateRecordId(recordId);
       this.setRecordPending(true);
-      const response = await SummaryService.getRecordById(recordId.toString());
+      const response = await SummaryService.getUpdatedDocRow(recordId.toString());
       this.records = this.records.map((item) => (item.id == recordId ? response.data : item));
     } catch (error) {
       const errValue = handleError(error);
       this.setError([...errValue]);
-      console.log(errValue);
     } finally {
       this.setRecordPending(false);
       this.setUpdateRecordId(null);

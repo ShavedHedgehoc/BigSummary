@@ -14,9 +14,9 @@ function SummaryDetailTable() {
 
   return (
     <React.Fragment>
-      <Loader visible={store.DocDetailStore.renderLoader} />
-      <NotFound visible={store.DocDetailStore.noRecordsFound} />
-      {store.DocDetailStore.renderTable && <SummaryDetailTableComponent />}
+      <Loader visible={store.SummaryStore.renderLoader} />
+      <NotFound visible={store.SummaryStore.noRecordsFound} />
+      {store.SummaryStore.renderTable && <SummaryDetailTableComponent />}
       {/* {store.SummaryStore.renderTable && <SummaryDetailTableComponent role={props.role} />}
       {store.SummaryStore.renderTable && <TableMdComponent role={props.role} />}
       {store.SummaryStore.renderTable && <TableListComponent role={props.role} />} */}

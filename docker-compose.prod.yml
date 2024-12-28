@@ -1,15 +1,4 @@
 services:
-  nginx:
-    container_name: nginx_container
-    build: ./docker/nginx
-    restart: always
-    ports:
-      - "80:80"
-      - "3000:3000"
-      - "5000:5000"
-    networks:
-      - general
-
   postgres:
     container_name: postgres_container
     image: postgres:16.2-alpine
@@ -19,6 +8,7 @@ services:
       POSTGRES_PASSWORD: "password"
     volumes:
       - summary-data:/var/lib/postgresql/data
+    restart: always
     networks:
       - postgres
 
@@ -35,6 +25,8 @@ services:
       - "5050:80"
     restart: unless-stopped
     networks:
+      - postgres
+    depends_on:
       - postgres
 
   api:
@@ -60,18 +52,6 @@ services:
       - postgres
       - general
 
-  # app:
-  #   container_name: app_container
-  #   build:
-  #     context: .
-  #     dockerfile: docker/app/Dockerfile.prod
-  #     args:
-  #       - NODE_ENV=production
-  #   depends_on:
-  #     - api
-  #   networks:
-  #     - general
-
   app:
     container_name: app_container
     build:
@@ -81,6 +61,7 @@ services:
         - NODE_ENV=production
     depends_on:
       - api
+    restart: always
     networks:
       - general
 
@@ -90,23 +71,39 @@ services:
       context: .
       dockerfile: docker/workstation/Dockerfile.prod
       args:
-        - NODE_ENV=development
+        - NODE_ENV=production
     depends_on:
       - api
+    restart: always
     networks:
       - general
 
-  # dashboard:
-  #   container_name: dash_container
-  #   build:
-  #     context: .
-  #     dockerfile: docker/dashboard/Dockerfile.prod
-  #     args:
-  #       - NODE_ENV=production
-  #   depends_on:
-  #     - api
-  #   networks:
-  #     - general
+  dash:
+    container_name: dash_container
+    build:
+      context: .
+      dockerfile: docker/dashboard/Dockerfile.prod
+      args:
+        - NODE_ENV=production
+    depends_on:
+      - api
+    restart: always
+    networks:
+      - general
+
+  nginx:
+    container_name: nginx_container
+    build: ./docker/nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "3000:3000"
+      - "5000:5000"
+    networks:
+      - general
+    depends_on:
+      - app
+      - workstation
 
 volumes:
   summary-data:
@@ -114,5 +111,13 @@ volumes:
 networks:
   general:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
   postgres:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.19.0.1

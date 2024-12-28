@@ -17,14 +17,14 @@ export interface IEmployee {
 }
 
 export default class EmployeeStore {
-  employee: IEmployee = {} as IEmployee;
+  employee: IEmployee | null = null;
   pending: boolean = false;
   error = "";
   constructor() {
     makeAutoObservable(this, {});
   }
 
-  setEmployee(employee: IEmployee) {
+  setEmployee(employee: IEmployee | null) {
     this.employee = employee;
   }
 
@@ -46,11 +46,12 @@ export default class EmployeeStore {
       const errValue = handleError(error);
       this.setError(errValue);
     } finally {
+      await new Promise((r) => setTimeout(r, 500));
       this.setPending(false);
     }
   }
 
   clearEmployee() {
-    this.setEmployee({} as IEmployee);
+    this.setEmployee(null);
   }
 }

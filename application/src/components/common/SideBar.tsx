@@ -22,15 +22,18 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import ScienceRoundedIcon from "@mui/icons-material/ScienceRounded";
 
-import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
+// import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
 // import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
 // import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 // import SupportRoundedIcon from "@mui/icons-material/SupportRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
 // import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 // import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 // import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+// import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 
@@ -38,7 +41,7 @@ import { closeSidebar } from "../../utils";
 
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
-import { RouteNames } from "../../router/routeNames";
+import { RouteNames } from "../../shared/router/routeNames";
 import { Link as RouterLink } from "react-router-dom";
 import { IUser } from "../../store/AuthStore";
 
@@ -81,8 +84,7 @@ const UserComponent = observer((user: IUser) => (
 
 function SideBar() {
   const { store } = React.useContext(Context);
-  // const navigate = useNavigate();
-  // console.log("render sidebar");
+
   return (
     <Sheet
       className="SideBar"
@@ -179,7 +181,7 @@ function SideBar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -196,7 +198,7 @@ function SideBar() {
                   <ListItemContent>
                     <Link
                       component={RouterLink}
-                      to={RouteNames.SUMMARY_LIST}
+                      to={RouteNames.DOCUMENTS}
                       color="neutral"
                       underline="none"
                       sx={{ display: "flex", gap: 1 }}
@@ -206,6 +208,7 @@ function SideBar() {
                     </Link>
                   </ListItemContent>
                 </ListItem>
+
                 <ListItem role="none">
                   <Link
                     component={RouterLink}
@@ -218,45 +221,146 @@ function SideBar() {
                     <Typography level="title-sm">Загрузка сводок</Typography>
                   </Link>
                 </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.CONVEYORS}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Конвейеры</Typography>
+                  </Link>
+                </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.BASES_UPDATE}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Обновление основ</Typography>
+                  </Link>
+                </ListItem>
               </List>
             </Toggler>
           </ListItem>
 
-          <ListItem>
-            <ListItemButton role="menuitem">
-              <ListItemContent>
-                <Link
-                  component={RouterLink}
-                  to={RouteNames.TECHNOLOGIST}
-                  color="neutral"
-                  underline="none"
-                  sx={{ display: "flex", gap: 1 }}
-                  onClick={() => closeSidebar()}
-                >
-                  <OilBarrelRoundedIcon />
-                  <Typography level="title-sm">Технолог</Typography>
-                </Link>
-              </ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton role="menuitem">
-              <ListItemContent>
-                <Link
-                  component={RouterLink}
-                  to={RouteNames.LABORATORY}
-                  color="neutral"
-                  underline="none"
-                  sx={{ display: "flex", gap: 1 }}
-                  onClick={() => closeSidebar()}
-                >
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
                   <ScienceRoundedIcon />
-                  <Typography level="title-sm">Лаборатория</Typography>
+                  <ListItemContent>
+                    <Typography level="title-sm">Лаборатория</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.BOILS_LIST}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Основы</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.LABORATORY}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Продукты</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
+          </ListItem>
+          <ListItem>
+            <ListItemButton role="menuitem">
+              <ListItemContent>
+                <Link
+                  component={RouterLink}
+                  to={RouteNames.FOREMAN}
+                  color="neutral"
+                  underline="none"
+                  sx={{ display: "flex", gap: 1 }}
+                  onClick={() => closeSidebar()}
+                >
+                  <FactoryRoundedIcon />
+                  <Typography level="title-sm">Мастер </Typography>
                 </Link>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem>
+
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <AssignmentRoundedIcon />
+                  <ListItemContent>
+                    <Typography level="title-sm">Отчеты</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem sx={{ mt: 0.5 }} role="none">
+                  <ListItemContent>
+                    <Link
+                      component={RouterLink}
+                      to={RouteNames.BOILS_REPORT}
+                      color="neutral"
+                      underline="none"
+                      sx={{ display: "flex", gap: 1 }}
+                      onClick={() => closeSidebar()}
+                    >
+                      <Typography level="title-sm">Основы</Typography>
+                    </Link>
+                  </ListItemContent>
+                </ListItem>
+                {/* <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.SUMMARY_REPORT}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Сводки</Typography>
+                  </Link>
+                </ListItem> */}
+              </List>
+            </Toggler>
+          </ListItem>
+
+          <ListItem sx={{ display: { xs: "none", sm: "initial" } }}>
             <ListItemButton role="menuitem">
               <ListItemContent>
                 <Link
@@ -267,14 +371,14 @@ function SideBar() {
                   sx={{ display: "flex", gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
-                  <SettingsRoundedIcon />
+                  <PersonRoundedIcon />
                   <Typography level="title-sm">Пользователи рабочей станции</Typography>
                 </Link>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
 
-          {/* <ListItem nested>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -287,18 +391,43 @@ function SideBar() {
               )}
             >
               <List sx={{ gap: 0.5 }}>
-                <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Пользователи</ListItemButton>
+                <ListItem sx={{ mt: 0.5 }} role="none">
+                  <ListItemContent>
+                    <Link
+                      component={RouterLink}
+                      to={RouteNames.USERS_LIST}
+                      color="neutral"
+                      underline="none"
+                      sx={{ display: "flex", gap: 1 }}
+                      onClick={() => closeSidebar()}
+                    >
+                      <Typography level="title-sm">Пользователи</Typography>
+                    </Link>
+                  </ListItemContent>
                 </ListItem>
-          
+                <ListItem sx={{ mt: 0.5 }} role="none">
+                  <ListItemContent>
+                    <Link
+                      component={RouterLink}
+                      to={RouteNames.UI_PAGE}
+                      color="neutral"
+                      underline="none"
+                      sx={{ display: "flex", gap: 1 }}
+                      onClick={() => closeSidebar()}
+                    >
+                      <Typography level="title-sm">UI Page</Typography>
+                    </Link>
+                  </ListItemContent>
+                </ListItem>
               </List>
             </Toggler>
-          </ListItem> */}
+          </ListItem>
         </List>
 
-        {/* <List
+        <List
           size="sm"
           sx={{
+            display: { xs: "none", sm: "initial" },
             mt: "auto",
             flexGrow: 0,
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
@@ -308,17 +437,11 @@ function SideBar() {
         >
           <ListItem>
             <ListItemButton>
-              <SupportRoundedIcon />
-              Support
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
               <SettingsRoundedIcon />
-              Settings
+              Настройки
             </ListItemButton>
           </ListItem>
-        </List> */}
+        </List>
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
@@ -328,10 +451,6 @@ function SideBar() {
           src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
         />
         <UserComponent {...store.AuthStore.user} />
-        {/* <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography level="title-sm">{store.AuthStore.user.name}</Typography>
-          <Typography level="body-xs">{store.AuthStore.user.email}</Typography>
-        </Box> */}
         <IconButton size="sm" variant="plain" color="neutral" onClick={() => store.AuthStore.logout()}>
           <LogoutIcon />
         </IconButton>

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 // import { IUser } from "../models/IUser";
 import AuthService from "../services/AuthService";
-import handleError from "../http/handleError";
+import handleError from "../shared/api/http/handleError";
 
 export interface IUser {
   id: number;
@@ -89,18 +89,30 @@ export default class AuthStore {
     this.setError([]);
     try {
       const response = await AuthService.check();
-
       this.setAuth(true);
       await localStorage.setItem("accessToken", response.data.accessToken);
       await this.setUser(response.data.user);
     } catch (error) {
       console.log("auth error");
       localStorage.removeItem("accessToken");
+      // this.setUser({} as IUser);
       // localStorage.removeItem("user");
       const errValue = handleError(error);
       this.setError([...errValue]);
     } finally {
       this.setPending(false);
+    }
+  }
+  //&
+  async refresh() {
+    try {
+      const response = await AuthService.refresh();
+      await localStorage.setItem("accessToken", response.data.accessToken);
+    } catch (error) {
+      console.log("fail refresh");
+      localStorage.removeItem("accessToken");
+      this.setAuth(false);
+      this.setUser({} as IUser);
     }
   }
 }

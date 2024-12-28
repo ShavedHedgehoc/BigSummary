@@ -1,12 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasOne,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import Boil from "src/boils/boil.model";
 import Employee from "src/employees/employees.model";
 import HistoryType from "src/history_types/history_types.model";
+import Note from "src/notes/notes.model";
+import Plant from "src/plants/plant.model";
 import Record from "src/records/records.model";
 import User from "src/users/users.model";
 
 interface HistoriesCreationsAttrs {
   recordId: number;
+  boilId: number;
   historyTypeId: number;
   userId: number;
   employeeId: number;
@@ -25,6 +39,11 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @ForeignKey(() => Record)
   @Column
   record_id: number;
+
+  @ApiProperty({ example: "1", description: "id партии" })
+  @ForeignKey(() => Boil)
+  @Column
+  boil_id: number;
 
   @ApiProperty({ example: "1", description: "id типа записи" })
   @ForeignKey(() => HistoryType)
@@ -45,8 +64,20 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @Column({ type: DataType.STRING })
   note: string;
 
+  @ApiProperty({ example: "1", description: "id пользователя рабочей станции" })
+  @ForeignKey(() => Note)
+  @Column
+  note_id: number;
+
+  @ForeignKey(() => Plant)
+  @Column
+  plant_id: number;
+
   @BelongsTo(() => Record)
   record: Record;
+
+  @BelongsTo(() => Boil)
+  boil: Boil;
 
   @BelongsTo(() => HistoryType)
   historyType: HistoryType;
@@ -56,4 +87,10 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
 
   @BelongsTo(() => Employee)
   employee: Employee;
+
+  @BelongsTo(() => Note)
+  history_note: Note;
+
+  @BelongsTo(() => Plant)
+  plant: Plant;
 }

@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import Doc from "./docs.model";
 import { CreateDocDto } from "./dto/create-doc.dto";
 import { PlantsService } from "src/plants/plants.service";
-import Record from "src/records/records.model";
-import Conveyor from "src/conveyors/conveyor.model";
-import History from "src/histories/histories.model";
+import Doc from "./docs.model";
 import Plant from "src/plants/plant.model";
-import { Sequelize } from "sequelize-typescript";
+import { GetDocsDto } from "src/docs.list/dto/get-docs.dto";
+import { Op, cast, col, fn } from "sequelize";
+import Record from "src/records/records.model";
+import History from "src/histories/histories.model";
 
 @Injectable()
 export class DocsService {
@@ -17,71 +17,93 @@ export class DocsService {
     private plantService: PlantsService
   ) {}
 
-  async getAllDocs() {
-    const docs = await this.docRepository.findAll({
-      attributes: [
-        "id",
-        "plantId",
-        "date",
-        [
-          Sequelize.literal(`
-          (SELECT COUNT (*) FROM Records Where doc_id = "Doc"."id")
-        `),
-          "records_count",
-        ],
-        [
-          Sequelize.literal(`
-          (SELECT COUNT (*) FROM Histories JOIN Records ON records.id = Histories.record_id Where doc_id = "Doc"."id")
-        `),
-          "histories_count",
-        ],
-      ],
-      include: {
-        model: Plant,
-        attributes: ["value"],
-      },
-      order: ["date"],
+  // used in current summary
+  async getCurrentDocByPlantId(plantId: number) {
+    var offset = 3;
+    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
+    // const date = new Date().setHours(12, 0, 0, 0);
+    const doc = await this.docRepository.findOne({
+      where: { plantId: plantId, date: date },
+      include: { model: Plant },
     });
-    return docs;
+    return doc;
+  }
+
+  async getAllDocsWithFilter(dto: GetDocsDto) {
+    let filter = {};
+    const dateFilter = {
+      [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
+    };
+    filter = {
+      ...filter,
+      date: dateFilter,
+    };
+    if (dto.filter.plants.length > 0) {
+      const plantFilter = { [Op.in]: [...dto.filter.plants] };
+      filter = { ...filter, plantId: plantFilter };
+    }
+    const count = await this.docRepository.count({
+      where: { ...filter },
+    });
+    const docs = await this.docRepository.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "plants"],
+        include: [
+          [col("plants.value"), "plant"],
+          [fn("COUNT", fn("DISTINCT", col("records.id"))), "recordsCount"],
+          [fn("COUNT", col("records.histories.id")), "historiesCount"],
+        ],
+      },
+      include: [
+        { model: Plant, as: "plants", attributes: [] },
+        { model: Record, attributes: [], include: [{ model: History, as: "histories", attributes: [] }] },
+      ],
+      group: ["Doc.id", "plants.value"],
+      subQuery: false,
+
+      where: { ...filter },
+      order: [["date", "ASC"]],
+      limit: dto.limit,
+      offset: dto.limit * (dto.page - 1),
+    });
+
+    return { total: count, rows: docs };
   }
 
   async getDocByPlantAndDate(date: string, plantId: number) {
     const existsDoc = await this.docRepository.findOne({
-      where: {
-        plantId: plantId,
-        date: new Date(`${date} 12:00:00:000`),
-      },
+      where: { plantId: plantId, date: new Date(`${date} 12:00:00:000`) },
     });
     return existsDoc;
   }
 
-  async getCurrentDoc(plantId: string) {
-    const plant = await this.plantService.getPlantByPk(Number(plantId));
-    if (plant) {
-      const currDate = new Date();
-      currDate.setHours(12, 0, 0, 0);
-      const doc = await this.docRepository.findOne({
-        where: {
-          plantId: plant.id,
-          date: currDate,
-        },
-        include: {
-          all: true,
-          nested: true,
-        },
-        order: [
-          [{ model: Record, as: "records" }, { model: Conveyor, as: "conveyor" }, "value", "ASC"],
-          [{ model: Record, as: "records" }, "id", "ASC"],
-          [{ model: Record, as: "records" }, { model: History, as: "histories" }, "id", "ASC"],
-        ],
-      });
-      if (doc) {
-        return doc;
-      }
-      // return [];
+  async getDocById(id: number) {
+    const doc = await this.docRepository.findOne({ where: { id: id }, include: { model: Plant } });
+    if (!doc) {
       throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
     }
-    throw new HttpException("Площадка на найдена", HttpStatus.NOT_FOUND);
+    return doc;
+  }
+
+  // add filter here
+  async getAllDocs() {
+    const docs = await this.docRepository.findAll({
+      attributes: {
+        exclude: ["plantId", "createdAt", "updatedAt"],
+        include: [
+          [col("plants.value"), "plant"],
+          [fn("COUNT", fn("DISTINCT", col("records.id"))), "recordsCount"],
+          [fn("COUNT", col("records.histories.id")), "historiesCount"],
+        ],
+      },
+      include: [
+        { model: Plant, as: "plants", attributes: [] },
+        { model: Record, attributes: [], include: [{ model: History, as: "histories", attributes: [] }] },
+      ],
+      group: ["Doc.id", "plants.value"],
+      order: [["date", "ASC"]],
+    });
+    return docs;
   }
 
   async createDoc(dto: CreateDocDto) {
@@ -99,24 +121,22 @@ export class DocsService {
     throw new HttpException("Площадка на найдена", HttpStatus.NOT_FOUND);
   }
 
-  async getDocByid(id: string) {
-    const doc = await this.docRepository.findOne({
-      where: { id: Number(id) },
-      include: {
-        all: true,
-        nested: true,
-      },
-      order: [
-        [{ model: Record, as: "records" }, { model: Conveyor, as: "conveyor" }, "value", "ASC"],
-        [{ model: Record, as: "records" }, "id", "ASC"],
-        [{ model: Record, as: "records" }, { model: History, as: "histories" }, "id", "ASC"],
-      ],
-
-      // [{ model: Plant }, { model: Record }],
-    });
-    if (doc) {
-      return doc;
+  async deleteDoc(id: number) {
+    const doc = await this.docRepository.findByPk(id);
+    if (!doc) {
+      throw new HttpException("Документ для удаления не найден", HttpStatus.NOT_FOUND);
     }
-    throw new HttpException("Документ не найден", HttpStatus.NOT_FOUND);
+    try {
+      await doc.destroy();
+    } catch (error) {
+      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+        throw new HttpException(
+          "Существуют записи, связанные с этой сводкой. Удаление невозможно...",
+          HttpStatus.BAD_REQUEST
+        );
+      } else {
+        throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+      }
+    }
   }
 }

@@ -68,6 +68,19 @@ export class AuthService {
     };
   }
 
+  async getUser(refreshToken: string): Promise<mapper.IUserData | null> {
+    if (refreshToken) {
+      const userData = await this.verifyToken(refreshToken);
+      const user = await this.userService.getByPk(userData.id);
+      const tokenFromDb = await this.tokenService.findByToken(user.id, refreshToken);
+      if (tokenFromDb) {
+        return mapper.toRegisteredUserData(user);
+      }
+    }
+    return null;
+    // throw new HttpException("Не авторизован", HttpStatus.UNAUTHORIZED);
+  }
+
   async verifyToken(token: string) {
     try {
       const userData = await this.jwtService.verify(token, { secret: "JWT_REFRESH_SECRET" });
@@ -82,7 +95,7 @@ export class AuthService {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: "JWT_ACCESS_SECRET",
-        expiresIn: "15m",
+        expiresIn: "60m", //"15m",
       }),
       this.jwtService.signAsync(payload, {
         secret: "JWT_REFRESH_SECRET",
@@ -95,6 +108,8 @@ export class AuthService {
       refreshToken: refreshToken,
     };
   }
+
+  async logout() {}
 
   private async validateUser(dto: LoginUserDto) {
     const user = await this.userService.getUserByEmail(dto.email);

@@ -2,9 +2,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   AllowNull,
   AutoIncrement,
+  BeforeCreate,
   BelongsTo,
   Column,
   DataType,
+  Default,
   ForeignKey,
   HasMany,
   Model,
@@ -30,6 +32,8 @@ interface RecordsCreationsAttrs {
   bbf: string;
   note: string;
   workshopId: number;
+  water_base_id: number;
+  organic_base_id: number;
 }
 
 @Table({ tableName: "records" })
@@ -51,6 +55,9 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   @ForeignKey(() => Boil)
   @Column
   boilId: number;
+
+  @BelongsTo(() => Boil, "boilId")
+  boil: Boil;
 
   @ForeignKey(() => Apparatus)
   @Column
@@ -80,14 +87,29 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   @Column
   workshopId: number;
 
+  @ForeignKey(() => Boil)
+  @Column
+  water_base_id: number;
+
+  @BelongsTo(() => Boil, "water_base_id")
+  water_base: Boil;
+
+  @ForeignKey(() => Boil)
+  @Column
+  organic_base_id: number;
+
+  @BelongsTo(() => Boil, "organic_base_id")
+  organic_base: Boil;
+
+  @Default(false)
+  @Column
+  isSet: boolean;
+
   @BelongsTo(() => Doc)
   doc: Doc;
 
   @BelongsTo(() => Product)
   product: Product;
-
-  @BelongsTo(() => Boil)
-  boil: Boil;
 
   @BelongsTo(() => Apparatus)
   apparatus: Apparatus;
@@ -103,4 +125,15 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @BeforeCreate
+  static addSetProperty(instance: Record) {
+    const apparatus = instance.apparatusId;
+    const can = instance.canId;
+    if (can || apparatus) {
+      instance.isSet = false;
+    } else {
+      instance.isSet = true;
+    }
+  }
 }

@@ -9,6 +9,7 @@ export default function ColorSchemeToggle(props: IconButtonProps) {
   const { onClick, sx, ...other } = props;
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
+
   React.useEffect(() => {
     setMounted(true);
   }, []);

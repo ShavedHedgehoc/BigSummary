@@ -4,6 +4,8 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateHistoryDto {
   @ApiProperty({ example: "1", description: "id записи сводки" })
   readonly recordId: number;
+  @ApiProperty({ example: "1", description: "id партии" })
+  readonly boilId: number;
   @ApiProperty({ example: "base_check", description: "Тип записи" })
   readonly historyType: string;
   @ApiProperty({ example: "1", description: "id пользователя" })

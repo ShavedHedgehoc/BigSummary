@@ -1,53 +1,52 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import SummaryService from "../services/SummaryService";
-import handleError from "../http/handleError";
-import { IHistory, IRecord } from "../types";
-import { formatDateToString } from "../utils";
-import HistoryService from "../services/HistoryService";
+import handleError from "../shared/api/http/handleError";
+import { IHistory, IRecordDetailRecord } from "../types";
 
 export default class RecordDetailStore {
+  histories = {} as IHistory[];
+  record: IRecordDetailRecord | null = null;
   pending = false;
   error = {} as string[];
-  record = {} as IRecord | null;
 
   constructor() {
     makeAutoObservable(this, {
-      stringDate: computed,
-      //   count: computed,
-      noRecordsFound: computed,
+      // stringDate: computed,
+      count: computed,
+      noHistoriesFound: computed,
       renderTable: computed,
       renderLoader: computed,
-      fetchRecordById: action,
+      fetchHistoriesByRecId: action,
+      updateHistories: action,
     });
   }
 
-  get stringDate() {
-    if (this.record) {
-      return formatDateToString(this.record.doc.date);
-    }
-    return null;
-  }
-
-  get noRecordsFound() {
-    if (this.record) {
-      return this.record.histories.length === 0 && !this.pending;
-    } else {
-      return !this.pending;
-    }
-  }
+  // get stringDate() {
+  //   if (this.record) {
+  //     return formatDateToString(this.record.doc.date);
+  //   }
+  //   return null;
+  // }
 
   get renderTable() {
-    if (this.record?.histories) {
-      return this.record.histories.length > 0 && !this.pending;
-    }
-    return false;
+    return this.histories.length > 0 && !this.pending;
   }
 
+  get noHistoriesFound() {
+    return this.histories.length === 0 && !this.pending;
+  }
   get renderLoader() {
     return this.pending;
   }
 
-  setRecord(record: IRecord | null) {
+  get count() {
+    return this.histories.length;
+  }
+
+  setHistories(histories: IHistory[] | []) {
+    this.histories = [...histories];
+  }
+  setRecord(record: IRecordDetailRecord | null) {
     this.record = record;
   }
 
@@ -59,38 +58,50 @@ export default class RecordDetailStore {
     this.error = error;
   }
 
-  setHistories(histories: IHistory[] | null) {
-    if (this.record && histories) this.record = { ...this.record, histories: { ...histories } };
-  }
-
-  async fetchRecordById(id: string) {
-    if (id) {
-      try {
-        this.setPending(true);
-        this.setError([]);
-        this.setRecord(null);
-        const response = await SummaryService.getRecordById(id);
-        await this.setRecord(response.data);
-      } catch (error) {
-        const errValue = handleError(error);
-        this.setError([...errValue]);
-      } finally {
-        this.setPending(false);
-      }
+  async fetchHistoriesByRecId(recordId: string) {
+    try {
+      this.setPending(true);
+      this.setError([]);
+      this.setHistories([]);
+      this.setRecord(null);
+      const response = await SummaryService.getRecordDetailById(recordId);
+      await this.setRecord({ ...response.data });
+      await this.setHistories([...response.data.histories]);
+      await this.setPending(false);
+    } catch (error) {
+      const errValue = handleError(error);
+      await this.setError([...errValue]);
+    } finally {
+      await this.setPending(false);
     }
   }
+  // async fetchRecordById(id: string) {
+  //   if (id) {
+  //     try {
+  //       this.setPending(true);
+  //       this.setError([]);
+  //       this.setRecord(null);
+  //       const response = await SummaryService.getRecordById(id);
+  //       await this.setRecord(response.data);
+  //     } catch (error) {
+  //       const errValue = handleError(error);
+  //       this.setError([...errValue]);
+  //     } finally {
+  //       this.setPending(false);
+  //     }
+  //   }
+  // }
 
-  async updateHistories(id: string) {
-    if (id) {
+  async updateHistories(recordId: string) {
+    if (recordId) {
       try {
         this.setPending(true);
         this.setError([]);
-        const response = await HistoryService.getHistoriesByRecordId(id);
-        this.setHistories(response.data);
+        const response = await SummaryService.getRecordDetailById(recordId);
+        this.setHistories(response.data.histories);
       } catch (error) {
         const errValue = handleError(error);
         this.setError([...errValue]);
-        console.log([...errValue]);
       } finally {
         this.setPending(false);
       }

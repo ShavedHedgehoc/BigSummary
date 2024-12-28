@@ -15,7 +15,7 @@ import {
 } from "sequelize-typescript";
 import History from "src/histories/histories.model";
 import Role from "src/roles/roles.model";
-import UserRoles from "src/roles/user-roles.model";
+import UserRoles from "src/user-roles/user-roles.model";
 import Token from "src/token/token.model";
 
 interface UserCreationsAttrs {
@@ -55,6 +55,9 @@ export default class User extends Model<User, UserCreationsAttrs> {
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
+
+  @BelongsToMany(() => Role, () => UserRoles)
+  roles_for_filter: Role[];
 
   @HasMany(() => History)
   histories: History[];

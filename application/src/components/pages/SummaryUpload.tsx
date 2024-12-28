@@ -5,7 +5,7 @@ import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import MainPageHeader from "../headers/MainPageHeader";
-import SummaryUploadForm, { SummaryUploadFormProps } from "../SummaryUploadForm";
+import SummaryUploadForm, { SummaryUploadFormProps } from "../forms/SummaryUploadForm";
 import { observer } from "mobx-react-lite";
 import { getTomorrowDate } from "../../utils";
 
@@ -46,7 +46,8 @@ function SummaryUpload() {
       code1C: { type: "string" },
       serie: { type: "string" },
       product: { type: "string" },
-      boil: { type: "string" },
+      // boil: { type: "string" },
+      batch: { type: "string" },
       plan: { type: "string" },
       apparatus: { type: "string" },
       can: { type: "string" },
@@ -54,6 +55,8 @@ function SummaryUpload() {
       bbf: { type: "string" },
       note: { type: "string" },
       workshop: { type: "string" },
+      boil1: { type: "string" },
+      boil2: { type: "string" },
     },
   };
   const parse = ajv.compileParser(valSchema);

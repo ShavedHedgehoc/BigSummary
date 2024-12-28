@@ -38,8 +38,19 @@ export class AuthController {
     return res;
   }
 
+  // for tanstack auth get user info
+
+  @Post("/get_user")
+  @HttpCode(200)
+  async getUser(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
+    const res = await this.authService.getUser(request.cookies["refreshToken"]);
+    return res;
+  }
+
   @Post("/logout")
-  async logout(@Req() request: Request) {
+  @HttpCode(200)
+  async logout(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
     await this.tokenService.removeToken(request.cookies["refreshToken"]);
+    response.clearCookie("refreshToken");
   }
 }
