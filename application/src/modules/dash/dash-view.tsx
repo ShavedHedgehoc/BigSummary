@@ -6,10 +6,12 @@ import { SxProps } from "@mui/joy/styles/types";
 import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
 import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
 import { Sheet, useColorScheme } from "@mui/joy";
+import DashSmallCard from "./dash-small-card";
 
 export default function DashView() {
   const { mode } = useColorScheme();
   const filter = useDashFilterStore(useShallow((state) => state.filter));
+  const smallCardView = useDashFilterStore(useShallow((state) => state.smallCardView));
   const { isPending, data, isSuccess } = useCurrentRecords({ filter: filter });
 
   const sheetSxProps: SxProps = [
@@ -57,13 +59,17 @@ export default function DashView() {
           display: "grid",
           gap: 1,
           gridTemplateColumns: {
-            xs: "repeat(auto-fill, 100%)",
-            sm: "repeat(auto-fill, [col-start] minmax(250px, 1fr) [col-end])",
+            // xs: "repeat(auto-fill, 100%)",`repeat(auto-fill, [col-start] minmax(${smallCardView ? 80 : 250}px, 1fr) [col-end])`,
+            xs: `${
+              smallCardView ? "repeat(auto-fill, [col-start] minmax(80px, 1fr) [col-end])" : "repeat(auto-fill, 100%)"
+            }`,
+            sm: `repeat(auto-fill, [col-start] minmax(${smallCardView ? 80 : 250}px, 1fr) [col-end])`,
           },
           backgroundColor: "background.body",
         }}
       >
-        {isSuccess && data.records.map((row) => <DashCard key={`Card_${row.id}`} row={row} />)}
+        {isSuccess && smallCardView && data.records.map((row) => <DashSmallCard key={`Card_${row.id}`} row={row} />)}
+        {isSuccess && !smallCardView && data.records.map((row) => <DashCard key={`Card_${row.id}`} row={row} />)}
       </Sheet>
     </Sheet>
   );

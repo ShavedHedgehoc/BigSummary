@@ -26,7 +26,9 @@ export class TokenService {
   }
 
   async removeToken(refreshToken: string) {
-    await this.tokenRepository.destroy({ where: { token: refreshToken } });
+    if (refreshToken) {
+      await this.tokenRepository.destroy({ where: { token: refreshToken } });
+    }
   }
 
   async removeTokenByUserId(id: number) {

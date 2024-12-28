@@ -1,7 +1,14 @@
 import Role from "src/roles/roles.model";
 import User from "src/users/users.model";
 
-export const toRegisteredUserData = (user: User) => {
+export interface IUserData {
+  id: number;
+  name: string;
+  email: string;
+  roles: string[];
+}
+
+export const toRegisteredUserData = (user: User): IUserData => {
   return {
     id: user.id,
     name: user.name,

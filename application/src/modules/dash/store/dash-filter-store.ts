@@ -6,11 +6,13 @@ interface DashFilterStore {
   filter: FetchProductFilter;
   selectedPlant: number | null;
   plantSelectorOptions: IPlant[] | [];
+  smallCardView: boolean;
 
   clearFilter: () => void;
   changeFilter: (value: FetchBoilsFilterFormField) => void;
   setSelectedPlant: (value: number) => void;
   fillPlantSelectorOptions: (values: IPlant[]) => void;
+  setSmallCardView: (value: boolean) => void;
 }
 
 const initFilterValue: FetchProductFilter = {
@@ -28,7 +30,8 @@ export const useDashFilterStore = create<DashFilterStore>()((set) => ({
   filter: initFilterValue,
   selectedPlant: null,
   plantSelectorOptions: [],
-  //   stateSelectorOptions: [],
+  smallCardView: false,
+
   clearFilter: () =>
     set((state) => ({
       filter: {
@@ -48,4 +51,5 @@ export const useDashFilterStore = create<DashFilterStore>()((set) => ({
   },
   setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
   fillPlantSelectorOptions: (values) => set(() => ({ plantSelectorOptions: [...values] })),
+  setSmallCardView: (value) => set(() => ({ smallCardView: value })),
 }));
