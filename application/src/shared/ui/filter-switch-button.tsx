@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Button, ButtonGroup, IconButton, useColorScheme } from "@mui/joy";
+import { Box, ButtonGroup, IconButton } from "@mui/joy";
 
 export interface FilterSwitchButtonProps {
   trueDecorator: React.ReactNode;

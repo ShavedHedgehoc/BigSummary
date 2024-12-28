@@ -1,6 +1,5 @@
 import { Box, Sheet, useColorScheme } from "@mui/joy";
 import { keyframes } from "@emotion/react";
-import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
 
 const pulse = keyframes`
     0% {
