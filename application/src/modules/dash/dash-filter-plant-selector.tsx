@@ -2,9 +2,10 @@ import { useShallow } from "zustand/shallow";
 
 import { useQuery } from "@tanstack/react-query";
 import PlantService from "../../services/PlantService";
-import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
+
 import { useDashFilterStore } from "./store/dash-filter-store";
 import { DashFilterParams } from "./store/dash-filter-params";
+import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 
 export default function DashFilterPlantSelector() {
   const changeFilter = useDashFilterStore(useShallow((state) => state.changeFilter));

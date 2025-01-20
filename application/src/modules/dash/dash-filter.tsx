@@ -6,11 +6,11 @@ import { Box, Dropdown, IconButton, Menu, MenuButton, MenuItem, Sheet } from "@m
 import { SxProps } from "@mui/joy/styles/types";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import DashFilterPlantSelector from "./dash-filter-plant-selector";
-import FilterSwitchButton, { FilterSwitchButtonProps } from "../../shared/ui/filter-switch-button";
 
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useShallow } from "zustand/shallow";
+import FilterSwitchButton, { FilterSwitchButtonProps } from "../../shared/ui/filter-switch-button";
 
 function MobileDashFilter() {
   const { data, isSuccess } = usePlants();
