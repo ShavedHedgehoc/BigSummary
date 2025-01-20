@@ -24,13 +24,87 @@ export default function RecordDetail() {
       >
         <BackIcon />
       </div>
-      <div className="overflow-y-ршввут h-full">
-        {/* <div className="text-slate-50 text-3xl">{`Данные по строке ${recordId}`}</div> */}
-
+      <div className="overflow-y-hidden h-full">
         {isSuccess && data && (
-          <div className=" rounded-md bg-fuchsia-700 text-slate-200">
-            <div className="text-5xl">{data.conveyor}</div>
-            <div className="text-5xl">Конвейер</div>
+          <div className="flex flex-col gap-3 p-3">
+            <div className="h-36 w-full p-4 flex flex-col  justify-between rounded-md bg-orange-700 text-slate-200">
+              <div className="flex justify-start text-5xl ">Конвейер</div>
+              <div className="flex justify-end text-6xl">{data.conveyor}</div>
+            </div>
+            <div className="flex flex-row gap-3">
+              <div className=" flex w-1/2 p-4 flex-col justify-between rounded-md bg-green-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">Продукт</div>
+                <div className="flex justify-end text-5xl">{data.product}</div>
+              </div>
+              <div className=" flex w-1/2 p-4 flex-col justify-between rounded-md bg-sky-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">Код 1С</div>
+                <div className="flex justify-end text-5xl">{data.productId}</div>
+              </div>
+            </div>
+            <div className="flex flex-row gap-3">
+              <div className=" flex w-1/3 p-4 flex-col justify-between rounded-md bg-yellow-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">Партия</div>
+                <div className="flex justify-end text-5xl">{data.boil}</div>
+              </div>
+              <div className=" flex w-1/3 p-4 flex-col justify-between rounded-md bg-pink-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">План</div>
+                <div className="flex justify-end text-5xl">{data.plan}</div>
+              </div>
+              <div className=" flex w-1/3 p-4 flex-col justify-between rounded-md bg-lime-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">Годен до</div>
+                <div className="flex justify-end text-5xl">{data.bbf}</div>
+              </div>
+            </div>
+            <div className="flex flex-row gap-3">
+              <div className=" flex w-1/2 p-4 flex-col justify-between rounded-md bg-cyan-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">Апарат</div>
+                <div className="flex justify-end text-5xl">{data.apparatus}</div>
+              </div>
+              <div className=" flex w-1/2 p-4 flex-col justify-between rounded-md bg-amber-700 text-slate-200">
+                <div className="flex justify-start text-3xl ">Емкость</div>
+                <div className="flex justify-end text-5xl">{data.can}</div>
+              </div>
+            </div>
+            <div className=" flex w-full p-4 flex-col justify-between rounded-md bg-teal-700 text-slate-200">
+              <div className="flex justify-start text-3xl ">Комментарий</div>
+              <div className="flex justify-end text-4xl">{data.note}</div>
+            </div>
+
+            <div
+              className={`flex w-full p-4 flex-col justify-center items-center rounded-md 
+              ${data.stateValue === "product_pass" && "bg-green-700"} 
+        ${(data.stateValue === "product_check" || data.stateValue === "product_correct") && "bg-yellow-700"} 
+        ${data.stateValue === "product_fail" && "bg-red-700"} 
+        ${
+          (data.stateValue === "base_correct" ||
+            data.stateValue === "base_continue" ||
+            data.stateValue === "plug_pass" ||
+            data.stateValue === "base_check" ||
+            data.stateValue === null ||
+            data.stateValue === "base_fail") &&
+          "bg-slate-600"
+        }              
+        ${data.stateValue === "product_finished" && "bg-fuchsia-700"}
+        
+              
+              `}
+            >
+              <div
+                className={`font-ultralight text-4xl  pl-3  p-4 ${
+                  data.stateValue === "base_check" ||
+                  data.stateValue === "base_correct" ||
+                  data.stateValue === "base_continue"
+                    ? "text-yellow-500"
+                    : data.stateValue === "base_fail"
+                    ? "text-red-500"
+                    : data.stateValue === "plug_pass"
+                    ? "text-green-500"
+                    : "text-slate-200"
+                }`}
+              >
+                {data.state}
+              </div>
+            </div>
           </div>
         )}
       </div>

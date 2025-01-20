@@ -10,7 +10,7 @@ import SummaryRow from "./summary-row";
 import SummaryCard from "./summary-card";
 
 export default function SummaryView(plant: IPlant) {
-  const notScrollingCardsQuantity = 42;
+  const notScrollingCardsQuantity = window.innerWidth > 1280 ? 48 : 42;
   const notScrollingRowsQuantity = 14;
   const scrollDelay = 30000;
 
@@ -94,7 +94,7 @@ export default function SummaryView(plant: IPlant) {
           {cardsView && (
             <>
               <div
-                className={` grid  grid-cols-3 grid-rows-14 gap-2  overflow-hidden pb-2 w-full
+                className={` grid  sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6  grid-rows-14 gap-2  overflow-hidden pb-2 w-full
                 ${
                   scrolling &&
                   !hideFinished &&
@@ -121,7 +121,7 @@ export default function SummaryView(plant: IPlant) {
                   data.records.map((item) => <SummaryCard {...item} key={`card_${item.id}`} />)}
               </div>
               <div
-                className={` card-anim grid grid-cols-3 rid-rows-14 gap-2 overflow-hidden absolute top-0 w-full pb-2                
+                className={` card-anim grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 grid-rows-14 gap-2 overflow-hidden absolute top-0 w-full pb-2                
                  ${
                    scrolling
                      ? hideFinished
