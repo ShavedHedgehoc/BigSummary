@@ -9,19 +9,22 @@ export default function SummaryRow(item: IDocRow) {
     <div
       onClick={() => navigate(`${RouteNames.RECORD}/${item.id}`)}
       className={`h-32 w-full rounded-md relative
-              ${item.stateValue === "plug_pass" && "bg-slate-600"} 
-              ${item.stateValue === "base_continue" && "bg-slate-600"} 
-              ${item.stateValue === "base_correct" && "bg-slate-600"} 
-              ${item.stateValue === "product_in_progress" && "bg-sky-700"}               
-              ${item.stateValue === "product_pass" && "bg-green-700"} 
-              ${(item.stateValue === "product_check" || item.stateValue === "product_correct") && "bg-yellow-700"} 
-              ${item.stateValue === "product_fail" && "bg-red-700"} 
-              ${item.stateValue === "base_check" && "bg-slate-600"}
-              ${item.stateValue === "base_fail" && "bg-slate-600"}
-              ${item.stateValue === "product_finished" && "bg-fuchsia-700"}
-              ${item.stateValue === null && "bg-slate-900"}
-              ${item.isUpdated && "animate-pulse"}
-              `}
+               ${item.stateValue === "product_in_progress" && "bg-sky-700"}               
+        ${item.stateValue === "product_pass" && "bg-green-700"} 
+        ${(item.stateValue === "product_check" || item.stateValue === "product_correct") && "bg-yellow-700"} 
+        ${item.stateValue === "product_fail" && "bg-red-700"} 
+        ${
+          (item.stateValue === "base_correct" ||
+            item.stateValue === "base_continue" ||
+            item.stateValue === "plug_pass" ||
+            item.stateValue === "base_check" ||
+            (item.stateValue === null && item.isSet) ||
+            item.stateValue === "base_fail") &&
+          "bg-slate-600"
+        }              
+        ${item.stateValue === "product_finished" && "bg-fuchsia-700"}
+        ${item.stateValue === null && !item.isSet && "bg-slate-900"}
+        ${item.isUpdated && "animate-pulse"}`}
     >
       <div className="w-full h-full grid grid-cols-6 grid-rows-1 gap-2 rounded-md p-2">
         <div className="rounded-md  text-slate-200 text-6xl font-semibold self-center">

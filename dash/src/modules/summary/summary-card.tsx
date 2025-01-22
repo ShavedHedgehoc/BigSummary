@@ -23,11 +23,12 @@ export default function SummaryCard(item: IDocRow) {
             item.stateValue === "base_continue" ||
             item.stateValue === "plug_pass" ||
             item.stateValue === "base_check" ||
+            (item.stateValue === null && item.isSet) ||
             item.stateValue === "base_fail") &&
           "bg-slate-600"
         }              
         ${item.stateValue === "product_finished" && "bg-fuchsia-700"}
-        ${item.stateValue === null && "bg-slate-900"}
+        ${item.stateValue === null && !item.isSet && "bg-slate-900"}
         ${item.isUpdated && "animate-pulse"}`}
     >
       <div className="text-slate-200 text-5xl font-semibold pl-3 pt-2 ">{item.conveyor}</div>
