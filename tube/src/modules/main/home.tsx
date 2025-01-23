@@ -3,13 +3,15 @@ import Keyboard from "react-simple-keyboard";
 
 // import { KeyboardReact as Keyboard } from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import Clock from "./clock";
-import DateComponent from "./date-component";
-import Layout from "../layout";
+import Clock from "../clock";
+import DateComponent from "../date-component";
+import Layout from "../../layout";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
-import { useCurrentProductStore } from "../use-current-product-store";
+import { useCurrentProductStore } from "../../use-current-product-store";
 import { useShallow } from "zustand/react/shallow";
-import { products } from "../mocks";
+import { products } from "../../mocks";
+import { useSearchParams } from "react-router";
+import { useLines } from "../../shared/api/use-lines";
 
 const testLabel =
   "^XA^CI28^FO20,20^GB760,560,4,B,0^FS^FO20,400^GB760,4,4,B,0^FS^FO300,400^GB4,180,4,B,0^FS^FO60,60^FB700,3,,L^A0N,50,50^FDPaper box for hair dye DLS 9/76 with label^FS^FO90,470^FB700,3,,L^A0N,40,40^FDQuantity:^FS^FO 550,470 ^FB700,3,,L^A0N,50,50^FD Pcs^FS^PQ1^XZ";
@@ -180,12 +182,10 @@ export default function Home() {
   }
 
   function LeftControl() {
-    // const setCurentProduct = useCurrentProductStore(useShallow((state) => state.setCurrentProduct));
-    // const currentProduct = useCurrentProductStore(useShallow((state) => state.currentProduct));
     return (
       <div className="w-full grid  grid-cols-3 grid-rows-1 gap-3 ">
-        <div className="   rounded-md text-4xl text-white bg-teal-600">
-          <div className="flex w-full h-full justify-center items-center">Комплектующие</div>
+        <div className="   rounded-md text-3xl text-white bg-teal-600">
+          <div className="flex w-full h-full justify-center items-center">КОМПЛЕКТУЮЩИЕ</div>
         </div>
         <div className="   rounded-md text-4xl text-white bg-purple-600">
           <div className="flex w-full h-full justify-center items-center">Параметры</div>
@@ -197,44 +197,61 @@ export default function Home() {
     );
   }
 
+  let [searchParams] = useSearchParams();
+  const line = searchParams.get("line");
+  const { data, isSuccess } = useLines(line);
+
+  if (isSuccess && !data.length) {
+    return <div>Площадка из строки поиска отсутствует в базе данных...</div>;
+  }
+
+  if (line === null) {
+    return <div>Отсутствует выбор площадки в строке поиска...</div>;
+  }
+
   return (
-    <Layout>
-      <Layout.Header>
-        <div className="font-sans font-bold text-4xl text-white">Линия 1</div>
-        <div className="font-sans font-bold text-4xl text-white">Пост 1</div>
-      </Layout.Header>
-      <Layout.Subheader>
-        <Layout.Product>
-          <Layout.ProductName>
-            <Product />
-          </Layout.ProductName>
-          <Layout.Batch>
-            <Batch />
-          </Layout.Batch>
-        </Layout.Product>
+    <>
+      {isSuccess && (
+        <Layout>
+          <Layout.Header>
+            <div className="font-sans font-bold text-4xl text-white">{data[0].description}</div>
+            {/* <div className="font-sans font-bold text-4xl text-white">Линия 1</div> */}
+            <div className="font-sans font-bold text-4xl text-white">Пост 1</div>
+          </Layout.Header>
+          <Layout.Subheader>
+            <Layout.Product>
+              <Layout.ProductName>
+                <Product />
+              </Layout.ProductName>
+              <Layout.Batch>
+                <Batch />
+              </Layout.Batch>
+            </Layout.Product>
 
-        <Layout.State>
-          {/* <div className="font-sans font-bold text-3xl text-amber-600">Статус: </div> */}
-          <div className="font-sans font-bold text-3xl text-green-700 "> Фасуется</div>
-        </Layout.State>
-      </Layout.Subheader>
-      <Layout.Main>
-        <Layout.View>
-          <Layout.Info>Info</Layout.Info>
-          <Layout.LeftControl>
-            <LeftControl />
-          </Layout.LeftControl>
-        </Layout.View>
+            <Layout.State>
+              {/* <div className="font-sans font-bold text-3xl text-amber-600">Статус: </div> */}
+              <div className="font-sans font-bold text-3xl text-green-700 "> Фасуется</div>
+            </Layout.State>
+          </Layout.Subheader>
+          <Layout.Main>
+            <Layout.View>
+              <Layout.Info>Info</Layout.Info>
+              <Layout.LeftControl>
+                <LeftControl />
+              </Layout.LeftControl>
+            </Layout.View>
 
-        <Layout.Control>
-          <Control />
-        </Layout.Control>
-      </Layout.Main>
-      <Layout.Footer>
-        <DateComponent />
-        <Clock />
-      </Layout.Footer>
-      <ModalWindow open={openModal} onClose={(val: boolean) => setOpenModal(val)} />
-    </Layout>
+            <Layout.Control>
+              <Control />
+            </Layout.Control>
+          </Layout.Main>
+          <Layout.Footer>
+            <DateComponent />
+            <Clock />
+          </Layout.Footer>
+          <ModalWindow open={openModal} onClose={(val: boolean) => setOpenModal(val)} />
+        </Layout>
+      )}
+    </>
   );
 }

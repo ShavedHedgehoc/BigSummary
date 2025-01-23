@@ -1,0 +1,6 @@
+{
+  "lines": [
+    { "id": "1", "value": "1", "description": "Линия 1" },
+    { "id": "2", "value": "2", "description": "Линия 2" }
+  ]
+}
