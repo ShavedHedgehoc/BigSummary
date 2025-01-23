@@ -9,12 +9,8 @@ import Layout from "../../components/common/Layout";
 import Login from "../../components/pages/Login";
 import Forbidden from "../../components/pages/Forbidden";
 import SummaryUpload from "../../components/pages/SummaryUpload";
-
-import SummaryDetail from "../../components/pages/SummaryDetail";
 import RecordDetail from "../../components/pages/RecordDetail";
-
 import BoilsReport from "../../components/pages/BoilReport";
-
 import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
 import Boils from "../../modules/boils/boils";
@@ -25,11 +21,7 @@ import UpdateBases from "../../modules/bases/update-bases";
 import Documents from "../../modules/documents/documents";
 import UiPage from "../../modules/ui-page/ui-page";
 import Employees from "../../modules/employees/employees";
-
-export enum Params {
-  SUMMARY_PARAMS = "summary_id",
-  RECORD_PARAMS = "record_id",
-}
+import DocumentDetail from "../../modules/document-detail/document-detail";
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -67,7 +59,6 @@ const AppRouter = () => {
           <Route path={RouteNames.HOME} element={<Layout />}>
             <Route index element={<Dash />} />
             <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
-            {/* <Route path={RouteNames.SUMMARY_REPORT} element={<SummaryListReport />} /> */}
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
               <Route path={RouteNames.BOILS_LIST} element={<Boils />} />
               <Route path={RouteNames.LABORATORY} element={<Products />} />
@@ -80,9 +71,8 @@ const AppRouter = () => {
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.DOCUMENTS} element={<Documents />} />
-              {/* <Route path={RouteNames.SUMMARY_LIST} element={<SummaryList />} /> */}
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />
-              <Route path={RouteNames.SUMMARY_DETAIL} element={<SummaryDetail />} />
+              <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
               <Route path={RouteNames.BASES_UPDATE} element={<UpdateBases />} />

@@ -58,6 +58,15 @@ interface IRole {
   description: string;
 }
 
+interface IDocument {
+  id: number;
+  plantId: number;
+  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  plants: IPlant;
+}
+
 interface IDocRow {
   id: number;
   productId: number;
@@ -164,6 +173,16 @@ interface FetchProductFilter {
   conveyor: string;
 }
 
+interface FetchDocDetailFilter {
+  boil: string;
+  productCode: string;
+  marking: string;
+  haveRecord: boolean;
+  boilAsc: boolean;
+  states: number[] | [];
+  conveyor: string;
+}
+
 interface FetchBoilsDto {
   filter: FetchBoilsFilter;
   page: number;
@@ -178,6 +197,11 @@ interface FetchEmployeesDto {
 
 interface FetchProductsDto {
   filter: FetchProductFilter;
+}
+
+interface FetchProductsWithDocIdDto {
+  doc_id: string | undefined;
+  filter: FetchDocDetailFilter;
 }
 
 interface FetchBoilsFilterFormField {

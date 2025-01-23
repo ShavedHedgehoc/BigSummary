@@ -315,4 +315,23 @@ export class RecordsService {
       await this.createRecord(createDto);
     }
   }
+
+  async deleteRecord(id: number) {
+    const record = await this.recordsRepository.findByPk(id);
+    if (!record) {
+      throw new HttpException("Строка сводки для удаления не найдена", HttpStatus.NOT_FOUND);
+    }
+    try {
+      await record.destroy();
+    } catch (error) {
+      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+        throw new HttpException(
+          "Существуют записи, связанные с этой строкой. Удаление невозможно...",
+          HttpStatus.BAD_REQUEST
+        );
+      } else {
+        throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+      }
+    }
+  }
 }

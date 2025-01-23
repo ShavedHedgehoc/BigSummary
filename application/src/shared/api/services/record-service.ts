@@ -14,4 +14,14 @@ export default class RecordService {
     const res = await $api.post(`/doc_detail/`, dto);
     return res.data;
   }
+
+  static async getRecordsByDocId(dto: FetchProductsWithDocIdDto): Promise<SummaryResponse> {
+    const res = await $api.post(`/doc_detail/by_id/`, dto);
+    return res.data;
+  }
+
+  static async deleteRecord(record_id: number): Promise<any> {
+    const res = await $api.delete(`/records/${record_id}`);
+    return res.data;
+  }
 }

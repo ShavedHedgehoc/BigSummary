@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { RecordsService } from "./records.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import Record from "./records.model";
@@ -44,5 +44,12 @@ export class RecordsController {
   @Get("/detail/:id")
   getRecordsById(@Param("id") id: string) {
     return this.recordsService.getByIdWithDetails(id);
+  }
+
+  @ApiOperation({ summary: "Удалить строку по id" })
+  @ApiResponse({ status: 201 })
+  @Delete("/:id")
+  DeleteRecord(@Param("id") id: string) {
+    return this.recordsService.deleteRecord(Number(id));
   }
 }

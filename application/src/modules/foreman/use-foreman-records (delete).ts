@@ -1,3 +1,5 @@
+// УДАЛИТЬ
+
 import { useQuery } from "@tanstack/react-query";
 import RecordService from "../../shared/api/services/record-service";
 

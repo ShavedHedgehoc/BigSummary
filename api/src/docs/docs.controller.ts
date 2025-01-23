@@ -31,12 +31,12 @@ export class DocsController {
     return this.docsService.getAllDocsWithFilter(dto);
   }
 
-  // @ApiOperation({ summary: "Получить сводку по id" })
-  // @ApiResponse({ status: 200, type: [Doc] })
-  // @Get("/doc/:docId")
-  // getDocByid(@Param("docId") docId: string) {
-  //   return this.docsService.getDocByid(docId);
-  // }
+  @ApiOperation({ summary: "Получить сводку по id" })
+  @ApiResponse({ status: 200, type: [Doc] })
+  @Get("/:docId")
+  getDocByid(@Param("docId") docId: string) {
+    return this.docsService.getDocById(Number(docId));
+  }
 
   @ApiOperation({ summary: "Создание новой сводки" })
   @ApiResponse({ status: 201, type: Doc })

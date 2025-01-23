@@ -5,6 +5,7 @@ import { HistoriesService } from "src/histories/histories.service";
 import Record from "src/records/records.model";
 import { RecordsService } from "src/records/records.service";
 import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
+import { GetDocByIdDto } from "./dto/get-doc-by-id.dto";
 
 @Injectable()
 export class DocDetailService {
@@ -134,6 +135,16 @@ export class DocDetailService {
       return { records: [] };
     }
     const result = await this.getDocDetailDataWithFilter(doc, dto);
+    return result;
+  }
+
+  async getDocDetailByIdWithFilter(dto: GetDocByIdDto) {
+    const doc = await this.docsService.getDocById(Number(dto.doc_id));
+    if (!doc) {
+      return { records: [] };
+    }
+    const newDto: GetCurrentDocDto = { filter: { ...dto.filter, plant: null } };
+    const result = await this.getDocDetailDataWithFilter(doc, newDto);
     return result;
   }
 }

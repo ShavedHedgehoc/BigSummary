@@ -13,7 +13,7 @@ export function useCreateHistoryDirect() {
       client.invalidateQueries({ queryKey: ["record_histories"] });
       client.invalidateQueries({ queryKey: ["boils_histories"] });
       client.invalidateQueries({ queryKey: ["boils_list"] });
-      enqueueSnackbar(ClientMessages.RECORD_SUCCESFULLE_ADDED, {
+      enqueueSnackbar(ClientMessages.RECORD_SUCCESFULL_ADDED, {
         variant: "success",
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });

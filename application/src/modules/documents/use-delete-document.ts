@@ -7,7 +7,7 @@ import { ClientMessages } from "../../shared/resources/client-messages";
 export function useDeleteDocument() {
   const client = useQueryClient();
   const { mutate: deleteDocument, isPending: deletePending } = useMutation({
-    mutationFn: DocumentService.deleteDocuments,
+    mutationFn: DocumentService.deleteDocument,
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["documents_list"] });
       enqueueSnackbar(ClientMessages.DOCUMENT_SUCCESFULL_DELETED, {

@@ -1,5 +1,6 @@
 export enum ClientMessages {
-  RECORD_SUCCESFULLE_ADDED = "Запись успешно внесена",
+  RECORD_SUCCESFULL_ADDED = "Запись успешно внесена",
+  RECORD_SUCCESFULL_DELETED = "Строка успешно удалена",
   DOCUMENT_SUCCESFULL_DELETED = "Документ успешно удален",
   EMPLOYEE_CREATED = "Сотрудник успешно добавлен",
   EMPLOYEE_UPDATED = "Данные сотрудника успешно обновлены",
