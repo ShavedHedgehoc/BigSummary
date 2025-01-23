@@ -46,7 +46,15 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
           </TableIconButton>
           <TableIconButton
             color="danger"
-            disabled={deletePending || row.state !== "-"}
+            disabled={
+              deletePending ||
+              row.state === "product_check" ||
+              row.state === "product_fail" ||
+              row.state === "product_pass" ||
+              row.state === "product_in_progress" ||
+              row.state === "product_finished" ||
+              row.state === "product_correct"
+            }
             onClick={() => deleteRecord(row.id)}
           >
             <DeleteOutlinedIcon />
