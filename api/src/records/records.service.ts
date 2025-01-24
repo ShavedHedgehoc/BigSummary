@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Inject, Injectable, forwardRef } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import Record from "./records.model";
 import { InjectModel } from "@nestjs/sequelize";
 import { CreateRecordDto } from "./dto/create-record.dto";
@@ -24,6 +24,7 @@ import { GetCurrentDocDto } from "src/doc.detail/dto/get-current-doc.dto";
 import { Op } from "sequelize";
 import sequelize from "sequelize";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
+import { UpdateRecordDto } from "./dto/update-record.dto";
 
 @Injectable()
 export class RecordsService {
@@ -333,5 +334,48 @@ export class RecordsService {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
       }
     }
+  }
+
+  async updateRecord(dto: UpdateRecordDto) {
+    let apparatus_id = null;
+    let can_id = null;
+
+    const record = await this.recordsRepository.findByPk(dto.id);
+    if (!record) {
+      throw new HttpException("Строка сводки для обновления не найдена", HttpStatus.NOT_FOUND);
+    }
+
+    if (dto.apparatus !== "-") {
+      const apparatus = await this.apparatusesService.getByValue(dto.apparatus);
+      if (!apparatus) {
+        throw new HttpException("Аппарат не найден в списке", HttpStatus.BAD_REQUEST);
+      }
+      apparatus_id = apparatus.id;
+    }
+
+    if (dto.can !== "-") {
+      const can = await this.cansService.getByValue(dto.can);
+      if (!can) {
+        throw new HttpException("Емкость не найдена в списке", HttpStatus.BAD_REQUEST);
+      }
+      can_id = can.id;
+    }
+
+    const conveyor = await this.conveyorsService.getByValue(dto.conveyor);
+    if (!conveyor) {
+      throw new HttpException("Конвейер не найден в списке", HttpStatus.BAD_REQUEST);
+    }
+
+    const plan = Number(dto.plan);
+    if (!plan) {
+      throw new HttpException("Невозможно преобразовать значение плана в число", HttpStatus.BAD_REQUEST);
+    }
+
+    record.apparatusId = apparatus_id;
+    record.canId = can_id;
+    record.conveyorId = conveyor.id;
+    record.plan = plan;
+    record.note = dto.note;
+    record.save();
   }
 }

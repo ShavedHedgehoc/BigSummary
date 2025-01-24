@@ -2,7 +2,6 @@ import * as React from "react";
 import BreadCrumbHeader from "../headers/BreadCrumbHeader";
 import { Context } from "../../main";
 import { useParams } from "react-router-dom";
-
 import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
 import RecordDetailTable from "../tables/record_detail_table/RecordDetailTable";
 import { Box, Button } from "@mui/joy";
@@ -60,9 +59,6 @@ export default function RecordDetail() {
       {initial && (
         <BreadCrumbHeader
           breadcrumbs={[
-            // "Планировщик",
-            // "Список сводок",
-            // "Детали записи",
             store.RecordDetailStore.record
               ? `${store.RecordDetailStore.record.plant} - ${formatDateToString(store.RecordDetailStore.record.date)}`
               : "",

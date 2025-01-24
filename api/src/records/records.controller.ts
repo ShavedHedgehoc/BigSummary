@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { RecordsService } from "./records.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import Record from "./records.model";
 import { CreateRecordDto } from "./dto/create-record.dto";
 import { BulkCreateRecordsDto } from "./dto/bulk-create-records.dto";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
+import { UpdateRecordDto } from "./dto/update-record.dto";
 
 @ApiTags("Записи сводок")
 @Controller("records")
@@ -51,5 +52,12 @@ export class RecordsController {
   @Delete("/:id")
   DeleteRecord(@Param("id") id: string) {
     return this.recordsService.deleteRecord(Number(id));
+  }
+
+  @ApiOperation({ summary: "Изменить строку сводки" })
+  @ApiResponse({ status: 200, type: [Record] })
+  @Put()
+  updateRecord(@Body() dto: UpdateRecordDto) {
+    return this.recordsService.updateRecord(dto);
   }
 }

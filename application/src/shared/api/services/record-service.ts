@@ -24,4 +24,9 @@ export default class RecordService {
     const res = await $api.delete(`/records/${record_id}`);
     return res.data;
   }
+
+  static async updateRecord(dto: UpdateRecordDto): Promise<IDocRow> {
+    const res = await $api.put(`/records/`, dto);
+    return res.data;
+  }
 }

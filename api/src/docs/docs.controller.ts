@@ -41,7 +41,6 @@ export class DocsController {
   @ApiOperation({ summary: "Создание новой сводки" })
   @ApiResponse({ status: 201, type: Doc })
   @ApiBadRequestResponse({ description: "Сводка на эту площадку и дату уже существует" })
-  //   @ApiResponse({ status: 400, type: Error })
   @Post()
   create(@Body() dto: CreateDocDto) {
     return this.docsService.createDoc(dto);

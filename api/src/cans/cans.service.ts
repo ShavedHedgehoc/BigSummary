@@ -16,4 +16,9 @@ export class CansService {
     const [cans, _] = await this.cansRepository.findOrCreate({ where: { value: value } });
     return cans;
   }
+
+  async getByValue(value: string) {
+    const can = await this.cansRepository.findOne({ where: { value: value } });
+    return can;
+  }
 }

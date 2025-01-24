@@ -199,6 +199,15 @@ interface FetchProductsDto {
   filter: FetchProductFilter;
 }
 
+interface UpdateRecordDto {
+  id: number;
+  apparatus: string;
+  can: string;
+  conveyor: string;
+  plan: string;
+  note: string;
+}
+
 interface FetchProductsWithDocIdDto {
   doc_id: string | undefined;
   filter: FetchDocDetailFilter;

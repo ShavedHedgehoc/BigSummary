@@ -70,4 +70,9 @@ export class ConveyorsService {
       }
     }
   }
+
+  async getByValue(value: string) {
+    const conveyor = await this.conveyorsRepository.findOne({ where: { value: value } });
+    return conveyor;
+  }
 }

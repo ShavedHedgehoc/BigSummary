@@ -16,4 +16,9 @@ export class ApparatusesService {
     const [apparatus, _] = await this.apparatusRepository.findOrCreate({ where: { value: value } });
     return apparatus;
   }
+
+  async getByValue(value: string) {
+    const apparatus = await this.apparatusRepository.findOne({ where: { value: value } });
+    return apparatus;
+  }
 }
