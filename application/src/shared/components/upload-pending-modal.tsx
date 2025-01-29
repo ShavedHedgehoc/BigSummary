@@ -1,7 +1,7 @@
 import { Box, CircularProgress, DialogContent, Modal, ModalDialog, ModalOverflow, Typography } from "@mui/joy";
 import * as React from "react";
 
-export default function DocsUploadPendingModal({ open }: { open: boolean }) {
+export default function UploadPendingModal({ open }: { open: boolean }) {
   return (
     <React.Fragment>
       <Modal

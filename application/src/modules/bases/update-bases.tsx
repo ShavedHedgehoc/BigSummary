@@ -5,7 +5,7 @@ import MainPageHeader from "../../components/headers/MainPageHeader";
 import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
 import { Box, Button, DialogContent, FormControl, Modal, ModalDialog, ModalOverflow, Typography } from "@mui/joy";
-import { useUpdateBases } from "../../shared/api/use-update-bases";
+import { useUpdateBases } from "../bases-upload/use-update-bases";
 
 interface IXLSData {
   code: string;

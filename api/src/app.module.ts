@@ -32,7 +32,8 @@ import { NotesModule } from "./notes/notes.module";
 import { TraceBatchModule } from "./trace_batch/trace_batch.module";
 import { TraceWeightingsModule } from "./trace_weightings/trace_weightings.module";
 import { TraceLoadsModule } from "./trace_loads/trace_loads.module";
-import { TraceTechnologyModule } from './trace_technology/trace_technology.module';
+import { TraceTechnologyModule } from "./trace_technology/trace_technology.module";
+import { RegulationsModule } from "./regulations/regulations.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -68,6 +69,7 @@ import TraceLoad from "./trace_models/trace_loads.model";
 import TraceBoil from "./trace_models/trace_boils.model";
 import TraceOperation from "./trace_models/trace_operation.model";
 import TraceBoilRecord from "./trace_models/trace_boil_record.model";
+import Regulation from "./regulations/regulations.model";
 
 @Module({
   controllers: [],
@@ -134,6 +136,7 @@ import TraceBoilRecord from "./trace_models/trace_boil_record.model";
         Token,
         Base,
         Note,
+        Regulation,
       ],
       autoLoadModels: true,
     }),
@@ -172,6 +175,7 @@ import TraceBoilRecord from "./trace_models/trace_boil_record.model";
     TraceWeightingsModule,
     TraceLoadsModule,
     TraceTechnologyModule,
+    RegulationsModule,
   ],
 })
 export default class AppModule {}

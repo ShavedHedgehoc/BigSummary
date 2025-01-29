@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import BaseService from "./services/base-service";
+import BaseService from "../../shared/api/services/base-service";
 import { enqueueSnackbar } from "notistack";
-import { ClientMessages } from "../resources/client-messages";
-import handleError from "./http/handleError";
+import { ClientMessages } from "../../shared/resources/client-messages";
+import handleError from "../../shared/api/http/handleError";
 
 export function useUpdateBases() {
   const { mutate: updateBases, isPending } = useMutation({
     mutationFn: BaseService.bulkUpdateBases,
     onSuccess: () => {
-      enqueueSnackbar(ClientMessages.RECORD_SUCCESFULL_ADDED, {
+      enqueueSnackbar(ClientMessages.BASES_SUCCESFULL_UPDATED, {
         variant: "success",
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });

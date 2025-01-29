@@ -16,6 +16,7 @@ interface DocsUploadFormStore {
   formData: DocsUploadFormData;
   update: boolean;
   isValid: boolean;
+  errsModalShow: boolean;
   selectedPlant: number | null;
   plantSelectorOptions: IPlant[] | [];
   file: File | undefined;
@@ -26,6 +27,7 @@ interface DocsUploadFormStore {
   setSelectedPlant: (value: number) => void;
   fillPlantSelectorOptions: (values: IPlant[]) => void;
   setIsValid: (value: boolean) => void;
+  setErrsModalShow: (value: boolean) => void;
   setFile: (value: File | undefined) => void;
   setFileName: (value: string) => void;
   clearData: () => void;
@@ -46,6 +48,7 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
     formData: initFilterValue,
     update: false,
     dataForUpload: [],
+    errsModalShow: false,
     isValid: false,
     file: undefined,
     fileName: "",
@@ -53,7 +56,7 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
     selectedPlant: null,
     plantSelectorOptions: [],
     setUpdate: (value) => set(() => ({ update: value })),
-
+    setErrsModalShow: (value) => set(() => ({ errsModalShow: value })),
     changeFilter: ({ key, value, values }) => {
       switch (key) {
         case DocsUploadFormParams.PLANT:
@@ -88,6 +91,7 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
         fileName: "",
         errs: [],
         dataForUpload: [],
+        errsModalShow: false,
       })),
     setErrs: (values) => set(() => ({ errs: values })),
     addErrs: (value) => set((state) => ({ errs: [...state.errs, value] })),

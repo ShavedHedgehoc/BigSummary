@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/joy";
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { useShallow } from "zustand/shallow";
 import { useUploadDoc } from "./use-upload-doc";
-import DocsUploadPendingModal from "./docs-upload-pending-modal";
+import UploadPendingModal from "../../shared/components/upload-pending-modal";
 
 export default function DocsUploadFormLoader() {
   const { uploadDoc, uploadPending } = useUploadDoc();
@@ -49,7 +49,7 @@ export default function DocsUploadFormLoader() {
           Загрузка
         </Button>
       </Box>
-      <DocsUploadPendingModal open={uploadPending} />
+      <UploadPendingModal open={uploadPending} />
     </>
   );
 }

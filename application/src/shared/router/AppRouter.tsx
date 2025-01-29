@@ -17,12 +17,13 @@ import Boils from "../../modules/boils/boils";
 import Conveyors from "../../modules/conveyors/conveyors";
 import Foreman from "../../modules/foreman/foreman";
 import Dash from "../../modules/dash/dash";
-import UpdateBases from "../../modules/bases/update-bases";
+// import UpdateBases from "../../modules/bases/update-bases";
 import Documents from "../../modules/documents/documents";
 import UiPage from "../../modules/ui-page/ui-page";
 import Employees from "../../modules/employees/employees";
 import DocumentDetail from "../../modules/document-detail/document-detail";
 import DocsUpload from "../../modules/docs-upload/docs-upload";
+import BasesUpload from "../../modules/bases-upload/bases-upload";
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -77,7 +78,8 @@ const AppRouter = () => {
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
-              <Route path={RouteNames.BASES_UPDATE} element={<UpdateBases />} />
+              {/* <Route path={RouteNames.BASES_UPDATE} element={<UpdateBases />} /> */}
+              <Route path={RouteNames.BASES_UPDATE} element={<BasesUpload />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />

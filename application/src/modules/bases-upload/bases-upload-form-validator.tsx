@@ -1,46 +1,32 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { useShallow } from "zustand/shallow";
 import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
-import { IXLSData } from "../../types";
+import { IXLSBasesData, useBasesUploadFormStore } from "./store/use-bases-upload-form-store";
 
-export default function DocsUploadFormValidator() {
-  const isValid = useDocsUploadFormStore(useShallow((state) => state.isValid));
-  const setIsValid = useDocsUploadFormStore(useShallow((state) => state.setIsValid));
-  const errs = useDocsUploadFormStore(useShallow((state) => state.errs));
-  const addErrs = useDocsUploadFormStore(useShallow((state) => state.addErrs));
-  const file = useDocsUploadFormStore(useShallow((state) => state.file));
-  const formData = useDocsUploadFormStore(useShallow((state) => state.formData));
-  const setErrsModalShow = useDocsUploadFormStore(useShallow((state) => state.setErrsModalShow));
-  const setDataForUpload = useDocsUploadFormStore(useShallow((state) => state.setDataForUpload));
+export default function BasesUploadFormValidator() {
+  const isValid = useBasesUploadFormStore(useShallow((state) => state.isValid));
+  const setIsValid = useBasesUploadFormStore(useShallow((state) => state.setIsValid));
+  const errs = useBasesUploadFormStore(useShallow((state) => state.errs));
+  const addErrs = useBasesUploadFormStore(useShallow((state) => state.addErrs));
+  const file = useBasesUploadFormStore(useShallow((state) => state.file));
+  const setErrsModalShow = useBasesUploadFormStore(useShallow((state) => state.setErrsModalShow));
+  const setDataForUpload = useBasesUploadFormStore(useShallow((state) => state.setDataForUpload));
 
-  const handleValidationComplete = (json: IXLSData[]) => {
-    if (formData.plant && formData.dateForUpload) {
-      setDataForUpload(json);
-      setIsValid(true);
-    }
+  const handleValidationComplete = (json: IXLSBasesData[]) => {
+    setDataForUpload(json);
+    setIsValid(true);
   };
 
   const ajv = new Ajv({ allErrors: true });
 
   const valSchema: SchemaObject = {
     properties: {
-      code1C: { type: "string" },
-      serie: { type: "string" },
-      product: { type: "string" },
-      batch: { type: "string" },
-      plan: { type: "string" },
-      apparatus: { type: "string" },
-      can: { type: "string" },
-      conveyor: { type: "string" },
-      bbf: { type: "string" },
-      note: { type: "string" },
-      workshop: { type: "string" },
-      boil1: { type: "string" },
-      boil2: { type: "string" },
+      code: { type: "string" },
+      marking: { type: "string" },
     },
   };
+
   const parse = ajv.compileParser(valSchema);
 
   const validate = () => {
@@ -48,7 +34,7 @@ export default function DocsUploadFormValidator() {
     reader.onload = function (event) {
       const data = event.target?.result;
       let valResult = true;
-      let json: IXLSData[] = [];
+      let json: IXLSBasesData[] = [];
       try {
         const wb = XLSX.read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];
@@ -105,6 +91,7 @@ export default function DocsUploadFormValidator() {
         >
           Проверить файл
         </Button>
+
         {errs.length > 0 && (
           <Button
             color="neutral"

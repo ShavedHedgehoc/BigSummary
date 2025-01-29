@@ -6,10 +6,12 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
+import Regulation from "src/regulations/regulations.model";
 
 import Serie from "src/series/series.model";
 
@@ -53,6 +55,6 @@ export default class Product extends Model<Product, ProductCreationsAttrs> {
   @BelongsTo(() => Serie)
   serie: Serie;
 
-  // @HasMany(() => Record)
-  // records: Record[];
+  @HasOne(() => Regulation)
+  regulation: Regulation;
 }
