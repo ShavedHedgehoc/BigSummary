@@ -29,4 +29,9 @@ export default class RecordService {
     const res = await $api.put(`/records/`, dto);
     return res.data;
   }
+
+  static async bulkCreateRecords(dto: ISummaryUploadData) {
+    const res = await $api.post(`/records/upload_doc`, dto);
+    return res.data;
+  }
 }

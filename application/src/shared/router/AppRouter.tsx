@@ -8,7 +8,7 @@ import Layout from "../../components/common/Layout";
 
 import Login from "../../components/pages/Login";
 import Forbidden from "../../components/pages/Forbidden";
-import SummaryUpload from "../../components/pages/SummaryUpload";
+// import SummaryUpload from "../../components/pages/SummaryUpload";
 import RecordDetail from "../../components/pages/RecordDetail";
 import BoilsReport from "../../components/pages/BoilReport";
 import Users from "../../modules/users/users";
@@ -22,6 +22,7 @@ import Documents from "../../modules/documents/documents";
 import UiPage from "../../modules/ui-page/ui-page";
 import Employees from "../../modules/employees/employees";
 import DocumentDetail from "../../modules/document-detail/document-detail";
+import DocsUpload from "../../modules/docs-upload/docs-upload";
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -71,7 +72,8 @@ const AppRouter = () => {
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.DOCUMENTS} element={<Documents />} />
-              <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} />
+              {/* <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} /> */}
+              <Route path={RouteNames.SUMMARY_UPLOAD} element={<DocsUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />

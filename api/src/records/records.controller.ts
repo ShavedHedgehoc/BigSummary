@@ -6,6 +6,7 @@ import { CreateRecordDto } from "./dto/create-record.dto";
 import { BulkCreateRecordsDto } from "./dto/bulk-create-records.dto";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 import { UpdateRecordDto } from "./dto/update-record.dto";
+import { UploadDocDto } from "./dto/upload-doc.dto";
 
 @ApiTags("Записи сводок")
 @Controller("records")
@@ -24,6 +25,13 @@ export class RecordsController {
   @Post("/bulkcreate")
   bulkCreatecreate(@Body() dto: BulkCreateRecordsDto) {
     return this.recordsService.bulkCreateRecords(dto);
+  }
+
+  @ApiOperation({ summary: "Создание нового  или обновление текущего документа сводки" })
+  @ApiResponse({ status: 201 })
+  @Post("/upload_doc")
+  bulkCreatecreateWithUpload(@Body() dto: UploadDocDto) {
+    return this.recordsService.bulkCreateRecordsWithUpdate(dto);
   }
 
   @ApiOperation({ summary: "Получить строки текущей сводки с партией сводки" })

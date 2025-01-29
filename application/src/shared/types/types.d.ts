@@ -143,6 +143,12 @@ interface FetchDocumentsFilterFormField {
   values?: number[];
 }
 
+interface DocsUploadFormField {
+  key: string;
+  value: string;
+  values?: number[];
+}
+
 interface FetchDocumentsDto {
   filter: FetchDocumentsFilter;
   page: number;
@@ -297,6 +303,28 @@ interface SummaryResponse {
   createdAt: Date;
   updatedAt: Date;
   records: IDocRow[];
+}
+
+interface ISummaryUploadData {
+  plantId: string;
+  summaryDate: string;
+  update: boolean;
+  rows: IXLSData[];
+}
+
+interface IXLSData {
+  code1C: string;
+  product: string;
+  serie: string;
+  batch: string;
+  apparatus: string;
+  can: string;
+  plan: string;
+  bbf: string;
+  note: string;
+  workshop: string;
+  boil1: string;
+  boil2: string;
 }
 
 type CustomColorsVariants = "success" | "danger" | "warning" | "primary";

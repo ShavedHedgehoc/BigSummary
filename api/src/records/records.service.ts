@@ -25,6 +25,7 @@ import { Op } from "sequelize";
 import sequelize from "sequelize";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 import { UpdateRecordDto } from "./dto/update-record.dto";
+import { UploadDocDto } from "./dto/upload-doc.dto";
 
 @Injectable()
 export class RecordsService {
@@ -294,6 +295,28 @@ export class RecordsService {
     return record;
   }
 
+  async checkRecord(dto: CreateRecordDto) {
+    const boil = await this.boilsService.getOrCreateByValue(dto.batch);
+    const conveyor = await this.conveyorsService.getOrCreateByValue(dto.conveyor);
+    const serie = await this.seriesService.getOrCreateByValue(dto.serie);
+    const product = await this.productsService.getOrCreateByCode(dto.code1C, dto.product, serie.id);
+
+    const recordExist = await this.recordsRepository.findOne({
+      where: {
+        doc_id: dto.doc_id,
+        boilId: boil ? boil.id : null,
+        conveyorId: conveyor ? conveyor.id : null,
+        productId: product.id,
+      },
+    });
+    if (recordExist) {
+      throw new HttpException(
+        `Строка (Конвейер: ${conveyor.value}, Продукт: ${product.marking}, Партия: ${boil.value}) совпадает с существующей строкой в сводке. Обновление отменено...`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+  }
+
   async bulkCreateRecords(dto: BulkCreateRecordsDto) {
     const plantId = Number(dto.plantId);
     const plant = await this.plantService.getPlantByPk(plantId);
@@ -314,6 +337,53 @@ export class RecordsService {
         doc_id: doc.id,
       };
       await this.createRecord(createDto);
+    }
+  }
+
+  async bulkCreateRecordsWithUpdate(dto: UploadDocDto) {
+    const plantId = Number(dto.plantId);
+    const plant = await this.plantService.getPlantByPk(plantId);
+    if (!plant) {
+      throw new HttpException(`Площадка не найдена...`, HttpStatus.NOT_FOUND);
+    }
+    const docExists = await this.docsService.getDocByPlantAndDate(dto.summaryDate, plant.id);
+    if (docExists && !dto.update) {
+      throw new HttpException(
+        `Документ на эти дату и площадку уже существует. Попробуйте режим обновления или удалить существующий документ и попробовать снова...`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    if (!docExists && dto.update) {
+      throw new HttpException(
+        `Документ на эти дату и площадку не существует. обновление не возможно...`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    if (dto.update) {
+      for (let index = 0; index < dto.rows.length; index++) {
+        const createDto: CreateRecordDto = {
+          ...dto.rows[index],
+          doc_id: docExists.id,
+        };
+        await this.checkRecord(createDto);
+      }
+      for (let index = 0; index < dto.rows.length; index++) {
+        const createDto: CreateRecordDto = {
+          ...dto.rows[index],
+          doc_id: docExists.id,
+        };
+        await this.createRecord(createDto);
+      }
+    } else {
+      const doc = await this.docsService.createDoc({ date: dto.summaryDate, plant: plant.value });
+      for (let index = 0; index < dto.rows.length; index++) {
+        const createDto: CreateRecordDto = {
+          ...dto.rows[index],
+          doc_id: doc.id,
+        };
+        await this.createRecord(createDto);
+      }
     }
   }
 
@@ -345,7 +415,7 @@ export class RecordsService {
       throw new HttpException("Строка сводки для обновления не найдена", HttpStatus.NOT_FOUND);
     }
 
-    if (dto.apparatus !== "-") {
+    if (dto.apparatus !== "-" || (dto.apparatus === "-" && record.apparatusId)) {
       const apparatus = await this.apparatusesService.getByValue(dto.apparatus);
       if (!apparatus) {
         throw new HttpException("Аппарат не найден в списке", HttpStatus.BAD_REQUEST);
@@ -353,7 +423,7 @@ export class RecordsService {
       apparatus_id = apparatus.id;
     }
 
-    if (dto.can !== "-") {
+    if (dto.can !== "-" || (dto.can === "-" && record.canId)) {
       const can = await this.cansService.getByValue(dto.can);
       if (!can) {
         throw new HttpException("Емкость не найдена в списке", HttpStatus.BAD_REQUEST);
