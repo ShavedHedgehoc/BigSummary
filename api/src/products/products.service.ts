@@ -29,7 +29,9 @@ export class ProductsService {
   }
 
   async getOrCreateByCode(code: string, marking: string, serieId: number) {
-    const [product, created] = await this.productRepository.findOrCreate({ where: { code1C: code, marking: marking } });
+    // console.log(code, marking, serieId);
+    // const [product, created] = await this.productRepository.findOrCreate({ where: { code1C: code, marking: marking } });
+    const [product, created] = await this.productRepository.findOrCreate({ where: { code1C: code } });
     if (created) {
       product.marking = marking;
       product.serieId = serieId;

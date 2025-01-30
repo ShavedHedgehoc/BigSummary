@@ -24,6 +24,7 @@ import Employees from "../../modules/employees/employees";
 import DocumentDetail from "../../modules/document-detail/document-detail";
 import DocsUpload from "../../modules/docs-upload/docs-upload";
 import BasesUpload from "../../modules/bases-upload/bases-upload";
+import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -78,7 +79,7 @@ const AppRouter = () => {
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
-              {/* <Route path={RouteNames.BASES_UPDATE} element={<UpdateBases />} /> */}
+              <Route path={RouteNames.REGULATIONS_UPSERT} element={<RegulationsUpsert />} />
               <Route path={RouteNames.BASES_UPDATE} element={<BasesUpload />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>

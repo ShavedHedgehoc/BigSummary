@@ -2,7 +2,7 @@ import axios from "axios";
 
 export interface IDocRow {
   id: number;
-  productId: number;
+  productId: string;
   product: string;
   boil: string;
   plan: number;

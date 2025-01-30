@@ -446,6 +446,6 @@ export class RecordsService {
     record.conveyorId = conveyor.id;
     record.plan = plan;
     record.note = dto.note;
-    record.save();
+    await record.save();
   }
 }

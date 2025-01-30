@@ -245,6 +245,18 @@ function SideBar() {
                     <Typography level="title-sm">Обновление основ</Typography>
                   </Link>
                 </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.REGULATIONS_UPSERT}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Обновление регламента</Typography>
+                  </Link>
+                </ListItem>
               </List>
             </Toggler>
           </ListItem>

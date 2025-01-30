@@ -8,13 +8,17 @@ import EyeHideIcon from "../../shared/components/icons/eye-hide-icon";
 import InfoPage from "../../shared/components/info-page";
 import SummaryRow from "./summary-row";
 import SummaryCard from "./summary-card";
+import { useSummaryViewStore } from "./store/use-summary-view-store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function SummaryView(plant: IPlant) {
   const notScrollingCardsQuantity = window.innerWidth > 1280 ? 48 : 42;
   const notScrollingRowsQuantity = 14;
   const scrollDelay = 30000;
 
-  const [cardsView, setCardsView] = React.useState(true);
+  // const [cardsView, setCardsView] = React.useState(true);
+  const cardsView = useSummaryViewStore(useShallow((state) => state.cardsView));
+  const setCardsView = useSummaryViewStore(useShallow((state) => state.setCardsView));
   const [hideFinished, setHideFinished] = React.useState(false);
   const [scrolling, setScrolling] = React.useState(false);
   const [recordsCount, setRecordsCount] = React.useState(0);
@@ -45,7 +49,7 @@ export default function SummaryView(plant: IPlant) {
   };
 
   const switchCardsView = () => {
-    setCardsView((prev) => !prev);
+    setCardsView(!cardsView);
   };
 
   React.useEffect(() => {

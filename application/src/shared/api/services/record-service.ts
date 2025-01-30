@@ -10,6 +10,7 @@ export default class RecordService {
     const res = await $api.get(`/record_detail/${record_id}`);
     return res.data;
   }
+
   static async getCurrentRecordsList(dto: FetchProductsDto): Promise<SummaryResponse> {
     const res = await $api.post(`/doc_detail/`, dto);
     return res.data;

@@ -34,6 +34,7 @@ import { TraceWeightingsModule } from "./trace_weightings/trace_weightings.modul
 import { TraceLoadsModule } from "./trace_loads/trace_loads.module";
 import { TraceTechnologyModule } from "./trace_technology/trace_technology.module";
 import { RegulationsModule } from "./regulations/regulations.module";
+import { MarkingSampleModule } from "./marking_sample/marking_sample.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -70,6 +71,7 @@ import TraceBoil from "./trace_models/trace_boils.model";
 import TraceOperation from "./trace_models/trace_operation.model";
 import TraceBoilRecord from "./trace_models/trace_boil_record.model";
 import Regulation from "./regulations/regulations.model";
+import MarkingSample from "./marking_sample/marking_sample.model";
 
 @Module({
   controllers: [],
@@ -137,6 +139,7 @@ import Regulation from "./regulations/regulations.model";
         Base,
         Note,
         Regulation,
+        MarkingSample,
       ],
       autoLoadModels: true,
     }),
@@ -176,6 +179,7 @@ import Regulation from "./regulations/regulations.model";
     TraceLoadsModule,
     TraceTechnologyModule,
     RegulationsModule,
+    MarkingSampleModule,
   ],
 })
 export default class AppModule {}

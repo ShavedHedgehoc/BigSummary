@@ -18,6 +18,9 @@ export class SeriesService {
   }
 
   async getOrCreateByValue(value: string) {
+    if (value === "-" || !value) {
+      return null;
+    }
     const [serie, _] = await this.serieRepository.findOrCreate({ where: { value: value } });
     return serie;
   }

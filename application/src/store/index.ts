@@ -1,6 +1,6 @@
 import AuthStore from "./AuthStore";
 import PlantsStore from "./PlantStore";
-import SummaryStore from "./SummaryStore";
+// import SummaryStore from "./SummaryStore";
 import HistoryStore from "./HistoryStore";
 
 import RecordDetailStore from "./RecordDetailStore";
@@ -12,7 +12,7 @@ import NoteStore from "./NoteStore";
 
 export default class RootStore {
   AuthStore;
-  SummaryStore;
+  // SummaryStore;
   PlantStore;
   HistoryStore;
   RecordDetailStore;
@@ -24,7 +24,7 @@ export default class RootStore {
 
   constructor() {
     this.AuthStore = new AuthStore();
-    this.SummaryStore = new SummaryStore();
+    // this.SummaryStore = new SummaryStore();
     this.PlantStore = new PlantsStore();
     this.HistoryStore = new HistoryStore();
 
