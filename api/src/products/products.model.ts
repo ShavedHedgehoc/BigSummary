@@ -16,7 +16,7 @@ import Regulation from "src/regulations/regulations.model";
 import Serie from "src/series/series.model";
 
 interface ProductCreationsAttrs {
-  code1C: number;
+  code1C: string;
   marking: string;
   name: string;
   serieId: number;

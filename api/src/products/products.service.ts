@@ -31,12 +31,19 @@ export class ProductsService {
   async getOrCreateByCode(code: string, marking: string, serieId: number) {
     // console.log(code, marking, serieId);
     // const [product, created] = await this.productRepository.findOrCreate({ where: { code1C: code, marking: marking } });
-    const [product, created] = await this.productRepository.findOrCreate({ where: { code1C: code } });
-    if (created) {
-      product.marking = marking;
-      product.serieId = serieId;
-      await product.save();
+    // const [product, created] = await this.productRepository.findOrCreate({ where: { code1C: code } });
+    const existProduct = await this.productRepository.findOne({ where: { code1C: code } });
+    if (existProduct) {
+      return existProduct;
     }
+
+    const product = await this.productRepository.create({ code1C: code, marking: marking, serieId: serieId });
+
+    // if (created) {
+    //   // product.marking = marking;
+    //   product.serieId = serieId;
+    //   await product.save();
+    // }
     return product;
   }
 }
