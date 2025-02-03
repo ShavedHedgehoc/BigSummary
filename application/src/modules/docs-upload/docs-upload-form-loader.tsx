@@ -3,6 +3,7 @@ import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { useShallow } from "zustand/shallow";
 import { useUploadDoc } from "./use-upload-doc";
 import UploadPendingModal from "../../shared/components/upload-pending-modal";
+import { IDocUploadData } from "../../shared/api/services/record-service";
 
 export default function DocsUploadFormLoader() {
   const { uploadDoc, uploadPending } = useUploadDoc();
@@ -14,7 +15,7 @@ export default function DocsUploadFormLoader() {
 
   const upload = async () => {
     if (formData.plant && formData.dateForUpload && dataForUpload.length > 0) {
-      const data: ISummaryUploadData = {
+      const data: IDocUploadData = {
         plantId: formData.plant.toString(),
         summaryDate: formData.dateForUpload,
         update: update,

@@ -6,12 +6,14 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   HasOne,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
 import Regulation from "src/regulations/regulations.model";
+import SemiProduct from "src/semi_products/semi_products.model";
 
 import Serie from "src/series/series.model";
 
@@ -57,4 +59,7 @@ export default class Product extends Model<Product, ProductCreationsAttrs> {
 
   @HasOne(() => Regulation)
   regulation: Regulation;
+
+  @HasMany(() => SemiProduct)
+  semi_products: SemiProduct[];
 }

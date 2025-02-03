@@ -1,6 +1,6 @@
 import { $api } from "../shared/api/http";
 import { AxiosResponse } from "axios";
-import { IDoc, IDocRow, IHistory, IRecordDetailRecord, ISummaryUploadData, SummaryResponse } from "../types";
+import { IDoc, IHistory, IRecordDetailRecord, ISummaryUploadData, SummaryResponse } from "../types";
 
 export interface RecordDetailResponse extends IRecordDetailRecord {
   histories: IHistory[];
@@ -40,9 +40,9 @@ export default class SummaryService {
   //   return $api.get(`/test/${recordId}`);
   // }
 
-  static getUpdatedDocRow(recordId: string): Promise<AxiosResponse<IDocRow>> {
-    return $api.get(`/doc_detail/record/${recordId}`);
-  }
+  // static getUpdatedDocRow(recordId: string): Promise<AxiosResponse<IDocRow>> {
+  //   return $api.get(`/doc_detail/record/${recordId}`);
+  // }
 
   static getRecordDetailById(recordId: string): Promise<AxiosResponse<RecordDetailResponse>> {
     // return $api.get(`/records/detail/${recordId}`);

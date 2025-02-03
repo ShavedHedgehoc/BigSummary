@@ -6,13 +6,17 @@ import Record from "src/records/records.model";
 import { RecordsService } from "src/records/records.service";
 import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
 import { GetDocByIdDto } from "./dto/get-doc-by-id.dto";
+import { SemiProductsService } from "src/semi_products/semi_products.service";
+import { RecordRegulationsService } from "src/record_regulations/record_regulations.service";
 
 @Injectable()
 export class DocDetailService {
   constructor(
     private docsService: DocsService,
     private recordsService: RecordsService,
-    private historiesService: HistoriesService
+    private historiesService: HistoriesService,
+    private semiProductsService: SemiProductsService,
+    private recordRegulationsService: RecordRegulationsService
   ) {}
 
   async recordResult<
@@ -40,6 +44,8 @@ export class DocDetailService {
     const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
     const stateTime = historiesCount > 0 ? histories[histories.length - 1].createdAt : null;
     const isUpdated = stateTime ? new Date().getTime() - new Date(stateTime).getTime() < 1000 * 60 * 2 : false;
+    const semiProducts = await this.semiProductsService.getSemiProductsByRecordId(item.id);
+    const regulation = await this.recordRegulationsService.getByRecordId(item.id);
 
     return {
       id: item.id,
@@ -59,6 +65,8 @@ export class DocDetailService {
       stateTime: stateTime,
       isUpdated: isUpdated,
       isSet: item.isSet,
+      semiProducts: semiProducts,
+      regulation: regulation,
     };
   }
 

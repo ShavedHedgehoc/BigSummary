@@ -7,6 +7,26 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import { TableIconButton } from "../../shared/ui/table-icon-button";
 
 export default function TableButtons() {
+  const str = "{000335#123A4#С/П ЭСТЕЛЬ 6%}{000338#523A4#С/П ЭСТЕЛЬ 9%}";
+
+  interface parsedSemiProduct {
+    code: string;
+    batch: string;
+    marking: string;
+  }
+
+  function parse(value: string): parsedSemiProduct[] | [] {
+    let result: parsedSemiProduct[] = [];
+    const re = /(?<={)([0-9]{6})#([0-9]{1,4}[A-L][0-9][X-Z,S,R]{0,1}[S]{0,1})#([^}]+)(?=})/g;
+    const matchArr = [...value.matchAll(re)];
+    if (matchArr.length > 0) {
+      matchArr.map((item) => {
+        result = [...result, { code: item[1], batch: item[2], marking: item[3] }];
+      });
+    }
+    return result;
+  }
+
   return (
     <UiGroupLayout>
       <UiGroupLayout.Header>Table buttons</UiGroupLayout.Header>
@@ -15,7 +35,8 @@ export default function TableButtons() {
           variant={"success"}
           startDecorator={<CheckOutlinedIcon />}
           label="SUCCESS"
-          onClick={() => void 0}
+          // onClick={() => void 0}
+          onClick={() => parse(str)}
         />
         <TableIconButton color="success" onClick={() => void 0}>
           <BlockOutlinedIcon />

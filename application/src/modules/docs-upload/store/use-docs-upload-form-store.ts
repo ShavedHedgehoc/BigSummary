@@ -5,6 +5,7 @@ import { devtools } from "zustand/middleware";
 
 import { getTomorrowDate } from "../../../shared/helpers/date-time-formatters";
 import { DocsUploadFormParams } from "../docs-upload-form-params";
+import { IXLSDocsRowData } from "../../../shared/api/services/record-service";
 
 interface DocsUploadFormData {
   plant: number | null;
@@ -22,7 +23,7 @@ interface DocsUploadFormStore {
   file: File | undefined;
   fileName: string;
   errs: string[] | [];
-  dataForUpload: IXLSData[] | [];
+  dataForUpload: IXLSDocsRowData[] | [];
   changeFilter: (value: DocsUploadFormField) => void;
   setSelectedPlant: (value: number) => void;
   fillPlantSelectorOptions: (values: IPlant[]) => void;
@@ -33,7 +34,7 @@ interface DocsUploadFormStore {
   clearData: () => void;
   setErrs: (values: string[] | []) => void;
   addErrs: (value: string) => void;
-  setDataForUpload: (arr: IXLSData[]) => void;
+  setDataForUpload: (arr: IXLSDocsRowData[]) => void;
   setUpdate: (val: boolean) => void;
 }
 

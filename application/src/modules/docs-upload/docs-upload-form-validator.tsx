@@ -3,7 +3,8 @@ import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { useShallow } from "zustand/shallow";
 import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import * as XLSX from "xlsx";
-import { IXLSData } from "../../types";
+import { IXLSDocsRowData } from "../../shared/api/services/record-service";
+// import { IXLSData } from "../../types";
 
 export default function DocsUploadFormValidator() {
   const isValid = useDocsUploadFormStore(useShallow((state) => state.isValid));
@@ -15,7 +16,7 @@ export default function DocsUploadFormValidator() {
   const setErrsModalShow = useDocsUploadFormStore(useShallow((state) => state.setErrsModalShow));
   const setDataForUpload = useDocsUploadFormStore(useShallow((state) => state.setDataForUpload));
 
-  const handleValidationComplete = (json: IXLSData[]) => {
+  const handleValidationComplete = (json: IXLSDocsRowData[]) => {
     if (formData.plant && formData.dateForUpload) {
       setDataForUpload(json);
       setIsValid(true);
@@ -39,6 +40,22 @@ export default function DocsUploadFormValidator() {
       workshop: { type: "string" },
       boil1: { type: "string" },
       boil2: { type: "string" },
+      // added
+      semi_product: { type: "string" },
+      org_base_min_weight: { type: "string" },
+      org_base_max_weight: { type: "string" },
+      water_base_min_weight: { type: "string" },
+      water_base_max_weight: { type: "string" },
+      per_box: { type: "string" },
+      box_per_row: { type: "string" },
+      row_on_pallet: { type: "string" },
+      gasket: { type: "string" },
+      seal: { type: "string" },
+      technician_note: { type: "string" },
+      packaging_note: { type: "string" },
+      marking_sample: { type: "string" },
+      marking_feature: { type: "string" },
+      ink_color: { type: "string" },
     },
   };
   const parse = ajv.compileParser(valSchema);
@@ -48,7 +65,8 @@ export default function DocsUploadFormValidator() {
     reader.onload = function (event) {
       const data = event.target?.result;
       let valResult = true;
-      let json: IXLSData[] = [];
+      // let json: IXLSData[] = [];
+      let json: IXLSDocsRowData[] = [];
       try {
         const wb = XLSX.read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];

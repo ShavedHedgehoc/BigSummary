@@ -35,6 +35,8 @@ import { TraceLoadsModule } from "./trace_loads/trace_loads.module";
 import { TraceTechnologyModule } from "./trace_technology/trace_technology.module";
 import { RegulationsModule } from "./regulations/regulations.module";
 import { MarkingSampleModule } from "./marking_sample/marking_sample.module";
+import { RecordRegulationsModule } from "./record_regulations/record_regulations.module";
+import { SemiProductsModule } from "./semi_products/semi_products.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -72,6 +74,8 @@ import TraceOperation from "./trace_models/trace_operation.model";
 import TraceBoilRecord from "./trace_models/trace_boil_record.model";
 import Regulation from "./regulations/regulations.model";
 import MarkingSample from "./marking_sample/marking_sample.model";
+import RecordRegulation from "./record_regulations/record_regulations.model";
+import SemiProduct from "./semi_products/semi_products.model";
 
 @Module({
   controllers: [],
@@ -140,6 +144,8 @@ import MarkingSample from "./marking_sample/marking_sample.model";
         Note,
         Regulation,
         MarkingSample,
+        RecordRegulation,
+        SemiProduct,
       ],
       autoLoadModels: true,
     }),
@@ -180,6 +186,8 @@ import MarkingSample from "./marking_sample/marking_sample.model";
     TraceTechnologyModule,
     RegulationsModule,
     MarkingSampleModule,
+    RecordRegulationsModule,
+    SemiProductsModule,
   ],
 })
 export default class AppModule {}

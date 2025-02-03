@@ -9,6 +9,7 @@ import {
   Default,
   ForeignKey,
   HasMany,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
@@ -20,6 +21,7 @@ import Conveyor from "src/conveyors/conveyor.model";
 import Doc from "src/docs/docs.model";
 import History from "src/histories/histories.model";
 import Product from "src/products/products.model";
+import RecordRegulation from "src/record_regulations/record_regulations.model";
 import Workshop from "src/workshops/workshop.model";
 
 interface RecordsCreationsAttrs {
@@ -125,6 +127,9 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @HasOne(() => RecordRegulation)
+  record_regulation: RecordRegulation;
 
   @BeforeCreate
   static addSetProperty(instance: Record) {

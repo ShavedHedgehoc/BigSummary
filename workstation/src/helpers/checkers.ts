@@ -15,6 +15,8 @@ export function parseBoilCard(value: string) {
   }
   return [null, null];
 }
+// (?<={)(([0-9]{6})#([0-9]{1,4}[A-L][0-9][X-Z,S,R]{0,1}[S]{0,1}))+?(?=})
+//(?<={)([0-9]{6})#([0-9]{1,4}[A-L][0-9][X-Z,S,R]{0,1}[S]{0,1})#(.+?)(?=})
 
 export function parseProductCard(value: string) {
   const reGP =

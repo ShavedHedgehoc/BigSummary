@@ -58,8 +58,8 @@ export default function RegulationDetail({ productId }: { productId: string }) {
                   </div>
                 )}
                 {data.seal && (
-                  <div className=" flex w-1/2 p-4 flex-col justify-center rounded-md bg-cyan-700 text-slate-200">
-                    <div className="flex justify-center items-center text-4xl ">"Не запечатываем"</div>
+                  <div className=" flex w-1/2 p-4 flex-col justify-center  animate-pulse rounded-md bg-cyan-700 text-slate-200">
+                    <div className="flex justify-center items-center text-4xl ">Не запечатываем</div>
                   </div>
                 )}
               </div>

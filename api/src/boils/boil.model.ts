@@ -16,6 +16,7 @@ import Base from "src/bases/bases.model";
 import History from "src/histories/histories.model";
 import Plant from "src/plants/plant.model";
 import Record from "src/records/records.model";
+import SemiProduct from "src/semi_products/semi_products.model";
 
 interface BoilsCreationsAttrs {
   value: string;
@@ -68,6 +69,9 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @HasMany(() => SemiProduct)
+  semi_products: SemiProduct[];
 
   @BeforeCreate
   static addMonthLetter(instance: Boil) {

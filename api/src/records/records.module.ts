@@ -12,6 +12,9 @@ import { ConveyorsModule } from "src/conveyors/conveyors.module";
 import { WorkshopsModule } from "src/workshops/workshops.module";
 import { DocsModule } from "src/docs/docs.module";
 import { PlantsModule } from "src/plants/plants.module";
+import { RecordRegulationsModule } from "src/record_regulations/record_regulations.module";
+import { MarkingSampleModule } from "src/marking_sample/marking_sample.module";
+import { SemiProductsModule } from "src/semi_products/semi_products.module";
 
 @Module({
   controllers: [RecordsController],
@@ -27,6 +30,9 @@ import { PlantsModule } from "src/plants/plants.module";
     WorkshopsModule,
     DocsModule,
     PlantsModule,
+    RecordRegulationsModule,
+    MarkingSampleModule,
+    SemiProductsModule,
   ],
   exports: [RecordsService],
 })

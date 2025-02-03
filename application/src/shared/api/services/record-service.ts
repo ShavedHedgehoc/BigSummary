@@ -1,8 +1,44 @@
 import { $api } from "../http";
-// import { IHistory } from "../../../types";
 
 export interface RecordHistoriesResponse {
   histories: IHistory[];
+}
+
+export interface IXLSDocsRowData {
+  code1C: string;
+  product: string;
+  serie: string;
+  batch: string;
+  apparatus: string;
+  can: string;
+  plan: string;
+  bbf: string;
+  note: string;
+  workshop: string;
+  boil1: string;
+  boil2: string;
+  semi_product: string;
+  org_base_min_weight: string;
+  org_base_max_weight: string;
+  water_base_min_weight: string;
+  water_base_max_weight: string;
+  per_box: string;
+  box_per_row: string;
+  row_on_pallet: string;
+  gasket: string;
+  seal: string;
+  technician_note: string;
+  packaging_note: string;
+  marking_sample: string;
+  marking_feature: string;
+  ink_color: string;
+}
+
+export interface IDocUploadData {
+  plantId: string;
+  summaryDate: string;
+  update: boolean;
+  rows: IXLSDocsRowData[];
 }
 
 export default class RecordService {
@@ -31,7 +67,7 @@ export default class RecordService {
     return res.data;
   }
 
-  static async bulkCreateRecords(dto: ISummaryUploadData) {
+  static async bulkCreateRecords(dto: IDocUploadData) {
     const res = await $api.post(`/records/upload_doc`, dto);
     return res.data;
   }

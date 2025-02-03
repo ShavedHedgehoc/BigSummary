@@ -245,7 +245,7 @@ function SideBar() {
                     <Typography level="title-sm">Обновление основ</Typography>
                   </Link>
                 </ListItem>
-                <ListItem role="none">
+                {/* <ListItem role="none">
                   <Link
                     component={RouterLink}
                     to={RouteNames.REGULATIONS_UPSERT}
@@ -256,7 +256,7 @@ function SideBar() {
                   >
                     <Typography level="title-sm">Обновление регламента</Typography>
                   </Link>
-                </ListItem>
+                </ListItem> */}
               </List>
             </Toggler>
           </ListItem>
