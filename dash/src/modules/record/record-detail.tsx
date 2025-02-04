@@ -208,8 +208,12 @@ export default function RecordDetail() {
                   <div className="flex w-1/4  flex-col  justify-between p-4  gap-4 rounded-md bg-orange-700 text-slate-200">
                     <div className="flex justify-start text-3xl ">Маркировка</div>
                     <div className="flex flex-col gap-2">
-                      <div className="flex justify-start text-2xl">Цвет чернил: {data.regulation.inc_color}</div>
-                      <div className="flex justify-start text-xl">{data.regulation.marking_feature}</div>
+                      {data.regulation.inc_color && (
+                        <div className="flex justify-start text-2xl">Цвет чернил: {data.regulation.inc_color}</div>
+                      )}
+                      {data.regulation.marking_feature && (
+                        <div className="flex justify-start text-xl">{data.regulation.marking_feature}</div>
+                      )}
                       <img
                         className="object-fill rounded-md"
                         alt={`http://ones-esb-vm:9000/manufacturing/templates/marking/${data.regulation.marking_sample_value}.jpg`}

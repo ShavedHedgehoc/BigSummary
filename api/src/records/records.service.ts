@@ -433,7 +433,7 @@ export class RecordsService {
       technician_note: row.technician_note === "-" ? null : row.technician_note,
       packaging_note: row.packaging_note === "-" ? null : row.packaging_note,
       marking_sample_id: marking_sample ? marking_sample.id : null,
-      inc_color: row.ink_color === "-" ? null : row.ink_color,
+      inc_color: row.ink_color === "-" || row.ink_color === " -" ? null : row.ink_color,
       marking_feature: row.marking_feature === "-" ? null : row.marking_feature,
     };
     await this.recordRegulationsServive.createRecordRegulation(regDto);
