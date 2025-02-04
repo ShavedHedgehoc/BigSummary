@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Context } from "../../../main";
 import RecordDetailRowComponent from "./RecordDetailRowComponent";
 import TableSkeleton from "../TableLayout";
-import { DbRoles } from "../../../dbRoles";
+import { DbRoles } from "../../../shared/db-roles";
 
 const RecordDetailTableComponent = () => {
   const { store } = React.useContext(Context);

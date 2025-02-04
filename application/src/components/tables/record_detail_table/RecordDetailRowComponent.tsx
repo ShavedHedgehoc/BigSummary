@@ -2,9 +2,9 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import { Button, Typography, useColorScheme } from "@mui/joy";
 import { IHistory } from "../../../types";
-import { formatDateToString, formatTimeToString, statusCondition } from "../../../utils";
+import { formatDateToString, formatTimeToString, statusCondition } from "../../../shared/utils";
 import { Context } from "../../../main";
-import { DbRoles } from "../../../dbRoles";
+import { DbRoles } from "../../../shared/db-roles";
 
 const RowDetailRowComponent = ({ row }: { row: IHistory }) => {
   const { store } = React.useContext(Context);

@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   Avatar,
   Box,
-  // Chip,
   Divider,
   GlobalStyles,
   IconButton,
@@ -14,36 +13,24 @@ import {
   Typography,
 } from "@mui/joy";
 import LogoutIcon from "@mui/icons-material/Logout";
-// import FactoryIcon from "@mui/icons-material/Factory";
-// import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-// import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-// import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import ScienceRoundedIcon from "@mui/icons-material/ScienceRounded";
-
 // import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
-// import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
-// import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-// import SupportRoundedIcon from "@mui/icons-material/SupportRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
-// import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-// import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-// import BrightnessAutoRoundedIcon from "@mui/icons-material/BrightnessAutoRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-// import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import ColorSchemeToggle from "./ColorSchemeToggle";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import ConstructionIcon from "@mui/icons-material/Construction";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
-
 import { closeSidebar } from "../../utils";
-
-import { Context } from "../../main";
+import { Context } from "../../../main";
 import { observer } from "mobx-react-lite";
-import { RouteNames } from "../../shared/router/routeNames";
+import { RouteNames } from "../../router/route-names";
 import { Link as RouterLink } from "react-router-dom";
-import { IUser } from "../../store/AuthStore";
+import { IUser } from "../../../store/AuthStore";
+import ColorSchemeToggle from "./color-scheme-toggle";
 
 function Toggler({
   defaultExpanded = false,
@@ -180,7 +167,6 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-
           <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
@@ -245,22 +231,9 @@ function SideBar() {
                     <Typography level="title-sm">Обновление основ</Typography>
                   </Link>
                 </ListItem>
-                {/* <ListItem role="none">
-                  <Link
-                    component={RouterLink}
-                    to={RouteNames.REGULATIONS_UPSERT}
-                    color="neutral"
-                    underline="none"
-                    sx={{ display: "flex", gap: 1 }}
-                    onClick={() => closeSidebar()}
-                  >
-                    <Typography level="title-sm">Обновление регламента</Typography>
-                  </Link>
-                </ListItem> */}
               </List>
             </Toggler>
           </ListItem>
-
           <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
@@ -328,12 +301,11 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          {/* <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
-                  <AssignmentRoundedIcon />
+                  <AssessmentIcon />
                   <ListItemContent>
                     <Typography level="title-sm">Отчеты</Typography>
                   </ListItemContent>
@@ -356,22 +328,9 @@ function SideBar() {
                     </Link>
                   </ListItemContent>
                 </ListItem>
-                {/* <ListItem role="none">
-                  <Link
-                    component={RouterLink}
-                    to={RouteNames.SUMMARY_REPORT}
-                    color="neutral"
-                    underline="none"
-                    sx={{ display: "flex", gap: 1 }}
-                    onClick={() => closeSidebar()}
-                  >
-                    <Typography level="title-sm">Сводки</Typography>
-                  </Link>
-                </ListItem> */}
               </List>
             </Toggler>
-          </ListItem>
-
+          </ListItem> */}
           <ListItem sx={{ display: { xs: "none", sm: "initial" } }}>
             <ListItemButton role="menuitem">
               <ListItemContent>
@@ -389,12 +348,11 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-
           <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
-                  <AssignmentRoundedIcon />
+                  <ConstructionIcon />
                   <ListItemContent>
                     <Typography level="title-sm">Администратор</Typography>
                   </ListItemContent>

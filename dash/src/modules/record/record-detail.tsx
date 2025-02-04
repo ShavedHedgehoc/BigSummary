@@ -129,7 +129,7 @@ export default function RecordDetail() {
                           <div className="flex justify-start text-3xl ">Мин. вес</div>
                           <div className="flex justify-end text-5xl">
                             {data.regulation.org_base_min_weight !== "NaN"
-                              ? `${data.regulation.org_base_max_weight} + ${data.regulation.water_base_min_weight}`
+                              ? `${data.regulation.org_base_min_weight} + ${data.regulation.water_base_min_weight}`
                               : data.regulation.water_base_min_weight}
                           </div>
                         </div>
@@ -139,8 +139,8 @@ export default function RecordDetail() {
                           <div className="flex justify-start text-3xl ">Макс. вес</div>
                           <div className="flex justify-end text-5xl">
                             {data.regulation.org_base_max_weight !== "NaN"
-                              ? `${data.regulation.org_base_max_weight} + ${data.regulation.water_base_min_weight}`
-                              : data.regulation.water_base_min_weight}
+                              ? `${data.regulation.org_base_max_weight} + ${data.regulation.water_base_max_weight}`
+                              : data.regulation.water_base_max_weight}
                           </div>
                         </div>
                       )}

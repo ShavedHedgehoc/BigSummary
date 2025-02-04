@@ -1,4 +1,4 @@
-import AppRouter from "./shared/router/AppRouter";
+import AppRouter from "./shared/router/app-router";
 
 function App() {
   const router = AppRouter();

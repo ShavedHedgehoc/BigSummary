@@ -9,7 +9,7 @@ import "@fontsource/inter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SnackbarProvider } from "notistack";
-import { additionalTheme } from "./additional-theme.ts";
+import { additionalTheme } from "./shared/additional-theme.ts";
 
 const queryClient = new QueryClient();
 

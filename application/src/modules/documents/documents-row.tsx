@@ -1,6 +1,6 @@
 import { Typography, Box } from "@mui/joy";
 
-import { formatDateToString } from "../../utils";
+import { formatDateToString } from "../../shared/utils";
 import { useNavigate } from "react-router-dom";
 import { useDeleteDocument } from "./use-delete-document";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";

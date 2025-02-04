@@ -5,9 +5,9 @@ import { useParams } from "react-router-dom";
 import MainPageHeaderWithRenewProp from "../headers/MainPageHeaderWithRenewProp";
 import RecordDetailTable from "../tables/record_detail_table/RecordDetailTable";
 import { Box, Button } from "@mui/joy";
-import { DbRoles } from "../../dbRoles";
+import { DbRoles } from "../../shared/db-roles";
 import AddIcon from "@mui/icons-material/Add";
-import { formatDateToString } from "../../utils";
+import { formatDateToString } from "../../shared/utils";
 import GodModeModal from "../modals/GodModeModal";
 import { Params } from "../../shared/router/params";
 

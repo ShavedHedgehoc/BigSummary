@@ -2,15 +2,13 @@ import * as React from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../main";
 import { Routes, Navigate, Outlet, Route, BrowserRouter } from "react-router-dom";
-import { RouteNames } from "./routeNames";
-import { DbRoles } from "../../dbRoles";
-import Layout from "../../components/common/Layout";
-
+import { RouteNames } from "./route-names";
+import { DbRoles } from "../db-roles";
+import Layout from "../layouts/layout";
 import Login from "../../components/pages/Login";
-import Forbidden from "../../components/pages/Forbidden";
 // import SummaryUpload from "../../components/pages/SummaryUpload";
 import RecordDetail from "../../components/pages/RecordDetail";
-import BoilsReport from "../../components/pages/BoilReport";
+
 import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
 import Boils from "../../modules/boils/boils";
@@ -24,6 +22,7 @@ import Employees from "../../modules/employees/employees";
 import DocumentDetail from "../../modules/document-detail/document-detail";
 import DocsUpload from "../../modules/docs-upload/docs-upload";
 import BasesUpload from "../../modules/bases-upload/bases-upload";
+import Forbidden from "../../modules/forbidden/forbidden";
 // import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
@@ -61,7 +60,6 @@ const AppRouter = () => {
         <Route element={<ObservedProtectedRoutes />}>
           <Route path={RouteNames.HOME} element={<Layout />}>
             <Route index element={<Dash />} />
-            <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
               <Route path={RouteNames.BOILS_LIST} element={<Boils />} />
               <Route path={RouteNames.LABORATORY} element={<Products />} />
@@ -74,12 +72,10 @@ const AppRouter = () => {
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.DOCUMENTS} element={<Documents />} />
-              {/* <Route path={RouteNames.SUMMARY_UPLOAD} element={<SummaryUpload />} /> */}
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<DocsUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
-              {/* <Route path={RouteNames.REGULATIONS_UPSERT} element={<RegulationsUpsert />} /> */}
               <Route path={RouteNames.BASES_UPDATE} element={<BasesUpload />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
