@@ -21,7 +21,7 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import AssessmentIcon from "@mui/icons-material/Assessment";
+// import AssessmentIcon from "@mui/icons-material/Assessment";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 import { closeSidebar } from "../../utils";
