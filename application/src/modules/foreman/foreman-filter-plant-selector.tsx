@@ -2,7 +2,7 @@ import { useShallow } from "zustand/shallow";
 import { useForemanFilterStore } from "./store/use-foreman-filter-store";
 import { ForemanFilterParams } from "./foreman-filter-params";
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 
 export default function ForemanFilterPlantSelector() {

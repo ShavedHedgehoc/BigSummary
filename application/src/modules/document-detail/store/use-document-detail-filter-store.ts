@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { DocumentDetailFilterParams } from "../document-detail-filter-params";
+import { DocumentDetailFilterParams } from "../filter/document-detail-filter-params";
 
 export interface ProductFilterStore {
   filter: FetchDocDetailFilter;

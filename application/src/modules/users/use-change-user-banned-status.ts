@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import UserService from "../../services/UserService";
+import UserService from "../../shared/api/services/UserService";
 import { enqueueSnackbar } from "notistack";
 import handleError from "../../shared/api/http/handleError";
 

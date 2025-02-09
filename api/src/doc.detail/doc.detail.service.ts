@@ -46,6 +46,7 @@ export class DocDetailService {
     const isUpdated = stateTime ? new Date().getTime() - new Date(stateTime).getTime() < 1000 * 60 * 2 : false;
     const semiProducts = await this.semiProductsService.getSemiProductsByRecordId(item.id);
     const regulation = await this.recordRegulationsService.getByRecordId(item.id);
+    const doc = await item.$get("doc");
 
     return {
       id: item.id,
@@ -67,6 +68,8 @@ export class DocDetailService {
       isSet: item.isSet,
       semiProducts: semiProducts,
       regulation: regulation,
+      water_base_id: item.water_base_id,
+      plant_id: doc.plantId,
     };
   }
 

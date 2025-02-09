@@ -18,8 +18,8 @@ import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
-import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
+import TableNotFoundComponent from "../../shared/components/table-not-found";
 
 export default function ForemanHistoryModal() {
   const { store } = React.useContext(Context);

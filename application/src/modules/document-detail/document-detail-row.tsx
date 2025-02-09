@@ -1,17 +1,21 @@
+import * as React from "react";
 import Typography from "@mui/joy/Typography";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { TableState } from "../../shared/ui/table-state";
 import { TableIconButton } from "../../shared/ui/table-icon-button";
-import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/joy";
 import { useDocumentDetailDeleteRecordlModalStore } from "./store/use-document-detail-delete-record-modal-store";
 import { useShallow } from "zustand/shallow";
 import { useDocumentDetailEditRecordlModalStore } from "./store/use-document-detail-edit-record-modal-store";
+import { useDocumentDetailHistoryModalStore } from "./store/use-document-detail-history-modal-store";
+import { Context } from "../../main";
+import { DbRoles } from "../../shared/db-roles";
+import { useDocumentDetailAddHistoryModalStore } from "./store/use-document-detail-add-history-modal-store";
 
 export default function DocumentDetailRow({ row }: { row: IDocRow }) {
-  const navigate = useNavigate();
+  const { store } = React.useContext(Context);
   const setOpenDeleteModal = useDocumentDetailDeleteRecordlModalStore(useShallow((state) => state.setOpen));
   const setDeleteId = useDocumentDetailDeleteRecordlModalStore(useShallow((state) => state.setId));
 
@@ -23,10 +27,13 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
   const setPlan = useDocumentDetailEditRecordlModalStore(useShallow((state) => state.setPlan));
   const setNote = useDocumentDetailEditRecordlModalStore(useShallow((state) => state.setNote));
 
-  const handleDeleteButtonClick = () => {
-    setDeleteId(row.id);
-    setOpenDeleteModal(true);
-  };
+  const setOpenHistoriesModal = useDocumentDetailHistoryModalStore(useShallow((state) => state.setOpen));
+  const setRecordId = useDocumentDetailHistoryModalStore(useShallow((state) => state.setRecordId));
+  const setTitle = useDocumentDetailHistoryModalStore(useShallow((state) => state.setTitle));
+  const setAddButtonEnabled = useDocumentDetailHistoryModalStore(useShallow((state) => state.setAddButtonEnabled));
+
+  const setUserId = useDocumentDetailAddHistoryModalStore(useShallow((state) => state.setUserId));
+  const setRow = useDocumentDetailAddHistoryModalStore(useShallow((state) => state.setRow));
 
   const handleEditButtonClick = () => {
     setEditRow(row);
@@ -36,6 +43,24 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
     setPlan(row.plan.toString());
     setNote(row.note);
     setOpenEditModal(true);
+  };
+
+  const handleDetailButtonClick = () => {
+    if (store.AuthStore.user?.roles?.includes(DbRoles.GODMODE)) {
+      setAddButtonEnabled(true);
+      setUserId(store.AuthStore.user.id);
+      setRow(row);
+    } else {
+      setAddButtonEnabled(false);
+    }
+    setRecordId(row.id);
+    setTitle(`Историй статусов по продукту ${row.product}, партия - ${row.boil}`);
+    setOpenHistoriesModal(true);
+  };
+
+  const handleDeleteButtonClick = () => {
+    setDeleteId(row.id);
+    setOpenDeleteModal(true);
   };
 
   return (
@@ -72,7 +97,8 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
           <TableIconButton color="primary" onClick={() => handleEditButtonClick()}>
             <EditOutlinedIcon />
           </TableIconButton>
-          <TableIconButton color="success" onClick={() => navigate(`/record/` + `${row.id}`)}>
+          {/* <TableIconButton color="success" onClick={() => navigate(`/record/` + `${row.id}`)}> */}
+          <TableIconButton color="success" onClick={() => handleDetailButtonClick()}>
             <InfoOutlinedIcon />
           </TableIconButton>
           <TableIconButton

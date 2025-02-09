@@ -3,7 +3,7 @@ import { useDocumentsFilterStore } from "./store/use-documents-filter-store";
 import { DocumentsFilterParams } from "./documents-filter-params";
 
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 

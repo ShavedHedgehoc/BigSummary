@@ -16,6 +16,8 @@ import { EmployeesService } from "src/employees/employees.service";
 import { ProductsService } from "src/products/products.service";
 import { BasesService } from "src/bases/bases.service";
 import { NotesService } from "src/notes/notes.service";
+import { ApiMessages } from "src/resources/api-messages";
+import { ApiErrorsService } from "src/api_errors/api_errors.service";
 
 @Injectable()
 export class HistoriesService {
@@ -30,7 +32,8 @@ export class HistoriesService {
     private employeeService: EmployeesService,
     private productService: ProductsService,
     private basesService: BasesService,
-    private notesService: NotesService
+    private notesService: NotesService,
+    private apiErrorsService: ApiErrorsService
   ) {}
 
   async sendMessages(hystories: History[]) {
@@ -82,6 +85,7 @@ export class HistoriesService {
     }
     const record_id = isBase ? null : dto.record_id;
     const boil_id = isBase ? boil.id : null;
+    // const boil_id = isBase ? (dto.base_code ? dto.base_code : boil.id) : null;
 
     const note = await this.notesService.create(dto.history_note);
 
@@ -105,7 +109,6 @@ export class HistoriesService {
   }
 
   async addHistorie(dto: AddHistoryDtoNew) {
-    // console.log(dto);
     const findRecordId = async () => {
       if (dto.boil_value && dto.code) {
         const record = await this.recordsService.getCurrentRecordByBoilAndCode(dto.boil_value, dto.code);
@@ -125,7 +128,7 @@ export class HistoriesService {
       }
 
       const record = await this.recordsService.getById(record_id);
-      // if (record) {
+
       if (record && !record.isSet) {
         return (await record.$get("water_base")).value;
       }
@@ -135,37 +138,46 @@ export class HistoriesService {
     const record_id = await findRecordId();
     const boil_value = await findBoilValue();
 
-    // console.log(record_id);
-    // console.log(boil_value);
-
     const lastHistory = await this.getLastHistory(boil_value, record_id);
-    // console.log((await lastHistory.$get("historyType")).value);
 
     if (dto.historyType === "base_check") {
       if (lastHistory && lastHistory.historyType.value === "base_check") {
-        throw new HttpException("Основа уже отнесена на пробу", HttpStatus.BAD_REQUEST);
+        await this.apiErrorsService.create({
+          dto: JSON.stringify(dto),
+          message: ApiMessages.BASE_ALREADY_ON_CHECK,
+        });
+        throw new HttpException(ApiMessages.BASE_ALREADY_ON_CHECK, HttpStatus.BAD_REQUEST);
       }
       const isValid =
         lastHistory?.historyType.value === "base_fail" ||
         lastHistory?.historyType.value === "base_correct" ||
         lastHistory?.historyType.value === "base_continue";
       if (lastHistory && !isValid) {
-        throw new HttpException(
-          'Для повторной пробы необходим статус "Брак основы", "Требуется корректировка" или "Продолжение варки"',
-          HttpStatus.BAD_REQUEST
-        );
+        await this.apiErrorsService.create({
+          dto: JSON.stringify(dto),
+          message: ApiMessages.SECOND_CHECK_FAIL,
+        });
+        throw new HttpException(ApiMessages.SECOND_CHECK_FAIL, HttpStatus.BAD_REQUEST);
       }
     }
 
     if (dto.historyType === "product_check") {
       if (!record_id) {
-        throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
+        await this.apiErrorsService.create({
+          dto: JSON.stringify(dto),
+          message: ApiMessages.RECORD_NOT_FOUND,
+        });
+        throw new HttpException(ApiMessages.RECORD_NOT_FOUND, HttpStatus.NOT_FOUND);
       }
       const record = await this.recordsService.getById(record_id);
 
       // Set
       if (record.isSet && lastHistory && lastHistory.historyType.value === "product_check") {
-        throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
+        await this.apiErrorsService.create({
+          dto: JSON.stringify(dto),
+          message: ApiMessages.PRODUCT_ALREADY_ON_CHECK,
+        });
+        throw new HttpException(ApiMessages.PRODUCT_ALREADY_ON_CHECK, HttpStatus.BAD_REQUEST);
       }
 
       if (
@@ -175,16 +187,19 @@ export class HistoriesService {
           lastHistory.historyType.value === "product_in_progress" ||
           lastHistory.historyType.value === "product_finished") // !!! Это добавил
       ) {
-        throw new HttpException(
-          'Необходимо отсутствие записей или статусы "Брак продукта" или "Требуется доработка"',
-          HttpStatus.BAD_REQUEST
-        );
+        await this.apiErrorsService.create({
+          dto: JSON.stringify(dto),
+          message: ApiMessages.NEED_EMPTY_OR_FAIL_OR_CORRECT,
+        });
+        throw new HttpException(ApiMessages.NEED_EMPTY_OR_FAIL_OR_CORRECT, HttpStatus.BAD_REQUEST);
       }
 
-      // Not set
-
       if (!record.isSet && !lastHistory) {
-        throw new HttpException('Необходимо статус "Допуск на подключение"', HttpStatus.BAD_REQUEST);
+        await this.apiErrorsService.create({
+          dto: JSON.stringify(dto),
+          message: ApiMessages.NEED_PASS,
+        });
+        throw new HttpException(ApiMessages.NEED_PASS, HttpStatus.BAD_REQUEST);
       }
 
       if (
@@ -195,25 +210,19 @@ export class HistoriesService {
         lastHistory.historyType.value !== "product_correct"
       ) {
         if (lastHistory.historyType.value === "product_check") {
-          throw new HttpException("Продукт уже отнесен на пробу", HttpStatus.BAD_REQUEST);
+          await this.apiErrorsService.create({
+            dto: JSON.stringify(dto),
+            message: ApiMessages.PRODUCT_ALREADY_ON_CHECK,
+          });
+          throw new HttpException(ApiMessages.PRODUCT_ALREADY_ON_CHECK, HttpStatus.BAD_REQUEST);
         } else {
-          throw new HttpException('Необходимо отсутствие записей или статус "Брак продукта"', HttpStatus.BAD_REQUEST);
+          await this.apiErrorsService.create({
+            dto: JSON.stringify(dto),
+            message: ApiMessages.NEED_EMPTY_OR_FAIL,
+          });
+          throw new HttpException(ApiMessages.NEED_EMPTY_OR_FAIL, HttpStatus.BAD_REQUEST);
         }
       }
-
-      // !!!!! Это закомментировал
-      // if (
-      //   !record.isSet &&
-      //   lastHistory &&
-      //   !record.isSet &&
-      //   lastHistory.historyType.value !== "plug_pass" &&
-      //   lastHistory.historyType.value !== "product_check"
-      // ) {
-      //   throw new HttpException(
-      //     'Для фиксации пробы необходим статус "Допуск на подключение" или "Брак продукта"',
-      //     HttpStatus.BAD_REQUEST
-      //   );
-      // }
     }
 
     const history = await this.createHistory({ ...dto, record_id: record_id });
@@ -243,6 +252,10 @@ export class HistoriesService {
     const history = await this.historyRepository.findByPk(id);
     if (!history) {
       throw new HttpException("Строка не найдена", HttpStatus.NOT_FOUND);
+    }
+    if (history.note_id) {
+      const note = await this.notesService.getById(history.note_id);
+      await note.destroy();
     }
     await history.destroy();
   }

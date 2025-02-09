@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { ClientMessages } from "../../shared/resources/client-messages";
 import handleError from "../../shared/api/http/handleError";
-import EmployeeService from "../../services/EmployeeService";
+import EmployeeService from "../../shared/api/services/employee-service";
 
 export function useUpdateEmployee() {
   const client = useQueryClient();

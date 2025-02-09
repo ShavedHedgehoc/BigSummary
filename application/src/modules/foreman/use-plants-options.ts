@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 import { useBoilsFilterStore } from "../boils/store/use-boils-filter-store";
 import { BoilsFilterParams } from "../boils/boils-filter-params";
 const { changeFilter, setSelectedPlant, fillPlantSelectorOptions } = useBoilsFilterStore();

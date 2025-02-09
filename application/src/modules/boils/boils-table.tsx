@@ -2,8 +2,8 @@ import * as React from "react";
 import { useShallow } from "zustand/shallow";
 import TableLayout from "../../shared/layouts/table-layout";
 
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
-import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
+import TableNotFoundComponent from "../../shared/components/table-not-found";
 import { useBoilsFilterStore } from "./store/use-boils-filter-store";
 import { useBoils } from "./use-boils";
 import RowComponent from "./boils-row";

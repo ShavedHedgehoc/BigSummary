@@ -51,7 +51,7 @@ export default function ModalLayout({
           display: { xs: "none", sm: "flex" },
           justifyContent: "center",
           alignItems: "center",
-          zIndex: 999999,
+          zIndex: 999998,
         }}
       >
         <ModalOverflow>

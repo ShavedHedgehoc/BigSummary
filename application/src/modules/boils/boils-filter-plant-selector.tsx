@@ -3,7 +3,7 @@ import { useBoilsFilterStore } from "./store/use-boils-filter-store";
 import { BoilsFilterParams } from "./boils-filter-params";
 
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 

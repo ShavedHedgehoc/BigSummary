@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/shallow";
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { DocsUploadFormParams } from "./docs-upload-form-params";

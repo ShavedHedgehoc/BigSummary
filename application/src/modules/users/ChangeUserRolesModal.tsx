@@ -3,7 +3,7 @@ import Button from "@mui/joy/Button";
 import Box from "@mui/joy/Box";
 import Checkbox from "@mui/joy/Checkbox";
 import Sheet from "@mui/joy/Sheet";
-import ModalLayout, { ModalLayoutProps } from "../../components/modals/ModalLayout";
+import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
 import { useShallow } from "zustand/shallow";
@@ -11,7 +11,7 @@ import { useRoles } from "./use-roles";
 import { useRolesListStore } from "./hooks/useRolesListStore";
 import { enqueueSnackbar } from "notistack";
 import handleError from "../../shared/api/http/handleError";
-import UserService from "../../services/UserService";
+import UserService from "../../shared/api/services/UserService";
 
 const ContentComponent = () => {
   const { isPending, isRefetching, data } = useRoles();
@@ -127,13 +127,17 @@ export const ChangeUserRolesModal = () => {
     open: open,
     onClose: () => setOpen(false),
     title: "Редактирование прав пользователя",
-    content: <ContentComponent />,
+    // content: <ContentComponent />,
     height: 600,
     minHeight: 0,
     width: 400,
     onlyCloseButton: false,
-    buttons: <ButtonComponent />,
+    // buttons: <ButtonComponent />,
   };
 
-  return <ModalLayout {...modalProps} />;
+  return (
+    <ModalLayout props={modalProps} buttons={<ButtonComponent />}>
+      <ContentComponent />
+    </ModalLayout>
+  );
 };

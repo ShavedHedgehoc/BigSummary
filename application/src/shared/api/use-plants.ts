@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "./services/plant-service";
 
 export const usePlants = () =>
   useQuery({

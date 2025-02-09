@@ -1,6 +1,6 @@
 import * as React from "react";
-import BreadCrumbHeader from "../../components/headers/BreadCrumbHeader";
-import MainPageHeader from "../../components/headers/MainPageHeader";
+import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
+import MainPageHeader from "../../shared/components/headers/MainPageHeader";
 import ForemanTable from "./foreman-table";
 import ForemanFilter from "./foreman-filter";
 import ForemanHistoryModal from "./foreman-history-modal";

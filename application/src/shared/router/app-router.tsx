@@ -5,9 +5,9 @@ import { Routes, Navigate, Outlet, Route, BrowserRouter } from "react-router-dom
 import { RouteNames } from "./route-names";
 import { DbRoles } from "../db-roles";
 import Layout from "../layouts/layout";
-import Login from "../../components/pages/Login";
+import Login from "../../modules/login/login";
 // import SummaryUpload from "../../components/pages/SummaryUpload";
-import RecordDetail from "../../components/pages/RecordDetail";
+// import RecordDetail from "../../components/pages/RecordDetail";
 
 import Users from "../../modules/users/users";
 import Products from "../../modules/records/records";
@@ -74,7 +74,7 @@ const AppRouter = () => {
               <Route path={RouteNames.DOCUMENTS} element={<Documents />} />
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<DocsUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
-              <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} />
+              {/* <Route path={RouteNames.RECORD_DETAIL} element={<RecordDetail />} /> */}
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
               <Route path={RouteNames.BASES_UPDATE} element={<BasesUpload />} />
             </Route>

@@ -1,6 +1,6 @@
 import * as React from "react";
-import BreadCrumbHeader from "../../components/headers/BreadCrumbHeader";
-import MainPageHeader from "../../components/headers/MainPageHeader";
+import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
+import MainPageHeader from "../../shared/components/headers/MainPageHeader";
 import BoilsFilter from "./boils-filter";
 import BoilsTable from "./boils-table";
 import BoilsPagination from "./boils-pagination";

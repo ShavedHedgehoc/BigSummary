@@ -18,7 +18,7 @@ import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
 
 export default function RecordsHistoryModal() {
   const { store } = React.useContext(Context);

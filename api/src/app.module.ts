@@ -37,6 +37,7 @@ import { RegulationsModule } from "./regulations/regulations.module";
 import { MarkingSampleModule } from "./marking_sample/marking_sample.module";
 import { RecordRegulationsModule } from "./record_regulations/record_regulations.module";
 import { SemiProductsModule } from "./semi_products/semi_products.module";
+import { ApiErrorsModule } from "./api_errors/api_errors.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -76,6 +77,7 @@ import Regulation from "./regulations/regulations.model";
 import MarkingSample from "./marking_sample/marking_sample.model";
 import RecordRegulation from "./record_regulations/record_regulations.model";
 import SemiProduct from "./semi_products/semi_products.model";
+import ApiError from "./api_errors/api_errors.model";
 
 @Module({
   controllers: [],
@@ -146,6 +148,7 @@ import SemiProduct from "./semi_products/semi_products.model";
         MarkingSample,
         RecordRegulation,
         SemiProduct,
+        ApiError,
       ],
       autoLoadModels: true,
     }),
@@ -188,6 +191,7 @@ import SemiProduct from "./semi_products/semi_products.model";
     MarkingSampleModule,
     RecordRegulationsModule,
     SemiProductsModule,
+    ApiErrorsModule,
   ],
 })
 export default class AppModule {}

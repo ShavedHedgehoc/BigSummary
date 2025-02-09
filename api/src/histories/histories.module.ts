@@ -13,6 +13,7 @@ import { ProductsModule } from "src/products/products.module";
 import { BasesModule } from "src/bases/bases.module";
 import { NotesModule } from "src/notes/notes.module";
 import { AuthModule } from "src/auth/auth.module";
+import { ApiErrorsModule } from "src/api_errors/api_errors.module";
 
 @Module({
   controllers: [HistoriesController],
@@ -29,6 +30,7 @@ import { AuthModule } from "src/auth/auth.module";
     BasesModule,
     NotesModule,
     AuthModule,
+    ApiErrorsModule,
   ],
   exports: [HistoriesService],
 })

@@ -3,8 +3,8 @@ import DashCard from "./dash-card";
 import { useDashFilterStore } from "./store/dash-filter-store";
 import { useCurrentRecords } from "../../shared/api/use-current-records";
 import { SxProps } from "@mui/joy/styles/types";
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
-import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
+import TableNotFoundComponent from "../../shared/components/table-not-found";
 import { Sheet, useColorScheme } from "@mui/joy";
 import DashSmallCard from "./dash-small-card";
 

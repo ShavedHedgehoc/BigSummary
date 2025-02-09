@@ -1,6 +1,6 @@
 import * as React from "react";
-import BreadCrumbHeader from "../../components/headers/BreadCrumbHeader";
-import MainPageHeader from "../../components/headers/MainPageHeader";
+import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
+import MainPageHeader from "../../shared/components/headers/MainPageHeader";
 
 import { ChangeUserRolesModal } from "./ChangeUserRolesModal";
 import NotMobileVersion from "../../shared/components/not-mobile-version";

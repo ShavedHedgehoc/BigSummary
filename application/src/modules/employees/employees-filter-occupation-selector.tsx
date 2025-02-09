@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 import { useEmployeesFilterStore } from "./store/use-employees-filter-store";
 import { EmployeesFilterParams } from "./employees-filter-params";
-import OccupationService from "../../services/OccupationService";
+import OccupationService from "../../shared/api/services/occupation-service";
 
 export default function EmployeesFilterOcupationSelector() {
   const changeFilter = useEmployeesFilterStore(useShallow((state) => state.changeFilter));

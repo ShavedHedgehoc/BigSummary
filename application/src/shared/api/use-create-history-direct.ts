@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import HistoryService from "../../services/HistoryService";
+import HistoryService from "./services/history-service";
 import { enqueueSnackbar } from "notistack";
 import handleError from "./http/handleError";
 import { ClientMessages } from "../resources/client-messages";
@@ -13,6 +13,7 @@ export function useCreateHistoryDirect() {
       client.invalidateQueries({ queryKey: ["record_histories"] });
       client.invalidateQueries({ queryKey: ["boils_histories"] });
       client.invalidateQueries({ queryKey: ["boils_list"] });
+      client.invalidateQueries({ queryKey: ["document_detail"] });
       enqueueSnackbar(ClientMessages.RECORD_SUCCESFULL_ADDED, {
         variant: "success",
         anchorOrigin: { vertical: "top", horizontal: "right" },

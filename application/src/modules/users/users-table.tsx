@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
-import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
+import TableNotFoundComponent from "../../shared/components/table-not-found";
 
 import { useShallow } from "zustand/shallow";
 import { useUsers } from "./use-users";

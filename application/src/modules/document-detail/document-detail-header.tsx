@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { Params } from "../../shared/router/params";
-import BreadCrumbHeader from "../../components/headers/BreadCrumbHeader";
+import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
 import { useDoc } from "./use-doc";
 import { formatDateToString } from "../../shared/helpers/date-time-formatters";
-import MainPageHeader from "../../components/headers/MainPageHeader";
+import MainPageHeader from "../../shared/components/headers/MainPageHeader";
 
 export default function DocumentDetailHeader() {
   const params = useParams<Params.SUMMARY_PARAMS>();

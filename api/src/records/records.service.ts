@@ -395,6 +395,7 @@ export class RecordsService {
           ...dto.rows[index],
           doc_id: doc.id,
         };
+        // console.log(dto);
         const record = await this.createRecord(createDto);
         await this.createRegulation(record, dto.rows[index]);
         await this.createSemiProducts(record, dto.rows[index].semi_product);

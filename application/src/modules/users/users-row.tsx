@@ -6,7 +6,7 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 
 import { useShallow } from "zustand/shallow";
 
-import { IUserRow } from "../../services/UserService";
+import { IUserRow } from "../../shared/api/services/UserService";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
 import { useRolesListStore } from "./hooks/useRolesListStore";
 import { TableState } from "../../shared/ui/table-state";

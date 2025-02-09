@@ -83,6 +83,8 @@ interface IDocRow {
   state: string;
   stateValue: string;
   isSet: boolean;
+  water_base_id: number;
+  plant_id: number;
 }
 
 interface AddHistoryDto {

@@ -16,7 +16,7 @@ import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
 
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
 import { useBoilsHistories } from "./use-boils-histories";
 import { useBoilHistoryModalStore } from "./store/use-boil-history-modal-store";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";

@@ -6,7 +6,7 @@ import { useForemanFilterStore } from "./store/use-foreman-filter-store";
 import { Dropdown, Menu, MenuItem, MenuButton } from "@mui/joy";
 import { ForemanFilterParams } from "./foreman-filter-params";
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 
 export default function MobileForemanFilter() {
   const { plantSelectorOptions, setSelectedPlant, fillPlantSelectorOptions, changeFilter } = useForemanFilterStore();

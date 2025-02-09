@@ -1,8 +1,8 @@
 import { useShallow } from "zustand/shallow";
 import TableLayout from "../../shared/layouts/table-layout";
 import RowComponent from "./records-row";
-import TableLoaderComponent from "../../components/tables/TableLoaderComponent";
-import TableNotFoundComponent from "../../components/tables/TableNotFoundComponent";
+import TableLoaderComponent from "../../shared/components/table-loader";
+import TableNotFoundComponent from "../../shared/components/table-not-found";
 import { useRecordsFilterStore } from "./store/use-record-filter-store";
 import { useCurrentRecords } from "../../shared/api/use-current-records";
 

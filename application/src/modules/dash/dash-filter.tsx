@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useDashFilterStore } from "./store/dash-filter-store";
 import { usePlants } from "../../shared/api/use-plants";
-import { DashFilterParams } from "./store/dash-filter-params";
+import { DashFilterParams } from "./dash-filter-params";
 import { Box, Dropdown, IconButton, Menu, MenuButton, MenuItem, Sheet } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";

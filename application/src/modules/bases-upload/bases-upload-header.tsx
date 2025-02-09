@@ -1,6 +1,6 @@
 import * as React from "react";
-import MainPageHeader from "../../components/headers/MainPageHeader";
-import BreadCrumbHeader from "../../components/headers/BreadCrumbHeader";
+import MainPageHeader from "../../shared/components/headers/MainPageHeader";
+import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
 export default function BasesUploadHeader() {
   return (
     <React.Fragment>

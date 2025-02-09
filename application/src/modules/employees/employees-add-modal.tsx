@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEmployeeAddModalStore } from "./store/use-employees-add-modal-store";
 import { useCreateEmployee } from "./use-create-employee";
 import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
-import OccupationService from "../../services/OccupationService";
+import OccupationService from "../../shared/api/services/occupation-service";
 
 const NameInput = () => {
   const name = useEmployeeAddModalStore(useShallow((state) => state.name));

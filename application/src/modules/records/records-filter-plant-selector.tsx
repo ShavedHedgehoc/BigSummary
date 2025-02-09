@@ -1,7 +1,7 @@
 import { useShallow } from "zustand/shallow";
 
 import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../services/PlantService";
+import PlantService from "../../shared/api/services/plant-service";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 import { RecordsFilterParams } from "./records-filter-params";
 import { useRecordsFilterStore } from "./store/use-record-filter-store";

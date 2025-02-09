@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { IPlant } from "../../../types";
-import { DashFilterParams } from "./dash-filter-params";
+import { DashFilterParams } from "../dash-filter-params";
 
 interface DashFilterStore {
   filter: FetchProductFilter;
