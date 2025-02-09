@@ -4,6 +4,7 @@ import { ConveyorsService } from "./conveyors.service";
 import Conveyor from "./conveyor.model";
 import { CreateConveyorDto } from "./dto/create-conveyor.dto";
 import { UpdateConveyorDto } from "./dto/update-conveyor.dto";
+import { GetConveyorsDto } from "./dto/get-conveyors.dto";
 
 @ApiTags("Конвейеры")
 @Controller("conveyors")
@@ -17,6 +18,14 @@ export class ConveyorsController {
   getAll() {
     return this.conveyorsService.getAllConveyors();
   }
+
+  @ApiOperation({ summary: "Получить все конвейера" })
+  @ApiResponse({ status: 200, type: [Conveyor] })
+  @Post()
+  getAllWithParams(@Body() dto: GetConveyorsDto) {
+    return this.conveyorsService.getAllConveyorsWithParams(dto);
+  }
+
   // Нужно для рабочей станции
   @ApiOperation({ summary: "Получить конвейер по штрихкоду" })
   @ApiResponse({ status: 200, type: [Conveyor] })

@@ -3,6 +3,8 @@ import { InjectModel } from "@nestjs/sequelize";
 import Conveyor from "./conveyor.model";
 import { CreateConveyorDto } from "./dto/create-conveyor.dto";
 import { UpdateConveyorDto } from "./dto/update-conveyor.dto";
+import { GetConveyorsDto } from "./dto/get-conveyors.dto";
+import { Op } from "sequelize";
 
 @Injectable()
 export class ConveyorsService {
@@ -14,6 +16,28 @@ export class ConveyorsService {
   async getAllConveyors() {
     const conveyors = await this.conveyorsRepository.findAll();
     return conveyors;
+  }
+
+  async getAllConveyorsWithParams(dto: GetConveyorsDto) {
+    const conveyorsOrder = dto.filter.valueAsc ? "ASC" : "DESC";
+    let filter = {};
+    if (dto.filter.value !== "") {
+      const conveyorFilter = { [Op.iLike]: `%${dto.filter.value}%` };
+      filter = { ...filter, value: conveyorFilter };
+    }
+    if (dto.filter.onlyEmptyBarcode) {
+      const barcodeFilter = { [Op.eq]: null };
+      filter = { ...filter, barcode: barcodeFilter };
+    }
+    const count = await this.conveyorsRepository.count({ where: { ...filter } });
+
+    const conveyors = await this.conveyorsRepository.findAll({
+      where: { ...filter },
+      order: [["value", conveyorsOrder]],
+      limit: dto.limit,
+      offset: dto.limit * (dto.page - 1),
+    });
+    return { total: count, rows: conveyors };
   }
 
   async getByBarcode(barcode: string) {
