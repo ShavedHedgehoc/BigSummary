@@ -12,12 +12,12 @@ export class ConveyorsController {
   constructor(private conveyorsService: ConveyorsService) {}
 
   // Поменять на запрос с параметрами, мб добавить площадку в модель
-  @ApiOperation({ summary: "Получить все конвейера" })
-  @ApiResponse({ status: 200, type: [Conveyor] })
-  @Get()
-  getAll() {
-    return this.conveyorsService.getAllConveyors();
-  }
+  // @ApiOperation({ summary: "Получить все конвейера" })
+  // @ApiResponse({ status: 200, type: [Conveyor] })
+  // @Get()
+  // getAll() {
+  //   return this.conveyorsService.getAllConveyors();
+  // }
 
   @ApiOperation({ summary: "Получить все конвейера" })
   @ApiResponse({ status: 200, type: [Conveyor] })

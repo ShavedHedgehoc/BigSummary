@@ -11,6 +11,11 @@ import { TraceTechnologyModule } from "./trace_technology/trace_technology.modul
 async function start() {
   const PORT = process.env.PORT || 5000;
   const app = await NestFactory.create(AppModule, { logger: ["error"] });
+  // app.enableCors({
+  //   allowedHeaders: ["content-type", "origin"],
+  //   origin: "http://192.168.250.237:8081",
+  //   credentials: true,
+  // });
   app.setGlobalPrefix("api");
 
   const mainOption = new DocumentBuilder()

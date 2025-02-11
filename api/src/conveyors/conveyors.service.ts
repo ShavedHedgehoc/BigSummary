@@ -13,10 +13,10 @@ export class ConveyorsService {
     private conveyorsRepository: typeof Conveyor
   ) {}
 
-  async getAllConveyors() {
-    const conveyors = await this.conveyorsRepository.findAll();
-    return conveyors;
-  }
+  // async getAllConveyors() {
+  //   const conveyors = await this.conveyorsRepository.findAll();
+  //   return conveyors;
+  // }
 
   async getAllConveyorsWithParams(dto: GetConveyorsDto) {
     const conveyorsOrder = dto.filter.valueAsc ? "ASC" : "DESC";
