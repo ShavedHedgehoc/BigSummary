@@ -47,6 +47,8 @@ services:
       CHAT_ID: ${CHAT_ID}
     depends_on:
       - postgres
+    ports:
+      - "7000:7000"
     restart: always
     networks:
       - postgres
