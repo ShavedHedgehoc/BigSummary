@@ -92,6 +92,25 @@ export class DocDetailService {
     return res;
   }
 
+  async getAppDocDetailData(doc: Doc) {
+    const replacer = (key, value) => {
+      if (key !== "plants") {
+        return value;
+      }
+      return undefined;
+    };
+
+    const records = await this.recordsService.getAppRecordsByDocId(doc.id);
+
+    const recordsResult = await Promise.all(await records.map(async (item) => this.recordResult(item)));
+    const res = {
+      ...JSON.parse(JSON.stringify(doc, replacer)),
+      plant: doc.plants.value,
+      records: [...recordsResult],
+    };
+    return res;
+  }
+
   async getDocDetailDataWithFilter(doc: Doc, dto: GetCurrentDocDto) {
     const replacer = (key, value) => {
       if (key !== "plants") {
@@ -127,6 +146,26 @@ export class DocDetailService {
       // throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
     }
     const result = await this.getDocDetailData(doc);
+    return result;
+  }
+
+  async getTomorrowAppDocDetail(plantId: number) {
+    const doc = await this.docsService.getTomorrowDocByPlantId(plantId);
+    if (!doc) {
+      return { records: [] };
+      // throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
+    }
+    const result = await this.getAppDocDetailData(doc);
+    return result;
+  }
+
+  async getCurrentAppDocDetail(plantId: number) {
+    const doc = await this.docsService.getCurrentDocByPlantId(plantId);
+    if (!doc) {
+      return { records: [] };
+      // throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
+    }
+    const result = await this.getAppDocDetailData(doc);
     return result;
   }
 

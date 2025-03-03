@@ -29,4 +29,7 @@ export enum RouteNames {
   BASES_UPDATE = "/bases_update",
   UI_PAGE = "/ui_page",
   REGULATIONS_UPSERT = "/regulations_upsert",
+  CANS_DASH = "cans_dash",
+  CANS_LIST = "cans_list",
+  CANS_LOCATION = "cans_location",
 }

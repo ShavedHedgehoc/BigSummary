@@ -68,6 +68,22 @@ export class RecordsService {
     return records;
   }
 
+  async getAppRecordsByDocId(docId: number) {
+    const records = await this.recordsRepository.findAll({
+      where: { doc_id: docId, apparatusId: { [Op.ne]: null } },
+      include: [
+        { model: Product, as: "product" },
+        { model: Boil, as: "boil" },
+        { model: Apparatus, as: "apparatus" },
+        { model: Can, as: "can" },
+        { model: Conveyor, as: "conveyor" },
+        { model: Workshop, as: "workshop" },
+      ],
+      order: [["id", "ASC"]],
+    });
+    return records;
+  }
+
   async getRecordsIdsByHistoryTypeIds(typeArr: number[] | []): Promise<number[] | []> {
     interface RespItem {
       id: number;

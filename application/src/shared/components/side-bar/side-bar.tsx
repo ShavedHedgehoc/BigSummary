@@ -16,7 +16,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import ScienceRoundedIcon from "@mui/icons-material/ScienceRounded";
-// import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
+import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -284,6 +284,73 @@ function SideBar() {
               </List>
             </Toggler>
           </ListItem>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <OilBarrelRoundedIcon />
+                  <ListItemContent>
+                    <Typography level="title-sm">Технолог</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.CANS_DASH}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Ёмкости</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.CANS_LIST}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Список ёмкостей</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.CANS_LOCATION}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Местоположение</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
+          </ListItem>
+
           <ListItem>
             <ListItemButton role="menuitem">
               <ListItemContent>

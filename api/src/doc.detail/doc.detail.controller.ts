@@ -16,6 +16,20 @@ export class DocDetailController {
     return this.docDetailService.getCurrentDocDetail(Number(plantId));
   }
 
+  @ApiOperation({ summary: "Получить текущую сводку по id площадки" })
+  //   @ApiResponse({ status: 200, type: [Doc] })
+  @Get("/current_apps/:plantId")
+  getCurrentAppDocDetail(@Param("plantId") plantId: string) {
+    return this.docDetailService.getCurrentAppDocDetail(Number(plantId));
+  }
+
+  @ApiOperation({ summary: "Получить завтрашнюю сводку по id площадки" })
+  //   @ApiResponse({ status: 200, type: [Doc] })
+  @Get("/tomorrow_apps/:plantId")
+  getTomorrowAppDocDetail(@Param("plantId") plantId: string) {
+    return this.docDetailService.getTomorrowAppDocDetail(Number(plantId));
+  }
+
   @ApiOperation({ summary: "Получить сводку по id документа" })
   //   @ApiResponse({ status: 200, type: [Doc] })
   @Get("/:doc_id")

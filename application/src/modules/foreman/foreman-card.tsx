@@ -59,6 +59,7 @@ export default function ForemanCard({ row }: { row: IDocRow }) {
           py: 1,
           ...(row.isUpdated && { animation: `${pulse} 1s infinite` }),
         },
+
         () => ({
           //   bgcolor: "neutral.softBg",
           //   color: mode === "light" ? "var(--joy-palette-neutral-400)" : "white",

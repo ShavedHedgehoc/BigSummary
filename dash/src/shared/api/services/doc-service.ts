@@ -81,6 +81,16 @@ export default class DocService {
     return res.data;
   }
 
+  static async getCurrentApparatusesRecordsList(plant_id: number | null, current: boolean): Promise<SummaryResponse> {
+    if (current) {
+      const res = await axios.get(`/api/doc_detail/current_apps/${plant_id}`);
+      return res.data;
+    } else {
+      const res = await axios.get(`/api/doc_detail/tomorrow_apps/${plant_id}`);
+      return res.data;
+    }
+  }
+
   static async getRecord(record_id: number | null): Promise<RecordDetail> {
     const res = await axios.get(`/api/doc_detail/record/${record_id}`);
     return res.data;

@@ -5,7 +5,7 @@ import { useRecord } from "../../shared/api/use-record";
 import InfoPage from "../../shared/components/info-page";
 // import RegulationDetail from "./regulation-detail";
 
-export default function RecordDetail() {
+export default function Record() {
   const params = useParams<RouteParams.RECORD_PARAMS>();
   const recordId: string | undefined = params.record_id;
   const navigate = useNavigate();

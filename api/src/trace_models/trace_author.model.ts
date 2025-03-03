@@ -1,6 +1,8 @@
 import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import TraceDocument from "./trace_document.model";
 import TraceBoilRecord from "./trace_boil_record.model";
+import TraceCanRecord from "./trace_can_record.model";
+import TraceCanLocation from "./trace_can_location.model";
 
 @Table({ tableName: "Authors" })
 export default class TraceAuthor extends Model {
@@ -19,4 +21,10 @@ export default class TraceAuthor extends Model {
 
   @HasMany(() => TraceBoilRecord)
   boil_records: TraceBoilRecord[];
+
+  @HasMany(() => TraceCanRecord)
+  can_records: TraceCanRecord[];
+
+  @HasMany(() => TraceCanLocation)
+  locations: TraceCanLocation[];
 }

@@ -50,7 +50,18 @@ export default function DashCard({ row }: { row: IDocRow }) {
           ...(row.isUpdated && { animation: `${pulse} 1s infinite` }),
         },
         () => ({
+          "&&:hover": {
+            cursor: store.AuthStore.user?.roles?.includes(DbRoles.CARDS) ? "pointer" : "",
+            bgcolor: store.AuthStore.user?.roles?.includes(DbRoles.CARDS)
+              ? mode === "light"
+                ? "var(--joy-palette-neutral-800)"
+                : "var(--joy-palette-neutral-500)"
+              : "",
+          },
+        }),
+        () => ({
           bgcolor: "neutral.softBg",
+
           color: mode === "light" ? "var(--joy-palette-neutral-400)" : "white",
           ...(row.stateValue === "product_pass" && {
             color: "common.white",

@@ -23,6 +23,9 @@ import DocumentDetail from "../../modules/document-detail/document-detail";
 import DocsUpload from "../../modules/docs-upload/docs-upload";
 import BasesUpload from "../../modules/bases-upload/bases-upload";
 import Forbidden from "../../modules/forbidden/forbidden";
+import Cans from "../../modules/cans/cans";
+import CansList from "../../modules/cans-list/cans-list";
+import CansDash from "../../modules/cans-dash/cans-dash";
 // import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
@@ -60,6 +63,7 @@ const AppRouter = () => {
         <Route element={<ObservedProtectedRoutes />}>
           <Route path={RouteNames.HOME} element={<Layout />}>
             <Route index element={<Dash />} />
+
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.LABORATORY} />}>
               <Route path={RouteNames.BOILS_LIST} element={<Boils />} />
               <Route path={RouteNames.LABORATORY} element={<Products />} />
@@ -81,6 +85,11 @@ const AppRouter = () => {
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />
               <Route path={RouteNames.UI_PAGE} element={<UiPage />} />
+            </Route>
+            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
+              <Route path={RouteNames.CANS_DASH} element={<Cans />} />
+              <Route path={RouteNames.CANS_LIST} element={<CansList />} />
+              <Route path={RouteNames.CANS_LOCATION} element={<CansDash />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>

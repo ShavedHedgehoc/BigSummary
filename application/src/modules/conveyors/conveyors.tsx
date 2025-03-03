@@ -15,12 +15,6 @@ export default function Conveyors() {
       <ConveyorsTable />
       <ConveyorsPagination />
       <ConveyorEditModal />
-
-      {/* <RecordsFilter />
-      <RecordsTable />
-      <RecordsHistoryModal />
-      <NoteModal />
-      <AddRecordModal /> */}
     </React.Fragment>
   );
 }
