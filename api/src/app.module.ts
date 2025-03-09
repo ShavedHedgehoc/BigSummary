@@ -44,6 +44,17 @@ import { TracePlantsController } from "./trace_plants/trace_plants.controller";
 import { TracePlantsModule } from "./trace_plants/trace_plants.module";
 import { TraceCanStatesModule } from "./trace_can_states/trace_can_states.module";
 import { TraceCanLocationsModule } from "./trace_can_locations/trace_can_locations.module";
+import { TubeProductsModule } from "./tube_products/tube_products.module";
+import { TubeConveyorsModule } from "./tube_conveyors/tube_conveyors.module";
+import { TubeRecordsModule } from "./tube_records/tube_records.module";
+import { TubeMaterialsModule } from "./tube_materials/tube_materials.module";
+import { TubeConveyorPostsModule } from "./tube_conveyor_posts/tube_conveyor_posts.module";
+import { TubeSpecificationsModule } from "./tube_specifications/tube_specifications.module";
+import { TubeHistoryTypesModule } from "./tube_history_types/tube_history_types.module";
+import { TubeHistoriesService } from "./tube_histories/tube_histories.service";
+import { TubeHistoriesModule } from "./tube_histories/tube_histories.module";
+import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.module";
+import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -90,10 +101,20 @@ import TracePlant from "./trace_models/trace_plant.model";
 import TraceCanState from "./trace_models/trace_can_state.model";
 import TraceBtProduct from "./trace_models/trace_bt_product.model";
 import TraceCanLocation from "./trace_models/trace_can_location.model";
+import TubeProduct from "./tube_products/tube_products.model";
+import TubeConveyor from "./tube_conveyors/tube_conveyors.model";
+import TubeRecord from "./tube_records/tube_records.model";
+import TubeMaterial from "./tube_materials/tube_materials.model";
+import TubeConveyorPost from "./tube_conveyor_posts/tube_conveyor_posts.model";
+import TubeSpecification from "./tube_specifications/tube_specifications.model";
+import TubeHistoryType from "./tube_history_types/tube_history_types.model";
+import TubeHistory from "./tube_histories/tube_histories.model";
+import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
+import TubeSession from "./tube_sessions/tube_sessions.model";
 
 @Module({
   controllers: [TracePlantsController],
-  providers: [],
+  providers: [TubeHistoriesService],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -168,6 +189,17 @@ import TraceCanLocation from "./trace_models/trace_can_location.model";
         RecordRegulation,
         SemiProduct,
         ApiError,
+        // ********************
+        TubeProduct,
+        TubeConveyor,
+        TubeRecord,
+        TubeMaterial,
+        TubeConveyorPost,
+        TubeSpecification,
+        TubeHistoryType,
+        TubeHistory,
+        TubeHistoryNote,
+        TubeSession,
       ],
       autoLoadModels: true,
     }),
@@ -216,6 +248,16 @@ import TraceCanLocation from "./trace_models/trace_can_location.model";
     TracePlantsModule,
     TraceCanStatesModule,
     TraceCanLocationsModule,
+    TubeProductsModule,
+    TubeConveyorsModule,
+    TubeRecordsModule,
+    TubeMaterialsModule,
+    TubeConveyorPostsModule,
+    TubeSpecificationsModule,
+    TubeHistoryTypesModule,
+    TubeHistoriesModule,
+    TubeHistoryNotesModule,
+    TubeSessionsModule,
   ],
 })
 export default class AppModule {}

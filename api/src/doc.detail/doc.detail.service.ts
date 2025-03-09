@@ -165,7 +165,8 @@ export class DocDetailService {
       return { records: [] };
       // throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
     }
-    const result = await this.getAppDocDetailData(doc);
+    // const result = await this.getAppDocDetailData(doc);
+    const result = await this.getDocDetailData(doc);
     return result;
   }
 

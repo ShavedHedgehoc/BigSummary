@@ -36,7 +36,7 @@ export default function AppSummaryCard(item: IDocRow) {
         <div className=" text-3xl ">Конвейер {item.conveyor}</div>
       </div>
       <div className="grid grid-cols-6 pl-3 pr-3 pt-2 ">
-        <div className="text-slate-200 col-span-4 text-left text-xl"> {item.product}</div>
+        <div className="text-slate-200 col-span-4 text-left text-lg"> {item.product}</div>
         <div className="text-slate-200 col-span-2 font-semibold text-right text-xl"> {item.boil}</div>
       </div>
 

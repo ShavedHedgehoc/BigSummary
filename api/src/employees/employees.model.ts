@@ -13,6 +13,8 @@ import {
 } from "sequelize-typescript";
 import History from "src/histories/histories.model";
 import Occupation from "src/occupations/occupations.model";
+import TubeHistory from "src/tube_histories/tube_histories.model";
+import TubeSession from "src/tube_sessions/tube_sessions.model";
 
 interface EmployeeCreationsAttrs {
   name: string;
@@ -46,4 +48,10 @@ export default class Employee extends Model<Employee, EmployeeCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @HasMany(() => TubeHistory)
+  tube_histories: TubeHistory[];
+
+  @HasMany(() => TubeSession)
+  tube_sessions: TubeSession[];
 }

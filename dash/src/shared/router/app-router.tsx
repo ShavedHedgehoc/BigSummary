@@ -3,8 +3,8 @@ import { RouteNames } from "./route-names";
 import Record from "../../modules/record/record";
 import Summary from "../../modules/summary/summary";
 import AppSummary from "../../modules/app-summary/app-summary";
-import Apparatus from "../../modules/apparatus/apparatus";
-import ApparatusStates from "../../modules/apparatus/apparatus-states";
+// import Apparatus from "../../modules/apparatus/apparatus";
+// import ApparatusStates from "../../modules/apparatus/apparatus-states";
 import Cans from "../../modules/cans/cans";
 
 export default function AppRouter() {
@@ -15,8 +15,8 @@ export default function AppRouter() {
         <Route path={RouteNames.RECORD_DETAIL} element={<Record />} />
         <Route path={RouteNames.APP_SUMMARY} element={<AppSummary />} />
         <Route path={RouteNames.CANS} element={<Cans />} />
-        <Route path={RouteNames.APPARATUS_DETAIL} element={<Apparatus />} />
-        <Route path={RouteNames.APPARATUS_STATE_DETAIL} element={<ApparatusStates />} />
+        {/* <Route path={RouteNames.APPARATUS_DETAIL} element={<Apparatus />} />
+        <Route path={RouteNames.APPARATUS_STATE_DETAIL} element={<ApparatusStates />} /> */}
       </Routes>
     </BrowserRouter>
   );

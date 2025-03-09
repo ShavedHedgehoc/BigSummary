@@ -3,7 +3,7 @@ import TracePlantService, { ITracePlant } from "../../shared/api/services/trace-
 import { useCansFilterStore } from "./store/use-cans-filter-store";
 import { useQuery } from "@tanstack/react-query";
 import { CansFilterParams } from "./cans-filter-params";
-import { Field, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import clsx from "clsx";
 import DownIcon from "../../shared/components/icons/down-icon";
 

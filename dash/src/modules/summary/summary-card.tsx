@@ -33,7 +33,7 @@ export default function SummaryCard(item: IDocRow) {
     >
       <div className="text-slate-200 text-5xl font-semibold pl-3 pt-2 ">{item.conveyor}</div>
       <div className="grid grid-cols-6 pl-3 pr-3 pt-2 ">
-        <div className="text-slate-200 col-span-4 text-left text-xl"> {item.product}</div>
+        <div className="text-slate-200 col-span-4 text-left text-lg font-semibold"> {item.product}</div>
         <div className="text-slate-200 col-span-2 font-semibold text-right text-xl"> {item.boil}</div>
       </div>
       <div
