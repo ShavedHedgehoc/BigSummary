@@ -6,6 +6,10 @@ services:
       POSTGRES_DB: "summary"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
+      MSSQL_HOST: ${MSSQL_HOST}
+      MSSQL_USERNAME: ${MSSQL_USERNAME}
+      MSSQL_PASSWORD: ${MSSQL_PASSWORD}
+      MSSQL_DB: ${MSSQL_DB}
     volumes:
       - summary-data:/var/lib/postgresql/data
     restart: always
