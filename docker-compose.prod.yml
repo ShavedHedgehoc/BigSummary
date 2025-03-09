@@ -6,10 +6,6 @@ services:
       POSTGRES_DB: "summary"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "password"
-      MSSQL_HOST: ${MSSQL_HOST}
-      MSSQL_USERNAME: ${MSSQL_USERNAME}
-      MSSQL_PASSWORD: ${MSSQL_PASSWORD}
-      MSSQL_DB: ${MSSQL_DB}
     volumes:
       - summary-data:/var/lib/postgresql/data
     restart: always
@@ -49,6 +45,10 @@ services:
       PORT: "7000"
       BOT_TOKEN: ${BOT_TOKEN}
       CHAT_ID: ${CHAT_ID}
+      MSSQL_HOST: ${MSSQL_HOST}
+      MSSQL_USERNAME: ${MSSQL_USERNAME}
+      MSSQL_PASSWORD: ${MSSQL_PASSWORD}
+      MSSQL_DB: ${MSSQL_DB}
     depends_on:
       - postgres
     restart: always
