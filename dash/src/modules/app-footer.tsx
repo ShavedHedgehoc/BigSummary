@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { RouteNames } from "../shared/router/route-names";
 import BarrelIcon from "../shared/components/icons/barrel-icon";
 import DocumentIcon from "../shared/components/icons/document-icon";
+import HubIcon from "../shared/components/icons/hub-icon";
 
 export default function AppFooter({ plant, disabled }: { plant: string; disabled: number }) {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function AppFooter({ plant, disabled }: { plant: string; disabled
         disabled={disabled == 3}
         onClick={() => navigate(`${RouteNames.BOILS}?plant=${plant}`)}
       >
-        <DocumentIcon size={8} />
+        <HubIcon size={8} />
         <div className="flex flex-col gap-1">
           <div>Основы</div>
           <div className={clsx("h-2 w-24", disabled !== 3 && "bg-slate-200", "bg-amber-600 rounded-md")} />
