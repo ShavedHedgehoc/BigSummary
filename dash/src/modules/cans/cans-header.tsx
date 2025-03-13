@@ -1,4 +1,5 @@
 import BarrelIcon from "../../shared/components/icons/barrel-icon";
+
 import CansTopMenu from "./cans-top-menu";
 
 export default function CansHeader() {

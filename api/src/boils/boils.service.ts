@@ -71,6 +71,9 @@ export class BoilsService {
     if (dto.filter.plants.length > 0) {
       const plantFilter = { [Op.in]: [...dto.filter.plants] };
       filter = { ...filter, plant_id: plantFilter };
+    } else {
+      const plantFilter = { [Op.ne]: null };
+      filter = { ...filter, plant_id: plantFilter };
     }
 
     let baseCond = {};

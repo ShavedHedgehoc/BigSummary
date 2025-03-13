@@ -14,13 +14,13 @@ export function useLogin(): UseMutateFunction<any, Error, LoginDto, unknown> {
       client.invalidateQueries({ queryKey: ["auth_employee"] });
       enqueueSnackbar(ClientMessages.EMPLOYEE_IN, {
         variant: "success",
-        anchorOrigin: { vertical: "bottom", horizontal: "center" },
+        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
     },
     onError: (err) => {
       if (err instanceof Error) {
         const error = handleError(err);
-        enqueueSnackbar(error, { variant: "error", anchorOrigin: { vertical: "bottom", horizontal: "center" } });
+        enqueueSnackbar(error, { variant: "error", anchorOrigin: { vertical: "top", horizontal: "center" } });
       }
     },
   });

@@ -6,6 +6,7 @@ import AppSummary from "../../modules/app-summary/app-summary";
 // import Apparatus from "../../modules/apparatus/apparatus";
 // import ApparatusStates from "../../modules/apparatus/apparatus-states";
 import Cans from "../../modules/cans/cans";
+import Boils from "../../modules/boils/boils";
 
 export default function AppRouter() {
   const router = (
@@ -15,6 +16,7 @@ export default function AppRouter() {
         <Route path={RouteNames.RECORD_DETAIL} element={<Record />} />
         <Route path={RouteNames.APP_SUMMARY} element={<AppSummary />} />
         <Route path={RouteNames.CANS} element={<Cans />} />
+        <Route path={RouteNames.BOILS} element={<Boils />} />
         {/* <Route path={RouteNames.APPARATUS_DETAIL} element={<Apparatus />} />
         <Route path={RouteNames.APPARATUS_STATE_DETAIL} element={<ApparatusStates />} /> */}
       </Routes>

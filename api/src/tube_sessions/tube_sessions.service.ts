@@ -7,13 +7,15 @@ import Employee from "src/employees/employees.model";
 import { TubeSessionsLogoutDto } from "./dto/tube-sessions-logout.dto";
 import { TubeSessionsLoginDto } from "./dto/tube-sessions-login.dto";
 import { TubeConveyorsService } from "src/tube_conveyors/tube_conveyors.service";
+import { EmployeesService } from "src/employees/employees.service";
 
 @Injectable()
 export class TubeSessionsService {
   constructor(
     @InjectModel(TubeSession)
     private tubeSessionsRepository: typeof TubeSession,
-    private tubeConveyorsService: TubeConveyorsService
+    private tubeConveyorsService: TubeConveyorsService,
+    private employeeService: EmployeesService
   ) {}
 
   async getLastActiveSessionByConveyorId(conveyor_name) {
@@ -50,8 +52,14 @@ export class TubeSessionsService {
       throw new HttpException("Конвейер не найден", HttpStatus.NOT_FOUND);
     }
 
+    const employee = await this.employeeService.getEmployeeByBarcode(dto.barcode);
+    if (!employee) {
+      throw new HttpException("Пользователь найден", HttpStatus.NOT_FOUND);
+    }
+
     const exists_session = await this.tubeSessionsRepository.findOne({
-      where: { finished: { [Op.ne]: true }, employee_id: dto.employee_id, conveyor_id: conveyor.id },
+      // where: { finished: { [Op.ne]: true }, employee_id: employee.id, conveyor_id: conveyor.id },
+      where: { finished: { [Op.ne]: true }, conveyor_id: conveyor.id },
     });
 
     if (exists_session) {
@@ -59,7 +67,7 @@ export class TubeSessionsService {
     }
 
     const session = await this.tubeSessionsRepository.create({
-      employee_id: dto.employee_id,
+      employee_id: employee.id,
       conveyor_id: conveyor.id,
     });
     return session;

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-export default function Product({ conveyor }: { conveyor: string }) {
+export default function Product() {
   const mockChecks = [
     {
       id: 1,

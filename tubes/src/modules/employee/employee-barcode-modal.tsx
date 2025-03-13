@@ -4,9 +4,9 @@ import { useShallow } from "zustand/react/shallow";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Input } from "@headlessui/react";
 
 import { useEmployeeBarcodeModalStore } from "./store/use-employee-barcode-modal-store";
-import { useEmployee } from "./use-employee";
-import { enqueueSnackbar } from "notistack";
-import { ClientMessages } from "../../shared/resources/client-messages";
+// import { useEmployee } from "./use-employee";
+// import { enqueueSnackbar } from "notistack";
+// import { ClientMessages } from "../../shared/resources/client-messages";
 import { LoginDto } from "../../shared/api/services/auth-service";
 import { useLogin } from "./use-login";
 
@@ -18,28 +18,51 @@ export default function EmployeeBarcodeModal({ conveyor_name }: { conveyor_name:
   const setBarcode = useEmployeeBarcodeModalStore(useShallow((state) => state.setBarcode));
   const refInput = React.useRef<HTMLInputElement | null>(null);
 
-  const { data } = useEmployee(barcode);
+  // const { data } = useEmployee(barcode);
 
   const login = useLogin();
 
+  // const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     if (data) {
+  //       setOpen(false);
+  //       const dto: LoginDto = {
+  //         conveyor_name: conveyor_name,
+  //         barcode:e.target.value,
+  //       };
+
+  //       login(dto);
+  //       setBarcode("");
+  //     } else {
+  //       setOpen(false);
+  //       setBarcode("");
+  //       enqueueSnackbar(ClientMessages.EMPLOYEE_EXIT, {
+  //         variant: "error",
+  //         anchorOrigin: { vertical: "bottom", horizontal: "right" },
+  //       });
+  //     }
+  //   }
+  // };
+
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (data) {
-        setOpen(false);
-        const dto: LoginDto = {
-          conveyor_name: conveyor_name,
-          employee_id: data.id,
-        };
-        login(dto);
-        setBarcode("");
-      } else {
-        setOpen(false);
-        setBarcode("");
-        enqueueSnackbar(ClientMessages.EMPLOYEE_EXIT, {
-          variant: "error",
-          anchorOrigin: { vertical: "bottom", horizontal: "right" },
-        });
-      }
+      // if (data) {
+      setOpen(false);
+      const dto: LoginDto = {
+        conveyor_name: conveyor_name,
+        barcode: barcode,
+      };
+
+      login(dto);
+      setBarcode("");
+      // } else {
+      //   setOpen(false);
+      //   setBarcode("");
+      //   enqueueSnackbar(ClientMessages.EMPLOYEE_EXIT, {
+      //     variant: "error",
+      //     anchorOrigin: { vertical: "bottom", horizontal: "right" },
+      //   });
+      // }
     }
   };
 
@@ -55,7 +78,7 @@ export default function EmployeeBarcodeModal({ conveyor_name }: { conveyor_name:
             transition
             className="relative transform overflow-hidden rounded-lg bg-slate-800 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
           >
-            <div className="bg-slate-900 flex flex-col gap-6 px-6 py-4 ">
+            <div className="bg-slate-800 flex flex-col gap-6 px-6 py-4 ">
               <div>
                 <DialogTitle as="h3" className="text-2xl font-semibold text-slate-100 ">
                   Отсканируйте бэйдж:

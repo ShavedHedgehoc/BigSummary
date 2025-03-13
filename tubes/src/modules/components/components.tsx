@@ -1,5 +1,9 @@
 import React from "react";
-export default function Components({ conveyor }: { conveyor: string }) {
+import { useSearchParams } from "react-router";
+export default function Components() {
+  let [searchParams] = useSearchParams();
+  const conveyor = searchParams.get("conveyor");
+  const post = searchParams.get("post");
   const mockChecks = [
     {
       id: 1,
@@ -68,7 +72,7 @@ export default function Components({ conveyor }: { conveyor: string }) {
               {mockChecks.map((item) => (
                 <div
                   className="flex flex-row flex-grow-0 text-slate-300 text-1xl items-center justify-start py-2 px-4 gap-4  my-1"
-                  key={item.id}
+                  key={`comp_${item.id}`}
                 >
                   <div>{item.time}: </div>
                   <div className="text-xs">
@@ -81,6 +85,63 @@ export default function Components({ conveyor }: { conveyor: string }) {
             </div>
           </div>
         </div>
+        {/* <div
+          className="flex flex-row w-full items-center justify-center py-2 px-4 rounded-lg bg-amber-600 text-slate-100 text-1xl font-semibold"
+          //   onClick={data?.employee ? () => logout(conveyor) : () => setOpen(true)}
+        >
+          Внести данные
+        </div> */}
+        {/* <div className="flex text-2xl text-slate-300 py-2 ">Комплектующие поста</div>
+        <div className="flex flex-grow w-full">
+          <div className="h-0 min-h-full overflow-y-auto  w-full  rounded-xl bg-gray-800 scrollbar-none">
+            <div className="h-full min-h-0 py-2 px-2">
+              {mockChecks
+                .filter((x) => x.post === 1)
+                .map((item) => (
+                  <div
+                    className="flex flex-row text-slate-300 text-1xl items-center justify-start py-2 px-4 gap-4  my-1"
+                    key={item.id}
+                  >
+                    <div className="text-sm">{item.code}</div>
+                    <div className="text-sm block w-full gap-2">
+                      <span>{item.name}</span>
+                      <p className="text-xs">
+                        <span>Партия: </span>
+                        <span className={clsx(["text-xs"], [item.lot === "-" ? "text-red-500" : "text-green-500"])}>
+                          {item.lot === "-" ? "Не внесена" : item.lot}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div> */}
+        {/* <div className="flex text-2xl text-slate-300 py-2 ">Текущие комплектующие</div>
+        <div className="flex flex-grow w-full">
+          <div className="h-0 min-h-full overflow-y-auto  w-full  rounded-xl bg-gray-800 scrollbar-none">
+            <div className="h-full min-h-0 py-2 px-2">
+              {mockChecks.map((item) => (
+                <div
+                  className="flex flex-row text-slate-300 text-1xl items-center justify-start py-2 px-4 gap-4  my-1"
+                  key={item.id}
+                >
+                  <div className="text-sm">{item.code}</div>
+                  <div className="text-sm block w-full gap-2">
+              
+                    <span>{item.name}</span>
+                    <p className="text-xs">
+                      <span>Партия: </span>
+                      <span className={clsx(["text-xs"], [item.lot === "-" ? "text-red-500" : "text-green-500"])}>
+                        {item.lot === "-" ? "Не внесена" : item.lot}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div> */}
         {/* <div
           className="flex flex-row w-full items-center justify-center py-2 px-4 rounded-lg bg-amber-600 text-slate-100 text-1xl font-semibold"
           //   onClick={data?.employee ? () => logout(conveyor) : () => setOpen(true)}

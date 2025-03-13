@@ -113,8 +113,6 @@ import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
 import TubeSession from "./tube_sessions/tube_sessions.model";
 
 @Module({
-  controllers: [TracePlantsController],
-  providers: [TubeHistoriesService],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,

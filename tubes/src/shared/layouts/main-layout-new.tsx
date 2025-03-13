@@ -11,7 +11,7 @@ function Top({ children }: { children: React.ReactNode }) {
 function Main({ children }: { children: React.ReactNode }) {
   return (
     <React.Fragment>
-      <div className="flex  h-full w-full gap-2">{children}</div>
+      <div className="flex h-full w-full gap-2">{children}</div>
     </React.Fragment>
   );
 }

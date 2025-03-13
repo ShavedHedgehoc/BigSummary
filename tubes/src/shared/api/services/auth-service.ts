@@ -11,11 +11,11 @@ export interface IAuthResponse {
 
 export interface LoginDto {
   conveyor_name: string;
-  employee_id: number;
+  barcode: string;
 }
 
 export default class AuthService {
-  static async getAuthEmployee(conveyor_name: string): Promise<IAuthResponse | null> {
+  static async getAuthEmployee(conveyor_name: string | null): Promise<IAuthResponse | null> {
     const res = await axios.get(`/api/tube-sessions/${conveyor_name}`);
     return res.data;
   }

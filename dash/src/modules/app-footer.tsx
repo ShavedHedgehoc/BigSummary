@@ -46,6 +46,25 @@ export default function AppFooter({ plant, disabled }: { plant: string; disabled
           <div className={clsx("h-2 w-24", disabled !== 2 && "bg-slate-200", "bg-amber-600 rounded-md")} />
         </div>
       </Button>
+
+      <Button
+        className={clsx(
+          "py-2 px-4 w-48 h-full ",
+          "flex flex-col  items-center justify-center",
+          "text-2xl font-semibold",
+          "data-[disabled]:text-slate-200 data-[disabled]:bg-gray-900 ",
+          "data-[active]:text-slate-200 data-[active]:bg-gray-800",
+          "text-slate-200 bg-gray-900"
+        )}
+        disabled={disabled == 3}
+        onClick={() => navigate(`${RouteNames.BOILS}?plant=${plant}`)}
+      >
+        <DocumentIcon size={8} />
+        <div className="flex flex-col gap-1">
+          <div>Основы</div>
+          <div className={clsx("h-2 w-24", disabled !== 3 && "bg-slate-200", "bg-amber-600 rounded-md")} />
+        </div>
+      </Button>
     </div>
   );
 }

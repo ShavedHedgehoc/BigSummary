@@ -9,4 +9,5 @@ export enum RouteNames {
   APPARATUS_STATE_DETAIL = "/app_state_detail/:record_id",
   RECORD_DETAIL = "/record_detail/:record_id",
   CANS = "/cans",
+  BOILS = "/boils",
 }

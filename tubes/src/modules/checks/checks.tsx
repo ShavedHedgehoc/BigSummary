@@ -1,5 +1,9 @@
 import React from "react";
-export default function Checks({ conveyor }: { conveyor: string }) {
+import { useSearchParams } from "react-router";
+export default function Checks() {
+  let [searchParams] = useSearchParams();
+  const conveyor = searchParams.get("conveyor");
+  const post = searchParams.get("post");
   const mockChecks = [
     { id: 1, name: "Толщина тубы", value: 0.05, time: "14:36:15" },
     { id: 2, name: "Герметичность", value: "Проверена", time: "14:36:15" },

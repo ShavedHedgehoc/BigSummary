@@ -6,5 +6,6 @@ import { SequelizeModule } from "@nestjs/sequelize";
 @Module({
   providers: [TubeHistoryTypesService],
   imports: [SequelizeModule.forFeature([TubeHistoryType])],
+  exports: [TubeHistoryTypesService],
 })
 export class TubeHistoryTypesModule {}
