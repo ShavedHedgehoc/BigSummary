@@ -25,7 +25,8 @@ export class TraceCansService {
   }
 
   async getCans() {
-    const cans = await this.traceCansRepository.findAll({});
+    var offset = 3;
+    const cans = await this.traceCansRepository.findAll({ order: [["CanOrderValue", "ASC"]] });
     const cansResult = await Promise.all(
       await cans.map(async (item) => {
         const state = await this.traceCanRecordsService.getLastStateById(item.CanPK);
@@ -40,9 +41,11 @@ export class TraceCansService {
             : null,
           stateValue: state ? (await state.$get("state")).CanStateName : "-",
           state: state ? (await state.$get("state")).CanStateDescription : "-",
-          stateTime: state ? state.CreateDate : null,
+          stateTime: state ? new Date(state.CreateDate.getTime() - offset * 3600 * 1000) : null,
           author: state ? (await state.$get("author")).AuthorName : null,
-          isUpdated: state ? new Date().getTime() - new Date(state.CreateDate).getTime() < 1000 * 60 * 2 : false,
+          isUpdated: state
+            ? new Date().getTime() - (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) < 1000 * 60 * 2
+            : false,
           transit: location ? location.Transit : null,
           plant: location && location.PlantPK ? (await location.$get("plant")).PlantAlias : null,
         };
@@ -160,12 +163,14 @@ export class TraceCansService {
 
     const cans = await this.traceCansRepository.findAll({
       where: { [Op.and]: [{ ...filter }, { ...plantFilter }, { ...stateFilter }, { ...transitFilter }] },
+      order: [["CanOrderValue", "ASC"]],
     });
 
     const cansResult = await Promise.all(
       await cans.map(async (item) => {
         const state = await this.traceCanRecordsService.getLastStateById(item.CanPK);
         const location = await this.traceCanLocationsService.getLastLocationByCanId(item.CanPK);
+        var offset = 3;
         return {
           id: item.CanPK,
           name: item.CanName,
@@ -174,11 +179,14 @@ export class TraceCansService {
           baseContainMarking: state
             ? (await (await (await state.$get("batch"))?.$get("bt_products"))?.$get("trace_product"))?.ProductMarking
             : null,
+
           stateValue: state ? (await state.$get("state")).CanStateName : "-",
           state: state ? (await state.$get("state")).CanStateDescription : "-",
-          stateTime: state ? state.CreateDate : null,
+          stateTime: state ? new Date(state.CreateDate.getTime() - offset * 3600 * 1000) : null,
           author: state ? (await state.$get("author")).AuthorName : null,
-          isUpdated: state ? new Date().getTime() - new Date(state.CreateDate).getTime() < 1000 * 60 * 2 : false,
+          isUpdated: state
+            ? new Date().getTime() - (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) < 1000 * 60 * 2
+            : false,
           transit: location ? location.Transit : null,
           plant: location && location.PlantPK ? (await location.$get("plant")).PlantAlias : null,
         };

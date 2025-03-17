@@ -6,7 +6,8 @@ import TechLayout from "../../shared/layouts/tech-layout";
 import CansView from "./cans-view";
 import CansHeader from "./cans-header";
 import AppFooter from "../app-footer";
-import CansFilterModal from "./cans-filter-modal";
+import CansFilterModal from "./cans-filter/cans-filter-modal";
+import CansHistoryModal from "./cans-history/cans-history-modal";
 
 export default function Cans() {
   let [searchParams] = useSearchParams();
@@ -28,6 +29,7 @@ export default function Cans() {
         <CansHeader />
       </TechLayout.Header>
       <TechLayout.Main>
+        <CansHistoryModal />
         <CansView />
       </TechLayout.Main>
       <TechLayout.Footer>

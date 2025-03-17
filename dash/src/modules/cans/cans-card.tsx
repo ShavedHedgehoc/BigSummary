@@ -1,7 +1,19 @@
+import { useShallow } from "zustand/react/shallow";
 import { ITraceCanData } from "../../shared/api/services/trace-can-service";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
+import { useCansHistoryModalStore } from "./store/use-cans-history-modal-store";
 
 export default function CansCard({ item }: { item: ITraceCanData }) {
+  const setOpen = useCansHistoryModalStore(useShallow((state) => state.setOpen));
+  const setCanId = useCansHistoryModalStore(useShallow((state) => state.setCanId));
+  const setCanName = useCansHistoryModalStore(useShallow((state) => state.setCanName));
+
+  function handleClick() {
+    setCanId(item.id);
+    setCanName(item.name);
+    setOpen(true);
+  }
+
   return (
     <div
       className={`flex flex-col h-40 w-full rounded-md relative px-4 py-2  text-slate-200  justify-between
@@ -14,6 +26,7 @@ export default function CansCard({ item }: { item: ITraceCanData }) {
         ${item.stateValue === "can_need_wash" && "bg-amber-900"} 
         ${item.stateValue === "can_correct" && "bg-yellow-300 text-slate-600"} 
         ${item.isUpdated && "animate-pulse"}`}
+      onClick={() => handleClick()}
     >
       <div className="flex flex-row items-center justify-between w-full ">
         <div className="flex text-3xl font-semibold">{item.name}</div>

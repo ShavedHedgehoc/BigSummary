@@ -1,12 +1,12 @@
 import { useShallow } from "zustand/react/shallow";
-import { useCansFilterStore } from "./store/use-cans-filter-store";
+import { useCansFilterStore } from "../store/use-cans-filter-store";
 import { useQuery } from "@tanstack/react-query";
 import { CansFilterParams } from "./cans-filter-params";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import clsx from "clsx";
-import DownIcon from "../../shared/components/icons/down-icon";
-import ListCheckIcon from "../../shared/components/icons/list-check-icon";
-import TraceCanStatesService from "../../shared/api/services/trace-can-state-service";
+import DownIcon from "../../../shared/components/icons/down-icon";
+import ListCheckIcon from "../../../shared/components/icons/list-check-icon";
+import TraceCanStatesService from "../../../shared/api/services/trace-can-state-service";
 
 export default function CansFilterStateSelector() {
   const filter = useCansFilterStore(useShallow((state) => state.filter));

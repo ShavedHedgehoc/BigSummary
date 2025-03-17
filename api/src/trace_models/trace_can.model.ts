@@ -18,6 +18,9 @@ export default class TraceCan extends Model {
   @Column
   CanBarcode: string;
 
+  @Column
+  CanOrderValue: string;
+
   // @ForeignKey(() => TracePlant)
   // @Column
   // PlantPK: number;

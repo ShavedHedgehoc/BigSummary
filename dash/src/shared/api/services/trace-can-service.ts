@@ -74,8 +74,8 @@ export default class TraceCansService {
     return res.data;
   }
 
-  static async getCansListWithParams(dto: FetchCansListDto): Promise<ITraceCanResponse> {
-    const res = await axios.post(`trace-cans/list`, dto);
-    return res.data;
-  }
+  // static async getCansListWithParams(dto: FetchCansListDto): Promise<ITraceCanResponse> {
+  //   const res = await axios.post(`trace-cans/list`, dto);
+  //   return res.data;
+  // }
 }

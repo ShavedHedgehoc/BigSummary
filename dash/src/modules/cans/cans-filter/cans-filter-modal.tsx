@@ -1,11 +1,12 @@
 import { useShallow } from "zustand/react/shallow";
-import { useCansFilterModalStore } from "./store/use-cans-filter-modal-store";
+import { useCansFilterModalStore } from "../store/use-cans-filter-modal-store";
 import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import CansFilterPlantSelector from "./cans-filter-plant-selector";
 import clsx from "clsx";
-import { initCansFilterValue, useCansFilterStore } from "./store/use-cans-filter-store";
+import { initCansFilterValue, useCansFilterStore } from "../store/use-cans-filter-store";
 import CansFilterVolumeSelector from "./cans-filter-volume-selector";
 import CansFilterStateSelector from "./cans-filter-state-selector";
+import CansFilterTransitSwitch from "./cans-filter-transit-switch";
 
 export default function CansFilterModal() {
   const open = useCansFilterModalStore(useShallow((state) => state.open));
@@ -40,6 +41,10 @@ export default function CansFilterModal() {
                 <div className="text-slate-300 text-xl px-2">Статус:</div>
                 <CansFilterStateSelector />
               </div>
+            </div>
+            <div className="flex flex-col gap-2 self-end">
+              <div className="text-slate-300 text-xl px-2">Транзит</div>
+              <CansFilterTransitSwitch />
             </div>
             <div className="flex w-full justify-end gap-4">
               <Button
