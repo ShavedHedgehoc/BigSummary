@@ -30,7 +30,7 @@ export default function CansHistoryTable() {
       <div className="h-full min-h-0 ">
         {isSuccess && data && (
           <table className="table-auto text-slate-300 w-full">
-            <thead className="text-xs sticky top-0 border-b border--600  bg-gray-900">
+            <thead className="text-2xl sticky top-0 border-b border--600  bg-gray-900">
               <tr>
                 <th className="border-b border-gray-800 px-4 py-4">Дата</th>
                 <th className="border-b border-l border-gray-800 px-4 py-4">Время</th>
@@ -42,13 +42,17 @@ export default function CansHistoryTable() {
             <tbody>
               {data.map((item) => (
                 <tr className="text-1xl">
-                  <td className="border-b border-l border-gray-800 px-4 py-4">{formatDateToString(item.CreateDate)}</td>
-                  <td className="border-b border-l border-gray-800 px-4 py-4">{formatTimeToString(item.CreateDate)}</td>
-                  <td className="border-b border-l border-gray-800 px-4 py-4 text-left">{item.stateDescription}</td>
-                  <td className="border-b border-l border-gray-800 px-4 py-4">
+                  <td className="border-b  border-gray-800 px-4 py-4 text-center">
+                    {formatDateToString(item.CreateDate)}
+                  </td>
+                  <td className="border-b border-l border-gray-800 px-4 py-4 text-center">
+                    {formatTimeToString(item.CreateDate)}
+                  </td>
+                  <td className="border-b border-l border-gray-800 px-4 py-4 text-center">{item.stateDescription}</td>
+                  <td className="border-b border-l border-gray-800 px-4 py-4 text-center">
                     {item.baseContain ? item.baseContain : "-"}
                   </td>
-                  <td className="border-b border-l border-gray-800 px-4 py-4 text-left">{item.authorName}</td>
+                  <td className="border-b border-l border-gray-800 px-4 py-4 text-center">{item.authorName}</td>
                 </tr>
               ))}
             </tbody>
