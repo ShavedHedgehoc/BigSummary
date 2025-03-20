@@ -158,7 +158,7 @@ export default function DocumentDetailPDFView({
                       <Text>{item.historyType.description}</Text>
                     </View>
                     <View style={styles.fourth_cell}>
-                      <Text>{item.user?.name}</Text>
+                      <Text>{item.user ? item.user.name : item.employee ? item.employee.name : "-"}</Text>
                     </View>
                     <View style={styles.fifth_cell}>
                       <Text>{item.history_note ? item.history_note.value : ""}</Text>
