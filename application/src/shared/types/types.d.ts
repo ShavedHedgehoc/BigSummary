@@ -19,6 +19,12 @@ interface IHistory {
   user: IUser | null;
   employee: IEmployee | null;
   note_id: number;
+  history_note: IHistoryNote;
+}
+
+interface IHistoryNote {
+  id: number;
+  value: string;
 }
 interface IOccupation {
   id: number;

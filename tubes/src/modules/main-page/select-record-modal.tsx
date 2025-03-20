@@ -6,6 +6,8 @@ import { useActiveRecords } from "./use-active-records";
 import { formatDateToString } from "../../shared/helpers/dateUtils";
 import { CreateTubeHistoryDto } from "../../shared/api/services/history-service";
 import { useAuth } from "../employee/use-auth";
+import { useSetActiveRecord } from "../../shared/api/use-set-active-record";
+import { SetActiveRecordDto } from "../../shared/api/services/record-service";
 
 export default function SelectRecordModal() {
   const open = useSelectRecordModalStore(useShallow((state) => state.open));
@@ -15,17 +17,25 @@ export default function SelectRecordModal() {
   const setCheckedId = useSelectRecordModalStore(useShallow((state) => state.setCheckedId));
 
   const { data, isSuccess, isPending } = useActiveRecords(conveyor);
-  const { data: authData, isSuccess: authSuccess } = useAuth(conveyor);
+  // const { data: authData, isSuccess: authSuccess } = useAuth(conveyor);
+  const { setActiveRecord } = useSetActiveRecord();
 
   const handleSetButtonClick = () => {
     setOpen(false);
-    if (authSuccess && authData && checkedId) {
-      const dto: CreateTubeHistoryDto = {
-        history_type: "",
+    if (checkedId && conveyor) {
+      const dto: SetActiveRecordDto = {
         record_id: checkedId.id,
-        employee_id: authData.employee.id,
+        conveyor_name: conveyor,
       };
+      setActiveRecord(dto);
     }
+    // if (authSuccess && authData && checkedId) {
+    //   const dto: CreateTubeHistoryDto = {
+    //     history_type: "",
+    //     record_id: checkedId.id,
+    //     employee_id: authData.employee.id,
+    //   };
+    // }
     setCheckedId(null);
   };
 
@@ -95,7 +105,7 @@ export default function SelectRecordModal() {
               <div className="flex flex-row w-full gap-2 justify-end">
                 <div
                   className="flex flex-row w-32 items-center justify-center py-2 px-4 rounded-lg bg-purple-300 text-slate-50 text-1xl font-semibold"
-                  onClick={() => setOpen(false)}
+                  onClick={() => handleSetButtonClick()}
                 >
                   Установить
                 </div>

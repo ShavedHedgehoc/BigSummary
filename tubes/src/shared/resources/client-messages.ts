@@ -13,4 +13,5 @@ export enum ClientMessages {
 
   EMPLOYEE_EXIT = "Сотрудник успешно вышел",
   EMPLOYEE_IN = "Успешная авторизация",
+  PRODUCT_SELECTED = "Строка успешно выбрана",
 }

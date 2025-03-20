@@ -3,6 +3,7 @@ import Typography from "@mui/joy/Typography";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import { TableState } from "../../shared/ui/table-state";
 import { TableIconButton } from "../../shared/ui/table-icon-button";
 import { Box } from "@mui/joy";
@@ -13,6 +14,7 @@ import { useDocumentDetailHistoryModalStore } from "./store/use-document-detail-
 import { Context } from "../../main";
 import { DbRoles } from "../../shared/db-roles";
 import { useDocumentDetailAddHistoryModalStore } from "./store/use-document-detail-add-history-modal-store";
+import { usePDFModalStore } from "./store/use-pdf-modal-store";
 
 export default function DocumentDetailRow({ row }: { row: IDocRow }) {
   const { store } = React.useContext(Context);
@@ -31,6 +33,9 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
   const setRecordId = useDocumentDetailHistoryModalStore(useShallow((state) => state.setRecordId));
   const setTitle = useDocumentDetailHistoryModalStore(useShallow((state) => state.setTitle));
   const setAddButtonEnabled = useDocumentDetailHistoryModalStore(useShallow((state) => state.setAddButtonEnabled));
+
+  const setOpenPDFModal = usePDFModalStore(useShallow((state) => state.setOpen));
+  const setPDFRecord = usePDFModalStore(useShallow((state) => state.setRecord));
 
   const setUserId = useDocumentDetailAddHistoryModalStore(useShallow((state) => state.setUserId));
   const setRow = useDocumentDetailAddHistoryModalStore(useShallow((state) => state.setRow));
@@ -61,6 +66,11 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
   const handleDeleteButtonClick = () => {
     setDeleteId(row.id);
     setOpenDeleteModal(true);
+  };
+
+  const handlePDFButtonClick = () => {
+    setPDFRecord(row);
+    setOpenPDFModal(true);
   };
 
   return (
@@ -94,10 +104,12 @@ export default function DocumentDetailRow({ row }: { row: IDocRow }) {
       </td>
       <td style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
+          <TableIconButton color="success" disabled={row.state === "-"} onClick={() => handlePDFButtonClick()}>
+            <PictureAsPdfOutlinedIcon />
+          </TableIconButton>
           <TableIconButton color="primary" onClick={() => handleEditButtonClick()}>
             <EditOutlinedIcon />
           </TableIconButton>
-          {/* <TableIconButton color="success" onClick={() => navigate(`/record/` + `${row.id}`)}> */}
           <TableIconButton color="success" onClick={() => handleDetailButtonClick()}>
             <InfoOutlinedIcon />
           </TableIconButton>

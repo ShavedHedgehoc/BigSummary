@@ -32,6 +32,7 @@ import { CreateRecordRegulationDto } from "src/record_regulations/dto/create-rec
 import { parse } from "src/helpers/parse";
 import { SemiProductsService } from "src/semi_products/semi_products.service";
 import { CreateSemiProductDto } from "src/semi_products/dto/create-semi-product.dto";
+import Note from "src/notes/notes.model";
 
 @Injectable()
 export class RecordsService {

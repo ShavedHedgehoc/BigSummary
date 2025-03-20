@@ -18,6 +18,7 @@ import { BasesService } from "src/bases/bases.service";
 import { NotesService } from "src/notes/notes.service";
 import { ApiMessages } from "src/resources/api-messages";
 import { ApiErrorsService } from "src/api_errors/api_errors.service";
+import Note from "src/notes/notes.model";
 
 @Injectable()
 export class HistoriesService {
@@ -319,6 +320,7 @@ export class HistoriesService {
         },
         { model: User, as: "user" },
         { model: Employee, as: "employee" },
+        { model: Note, as: "history_note" },
       ],
       order: [["createdAt", "ASC"]],
     });

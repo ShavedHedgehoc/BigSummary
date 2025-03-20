@@ -55,6 +55,7 @@ import { TubeHistoriesService } from "./tube_histories/tube_histories.service";
 import { TubeHistoriesModule } from "./tube_histories/tube_histories.module";
 import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.module";
 import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
+import { TubeParametersModule } from './tube_parameters/tube_parameters.module';
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -111,6 +112,7 @@ import TubeHistoryType from "./tube_history_types/tube_history_types.model";
 import TubeHistory from "./tube_histories/tube_histories.model";
 import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
 import TubeSession from "./tube_sessions/tube_sessions.model";
+import TubeParameter from "./tube_parameters/tube_parameters.model";
 
 @Module({
   imports: [
@@ -198,6 +200,7 @@ import TubeSession from "./tube_sessions/tube_sessions.model";
         TubeHistory,
         TubeHistoryNote,
         TubeSession,
+        TubeParameter
       ],
       autoLoadModels: true,
     }),
@@ -256,6 +259,7 @@ import TubeSession from "./tube_sessions/tube_sessions.model";
     TubeHistoriesModule,
     TubeHistoryNotesModule,
     TubeSessionsModule,
+    TubeParametersModule,
   ],
 })
 export default class AppModule {}

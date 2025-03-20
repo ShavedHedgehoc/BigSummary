@@ -6,12 +6,14 @@ import {
   DataType,
   Default,
   ForeignKey,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
 import Boil from "src/boils/boil.model";
 import TubeConveyor from "src/tube_conveyors/tube_conveyors.model";
+import TubeParameter from "src/tube_parameters/tube_parameters.model";
 import TubeProduct from "src/tube_products/tube_products.model";
 
 interface TubeRecordCreationsAttrs {}
@@ -41,10 +43,9 @@ export default class TubeRecord extends Model<TubeRecord, TubeRecordCreationsAtt
   @Column({ type: DataType.DATEONLY })
   start_date: Date;
 
-  // remove when use select product
-  // @Default(false)
-  // @Column({ type: DataType.BOOLEAN })
-  // active: boolean;
+  @Default(false)
+  @Column({ type: DataType.BOOLEAN })
+  active: boolean;
 
   @Default(false)
   @Column({ type: DataType.BOOLEAN })
@@ -58,4 +59,7 @@ export default class TubeRecord extends Model<TubeRecord, TubeRecordCreationsAtt
 
   @BelongsTo(() => Boil)
   boil: Boil;
+
+  @HasOne(() => TubeParameter)
+  tube_parameter: TubeParameter;
 }

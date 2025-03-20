@@ -6,6 +6,8 @@ import { useConveyorState } from "../state/use-conveyor-state";
 import SelectRecordModal from "./select-record-modal";
 import { useSelectRecordModalStore } from "./store/use-select-record-modal-store";
 import { useShallow } from "zustand/react/shallow";
+import Product from "./product";
+import ParameterTable from "./parameter-table";
 export default function MainPage() {
   let [searchParams] = useSearchParams();
   const conveyor = searchParams.get("conveyor");
@@ -101,38 +103,20 @@ export default function MainPage() {
     <React.Fragment>
       <SelectRecordModal />
       <div className="flex flex-col w-full flex-shrink h-full items-center justify-start rounded-lg bg-gray-900 1border border-stone-600 px-4  gap-2 py-4">
-        <div className="flex text-2xl text-slate-300 py-2 px-4 ">Продукт</div>
         <div className="flex flex-row h-full w-full gap-2 ">
           <div className="flex flex-col w-full px-2 gap-1 text-1xl ">
-            <div className="text-slate-300 text-3xl">030874 Туба LOVE 50 мл D 28 мм металлическая</div>
+            <Product conveyor={conveyor} />
+            <ParameterTable conveyor={conveyor} post={post} />
+            {/* <div className="text-slate-300 text-3xl">030874 Туба LOVE 50 мл D 28 мм металлическая</div>
             <div className="text-slate-300">Партия: 235В</div>
             <div className="text-slate-300">План: 10000</div>
-            <div className="text-slate-300">Выпуск: 2400</div>
+            <div className="text-slate-300">Выпуск: 2400</div> */}
 
-            <div className="text-slate-400 flex w-full ">
-              <table className="table-auto border border-collapse border-gray-400 w-full rounded-md">
-                <thead className="">
-                  <th className=" rounded-tl-sm border border-gray-400 px-4 py-2">Скорость пресса</th>
-                  <th className="border border-gray-400 px-4 py-2">Время выдува</th>
-                  <th className="border border-gray-400 px-4 py-2">Скорость токарного автомата</th>
-                  <th className="border border-gray-400 px-4 py-2">Температура печи отжига</th>
-                  <th className="border border-gray-400 px-4 py-2">Тип рондоли</th>
-                </thead>
-                <tbody className="rounded-b-sm">
-                  <tr>
-                    <td className="border border-gray-400 px-4 py-2 text-center">70-80 шт/мин</td>
-                    <td className="border border-gray-400 px-4 py-2 text-center">70-80 шт/мин</td>
-                    <td className="border border-gray-400 px-4 py-2 text-center">70-80 шт/мин</td>
-                    <td className="border border-gray-400 px-4 py-2 text-center">70-80 шт/мин</td>
-                    <td className="border border-gray-400 px-4 py-2 text-center">70-80 шт/мин</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <div className="text-slate-400 flex w-full "></div>
           </div>
-          <div className="flex flex-col w-1/6 ">
+          {/* <div className="flex flex-col w-1/6 ">
             <img className="rounded-md  object-fill" src={"30874 201222.jpg"} />
-          </div>
+          </div> */}
         </div>
         <div className="text-slate-300 text-5xl">ЖМАКНИ ПИМПУ!</div>
 
