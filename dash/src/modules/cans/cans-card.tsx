@@ -25,7 +25,8 @@ export default function CansCard({ item }: { item: ITraceCanData }) {
         ${item.stateValue === "can_desinfected" && "bg-fuchsia-700"} 
         ${item.stateValue === "can_need_wash" && "bg-amber-900"} 
         ${item.stateValue === "can_correct" && "bg-yellow-300 text-slate-600"} 
-        ${item.isUpdated && "animate-pulse"}`}
+        ${item.isUpdated && "animate-pulse"}
+        ${item.stateValue === "-" && "border border-slate-800"}`}
       onClick={() => handleClick()}
     >
       <div className="flex flex-row items-center justify-between w-full ">
