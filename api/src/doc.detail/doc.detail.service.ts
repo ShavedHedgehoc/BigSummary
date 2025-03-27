@@ -48,6 +48,13 @@ export class DocDetailService {
     const regulation = await this.recordRegulationsService.getByRecordId(item.id);
     const doc = await item.$get("doc");
 
+    const history_note =
+      historiesCount > 0
+        ? histories[histories.length - 1].history_note
+          ? histories[histories.length - 1].history_note.value
+          : null
+        : null;
+
     return {
       id: item.id,
       productId: item.product.code1C,
@@ -70,6 +77,7 @@ export class DocDetailService {
       regulation: regulation,
       water_base_id: item.water_base_id,
       plant_id: doc.plantId,
+      history_note: history_note,
     };
   }
 

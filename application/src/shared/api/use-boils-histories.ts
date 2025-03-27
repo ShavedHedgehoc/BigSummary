@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import BoilService from "../../shared/api/services/boil-service";
+import BoilService from "./services/boil-service";
 
 export const useBoilsHistories = (id: number | null) =>
   useQuery({

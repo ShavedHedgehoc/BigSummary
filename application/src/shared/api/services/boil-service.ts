@@ -14,4 +14,9 @@ export default class BoilService {
     const res = await $api.post(`/boils_list`, dto);
     return res.data;
   }
+
+  static async getBoilsReportWithParams(dto: FetchBoilsDto): Promise<IBoilReportData> {
+    const res = await $api.post(`/boils_list/report`, dto);
+    return res.data;
+  }
 }

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { IPlant } from "../../../types";
-import { ForemanFilterParams } from "../foreman-filter-params";
+import { ForemanFilterParams } from "../filter/foreman-filter-params";
 
 interface ForemanFilterStore {
   filter: FetchProductFilter;

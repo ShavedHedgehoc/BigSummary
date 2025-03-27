@@ -4,7 +4,7 @@ import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 import { useForemanFilterStore } from "./store/use-foreman-filter-store";
 import { Dropdown, Menu, MenuItem, MenuButton } from "@mui/joy";
-import { ForemanFilterParams } from "./foreman-filter-params";
+import { ForemanFilterParams } from "./filter/foreman-filter-params";
 import { useQuery } from "@tanstack/react-query";
 import PlantService from "../../shared/api/services/plant-service";
 

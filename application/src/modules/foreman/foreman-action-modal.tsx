@@ -190,10 +190,18 @@ export default function ForemanActionModal() {
           <Box>Годен до:</Box>
           <Box>{record.bbf}</Box>
         </Box>
+        {record.history_note && (
+          <Box
+            sx={{ display: "flex", flexDirection: "column", gap: 1, justifyContent: "space-between", fontSize: "1rem" }}
+          >
+            <Box>Комментарий лаборатории:</Box>
+
+            <Box>{record.history_note}</Box>
+          </Box>
+        )}
         {/* <Box sx={{ display: "flex", width: "100%", fontSize: "1rem" }}>
           <Box sx={{ textAlign: "justify" }}>Примечание: {record.note}</Box>
         </Box> */}
-
         {/* {record.state !== "-" &&
           record.stateValue !== "base_check" &&
           record.stateValue !== "base_correct" &&

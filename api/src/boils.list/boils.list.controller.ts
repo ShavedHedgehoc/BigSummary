@@ -7,19 +7,25 @@ import { GetBoilsDto } from "src/boils/dto/get-boils.dto";
 @Controller("boils_list")
 export class BoilsListController {
   constructor(private boilsListService: BoilsListService) {}
-  @ApiOperation({ summary: "Получить все типы записей" })
-  //   @ApiResponse({ status: 200, type: [History] })
-  @Get()
-  getAll() {
-    return this.boilsListService.getBoilsList();
-  }
+  // @ApiOperation({ summary: "Получить все типы записей" })
+  // //   @ApiResponse({ status: 200, type: [History] })
+  // @Get()
+  // getAll() {
+  //   return this.boilsListService.getBoilsList();
+  // }
 
   @ApiOperation({ summary: "Получить все типы записей с параметрами" })
-  //   @ApiResponse({ status: 200, type: [History] })
   @Post()
   getAllWithParams(@Body() dto: GetBoilsDto) {
     return this.boilsListService.getBoilsListWithFilter(dto);
   }
+
+  @ApiOperation({ summary: "Получить все типы записей с параметрами" })
+  @Post("/report")
+  getReportWithParams(@Body() dto: GetBoilsDto) {
+    return this.boilsListService.getBoilsReportWithFilter(dto);
+  }
+
   @ApiOperation({ summary: "Получить запись по id" })
   //   @ApiResponse({ status: 200, type: [History] })
   @Get("/boil/:boil_id")

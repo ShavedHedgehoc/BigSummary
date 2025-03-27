@@ -21,7 +21,7 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-// import AssessmentIcon from "@mui/icons-material/Assessment";
+import AssessmentIcon from "@mui/icons-material/Assessment";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 import { closeSidebar } from "../../utils";
@@ -368,7 +368,7 @@ function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          {/* <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -397,7 +397,7 @@ function SideBar() {
                 </ListItem>
               </List>
             </Toggler>
-          </ListItem> */}
+          </ListItem>
           <ListItem sx={{ display: { xs: "none", sm: "initial" } }}>
             <ListItemButton role="menuitem">
               <ListItemContent>

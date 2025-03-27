@@ -1,18 +1,18 @@
 import { useShallow } from "zustand/shallow";
-import FilterInput, { FilterInputProps } from "../../shared/ui/filter-input";
-import { useForemanFilterStore } from "./store/use-foreman-filter-store";
+import { useForemanFilterStore } from "../store/use-foreman-filter-store";
 import { ForemanFilterParams } from "./foreman-filter-params";
+import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
 
-export default function ForemanFilterCodeInput() {
+export default function ForemanFilterBatchInput() {
   const filter = useForemanFilterStore(useShallow((state) => state.filter));
   const changeFilter = useForemanFilterStore(useShallow((state) => state.changeFilter));
 
   const inputProps: FilterInputProps = {
-    id: ForemanFilterParams.PRODUCT,
-    value: filter.productCode,
-    disabled: filter.productCode === "",
-    label: "Поиск по коду 1С",
-    placeholder: "Код 1С",
+    id: ForemanFilterParams.BOIL,
+    value: filter.boil,
+    disabled: filter.boil === "",
+    placeholder: "Партия",
+    label: "Поиск по партии",
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

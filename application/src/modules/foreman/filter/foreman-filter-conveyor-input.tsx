@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/shallow";
-import FilterInput, { FilterInputProps } from "../../shared/ui/filter-input";
-import { useForemanFilterStore } from "./store/use-foreman-filter-store";
+import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
+import { useForemanFilterStore } from "../store/use-foreman-filter-store";
 import { ForemanFilterParams } from "./foreman-filter-params";
 
 export default function ForemanFilterConveyorInput() {

@@ -21,7 +21,7 @@ import Conveyor from "src/conveyors/conveyor.model";
 import Workshop from "src/workshops/workshop.model";
 import Plant from "src/plants/plant.model";
 import { GetCurrentDocDto } from "src/doc.detail/dto/get-current-doc.dto";
-import { Op } from "sequelize";
+import { Op, col, fn, literal } from "sequelize";
 import sequelize from "sequelize";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 import { UpdateRecordDto } from "./dto/update-record.dto";
@@ -33,6 +33,10 @@ import { parse } from "src/helpers/parse";
 import { SemiProductsService } from "src/semi_products/semi_products.service";
 import { CreateSemiProductDto } from "src/semi_products/dto/create-semi-product.dto";
 import Note from "src/notes/notes.model";
+import { GetRecordReportDto } from "./dto/get-records-report.dto";
+import History from "src/histories/histories.model";
+import HistoryType from "src/history_types/history_types.model";
+import { group } from "console";
 
 @Injectable()
 export class RecordsService {
@@ -517,5 +521,103 @@ export class RecordsService {
     record.plan = plan;
     record.note = dto.note;
     await record.save();
+  }
+
+  async getRecordsReportsWithFilter(dto: GetRecordReportDto) {
+    console.log(dto);
+    let filter = {};
+    if (dto.filter.states && dto.filter.states.length > 0) {
+      const ids = await this.getRecordsIdsByHistoryTypeIds(dto.filter.states);
+      const typeFilter = { [Op.in]: [...ids] };
+      filter = { ...filter, id: typeFilter };
+    }
+    let boilCond = {};
+    if (dto.filter.boil && dto.filter.boil !== "") {
+      const boilFilter = { [Op.iLike]: `%${dto.filter.boil}%` };
+      boilCond = { ...boilCond, value: boilFilter };
+    }
+    let productCond = {};
+    if (dto.filter.productCode && dto.filter.productCode !== "") {
+      const productFilter = { [Op.iLike]: `%${dto.filter.productCode}%` };
+      productCond = { ...productCond, code1C: productFilter };
+    }
+    if (dto.filter.marking && dto.filter.marking !== "") {
+      const markingFilter = { [Op.iLike]: `%${dto.filter.marking}%` };
+      productCond = { ...productCond, marking: markingFilter };
+    }
+
+    let conveyorCond = {};
+    if (dto.filter.conveyor && dto.filter.conveyor !== "") {
+      const conveyorFilter = { [Op.iLike]: `%${dto.filter.conveyor}%` };
+      conveyorCond = { ...conveyorCond, value: conveyorFilter };
+    }
+
+    let docFilter = {};
+    if (dto.filter.plants.length > 0) {
+      const plantFilter = { [Op.in]: [...dto.filter.plants] };
+      docFilter = { ...filter, plantId: plantFilter };
+    }
+
+    const dateFilter = {
+      [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
+    };
+
+    docFilter = { ...docFilter, date: dateFilter };
+
+    const records = await this.recordsRepository.findAll({
+      attributes: {
+        exclude: [
+          "doc_id",
+          "productId",
+          "boilId",
+          "apparatusId",
+          "canId",
+          "conveyorId",
+          "water_base_id",
+          "organic_base_id",
+          "isSet",
+          "workshopId",
+          "createdAt",
+          "updatedAt",
+        ],
+        include: [
+          [col("doc.date"), "doc_date"],
+          [col("product.code1C"), "code1C"],
+          [col("product.marking"), "marking"],
+          [col("apparatus.value"), "apparatusName"],
+          [col("can.value"), "canName"],
+          [col("conveyor.value"), "conveyorName"],
+
+          // [col("histories.fff"), "fconveyorName"],
+          // [fn("MAX", col("histories.id")), "fff"],
+        ],
+      },
+      include: [
+        { model: Product, as: "product", where: { ...productCond }, attributes: [] },
+        { model: Boil, as: "boil", where: { ...boilCond }, attributes: [] },
+        { model: Apparatus, as: "apparatus", attributes: [] },
+        { model: Can, as: "can", attributes: [] },
+        { model: Conveyor, as: "conveyor", where: { ...conveyorCond }, attributes: [] },
+        { model: Workshop, as: "workshop", attributes: [] },
+        { model: Doc, where: { ...docFilter }, attributes: [] },
+        // { model: History, as: "histories", where: { id: fn("MAX", col("histories.id")) } },
+        // { model: HistoryType, attributes: [] },
+      ],
+      group: [
+        "Record.id",
+        "product.code1C",
+        "product.marking",
+        "apparatus.value",
+        "can.value",
+        "conveyor.value",
+        // "histories.id",
+        "doc.date",
+        // "histories.historyType.value",
+      ],
+      order: [["id", "ASC"]],
+      raw: true,
+    });
+
+    return records;
   }
 }

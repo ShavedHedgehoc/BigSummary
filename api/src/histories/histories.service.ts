@@ -327,6 +327,33 @@ export class HistoriesService {
     return histories;
   }
 
+  async getFirstBaseCheck(boilId: number) {
+    const firstBaseCheck = await this.historyRepository.findOne({
+      where: { boil_id: boilId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "base_check" } }],
+      order: [["createdAt", "ASC"]],
+    });
+    return firstBaseCheck;
+  }
+
+  async getLastBaseCheck(boilId: number) {
+    const lastBaseCheck = await this.historyRepository.findOne({
+      where: { boil_id: boilId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "base_check" } }],
+      order: [["createdAt", "DESC"]],
+    });
+    return lastBaseCheck;
+  }
+
+  async getLastPlugPass(boilId: number) {
+    const lastPlugPass = await this.historyRepository.findOne({
+      where: { boil_id: boilId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "plug_pass" } }],
+      order: [["createdAt", "DESC"]],
+    });
+    return lastPlugPass;
+  }
+
   async getAllHistories() {
     const histories = await this.historyRepository.findAll();
     return histories;

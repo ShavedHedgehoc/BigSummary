@@ -7,6 +7,7 @@ import { BulkCreateRecordsDto } from "./dto/bulk-create-records.dto";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 import { UpdateRecordDto } from "./dto/update-record.dto";
 import { UploadDocDto } from "./dto/upload-doc.dto";
+import { GetRecordReportDto } from "./dto/get-records-report.dto";
 
 @ApiTags("Записи сводок")
 @Controller("records")
@@ -67,5 +68,9 @@ export class RecordsController {
   @Put()
   updateRecord(@Body() dto: UpdateRecordDto) {
     return this.recordsService.updateRecord(dto);
+  }
+  @Post("/report")
+  getReport(@Body() dto: GetRecordReportDto) {
+    return this.recordsService.getRecordsReportsWithFilter(dto);
   }
 }

@@ -251,6 +251,27 @@ interface IBoilRow {
   plant: string;
 }
 
+interface IBoilReportData {
+  rows: IBoilReportRow[];
+  total: number;
+}
+
+interface IBoilReportRow {
+  id: number;
+  value: string;
+  recordsCount: number;
+  historiesCount: number;
+  state: string;
+  state_id: number;
+  stateValue: string;
+  base_code: string;
+  base_marking: string;
+  plant: string;
+  firstBaseCheckTime: Date;
+  lastBaseCheckTime: Date;
+  lastPlugPassTime: Date;
+}
+
 interface IConveyor {
   id: number;
   value: string;
@@ -301,6 +322,7 @@ interface IDocRow {
   stateTime: Date;
   isSet: boolean;
   isUpdated: boolean;
+  history_note: string;
 }
 
 interface SummaryResponse {

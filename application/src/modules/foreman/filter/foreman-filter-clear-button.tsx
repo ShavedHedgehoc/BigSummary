@@ -1,7 +1,7 @@
 import { useShallow } from "zustand/shallow";
-import { useForemanFilterStore } from "./store/use-foreman-filter-store";
+import { useForemanFilterStore } from "../store/use-foreman-filter-store";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import FilterButton, { FilterButtonProps } from "../../shared/ui/filter-button";
+import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
 
 export default function ForemanFilterClearButton() {
   const clearFilter = useForemanFilterStore(useShallow((state) => state.clearFilter));
