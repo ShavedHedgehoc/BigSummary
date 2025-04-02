@@ -207,6 +207,18 @@ function SideBar() {
                     <Typography level="title-sm">Загрузка сводок</Typography>
                   </Link>
                 </ListItem>
+                {/* <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.TUBE_RECORDS_UPLOAD}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">Загрузка сводок (тубы)</Typography>
+                  </Link>
+                </ListItem> */}
                 <ListItem role="none">
                   <Link
                     component={RouterLink}
@@ -381,6 +393,20 @@ function SideBar() {
               )}
             >
               <List sx={{ gap: 0.5 }}>
+                <ListItem sx={{ mt: 0.5 }} role="none">
+                  <ListItemContent>
+                    <Link
+                      component={RouterLink}
+                      to={RouteNames.TIME_REPORT}
+                      color="neutral"
+                      underline="none"
+                      sx={{ display: "flex", gap: 1 }}
+                      onClick={() => closeSidebar()}
+                    >
+                      <Typography level="title-sm">Тайминг сводок</Typography>
+                    </Link>
+                  </ListItemContent>
+                </ListItem>
                 <ListItem sx={{ mt: 0.5 }} role="none">
                   <ListItemContent>
                     <Link

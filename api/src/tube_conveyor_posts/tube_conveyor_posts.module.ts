@@ -6,5 +6,6 @@ import TubeConveyorPost from "./tube_conveyor_posts.model";
 @Module({
   providers: [TubeConveyorPostsService],
   imports: [SequelizeModule.forFeature([TubeConveyorPost])],
+  exports: [TubeConveyorPostsService],
 })
 export class TubeConveyorPostsModule {}

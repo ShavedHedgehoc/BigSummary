@@ -27,6 +27,8 @@ import Cans from "../../modules/cans/cans";
 import CansList from "../../modules/cans-list/cans-list";
 import CansDash from "../../modules/cans-dash/cans-dash";
 import BoilsReport from "../../modules/boils-report/boils-report";
+import TubeRecordsUpload from "../../modules/tube-records-upload/tube-records-upload";
+import TimeReport from "../../modules/time-report.tsx/time-report";
 // import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
@@ -78,12 +80,14 @@ const AppRouter = () => {
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.DOCUMENTS} element={<Documents />} />
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<DocsUpload />} />
+              <Route path={RouteNames.TUBE_RECORDS_UPLOAD} element={<TubeRecordsUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
               <Route path={RouteNames.BASES_UPDATE} element={<BasesUpload />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.REPORTS} />}>
               <Route path={RouteNames.BOILS_REPORT} element={<BoilsReport />} />
+              <Route path={RouteNames.TIME_REPORT} element={<TimeReport />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />

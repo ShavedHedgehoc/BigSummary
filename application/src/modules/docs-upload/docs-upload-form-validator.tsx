@@ -1,10 +1,10 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
+import { ValError, useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { useShallow } from "zustand/shallow";
-import Ajv, { SchemaObject } from "ajv/dist/jtd";
+// import Ajv, { SchemaObject } from "ajv/dist/jtd";
+import Ajv from "ajv";
 import * as XLSX from "xlsx";
 import { IXLSDocsRowData } from "../../shared/api/services/record-service";
-// import { IXLSData } from "../../types";
 
 export default function DocsUploadFormValidator() {
   const isValid = useDocsUploadFormStore(useShallow((state) => state.isValid));
@@ -25,40 +25,72 @@ export default function DocsUploadFormValidator() {
 
   const ajv = new Ajv({ allErrors: true });
 
-  const valSchema: SchemaObject = {
+  const valSchema = {
+    type: "object",
     properties: {
-      code1C: { type: "string" },
-      serie: { type: "string" },
-      product: { type: "string" },
-      batch: { type: "string" },
-      plan: { type: "string" },
-      apparatus: { type: "string" },
-      can: { type: "string" },
-      conveyor: { type: "string" },
-      bbf: { type: "string" },
-      note: { type: "string" },
-      workshop: { type: "string" },
-      boil1: { type: "string" },
-      boil2: { type: "string" },
+      code1C: { type: "string", pattern: "^[0-9]{6}$" },
+      serie: { type: "string", minLength: 1 },
+      product: { type: "string", minLength: 1 },
+      batch: { type: "string", minLength: 1 },
+      plan: { type: "string", minLength: 1 },
+      apparatus: { type: "string", minLength: 1 },
+      can: { type: "string", minLength: 1 },
+      conveyor: { type: "string", minLength: 1 },
+      bbf: { type: "string", minLength: 1 },
+      note: { type: "string", maxLength: 1024 },
+      workshop: { type: "string", minLength: 1 },
+      boil1: { type: "string", minLength: 1 },
+      boil2: { type: "string", minLength: 1 },
       // added
-      semi_product: { type: "string" },
-      org_base_min_weight: { type: "string" },
-      org_base_max_weight: { type: "string" },
-      water_base_min_weight: { type: "string" },
-      water_base_max_weight: { type: "string" },
-      per_box: { type: "string" },
-      box_per_row: { type: "string" },
-      row_on_pallet: { type: "string" },
-      gasket: { type: "string" },
-      seal: { type: "string" },
-      technician_note: { type: "string" },
-      packaging_note: { type: "string" },
-      marking_sample: { type: "string" },
-      marking_feature: { type: "string" },
-      ink_color: { type: "string" },
+      semi_product: { type: "string", minLength: 1 },
+      org_base_min_weight: { type: "string", minLength: 1 },
+      org_base_max_weight: { type: "string", minLength: 1 },
+      water_base_min_weight: { type: "string", minLength: 1 },
+      water_base_max_weight: { type: "string", minLength: 1 },
+      per_box: { type: "string", minLength: 1 },
+      box_per_row: { type: "string", minLength: 1 },
+      row_on_pallet: { type: "string", minLength: 1 },
+      gasket: { type: "string", minLength: 1 },
+      seal: { type: "string", minLength: 1 },
+      technician_note: { type: "string", minLength: 1 },
+      packaging_note: { type: "string", minLength: 1 },
+      marking_sample: { type: "string", minLength: 1 },
+      marking_feature: { type: "string", minLength: 1 },
+      ink_color: { type: "string", minLength: 1 },
     },
+    required: [
+      "serie",
+      "code1C",
+      "product",
+      "batch",
+      "plan",
+      "apparatus",
+      "can",
+      "conveyor",
+      "bbf",
+      "note",
+      "workshop",
+      "boil1",
+      "boil2",
+      "semi_product",
+      "org_base_min_weight",
+      "org_base_max_weight",
+      "water_base_min_weight",
+      "water_base_max_weight",
+      "per_box",
+      "box_per_row",
+      "row_on_pallet",
+      "gasket",
+      "seal",
+      "technician_note",
+      "packaging_note",
+      "marking_sample",
+      "marking_feature",
+      "ink_color",
+    ],
   };
-  const parse = ajv.compileParser(valSchema);
+  // const parse = ajv.compileParser(valSchema);
+  const parse = ajv.compile(valSchema);
 
   const validate = () => {
     const reader = new FileReader();
@@ -73,11 +105,21 @@ export default function DocsUploadFormValidator() {
         json = XLSX.utils.sheet_to_json(ws, { raw: false });
 
         for (let i = 0; i < json.length; i++) {
-          const parsedData = parse(JSON.stringify(json[i]));
-          if (parsedData === undefined) {
-            const errMsg = `Ошибка в строке ${i + 2}...`;
+          // const parsedData = parse(JSON.stringify(json[i]));
+          const parsedData = parse(json[i]);
+
+          // if (parsedData === undefined) {
+          if (!parsedData) {
+            parse.errors?.map((item) => {
+              const err: ValError = {
+                row: i + 2,
+                field: item.instancePath.substring(1),
+                error: item.message ? item.message : "",
+              };
+              addErrs(err);
+            });
+
             valResult = false;
-            addErrs(errMsg);
           }
         }
       } catch (error) {

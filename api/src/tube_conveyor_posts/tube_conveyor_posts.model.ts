@@ -1,7 +1,8 @@
 import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import TubeAssembly from "src/tube_assembly/tube_assembly.model";
 
 interface TubeConveyorPostCreationsAttrs {
-  value: string;
+  name: string;
 }
 
 @Table({ tableName: "tube_conveyor_posts", createdAt: false, updatedAt: false })
@@ -15,6 +16,6 @@ export default class TubeConveyorPost extends Model<TubeConveyorPost, TubeConvey
   @Column({ type: DataType.STRING, unique: true })
   name: string;
 
-  //   @HasMany(() => Record)
-  //   records: Record[];
+  @HasMany(() => TubeAssembly)
+  tube_assemblies: TubeAssembly[];
 }

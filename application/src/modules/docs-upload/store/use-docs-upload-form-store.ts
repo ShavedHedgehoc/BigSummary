@@ -12,6 +12,11 @@ interface DocsUploadFormData {
   dateForUpload: string;
   update: boolean;
 }
+export interface ValError {
+  row: number;
+  field: string;
+  error: string;
+}
 
 interface DocsUploadFormStore {
   formData: DocsUploadFormData;
@@ -22,7 +27,7 @@ interface DocsUploadFormStore {
   plantSelectorOptions: IPlant[] | [];
   file: File | undefined;
   fileName: string;
-  errs: string[] | [];
+  errs: ValError[];
   dataForUpload: IXLSDocsRowData[] | [];
   changeFilter: (value: DocsUploadFormField) => void;
   setSelectedPlant: (value: number) => void;
@@ -32,8 +37,8 @@ interface DocsUploadFormStore {
   setFile: (value: File | undefined) => void;
   setFileName: (value: string) => void;
   clearData: () => void;
-  setErrs: (values: string[] | []) => void;
-  addErrs: (value: string) => void;
+  // setErrs: (values: string[] | []) => void;
+  addErrs: (value: ValError) => void;
   setDataForUpload: (arr: IXLSDocsRowData[]) => void;
   setUpdate: (val: boolean) => void;
 }
@@ -94,8 +99,12 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
         dataForUpload: [],
         errsModalShow: false,
       })),
-    setErrs: (values) => set(() => ({ errs: values })),
-    addErrs: (value) => set((state) => ({ errs: [...state.errs, value] })),
+    // setErrs: (values) => set(() => ({ errs: values })),
+    addErrs: (value) => {
+      set((state) => ({
+        errs: [...state.errs, value],
+      }));
+    },
     setDataForUpload: (arr) => set(() => ({ dataForUpload: [...arr] })),
   }))
 );

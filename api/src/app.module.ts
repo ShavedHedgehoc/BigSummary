@@ -40,7 +40,7 @@ import { SemiProductsModule } from "./semi_products/semi_products.module";
 import { ApiErrorsModule } from "./api_errors/api_errors.module";
 import { TraceCanRecordsModule } from "./trace_can_records/trace_can_records.module";
 import { TraceCansModule } from "./trace_cans/trace_cans.module";
-import { TracePlantsController } from "./trace_plants/trace_plants.controller";
+
 import { TracePlantsModule } from "./trace_plants/trace_plants.module";
 import { TraceCanStatesModule } from "./trace_can_states/trace_can_states.module";
 import { TraceCanLocationsModule } from "./trace_can_locations/trace_can_locations.module";
@@ -51,11 +51,12 @@ import { TubeMaterialsModule } from "./tube_materials/tube_materials.module";
 import { TubeConveyorPostsModule } from "./tube_conveyor_posts/tube_conveyor_posts.module";
 import { TubeSpecificationsModule } from "./tube_specifications/tube_specifications.module";
 import { TubeHistoryTypesModule } from "./tube_history_types/tube_history_types.module";
-import { TubeHistoriesService } from "./tube_histories/tube_histories.service";
+
 import { TubeHistoriesModule } from "./tube_histories/tube_histories.module";
 import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.module";
 import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
-import { TubeParametersModule } from './tube_parameters/tube_parameters.module';
+import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
+import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -113,6 +114,7 @@ import TubeHistory from "./tube_histories/tube_histories.model";
 import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
 import TubeSession from "./tube_sessions/tube_sessions.model";
 import TubeParameter from "./tube_parameters/tube_parameters.model";
+import TubeAssembly from "./tube_assembly/tube_assembly.model";
 
 @Module({
   imports: [
@@ -200,7 +202,8 @@ import TubeParameter from "./tube_parameters/tube_parameters.model";
         TubeHistory,
         TubeHistoryNote,
         TubeSession,
-        TubeParameter
+        TubeParameter,
+        TubeAssembly,
       ],
       autoLoadModels: true,
     }),
@@ -260,6 +263,7 @@ import TubeParameter from "./tube_parameters/tube_parameters.model";
     TubeHistoryNotesModule,
     TubeSessionsModule,
     TubeParametersModule,
+    TubeAssemblyModule,
   ],
 })
 export default class AppModule {}

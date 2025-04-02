@@ -6,5 +6,6 @@ import { SequelizeModule } from "@nestjs/sequelize";
 @Module({
   providers: [TubeProductsService],
   imports: [SequelizeModule.forFeature([TubeProduct])],
+  exports: [TubeProductsService],
 })
 export class TubeProductsModule {}

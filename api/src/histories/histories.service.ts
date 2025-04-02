@@ -328,6 +328,9 @@ export class HistoriesService {
   }
 
   async getFirstBaseCheck(boilId: number) {
+    if (!boilId) {
+      return null;
+    }
     const firstBaseCheck = await this.historyRepository.findOne({
       where: { boil_id: boilId },
       include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "base_check" } }],
@@ -337,6 +340,9 @@ export class HistoriesService {
   }
 
   async getLastBaseCheck(boilId: number) {
+    if (!boilId) {
+      return null;
+    }
     const lastBaseCheck = await this.historyRepository.findOne({
       where: { boil_id: boilId },
       include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "base_check" } }],
@@ -345,7 +351,58 @@ export class HistoriesService {
     return lastBaseCheck;
   }
 
+  async getLastProductCheck(recordId: number) {
+    if (!recordId) {
+      return null;
+    }
+    const lastProductCheck = await this.historyRepository.findOne({
+      where: { record_id: recordId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_check" } }],
+      order: [["createdAt", "DESC"]],
+    });
+    return lastProductCheck;
+  }
+
+  async getLastProductPass(recordId: number) {
+    if (!recordId) {
+      return null;
+    }
+    const lastProductPass = await this.historyRepository.findOne({
+      where: { record_id: recordId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_pass" } }],
+      order: [["createdAt", "DESC"]],
+    });
+    return lastProductPass;
+  }
+
+  async getLastProductInProgress(recordId: number) {
+    if (!recordId) {
+      return null;
+    }
+    const lastProductInProgress = await this.historyRepository.findOne({
+      where: { record_id: recordId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_in_progress" } }],
+      order: [["createdAt", "DESC"]],
+    });
+    return lastProductInProgress;
+  }
+
+  async getLastProductFinished(recordId: number) {
+    if (!recordId) {
+      return null;
+    }
+    const lastProductFinished = await this.historyRepository.findOne({
+      where: { record_id: recordId },
+      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_finished" } }],
+      order: [["createdAt", "DESC"]],
+    });
+    return lastProductFinished;
+  }
+
   async getLastPlugPass(boilId: number) {
+    if (!boilId) {
+      return null;
+    }
     const lastPlugPass = await this.historyRepository.findOne({
       where: { boil_id: boilId },
       include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "plug_pass" } }],

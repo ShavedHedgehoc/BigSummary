@@ -1,5 +1,5 @@
-import { Box } from "@mui/system";
 import * as React from "react";
+import { Box } from "@mui/joy";
 import FormCard from "../../shared/ui/form-card";
 import DocsUploadFormPlantSelector from "./docs-upload-form-plant-selector";
 import DocsUploadFormdDateInput from "./docs-upload-form-date-selector";

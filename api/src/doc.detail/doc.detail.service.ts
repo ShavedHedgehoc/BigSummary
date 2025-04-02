@@ -8,6 +8,7 @@ import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
 import { GetDocByIdDto } from "./dto/get-doc-by-id.dto";
 import { SemiProductsService } from "src/semi_products/semi_products.service";
 import { RecordRegulationsService } from "src/record_regulations/record_regulations.service";
+import { TimeReportDto } from "./dto/time-report.dto";
 
 @Injectable()
 export class DocDetailService {
@@ -205,5 +206,45 @@ export class DocDetailService {
     const newDto: GetCurrentDocDto = { filter: { ...dto.filter, plant: null } };
     const result = await this.getDocDetailDataWithFilter(doc, newDto);
     return result;
+  }
+
+  async getTimeReport(dto: TimeReportDto) {
+    const doc = await this.docsService.getDocByPlantAndDate(dto.filter.date, dto.filter.plant);
+    if (!doc) {
+      return { records: [] };
+    }
+    const doc_recs = await this.recordsService.getRecordsByDocIdWithFilter(doc.id, dto);
+    const recordsResult = await Promise.all(await doc_recs.map(async (item) => this.timeResult(item)));
+    return recordsResult;
+  }
+
+  async timeResult(item: Record) {
+    const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(item.id, item.water_base_id);
+    const historiesCount = histories.length;
+    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
+    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
+    const lastBaseCheck = await this.historiesService.getLastBaseCheck(item.water_base_id);
+    const lastPlugPass = await this.historiesService.getLastPlugPass(item.water_base_id);
+    const lastProductCheck = await this.historiesService.getLastProductCheck(item.id);
+    const lastProductPass = await this.historiesService.getLastProductPass(item.id);
+    const lastProductInProgress = await this.historiesService.getLastProductInProgress(item.id);
+    const lastProductFinished = await this.historiesService.getLastProductFinished(item.id);
+
+    return {
+      id: item.id,
+      state: state,
+      stateValue: stateValue,
+      conveyor: item.conveyor.value,
+      productId: item.product.code1C,
+      product: item.product.marking,
+      boil: item.boil ? item.boil.value : "-",
+      plan: item.plan,
+      lastBaseCheck: lastBaseCheck ? lastBaseCheck.createdAt : null,
+      lastPlugPass: lastPlugPass ? lastPlugPass.createdAt : null,
+      lastProductCheck: lastProductCheck ? lastProductCheck.createdAt : null,
+      lastProductPass: lastProductPass ? lastProductPass.createdAt : null,
+      lastProductInProgress: lastProductInProgress ? lastProductInProgress.createdAt : null,
+      lastProductFinished: lastProductFinished ? lastProductFinished.createdAt : null,
+    };
   }
 }

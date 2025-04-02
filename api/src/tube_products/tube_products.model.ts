@@ -4,6 +4,7 @@ import TubeSpecification from "src/tube_specifications/tube_specifications.model
 
 interface TubeProductCreationsAttrs {
   code_1C: string;
+  marking: string;
   name: string;
 }
 

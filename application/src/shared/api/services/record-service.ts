@@ -41,6 +41,39 @@ export interface IDocUploadData {
   rows: IXLSDocsRowData[];
 }
 
+interface TimeReportFilter {
+  boil: string;
+  productCode: string;
+  marking: string;
+  conveyor: string;
+  haveRecord: boolean;
+  boilAsc: boolean;
+  states: number[] | [];
+  plant: number | null;
+  date: string;
+}
+
+export interface TimeReportDto {
+  filter: TimeReportFilter;
+}
+
+export interface TimeReportRowData {
+  id: number;
+  state: string;
+  stateValue: string;
+  conveyor: string;
+  productId: string;
+  product: string;
+  boil: string;
+  plan: number;
+  lastBaseCheck: Date;
+  lastPlugPass: Date;
+  lastProductCheck: Date;
+  lastProductPass: Date;
+  lastProductInProgress: Date;
+  lastProductFinished: Date;
+}
+
 export default class RecordService {
   static async getHistoriesByRecordId(record_id: number | null): Promise<RecordHistoriesResponse> {
     const res = await $api.get(`/record_detail/${record_id}`);
@@ -69,6 +102,11 @@ export default class RecordService {
 
   static async bulkCreateRecords(dto: IDocUploadData) {
     const res = await $api.post(`/records/upload_doc`, dto);
+    return res.data;
+  }
+
+  static async timeReport(dto: TimeReportDto): Promise<TimeReportRowData[]> {
+    const res = await $api.post(`/doc_detail/time_report`, dto);
     return res.data;
   }
 }

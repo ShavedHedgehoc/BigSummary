@@ -3,6 +3,7 @@ import { DocDetailService } from "./doc.detail.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
 import { GetDocByIdDto } from "./dto/get-doc-by-id.dto";
+import { TimeReportDto } from "./dto/time-report.dto";
 
 @ApiTags("Сводки тест")
 @Controller("doc_detail")
@@ -48,6 +49,11 @@ export class DocDetailController {
   @Post()
   getCurrentDocWithParams(@Body() dto: GetCurrentDocDto) {
     return this.docDetailService.getCurrentDocDetailWithFilter(dto);
+  }
+
+  @Post("/time_report")
+  getTimeReport(@Body() dto: TimeReportDto) {
+    return this.docDetailService.getTimeReport(dto);
   }
 
   @ApiOperation({ summary: "Получить все записи с параметрами по id документа" })

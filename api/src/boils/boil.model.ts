@@ -72,7 +72,7 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
   histories: History[];
 
   @HasMany(() => TubeRecord)
-  tube_histories: TubeRecord[];
+  tube_records: TubeRecord[];
 
   @HasMany(() => SemiProduct)
   semi_products: SemiProduct[];

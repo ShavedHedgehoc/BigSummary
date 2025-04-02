@@ -45,10 +45,10 @@ export default class TubeParameter extends Model<TubeParameter, TubeParameterCre
   cap_machine_speed_max: number;
 
   @Column({ type: DataType.FLOAT })
-  caps_machine_air_pressure_min: number;
+  cap_machine_air_pressure_min: number;
 
   @Column({ type: DataType.FLOAT })
-  caps_machine_air_pressure_max: number;
+  cap_machine_air_pressure_max: number;
 
   @Column({ type: DataType.INTEGER })
   grips_forward_min: number;
@@ -140,10 +140,10 @@ export default class TubeParameter extends Model<TubeParameter, TubeParameterCre
   @Column({ type: DataType.INTEGER })
   station_motor_speed_max: number;
 
-  @Column({ type: DataType.INTEGER })
+  @Column({ type: DataType.FLOAT })
   ink_injection_time_min: number;
 
-  @Column({ type: DataType.INTEGER })
+  @Column({ type: DataType.FLOAT })
   ink_injection_time_max: number;
 
   @Column({ type: DataType.INTEGER })
@@ -177,16 +177,22 @@ export default class TubeParameter extends Model<TubeParameter, TubeParameterCre
   cells_speed_max: number;
 
   @Column({ type: DataType.INTEGER })
-  injection_start_position_min: number;
+  injection_AB_start_position_min: number;
 
   @Column({ type: DataType.INTEGER })
-  injection_start_position_max: number;
+  injection_AB_start_position_max: number;
 
   @Column({ type: DataType.INTEGER })
-  injection_end_position_min: number;
+  injection_CD_start_position_min: number;
 
   @Column({ type: DataType.INTEGER })
-  injection_end_position_max: number;
+  injection_CD_start_position_max: number;
+
+  @Column({ type: DataType.INTEGER })
+  injection_ABCD_end_position_min: number;
+
+  @Column({ type: DataType.INTEGER })
+  injection_ABCD_end_position_max: number;
 
   @Column({ type: DataType.INTEGER })
   tube_molding_start_position_min: number;
@@ -201,10 +207,10 @@ export default class TubeParameter extends Model<TubeParameter, TubeParameterCre
   tube_molding_end_position_max: number;
 
   @Column({ type: DataType.INTEGER })
-  polimerrization_furnace_temperature_min: number;
+  polimerization_furnace_temperature_min: number;
 
   @Column({ type: DataType.INTEGER })
-  polimerrization_furnace_temperature_max: number;
+  polimerization_furnace_temperature_max: number;
 
   @BelongsTo(() => TubeRecord)
   tube_record: TubeRecord;

@@ -12,7 +12,7 @@ import { WorkshopsService } from "src/workshops/workshops.service";
 import Doc from "src/docs/docs.model";
 import Boil from "src/boils/boil.model";
 import Product from "src/products/products.model";
-import { BulkCreateRecordsDto, Row } from "./dto/bulk-create-records.dto";
+import { BulkCreateRecordsDto } from "./dto/bulk-create-records.dto";
 import { DocsService } from "src/docs/docs.service";
 import { PlantsService } from "src/plants/plants.service";
 import Apparatus from "src/apparatuses/apparatuses.model";
@@ -21,7 +21,7 @@ import Conveyor from "src/conveyors/conveyor.model";
 import Workshop from "src/workshops/workshop.model";
 import Plant from "src/plants/plant.model";
 import { GetCurrentDocDto } from "src/doc.detail/dto/get-current-doc.dto";
-import { Op, col, fn, literal } from "sequelize";
+import { Op, col } from "sequelize";
 import sequelize from "sequelize";
 import { FetchRelatedRecordsDto } from "./dto/fetch-related-records.dto";
 import { UpdateRecordDto } from "./dto/update-record.dto";
@@ -29,14 +29,13 @@ import { UploadDocDto, UploadDocRow } from "./dto/upload-doc.dto";
 import { MarkingSampleService } from "src/marking_sample/marking_sample.service";
 import { RecordRegulationsService } from "src/record_regulations/record_regulations.service";
 import { CreateRecordRegulationDto } from "src/record_regulations/dto/create-record-regulation.dto";
-import { parse } from "src/helpers/parse";
+import { parseSemiproducts } from "src/helpers/parse-semiproducts";
 import { SemiProductsService } from "src/semi_products/semi_products.service";
 import { CreateSemiProductDto } from "src/semi_products/dto/create-semi-product.dto";
-import Note from "src/notes/notes.model";
+// import Note from "src/notes/notes.model";
 import { GetRecordReportDto } from "./dto/get-records-report.dto";
-import History from "src/histories/histories.model";
-import HistoryType from "src/history_types/history_types.model";
-import { group } from "console";
+// import History from "src/histories/histories.model";
+// import HistoryType from "src/history_types/history_types.model";
 
 @Injectable()
 export class RecordsService {
@@ -425,7 +424,7 @@ export class RecordsService {
   }
 
   async createSemiProducts(record: Record, value: string) {
-    const res = parse(value);
+    const res = parseSemiproducts(value);
     if (res.length > 0) {
       for (let index = 0; index < res.length; index++) {
         const dto: CreateSemiProductDto = {

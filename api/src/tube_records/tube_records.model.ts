@@ -6,12 +6,14 @@ import {
   DataType,
   Default,
   ForeignKey,
+  HasMany,
   HasOne,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
 import Boil from "src/boils/boil.model";
+import TubeAssembly from "src/tube_assembly/tube_assembly.model";
 import TubeConveyor from "src/tube_conveyors/tube_conveyors.model";
 import TubeParameter from "src/tube_parameters/tube_parameters.model";
 import TubeProduct from "src/tube_products/tube_products.model";
@@ -62,4 +64,7 @@ export default class TubeRecord extends Model<TubeRecord, TubeRecordCreationsAtt
 
   @HasOne(() => TubeParameter)
   tube_parameter: TubeParameter;
+
+  @HasMany(() => TubeAssembly)
+  tube_assemblies: TubeAssembly[];
 }
