@@ -6,6 +6,7 @@ import TimeReportFilterConveyorInput from "./time-report-filter-conveyor-input";
 import TimeReportFilterDateInput from "./time-report-filter-date-selector";
 import TimeReportFilterMarkingInput from "./time-report-filter-marking-input";
 import TimeReportFilterPlantSelector from "./time-report-filter-plant-selector";
+import TimeReportToXLSXButton from "./time-report-to-xlsx-button";
 
 export default function TimeReportFilter() {
   return (
@@ -19,6 +20,7 @@ export default function TimeReportFilter() {
         <TimeReportFilterConveyorInput />
       </PageFilterLayout.Left>
       <PageFilterLayout.Right>
+        <TimeReportToXLSXButton />
         <TimeReportFilterClearButton />
       </PageFilterLayout.Right>
     </PageFilterLayout>

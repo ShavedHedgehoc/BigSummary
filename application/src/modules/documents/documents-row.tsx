@@ -1,11 +1,11 @@
 import { Typography, Box } from "@mui/joy";
 
-import { formatDateToString } from "../../shared/utils";
 import { useNavigate } from "react-router-dom";
 import { useDeleteDocument } from "./use-delete-document";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import TableButton from "../../shared/ui/table-button";
+import { formatDateToString } from "../../shared/helpers/date-time-formatters";
 
 export default function DocumentsRow({ row }: { row: IDocumentRow }) {
   const { deleteDocument, deletePending } = useDeleteDocument();

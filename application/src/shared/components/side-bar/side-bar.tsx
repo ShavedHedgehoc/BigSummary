@@ -24,7 +24,7 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
-import { closeSidebar } from "../../utils";
+import { closeSidebar } from "../../helpers/utils";
 import { Context } from "../../../main";
 import { observer } from "mobx-react-lite";
 import { RouteNames } from "../../router/route-names";

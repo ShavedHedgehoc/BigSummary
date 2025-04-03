@@ -1,9 +1,25 @@
 import { Typography } from "@mui/joy";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { formatDateToString, formatTimeToString } from "../../../shared/helpers/date-time-formatters";
 import { TimeReportRowData } from "../../../shared/api/services/record-service";
+import { TableIconButton } from "../../../shared/ui/table-icon-button";
+import { useTimeReportHistoryModalStore } from "../store/use-time-report-history-modal-store";
+import { useShallow } from "zustand/shallow";
+
+
 
 export default function TimeReportRow({ row }: { row: TimeReportRowData }) {
+  const setOpen = useTimeReportHistoryModalStore(useShallow((state) => state.setOpen));
+  const setRecordId = useTimeReportHistoryModalStore(useShallow((state) => state.setRecordId));
+  const setTitle = useTimeReportHistoryModalStore(useShallow((state) => state.setTitle));
+
+  const handleDetailButtonClick = () => {
+    setRecordId(row.id);
+    setTitle(`Историй статусов по продукту ${row.product}, партия - ${row.boil}`);
+    setOpen(true);
+  };
+
   return (
     <tr key={row.id}>
       <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
@@ -22,6 +38,12 @@ export default function TimeReportRow({ row }: { row: TimeReportRowData }) {
       <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.plan}</Typography>
       </td>
+      <td style={{ width: 20, textAlign: "center", padding: "18px 6px" }}>
+        <TableIconButton color="success" disabled={row.state === "-"} onClick={() => handleDetailButtonClick()}>
+          <InfoOutlinedIcon />
+        </TableIconButton>
+      </td>
+
       <td style={{ width: 100, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">
           {row.lastBaseCheck

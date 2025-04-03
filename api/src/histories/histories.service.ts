@@ -367,6 +367,22 @@ export class HistoriesService {
     if (!recordId) {
       return null;
     }
+    const lastHistory = await this.historyRepository.findOne({
+      where: { record_id: recordId },
+      order: [["createdAt", "DESC"]],
+    });
+
+    if (!lastHistory) {
+      return null;
+    }
+    const typeValue = await lastHistory.$get("historyType");
+    if (
+      typeValue.value !== "product_finished" &&
+      typeValue.value !== "product_in_progress" &&
+      typeValue.value !== "product_pass"
+    ) {
+      return null;
+    }
     const lastProductPass = await this.historyRepository.findOne({
       where: { record_id: recordId },
       include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_pass" } }],
@@ -377,6 +393,18 @@ export class HistoriesService {
 
   async getLastProductInProgress(recordId: number) {
     if (!recordId) {
+      return null;
+    }
+    const lastHistory = await this.historyRepository.findOne({
+      where: { record_id: recordId },
+      order: [["createdAt", "DESC"]],
+    });
+
+    if (!lastHistory) {
+      return null;
+    }
+    const typeValue = await lastHistory.$get("historyType");
+    if (typeValue.value !== "product_finished" && typeValue.value !== "product_in_progress") {
       return null;
     }
     const lastProductInProgress = await this.historyRepository.findOne({
@@ -391,24 +419,38 @@ export class HistoriesService {
     if (!recordId) {
       return null;
     }
-    const lastProductFinished = await this.historyRepository.findOne({
+    const lastHistory = await this.historyRepository.findOne({
       where: { record_id: recordId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_finished" } }],
       order: [["createdAt", "DESC"]],
     });
-    return lastProductFinished;
+
+    if (!lastHistory) {
+      return null;
+    }
+    const typeValue = await lastHistory.$get("historyType");
+    if (typeValue.value !== "product_finished") {
+      return null;
+    }
+    return lastHistory;
   }
 
   async getLastPlugPass(boilId: number) {
     if (!boilId) {
       return null;
     }
-    const lastPlugPass = await this.historyRepository.findOne({
+    const lastHistory = await this.historyRepository.findOne({
       where: { boil_id: boilId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "plug_pass" } }],
       order: [["createdAt", "DESC"]],
     });
-    return lastPlugPass;
+
+    if (!lastHistory) {
+      return null;
+    }
+    const typeValue = await lastHistory.$get("historyType");
+    if (typeValue.value !== "plug_pass") {
+      return null;
+    }
+    return lastHistory;
   }
 
   async getAllHistories() {

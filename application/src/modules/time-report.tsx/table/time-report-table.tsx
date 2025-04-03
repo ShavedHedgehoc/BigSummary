@@ -12,6 +12,7 @@ const commonThead: TheadProperties[] = [
   { width: 100, value: "Артикул" },
   { width: 50, value: "Партия" },
   { width: 50, value: "План" },
+  { width: 20, value: "..." },
 
   { width: 100, value: "Основа на пробе" },
   { width: 100, value: "Допуск на подключение" },

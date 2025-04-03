@@ -58,7 +58,6 @@ export class TubeSessionsService {
     }
 
     const exists_session = await this.tubeSessionsRepository.findOne({
-      // where: { finished: { [Op.ne]: true }, employee_id: employee.id, conveyor_id: conveyor.id },
       where: { finished: { [Op.ne]: true }, conveyor_id: conveyor.id },
     });
 

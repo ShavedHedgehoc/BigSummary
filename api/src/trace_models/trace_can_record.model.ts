@@ -41,20 +41,4 @@ export default class TraceCanRecord extends Model {
 
   @BelongsTo(() => TraceCanState)
   state: TraceCanState;
-
-  //   @Column
-  //   CanName: string;
-
-  //   @Column
-  //   CanVolume: number;
-
-  //   @Column
-  //   CanBarcode: string;
-
-  //   @ForeignKey(() => TracePlant)
-  //   @Column
-  //   PlantPK: number;
-
-  //   @BelongsTo(() => TracePlant)
-  //   plant: TracePlant;
 }
