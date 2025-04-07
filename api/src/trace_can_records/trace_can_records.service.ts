@@ -28,7 +28,7 @@ export class TraceCanRecordsService {
   async getLastTenRecordsById(id: number) {
     const states = await this.traceCanRecordsRepository.findAll({
       attributes: {
-        exclude: ["CanRecordPK", "CanPK", "AuthorPK", "BatchPK", "CanStatePK"],
+        exclude: ["CanPK", "AuthorPK", "BatchPK", "CanStatePK"],
         include: [
           [col("state.CanStateDescription"), "stateDescription"],
           [col("author.AuthorName"), "authorName"],

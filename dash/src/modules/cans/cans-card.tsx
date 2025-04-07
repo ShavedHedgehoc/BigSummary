@@ -16,8 +16,8 @@ export default function CansCard({ item }: { item: ITraceCanData }) {
 
   return (
     <div
-      className={`flex flex-col h-40 w-full rounded-md relative px-4 py-2  text-slate-200  justify-between
-        ${item.stateValue === "can_from_product" && "bg-slate-600"}  
+      className={`flex flex-col h-40 w-full rounded-md relative px-4 py-2  text-slate-200  justify-between            
+      ${item.stateValue === "can_from_product" && "bg-slate-600"}  
         ${item.stateValue === null && "bg-slate-600"}
         ${item.stateValue === "can_washed" && "bg-sky-700"}         
         ${item.stateValue === "can_ready" && "bg-green-700"} 
@@ -26,7 +26,9 @@ export default function CansCard({ item }: { item: ITraceCanData }) {
         ${item.stateValue === "can_need_wash" && "bg-amber-900"} 
         ${item.stateValue === "can_correct" && "bg-yellow-300 text-slate-600"} 
         ${item.isUpdated && "animate-pulse"}
-        ${item.stateValue === "-" && "border border-slate-800"}`}
+        ${item.stateValue === "-" && "border border-slate-800"}
+        
+        `}
       onClick={() => handleClick()}
     >
       <div className="flex flex-row items-center justify-between w-full ">

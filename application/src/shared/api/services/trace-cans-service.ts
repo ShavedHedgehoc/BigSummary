@@ -58,6 +58,14 @@ export interface ITraceCanVolume {
   volume: number;
 }
 
+export interface ITraceCanRecord {
+  CanRecordPK: number;
+  CreateDate: Date;
+  stateDescription: string;
+  authorName: string;
+  baseContain: string | null;
+}
+
 export default class TraceCansService {
   static async getCans(): Promise<ITraceCanData[]> {
     const res = await $api.get(`trace-cans`);
@@ -75,6 +83,11 @@ export default class TraceCansService {
 
   static async getCansListWithParams(dto: FetchCansListDto): Promise<ITraceCanResponse> {
     const res = await $api.post(`trace-cans/list`, dto);
+    return res.data;
+  }
+
+  static async getLastTenRecords(canId: number | null): Promise<ITraceCanRecord[]> {
+    const res = await $api.get(`trace-can-records/last_ten/${canId}`);
     return res.data;
   }
 }

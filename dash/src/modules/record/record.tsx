@@ -59,7 +59,7 @@ export default function Record() {
             {(data.apparatus !== "-" || data.can !== "-") && (
               <div className="flex flex-row gap-3">
                 <div className=" flex w-1/2 p-4 flex-col justify-between rounded-md bg-cyan-700 text-slate-200">
-                  <div className="flex justify-start text-3xl ">Апарат</div>
+                  <div className="flex justify-start text-3xl ">Аппарат</div>
                   <div className="flex justify-end text-5xl">{data.apparatus}</div>
                 </div>
                 <div className=" flex w-1/2 p-4 flex-col justify-between rounded-md bg-amber-700 text-slate-200">

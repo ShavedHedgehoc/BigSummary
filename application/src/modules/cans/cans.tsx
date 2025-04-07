@@ -3,6 +3,7 @@ import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
 import MainPageHeader from "../../shared/components/headers/MainPageHeader";
 import CansView from "./cans-view";
 import CansFilter from "./filter/cans-filter";
+import CansHistoryModal from "./history-modal/cans-history-modal";
 
 export default function Cans() {
   return (
@@ -11,6 +12,7 @@ export default function Cans() {
       <MainPageHeader pageTitle={"Статусы емкостей"} />
       <CansFilter />
       <CansView />
+      <CansHistoryModal />
     </React.Fragment>
   );
 }

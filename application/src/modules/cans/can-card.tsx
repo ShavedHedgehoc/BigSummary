@@ -2,6 +2,8 @@ import { Box, Sheet, useColorScheme } from "@mui/joy";
 import { keyframes } from "@emotion/react";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { ITraceCanData } from "../../shared/api/services/trace-cans-service";
+import { useCansHistoryModalStore } from "./store/use-cans-history-modal-store";
+import { useShallow } from "zustand/shallow";
 
 const pulse = keyframes`
     0% {
@@ -18,8 +20,17 @@ const pulse = keyframes`
 export default function CanCard({ row }: { row: ITraceCanData }) {
   const { mode } = useColorScheme();
 
+  const setOpen = useCansHistoryModalStore(useShallow((state) => state.setOpen));
+  const setCanId = useCansHistoryModalStore(useShallow((state) => state.setCanId));
+
+  const handleClick = () => {
+    setCanId(row.id);
+    setOpen(true);
+  };
+
   return (
     <Sheet
+      slotProps={{ root: { onClick: () => handleClick() } }}
       variant="outlined"
       sx={[
         {
@@ -32,6 +43,12 @@ export default function CanCard({ row }: { row: ITraceCanData }) {
           minHeight: "166px",
           ...(row.isUpdated && { animation: `${pulse} 1s infinite` }),
         },
+        () => ({
+          "&&:hover": {
+            cursor: "pointer",
+            bgcolor: mode === "light" ? "var(--joy-palette-neutral-800)" : "var(--joy-palette-neutral-500)",
+          },
+        }),
 
         () => ({
           bgcolor: mode === "light" ? "common.white" : "neutral.softBg",
