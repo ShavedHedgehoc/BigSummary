@@ -31,6 +31,7 @@ export interface RecordDetail {
   plan: number;
   apparatus: string;
   bbf: string;
+  dm: string;
   note: string;
   can: string;
   conveyor: string;
@@ -43,6 +44,7 @@ export interface RecordDetail {
   isUpdated: boolean;
   semiProducts: SemiProduct[] | [];
   regulation: Regulation;
+  history_note: string;
 }
 
 export interface IDocRow {
@@ -53,6 +55,7 @@ export interface IDocRow {
   plan: number;
   apparatus: string;
   bbf: string;
+  dm: string;
   note: string;
   can: string;
   conveyor: string;

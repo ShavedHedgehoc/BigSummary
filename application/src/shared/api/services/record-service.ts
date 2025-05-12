@@ -13,6 +13,7 @@ export interface IXLSDocsRowData {
   can: string;
   plan: string;
   bbf: string;
+  dm: string;
   note: string;
   workshop: string;
   boil1: string;

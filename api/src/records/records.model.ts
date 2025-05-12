@@ -82,6 +82,11 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
   bbf: string;
 
   @AllowNull(false)
+  @Default("-")
+  @Column({ type: DataType.STRING })
+  dm: string;
+
+  @AllowNull(false)
   @Column({ type: DataType.STRING })
   note: string;
 

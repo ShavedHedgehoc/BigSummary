@@ -64,6 +64,7 @@ export class DocDetailService {
       plan: item.plan,
       apparatus: item.apparatus ? item.apparatus.value : "-",
       bbf: item.bbf,
+      dm: item.dm,
       note: item.note,
       can: item.can ? item.can.value : "-",
       conveyor: item.conveyor.value,

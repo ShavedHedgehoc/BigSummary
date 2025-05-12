@@ -105,6 +105,9 @@ export default function Record() {
               >
                 {data.state}
               </div>
+              {data.history_note && (data.stateValue === "product_correct" || data.stateValue === "base_correct") && (
+                <div className="font-ultralight text-xl  pl-3  p-4  text-slate-200">({data.history_note})</div>
+              )}
             </div>
             {data.semiProducts.length > 0 && (
               <div className=" flex  flex-grow w-full p-4 gap-5 flex-col justify-between rounded-md bg-orange-700 text-slate-200">
@@ -224,8 +227,13 @@ export default function Record() {
                 )}
               </div>
             )}
+            <div className=" flex w-full p-4 flex-col gap-3 justify-between rounded-md bg-teal-700 text-slate-200">
+              <div className="flex justify-start text-3xl ">Честный знак:</div>
+              <div className="flex justify-start text-2xl">{data.dm}</div>
+            </div>
           </div>
         )}
+
         {/* {isSuccess && <RegulationDetail productId={data?.productId} />} */}
       </div>
     </div>

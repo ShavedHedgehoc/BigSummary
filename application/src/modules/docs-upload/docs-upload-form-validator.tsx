@@ -37,6 +37,7 @@ export default function DocsUploadFormValidator() {
       can: { type: "string", minLength: 1 },
       conveyor: { type: "string", minLength: 1 },
       bbf: { type: "string", minLength: 1 },
+      dm: { type: "string", minLength: 1 },
       note: { type: "string", maxLength: 1024 },
       workshop: { type: "string", minLength: 1 },
       boil1: { type: "string", minLength: 1 },
@@ -68,6 +69,7 @@ export default function DocsUploadFormValidator() {
       "can",
       "conveyor",
       "bbf",
+      "dm",
       "note",
       "workshop",
       "boil1",
@@ -90,7 +92,7 @@ export default function DocsUploadFormValidator() {
     ],
   };
   // const parse = ajv.compileParser(valSchema);
-  const parse = ajv.compile(valSchema);
+  const parse = ajv.compile(valSchema, true);
 
   const validate = () => {
     const reader = new FileReader();

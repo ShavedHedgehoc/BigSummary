@@ -22,9 +22,11 @@ export default function CanCard({ row }: { row: ITraceCanData }) {
 
   const setOpen = useCansHistoryModalStore(useShallow((state) => state.setOpen));
   const setCanId = useCansHistoryModalStore(useShallow((state) => state.setCanId));
+  const setTitle = useCansHistoryModalStore(useShallow((state) => state.setTitle));
 
   const handleClick = () => {
     setCanId(row.id);
+    setTitle("История записей");
     setOpen(true);
   };
 
