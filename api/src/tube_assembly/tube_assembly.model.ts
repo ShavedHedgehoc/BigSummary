@@ -10,6 +10,7 @@ interface TubeAssembliesCreationsAttrs {
 }
 
 @Table({ tableName: "tube_assembly" })
+//Спецификации
 export default class TubeAssembly extends Model<TubeAssembly, TubeAssembliesCreationsAttrs> {
   @PrimaryKey
   @AutoIncrement

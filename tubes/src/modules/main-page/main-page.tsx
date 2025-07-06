@@ -8,6 +8,7 @@ import { useSelectRecordModalStore } from "./store/use-select-record-modal-store
 import { useShallow } from "zustand/react/shallow";
 import Product from "./product";
 import ParameterTable from "./parameter-table";
+import CurrentParameterTable from "./current-parameter-table";
 export default function MainPage() {
   let [searchParams] = useSearchParams();
   const conveyor = searchParams.get("conveyor");
@@ -104,19 +105,14 @@ export default function MainPage() {
       <SelectRecordModal />
       <div className="flex flex-col w-full flex-shrink h-full items-center justify-start rounded-lg bg-gray-900 1border border-stone-600 px-4  gap-2 py-4">
         <div className="flex flex-row h-full w-full gap-2 ">
-          <div className="flex flex-col w-full px-2 gap-1 text-1xl ">
+          <div className="flex flex-col w-full px-2 gap-4 text-1xl ">
             <Product conveyor={conveyor} />
-            <ParameterTable conveyor={conveyor} post={post} />
-            {/* <div className="text-slate-300 text-3xl">030874 Туба LOVE 50 мл D 28 мм металлическая</div>
-            <div className="text-slate-300">Партия: 235В</div>
-            <div className="text-slate-300">План: 10000</div>
-            <div className="text-slate-300">Выпуск: 2400</div> */}
-
+            <div className="flex flex-row gap-2">
+              <ParameterTable conveyor={conveyor} post={post} />
+              <CurrentParameterTable conveyor={conveyor} post={post} />
+            </div>
             <div className="text-slate-400 flex w-full "></div>
           </div>
-          {/* <div className="flex flex-col w-1/6 ">
-            <img className="rounded-md  object-fill" src={"30874 201222.jpg"} />
-          </div> */}
         </div>
         <div className="text-slate-300 text-5xl">ЖМАКНИ ПИМПУ!</div>
 

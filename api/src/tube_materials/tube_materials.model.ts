@@ -8,6 +8,7 @@ interface TubeMaterialCreationsAttrs {
 }
 
 @Table({ tableName: "tube_materials", createdAt: false, updatedAt: false })
+//Сырье и материалы
 export default class TubeMaterial extends Model<TubeMaterial, TubeMaterialCreationsAttrs> {
   @PrimaryKey
   @AutoIncrement

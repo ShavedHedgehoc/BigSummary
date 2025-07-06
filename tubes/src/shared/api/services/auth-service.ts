@@ -16,14 +16,16 @@ export interface LoginDto {
 
 export default class AuthService {
   static async getAuthEmployee(conveyor_name: string | null): Promise<IAuthResponse | null> {
-    const res = await axios.get(`/api/tube-sessions/${conveyor_name}`);
+    // const res = await axios.get(`/api/tube-sessions/${conveyor_name}`);
+    const res = await axios.get(`/api2/sessions/${conveyor_name}`);
     return res.data;
   }
 
   static async logout(conveyor_name: string): Promise<any> {
     await axios({
       method: "post",
-      url: `/api/tube-sessions/logout`,
+      // url: `/api/tube-sessions/logout`,
+      url: `/api2/sessions/logout`,
       headers: {},
       data: {
         conveyor_name: conveyor_name,
@@ -34,7 +36,8 @@ export default class AuthService {
   static async login(dto: LoginDto): Promise<any> {
     await axios({
       method: "post",
-      url: `/api/tube-sessions/login`,
+      // url: `/api/tube-sessions/login`,
+      url: `/api2/sessions/login`,
       headers: {},
       data: {
         ...dto,
