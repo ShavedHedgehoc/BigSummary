@@ -1,29 +1,6 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import { $api } from "../http";
 import handleError from "../http/handleError";
-import { IEmployee } from "./EmployeeStore";
-
-// export interface IProduct {
-//   id: number;
-//   code1C: string;
-//   marking: string;
-// }
-
-// export interface IBoil {
-//   id: number;
-//   value: string;
-// }
-
-// export interface IRecord {
-//   product: IProduct;
-//   boil: IBoil;
-// }
-
-// export interface IHistoryType {
-//   id: number;
-//   value: string;
-//   description: string;
-// }
 
 export interface IHistorieRecord {
   id: number;

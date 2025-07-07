@@ -40,8 +40,8 @@ export default function DocsUploadFormValidator() {
       dm: { type: "string", minLength: 1 },
       note: { type: "string", maxLength: 1024 },
       workshop: { type: "string", minLength: 1 },
-      boil1: { type: "string", minLength: 1 },
-      boil2: { type: "string", minLength: 1 },
+      boil1: { type: "string", minLength: 1 }, //add patterns here
+      boil2: { type: "string", minLength: 1 }, //add patterns here
       // added
       semi_product: { type: "string", minLength: 1 },
       org_base_min_weight: { type: "string", minLength: 1 },

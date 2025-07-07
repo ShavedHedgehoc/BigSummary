@@ -82,7 +82,7 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
     const val = instance.value;
     const lastSymbol = val.substring(val.length - 1);
     const lastTwoSymbols = val.substring(val.length - 2);
-    if (lastTwoSymbols === "RS") {
+    if (lastTwoSymbols === "RS" || lastTwoSymbols === "SR") {
       instance.letter = val.substring(val.length - 4, val.length - 3);
       instance.year = Number("202" + val.substring(val.length - 3, val.length - 2));
       instance.number = Number(val.substring(0, val.length - 4));
