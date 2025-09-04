@@ -1,0 +1,15 @@
+FROM node:18
+
+WORKDIR /public_api
+
+COPY ./public_api/package*.json ./
+COPY ./public_api/tsconfig*.json ./
+COPY ./public_api/src ./src
+
+RUN npm install
+
+COPY ./public_api .
+
+RUN npm run build
+
+CMD ["npm", "run", "start:prod"]
