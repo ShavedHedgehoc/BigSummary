@@ -16,7 +16,6 @@ async function bootstrap() {
   //   origin: "http://192.168.250.237:8081",
   //   credentials: true,
   // });
-  app.setGlobalPrefix('public_api');
 
   const mainOption = new DocumentBuilder()
     .setTitle('Public API')
@@ -25,7 +24,7 @@ async function bootstrap() {
     .addTag('API')
     .build();
   const mainFactory = SwaggerModule.createDocument(app, mainOption);
-  SwaggerModule.setup('/public_api/documentation', app, mainFactory);
+  SwaggerModule.setup('/documentation', app, mainFactory);
 
   app.use(cookieParser());
   app.use(bodyParser.json({ limit: '10mb' }));

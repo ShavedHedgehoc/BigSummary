@@ -69,6 +69,7 @@ model boils {
   bases         bases?          @relation(fields: [base_id], references: [id], onDelete: NoAction)
   semi_products semi_products[]
   tube_records  tube_records[]
+  records       records[]
 }
 
 model cans {
@@ -235,6 +236,7 @@ model records {
   docs               docs?                @relation(fields: [doc_id], references: [id], onDelete: Cascade)
   products           products?            @relation(fields: [productId], references: [id], onDelete: NoAction)
   workshops          workshops?           @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+  boils              boils?               @relation(fields: [boilId], references: [id], onDelete: Cascade)
   semi_products      semi_products[]
 }
 
