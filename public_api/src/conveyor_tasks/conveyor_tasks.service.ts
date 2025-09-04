@@ -5,7 +5,7 @@ import { GetConveyorTasksDto } from './dto/get-conveyor-tasks.dto';
 @Injectable()
 export class ConveyorTasksService {
   constructor(private prisma: PrismaService) {}
-  getTasks(conveyor: string) {
+  async getTasks(conveyor: string) {
     var offset = 3;
     const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(
       12,
@@ -25,6 +25,20 @@ export class ConveyorTasksService {
         conveyors: { value: conveyor },
       },
     });
-    return records;
+
+    const recordsResult = await Promise.all(
+      (await records).map(async (item) => {
+        return {
+          record_id: item.id,
+          conveyor_name: item.conveyors?.value,
+          code_1C: item.products?.code1C,
+          marking: item.products?.marking,
+          boil_value: item.boils?.value,
+          plan: item.plan,
+        };
+      }),
+    );
+
+    return recordsResult;
   }
 }
