@@ -5,7 +5,7 @@ import { GetConveyorTasksDto } from './dto/get-conveyor-tasks.dto';
 @Injectable()
 export class ConveyorTasksService {
   constructor(private prisma: PrismaService) {}
-  getTasks(dto: GetConveyorTasksDto) {
+  getTasks(conveyor: string) {
     var offset = 3;
     const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(
       12,
@@ -22,7 +22,7 @@ export class ConveyorTasksService {
       },
       where: {
         docs: { date: new Date(date) },
-        conveyors: { value: dto.value },
+        conveyors: { value: conveyor },
       },
     });
     return records;
