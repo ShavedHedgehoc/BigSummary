@@ -1,17 +1,17 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ConveyorTasksService } from './conveyor_tasks.service';
-import { GetConveyorTasksDto } from './dto/get-conveyor-tasks.dto';
 
 @Controller('conveyor-tasks')
 export class ConveyorTasksController {
   constructor(private readonly conveyorTasksService: ConveyorTasksService) {}
-  //   @Post()
-  //   getTasks(@Body() dto: GetConveyorTasksDto) {
-  //     return this.conveyorTasksService.getTasks(dto);
-  //   }
 
   @Get()
   getTasks(@Query('conveyor') conveyor: string) {
     return this.conveyorTasksService.getTasks(conveyor);
+  }
+
+  @Get('/by_barcode')
+  getTasksByBarcode(@Query('barcode') barcode: string) {
+    return this.conveyorTasksService.getTasksByBarcode(barcode);
   }
 }
