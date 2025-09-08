@@ -9,6 +9,7 @@ import { GetDocByIdDto } from "./dto/get-doc-by-id.dto";
 import { SemiProductsService } from "src/semi_products/semi_products.service";
 import { RecordRegulationsService } from "src/record_regulations/record_regulations.service";
 import { TimeReportDto } from "./dto/time-report.dto";
+import { RecordCountersService } from "src/record_counters/record_counters.service";
 
 @Injectable()
 export class DocDetailService {
@@ -17,7 +18,8 @@ export class DocDetailService {
     private recordsService: RecordsService,
     private historiesService: HistoriesService,
     private semiProductsService: SemiProductsService,
-    private recordRegulationsService: RecordRegulationsService
+    private recordRegulationsService: RecordRegulationsService,
+    private recordsCountersService: RecordCountersService
   ) {}
 
   async recordResult<
@@ -27,6 +29,7 @@ export class DocDetailService {
       product: string;
       boil: string;
       plan: number;
+      fact: number;
       apparatus: string;
       bbf: string;
       note: string;
@@ -49,6 +52,8 @@ export class DocDetailService {
     const regulation = await this.recordRegulationsService.getByRecordId(item.id);
     const doc = await item.$get("doc");
 
+    const fact = await this.recordsCountersService.getTaskSum(item.id);
+
     const history_note =
       historiesCount > 0
         ? histories[histories.length - 1].history_note
@@ -62,6 +67,7 @@ export class DocDetailService {
       product: item.product.marking,
       boil: item.boil ? item.boil.value : "-",
       plan: item.plan,
+      fact: fact,
       apparatus: item.apparatus ? item.apparatus.value : "-",
       bbf: item.bbf,
       dm: item.dm,

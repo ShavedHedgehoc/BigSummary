@@ -57,6 +57,7 @@ import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.
 import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
 import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
 import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
+import { RecordCountersModule } from "./record_counters/record_counters.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -115,6 +116,7 @@ import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
 import TubeSession from "./tube_sessions/tube_sessions.model";
 import TubeParameter from "./tube_parameters/tube_parameters.model";
 import TubeAssembly from "./tube_assembly/tube_assembly.model";
+import RecordCounter from "./record_counters/record_counters.model";
 
 @Module({
   imports: [
@@ -204,6 +206,7 @@ import TubeAssembly from "./tube_assembly/tube_assembly.model";
         TubeSession,
         TubeParameter,
         TubeAssembly,
+        RecordCounter,
       ],
       autoLoadModels: true,
     }),
@@ -264,6 +267,7 @@ import TubeAssembly from "./tube_assembly/tube_assembly.model";
     TubeSessionsModule,
     TubeParametersModule,
     TubeAssemblyModule,
+    RecordCountersModule,
   ],
 })
 export default class AppModule {}

@@ -7,10 +7,18 @@ import { RecordsModule } from "src/records/records.module";
 import { HistoriesModule } from "src/histories/histories.module";
 import { SemiProductsModule } from "src/semi_products/semi_products.module";
 import { RecordRegulationsModule } from "src/record_regulations/record_regulations.module";
+import { RecordCountersModule } from "src/record_counters/record_counters.module";
 
 @Module({
   providers: [DocDetailService],
   controllers: [DocDetailController],
-  imports: [DocsModule, RecordsModule, HistoriesModule, SemiProductsModule, RecordRegulationsModule],
+  imports: [
+    DocsModule,
+    RecordsModule,
+    HistoriesModule,
+    SemiProductsModule,
+    RecordRegulationsModule,
+    RecordCountersModule,
+  ],
 })
 export class DocDetailModule {}

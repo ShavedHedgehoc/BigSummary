@@ -269,6 +269,15 @@ exports.Prisma.ProductsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.Record_countersScalarFieldEnum = {
+  id: 'id',
+  record_id: 'record_id',
+  task_uid: 'task_uid',
+  counter_value: 'counter_value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.Record_regulationsScalarFieldEnum = {
   id: 'id',
   record_id: 'record_id',
@@ -573,6 +582,7 @@ exports.Prisma.ModelName = {
   occupations: 'occupations',
   plants: 'plants',
   products: 'products',
+  record_counters: 'record_counters',
   record_regulations: 'record_regulations',
   records: 'records',
   regulations: 'regulations',

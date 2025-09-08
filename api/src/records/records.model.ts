@@ -21,6 +21,7 @@ import Conveyor from "src/conveyors/conveyor.model";
 import Doc from "src/docs/docs.model";
 import History from "src/histories/histories.model";
 import Product from "src/products/products.model";
+import RecordCounter from "src/record_counters/record_counters.model";
 import RecordRegulation from "src/record_regulations/record_regulations.model";
 import Workshop from "src/workshops/workshop.model";
 
@@ -135,6 +136,9 @@ export default class Record extends Model<Record, RecordsCreationsAttrs> {
 
   @HasOne(() => RecordRegulation)
   record_regulation: RecordRegulation;
+
+  @HasMany(() => History)
+  record_counters: RecordCounter[];
 
   @BeforeCreate
   static addSetProperty(instance: Record) {

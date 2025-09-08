@@ -109,6 +109,11 @@ export type plants = $Result.DefaultSelection<Prisma.$plantsPayload>
  */
 export type products = $Result.DefaultSelection<Prisma.$productsPayload>
 /**
+ * Model record_counters
+ * 
+ */
+export type record_counters = $Result.DefaultSelection<Prisma.$record_countersPayload>
+/**
  * Model record_regulations
  * 
  */
@@ -531,6 +536,16 @@ export class PrismaClient<
     * ```
     */
   get products(): Prisma.productsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.record_counters`: Exposes CRUD operations for the **record_counters** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Record_counters
+    * const record_counters = await prisma.record_counters.findMany()
+    * ```
+    */
+  get record_counters(): Prisma.record_countersDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.record_regulations`: Exposes CRUD operations for the **record_regulations** model.
@@ -1220,6 +1235,7 @@ export namespace Prisma {
     occupations: 'occupations',
     plants: 'plants',
     products: 'products',
+    record_counters: 'record_counters',
     record_regulations: 'record_regulations',
     records: 'records',
     regulations: 'regulations',
@@ -1261,7 +1277,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "batchs" | "traceBatches" | "api_errors" | "apparatuses" | "bases" | "batchs" | "boils" | "cans" | "conveyors" | "dbo_Batchs" | "docs" | "employees" | "histories" | "history_types" | "marking_sample" | "notes" | "occupations" | "plants" | "products" | "record_regulations" | "records" | "regulations" | "roles" | "semi_products" | "series" | "signals" | "tokens" | "tube_assembly" | "tube_conveyor_posts" | "tube_conveyors" | "tube_histories" | "tube_histories_notes" | "tube_history_types" | "tube_materials" | "tube_parameters" | "tube_products" | "tube_records" | "tube_sessions" | "tube_specifications" | "user_roles" | "users" | "workshops"
+      modelProps: "batchs" | "traceBatches" | "api_errors" | "apparatuses" | "bases" | "batchs" | "boils" | "cans" | "conveyors" | "dbo_Batchs" | "docs" | "employees" | "histories" | "history_types" | "marking_sample" | "notes" | "occupations" | "plants" | "products" | "record_counters" | "record_regulations" | "records" | "regulations" | "roles" | "semi_products" | "series" | "signals" | "tokens" | "tube_assembly" | "tube_conveyor_posts" | "tube_conveyors" | "tube_histories" | "tube_histories_notes" | "tube_history_types" | "tube_materials" | "tube_parameters" | "tube_products" | "tube_records" | "tube_sessions" | "tube_specifications" | "user_roles" | "users" | "workshops"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2668,6 +2684,80 @@ export namespace Prisma {
           count: {
             args: Prisma.productsCountArgs<ExtArgs>
             result: $Utils.Optional<ProductsCountAggregateOutputType> | number
+          }
+        }
+      }
+      record_counters: {
+        payload: Prisma.$record_countersPayload<ExtArgs>
+        fields: Prisma.record_countersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.record_countersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.record_countersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>
+          }
+          findFirst: {
+            args: Prisma.record_countersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.record_countersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>
+          }
+          findMany: {
+            args: Prisma.record_countersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>[]
+          }
+          create: {
+            args: Prisma.record_countersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>
+          }
+          createMany: {
+            args: Prisma.record_countersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.record_countersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>[]
+          }
+          delete: {
+            args: Prisma.record_countersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>
+          }
+          update: {
+            args: Prisma.record_countersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>
+          }
+          deleteMany: {
+            args: Prisma.record_countersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.record_countersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.record_countersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>[]
+          }
+          upsert: {
+            args: Prisma.record_countersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$record_countersPayload>
+          }
+          aggregate: {
+            args: Prisma.Record_countersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecord_counters>
+          }
+          groupBy: {
+            args: Prisma.record_countersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Record_countersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.record_countersCountArgs<ExtArgs>
+            result: $Utils.Optional<Record_countersCountAggregateOutputType> | number
           }
         }
       }
@@ -4484,6 +4574,7 @@ export namespace Prisma {
     occupations?: occupationsOmit
     plants?: plantsOmit
     products?: productsOmit
+    record_counters?: record_countersOmit
     record_regulations?: record_regulationsOmit
     records?: recordsOmit
     regulations?: regulationsOmit
@@ -5025,12 +5116,14 @@ export namespace Prisma {
     histories: number
     record_regulations: number
     semi_products: number
+    record_counters: number
   }
 
   export type RecordsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     histories?: boolean | RecordsCountOutputTypeCountHistoriesArgs
     record_regulations?: boolean | RecordsCountOutputTypeCountRecord_regulationsArgs
     semi_products?: boolean | RecordsCountOutputTypeCountSemi_productsArgs
+    record_counters?: boolean | RecordsCountOutputTypeCountRecord_countersArgs
   }
 
   // Custom InputTypes
@@ -5063,6 +5156,13 @@ export namespace Prisma {
    */
   export type RecordsCountOutputTypeCountSemi_productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: semi_productsWhereInput
+  }
+
+  /**
+   * RecordsCountOutputType without action
+   */
+  export type RecordsCountOutputTypeCountRecord_countersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: record_countersWhereInput
   }
 
 
@@ -26405,6 +26505,1138 @@ export namespace Prisma {
 
 
   /**
+   * Model record_counters
+   */
+
+  export type AggregateRecord_counters = {
+    _count: Record_countersCountAggregateOutputType | null
+    _avg: Record_countersAvgAggregateOutputType | null
+    _sum: Record_countersSumAggregateOutputType | null
+    _min: Record_countersMinAggregateOutputType | null
+    _max: Record_countersMaxAggregateOutputType | null
+  }
+
+  export type Record_countersAvgAggregateOutputType = {
+    id: number | null
+    record_id: number | null
+    counter_value: number | null
+  }
+
+  export type Record_countersSumAggregateOutputType = {
+    id: number | null
+    record_id: number | null
+    counter_value: number | null
+  }
+
+  export type Record_countersMinAggregateOutputType = {
+    id: number | null
+    record_id: number | null
+    task_uid: string | null
+    counter_value: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type Record_countersMaxAggregateOutputType = {
+    id: number | null
+    record_id: number | null
+    task_uid: string | null
+    counter_value: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type Record_countersCountAggregateOutputType = {
+    id: number
+    record_id: number
+    task_uid: number
+    counter_value: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type Record_countersAvgAggregateInputType = {
+    id?: true
+    record_id?: true
+    counter_value?: true
+  }
+
+  export type Record_countersSumAggregateInputType = {
+    id?: true
+    record_id?: true
+    counter_value?: true
+  }
+
+  export type Record_countersMinAggregateInputType = {
+    id?: true
+    record_id?: true
+    task_uid?: true
+    counter_value?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type Record_countersMaxAggregateInputType = {
+    id?: true
+    record_id?: true
+    task_uid?: true
+    counter_value?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type Record_countersCountAggregateInputType = {
+    id?: true
+    record_id?: true
+    task_uid?: true
+    counter_value?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type Record_countersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which record_counters to aggregate.
+     */
+    where?: record_countersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of record_counters to fetch.
+     */
+    orderBy?: record_countersOrderByWithRelationInput | record_countersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: record_countersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` record_counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` record_counters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned record_counters
+    **/
+    _count?: true | Record_countersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Record_countersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Record_countersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Record_countersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Record_countersMaxAggregateInputType
+  }
+
+  export type GetRecord_countersAggregateType<T extends Record_countersAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecord_counters]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecord_counters[P]>
+      : GetScalarType<T[P], AggregateRecord_counters[P]>
+  }
+
+
+
+
+  export type record_countersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: record_countersWhereInput
+    orderBy?: record_countersOrderByWithAggregationInput | record_countersOrderByWithAggregationInput[]
+    by: Record_countersScalarFieldEnum[] | Record_countersScalarFieldEnum
+    having?: record_countersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Record_countersCountAggregateInputType | true
+    _avg?: Record_countersAvgAggregateInputType
+    _sum?: Record_countersSumAggregateInputType
+    _min?: Record_countersMinAggregateInputType
+    _max?: Record_countersMaxAggregateInputType
+  }
+
+  export type Record_countersGroupByOutputType = {
+    id: number
+    record_id: number | null
+    task_uid: string
+    counter_value: number
+    createdAt: Date
+    updatedAt: Date
+    _count: Record_countersCountAggregateOutputType | null
+    _avg: Record_countersAvgAggregateOutputType | null
+    _sum: Record_countersSumAggregateOutputType | null
+    _min: Record_countersMinAggregateOutputType | null
+    _max: Record_countersMaxAggregateOutputType | null
+  }
+
+  type GetRecord_countersGroupByPayload<T extends record_countersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Record_countersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Record_countersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Record_countersGroupByOutputType[P]>
+            : GetScalarType<T[P], Record_countersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type record_countersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    record_id?: boolean
+    task_uid?: boolean
+    counter_value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    records?: boolean | record_counters$recordsArgs<ExtArgs>
+  }, ExtArgs["result"]["record_counters"]>
+
+  export type record_countersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    record_id?: boolean
+    task_uid?: boolean
+    counter_value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    records?: boolean | record_counters$recordsArgs<ExtArgs>
+  }, ExtArgs["result"]["record_counters"]>
+
+  export type record_countersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    record_id?: boolean
+    task_uid?: boolean
+    counter_value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    records?: boolean | record_counters$recordsArgs<ExtArgs>
+  }, ExtArgs["result"]["record_counters"]>
+
+  export type record_countersSelectScalar = {
+    id?: boolean
+    record_id?: boolean
+    task_uid?: boolean
+    counter_value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type record_countersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "record_id" | "task_uid" | "counter_value" | "createdAt" | "updatedAt", ExtArgs["result"]["record_counters"]>
+  export type record_countersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    records?: boolean | record_counters$recordsArgs<ExtArgs>
+  }
+  export type record_countersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    records?: boolean | record_counters$recordsArgs<ExtArgs>
+  }
+  export type record_countersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    records?: boolean | record_counters$recordsArgs<ExtArgs>
+  }
+
+  export type $record_countersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "record_counters"
+    objects: {
+      records: Prisma.$recordsPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      record_id: number | null
+      task_uid: string
+      counter_value: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["record_counters"]>
+    composites: {}
+  }
+
+  type record_countersGetPayload<S extends boolean | null | undefined | record_countersDefaultArgs> = $Result.GetResult<Prisma.$record_countersPayload, S>
+
+  type record_countersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<record_countersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Record_countersCountAggregateInputType | true
+    }
+
+  export interface record_countersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['record_counters'], meta: { name: 'record_counters' } }
+    /**
+     * Find zero or one Record_counters that matches the filter.
+     * @param {record_countersFindUniqueArgs} args - Arguments to find a Record_counters
+     * @example
+     * // Get one Record_counters
+     * const record_counters = await prisma.record_counters.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends record_countersFindUniqueArgs>(args: SelectSubset<T, record_countersFindUniqueArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Record_counters that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {record_countersFindUniqueOrThrowArgs} args - Arguments to find a Record_counters
+     * @example
+     * // Get one Record_counters
+     * const record_counters = await prisma.record_counters.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends record_countersFindUniqueOrThrowArgs>(args: SelectSubset<T, record_countersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Record_counters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {record_countersFindFirstArgs} args - Arguments to find a Record_counters
+     * @example
+     * // Get one Record_counters
+     * const record_counters = await prisma.record_counters.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends record_countersFindFirstArgs>(args?: SelectSubset<T, record_countersFindFirstArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Record_counters that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {record_countersFindFirstOrThrowArgs} args - Arguments to find a Record_counters
+     * @example
+     * // Get one Record_counters
+     * const record_counters = await prisma.record_counters.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends record_countersFindFirstOrThrowArgs>(args?: SelectSubset<T, record_countersFindFirstOrThrowArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Record_counters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {record_countersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Record_counters
+     * const record_counters = await prisma.record_counters.findMany()
+     * 
+     * // Get first 10 Record_counters
+     * const record_counters = await prisma.record_counters.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const record_countersWithIdOnly = await prisma.record_counters.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends record_countersFindManyArgs>(args?: SelectSubset<T, record_countersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Record_counters.
+     * @param {record_countersCreateArgs} args - Arguments to create a Record_counters.
+     * @example
+     * // Create one Record_counters
+     * const Record_counters = await prisma.record_counters.create({
+     *   data: {
+     *     // ... data to create a Record_counters
+     *   }
+     * })
+     * 
+     */
+    create<T extends record_countersCreateArgs>(args: SelectSubset<T, record_countersCreateArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Record_counters.
+     * @param {record_countersCreateManyArgs} args - Arguments to create many Record_counters.
+     * @example
+     * // Create many Record_counters
+     * const record_counters = await prisma.record_counters.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends record_countersCreateManyArgs>(args?: SelectSubset<T, record_countersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Record_counters and returns the data saved in the database.
+     * @param {record_countersCreateManyAndReturnArgs} args - Arguments to create many Record_counters.
+     * @example
+     * // Create many Record_counters
+     * const record_counters = await prisma.record_counters.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Record_counters and only return the `id`
+     * const record_countersWithIdOnly = await prisma.record_counters.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends record_countersCreateManyAndReturnArgs>(args?: SelectSubset<T, record_countersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Record_counters.
+     * @param {record_countersDeleteArgs} args - Arguments to delete one Record_counters.
+     * @example
+     * // Delete one Record_counters
+     * const Record_counters = await prisma.record_counters.delete({
+     *   where: {
+     *     // ... filter to delete one Record_counters
+     *   }
+     * })
+     * 
+     */
+    delete<T extends record_countersDeleteArgs>(args: SelectSubset<T, record_countersDeleteArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Record_counters.
+     * @param {record_countersUpdateArgs} args - Arguments to update one Record_counters.
+     * @example
+     * // Update one Record_counters
+     * const record_counters = await prisma.record_counters.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends record_countersUpdateArgs>(args: SelectSubset<T, record_countersUpdateArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Record_counters.
+     * @param {record_countersDeleteManyArgs} args - Arguments to filter Record_counters to delete.
+     * @example
+     * // Delete a few Record_counters
+     * const { count } = await prisma.record_counters.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends record_countersDeleteManyArgs>(args?: SelectSubset<T, record_countersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Record_counters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {record_countersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Record_counters
+     * const record_counters = await prisma.record_counters.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends record_countersUpdateManyArgs>(args: SelectSubset<T, record_countersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Record_counters and returns the data updated in the database.
+     * @param {record_countersUpdateManyAndReturnArgs} args - Arguments to update many Record_counters.
+     * @example
+     * // Update many Record_counters
+     * const record_counters = await prisma.record_counters.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Record_counters and only return the `id`
+     * const record_countersWithIdOnly = await prisma.record_counters.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends record_countersUpdateManyAndReturnArgs>(args: SelectSubset<T, record_countersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Record_counters.
+     * @param {record_countersUpsertArgs} args - Arguments to update or create a Record_counters.
+     * @example
+     * // Update or create a Record_counters
+     * const record_counters = await prisma.record_counters.upsert({
+     *   create: {
+     *     // ... data to create a Record_counters
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Record_counters we want to update
+     *   }
+     * })
+     */
+    upsert<T extends record_countersUpsertArgs>(args: SelectSubset<T, record_countersUpsertArgs<ExtArgs>>): Prisma__record_countersClient<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Record_counters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {record_countersCountArgs} args - Arguments to filter Record_counters to count.
+     * @example
+     * // Count the number of Record_counters
+     * const count = await prisma.record_counters.count({
+     *   where: {
+     *     // ... the filter for the Record_counters we want to count
+     *   }
+     * })
+    **/
+    count<T extends record_countersCountArgs>(
+      args?: Subset<T, record_countersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Record_countersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Record_counters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Record_countersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Record_countersAggregateArgs>(args: Subset<T, Record_countersAggregateArgs>): Prisma.PrismaPromise<GetRecord_countersAggregateType<T>>
+
+    /**
+     * Group by Record_counters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {record_countersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends record_countersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: record_countersGroupByArgs['orderBy'] }
+        : { orderBy?: record_countersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, record_countersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecord_countersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the record_counters model
+   */
+  readonly fields: record_countersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for record_counters.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__record_countersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    records<T extends record_counters$recordsArgs<ExtArgs> = {}>(args?: Subset<T, record_counters$recordsArgs<ExtArgs>>): Prisma__recordsClient<$Result.GetResult<Prisma.$recordsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the record_counters model
+   */
+  interface record_countersFieldRefs {
+    readonly id: FieldRef<"record_counters", 'Int'>
+    readonly record_id: FieldRef<"record_counters", 'Int'>
+    readonly task_uid: FieldRef<"record_counters", 'String'>
+    readonly counter_value: FieldRef<"record_counters", 'Int'>
+    readonly createdAt: FieldRef<"record_counters", 'DateTime'>
+    readonly updatedAt: FieldRef<"record_counters", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * record_counters findUnique
+   */
+  export type record_countersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * Filter, which record_counters to fetch.
+     */
+    where: record_countersWhereUniqueInput
+  }
+
+  /**
+   * record_counters findUniqueOrThrow
+   */
+  export type record_countersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * Filter, which record_counters to fetch.
+     */
+    where: record_countersWhereUniqueInput
+  }
+
+  /**
+   * record_counters findFirst
+   */
+  export type record_countersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * Filter, which record_counters to fetch.
+     */
+    where?: record_countersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of record_counters to fetch.
+     */
+    orderBy?: record_countersOrderByWithRelationInput | record_countersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for record_counters.
+     */
+    cursor?: record_countersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` record_counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` record_counters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of record_counters.
+     */
+    distinct?: Record_countersScalarFieldEnum | Record_countersScalarFieldEnum[]
+  }
+
+  /**
+   * record_counters findFirstOrThrow
+   */
+  export type record_countersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * Filter, which record_counters to fetch.
+     */
+    where?: record_countersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of record_counters to fetch.
+     */
+    orderBy?: record_countersOrderByWithRelationInput | record_countersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for record_counters.
+     */
+    cursor?: record_countersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` record_counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` record_counters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of record_counters.
+     */
+    distinct?: Record_countersScalarFieldEnum | Record_countersScalarFieldEnum[]
+  }
+
+  /**
+   * record_counters findMany
+   */
+  export type record_countersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * Filter, which record_counters to fetch.
+     */
+    where?: record_countersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of record_counters to fetch.
+     */
+    orderBy?: record_countersOrderByWithRelationInput | record_countersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing record_counters.
+     */
+    cursor?: record_countersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` record_counters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` record_counters.
+     */
+    skip?: number
+    distinct?: Record_countersScalarFieldEnum | Record_countersScalarFieldEnum[]
+  }
+
+  /**
+   * record_counters create
+   */
+  export type record_countersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a record_counters.
+     */
+    data: XOR<record_countersCreateInput, record_countersUncheckedCreateInput>
+  }
+
+  /**
+   * record_counters createMany
+   */
+  export type record_countersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many record_counters.
+     */
+    data: record_countersCreateManyInput | record_countersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * record_counters createManyAndReturn
+   */
+  export type record_countersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * The data used to create many record_counters.
+     */
+    data: record_countersCreateManyInput | record_countersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * record_counters update
+   */
+  export type record_countersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a record_counters.
+     */
+    data: XOR<record_countersUpdateInput, record_countersUncheckedUpdateInput>
+    /**
+     * Choose, which record_counters to update.
+     */
+    where: record_countersWhereUniqueInput
+  }
+
+  /**
+   * record_counters updateMany
+   */
+  export type record_countersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update record_counters.
+     */
+    data: XOR<record_countersUpdateManyMutationInput, record_countersUncheckedUpdateManyInput>
+    /**
+     * Filter which record_counters to update
+     */
+    where?: record_countersWhereInput
+    /**
+     * Limit how many record_counters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * record_counters updateManyAndReturn
+   */
+  export type record_countersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * The data used to update record_counters.
+     */
+    data: XOR<record_countersUpdateManyMutationInput, record_countersUncheckedUpdateManyInput>
+    /**
+     * Filter which record_counters to update
+     */
+    where?: record_countersWhereInput
+    /**
+     * Limit how many record_counters to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * record_counters upsert
+   */
+  export type record_countersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the record_counters to update in case it exists.
+     */
+    where: record_countersWhereUniqueInput
+    /**
+     * In case the record_counters found by the `where` argument doesn't exist, create a new record_counters with this data.
+     */
+    create: XOR<record_countersCreateInput, record_countersUncheckedCreateInput>
+    /**
+     * In case the record_counters was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<record_countersUpdateInput, record_countersUncheckedUpdateInput>
+  }
+
+  /**
+   * record_counters delete
+   */
+  export type record_countersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    /**
+     * Filter which record_counters to delete.
+     */
+    where: record_countersWhereUniqueInput
+  }
+
+  /**
+   * record_counters deleteMany
+   */
+  export type record_countersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which record_counters to delete
+     */
+    where?: record_countersWhereInput
+    /**
+     * Limit how many record_counters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * record_counters.records
+   */
+  export type record_counters$recordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the records
+     */
+    select?: recordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the records
+     */
+    omit?: recordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recordsInclude<ExtArgs> | null
+    where?: recordsWhereInput
+  }
+
+  /**
+   * record_counters without action
+   */
+  export type record_countersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model record_regulations
    */
 
@@ -28091,6 +29323,7 @@ export namespace Prisma {
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     boils?: boolean | records$boilsArgs<ExtArgs>
     semi_products?: boolean | records$semi_productsArgs<ExtArgs>
+    record_counters?: boolean | records$record_countersArgs<ExtArgs>
     _count?: boolean | RecordsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["records"]>
 
@@ -28180,6 +29413,7 @@ export namespace Prisma {
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     boils?: boolean | records$boilsArgs<ExtArgs>
     semi_products?: boolean | records$semi_productsArgs<ExtArgs>
+    record_counters?: boolean | records$record_countersArgs<ExtArgs>
     _count?: boolean | RecordsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type recordsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28214,6 +29448,7 @@ export namespace Prisma {
       workshops: Prisma.$workshopsPayload<ExtArgs> | null
       boils: Prisma.$boilsPayload<ExtArgs> | null
       semi_products: Prisma.$semi_productsPayload<ExtArgs>[]
+      record_counters: Prisma.$record_countersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -28637,6 +29872,7 @@ export namespace Prisma {
     workshops<T extends records$workshopsArgs<ExtArgs> = {}>(args?: Subset<T, records$workshopsArgs<ExtArgs>>): Prisma__workshopsClient<$Result.GetResult<Prisma.$workshopsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     boils<T extends records$boilsArgs<ExtArgs> = {}>(args?: Subset<T, records$boilsArgs<ExtArgs>>): Prisma__boilsClient<$Result.GetResult<Prisma.$boilsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     semi_products<T extends records$semi_productsArgs<ExtArgs> = {}>(args?: Subset<T, records$semi_productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$semi_productsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    record_counters<T extends records$record_countersArgs<ExtArgs> = {}>(args?: Subset<T, records$record_countersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29281,6 +30517,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Semi_productsScalarFieldEnum | Semi_productsScalarFieldEnum[]
+  }
+
+  /**
+   * records.record_counters
+   */
+  export type records$record_countersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the record_counters
+     */
+    select?: record_countersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the record_counters
+     */
+    omit?: record_countersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: record_countersInclude<ExtArgs> | null
+    where?: record_countersWhereInput
+    orderBy?: record_countersOrderByWithRelationInput | record_countersOrderByWithRelationInput[]
+    cursor?: record_countersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Record_countersScalarFieldEnum | Record_countersScalarFieldEnum[]
   }
 
   /**
@@ -54165,6 +55425,18 @@ export namespace Prisma {
   export type ProductsScalarFieldEnum = (typeof ProductsScalarFieldEnum)[keyof typeof ProductsScalarFieldEnum]
 
 
+  export const Record_countersScalarFieldEnum: {
+    id: 'id',
+    record_id: 'record_id',
+    task_uid: 'task_uid',
+    counter_value: 'counter_value',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type Record_countersScalarFieldEnum = (typeof Record_countersScalarFieldEnum)[keyof typeof Record_countersScalarFieldEnum]
+
+
   export const Record_regulationsScalarFieldEnum: {
     id: 'id',
     record_id: 'record_id',
@@ -55703,6 +56975,68 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"products"> | Date | string
   }
 
+  export type record_countersWhereInput = {
+    AND?: record_countersWhereInput | record_countersWhereInput[]
+    OR?: record_countersWhereInput[]
+    NOT?: record_countersWhereInput | record_countersWhereInput[]
+    id?: IntFilter<"record_counters"> | number
+    record_id?: IntNullableFilter<"record_counters"> | number | null
+    task_uid?: StringFilter<"record_counters"> | string
+    counter_value?: IntFilter<"record_counters"> | number
+    createdAt?: DateTimeFilter<"record_counters"> | Date | string
+    updatedAt?: DateTimeFilter<"record_counters"> | Date | string
+    records?: XOR<RecordsNullableScalarRelationFilter, recordsWhereInput> | null
+  }
+
+  export type record_countersOrderByWithRelationInput = {
+    id?: SortOrder
+    record_id?: SortOrderInput | SortOrder
+    task_uid?: SortOrder
+    counter_value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    records?: recordsOrderByWithRelationInput
+  }
+
+  export type record_countersWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    task_uid?: string
+    AND?: record_countersWhereInput | record_countersWhereInput[]
+    OR?: record_countersWhereInput[]
+    NOT?: record_countersWhereInput | record_countersWhereInput[]
+    record_id?: IntNullableFilter<"record_counters"> | number | null
+    counter_value?: IntFilter<"record_counters"> | number
+    createdAt?: DateTimeFilter<"record_counters"> | Date | string
+    updatedAt?: DateTimeFilter<"record_counters"> | Date | string
+    records?: XOR<RecordsNullableScalarRelationFilter, recordsWhereInput> | null
+  }, "id" | "task_uid">
+
+  export type record_countersOrderByWithAggregationInput = {
+    id?: SortOrder
+    record_id?: SortOrderInput | SortOrder
+    task_uid?: SortOrder
+    counter_value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: record_countersCountOrderByAggregateInput
+    _avg?: record_countersAvgOrderByAggregateInput
+    _max?: record_countersMaxOrderByAggregateInput
+    _min?: record_countersMinOrderByAggregateInput
+    _sum?: record_countersSumOrderByAggregateInput
+  }
+
+  export type record_countersScalarWhereWithAggregatesInput = {
+    AND?: record_countersScalarWhereWithAggregatesInput | record_countersScalarWhereWithAggregatesInput[]
+    OR?: record_countersScalarWhereWithAggregatesInput[]
+    NOT?: record_countersScalarWhereWithAggregatesInput | record_countersScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"record_counters"> | number
+    record_id?: IntNullableWithAggregatesFilter<"record_counters"> | number | null
+    task_uid?: StringWithAggregatesFilter<"record_counters"> | string
+    counter_value?: IntWithAggregatesFilter<"record_counters"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"record_counters"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"record_counters"> | Date | string
+  }
+
   export type record_regulationsWhereInput = {
     AND?: record_regulationsWhereInput | record_regulationsWhereInput[]
     OR?: record_regulationsWhereInput[]
@@ -55859,6 +57193,7 @@ export namespace Prisma {
     workshops?: XOR<WorkshopsNullableScalarRelationFilter, workshopsWhereInput> | null
     boils?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
     semi_products?: Semi_productsListRelationFilter
+    record_counters?: Record_countersListRelationFilter
   }
 
   export type recordsOrderByWithRelationInput = {
@@ -55889,6 +57224,7 @@ export namespace Prisma {
     workshops?: workshopsOrderByWithRelationInput
     boils?: boilsOrderByWithRelationInput
     semi_products?: semi_productsOrderByRelationAggregateInput
+    record_counters?: record_countersOrderByRelationAggregateInput
   }
 
   export type recordsWhereUniqueInput = Prisma.AtLeast<{
@@ -55922,6 +57258,7 @@ export namespace Prisma {
     workshops?: XOR<WorkshopsNullableScalarRelationFilter, workshopsWhereInput> | null
     boils?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
     semi_products?: Semi_productsListRelationFilter
+    record_counters?: Record_countersListRelationFilter
   }, "id">
 
   export type recordsOrderByWithAggregationInput = {
@@ -58561,6 +59898,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type record_countersCreateInput = {
+    task_uid: string
+    counter_value: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    records?: recordsCreateNestedOneWithoutRecord_countersInput
+  }
+
+  export type record_countersUncheckedCreateInput = {
+    id?: number
+    record_id?: number | null
+    task_uid: string
+    counter_value: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type record_countersUpdateInput = {
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    records?: recordsUpdateOneWithoutRecord_countersNestedInput
+  }
+
+  export type record_countersUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    record_id?: NullableIntFieldUpdateOperationsInput | number | null
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type record_countersCreateManyInput = {
+    id?: number
+    record_id?: number | null
+    task_uid: string
+    counter_value: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type record_countersUpdateManyMutationInput = {
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type record_countersUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    record_id?: NullableIntFieldUpdateOperationsInput | number | null
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type record_regulationsCreateInput = {
     org_base_min_weight?: Decimal | DecimalJsLike | number | string | null
     org_base_max_weight?: Decimal | DecimalJsLike | number | string | null
@@ -58723,6 +60119,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateInput = {
@@ -58746,6 +60143,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUpdateInput = {
@@ -58768,6 +60166,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateInput = {
@@ -58791,6 +60190,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsCreateManyInput = {
@@ -61406,6 +62806,45 @@ export namespace Prisma {
     serieId?: SortOrder
   }
 
+  export type record_countersCountOrderByAggregateInput = {
+    id?: SortOrder
+    record_id?: SortOrder
+    task_uid?: SortOrder
+    counter_value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type record_countersAvgOrderByAggregateInput = {
+    id?: SortOrder
+    record_id?: SortOrder
+    counter_value?: SortOrder
+  }
+
+  export type record_countersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    record_id?: SortOrder
+    task_uid?: SortOrder
+    counter_value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type record_countersMinOrderByAggregateInput = {
+    id?: SortOrder
+    record_id?: SortOrder
+    task_uid?: SortOrder
+    counter_value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type record_countersSumOrderByAggregateInput = {
+    id?: SortOrder
+    record_id?: SortOrder
+    counter_value?: SortOrder
+  }
+
   export type Marking_sampleNullableScalarRelationFilter = {
     is?: marking_sampleWhereInput | null
     isNot?: marking_sampleWhereInput | null
@@ -61533,6 +62972,16 @@ export namespace Prisma {
   export type BoilsNullableScalarRelationFilter = {
     is?: boilsWhereInput | null
     isNot?: boilsWhereInput | null
+  }
+
+  export type Record_countersListRelationFilter = {
+    every?: record_countersWhereInput
+    some?: record_countersWhereInput
+    none?: record_countersWhereInput
+  }
+
+  export type record_countersOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type recordsCountOrderByAggregateInput = {
@@ -63754,6 +65203,22 @@ export namespace Prisma {
     deleteMany?: semi_productsScalarWhereInput | semi_productsScalarWhereInput[]
   }
 
+  export type recordsCreateNestedOneWithoutRecord_countersInput = {
+    create?: XOR<recordsCreateWithoutRecord_countersInput, recordsUncheckedCreateWithoutRecord_countersInput>
+    connectOrCreate?: recordsCreateOrConnectWithoutRecord_countersInput
+    connect?: recordsWhereUniqueInput
+  }
+
+  export type recordsUpdateOneWithoutRecord_countersNestedInput = {
+    create?: XOR<recordsCreateWithoutRecord_countersInput, recordsUncheckedCreateWithoutRecord_countersInput>
+    connectOrCreate?: recordsCreateOrConnectWithoutRecord_countersInput
+    upsert?: recordsUpsertWithoutRecord_countersInput
+    disconnect?: recordsWhereInput | boolean
+    delete?: recordsWhereInput | boolean
+    connect?: recordsWhereUniqueInput
+    update?: XOR<XOR<recordsUpdateToOneWithWhereWithoutRecord_countersInput, recordsUpdateWithoutRecord_countersInput>, recordsUncheckedUpdateWithoutRecord_countersInput>
+  }
+
   export type marking_sampleCreateNestedOneWithoutRecord_regulationsInput = {
     create?: XOR<marking_sampleCreateWithoutRecord_regulationsInput, marking_sampleUncheckedCreateWithoutRecord_regulationsInput>
     connectOrCreate?: marking_sampleCreateOrConnectWithoutRecord_regulationsInput
@@ -63849,6 +65314,13 @@ export namespace Prisma {
     connect?: semi_productsWhereUniqueInput | semi_productsWhereUniqueInput[]
   }
 
+  export type record_countersCreateNestedManyWithoutRecordsInput = {
+    create?: XOR<record_countersCreateWithoutRecordsInput, record_countersUncheckedCreateWithoutRecordsInput> | record_countersCreateWithoutRecordsInput[] | record_countersUncheckedCreateWithoutRecordsInput[]
+    connectOrCreate?: record_countersCreateOrConnectWithoutRecordsInput | record_countersCreateOrConnectWithoutRecordsInput[]
+    createMany?: record_countersCreateManyRecordsInputEnvelope
+    connect?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+  }
+
   export type historiesUncheckedCreateNestedManyWithoutRecordsInput = {
     create?: XOR<historiesCreateWithoutRecordsInput, historiesUncheckedCreateWithoutRecordsInput> | historiesCreateWithoutRecordsInput[] | historiesUncheckedCreateWithoutRecordsInput[]
     connectOrCreate?: historiesCreateOrConnectWithoutRecordsInput | historiesCreateOrConnectWithoutRecordsInput[]
@@ -63868,6 +65340,13 @@ export namespace Prisma {
     connectOrCreate?: semi_productsCreateOrConnectWithoutRecordsInput | semi_productsCreateOrConnectWithoutRecordsInput[]
     createMany?: semi_productsCreateManyRecordsInputEnvelope
     connect?: semi_productsWhereUniqueInput | semi_productsWhereUniqueInput[]
+  }
+
+  export type record_countersUncheckedCreateNestedManyWithoutRecordsInput = {
+    create?: XOR<record_countersCreateWithoutRecordsInput, record_countersUncheckedCreateWithoutRecordsInput> | record_countersCreateWithoutRecordsInput[] | record_countersUncheckedCreateWithoutRecordsInput[]
+    connectOrCreate?: record_countersCreateOrConnectWithoutRecordsInput | record_countersCreateOrConnectWithoutRecordsInput[]
+    createMany?: record_countersCreateManyRecordsInputEnvelope
+    connect?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
   }
 
   export type historiesUpdateManyWithoutRecordsNestedInput = {
@@ -63982,6 +65461,20 @@ export namespace Prisma {
     deleteMany?: semi_productsScalarWhereInput | semi_productsScalarWhereInput[]
   }
 
+  export type record_countersUpdateManyWithoutRecordsNestedInput = {
+    create?: XOR<record_countersCreateWithoutRecordsInput, record_countersUncheckedCreateWithoutRecordsInput> | record_countersCreateWithoutRecordsInput[] | record_countersUncheckedCreateWithoutRecordsInput[]
+    connectOrCreate?: record_countersCreateOrConnectWithoutRecordsInput | record_countersCreateOrConnectWithoutRecordsInput[]
+    upsert?: record_countersUpsertWithWhereUniqueWithoutRecordsInput | record_countersUpsertWithWhereUniqueWithoutRecordsInput[]
+    createMany?: record_countersCreateManyRecordsInputEnvelope
+    set?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    disconnect?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    delete?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    connect?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    update?: record_countersUpdateWithWhereUniqueWithoutRecordsInput | record_countersUpdateWithWhereUniqueWithoutRecordsInput[]
+    updateMany?: record_countersUpdateManyWithWhereWithoutRecordsInput | record_countersUpdateManyWithWhereWithoutRecordsInput[]
+    deleteMany?: record_countersScalarWhereInput | record_countersScalarWhereInput[]
+  }
+
   export type historiesUncheckedUpdateManyWithoutRecordsNestedInput = {
     create?: XOR<historiesCreateWithoutRecordsInput, historiesUncheckedCreateWithoutRecordsInput> | historiesCreateWithoutRecordsInput[] | historiesUncheckedCreateWithoutRecordsInput[]
     connectOrCreate?: historiesCreateOrConnectWithoutRecordsInput | historiesCreateOrConnectWithoutRecordsInput[]
@@ -64022,6 +65515,20 @@ export namespace Prisma {
     update?: semi_productsUpdateWithWhereUniqueWithoutRecordsInput | semi_productsUpdateWithWhereUniqueWithoutRecordsInput[]
     updateMany?: semi_productsUpdateManyWithWhereWithoutRecordsInput | semi_productsUpdateManyWithWhereWithoutRecordsInput[]
     deleteMany?: semi_productsScalarWhereInput | semi_productsScalarWhereInput[]
+  }
+
+  export type record_countersUncheckedUpdateManyWithoutRecordsNestedInput = {
+    create?: XOR<record_countersCreateWithoutRecordsInput, record_countersUncheckedCreateWithoutRecordsInput> | record_countersCreateWithoutRecordsInput[] | record_countersUncheckedCreateWithoutRecordsInput[]
+    connectOrCreate?: record_countersCreateOrConnectWithoutRecordsInput | record_countersCreateOrConnectWithoutRecordsInput[]
+    upsert?: record_countersUpsertWithWhereUniqueWithoutRecordsInput | record_countersUpsertWithWhereUniqueWithoutRecordsInput[]
+    createMany?: record_countersCreateManyRecordsInputEnvelope
+    set?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    disconnect?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    delete?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    connect?: record_countersWhereUniqueInput | record_countersWhereUniqueInput[]
+    update?: record_countersUpdateWithWhereUniqueWithoutRecordsInput | record_countersUpdateWithWhereUniqueWithoutRecordsInput[]
+    updateMany?: record_countersUpdateManyWithWhereWithoutRecordsInput | record_countersUpdateManyWithWhereWithoutRecordsInput[]
+    deleteMany?: record_countersScalarWhereInput | record_countersScalarWhereInput[]
   }
 
   export type marking_sampleCreateNestedOneWithoutRegulationsInput = {
@@ -65241,6 +66748,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutApparatusesInput = {
@@ -65263,6 +66771,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutApparatusesInput = {
@@ -65469,6 +66978,7 @@ export namespace Prisma {
     products?: productsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutBoilsInput = {
@@ -65491,6 +67001,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutBoilsInput = {
@@ -65620,6 +67131,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutCansInput = {
@@ -65642,6 +67154,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutCansInput = {
@@ -65689,6 +67202,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutConveyorsInput = {
@@ -65711,6 +67225,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutConveyorsInput = {
@@ -65774,6 +67289,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutDocsInput = {
@@ -65796,6 +67312,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutDocsInput = {
@@ -66127,6 +67644,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutHistoriesInput = {
@@ -66149,6 +67667,7 @@ export namespace Prisma {
     dm?: string
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutHistoriesInput = {
@@ -66270,6 +67789,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutHistoriesInput = {
@@ -66292,6 +67812,7 @@ export namespace Prisma {
     dm?: StringFieldUpdateOperationsInput | string
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type usersUpsertWithoutHistoriesInput = {
@@ -66689,6 +68210,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutProductsInput = {
@@ -66711,6 +68233,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutProductsInput = {
@@ -66857,6 +68380,112 @@ export namespace Prisma {
     data: XOR<semi_productsUpdateManyMutationInput, semi_productsUncheckedUpdateManyWithoutProductsInput>
   }
 
+  export type recordsCreateWithoutRecord_countersInput = {
+    plan: number
+    bbf: string
+    note: string
+    createdAt: Date | string
+    updatedAt: Date | string
+    isSet?: boolean | null
+    organic_base_id?: number | null
+    water_base_id?: number | null
+    dm?: string
+    histories?: historiesCreateNestedManyWithoutRecordsInput
+    record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
+    cans?: cansCreateNestedOneWithoutRecordsInput
+    conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
+    docs?: docsCreateNestedOneWithoutRecordsInput
+    products?: productsCreateNestedOneWithoutRecordsInput
+    workshops?: workshopsCreateNestedOneWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+  }
+
+  export type recordsUncheckedCreateWithoutRecord_countersInput = {
+    id?: number
+    doc_id?: number | null
+    productId?: number | null
+    boilId?: number | null
+    apparatusId?: number | null
+    canId?: number | null
+    conveyorId?: number | null
+    plan: number
+    bbf: string
+    note: string
+    workshopId?: number | null
+    createdAt: Date | string
+    updatedAt: Date | string
+    isSet?: boolean | null
+    organic_base_id?: number | null
+    water_base_id?: number | null
+    dm?: string
+    histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
+    record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
+    semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+  }
+
+  export type recordsCreateOrConnectWithoutRecord_countersInput = {
+    where: recordsWhereUniqueInput
+    create: XOR<recordsCreateWithoutRecord_countersInput, recordsUncheckedCreateWithoutRecord_countersInput>
+  }
+
+  export type recordsUpsertWithoutRecord_countersInput = {
+    update: XOR<recordsUpdateWithoutRecord_countersInput, recordsUncheckedUpdateWithoutRecord_countersInput>
+    create: XOR<recordsCreateWithoutRecord_countersInput, recordsUncheckedCreateWithoutRecord_countersInput>
+    where?: recordsWhereInput
+  }
+
+  export type recordsUpdateToOneWithWhereWithoutRecord_countersInput = {
+    where?: recordsWhereInput
+    data: XOR<recordsUpdateWithoutRecord_countersInput, recordsUncheckedUpdateWithoutRecord_countersInput>
+  }
+
+  export type recordsUpdateWithoutRecord_countersInput = {
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    dm?: StringFieldUpdateOperationsInput | string
+    histories?: historiesUpdateManyWithoutRecordsNestedInput
+    record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
+    cans?: cansUpdateOneWithoutRecordsNestedInput
+    conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
+    docs?: docsUpdateOneWithoutRecordsNestedInput
+    products?: productsUpdateOneWithoutRecordsNestedInput
+    workshops?: workshopsUpdateOneWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+  }
+
+  export type recordsUncheckedUpdateWithoutRecord_countersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    productId?: NullableIntFieldUpdateOperationsInput | number | null
+    boilId?: NullableIntFieldUpdateOperationsInput | number | null
+    apparatusId?: NullableIntFieldUpdateOperationsInput | number | null
+    canId?: NullableIntFieldUpdateOperationsInput | number | null
+    conveyorId?: NullableIntFieldUpdateOperationsInput | number | null
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    workshopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    dm?: StringFieldUpdateOperationsInput | string
+    histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
+    record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
+    semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+  }
+
   export type marking_sampleCreateWithoutRecord_regulationsInput = {
     value?: string | null
     createdAt: Date | string
@@ -66896,6 +68525,7 @@ export namespace Prisma {
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutRecord_regulationsInput = {
@@ -66918,6 +68548,7 @@ export namespace Prisma {
     dm?: string
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutRecord_regulationsInput = {
@@ -66981,6 +68612,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutRecord_regulationsInput = {
@@ -67003,6 +68635,7 @@ export namespace Prisma {
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type historiesCreateWithoutRecordsInput = {
@@ -67248,6 +68881,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type record_countersCreateWithoutRecordsInput = {
+    task_uid: string
+    counter_value: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type record_countersUncheckedCreateWithoutRecordsInput = {
+    id?: number
+    task_uid: string
+    counter_value: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type record_countersCreateOrConnectWithoutRecordsInput = {
+    where: record_countersWhereUniqueInput
+    create: XOR<record_countersCreateWithoutRecordsInput, record_countersUncheckedCreateWithoutRecordsInput>
+  }
+
+  export type record_countersCreateManyRecordsInputEnvelope = {
+    data: record_countersCreateManyRecordsInput | record_countersCreateManyRecordsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type historiesUpsertWithWhereUniqueWithoutRecordsInput = {
     where: historiesWhereUniqueInput
     update: XOR<historiesUpdateWithoutRecordsInput, historiesUncheckedUpdateWithoutRecordsInput>
@@ -67470,6 +69128,34 @@ export namespace Prisma {
   export type semi_productsUpdateManyWithWhereWithoutRecordsInput = {
     where: semi_productsScalarWhereInput
     data: XOR<semi_productsUpdateManyMutationInput, semi_productsUncheckedUpdateManyWithoutRecordsInput>
+  }
+
+  export type record_countersUpsertWithWhereUniqueWithoutRecordsInput = {
+    where: record_countersWhereUniqueInput
+    update: XOR<record_countersUpdateWithoutRecordsInput, record_countersUncheckedUpdateWithoutRecordsInput>
+    create: XOR<record_countersCreateWithoutRecordsInput, record_countersUncheckedCreateWithoutRecordsInput>
+  }
+
+  export type record_countersUpdateWithWhereUniqueWithoutRecordsInput = {
+    where: record_countersWhereUniqueInput
+    data: XOR<record_countersUpdateWithoutRecordsInput, record_countersUncheckedUpdateWithoutRecordsInput>
+  }
+
+  export type record_countersUpdateManyWithWhereWithoutRecordsInput = {
+    where: record_countersScalarWhereInput
+    data: XOR<record_countersUpdateManyMutationInput, record_countersUncheckedUpdateManyWithoutRecordsInput>
+  }
+
+  export type record_countersScalarWhereInput = {
+    AND?: record_countersScalarWhereInput | record_countersScalarWhereInput[]
+    OR?: record_countersScalarWhereInput[]
+    NOT?: record_countersScalarWhereInput | record_countersScalarWhereInput[]
+    id?: IntFilter<"record_counters"> | number
+    record_id?: IntNullableFilter<"record_counters"> | number | null
+    task_uid?: StringFilter<"record_counters"> | string
+    counter_value?: IntFilter<"record_counters"> | number
+    createdAt?: DateTimeFilter<"record_counters"> | Date | string
+    updatedAt?: DateTimeFilter<"record_counters"> | Date | string
   }
 
   export type marking_sampleCreateWithoutRegulationsInput = {
@@ -67699,6 +69385,7 @@ export namespace Prisma {
     products?: productsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutSemi_productsInput = {
@@ -67721,6 +69408,7 @@ export namespace Prisma {
     dm?: string
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutSemi_productsInput = {
@@ -67826,6 +69514,7 @@ export namespace Prisma {
     products?: productsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutSemi_productsInput = {
@@ -67848,6 +69537,7 @@ export namespace Prisma {
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type productsCreateWithoutSeriesInput = {
@@ -69185,6 +70875,7 @@ export namespace Prisma {
     products?: productsCreateNestedOneWithoutRecordsInput
     boils?: boilsCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsUncheckedCreateWithoutWorkshopsInput = {
@@ -69207,6 +70898,7 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
   }
 
   export type recordsCreateOrConnectWithoutWorkshopsInput = {
@@ -69273,6 +70965,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutApparatusesInput = {
@@ -69295,6 +70988,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutApparatusesInput = {
@@ -69473,6 +71167,7 @@ export namespace Prisma {
     products?: productsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutBoilsInput = {
@@ -69495,6 +71190,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutBoilsInput = {
@@ -69554,6 +71250,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutCansInput = {
@@ -69576,6 +71273,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutCansInput = {
@@ -69635,6 +71333,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutConveyorsInput = {
@@ -69657,6 +71356,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutConveyorsInput = {
@@ -69716,6 +71416,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutDocsInput = {
@@ -69738,6 +71439,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutDocsInput = {
@@ -70201,6 +71903,7 @@ export namespace Prisma {
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutProductsInput = {
@@ -70223,6 +71926,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutProductsInput = {
@@ -70355,6 +72059,14 @@ export namespace Prisma {
     updatedAt: Date | string
   }
 
+  export type record_countersCreateManyRecordsInput = {
+    id?: number
+    task_uid: string
+    counter_value: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type historiesUpdateWithoutRecordsInput = {
     boil_id?: NullableIntFieldUpdateOperationsInput | number | null
     note?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70471,6 +72183,29 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     product_id?: NullableIntFieldUpdateOperationsInput | number | null
     boil_id?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type record_countersUpdateWithoutRecordsInput = {
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type record_countersUncheckedUpdateWithoutRecordsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type record_countersUncheckedUpdateManyWithoutRecordsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_uid?: StringFieldUpdateOperationsInput | string
+    counter_value?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -70989,6 +72724,7 @@ export namespace Prisma {
     products?: productsUpdateOneWithoutRecordsNestedInput
     boils?: boilsUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateWithoutWorkshopsInput = {
@@ -71011,6 +72747,7 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
   }
 
   export type recordsUncheckedUpdateManyWithoutWorkshopsInput = {

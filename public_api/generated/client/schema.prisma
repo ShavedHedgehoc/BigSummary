@@ -187,6 +187,16 @@ model products {
   semi_products semi_products[]
 }
 
+model record_counters {
+  id            Int      @id @default(autoincrement())
+  record_id     Int?
+  task_uid      String   @unique
+  counter_value Int
+  records       records? @relation(fields: [record_id], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 model record_regulations {
   id                    Int             @id @default(autoincrement())
   record_id             Int?
@@ -238,6 +248,7 @@ model records {
   workshops          workshops?           @relation(fields: [workshopId], references: [id], onDelete: Cascade)
   boils              boils?               @relation(fields: [boilId], references: [id], onDelete: Cascade)
   semi_products      semi_products[]
+  record_counters    record_counters[]
 }
 
 model regulations {

@@ -6,12 +6,7 @@ export class ConveyorTasksService {
   constructor(private prisma: PrismaService) {}
   async getTasks(conveyor: string) {
     var offset = 3;
-    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(
-      12,
-      0,
-      0,
-      0,
-    );
+    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
     const records = this.prisma.records.findMany({
       include: {
         docs: true,
@@ -52,12 +47,7 @@ export class ConveyorTasksService {
 
   async getTasksByBarcode(barcode: string) {
     var offset = 3;
-    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(
-      12,
-      0,
-      0,
-      0,
-    );
+    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
     const records = this.prisma.records.findMany({
       include: {
         docs: true,
