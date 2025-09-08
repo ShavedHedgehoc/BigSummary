@@ -1,10 +1,26 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AddCounterValueDto } from './dto/add-counter-value.dto';
+import axios from 'axios';
 
 @Injectable()
 export class CountersService {
   constructor(private prisma: PrismaService) {}
+
+  async sendMessages(id: number, state: string) {
+    const $record = await this.prisma.records.findFirst({ where: { id: id } });
+    const $product = $record?.productId
+      ? await this.prisma.products.findFirst({ where: { id: $record.productId } })
+      : null;
+    const $boil = $record?.boilId ? await this.prisma.boils.findFirst({ where: { id: $record.boilId } }) : null;
+
+    if ($record && $product && $boil) {
+      const msg = `Данные со счетчика: ${$product.marking} - ${$boil.value} - ${state} `;
+      await axios.get(
+        `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`,
+      );
+    }
+  }
 
   async addCounterRecord(dto: AddCounterValueDto) {
     const existsRecord = await this.prisma.records.findFirst({
@@ -72,11 +88,15 @@ export class CountersService {
             updatedAt: new Date(),
           },
         });
+        await this.sendMessages(dto.record_id, 'Фасуется');
         return counter_record;
       }
     }
     if (recordState?.history_types?.value) {
       if (recordState.historyTypeId === startHistoryType?.id && !dto.finished) {
+        return counter_record;
+      }
+      if (recordState.historyTypeId === finishHistoryType?.id && dto.finished) {
         return counter_record;
       }
     }
@@ -95,6 +115,7 @@ export class CountersService {
             updatedAt: new Date(),
           },
         });
+        await this.sendMessages(dto.record_id, 'Фасовка завершена');
         return counter_record;
       }
     }
@@ -111,6 +132,7 @@ export class CountersService {
         updatedAt: new Date(),
       },
     });
+    await this.sendMessages(dto.record_id, dto.finished ? 'Фасовка завершена' : 'Фасуется');
     return counter_record;
   }
 }
