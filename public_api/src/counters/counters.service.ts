@@ -75,6 +75,11 @@ export class CountersService {
         return counter_record;
       }
     }
+    if (recordState?.history_types?.value) {
+      if (recordState.historyTypeId === startHistoryType?.id && !dto.finished) {
+        return counter_record;
+      }
+    }
 
     if (recordState?.history_types?.value) {
       if (recordState.history_types.value !== 'product_finished' && dto.finished) {
