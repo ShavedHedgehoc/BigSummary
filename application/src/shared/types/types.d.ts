@@ -79,6 +79,7 @@ interface IDocRow {
   product: string;
   boil: string;
   plan: number;
+  fact: number;
   apparatus: string;
   bbf: string;
   note: string;
