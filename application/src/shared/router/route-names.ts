@@ -34,4 +34,6 @@ export enum RouteNames {
   CANS_DASH = "cans_dash",
   CANS_LIST = "cans_list",
   CANS_LOCATION = "cans_location",
+  INVENTORIES = "inventories",
+  INVENTORY_DETAIL = "/inventories/:inventory_id",
 }

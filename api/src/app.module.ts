@@ -57,6 +57,8 @@ import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.
 import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
 import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
 import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
+import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
+import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -115,6 +117,15 @@ import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
 import TubeSession from "./tube_sessions/tube_sessions.model";
 import TubeParameter from "./tube_parameters/tube_parameters.model";
 import TubeAssembly from "./tube_assembly/tube_assembly.model";
+import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
+import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
+
+import * as DataTypes from "sequelize/lib/data-types";
+
+DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
+  date = this._applyTimezone(date, options);
+  return date.format("YYYY-MM-DD HH:mm:ss.SSS");
+};
 
 @Module({
   imports: [
@@ -123,6 +134,7 @@ import TubeAssembly from "./tube_assembly/tube_assembly.model";
     }),
     SequelizeModule.forRoot({
       dialect: "mssql",
+
       host: process.env.MSSQL_HOST,
       username: process.env.MSSQL_USERNAME,
       password: process.env.MSSQL_PASSWORD,
@@ -131,8 +143,9 @@ import TubeAssembly from "./tube_assembly/tube_assembly.model";
         createdAt: false,
         updatedAt: false,
       },
+      timezone: "+03:00",
       name: "trace_connection",
-      logging: false,
+      logging: process.env.NODE_ENV === "development" ? true : false,
       models: [
         TraceAuthor,
         TraceBatch,
@@ -155,6 +168,8 @@ import TubeAssembly from "./tube_assembly/tube_assembly.model";
         TraceCanState,
         TraceBtProduct,
         TraceCanLocation,
+        TraceInventoryDoc,
+        TraceInventoryRow,
       ],
     }),
     SequelizeModule.forRoot({
@@ -264,6 +279,8 @@ import TubeAssembly from "./tube_assembly/tube_assembly.model";
     TubeSessionsModule,
     TubeParametersModule,
     TubeAssemblyModule,
+    TraceInventoryDocsModule,
+    TraceInventoryRowsModule,
   ],
 })
 export default class AppModule {}

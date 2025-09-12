@@ -11,4 +11,5 @@ export enum DbRoles {
   GODMODE = "Godmode",
   FOREMAN = "Мастер",
   CARDS = "Карточки",
+  WEIGHER = "Весовой участок",
 }
