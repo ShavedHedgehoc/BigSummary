@@ -29,6 +29,8 @@ import CansDash from "../../modules/cans-dash/cans-dash";
 import BoilsReport from "../../modules/boils-report/boils-report";
 import TubeRecordsUpload from "../../modules/tube-records-upload/tube-records-upload";
 import TimeReport from "../../modules/time-report.tsx/time-report";
+import Inventories from "../../modules/inventories/inventories";
+import InventoryDetail from "../../modules/inventory-detail/inventory-detail";
 // import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
@@ -97,6 +99,10 @@ const AppRouter = () => {
               <Route path={RouteNames.CANS_DASH} element={<Cans />} />
               <Route path={RouteNames.CANS_LIST} element={<CansList />} />
               <Route path={RouteNames.CANS_LOCATION} element={<CansDash />} />
+            </Route>
+            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.WEIGHER} />}>
+              <Route path={RouteNames.INVENTORIES} element={<Inventories />} />
+              <Route path={RouteNames.INVENTORY_DETAIL} element={<InventoryDetail />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>
