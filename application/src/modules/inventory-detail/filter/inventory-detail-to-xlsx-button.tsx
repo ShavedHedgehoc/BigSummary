@@ -18,7 +18,7 @@ export default function InventoryDetailToXLSXButton() {
 
   const handleClick = () => {
     if (dataRows && dataRows.length) {
-      const title = `Данные перечета ${dataInventory ? dataInventory.plant_name : "<Нет данных>"} от ${
+      const title = `Данные переучета ${dataInventory ? dataInventory.plant_name : "<Нет данных>"} от ${
         dataInventory ? formatDateToString(dataInventory.date) : "<Нет данных>"
       }`;
       makeXLSXFile(dataRows, title);
