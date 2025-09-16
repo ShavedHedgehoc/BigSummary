@@ -23,6 +23,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import ScaleRoundedIcon from "@mui/icons-material/ScaleRounded";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 import { closeSidebar } from "../../helpers/utils";
 import { Context } from "../../../main";
@@ -362,6 +363,42 @@ function SideBar() {
               </List>
             </Toggler>
           </ListItem>
+          {/*  */}
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <ScaleRoundedIcon />
+                  <ListItemContent>
+                    <Typography level="title-sm">Весовой участок</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.INVENTORIES}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Переучеты</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
+          </ListItem>
+
+          {/*  */}
 
           <ListItem>
             <ListItemButton role="menuitem">

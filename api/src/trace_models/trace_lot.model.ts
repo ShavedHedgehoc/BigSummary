@@ -5,6 +5,7 @@ import TraceSeller from "./trace_seller.model";
 import TraceManufacturer from "./trace_manufacturer.model";
 import TraceManufacturerLot from "./trace_manufacturer_lot.model";
 import TraceTrademark from "./trace_trademark.model";
+import TraceInventoryRow from "./trace_inventory_row.model";
 
 @Table({ tableName: "Lots" })
 export default class TraceLot extends Model {
@@ -52,4 +53,7 @@ export default class TraceLot extends Model {
 
   @HasMany(() => TraceWeighting)
   weightings: TraceWeighting[];
+
+  @HasMany(() => TraceInventoryRow)
+  inventory_rows: TraceInventoryRow[];
 }

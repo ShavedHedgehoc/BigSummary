@@ -357,4 +357,36 @@ interface IXLSData {
   boil2: string;
 }
 
+interface FetchInventoryDocsFilter {
+  startDate: string;
+  endDate: string;
+  plants: number[];
+}
+
+interface FetchInventoryDocsDto {
+  filter: FetchInventoryDocsFilter;
+  page: number;
+  limit: number;
+}
+
+interface IInventoryDocRow {
+  id: number;
+  date: Date;
+  finished: Boolean;
+  plant_name: string;
+  records: number;
+}
+
+interface IInventoryDocsData {
+  rows: IInventoryDocRow[];
+  total: number;
+}
+
+interface IInventoryDoc {
+  id: number;
+  date: Date;
+  finished: Boolean;
+  plant_name: string;
+}
+
 type CustomColorsVariants = "success" | "danger" | "warning" | "primary";

@@ -6,7 +6,8 @@ import TraceBoilRecord from "src/trace_models/trace_boil_record.model";
 @Injectable()
 export class TraceTechnologyService {
   constructor(
-    @InjectModel(TraceBoilRecord, "trace_connection") private traceBoilRecordRepository: typeof TraceBoilRecord,
+    @InjectModel(TraceBoilRecord, "trace_connection")
+    private traceBoilRecordRepository: typeof TraceBoilRecord,
     private traceLoadService: TraceLoadsService
   ) {}
 
