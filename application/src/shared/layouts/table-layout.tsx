@@ -12,7 +12,7 @@ export default function TableLayout({ thead, children }: { thead: TheadPropertie
       flexShrink: 1,
       overflow: "auto",
       minHeight: 0,
-      height: "100%",
+      // height: "100%",
       mb: 1,
     },
   ];

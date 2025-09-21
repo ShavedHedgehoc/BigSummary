@@ -1,6 +1,8 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { TraceBatchService } from "./trace_batch.service";
 import { ApiOperation, ApiOkResponse, ApiNotFoundResponse, ApiTags } from "@nestjs/swagger";
+import { GetTraceBatchsDto } from "./dto/get-trace-batchs.dto";
+import { GetTraceBatchsWghtReportDto } from "./dto/get-trace-batchs-wght-report.dto";
 @ApiTags("Варки (для теста)")
 @Controller("trace-batch")
 export class TraceBatchController {
@@ -39,5 +41,29 @@ export class TraceBatchController {
   @Get("/:batchName")
   getTraceBatchByName(@Param("batchName") batchName: string) {
     return this.traceBatchService.getByName(batchName);
+  }
+
+  @ApiOperation({ summary: "Получить партию из прослеживаемости по id" })
+  @Get("/by_id/:id")
+  getTraceBatchByid(@Param("id") id: string) {
+    return this.traceBatchService.getById(Number(id));
+  }
+
+  @ApiOperation({ summary: "Получить варки с фильтром" })
+  @Post("/")
+  getBatchesWithFilter(@Body() dto: GetTraceBatchsDto) {
+    return this.traceBatchService.getBatchs(dto);
+  }
+
+  @ApiOperation({ summary: "Отчет по взвешиваниям" })
+  @Post("/wght-report")
+  getWghtReport(@Body() dto: GetTraceBatchsWghtReportDto) {
+    return this.traceBatchService.getBatchsWghtReport(dto);
+  }
+
+  @ApiOperation({ summary: "Получить варки по id" })
+  @Get("/detail/:id")
+  getBatchВфефByid(@Param("id") id: string) {
+    return this.traceBatchService.getBatchData(Number(id));
   }
 }

@@ -51,3 +51,8 @@ export function getCurrentDay() {
   let date = new Date();
   return new Date(date.setHours(12));
 }
+
+// export function getCurrentDay() {
+//   let date = new Date();
+//   return new Date(date.setHours(12));
+// }

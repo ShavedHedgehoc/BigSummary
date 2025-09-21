@@ -31,6 +31,10 @@ import TubeRecordsUpload from "../../modules/tube-records-upload/tube-records-up
 import TimeReport from "../../modules/time-report.tsx/time-report";
 import Inventories from "../../modules/inventories/inventories";
 import InventoryDetail from "../../modules/inventory-detail/inventory-detail";
+import Trademarks from "../../modules/trademarks/trademarks";
+import TraceBatchs from "../../modules/trace-batchs/trace-batchs";
+import TraceBatchDetail from "../../modules/trace-batch-detail/trace-batch-detail";
+import TraceBatchWghtReport from "../../modules/trace-batch-wght-report/trace-batch-wght-report";
 // import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
@@ -103,6 +107,12 @@ const AppRouter = () => {
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.WEIGHER} />}>
               <Route path={RouteNames.INVENTORIES} element={<Inventories />} />
               <Route path={RouteNames.INVENTORY_DETAIL} element={<InventoryDetail />} />
+              <Route path={RouteNames.TRACE_WGHT_REPORT} element={<TraceBatchWghtReport />} />
+            </Route>
+            <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TRACE} />}>
+              <Route path={RouteNames.TRACE_TRADEMARKS} element={<Trademarks />} />
+              <Route path={RouteNames.TRACE_BATCHS} element={<TraceBatchs />} />
+              <Route path={RouteNames.TRACE_BATCH_DETAIL} element={<TraceBatchDetail />} />
             </Route>
             <Route path={RouteNames.FORBIDDEN} element={<Forbidden />} />
           </Route>

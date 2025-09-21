@@ -59,6 +59,7 @@ import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
 import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
 import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
 import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
+import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -281,6 +282,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     TubeAssemblyModule,
     TraceInventoryDocsModule,
     TraceInventoryRowsModule,
+    TraceTrademarksModule,
   ],
 })
 export default class AppModule {}

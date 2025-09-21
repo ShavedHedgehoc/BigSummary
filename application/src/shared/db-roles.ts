@@ -12,4 +12,5 @@ export enum DbRoles {
   FOREMAN = "Мастер",
   CARDS = "Карточки",
   WEIGHER = "Весовой участок",
+  TRACE = "Прослеживаемость",
 }
