@@ -4,6 +4,7 @@ interface ITraceBatchsWghtReportFilter {
   productId: string;
   batchDate: string;
   compare: boolean;
+  sortByBatch: boolean;
   plants: string[] | [];
 }
 

@@ -13,7 +13,8 @@ export default function TraceBatchWghtReportFilterClearButton() {
     filter.batchName === "" &&
     filter.productId === "" &&
     filter.plants.length === 0 &&
-    filter.compare;
+    filter.compare &&
+    !filter.sortByBatch;
 
   const clearButtonProps: FilterButtonProps = {
     label: "Сбросить",

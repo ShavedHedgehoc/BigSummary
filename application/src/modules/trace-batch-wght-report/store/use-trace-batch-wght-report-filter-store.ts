@@ -28,6 +28,7 @@ const initFilterValue: ITraceBatchWghtReportFilter = {
   batchName: "",
   productId: "",
   compare: true,
+  sortByBatch: false,
   plants: [],
 };
 
@@ -61,7 +62,9 @@ export const useTraceBatchWghtReportFilterStore = create<TraceBatchsWghtReportFi
         case TraceBatchWghtReportFilterParams.COMPARE:
           set((state) => ({ filter: { ...state.filter, compare: value === "true" ? true : false } }));
           break;
-
+        case TraceBatchWghtReportFilterParams.SORT_BY_BATCH:
+          set((state) => ({ filter: { ...state.filter, sortByBatch: value === "true" ? true : false } }));
+          break;
         case TraceBatchWghtReportFilterParams.PRODUCT_ID:
           set((state) => ({
             filter: { ...state.filter, productId: value },

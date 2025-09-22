@@ -7,6 +7,7 @@ import TraceBatchWghtReportFilterProductIdInput from "./trace-batch-wght-report-
 import TraceBatchWghtReportCompareSwitch from "./trace-batch-wght-report-compare-switch";
 import TraceBatchWghtReportFilterTodayButton from "./trace-batch-wght-report-today-button";
 import TraceBatchWghtReportFilterTomorrowButton from "./trace-batch-wght-report-tomorrow-button";
+import TraceBatchWghtReportFilterSortByBatchSwitch from "./trace-batch-wght-report-sort-by-batch-switch";
 
 export default function TraceBatchWghtReportFilter() {
   return (
@@ -17,6 +18,7 @@ export default function TraceBatchWghtReportFilter() {
         <TraceBatchWghtReportFilterBatchInput />
         <TraceBatchWghtReportFilterProductIdInput />
         <TraceBatchWghtReportCompareSwitch />
+        <TraceBatchWghtReportFilterSortByBatchSwitch />
       </PageFilterLayout.Left>
       <PageFilterLayout.Right>
         <TraceBatchWghtReportFilterTodayButton />

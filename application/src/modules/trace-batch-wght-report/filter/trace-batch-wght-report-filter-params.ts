@@ -4,4 +4,5 @@ export enum TraceBatchWghtReportFilterParams {
   PLANTS = "plants",
   PRODUCT_ID = "productId",
   COMPARE = "compare",
+  SORT_BY_BATCH = "sortByBatch",
 }

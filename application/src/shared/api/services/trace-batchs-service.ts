@@ -48,6 +48,7 @@ export interface ITraceBatchWghtReportFilter {
   productId: string;
   batchDate: string;
   compare: boolean;
+  sortByBatch: boolean;
   plants: string[] | [];
 }
 
