@@ -16,15 +16,18 @@ export default function TraceBatchWghtReportTableRow({ row }: { row: ITraceBatch
   return (
     <tr key={row.b_product_id ? `${row.b_product_id + row.batch_number}` : `${row.w_product_id + row.batch_number}`}>
       <td style={{ width: 30, textAlign: "center", padding: "12px 24px" }}>
-        <TableState text={formatDateToString(row.res_batch_date)} state={currentState(row)} />
+        <TableState
+          text={row.res_batch_date ? formatDateToString(row.res_batch_date) : "-"}
+          state={currentState(row)}
+        />
         {/* <Typography level="body-xs">{formatDateToString(row.res_batch_date)}</Typography> */}
       </td>
       <td style={{ width: 30, textAlign: "center", padding: "12px 24px" }}>
-        <TableState text={row.plant_name} state={currentState(row)} />
+        <TableState text={row.plant_name ? row.plant_name : "-"} state={currentState(row)} />
         {/* <Typography level="body-xs">{row.plant_name}</Typography> */}
       </td>
       <td style={{ width: 30, textAlign: "center", padding: "12px 24px" }}>
-        <TableState text={row.res_batch_name} state={currentState(row)} />
+        <TableState text={row.res_batch_name ? row.res_batch_name : "-"} state={currentState(row)} />
         {/* <Typography level="body-xs">{row.res_batch_name}</Typography> */}
       </td>
 

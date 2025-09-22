@@ -13,7 +13,7 @@ export default function TraceBatchWghtReportFilterProductIdInput() {
     disabled: filter.productId === "",
     label: "Поиск по коду 1С",
     placeholder: "Код 1С",
-    maxW: 150,
+    maxW: 120,
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

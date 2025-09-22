@@ -13,7 +13,7 @@ export default function TraceBatchWghtReportFilterBatchInput() {
     disabled: filter.batchName === "",
     label: "Поиск по партии",
     placeholder: "Партия",
-    maxW: 150,
+    maxW: 140,
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

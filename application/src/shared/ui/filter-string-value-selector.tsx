@@ -45,7 +45,7 @@ export default function FilterStringValueSelector(props: FilterStringValueSelect
             listbox: { sx: { zIndex: 999999 } },
           }}
           sx={{
-            minWidth: "220px",
+            minWidth: props.maxW ? `${props.maxW}px` : "220px",
             maxWidth: props.maxW ? `${props.maxW}px` : "220px",
             display: "flex",
             flexShrink: 1,
