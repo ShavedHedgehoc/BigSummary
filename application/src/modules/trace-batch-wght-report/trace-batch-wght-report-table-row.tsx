@@ -33,7 +33,10 @@ export default function TraceBatchWghtReportTableRow({ row }: { row: ITraceBatch
         {/* <Typography level="body-xs">{row.b_product_id ? row.b_product_id : row.w_product_id}</Typography> */}
       </td>
       <td style={{ width: 120, textAlign: "left", padding: "12px 6px" }}>
-        <TableState text={row.b_product_name ? row.b_product_name : row.w_product_name} state={currentState(row)} />
+        <TableState
+          text={row.b_product_name ? row.b_product_name : row.w_product_name ? row.w_product_name : "-"}
+          state={currentState(row)}
+        />
         {/* <Typography level="body-xs">{row.b_product_name ? row.b_product_name : row.w_product_name}</Typography> */}
       </td>
 
