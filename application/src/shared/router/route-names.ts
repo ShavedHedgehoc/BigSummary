@@ -40,4 +40,5 @@ export enum RouteNames {
   TRACE_BATCHS = "/trace_batchs/",
   TRACE_BATCH_DETAIL = "/trace_batchs/:batch_id",
   TRACE_WGHT_REPORT = "/trace_wght_report",
+  TRACE_WGHT_REPORT_DETAIL = "/trace_wght_report/detail",
 }

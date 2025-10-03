@@ -429,7 +429,7 @@ function SideBar() {
               )}
             >
               <List sx={{ gap: 0.5 }}>
-                {/* <ListItem>
+                <ListItem>
                   <ListItemButton role="none">
                     <ListItemContent>
                       <Link
@@ -440,12 +440,11 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        
                         <Typography level="title-sm">Варки</Typography>
                       </Link>
                     </ListItemContent>
                   </ListItemButton>
-                </ListItem> */}
+                </ListItem>
                 <ListItem>
                   <ListItemButton role="none">
                     <ListItemContent>

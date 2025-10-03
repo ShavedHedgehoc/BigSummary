@@ -3,6 +3,7 @@ import { TraceBatchService } from "./trace_batch.service";
 import { ApiOperation, ApiOkResponse, ApiNotFoundResponse, ApiTags } from "@nestjs/swagger";
 import { GetTraceBatchsDto } from "./dto/get-trace-batchs.dto";
 import { GetTraceBatchsWghtReportDto } from "./dto/get-trace-batchs-wght-report.dto";
+import { GetTraceBatchsWghtReportDetailDto } from "./dto/get-batchs-wght-report-detail.dto";
 @ApiTags("Варки (для теста)")
 @Controller("trace-batch")
 export class TraceBatchController {
@@ -59,6 +60,12 @@ export class TraceBatchController {
   @Post("/wght-report")
   getWghtReport(@Body() dto: GetTraceBatchsWghtReportDto) {
     return this.traceBatchService.getBatchsWghtReport(dto);
+  }
+
+  @ApiOperation({ summary: "Отчет по взвешиваниям, детально по варке и продукту" })
+  @Post("/wght-report-detail")
+  getWghtReportDetail(@Body() dto: GetTraceBatchsWghtReportDetailDto) {
+    return this.traceBatchService.getBatchsWghtReportDetail(dto);
   }
 
   @ApiOperation({ summary: "Получить варки по id" })

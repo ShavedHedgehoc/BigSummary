@@ -78,6 +78,24 @@ export interface ITraceBatchWghtReportData {
   total: number;
 }
 
+export interface FetchTraceBatchWghtReportDetailDto {
+  batchName: string;
+  productId: string;
+}
+
+export interface ITraceBatchWghtReportDetailData {
+  weighting_pk: number;
+  container_pk: number;
+  product_id: string;
+  product_name: string;
+  lot_name: string;
+  quantity: number;
+  author: string;
+  w_date: Date;
+  records: number;
+  l_date: null | Date;
+}
+
 export default class TraceBatchService {
   static async getTraceBatchsWithFilter(dto: FetchTraceBatchsDto): Promise<ITraceBatchsListData> {
     const res = await $api.post(`/trace-batch`, dto);
@@ -96,6 +114,13 @@ export default class TraceBatchService {
 
   static async getTraceBatchsWghtReport(dto: FetchTraceBatchWghtReportDto): Promise<ITraceBatchWghtReportData> {
     const res = await $api.post(`/trace-batch/wght-report`, dto);
+    return res.data;
+  }
+
+  static async getTraceBatchsWghtReportDetail(
+    dto: FetchTraceBatchWghtReportDetailDto
+  ): Promise<ITraceBatchWghtReportDetailData[] | []> {
+    const res = await $api.post(`/trace-batch/wght-report-detail`, dto);
     return res.data;
   }
 }

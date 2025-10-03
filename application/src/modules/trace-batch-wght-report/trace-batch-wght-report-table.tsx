@@ -16,6 +16,7 @@ const commonThead = [
 
   { width: 30, value: "Код 1С" },
   { width: 120, value: "Наименование" },
+  { width: 20, value: "-" },
   { width: 20, value: "План" },
   { width: 20, value: "Факт" },
 ];

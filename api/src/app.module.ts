@@ -144,7 +144,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         createdAt: false,
         updatedAt: false,
       },
-      timezone: "+03:00",
+      timezone: process.env.NODE_ENV === "development" ? "+03:00" : "+00:00",
       name: "trace_connection",
       logging: process.env.NODE_ENV === "development" ? true : false,
       models: [

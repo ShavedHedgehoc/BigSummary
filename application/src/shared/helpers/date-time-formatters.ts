@@ -1,5 +1,6 @@
 export function getTomorrowDate(): string {
   const tomorrow = new Date();
+  tomorrow.setTime(tomorrow.getTime() + 3 * 60 * 60 * 1000);
   tomorrow.setDate(tomorrow.getDate() + 1);
   return tomorrow.toJSON().slice(0, 10);
 }
@@ -49,7 +50,9 @@ export function getLastDayOfCurrentMonth() {
 
 export function getCurrentDay() {
   let date = new Date();
-  return new Date(date.setHours(12));
+  date.setTime(date.getTime() + 3 * 60 * 60 * 1000);
+  // return new Date(date.setHours(12));
+  return date;
 }
 
 // export function getCurrentDay() {
