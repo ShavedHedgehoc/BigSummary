@@ -24,7 +24,8 @@ interface TraceBatchsWghtReportFilterStore {
 }
 
 const initFilterValue: ITraceBatchWghtReportFilter = {
-  batchDate: getTomorrowDate(),
+  startDate: getTomorrowDate(),
+  endDate: getTomorrowDate(),
   batchName: "",
   productId: "",
   compare: true,
@@ -40,11 +41,15 @@ export const useTraceBatchWghtReportFilterStore = create<TraceBatchsWghtReportFi
     clearFilter: () => set(() => ({ filter: initFilterValue, selectedPlant: "#" })),
     setDayToToday: () =>
       set((state) => ({
-        filter: { ...state.filter, batchDate: getCurrentDay().toJSON().slice(0, 10) },
+        filter: {
+          ...state.filter,
+          startDate: getCurrentDay().toJSON().slice(0, 10),
+          endDate: getCurrentDay().toJSON().slice(0, 10),
+        },
       })),
     setDayToTomorrow: () =>
       set((state) => ({
-        filter: { ...state.filter, batchDate: getTomorrowDate() },
+        filter: { ...state.filter, startDate: getTomorrowDate(), endDate: getTomorrowDate() },
       })),
 
     changeFilter: ({ key, value, values }) => {
@@ -54,9 +59,14 @@ export const useTraceBatchWghtReportFilterStore = create<TraceBatchsWghtReportFi
             filter: { ...state.filter, batchName: value },
           }));
           break;
-        case TraceBatchWghtReportFilterParams.BATCH_DATE:
+        case TraceBatchWghtReportFilterParams.START_BATCH_DATE:
           set((state) => ({
-            filter: { ...state.filter, batchDate: value },
+            filter: { ...state.filter, startDate: value },
+          }));
+          break;
+        case TraceBatchWghtReportFilterParams.END_BATCH_DATE:
+          set((state) => ({
+            filter: { ...state.filter, endDate: value },
           }));
           break;
         case TraceBatchWghtReportFilterParams.COMPARE:

@@ -36,6 +36,8 @@ import TraceBatchs from "../../modules/trace-batchs/trace-batchs";
 import TraceBatchDetail from "../../modules/trace-batch-detail/trace-batch-detail";
 import TraceBatchWghtReport from "../../modules/trace-batch-wght-report/trace-batch-wght-report";
 import TraceBatchWghtReportDetail from "../../modules/trace-batch-wght-report-detail/trace-batch-wght-report-detail";
+import TraceBatchWeightingsSummary from "../../modules/trace-batch-weightings-summary/trace-batch-weightings-summary";
+import TraceBatchWeightingsSummaryDetail from "../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail";
 // import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
 
 const AppRouter = () => {
@@ -110,6 +112,8 @@ const AppRouter = () => {
               <Route path={RouteNames.INVENTORY_DETAIL} element={<InventoryDetail />} />
               <Route path={RouteNames.TRACE_WGHT_REPORT} element={<TraceBatchWghtReport />} />
               <Route path={RouteNames.TRACE_WGHT_REPORT_DETAIL} element={<TraceBatchWghtReportDetail />} />
+              <Route path={RouteNames.TRACE_WGHT_SUMMARY} element={<TraceBatchWeightingsSummary />} />
+              <Route path={RouteNames.TRACE_WGHT_SUMMARY_DETAIL} element={<TraceBatchWeightingsSummaryDetail />} />
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TRACE} />}>
               <Route path={RouteNames.TRACE_TRADEMARKS} element={<Trademarks />} />

@@ -9,6 +9,7 @@ export enum DbRoles {
   EMPLOYERS = "Сотрудники",
   TEST = "Тест",
   GODMODE = "Godmode",
+  WGHT_GODMODE = "Ред. взвешиваний",
   FOREMAN = "Мастер",
   CARDS = "Карточки",
   WEIGHER = "Весовой участок",

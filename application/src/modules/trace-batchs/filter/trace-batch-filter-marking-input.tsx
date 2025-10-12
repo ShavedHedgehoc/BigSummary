@@ -11,7 +11,7 @@ export default function TraceBatchsFilterMarkingInput() {
     id: TraceBatchsFilterParams.MARKING,
     value: filter.marking,
     disabled: filter.marking === "",
-    label: "Поиск по артикула",
+    label: "Поиск по артикулу",
     placeholder: "Артикул",
     maxW: 150,
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),

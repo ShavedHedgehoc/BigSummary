@@ -5,6 +5,7 @@ import { FetchTraceBatchWghtReportDetailDto } from "../../shared/api/services/tr
 import TableNotFoundComponent from "../../shared/components/table-not-found";
 import TraceBatchWghtReportDetailTable from "./trace-batch-wght-report-detail-table";
 import TraceBatchWghtReportDetailHeader from "./trace-batch-wght-report-detail-header";
+import TraceBatchWghtReportDetailDeleteModal from "./trace-batch-wght-report-detail-delete-modal";
 
 export default function TraceBatchWghtReportDetail() {
   const [searchParams] = useSearchParams();
@@ -24,6 +25,7 @@ export default function TraceBatchWghtReportDetail() {
     <React.Fragment>
       <TraceBatchWghtReportDetailHeader dto={dto} />
       <TraceBatchWghtReportDetailTable dto={dto} />
+      <TraceBatchWghtReportDetailDeleteModal />
     </React.Fragment>
   );
 }

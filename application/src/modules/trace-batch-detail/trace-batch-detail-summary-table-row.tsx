@@ -16,13 +16,13 @@ export default function TraceBatchsDetailSummaryTableRow({ row }: { row: ITraceB
     <tr key={row.b_product_id}>
       <td style={{ width: 60, textAlign: "center", padding: "12px 24px" }}>
         <TableState text={row.b_product_id ? row.b_product_id : row.w_product_id} state={currentState(row)} />
-        {/* <Typography level="body-xs">{row.b_product_id ? row.b_product_id : row.w_product_id}</Typography> */}
       </td>
       <td style={{ width: 100, textAlign: "left", padding: "12px 6px" }}>
-        <TableState text={row.b_product_name ? row.b_product_name : row.w_product_name} state={currentState(row)} />
-        {/* <Typography level="body-xs">{row.b_product_name ? row.b_product_name : row.w_product_name}</Typography> */}
+        <TableState
+          text={row.b_product_name ? row.b_product_name : row.w_product_name ? row.w_product_name : "-"}
+          state={currentState(row)}
+        />
       </td>
-
       <td style={{ width: 40, textAlign: "center", padding: "12px 24px" }}>
         <Typography level="body-xs">{row.plan_q ? row.plan_q : "-"}</Typography>
       </td>

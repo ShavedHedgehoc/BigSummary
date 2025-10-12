@@ -9,7 +9,7 @@ export default function TraceBatchsFilterEndDateInput() {
   const startDateInputProps: FilterDateInputProps = {
     id: TraceBatchsFilterParams.END_DATE,
     placeholder: "",
-    label: "Дата онончания",
+    label: "Дата окончания",
     value: filter.endDate,
 
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),

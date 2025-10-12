@@ -29,7 +29,6 @@ export default function FilterStringValueSelector(props: FilterStringValueSelect
   const action: SelectStaticProps["action"] = React.useRef(null);
   const handleChange = (newValue: string | null) => {
     newValue && props.setSelectedOption(newValue);
-    console.log(newValue);
     newValue && props.changeFilter({ key: props.id, value: "", values: newValue === "#" ? [] : [newValue] });
   };
   return (

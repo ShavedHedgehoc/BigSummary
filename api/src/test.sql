@@ -1,4 +1,51 @@
+WITH
+    Docs
+    AS
+    (
+        SELECT d.DocumentPK,
+            d.AuthorPK
+        FROM Documents 
+d JOIN Doctypes dt
+            ON dt.DoctypePK = d.DoctypePK
+                AND dt.DoctypeAlias = N'Взвешивание'
+            LEFT JOIN AuthorOccupations ao ON ao.AuthorPK = d.AuthorPK
+            LEFT JOIN Plants p ON p.PlantPK = ao.PlantPK
+        WHERE (@StartDate IS NULL OR d.CreateDate >= @StartDate)
+            AND (@EndDate IS NULL OR d.CreateDate < DATEADD(day,1,@EndDate))
+            AND (@Author IS NULL OR EXISTS ( SELECT 1
+            FROM Authors a
+            WHERE a.AuthorPK = d.AuthorPK AND a.AuthorName LIKE CONCAT('%', @Author, '%') ))
+            AND (@Plant IS NULL OR p.PlantAlias = @Plant)
+    ),
+    WeightAgg
+    AS
+    (
+        SELECT
+            d.AuthorPK,
 
+            COUNT
+(*) AS w_rows,
+            SUM(w.Quantity) AS w_total,
+            MIN(w.WeightingsPK) AS min_wpk,
+            MAX(w.WeightingsPK) AS max_wpk
+        FROM Docs d
+            JOIN Weightings w ON w.DocumentPK = d.DocumentPK
+        GROUP BY d.AuthorPK
+    )
+SELECT a.AuthorPK AS w_author_id,
+    a.AuthorName AS w_name,
+    wa.w_rows, wa.w_total,
+    wmin.DocumentPK AS w_start_pk,
+    dmin.CreateDate AS w_start_date,
+    dmax.CreateDate AS w_end_date
+FROM WeightAgg wa
+    JOIN Authors a ON a.AuthorPK = wa.AuthorPK
+    JOIN Weightings wmin ON wmin.WeightingsPK = wa.min_wpk
+    JOIN Documents dmin ON dmin.DocumentPK = wmin.DocumentPK
+    JOIN Weightings wmax ON wmax.WeightingsPK = wa.max_wpk
+    JOIN Documents dmax ON dmax.DocumentPK = wmax.DocumentPK
+ORDER BY wa.w_rows DESC, a.AuthorPK 
+OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY;
 -- SELECT *
 -- FROM
 --     (SELECT

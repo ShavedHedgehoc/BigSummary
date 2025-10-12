@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { TraceBatchService } from "./trace_batch.service";
-import { ApiOperation, ApiOkResponse, ApiNotFoundResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiOkResponse, ApiNotFoundResponse, ApiTags, ApiResponse } from "@nestjs/swagger";
 import { GetTraceBatchsDto } from "./dto/get-trace-batchs.dto";
 import { GetTraceBatchsWghtReportDto } from "./dto/get-trace-batchs-wght-report.dto";
 import { GetTraceBatchsWghtReportDetailDto } from "./dto/get-batchs-wght-report-detail.dto";
+import { GetWeightingsSummaryDto } from "./dto/get-weightings-summary.dto";
+import { GetWeightingsSummaryDetailDto } from "./dto/get-weightings-summary-detail.dto";
 @ApiTags("Варки (для теста)")
 @Controller("trace-batch")
 export class TraceBatchController {
@@ -72,5 +74,24 @@ export class TraceBatchController {
   @Get("/detail/:id")
   getBatchВфефByid(@Param("id") id: string) {
     return this.traceBatchService.getBatchData(Number(id));
+  }
+
+  @ApiOperation({ summary: "Удалить взвешивания по id контейнера" })
+  @ApiResponse({ status: 201 })
+  @Delete("/delete_by_container/:id")
+  deleteConveyorById(@Param("id") id: string) {
+    return this.traceBatchService.deleteWeightingsByContainerId(Number(id));
+  }
+
+  @ApiOperation({ summary: "Получить сводку по весовому участку" })
+  @Post("/weightings_department_summary")
+  getWeightingDepartmentSummary(@Body() dto: GetWeightingsSummaryDto) {
+    return this.traceBatchService.getWeightingDepartmentSummary(dto);
+  }
+
+  @ApiOperation({ summary: "Получить детальную сводку по весовому участку" })
+  @Post("/weightings_department_summary_detail")
+  getWeightingDepartmentSummaryDetail(@Body() dto: GetWeightingsSummaryDetailDto) {
+    return this.traceBatchService.getWeightingsDepartmentsSummaryDetail(dto);
   }
 }

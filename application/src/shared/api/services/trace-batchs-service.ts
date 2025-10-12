@@ -46,7 +46,8 @@ export interface ITraceBatchsListData {
 export interface ITraceBatchWghtReportFilter {
   batchName: string;
   productId: string;
-  batchDate: string;
+  startDate: string;
+  endDate: string;
   compare: boolean;
   sortByBatch: boolean;
   plants: string[] | [];
@@ -59,18 +60,17 @@ export interface FetchTraceBatchWghtReportDto {
 }
 
 export interface ITraceBatchWghtReportRowData {
-  res_batch_name: string;
-  b_product_id: string;
-  b_product_name: string;
-  res_plan: number;
-  w_product_id: string;
-  w_product_name: string;
-  res_fact: number;
-  batch_month: string;
-  batch_year: number;
-  batch_number: number;
-  res_batch_date: Date;
-  plant_name: string;
+  batch_id: number;
+  batch_name: string;
+  plant: string;
+  batch_date: Date;
+  product_id: string;
+  product_name: string;
+  plan_q: number;
+  fact_q: number;
+  BatchYear: number;
+  BatchMonth: string;
+  BatchNumber: number;
 }
 
 export interface ITraceBatchWghtReportData {
@@ -94,6 +94,55 @@ export interface ITraceBatchWghtReportDetailData {
   w_date: Date;
   records: number;
   l_date: null | Date;
+}
+
+export interface FetchTraceWeightingsSummaryFilter {
+  startDate: string;
+  endDate: string;
+  author: string;
+  plants: string[] | [];
+}
+
+export interface GetWeightingsSummaryDto {
+  filter: FetchTraceWeightingsSummaryFilter;
+}
+
+export interface ITraceWeightingsSummaryData {
+  w_author_id: number;
+  w_name: string;
+  w_rows: number;
+  w_total: number;
+  w_start_date: Date;
+  w_end_date: Date;
+}
+
+// export interface GetWeightingsSummaryDetailFilter {
+//   startDate: string|null;
+//   endDate: string|null;
+//   author_id: number|null;
+// }
+
+export interface GetWeightingsSummaryDetailDto {
+  startDate: string | null;
+  endDate: string | null;
+  author_id: number | null;
+  limit: number;
+  page: number;
+}
+
+export interface ITraceWeightingsSummaryDetailRow {
+  w_id: number;
+  w_date: Date;
+  w_batch_name: string;
+  w_product_id: string;
+  w_product_name: string;
+  w_lot_name: string;
+  w_quantity: number;
+}
+
+export interface ITraceWeightingsSummaryDetailData {
+  rows: ITraceWeightingsSummaryDetailRow[];
+  total: number;
 }
 
 export default class TraceBatchService {
@@ -121,6 +170,23 @@ export default class TraceBatchService {
     dto: FetchTraceBatchWghtReportDetailDto
   ): Promise<ITraceBatchWghtReportDetailData[] | []> {
     const res = await $api.post(`/trace-batch/wght-report-detail`, dto);
+    return res.data;
+  }
+
+  static async deleteWeightingsByContainerId(id: number): Promise<any> {
+    // const res = await $api.delete(`/trace-batch/delete_by_container/${id}`);
+    return await $api.delete(`/trace-batch/delete_by_container/${id}`);
+  }
+
+  static async getWeightingsSummary(dto: GetWeightingsSummaryDto): Promise<ITraceWeightingsSummaryData[] | []> {
+    const res = await $api.post(`/trace-batch/weightings_department_summary`, dto);
+    return res.data;
+  }
+
+  static async getWeightingsSummaryDetail(
+    dto: GetWeightingsSummaryDetailDto
+  ): Promise<ITraceWeightingsSummaryDetailData> {
+    const res = await $api.post(`/trace-batch/weightings_department_summary_detail`, dto);
     return res.data;
   }
 }

@@ -1,130 +1,103 @@
-SELECT COUNT(TMP_QRY_3.batch_id) as 'count'
-FROM (
-        SELECT TMP_QRY_2.*
-        FROM (
-                SELECT TMP_QRY.*
-                FROM (
-                        SELECT Batchs.BatchPK as 'batch_id',
-                            Batchs.BatchName as 'batch_name',
-                            Batchs.BatchDate as 'batch_date',
-                            Batchs.Plant as 'plant',
-                            CASE
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'A' THEN 'A'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'B' THEN 'B'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'C' THEN 'C'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'D' THEN 'D'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'E' THEN 'E'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'F' THEN 'F'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'G' THEN 'G'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'H' THEN 'H'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'I' THEN 'I'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'J' THEN 'J'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'K' THEN 'K'
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) = 'L' THEN 'L'
-                                ELSE CASE
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'X' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'Y' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'Z' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 2) = 'RS' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -3, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 2) = 'SR' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -3, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'S' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'A' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1)
-                                    WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'R' THEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1)
-                                    ELSE 'XZ'
-                                END
-                            END AS 'batch_month',
-                            CASE
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = '7' THEN CAST('2017' AS INT)
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = '8' THEN CAST('2018' AS INT)
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = '9' THEN CAST('2019' AS INT)
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'X' THEN CAST (
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'Y' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'Z' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 2) = 'RS' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 2) = 'SR' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -2, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'S' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'A' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'R' THEN CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 1) AS INT
-                                )
-                                ELSE CAST(
-                                    '202' + SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) AS INT
-                                )
-                            END AS 'batch_year',
-                            CASE
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'X' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -2) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'Y' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -2) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'Z' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -2) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 2) = 'RS' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -3) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName) -1, 2) = 'SR' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -3) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'S' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -2) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'A' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -2) AS INT
-                                )
-                                WHEN SUBSTRING(Batchs.BatchName, LEN(Batchs.BatchName), 1) = 'R' THEN CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -2) AS INT
-                                )
-                                ELSE CAST(
-                                    SUBSTRING(Batchs.BatchName, 0, LEN(Batchs.BatchName) -1) AS INT
-                                )
-                            END AS 'batch_number'
-                        FROM Batchs
-                        WHERE (
-                                (:batch) = ''
-                                OR Batchs.BatchName LIKE '%' +(:batch) + '%'
-                            )
-                            AND (
-                                (:start_date) = ''
-                                OR Batchs.BatchDate >= (:start_date)
-                            )
-                            AND (
-                                (:end_date) = ''
-                                OR Batchs.BatchDate <= (:end_date)
-                            )
-                            AND (
-                                (:plant) = ''
-                                OR Batchs.Plant = (:plant)
-                            )
-                    ) AS TMP_QRY
-                WHERE (
-                        (:month) = ''
-                        OR TMP_QRY.batch_month =(:month)
-                    )
-                    AND (
-                        (:year) = ''
-                        OR TMP_QRY.batch_year = CAST((:year) AS INT)
-                    )
-            ) AS TMP_QRY_2
-    ) AS TMP_QRY_3
-    LEFT JOIN BtProducts ON TMP_QRY_3.batch_id = BtProducts.BatchPK
-    LEFT JOIN Products ON Products.ProductId = BtProducts.ProductId
+WITH BoilSums AS ( 
+    SELECT b.BatchPK AS batch_id, 
+    b.BatchName AS batch_name, 
+    b.Plant AS plant, 
+b.BatchDate AS batch_date,
+b.BatchYear,
+b.BatchMonth,
+b.BatchNumber,
+bl.ProductId AS product_id,
+SUM(bl.Quantity) AS plan_q
+FROM Boils bl
+    INNER JOIN Batchs b ON b.BatchPK = bl.BatchPK
 WHERE (
-        (:marking) IS NULL
-        OR Products.ProductMarking like '%' +(:marking) + '%'
+        (:startDate) IS NULL
+        OR b.BatchDate >= (:startDate)
     )
+    AND (
+        (:endDate) IS NULL
+        OR b.BatchDate < DATEADD(day, 1,(:endDate))
+    )
+    AND (
+        (:batchName) IS NULL
+        OR b.BatchName LIKE '%' + (:batchName) + '%'
+    )
+    AND (
+        (:plant) IS NULL
+        OR b.Plant = (:plant)
+    )
+    AND (
+        (:productId) IS NULL
+        OR bl.ProductId LIKE '%' + (:productId) + '%'
+    )
+GROUP BY b.BatchPK,
+    b.BatchName,
+    b.Plant,
+    b.BatchDate,
+    b.BatchYear,
+    b.BatchMonth,
+    b.BatchNumber,
+    bl.ProductId
+),
+WeightSums AS (
+    SELECT b.BatchPK AS batch_id,
+        b.BatchName AS batch_name,
+        b.Plant AS plant,
+        b.BatchDate AS batch_date,
+        b.BatchYear,
+        b.BatchMonth,
+        b.BatchNumber,
+        w.ProductId AS product_id,
+        SUM(w.Quantity) AS fact_q
+    FROM Weightings w
+        INNER JOIN Batchs b ON b.BatchPK = w.BatchPK
+    WHERE (
+            (:startDate) IS NULL
+            OR b.BatchDate >= (:startDate)
+        )
+        AND (
+            (:endDate) IS NULL
+            OR b.BatchDate < DATEADD(day, 1,(:endDate))
+        )
+        AND (
+            (:batchName) IS NULL
+            OR b.BatchName LIKE '%' + (:batchName) + '%'
+        )
+        AND (
+            (:plant) IS NULL
+            OR b.Plant = (:plant)
+        )
+        AND (
+            (:productId) IS NULL
+            OR w.ProductId LIKE '%' + (:productId) + '%'
+        )
+    GROUP BY b.BatchPK,
+        b.BatchName,
+        b.Plant,
+        b.BatchDate,
+        b.BatchYear,
+        b.BatchMonth,
+        b.BatchNumber,
+        w.ProductId
+)
+SELECT COUNT(*)
+FROM (
+        SELECT COALESCE(b.batch_id, w.batch_id) AS batch_id,
+            COALESCE(b.batch_name, w.batch_name) AS batch_name,
+            COALESCE(b.batch_date, w.batch_date) AS batch_date,
+            COALESCE(b.product_id, w.product_id) AS product_id,
+            COALESCE(b.plan_q, 0.0) AS plan_q,
+            COALESCE(w.fact_q, 0.0) AS fact_q,
+            COALESCE(b.BatchYear, w.BatchYear) AS BatchYear,
+            COALESCE(b.BatchMonth, w.BatchMonth) AS BatchMonth,
+            COALESCE(b.BatchNumber, w.BatchNumber) AS BatchNumber
+        FROM BoilSums b
+            FULL OUTER JOIN WeightSums w ON b.batch_id = w.batch_id
+            AND b.product_id = w.product_id
+    ) merged
+WHERE ((:compare) = 'false')
+    OR (
+        merged.plan_q <> merged.fact_q
+        OR merged.plan_q IS NULL
+        OR merged.fact_q IS NULL
+    );

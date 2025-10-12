@@ -60,6 +60,7 @@ import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
 import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
 import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
 import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.module";
+import { ZplModule } from './zpl/zpl.module';
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -120,7 +121,7 @@ import TubeParameter from "./tube_parameters/tube_parameters.model";
 import TubeAssembly from "./tube_assembly/tube_assembly.model";
 import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
 import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
-
+import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
@@ -171,6 +172,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         TraceCanLocation,
         TraceInventoryDoc,
         TraceInventoryRow,
+        TraceAuthorOccupation,
       ],
     }),
     SequelizeModule.forRoot({
@@ -283,6 +285,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     TraceInventoryDocsModule,
     TraceInventoryRowsModule,
     TraceTrademarksModule,
+    ZplModule,
   ],
 })
 export default class AppModule {}

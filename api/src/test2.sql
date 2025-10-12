@@ -17,7 +17,7 @@ set @StartDate = ''
 set @EndDate = ''
 set @Month=''
 set @Year=''
-set @Plant=''
+set @Plant='К'
 set @Offset=0
 set @Limit=10
 

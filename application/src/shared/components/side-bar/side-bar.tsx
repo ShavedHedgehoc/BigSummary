@@ -209,18 +209,6 @@ function SideBar() {
                     <Typography level="title-sm">Загрузка сводок</Typography>
                   </Link>
                 </ListItem>
-                {/* <ListItem role="none">
-                  <Link
-                    component={RouterLink}
-                    to={RouteNames.TUBE_RECORDS_UPLOAD}
-                    color="neutral"
-                    underline="none"
-                    sx={{ display: "flex", gap: 1 }}
-                    onClick={() => closeSidebar()}
-                  >
-                    <Typography level="title-sm">Загрузка сводок (тубы)</Typography>
-                  </Link>
-                </ListItem> */}
                 <ListItem role="none">
                   <Link
                     component={RouterLink}
@@ -272,7 +260,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Основы</Typography>
                       </Link>
                     </ListItemContent>
@@ -289,7 +276,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Продукты</Typography>
                       </Link>
                     </ListItemContent>
@@ -322,7 +308,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Ёмкости</Typography>
                       </Link>
                     </ListItemContent>
@@ -355,7 +340,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Местоположение</Typography>
                       </Link>
                     </ListItemContent>
@@ -389,7 +373,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Переучеты</Typography>
                       </Link>
                     </ListItemContent>
@@ -406,8 +389,24 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Отчет по взвешиваниям</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_WGHT_SUMMARY}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Выработка</Typography>
                       </Link>
                     </ListItemContent>
                   </ListItemButton>
@@ -429,7 +428,7 @@ function SideBar() {
               )}
             >
               <List sx={{ gap: 0.5 }}>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemButton role="none">
                     <ListItemContent>
                       <Link
@@ -444,7 +443,7 @@ function SideBar() {
                       </Link>
                     </ListItemContent>
                   </ListItemButton>
-                </ListItem>
+                </ListItem> */}
                 <ListItem>
                   <ListItemButton role="none">
                     <ListItemContent>

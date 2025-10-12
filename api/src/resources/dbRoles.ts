@@ -6,4 +6,5 @@ export enum DbRoles {
   TECHNOLOGIST = "Технолог",
   MASTER = "Мастер",
   GODMODE = "Godmode",
+  WGHT_GODMODE = "WGHT_Godmode",
 }

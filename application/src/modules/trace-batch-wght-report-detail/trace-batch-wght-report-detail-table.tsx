@@ -14,7 +14,7 @@ const commonThead = [
   { width: 30, value: "Дата" },
   { width: 30, value: "Время" },
   { width: 20, value: "Записей" },
-  { width: 20, value: "Загружено" },
+  { width: 30, value: "Загружено" },
   { width: 20, value: "" },
 ];
 
