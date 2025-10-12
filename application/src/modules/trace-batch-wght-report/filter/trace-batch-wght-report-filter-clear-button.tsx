@@ -9,7 +9,8 @@ export default function TraceBatchWghtReportFilterClearButton() {
   const filter = useTraceBatchWghtReportFilterStore(useShallow((state) => state.filter));
 
   const disableDocumentFilterClearButton =
-    filter.batchDate === getTomorrowDate() &&
+    filter.startDate === getTomorrowDate() &&
+    filter.endDate === getTomorrowDate() &&
     filter.batchName === "" &&
     filter.productId === "" &&
     filter.plants.length === 0 &&

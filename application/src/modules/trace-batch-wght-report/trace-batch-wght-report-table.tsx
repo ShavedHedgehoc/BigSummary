@@ -55,12 +55,7 @@ export default function TraceBatchWghtReportTable() {
   return (
     <TableLayout thead={commonThead}>
       {isSuccess &&
-        data.rows.map((row) => (
-          <TraceBatchWghtReportTableRow
-            row={row}
-            key={row.b_product_id ? `${row.b_product_id + row.batch_number}` : `${row.w_product_id + row.batch_number}`}
-          />
-        ))}
+        data.rows.map((row) => <TraceBatchWghtReportTableRow row={row} key={`${row.product_id + row.BatchNumber}`} />)}
     </TableLayout>
   );
 }

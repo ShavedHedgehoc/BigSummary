@@ -8,7 +8,8 @@ export default function TraceBatchWghtReportFilterTomorrowButton() {
   const setDayToTomorrow = useTraceBatchWghtReportFilterStore(useShallow((state) => state.setDayToTomorrow));
   const filter = useTraceBatchWghtReportFilterStore(useShallow((state) => state.filter));
 
-  const disableDocumentFilterTodayButton = filter.batchDate === getTomorrowDate();
+  const disableDocumentFilterTodayButton =
+    filter.startDate === getTomorrowDate() && filter.endDate === getTomorrowDate();
 
   const clearButtonProps: FilterButtonProps = {
     label: "Завтра",

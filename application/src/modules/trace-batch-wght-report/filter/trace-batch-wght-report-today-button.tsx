@@ -8,7 +8,9 @@ export default function TraceBatchWghtReportFilterTodayButton() {
   const setDayToToday = useTraceBatchWghtReportFilterStore(useShallow((state) => state.setDayToToday));
   const filter = useTraceBatchWghtReportFilterStore(useShallow((state) => state.filter));
 
-  const disableDocumentFilterTodayButton = filter.batchDate === getCurrentDay().toJSON().slice(0, 10);
+  const disableDocumentFilterTodayButton =
+    filter.startDate === getCurrentDay().toJSON().slice(0, 10) &&
+    filter.endDate === getCurrentDay().toJSON().slice(0, 10);
 
   const clearButtonProps: FilterButtonProps = {
     label: "Сегодня",
