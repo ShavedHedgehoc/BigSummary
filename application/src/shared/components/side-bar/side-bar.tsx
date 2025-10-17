@@ -428,7 +428,7 @@ function SideBar() {
               )}
             >
               <List sx={{ gap: 0.5 }}>
-                {/* <ListItem>
+                <ListItem>
                   <ListItemButton role="none">
                     <ListItemContent>
                       <Link
@@ -443,7 +443,7 @@ function SideBar() {
                       </Link>
                     </ListItemContent>
                   </ListItemButton>
-                </ListItem> */}
+                </ListItem>
                 <ListItem>
                   <ListItemButton role="none">
                     <ListItemContent>
@@ -457,6 +457,22 @@ function SideBar() {
                       >
                         {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Торговые названия</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_UPLOAD_BOILS}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Загрузка варок</Typography>
                       </Link>
                     </ListItemContent>
                   </ListItemButton>

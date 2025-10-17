@@ -1,13 +1,13 @@
 import { Box, Button, FormControl, Typography } from "@mui/joy";
-import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
+import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
 import { useShallow } from "zustand/shallow";
 
-export default function DocsUploadFormFileInput() {
-  const filename = useDocsUploadFormStore(useShallow((state) => state.fileName));
-  const file = useDocsUploadFormStore(useShallow((state) => state.file));
-  const setFileName = useDocsUploadFormStore(useShallow((state) => state.setFileName));
-  const setFile = useDocsUploadFormStore(useShallow((state) => state.setFile));
-  const clearData = useDocsUploadFormStore(useShallow((state) => state.clearData));
+export default function BoilsUploadFormFileInput() {
+  const filename = useBoilsUploadFormStore(useShallow((state) => state.fileName));
+  const file = useBoilsUploadFormStore(useShallow((state) => state.file));
+  const setFileName = useBoilsUploadFormStore(useShallow((state) => state.setFileName));
+  const setFile = useBoilsUploadFormStore(useShallow((state) => state.setFile));
+  const clearData = useBoilsUploadFormStore(useShallow((state) => state.clearData));
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileName(e.target.value);
@@ -18,7 +18,7 @@ export default function DocsUploadFormFileInput() {
       <Typography level="body-sm">{filename.split("\\").slice(-1)[0] || "Файл не выбран"}</Typography>
       <FormControl size="sm">
         <input
-          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-excel,application/vnd.ms-excel.sheet.macroEnabled.12"
           style={{ display: "none" }}
           id="raised-button-file"
           type="file"

@@ -4,41 +4,76 @@ import { Context } from "../../main";
 import { Routes, Navigate, Outlet, Route, BrowserRouter } from "react-router-dom";
 import { RouteNames } from "./route-names";
 import { DbRoles } from "../db-roles";
-import Layout from "../layouts/layout";
-import Login from "../../modules/login/login";
-// import SummaryUpload from "../../components/pages/SummaryUpload";
-// import RecordDetail from "../../components/pages/RecordDetail";
 
-import Users from "../../modules/users/users";
-import Products from "../../modules/records/records";
-import Boils from "../../modules/boils/boils";
-import Conveyors from "../../modules/conveyors/conveyors";
-import Foreman from "../../modules/foreman/foreman";
-import Dash from "../../modules/dash/dash";
-// import UpdateBases from "../../modules/bases/update-bases";
-import Documents from "../../modules/documents/documents";
-import UiPage from "../../modules/ui-page/ui-page";
-import Employees from "../../modules/employees/employees";
-import DocumentDetail from "../../modules/document-detail/document-detail";
-import DocsUpload from "../../modules/docs-upload/docs-upload";
-import BasesUpload from "../../modules/bases-upload/bases-upload";
-import Forbidden from "../../modules/forbidden/forbidden";
-import Cans from "../../modules/cans/cans";
-import CansList from "../../modules/cans-list/cans-list";
-import CansDash from "../../modules/cans-dash/cans-dash";
-import BoilsReport from "../../modules/boils-report/boils-report";
-import TubeRecordsUpload from "../../modules/tube-records-upload/tube-records-upload";
-import TimeReport from "../../modules/time-report.tsx/time-report";
-import Inventories from "../../modules/inventories/inventories";
-import InventoryDetail from "../../modules/inventory-detail/inventory-detail";
-import Trademarks from "../../modules/trademarks/trademarks";
-import TraceBatchs from "../../modules/trace-batchs/trace-batchs";
-import TraceBatchDetail from "../../modules/trace-batch-detail/trace-batch-detail";
-import TraceBatchWghtReport from "../../modules/trace-batch-wght-report/trace-batch-wght-report";
-import TraceBatchWghtReportDetail from "../../modules/trace-batch-wght-report-detail/trace-batch-wght-report-detail";
-import TraceBatchWeightingsSummary from "../../modules/trace-batch-weightings-summary/trace-batch-weightings-summary";
-import TraceBatchWeightingsSummaryDetail from "../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail";
-// import RegulationsUpsert from "../../modules/regulations-upsert/regulations-upsert";
+// import Layout from "../layouts/layout";
+// import Login from "../../modules/login/login";
+
+// import Users from "../../modules/users/users";
+// import Products from "../../modules/records/records";
+// import Boils from "../../modules/boils/boils";
+// import Conveyors from "../../modules/conveyors/conveyors";
+// import Foreman from "../../modules/foreman/foreman";
+// import Dash from "../../modules/dash/dash";
+// import Documents from "../../modules/documents/documents";
+// import UiPage from "../../modules/ui-page/ui-page";
+// import Employees from "../../modules/employees/employees";
+// import DocumentDetail from "../../modules/document-detail/document-detail";
+// import DocsUpload from "../../modules/docs-upload/docs-upload";
+// import BasesUpload from "../../modules/bases-upload/bases-upload";
+// import Forbidden from "../../modules/forbidden/forbidden";
+// import Cans from "../../modules/cans/cans";
+// import CansList from "../../modules/cans-list/cans-list";
+// import CansDash from "../../modules/cans-dash/cans-dash";
+// import BoilsReport from "../../modules/boils-report/boils-report";
+// import TubeRecordsUpload from "../../modules/tube-records-upload/tube-records-upload";
+// import TimeReport from "../../modules/time-report.tsx/time-report";
+// import Inventories from "../../modules/inventories/inventories";
+// import InventoryDetail from "../../modules/inventory-detail/inventory-detail";
+// import Trademarks from "../../modules/trademarks/trademarks";
+// import TraceBatchs from "../../modules/trace-batchs/trace-batchs";
+// import TraceBatchDetail from "../../modules/trace-batch-detail/trace-batch-detail";
+// import TraceBatchWghtReport from "../../modules/trace-batch-wght-report/trace-batch-wght-report";
+// import TraceBatchWghtReportDetail from "../../modules/trace-batch-wght-report-detail/trace-batch-wght-report-detail";
+// import TraceBatchWeightingsSummary from "../../modules/trace-batch-weightings-summary/trace-batch-weightings-summary";
+// import TraceBatchWeightingsSummaryDetail from "../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail";
+// import BoilsUpload from "../../modules/boils-upload/boils-upload";
+const Layout = React.lazy(() => import("../layouts/layout"));
+const Login = React.lazy(() => import("../../modules/login/login"));
+const Users = React.lazy(() => import("../../modules/users/users"));
+const Products = React.lazy(() => import("../../modules/records/records"));
+const Boils = React.lazy(() => import("../../modules/boils/boils"));
+const Conveyors = React.lazy(() => import("../../modules/conveyors/conveyors"));
+const Foreman = React.lazy(() => import("../../modules/foreman/foreman"));
+const Dash = React.lazy(() => import("../../modules/dash/dash"));
+const Documents = React.lazy(() => import("../../modules/documents/documents"));
+const UiPage = React.lazy(() => import("../../modules/ui-page/ui-page"));
+const Employees = React.lazy(() => import("../../modules/employees/employees"));
+const DocumentDetail = React.lazy(() => import("../../modules/document-detail/document-detail"));
+const DocsUpload = React.lazy(() => import("../../modules/docs-upload/docs-upload"));
+const BasesUpload = React.lazy(() => import("../../modules/bases-upload/bases-upload"));
+const Forbidden = React.lazy(() => import("../../modules/forbidden/forbidden"));
+const Cans = React.lazy(() => import("../../modules/cans/cans"));
+const CansList = React.lazy(() => import("../../modules/cans-list/cans-list"));
+const CansDash = React.lazy(() => import("../../modules/cans-dash/cans-dash"));
+const BoilsReport = React.lazy(() => import("../../modules/boils-report/boils-report"));
+const TubeRecordsUpload = React.lazy(() => import("../../modules/tube-records-upload/tube-records-upload"));
+const TimeReport = React.lazy(() => import("../../modules/time-report.tsx/time-report"));
+const Inventories = React.lazy(() => import("../../modules/inventories/inventories"));
+const InventoryDetail = React.lazy(() => import("../../modules/inventory-detail/inventory-detail"));
+const Trademarks = React.lazy(() => import("../../modules/trademarks/trademarks"));
+const TraceBatchs = React.lazy(() => import("../../modules/trace-batchs/trace-batchs"));
+const TraceBatchDetail = React.lazy(() => import("../../modules/trace-batch-detail/trace-batch-detail"));
+const TraceBatchWghtReport = React.lazy(() => import("../../modules/trace-batch-wght-report/trace-batch-wght-report"));
+const TraceBatchWghtReportDetail = React.lazy(
+  () => import("../../modules/trace-batch-wght-report-detail/trace-batch-wght-report-detail")
+);
+const TraceBatchWeightingsSummary = React.lazy(
+  () => import("../../modules/trace-batch-weightings-summary/trace-batch-weightings-summary")
+);
+const TraceBatchWeightingsSummaryDetail = React.lazy(
+  () => import("../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail")
+);
+const BoilsUpload = React.lazy(() => import("../../modules/boils-upload/boils-upload"));
 
 const AppRouter = () => {
   const { store } = React.useContext(Context);
@@ -114,6 +149,9 @@ const AppRouter = () => {
               <Route path={RouteNames.TRACE_WGHT_REPORT_DETAIL} element={<TraceBatchWghtReportDetail />} />
               <Route path={RouteNames.TRACE_WGHT_SUMMARY} element={<TraceBatchWeightingsSummary />} />
               <Route path={RouteNames.TRACE_WGHT_SUMMARY_DETAIL} element={<TraceBatchWeightingsSummaryDetail />} />
+              <Route element={<ObservedRoleProtectedRoutes role={DbRoles.WGHT_GODMODE} />}>
+                <Route path={RouteNames.TRACE_UPLOAD_BOILS} element={<BoilsUpload />} />
+              </Route>
             </Route>
             <Route element={<ObservedRoleProtectedRoutes role={DbRoles.TRACE} />}>
               <Route path={RouteNames.TRACE_TRADEMARKS} element={<Trademarks />} />
