@@ -1,6 +1,7 @@
 import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import TraceCanLocation from "./trace_can_location.model";
 import TraceInventoryDoc from "./trace_inventory_doc.model";
+import TraceAuthorOccupations from "./tarce_author_occupation.model";
 
 @Table({ tableName: "Plants" })
 export default class TracePlant extends Model {
@@ -19,4 +20,7 @@ export default class TracePlant extends Model {
 
   @HasMany(() => TraceInventoryDoc)
   inventory_docs: TraceInventoryDoc[];
+
+  @HasMany(() => TraceAuthorOccupations)
+  ocuupatioons: TraceAuthorOccupations[];
 }

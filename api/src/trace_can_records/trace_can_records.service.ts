@@ -3,11 +3,8 @@ import { InjectModel } from "@nestjs/sequelize";
 import { col } from "sequelize";
 import TraceAuthor from "src/trace_models/trace_author.model";
 import TraceBatch from "src/trace_models/trace_batch.model";
-// import { col } from "sequelize";
-// import TraceBatch from "src/trace_models/trace_batch.model";
 import TraceCanRecord from "src/trace_models/trace_can_record.model";
 import TraceCanState from "src/trace_models/trace_can_state.model";
-// import TraceCanState from "src/trace_models/trace_can_state.model";
 
 @Injectable()
 export class TraceCanRecordsService {

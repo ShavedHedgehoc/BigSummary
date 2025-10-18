@@ -83,22 +83,10 @@ export default function ModalLayout({
                 }}
               >
                 {children}
-                <ButtonsComponent />
-                {/* <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 1 }}>
-                  {props.onlyCloseButton ? (
-                    <Button
-                      color="neutral"
-                      variant="outlined"
-                      size={"sm"}
-                      sx={{ fontWeight: "normal", fontSize: "small" }}
-                      onClick={() => props.onClose()}
-                    >
-                      Закрыть
-                    </Button>
-                  ) : (
-                    { buttons }
-                  )}
-                </Box> */}
+
+                <Box sx={{ mt: "auto" }}>
+                  <ButtonsComponent />
+                </Box>
               </Box>
             </DialogContent>
             <ModalClose variant="outlined" />

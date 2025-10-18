@@ -9,6 +9,7 @@ export interface FilterInputProps {
   disabled: boolean;
   placeholder: string;
   label: string;
+  maxW?: number;
   changeFilter: ({ key, value }: { key: string; value: string }) => void;
 }
 
@@ -23,8 +24,8 @@ export default function FilterInput(props: FilterInputProps) {
               "--Input-focusedHighlight":
                 mode === "light" ? "var(--joy-palette-neutral-400)" : "var(--joy-palette-neutral-400)",
             },
-            minWidth: "150px",
-            maxWidth: "150px",
+            minWidth: props.maxW ? `${props.maxW}px` : "150px",
+            maxWidth: props.maxW ? `${props.maxW}px` : "150px",
             display: "flex",
             flexShrink: 1,
           }}

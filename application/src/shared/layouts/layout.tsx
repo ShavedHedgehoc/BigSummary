@@ -1,7 +1,9 @@
+import * as React from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/joy";
 import SideBar from "../components/side-bar/side-bar";
 import Header from "../components/headers/header";
+import TableLoaderComponent from "../components/table-loader";
 
 function Layout() {
   return (
@@ -27,9 +29,10 @@ function Layout() {
           gap: 1,
         }}
       >
-        {/* <React.Suspense fallback={<div>Loading..///.</div>}> */}
-        <Outlet />
-        {/* </React.Suspense> */}
+        {/* <Outlet /> */}
+        <React.Suspense fallback={<TableLoaderComponent />}>
+          <Outlet />
+        </React.Suspense>
       </Box>
     </Box>
   );

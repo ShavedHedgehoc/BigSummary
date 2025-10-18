@@ -59,6 +59,10 @@ import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
 import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
 import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
 import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
+import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.module";
+import { ZplModule } from "./zpl/zpl.module";
+import { TestdbSqlModule } from "./testdb_sql/testdb_sql.module";
+import { TraceDirectConnectionModule } from "./trace_direct_connection/trace_direct_connection.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -119,7 +123,7 @@ import TubeParameter from "./tube_parameters/tube_parameters.model";
 import TubeAssembly from "./tube_assembly/tube_assembly.model";
 import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
 import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
-
+import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
@@ -134,7 +138,21 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     }),
     SequelizeModule.forRoot({
       dialect: "mssql",
-
+      host: process.env.MSSQL_HOST,
+      username: process.env.MSSQL_USERNAME,
+      password: process.env.MSSQL_PASSWORD,
+      database: "testdb",
+      define: {
+        createdAt: false,
+        updatedAt: false,
+      },
+      timezone: process.env.NODE_ENV === "development" ? "+03:00" : "+00:00",
+      name: "trace_test_db_connection",
+      logging: process.env.NODE_ENV === "development" ? true : false,
+      models: [],
+    }),
+    SequelizeModule.forRoot({
+      dialect: "mssql",
       host: process.env.MSSQL_HOST,
       username: process.env.MSSQL_USERNAME,
       password: process.env.MSSQL_PASSWORD,
@@ -143,7 +161,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         createdAt: false,
         updatedAt: false,
       },
-      timezone: "+03:00",
+      timezone: process.env.NODE_ENV === "development" ? "+03:00" : "+00:00",
       name: "trace_connection",
       logging: process.env.NODE_ENV === "development" ? true : false,
       models: [
@@ -170,6 +188,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         TraceCanLocation,
         TraceInventoryDoc,
         TraceInventoryRow,
+        TraceAuthorOccupation,
       ],
     }),
     SequelizeModule.forRoot({
@@ -179,7 +198,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      logging: false,
+      logging: process.env.NODE_ENV === "development" ? true : false,
       models: [
         User,
         Role,
@@ -281,6 +300,10 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     TubeAssemblyModule,
     TraceInventoryDocsModule,
     TraceInventoryRowsModule,
+    TraceTrademarksModule,
+    ZplModule,
+    TestdbSqlModule,
+    TraceDirectConnectionModule,
   ],
 })
 export default class AppModule {}
