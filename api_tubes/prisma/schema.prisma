@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {
@@ -8,8 +9,76 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Сотрудники
 model Employee {
-  id      Int    @id @default(autoincrement())
-  name    String
-  barcode String @unique
+  id                                Int                             @id @default(autoincrement())
+  name                              String
+  barcode                           String                          @unique
+  extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
+}
+
+model Production {
+  id                                   Int                                @id @default(autoincrement())
+  code                                 String                             @unique
+  marking                              String
+  name                                 String
+  extrusion_hardware_tresholds_records ExtrusionHardwareTresholdsRecord[]
+  summaries                            Summary[]
+}
+
+// Конвейеры
+model Conveyor {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  summaries Summary[]
+}
+
+model Batch {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  summaries Summary[]
+}
+
+// 
+// model ConveyorJobs {}
+
+model Summary {
+  id                                Int                             @id @default(autoincrement())
+  production                        Production                      @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  production_id                     Int
+  batch                             Batch                           @relation(fields: [batch_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  batch_id                          Int
+  conveyor                          Conveyor                        @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id                       Int
+  plan                              Int
+  isActive                          Boolean                         @default(false)
+  isFinished                        Boolean                         @default(false)
+  extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
+}
+
+model ExtrusionHardwareTresholdsRecord {
+  id                         Int        @id @default(autoincrement())
+  production                 Production @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  production_id              Int
+  press_speed_min            Int
+  press_speed_max            Int
+  blow_time_min              Int
+  blow_time_max              Int
+  turning_machine_speed_min  Int
+  turning_machine_speed_max  Int
+  annealing_furnace_temp_min Int
+  annealing_furnace_temp_max Int
+}
+
+model ExtrusionHardwareParamsRecord {
+  id                     Int      @id @default(autoincrement())
+  summary                Summary  @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id             Int
+  press_speed            Int
+  blow_time              Int
+  turning_machine_speed  Int
+  annealing_furnace_temp Int
+  employee               Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id            Int
+  createdAt              DateTime @default(now())
 }

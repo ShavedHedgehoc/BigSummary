@@ -4,9 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { EmployeesModule } from './employees/employees.module';
+import { ExtrusionModule } from './extrusion/extrusion.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), PrismaModule, EmployeesModule],
+  imports: [ConfigModule.forRoot(), PrismaModule, EmployeesModule, ExtrusionModule],
   controllers: [AppController],
   providers: [AppService],
 })
