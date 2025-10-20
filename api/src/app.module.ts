@@ -241,10 +241,10 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       ],
       // autoLoadModels: true,
     }),
-    SeederModule.forRoot({
-      runOnlyIfTableIsEmpty: true,
-      foreignDelay: 10000,
-    }),
+    // SeederModule.forRoot({
+    //   runOnlyIfTableIsEmpty: true,
+    //   foreignDelay: 10000,
+    // }),
     AuthModule,
     UsersModule,
     RolesModule,
