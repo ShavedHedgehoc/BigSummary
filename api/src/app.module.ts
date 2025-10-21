@@ -40,23 +40,9 @@ import { SemiProductsModule } from "./semi_products/semi_products.module";
 import { ApiErrorsModule } from "./api_errors/api_errors.module";
 import { TraceCanRecordsModule } from "./trace_can_records/trace_can_records.module";
 import { TraceCansModule } from "./trace_cans/trace_cans.module";
-
 import { TracePlantsModule } from "./trace_plants/trace_plants.module";
 import { TraceCanStatesModule } from "./trace_can_states/trace_can_states.module";
 import { TraceCanLocationsModule } from "./trace_can_locations/trace_can_locations.module";
-import { TubeProductsModule } from "./tube_products/tube_products.module";
-import { TubeConveyorsModule } from "./tube_conveyors/tube_conveyors.module";
-import { TubeRecordsModule } from "./tube_records/tube_records.module";
-import { TubeMaterialsModule } from "./tube_materials/tube_materials.module";
-import { TubeConveyorPostsModule } from "./tube_conveyor_posts/tube_conveyor_posts.module";
-import { TubeSpecificationsModule } from "./tube_specifications/tube_specifications.module";
-import { TubeHistoryTypesModule } from "./tube_history_types/tube_history_types.module";
-
-import { TubeHistoriesModule } from "./tube_histories/tube_histories.module";
-import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.module";
-import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
-import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
-import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
 import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
 import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
 import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.module";
@@ -109,18 +95,6 @@ import TracePlant from "./trace_models/trace_plant.model";
 import TraceCanState from "./trace_models/trace_can_state.model";
 import TraceBtProduct from "./trace_models/trace_bt_product.model";
 import TraceCanLocation from "./trace_models/trace_can_location.model";
-import TubeProduct from "./tube_products/tube_products.model";
-import TubeConveyor from "./tube_conveyors/tube_conveyors.model";
-import TubeRecord from "./tube_records/tube_records.model";
-import TubeMaterial from "./tube_materials/tube_materials.model";
-import TubeConveyorPost from "./tube_conveyor_posts/tube_conveyor_posts.model";
-import TubeSpecification from "./tube_specifications/tube_specifications.model";
-import TubeHistoryType from "./tube_history_types/tube_history_types.model";
-import TubeHistory from "./tube_histories/tube_histories.model";
-import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
-import TubeSession from "./tube_sessions/tube_sessions.model";
-import TubeParameter from "./tube_parameters/tube_parameters.model";
-import TubeAssembly from "./tube_assembly/tube_assembly.model";
 import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
 import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
 import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
@@ -226,18 +200,6 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         SemiProduct,
         ApiError,
         // ********************
-        TubeProduct,
-        TubeConveyor,
-        TubeRecord,
-        TubeMaterial,
-        TubeConveyorPost,
-        TubeSpecification,
-        TubeHistoryType,
-        TubeHistory,
-        TubeHistoryNote,
-        TubeSession,
-        TubeParameter,
-        TubeAssembly,
       ],
       // autoLoadModels: true,
     }),
@@ -286,18 +248,6 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     TracePlantsModule,
     TraceCanStatesModule,
     TraceCanLocationsModule,
-    TubeProductsModule,
-    TubeConveyorsModule,
-    TubeRecordsModule,
-    TubeMaterialsModule,
-    TubeConveyorPostsModule,
-    TubeSpecificationsModule,
-    TubeHistoryTypesModule,
-    TubeHistoriesModule,
-    TubeHistoryNotesModule,
-    TubeSessionsModule,
-    TubeParametersModule,
-    TubeAssemblyModule,
     TraceInventoryDocsModule,
     TraceInventoryRowsModule,
     TraceTrademarksModule,
