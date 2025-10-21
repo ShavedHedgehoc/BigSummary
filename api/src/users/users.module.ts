@@ -7,10 +7,10 @@ import Role from "src/roles/roles.model";
 import UserRoles from "src/user-roles/user-roles.model";
 import { RolesModule } from "src/roles/roles.module";
 import { AuthModule } from "src/auth/auth.module";
-import { SeederModule } from "nestjs-sequelize-seeder";
-import { SeedUser } from "src/seeds/user.seed";
-import { SeedRole } from "src/seeds/role.seed";
-import { SeedUserRole } from "src/seeds/userRoles.seed";
+// import { SeederModule } from "nestjs-sequelize-seeder";
+// import { SeedUser } from "src/seeds/user.seed";
+// import { SeedRole } from "src/seeds/role.seed";
+// import { SeedUserRole } from "src/seeds/userRoles.seed";
 import { UserRolesModule } from "src/user-roles/user-roles.module";
 import { TokenModule } from "src/token/token.module";
 
@@ -23,7 +23,7 @@ import { TokenModule } from "src/token/token.module";
     TokenModule,
     UserRolesModule,
     forwardRef(() => AuthModule),
-    SeederModule.forFeature([SeedUser]),
+    // SeederModule.forFeature([SeedUser]),
   ],
   exports: [UsersService],
 })

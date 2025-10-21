@@ -19,7 +19,7 @@ import { WorkshopsModule } from "./workshops/workshops.module";
 import { HistoriesModule } from "./histories/histories.module";
 import { HistoryTypesModule } from "./history_types/hystory_types.module";
 import { TokenModule } from "./token/token.module";
-import { SeederModule } from "nestjs-sequelize-seeder";
+// import { SeederModule } from "nestjs-sequelize-seeder";
 import { TestModule } from "./test/test.module";
 import { BoilsListModule } from "./boils.list/boils.list.module";
 import { DocDetailModule } from "./doc.detail/doc.detail.module";
