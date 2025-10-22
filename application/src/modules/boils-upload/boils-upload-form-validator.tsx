@@ -8,7 +8,6 @@ import * as XLSX from "xlsx";
 import { ValError, useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
 import { useBoilsUploadValidateModalStore } from "./store/use-boils-upload-validate-modal-store";
 import { IXLSBoilsRowData } from "../../shared/api/services/direct-trace-service";
-import { formatDateToString } from "../../shared/helpers/date-time-formatters";
 
 interface IXLSBoilsSheetRow {
   date: string;
