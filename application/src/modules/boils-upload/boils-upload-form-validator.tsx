@@ -8,6 +8,7 @@ import * as XLSX from "xlsx";
 import { ValError, useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
 import { useBoilsUploadValidateModalStore } from "./store/use-boils-upload-validate-modal-store";
 import { IXLSBoilsRowData } from "../../shared/api/services/direct-trace-service";
+import { formatDateToString } from "../../shared/helpers/date-time-formatters";
 
 interface IXLSBoilsSheetRow {
   date: string;
@@ -32,7 +33,10 @@ export default function BoilsUploadFormValidator() {
   const setErrsModalShow = useBoilsUploadFormStore(useShallow((state) => state.setErrsModalShow));
   const setDataForUpload = useBoilsUploadFormStore(useShallow((state) => state.setDataForUpload));
   const setOpenVaildateModal = useBoilsUploadValidateModalStore(useShallow((state) => state.setOpen));
-
+  const formatDateString = (dateString: string) => {
+    const [day, month, year] = dateString.split(".");
+    return `${year}-${month}-${day}`;
+  };
   const handleValidationComplete = (json: IXLSBoilsSheetRow[]) => {
     let res: IXLSBoilsRowData[] = [];
     json.map((item) => {
@@ -55,7 +59,7 @@ export default function BoilsUploadFormValidator() {
         const attr = {
           apparatus: item.apparatus,
           batch: item.batch,
-          date: item.date,
+          date: formatDateString(item.date),
           fin_productid: item.fin_productid,
           marking: item.marking,
           plan: item.plan,
