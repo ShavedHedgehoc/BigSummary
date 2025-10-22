@@ -1,10 +1,11 @@
 import { Button } from "@mui/joy";
 
 export interface TableButtonProps {
-  variant: CustomColorsVariants;
+  variant?: CustomColorsVariants;
   startDecorator?: React.ReactNode;
   disabled?: boolean;
   label: string;
+  minWidth?: number;
   onClick: () => void;
 }
 
@@ -35,6 +36,9 @@ export default function TableButton(props: TableButtonProps) {
       disabled={props.disabled}
       variant="plain"
       sx={[
+        {
+          minWidth: props.minWidth ? props.minWidth : 0,
+        },
         {
           borderRadius: "sm",
           border: "0.5px solid",

@@ -6,7 +6,7 @@ COPY ./workstation/package*.json ./
 COPY ./workstation/tsconfig*.json ./
 COPY ./workstation/vite.config*.json ./
 COPY ./workstation/src ./src
-RUN npm install
+RUN npm ci
 COPY ./workstation .
 RUN npm run build
 RUN npm i -g http-server

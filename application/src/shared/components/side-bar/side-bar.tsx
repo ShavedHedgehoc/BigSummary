@@ -25,6 +25,7 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import ScaleRoundedIcon from "@mui/icons-material/ScaleRounded";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import { closeSidebar } from "../../helpers/utils";
 import { Context } from "../../../main";
 import { observer } from "mobx-react-lite";
@@ -208,18 +209,6 @@ function SideBar() {
                     <Typography level="title-sm">Загрузка сводок</Typography>
                   </Link>
                 </ListItem>
-                {/* <ListItem role="none">
-                  <Link
-                    component={RouterLink}
-                    to={RouteNames.TUBE_RECORDS_UPLOAD}
-                    color="neutral"
-                    underline="none"
-                    sx={{ display: "flex", gap: 1 }}
-                    onClick={() => closeSidebar()}
-                  >
-                    <Typography level="title-sm">Загрузка сводок (тубы)</Typography>
-                  </Link>
-                </ListItem> */}
                 <ListItem role="none">
                   <Link
                     component={RouterLink}
@@ -271,7 +260,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Основы</Typography>
                       </Link>
                     </ListItemContent>
@@ -288,7 +276,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Продукты</Typography>
                       </Link>
                     </ListItemContent>
@@ -321,7 +308,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Ёмкости</Typography>
                       </Link>
                     </ListItemContent>
@@ -354,7 +340,6 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Местоположение</Typography>
                       </Link>
                     </ListItemContent>
@@ -388,8 +373,106 @@ function SideBar() {
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        {/* <ScienceRoundedIcon /> */}
                         <Typography level="title-sm">Переучеты</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_WGHT_REPORT}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Отчет по взвешиваниям</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_WGHT_SUMMARY}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Выработка</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
+          </ListItem>
+
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <ContentPasteSearchIcon />
+                  <ListItemContent>
+                    <Typography level="title-sm">Прослеживаемость</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_BATCHS}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Варки</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_TRADEMARKS}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        {/* <ScienceRoundedIcon /> */}
+                        <Typography level="title-sm">Торговые названия</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={RouteNames.TRACE_UPLOAD_BOILS}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Загрузка варок</Typography>
                       </Link>
                     </ListItemContent>
                   </ListItemButton>

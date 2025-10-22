@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import TableButton from "../../shared/ui/table-button";
 import { formatDateToString } from "../../shared/helpers/date-time-formatters";
+import { RouteNames } from "../../shared/router/route-names";
 
 export default function InventoryDocsRow({ row }: { row: IInventoryDocRow }) {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function InventoryDocsRow({ row }: { row: IInventoryDocRow }) {
             variant="success"
             label="ПРОСМОТР"
             disabled={row.records === 0}
-            onClick={() => navigate(`/inventories/` + `${row.id}`)}
+            onClick={() => navigate(RouteNames.INVENTORIES + row.id)}
             startDecorator={<RemoveRedEyeOutlinedIcon />}
           />
         </Box>

@@ -1,7 +1,11 @@
+// import * as React from "react";
 import { useShallow } from "zustand/shallow";
 import { usePDFModalStore } from "../store/use-pdf-modal-store";
 import ModalLayout from "../../../shared/layouts/modal-layout";
 import DocumentDetailPDFView from "./document-detail-pdf-view";
+
+// const ModalLayout = React.lazy(() => import("../../../shared/layouts/modal-layout"));
+// const DocumentDetailPDFView = React.lazy(() => import("./document-detail-pdf-view"));
 
 export default function DocumentDetailPDFModal() {
   const open = usePDFModalStore(useShallow((state) => state.open));
@@ -29,7 +33,9 @@ export default function DocumentDetailPDFModal() {
 
   return (
     <ModalLayout props={modalProps} buttons={<></>}>
+      {/* <React.Suspense fallback={<div>...</div>}> */}
       <DocumentDetailPDFView viewerHeight={viewerHeight} viewerWidth={viewerWidth} />
+      {/* </React.Suspense> */}
     </ModalLayout>
   );
 }

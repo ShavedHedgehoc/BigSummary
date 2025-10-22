@@ -9,6 +9,7 @@ import { TraceLoadsModule } from "./trace_loads/trace_loads.module";
 import { TraceTechnologyModule } from "./trace_technology/trace_technology.module";
 import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
 import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
+import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.module";
 
 async function start() {
   const PORT = process.env.PORT || 5000;
@@ -44,6 +45,7 @@ async function start() {
       TraceTechnologyModule,
       TraceInventoryDocsModule,
       TraceInventoryRowsModule,
+      TraceTrademarksModule,
     ],
   });
   SwaggerModule.setup("/api/documentation/trace", app, traceFactory);

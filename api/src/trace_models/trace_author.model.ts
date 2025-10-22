@@ -1,9 +1,10 @@
-import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
 import TraceDocument from "./trace_document.model";
 import TraceBoilRecord from "./trace_boil_record.model";
 import TraceCanRecord from "./trace_can_record.model";
 import TraceCanLocation from "./trace_can_location.model";
 import TraceInventoryRow from "./trace_inventory_row.model";
+import TraceAuthorOccupations from "./tarce_author_occupation.model";
 
 @Table({ tableName: "Authors" })
 export default class TraceAuthor extends Model {
@@ -31,4 +32,7 @@ export default class TraceAuthor extends Model {
 
   @HasMany(() => TraceInventoryRow)
   inventory_rows: TraceInventoryRow[];
+
+  @HasOne(() => TraceAuthorOccupations)
+  occupation: TraceAuthorOccupations;
 }
