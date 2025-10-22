@@ -2,6 +2,11 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres:16.2-alpine
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       POSTGRES_DB: "summary"
       POSTGRES_USER: "admin"
@@ -14,7 +19,12 @@ services:
 
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:7.2
+    image: dpage/pgadmin4:9.4
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       PGADMIN_DEFAULT_EMAIL: "eagle221174@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "1"
@@ -36,6 +46,11 @@ services:
       dockerfile: docker/api/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
@@ -88,6 +103,11 @@ services:
       dockerfile: docker/application/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
     restart: always
@@ -101,6 +121,11 @@ services:
       dockerfile: docker/workstation/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
     restart: always
@@ -114,6 +139,11 @@ services:
       dockerfile: docker/dashboard/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
     restart: always
@@ -123,6 +153,11 @@ services:
   nginx:
     container_name: nginx_container
     build: ./docker/nginx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: always
     ports:
       - "80:80"

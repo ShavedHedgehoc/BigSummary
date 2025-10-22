@@ -17,7 +17,6 @@ import History from "src/histories/histories.model";
 import Plant from "src/plants/plant.model";
 import Record from "src/records/records.model";
 import SemiProduct from "src/semi_products/semi_products.model";
-import TubeRecord from "src/tube_records/tube_records.model";
 
 interface BoilsCreationsAttrs {
   value: string;
@@ -70,9 +69,6 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
-
-  @HasMany(() => TubeRecord)
-  tube_records: TubeRecord[];
 
   @HasMany(() => SemiProduct)
   semi_products: SemiProduct[];

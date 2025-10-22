@@ -18,7 +18,7 @@ export default function DocsUploadFormFileInput() {
       <Typography level="body-sm">{filename.split("\\").slice(-1)[0] || "Файл не выбран"}</Typography>
       <FormControl size="sm">
         <input
-          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           style={{ display: "none" }}
           id="raised-button-file"
           type="file"
