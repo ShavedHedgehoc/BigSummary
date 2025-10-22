@@ -6,7 +6,7 @@ COPY ./dash/package*.json ./
 COPY ./dash/tsconfig*.json ./
 COPY ./dash/vite.config*.json ./
 COPY ./dash/src ./src
-RUN npm install
+RUN npm ci
 COPY ./dash .
 RUN npm run build
 RUN npm i -g http-server
