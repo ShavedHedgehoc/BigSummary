@@ -202,9 +202,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         SemiProduct,
         ApiError,
         RecordCounter,
-        // ********************
       ],
-      autoLoadModels: true,
     }),
     // SeederModule.forRoot({
     //   runOnlyIfTableIsEmpty: true,
