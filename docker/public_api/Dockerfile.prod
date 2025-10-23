@@ -23,17 +23,15 @@ WORKDIR /public_api
 COPY ./public_api/package*.json ./
 COPY ./public_api/tsconfig*.json ./
 COPY ./public_api/src ./src
-
 RUN npm ci
 
 COPY ./public_api .
-RUN npx prisma generate
+RUN npx prisma generate --data-proxy
 RUN npm run build
 
 FROM node:18-alpine AS runtime
 WORKDIR /public_api
 COPY --from=builder /public_api/dist ./dist
-
 COPY --from=builder /public_api/node_modules ./node_modules
 COPY --from=builder /public_api/package*.json ./
 COPY --from=builder /public_api/tscongig*.json ./
