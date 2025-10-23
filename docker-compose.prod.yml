@@ -9,8 +9,8 @@ services:
         max-file: "3"
     environment:
       POSTGRES_DB: "summary"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - summary-data:/var/lib/postgresql/data
     restart: always
@@ -19,7 +19,7 @@ services:
 
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:9.4
+    image: dpage/pgadmin4:9.9
     logging:
       driver: "json-file"
       options:
