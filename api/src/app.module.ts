@@ -100,6 +100,7 @@ import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
 import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
 import { RecordCountersModule } from "./record_counters/record_counters.module";
+import RecordCounter from "./record_counters/record_counters.model";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
   date = this._applyTimezone(date, options);
@@ -200,9 +201,10 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         RecordRegulation,
         SemiProduct,
         ApiError,
+        RecordCounter,
         // ********************
       ],
-      // autoLoadModels: true,
+      autoLoadModels: true,
     }),
     // SeederModule.forRoot({
     //   runOnlyIfTableIsEmpty: true,
