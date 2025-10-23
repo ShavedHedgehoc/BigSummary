@@ -33,8 +33,11 @@ RUN npm run build
 FROM node:18-alpine AS runtime
 WORKDIR /public_api
 COPY --from=builder /public_api/dist ./dist
-COPY --from=builder /public_api/node_modules ./node_modules
+
+# COPY --from=builder /public_api/node_modules ./node_modules
 COPY --from=builder /public_api/package*.json ./
 COPY --from=builder /public_api/tscongig*.json ./
+RUN npm ci --production
+
 
 CMD ["node", "dist/main"]
