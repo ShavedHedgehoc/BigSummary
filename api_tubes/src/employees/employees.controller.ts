@@ -1,7 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
-import { EmployeesService } from './employees.service';
+import { Controller, Get } from "@nestjs/common";
+import { EmployeesService } from "./employees.service";
+import { ApiTags } from "@nestjs/swagger";
 
-@Controller('employees')
+@ApiTags("Сотрудники")
+@Controller("employees")
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 

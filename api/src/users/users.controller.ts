@@ -46,4 +46,11 @@ export class UsersController {
   updateUserRoles(@Body() dto: UpdateRolesDto) {
     return this.usersService.updateUserRoles(dto);
   }
+
+  @ApiOperation({ summary: "получить по id" })
+  @ApiResponse({ status: 201 })
+  @Get("/get_by_id/:id")
+  getById(@Param("id") id: string) {
+    return this.usersService.getByPk(Number(id));
+  }
 }

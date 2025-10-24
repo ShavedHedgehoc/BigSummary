@@ -144,7 +144,9 @@ export class UsersService {
   }
 
   async getByPk(id: number) {
-    const user = await this.userRepository.findByPk(id, { include: { model: Role, as: "roles" } });
+    const user = await this.userRepository.findByPk(id, {
+      include: { model: Role, as: "roles", through: { attributes: [] } },
+    });
     return user;
   }
 

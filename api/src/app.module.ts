@@ -239,7 +239,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         TubeParameter,
         TubeAssembly,
       ],
-      autoLoadModels: true,
+      // autoLoadModels: true,
     }),
     SeederModule.forRoot({
       runOnlyIfTableIsEmpty: true,

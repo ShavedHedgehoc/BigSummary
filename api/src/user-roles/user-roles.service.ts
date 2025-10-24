@@ -11,7 +11,7 @@ export class UserRolesService {
     const userRoles = await this.userRoleRepository.findAll({
       where: { userId: id },
       attributes: [],
-      // include: { model: Role, attributes: ["value"] },
+      // include: { model: Role, attributes: ["value"] },      
       include: { model: Role, attributes: ["id", "value", "description"] },
     });
     const result = userRoles.map((item) => {
