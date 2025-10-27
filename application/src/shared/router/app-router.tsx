@@ -99,8 +99,8 @@ export default function AppRouter() {
 
   const RoleProtectedRoutes = (props: RoleProtectedRoutesProps) => {
     if (accessToken && isAuth && !isCheckPending && !user) checkAuth();
-    if (user?.roles && user?.roles?.includes(props.role)) return <Outlet />;
-    return <Navigate to={RouteNames.FORBIDDEN} />;
+    if (user?.roles && !user?.roles?.includes(props.role)) return <Navigate to={RouteNames.FORBIDDEN} />;
+    return <Outlet />;
   };
 
   const router = (
