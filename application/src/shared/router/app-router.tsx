@@ -89,6 +89,7 @@ export default function AppRouter() {
   const ProtectedRoutes = () => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken && !isAuth && !isCheckPending) checkAuth();
+    if (accessToken && isAuth && !isCheckPending && !user) checkAuth();
     if (!accessToken) return <Navigate to={RouteNames.LOGIN} />;
     return <Outlet />;
   };
