@@ -6,6 +6,12 @@ import { ConveyorTasksModule } from './conveyor_tasks/conveyor_tasks.module';
 import { CountersModule } from './counters/counters.module';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { RecordsModule } from './records/records.module';
+import { HistoriesModule } from './histories/histories.module';
+import { HistoryTypesModule } from './history-types/history-types.module';
+import { ProductsModule } from './products/products.module';
+import { BoilsModule } from './boils/boils.module';
+
 import User from './models/users.model';
 import Role from './models/roles.model';
 import UserRoles from './models/user-roles.model';
@@ -31,6 +37,9 @@ import RecordRegulation from './models/record_regulations.model';
 import SemiProduct from './models/semi_products.model';
 import RecordCounter from './models/record-counters.model';
 import History from './models/histories.model';
+import { CountersController } from './counters/counters.controller';
+import { ConveyorsController } from './conveyors/conveyors.controller';
+import { ConveyorTasksController } from './conveyor_tasks/conveyor_tasks.controller';
 
 @Module({
   imports: [
@@ -76,8 +85,13 @@ import History from './models/histories.model';
     ConveyorsModule,
     ConveyorTasksModule,
     CountersModule,
+    RecordsModule,
+    HistoriesModule,
+    HistoryTypesModule,
+    ProductsModule,
+    BoilsModule,
   ],
-  controllers: [AppController],
+  controllers: [ConveyorsController, ConveyorTasksController, CountersController],
   providers: [AppService],
 })
 export class AppModule {}

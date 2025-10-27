@@ -9,12 +9,14 @@ import Note from './notes.model';
 import Plant from './plant.model';
 
 interface HistoriesCreationsAttrs {
-  recordId: number;
-  boilId: number;
+  record_id: number;
+  boil_id: number | null;
   historyTypeId: number;
-  userId: number;
-  employeeId: number;
+  userId: number | null;
+  employeeId: number | null;
   note: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 @Table({ tableName: 'histories' })
