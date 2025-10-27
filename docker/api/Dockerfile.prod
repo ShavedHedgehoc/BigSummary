@@ -27,10 +27,12 @@ RUN npm run build
 
 FROM node:18-alpine AS runtime
 WORKDIR /api
-COPY --from=builder /api/dist ./dist
-COPY --from=builder /api/node_modules ./node_modules
+
+# COPY --from=builder /api/node_modules ./node_modules
 COPY --from=builder /api/package*.json ./
 COPY --from=builder /api/tscongig*.json ./
+RUN npm ci --omit=dev
+COPY --from=builder /api/dist ./dist
 
 # CMD ["npm", "run", "start:prod"]
 
