@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 import LoginPendingModal from "../../shared/components/login-pending-modal";
 import { useLogin } from "./use-login";
-import { useAuthStore } from "./store/auth-store";
+// import { useAuthStore } from "./store/auth-store";
 import { useRegister } from "./use-register";
-import { useShallow } from "zustand/shallow";
+// import { useShallow } from "zustand/shallow";
 
 export default function Login() {
   const [isLogin, setIsLogin] = React.useState(true);
