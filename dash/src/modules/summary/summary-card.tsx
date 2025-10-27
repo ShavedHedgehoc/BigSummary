@@ -31,11 +31,38 @@ export default function SummaryCard(item: IDocRow) {
         ${item.stateValue === null && !item.isSet && "bg-slate-900"}
         ${item.isUpdated && "animate-pulse"}`}
     >
-      <div className="text-slate-200 text-5xl font-semibold pl-3 pt-2 ">{item.conveyor}</div>
+      {/* <div className="grid grid-cols-8 mr-2"> */}
+      <div className="text-slate-200 text-5xl font-semibold pl-3 pt-2 col-span-4">{item.conveyor}</div>
+
+      <div className="text-slate-200   absolute text-lg  text-right font-semibold top-1/4 right-3">
+        {item.fact ? `${item.fact} из ${item.plan}` : ""}
+      </div>
+      {/* </div> */}
       <div className="grid grid-cols-6 pl-3 pr-3 pt-2 ">
         <div className="text-slate-200 col-span-4 text-left text-lg font-semibold"> {item.product}</div>
         <div className="text-slate-200 col-span-2 font-semibold text-right text-xl"> {item.boil}</div>
       </div>
+      {/* <div className="grid grid-cols-6 pl-3 pr-3 pt-2 ">
+        <div className="text-slate-200 col-span-2 text-left text-lg font-semibold">Выполнено</div>
+        <div className="text-slate-200 col-span-4 font-semibold text-right text-xl">
+          {item.fact} из {item.plan}
+        </div>
+      </div> */}
+
+      {/* <div
+        className={`absolute bottom-2 left-2 font-ultralight text-lg   ${
+          item.stateValue === "base_check" || item.stateValue === "base_correct" || item.stateValue === "base_continue"
+            ? "text-yellow-500"
+            : item.stateValue === "base_fail"
+            ? "text-red-500"
+            : item.stateValue === "plug_pass"
+            ? "text-green-500"
+            : "text-slate-200"
+        }`}
+      >
+        {item.state}
+      </div> */}
+
       <div
         className={`font-ultralight text-lg  pl-3  pb-1 ${
           item.stateValue === "base_check" || item.stateValue === "base_correct" || item.stateValue === "base_continue"

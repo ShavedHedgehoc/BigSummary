@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { Op } from "sequelize";
 import { DocsService } from "src/docs/docs.service";
 import { HistoriesService } from "src/histories/histories.service";
 import { RecordsService } from "src/records/records.service";

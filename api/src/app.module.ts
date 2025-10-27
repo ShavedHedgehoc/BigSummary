@@ -100,6 +100,8 @@ import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
 import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
 import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
+import { RecordCountersModule } from "./record_counters/record_counters.module";
+import RecordCounter from "./record_counters/record_counters.model";
 import UserSettings from "./user-settings/user-settings.model";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
@@ -203,9 +205,9 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         SemiProduct,
         ApiError,
         UserSettings,
+        RecordCounter,
       ],
 
-      // autoLoadModels: true,
     }),
     // SeederModule.forRoot({
     //   runOnlyIfTableIsEmpty: true,
@@ -219,6 +221,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     DocsModule,
     PlantsModule,
     RecordsModule,
+    RecordCountersModule,
     ProductsModule,
     SeriesModule,
     BoilsModule,

@@ -1,0 +1,38 @@
+# FROM node:18
+
+# WORKDIR /public_api_2
+
+# COPY ./public_api_2/package*.json ./
+# COPY ./public_api_2/tsconfig*.json ./
+# COPY ./public_api_2/src ./src
+
+# RUN npm install
+
+# COPY ./public_api .
+
+# RUN npx prisma generate
+
+# RUN npm run build
+
+# CMD ["npm", "run", "start:prod"]
+
+
+FROM node AS builder
+
+WORKDIR /public_api_2
+COPY ./public_api_2/package*.json ./
+COPY ./public_api_2/tsconfig*.json ./
+COPY ./public_api_2/src ./src
+RUN npm ci
+
+COPY ./public_api_2 .
+RUN npm run build
+
+FROM node:18-alpine AS runtime
+WORKDIR /public_api_2
+COPY --from=builder /public_api_2/dist ./dist
+COPY --from=builder /public_api_2/node_modules ./node_modules
+COPY --from=builder /public_api_2/package*.json ./
+COPY --from=builder /public_api_2/tscongig*.json ./
+
+CMD ["node", "dist/main"]

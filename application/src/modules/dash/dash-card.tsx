@@ -161,7 +161,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
             justifyContent: "flex-start",
           }}
         >
-          План:
+          Выпуск/План:
         </Box>
         <Box
           sx={{
@@ -169,7 +169,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
             justifyContent: "flex-end    ",
           }}
         >
-          {row.plan}
+          {row.fact ? `${row.fact}/${row.plan}` : `-/${row.plan}`}
         </Box>
       </Box>
       <Box
