@@ -49,6 +49,7 @@ import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.modul
 import { ZplModule } from "./zpl/zpl.module";
 import { TestdbSqlModule } from "./testdb_sql/testdb_sql.module";
 import { TraceDirectConnectionModule } from "./trace_direct_connection/trace_direct_connection.module";
+import { UserSettingsModule } from "./user-settings/user-settings.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -99,6 +100,7 @@ import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
 import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
 import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
+import UserSettings from "./user-settings/user-settings.model";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
   date = this._applyTimezone(date, options);
@@ -173,6 +175,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       logging: process.env.NODE_ENV === "development" ? true : false,
+
       models: [
         User,
         Role,
@@ -199,8 +202,9 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         RecordRegulation,
         SemiProduct,
         ApiError,
-        // ********************
+        UserSettings,
       ],
+
       // autoLoadModels: true,
     }),
     // SeederModule.forRoot({
@@ -254,6 +258,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     ZplModule,
     TestdbSqlModule,
     TraceDirectConnectionModule,
+    UserSettingsModule,
   ],
 })
 export default class AppModule {}

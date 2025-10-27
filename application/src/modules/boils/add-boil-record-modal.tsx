@@ -1,14 +1,11 @@
 import * as React from "react";
 import { Box, Button, Typography, FormControl, Textarea, FormHelperText } from "@mui/joy";
-
 import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
-
 import { useShallow } from "zustand/shallow";
-import { Context } from "../../main";
-
 import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
 import { useBoilHistoryNoteStore } from "./store/use-boil-history-note-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";
+import { useAuthStore } from "../auth/store/auth-store";
 
 const ContentComponent = () => {
   const historyNote = useBoilHistoryNoteStore(useShallow((state) => state.historyNote));
@@ -84,7 +81,7 @@ const CancelButton = () => {
 };
 
 const SetButton = () => {
-  const { store } = React.useContext(Context);
+  const user = useAuthStore(useShallow((state) => state.user));
   const setOpen = useAddBoilModalStore(useShallow((state) => state.setOpen));
   const boil_value = useAddBoilModalStore(useShallow((state) => state.boil_value));
   const state = useAddBoilModalStore(useShallow((state) => state.state));
@@ -93,18 +90,20 @@ const SetButton = () => {
   const noteRequired = useAddBoilModalStore(useShallow((state) => state.noteRequired));
   const { addHistory } = useCreateHistory();
   const handleSetButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: null,
-      boil_value: boil_value,
-      historyType: state,
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: historyNote === "" ? null : historyNote,
-    };
-    setOpen(false);
-    addHistory(data);
-    setHistoryNote("");
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: null,
+        boil_value: boil_value,
+        historyType: state,
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: historyNote === "" ? null : historyNote,
+      };
+      setOpen(false);
+      addHistory(data);
+      setHistoryNote("");
+    }
   };
   return (
     <Button

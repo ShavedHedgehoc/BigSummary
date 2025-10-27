@@ -1,36 +1,30 @@
-import * as React from "react";
 import IconButton from "@mui/joy/IconButton";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
-
 import ModalLayout from "../../shared/layouts/modal-layout";
 import TableLayout from "../../shared/layouts/table-layout";
-
 import { useRecordHistories } from "../../shared/api/use-record-histories";
 import { useForemanHistoryModalStore } from "./store/use-foreman-history-modal-store";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { rowScope } from "../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../shared/ui/styled-typography";
-
-import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
 import TableLoaderComponent from "../../shared/components/table-loader";
 import TableNotFoundComponent from "../../shared/components/table-not-found";
+import { useAuthStore } from "../auth/store/auth-store";
 
 export default function ForemanHistoryModal() {
-  const { store } = React.useContext(Context);
-
   const open = useForemanHistoryModalStore(useShallow((state) => state.open));
-
   const cancelStartButtonEnabled = useForemanHistoryModalStore(useShallow((state) => state.cancelStartButtonEnabled));
   const cancelFinishButtonEnabled = useForemanHistoryModalStore(useShallow((state) => state.cancelFinishButtonEnabled));
   const record_id = useForemanHistoryModalStore(useShallow((state) => state.record_id));
   const title = useForemanHistoryModalStore(useShallow((state) => state.title));
   const setOpen = useForemanHistoryModalStore(useShallow((state) => state.setOpen));
+  const user = useAuthStore(useShallow((state) => state.user));
   const { isPending, data, isSuccess } = useRecordHistories(record_id);
   const addHistoryDirect = useCreateHistoryDirect();
 
@@ -53,31 +47,35 @@ export default function ForemanHistoryModal() {
   };
 
   const handleCancelStartButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: record_id,
-      boil_value: null, //add state to store
-      historyType: "product_pass", // condition between boil & record = > state
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: "Отмена ошибочного внесения",
-    };
-    setOpen(false);
-    addHistoryDirect(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: record_id,
+        boil_value: null, //add state to store
+        historyType: "product_pass", // condition between boil & record = > state
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: "Отмена ошибочного внесения",
+      };
+      setOpen(false);
+      addHistoryDirect(data);
+    }
   };
 
   const handleCancelFinishButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: record_id,
-      boil_value: null, //add state to store
-      historyType: "product_in_progress", // condition between boil & record = > state
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: "Отмена ошибочного внесения",
-    };
-    setOpen(false);
-    addHistoryDirect(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: record_id,
+        boil_value: null, //add state to store
+        historyType: "product_in_progress", // condition between boil & record = > state
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: "Отмена ошибочного внесения",
+      };
+      setOpen(false);
+      addHistoryDirect(data);
+    }
   };
 
   const setNoteModalOpen = useNoteModalStore(useShallow((state) => state.setOpen));

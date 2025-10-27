@@ -1,29 +1,22 @@
-import * as React from "react";
 import IconButton from "@mui/joy/IconButton";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
-
 import ModalLayout from "../../shared/layouts/modal-layout";
 import TableLayout from "../../shared/layouts/table-layout";
-
+import TableLoaderComponent from "../../shared/components/table-loader";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { rowScope } from "../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../shared/ui/styled-typography";
-
-import { Context } from "../../main";
 import { useShallow } from "zustand/shallow";
-
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
-import TableLoaderComponent from "../../shared/components/table-loader";
 import { useBoilsHistories } from "../../shared/api/use-boils-histories";
 import { useBoilHistoryModalStore } from "./store/use-boil-history-modal-store";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
+import { useAuthStore } from "../auth/store/auth-store";
 
 export default function BoilHistoryModal() {
-  const { store } = React.useContext(Context);
-
   const open = useBoilHistoryModalStore(useShallow((state) => state.open));
   const boilId = useBoilHistoryModalStore(useShallow((state) => state.boil_id));
   const boilValue = useBoilHistoryModalStore(useShallow((state) => state.boil_value));
@@ -34,6 +27,7 @@ export default function BoilHistoryModal() {
 
   const { isPending, data, isSuccess } = useBoilsHistories(boilId);
   const addHistoryDirect = useCreateHistoryDirect();
+  const user = useAuthStore(useShallow((state) => state.user));
 
   const history_table_thead: TheadProperties[] = [
     { width: 50, padding: "18px 6px", value: "Дата" },
@@ -54,17 +48,19 @@ export default function BoilHistoryModal() {
   };
 
   const handleCancelButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: null,
-      boil_value: boilValue,
-      historyType: "base_check", // condition between boil & record = > state
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: "Отмена ошибочного внесения",
-    };
-    setOpen(false);
-    addHistoryDirect(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: null,
+        boil_value: boilValue,
+        historyType: "base_check", // condition between boil & record = > state
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: "Отмена ошибочного внесения",
+      };
+      setOpen(false);
+      addHistoryDirect(data);
+    }
   };
 
   const setNoteModalOpen = useNoteModalStore(useShallow((state) => state.setOpen));

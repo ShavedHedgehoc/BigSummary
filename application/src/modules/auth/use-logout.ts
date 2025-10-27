@@ -4,19 +4,14 @@ import handleError from "../../shared/api/http/handleError";
 import AuthService from "../../shared/api/services/auth-service";
 import { useAuthStore } from "./store/auth-store";
 
-export function useLogin() {
-  const { setAuth, setToken, setUser } = useAuthStore();
-  const {
-    mutateAsync: login,
-    isPending: isLoginPending,
-    data: loginData,
-    isSuccess: isLoginSuccess,
-  } = useMutation({
-    mutationFn: AuthService.login,
-    onSuccess: (data) => {
-      setToken(data.data.accessToken);
-      setUser(data.data.user);
-      setAuth(true);
+export function useLogout() {
+  const { setAuth, clearToken, setUser } = useAuthStore();
+  const { mutateAsync: logout } = useMutation({
+    mutationFn: AuthService.logout,
+    onSuccess: () => {
+      clearToken();
+      setUser(null);
+      setAuth(false);
     },
     onError: (err) => {
       if (err instanceof Error) {
@@ -25,5 +20,5 @@ export function useLogin() {
       }
     },
   });
-  return { login, isLoginPending, loginData, isLoginSuccess };
+  return { logout };
 }

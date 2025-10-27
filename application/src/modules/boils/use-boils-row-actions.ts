@@ -1,11 +1,9 @@
-import * as React from "react";
-import { Context } from "../../main";
 import { useCreateHistory } from "../../shared/api/use-create-history";
+import { useAuthStore } from "../auth/store/auth-store";
 import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
 import { useShallow } from "zustand/shallow";
 
 export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
-  const { store } = React.useContext(Context);
   const setOpen = useAddBoilModalStore(useShallow((state) => state.setOpen));
   const setTitle = useAddBoilModalStore(useShallow((state) => state.setTitle));
   const setBoilValue = useAddBoilModalStore(useShallow((state) => state.setBoilValue));
@@ -13,18 +11,21 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const setNoteRequired = useAddBoilModalStore(useShallow((state) => state.setNoteRequired));
 
   const { addHistory, isPending } = useCreateHistory();
+  const user = useAuthStore(useShallow((state) => state.user));
 
   const handleContinueButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: null,
-      boil_value: row.value,
-      historyType: "base_continue",
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: null,
-    };
-    addHistory(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: null,
+        boil_value: row.value,
+        historyType: "base_continue",
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: null,
+      };
+      addHistory(data);
+    }
   };
 
   const handleCorrectButtonClick = () => {

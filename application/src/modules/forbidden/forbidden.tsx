@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/joy";
-import { observer } from "mobx-react-lite";
 import * as React from "react";
 import NotInterestedRoundedIcon from "@mui/icons-material/NotInterestedRounded";
 
-function Forbidden() {
+export default function Forbidden() {
   return (
     <React.Fragment>
       <Box
@@ -25,5 +24,3 @@ function Forbidden() {
     </React.Fragment>
   );
 }
-
-export default observer(Forbidden);

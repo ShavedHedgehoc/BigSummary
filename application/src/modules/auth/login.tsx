@@ -1,43 +1,41 @@
 import * as React from "react";
-import { observer } from "mobx-react-lite";
-import { Context } from "../../main";
+
 import { Box, FormControl, FormLabel, Input, Sheet, Typography, Button } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
 
 import LoginPendingModal from "../../shared/components/login-pending-modal";
+import { useLogin } from "./use-login";
+import { useAuthStore } from "./store/auth-store";
+import { useRegister } from "./use-register";
+import { useShallow } from "zustand/shallow";
 
-function Login() {
+export default function Login() {
   const [isLogin, setIsLogin] = React.useState(true);
   const [name, setName] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
-  const { store } = React.useContext(Context);
-  const navigate = useNavigate();
-  const handleLogin = () => {
-    // login(email, password);
 
-    store.AuthStore.login(email, password).then(() => {
-      if (store.AuthStore.error.length) {
-        console.log("fail");
-      } else {
-        navigate("/");
-      }
-    });
+  const navigate = useNavigate();
+
+  const { login, isLoginPending } = useLogin();
+  const { register, isRegisterPending } = useRegister();
+
+  // const isAuth = useAuthStore(useShallow((state) => state.isAuth));
+  // const user = useAuthStore(useShallow((state) => state.user));
+
+  const handleLogin = async () => {
+    await login({ email, password });
+    navigate("/");
   };
 
-  const handleRegister = () => {
-    store.AuthStore.register(name, email, password).then(() => {
-      if (store.AuthStore.error.length) {
-        console.log("fail");
-      } else {
-        navigate("/");
-      }
-    });
+  const handleRegister = async () => {
+    await register({ name, email, password });
+    navigate("/");
   };
 
   return (
     <>
-      <LoginPendingModal open={store.AuthStore.pending} />
+      <LoginPendingModal open={isLoginPending || isRegisterPending} />
       <Box
         className="MainContent"
         sx={{
@@ -195,4 +193,3 @@ function Login() {
     </>
   );
 }
-export default observer(Login);

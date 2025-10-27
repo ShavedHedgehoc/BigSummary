@@ -3,6 +3,7 @@ import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey,
 import Boil from "src/boils/boil.model";
 import Doc from "src/docs/docs.model";
 import History from "src/histories/histories.model";
+import UserSettings from "src/user-settings/user-settings.model";
 
 interface PlantsCreationsAttrs {
   value: string;
@@ -34,4 +35,7 @@ export default class Plant extends Model<Plant, PlantsCreationsAttrs> {
 
   @HasMany(() => History)
   histories: History[];
+
+  @HasMany(() => UserSettings)
+  user_settings: UserSettings[];
 }

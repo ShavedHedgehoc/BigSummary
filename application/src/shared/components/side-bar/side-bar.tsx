@@ -1,18 +1,6 @@
 import * as React from "react";
-import {
-  Avatar,
-  Box,
-  Divider,
-  GlobalStyles,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemContent,
-  Sheet,
-  Typography,
-} from "@mui/joy";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { Box, Divider, GlobalStyles, Link, List, ListItem, ListItemContent, Sheet, Typography } from "@mui/joy";
+
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import ScienceRoundedIcon from "@mui/icons-material/ScienceRounded";
@@ -27,12 +15,10 @@ import ScaleRoundedIcon from "@mui/icons-material/ScaleRounded";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import { closeSidebar } from "../../helpers/utils";
-import { Context } from "../../../main";
-import { observer } from "mobx-react-lite";
 import { RouteNames } from "../../router/route-names";
 import { Link as RouterLink } from "react-router-dom";
-import { IUser } from "../../../store/AuthStore";
 import ColorSchemeToggle from "./color-scheme-toggle";
+import UserPane from "./user-pane";
 
 function Toggler({
   defaultExpanded = false,
@@ -64,16 +50,9 @@ function Toggler({
   );
 }
 
-const UserComponent = observer((user: IUser) => (
-  <Box sx={{ minWidth: 0, flex: 1 }}>
-    <Typography level="title-sm">{user.name}</Typography>
-    <Typography level="body-xs">{user.email}</Typography>
-  </Box>
-));
+// }
 
-function SideBar() {
-  const { store } = React.useContext(Context);
-
+export default function SideBar() {
   return (
     <Sheet
       className="SideBar"
@@ -627,19 +606,7 @@ function SideBar() {
         </List>
       </Box>
       <Divider />
-      <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-        <Avatar
-          variant="outlined"
-          size="sm"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-        />
-        <UserComponent {...store.AuthStore.user} />
-        <IconButton size="sm" variant="plain" color="neutral" onClick={() => store.AuthStore.logout()}>
-          <LogoutIcon />
-        </IconButton>
-      </Box>
+      <UserPane />
     </Sheet>
   );
 }
-
-export default observer(SideBar);

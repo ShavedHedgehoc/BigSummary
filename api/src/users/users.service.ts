@@ -10,6 +10,7 @@ import { TokenService } from "src/token/token.service";
 import { GethUsersDto } from "./dto/get-users-dto";
 import { Op, col, fn } from "sequelize";
 import UserRoles from "src/user-roles/user-roles.model";
+import UserSettings from "src/user-settings/user-settings.model";
 
 @Injectable()
 export class UsersService {
@@ -144,14 +145,22 @@ export class UsersService {
   }
 
   async getByPk(id: number) {
-    const user = await this.userRepository.findByPk(id, { include: { model: Role, as: "roles" } });
+    const user = await this.userRepository.findByPk(id, {
+      include: [
+        { model: Role, as: "roles", through: { attributes: [] } },
+        { model: UserSettings, as: "user_settings", attributes: ["plant_id"] },
+      ],
+    });
     return user;
   }
 
   async getUserByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: { email: email },
-      include: { model: Role, as: "roles" },
+      include: [
+        { model: Role, as: "roles", through: { attributes: [] } },
+        { model: UserSettings, as: "user_settings", attributes: ["plant_id"] },
+      ],
     });
     return user;
   }

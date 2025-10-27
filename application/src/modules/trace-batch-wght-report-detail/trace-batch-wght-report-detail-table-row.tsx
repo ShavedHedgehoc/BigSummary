@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ITraceBatchWghtReportDetailData } from "../../shared/api/services/trace-batchs-service";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { TableIconButton } from "../../shared/ui/table-icon-button";
@@ -6,11 +5,11 @@ import { formatDateToString, formatTimeToString } from "../../shared/helpers/dat
 import { TableState } from "../../shared/ui/table-state";
 import { useTraceBatchWghtReportDetailDeleteModalStore } from "./store/use-trace-batch-wght-report-detail-delete-modal-store";
 import { useShallow } from "zustand/shallow";
-import { Context } from "../../main";
 import { DbRoles } from "../../shared/db-roles";
+import { useAuthStore } from "../auth/store/auth-store";
 
 export default function TraceBatchWghtReportDetailTableRow({ row }: { row: ITraceBatchWghtReportDetailData }) {
-  const { store } = React.useContext(Context);
+  const user = useAuthStore(useShallow((state) => state.user));
   const setOpen = useTraceBatchWghtReportDetailDeleteModalStore(useShallow((state) => state.setOpen));
   const setRow = useTraceBatchWghtReportDetailDeleteModalStore(useShallow((state) => state.setRow));
   const handleOpenDeleteModalClick = () => {
@@ -47,7 +46,7 @@ export default function TraceBatchWghtReportDetailTableRow({ row }: { row: ITrac
         <TableState text={row.l_date ? "Да" : "Нет"} state={row.l_date !== null ? "success" : ""} />
       </td>
       <td style={{ width: 20, textAlign: "center", padding: "12px 6px" }}>
-        {store.AuthStore.user?.roles?.includes(DbRoles.WGHT_GODMODE) ? (
+        {user?.roles?.includes(DbRoles.WGHT_GODMODE) ? (
           <TableIconButton color="danger" disabled={row.l_date !== null} onClick={() => handleOpenDeleteModalClick()}>
             <DeleteOutlinedIcon />
           </TableIconButton>

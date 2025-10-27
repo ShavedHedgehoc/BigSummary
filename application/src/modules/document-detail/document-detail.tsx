@@ -19,7 +19,7 @@ const DocumentDetailEditRecordModal = React.lazy(() => import("./edit-record-mod
 const DocumentDetailHistoryModal = React.lazy(() => import("./history-modal/document-detail-history-modal"));
 const NoteModal = React.lazy(() => import("../../shared/components/note-modal/note-modal"));
 const DocumentDetailAddHistoryModal = React.lazy(() => import("./add-history-modal/document-detail-add-history-modal"));
-const DocumentDetailPDFModal = React.lazy(() => import("./pdf-modal/document-detail-pdf-modal"));
+// const DocumentDetailPDFModal = React.lazy(() => import("./pdf-modal/document-detail-pdf-modal"));
 
 export default function DocumentDetail() {
   return (
@@ -32,7 +32,7 @@ export default function DocumentDetail() {
       <DocumentDetailHistoryModal />
       <NoteModal />
       <DocumentDetailAddHistoryModal />
-      <DocumentDetailPDFModal />
+      {/* <DocumentDetailPDFModal /> */}
     </React.Fragment>
   );
 }

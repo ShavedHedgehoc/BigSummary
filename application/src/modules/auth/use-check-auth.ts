@@ -4,15 +4,15 @@ import handleError from "../../shared/api/http/handleError";
 import AuthService from "../../shared/api/services/auth-service";
 import { useAuthStore } from "./store/auth-store";
 
-export function useLogin() {
+export function useCheckAuth() {
   const { setAuth, setToken, setUser } = useAuthStore();
   const {
-    mutateAsync: login,
-    isPending: isLoginPending,
-    data: loginData,
-    isSuccess: isLoginSuccess,
+    mutate: checkAuth,
+    isPending: isCheckPending,
+    data: checkData,
+    isSuccess: isCheckSuccess,
   } = useMutation({
-    mutationFn: AuthService.login,
+    mutationFn: AuthService.check,
     onSuccess: (data) => {
       setToken(data.data.accessToken);
       setUser(data.data.user);
@@ -25,5 +25,5 @@ export function useLogin() {
       }
     },
   });
-  return { login, isLoginPending, loginData, isLoginSuccess };
+  return { checkAuth, isCheckPending, checkData, isCheckSuccess };
 }
