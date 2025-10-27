@@ -17,7 +17,7 @@
 # CMD ["npm", "run", "start:prod"]
 
 
-FROM node-18 AS builder
+FROM node AS builder
 
 WORKDIR /public_api_2
 COPY ./public_api_2/package*.json ./
