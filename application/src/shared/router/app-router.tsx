@@ -85,11 +85,10 @@ export default function AppRouter() {
 
   const isAuth = useAuthStore(useShallow((state) => state.isAuth));
   const user = useAuthStore(useShallow((state) => state.user));
-
+  const accessToken = localStorage.getItem("accessToken");
   const ProtectedRoutes = () => {
-    const accessToken = localStorage.getItem("accessToken");
+    // const accessToken = localStorage.getItem("accessToken");
     if (accessToken && !isAuth && !isCheckPending) checkAuth();
-    if (accessToken && isAuth && !isCheckPending && !user) checkAuth();
     if (!accessToken) return <Navigate to={RouteNames.LOGIN} />;
     return <Outlet />;
   };
@@ -99,6 +98,7 @@ export default function AppRouter() {
   }
 
   const RoleProtectedRoutes = (props: RoleProtectedRoutesProps) => {
+    if (accessToken && isAuth && !isCheckPending && !user) checkAuth();
     if (user?.roles && user?.roles?.includes(props.role)) return <Outlet />;
     return <Navigate to={RouteNames.FORBIDDEN} />;
   };
