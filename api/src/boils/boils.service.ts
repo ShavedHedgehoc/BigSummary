@@ -62,7 +62,7 @@ export class BoilsService {
       filter = { ...filter, value: boilFilter };
     }
 
-    if (dto.filter.states.length > 0) {
+    if (dto.filter.states && dto.filter.states.length > 0) {
       const ids = await this.getBoilsIdsByHistoryTypeIds(dto.filter.states);
       const typeFilter = { [Op.in]: [...ids] };
       filter = { ...filter, id: typeFilter };

@@ -1,10 +1,8 @@
 import { Box, Button, Typography } from "@mui/joy";
-
 import { useShallow } from "zustand/shallow";
 import Ajv from "ajv";
 import ajvErrors from "ajv-errors";
-import * as XLSX from "xlsx";
-
+import { read, utils } from "xlsx";
 import { ValError, useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
 import { useBoilsUploadValidateModalStore } from "./store/use-boils-upload-validate-modal-store";
 import { IXLSBoilsRowData } from "../../shared/api/services/direct-trace-service";
@@ -171,9 +169,9 @@ export default function BoilsUploadFormValidator() {
       let valResult = true;
       let json: IXLSBoilsSheetRow[] = [];
       try {
-        const wb = XLSX.read(data);
+        const wb = read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];
-        json = XLSX.utils.sheet_to_json(ws, { raw: false });
+        json = utils.sheet_to_json(ws, { raw: false });
 
         let count = 0;
         const limit = 30;

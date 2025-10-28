@@ -4,43 +4,13 @@ import { RouteNames } from "./route-names";
 import { DbRoles } from "../db-roles";
 import { useCheckAuth } from "../../modules/auth/use-check-auth";
 import { useAuthStore } from "../../modules/auth/store/auth-store";
-
 import Layout from "../layouts/layout";
 import { useShallow } from "zustand/shallow";
-// import Login from "../../modules/auth/login";
+import { usePlants } from "../api/use-plants";
+import { useBoilsHistoryTypes } from "../api/use-boils-history-types";
+import { useProductsHistoryTypes } from "../api/use-products-history-types";
+import { useOccupations } from "../api/use-occupations";
 
-// import Users from "../../modules/users/users";
-// import Products from "../../modules/records/records";
-// import Boils from "../../modules/boils/boils";
-// import Conveyors from "../../modules/conveyors/conveyors";
-// import Foreman from "../../modules/foreman/foreman";
-// import Dash from "../../modules/dash/dash";
-
-// import Documents from "../../modules/documents/documents";
-// import UiPage from "../../modules/ui-page/ui-page";
-// import Employees from "../../modules/employees/employees";
-// import DocumentDetail from "../../modules/document-detail/document-detail";
-// import DocsUpload from "../../modules/docs-upload/docs-upload";
-// import BasesUpload from "../../modules/bases-upload/bases-upload";
-// import Forbidden from "../../modules/forbidden/forbidden";
-// import Cans from "../../modules/cans/cans";
-// import CansList from "../../modules/cans-list/cans-list";
-// import CansDash from "../../modules/cans-dash/cans-dash";
-// import BoilsReport from "../../modules/boils-report/boils-report";
-// import TubeRecordsUpload from "../../modules/tube-records-upload/tube-records-upload";
-// import TimeReport from "../../modules/time-report.tsx/time-report";
-// import Inventories from "../../modules/inventories/inventories";
-// import InventoryDetail from "../../modules/inventory-detail/inventory-detail";
-// import Trademarks from "../../modules/trademarks/trademarks";
-// import TraceBatchs from "../../modules/trace-batchs/trace-batchs";
-// import TraceBatchDetail from "../../modules/trace-batch-detail/trace-batch-detail";
-// import TraceBatchWghtReport from "../../modules/trace-batch-wght-report/trace-batch-wght-report";
-// import TraceBatchWghtReportDetail from "../../modules/trace-batch-wght-report-detail/trace-batch-wght-report-detail";
-// import TraceBatchWeightingsSummary from "../../modules/trace-batch-weightings-summary/trace-batch-weightings-summary";
-// import TraceBatchWeightingsSummaryDetail from "../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail";
-// import BoilsUpload from "../../modules/boils-upload/boils-upload";
-
-// const Layout = React.lazy(() => import("../layouts/layout"));
 const Login = React.lazy(() => import("../../modules/auth/login"));
 const Users = React.lazy(() => import("../../modules/users/users"));
 const Products = React.lazy(() => import("../../modules/records/records"));
@@ -80,15 +50,18 @@ const BoilsUpload = React.lazy(() => import("../../modules/boils-upload/boils-up
 
 export default function AppRouter() {
   const { checkAuth, isCheckPending } = useCheckAuth();
-
-  // const { isAuth, user } = useAuthStore();
-
   const isAuth = useAuthStore(useShallow((state) => state.isAuth));
   const user = useAuthStore(useShallow((state) => state.user));
   const accessToken = localStorage.getItem("accessToken");
+
   const ProtectedRoutes = () => {
-    // const accessToken = localStorage.getItem("accessToken");
-    if (accessToken && !isAuth && !isCheckPending) checkAuth();
+    if (accessToken && !isAuth && !isCheckPending) {
+      checkAuth();
+      usePlants();
+      useBoilsHistoryTypes();
+      useProductsHistoryTypes();
+      useOccupations();
+    }
     if (!accessToken) return <Navigate to={RouteNames.LOGIN} />;
     return <Outlet />;
   };

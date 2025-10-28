@@ -2,9 +2,6 @@ import { useShallow } from "zustand/shallow";
 import { useDocumentsFilterStore } from "./store/use-documents-filter-store";
 import { DocumentsFilterParams } from "./documents-filter-params";
 
-import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../shared/api/services/plant-service";
-
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 
 export default function DocumentsFilterPlantSelector() {
@@ -12,18 +9,6 @@ export default function DocumentsFilterPlantSelector() {
   const selectedPlant = useDocumentsFilterStore(useShallow((state) => state.selectedPlant));
   const setSelectedPlant = useDocumentsFilterStore(useShallow((state) => state.setSelectedPlant));
   const plantSelectorOptions = useDocumentsFilterStore(useShallow((state) => state.plantSelectorOptions));
-  const fillPlantSelectorOptions = useDocumentsFilterStore(useShallow((state) => state.fillPlantSelectorOptions));
-
-  useQuery({
-    queryKey: ["plants_options", "documents"],
-    queryFn: async () => {
-      const data = await PlantService.getAllPlants();
-      if (data) {
-        fillPlantSelectorOptions(data);
-        return data;
-      }
-    },
-  });
 
   const plantOptions = plantSelectorOptions.map((plant) => (
     <FilterSelectorOption key={`plant_option_${plant.id}`} id={plant.id} value={plant.value} />

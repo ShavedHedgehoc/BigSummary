@@ -1,12 +1,14 @@
-import * as XLSX from "xlsx-js-style";
+// import * as XLSX from "xlsx-js-style";
+
+import { utils, writeFile } from "xlsx-js-style";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { ITraceWeightingsSummaryData } from "../../shared/api/services/trace-batchs-service";
 
 export default function makeXLSXFile(data: ITraceWeightingsSummaryData[], title: string) {
-  const workbook = XLSX.utils.book_new();
+  const workbook = utils.book_new();
   const headers = ["№", "Сотрудник", "Строк всего", "Взвешено всего", "Первое взвешивание", "Последнее взвешивание"];
 
-  const worksheet = XLSX.utils.aoa_to_sheet([
+  const worksheet = utils.aoa_to_sheet([
     headers.map((cell) => ({
       v: cell,
       t: "s",
@@ -24,7 +26,7 @@ export default function makeXLSXFile(data: ITraceWeightingsSummaryData[], title:
     })),
   ]);
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Отчет");
+  utils.book_append_sheet(workbook, worksheet, "Отчет");
   worksheet["!cols"] = [{ wch: 10 }, { wch: 30 }, { wch: 20 }, { wch: 20 }, { wch: 30 }, { wch: 30 }];
 
   const rows = data.map((row, index) => [
@@ -109,6 +111,6 @@ export default function makeXLSXFile(data: ITraceWeightingsSummaryData[], title:
     },
   ]);
 
-  XLSX.utils.sheet_add_aoa(worksheet, rows, { origin: "A2" });
-  XLSX.writeFile(workbook, `${title}.xlsx`, { compression: true });
+  utils.sheet_add_aoa(worksheet, rows, { origin: "A2" });
+  writeFile(workbook, `${title}.xlsx`, { compression: true });
 }

@@ -57,7 +57,6 @@ export class AuthService {
     }
     const tokens = await this.getTokens(user);
     await this.tokenService.createOrUpdate(user.id, tokens.refreshToken);
-    // return tokens;
     return [{ user: mapper.toRegisteredUserData(user), accessToken: tokens.accessToken }, tokens.refreshToken];
   }
 

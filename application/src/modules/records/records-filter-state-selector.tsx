@@ -1,8 +1,6 @@
 import { useShallow } from "zustand/shallow";
 import { useRecordsFilterStore } from "./store/use-record-filter-store";
 import { RecordsFilterParams } from "./records-filter-params";
-import { useQuery } from "@tanstack/react-query";
-import HistoryTypeService from "../../shared/api/services/history-types-service";
 
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
@@ -13,18 +11,6 @@ export default function RecordsFilterStateSelector() {
   const filter = useRecordsFilterStore(useShallow((state) => state.filter));
   const changeFilter = useRecordsFilterStore(useShallow((state) => state.changeFilter));
   const stateSelectorOptions = useRecordsFilterStore(useShallow((state) => state.stateSelectorOptions));
-  const fillStateSelectorOptions = useRecordsFilterStore(useShallow((state) => state.fillStateSelectorOptions));
-
-  useQuery({
-    queryKey: ["product_state_options"],
-    queryFn: async () => {
-      const data = await HistoryTypeService.getProductsHistoryTypes();
-      if (data) {
-        fillStateSelectorOptions(data);
-        return data;
-      }
-    },
-  });
 
   const stateOptions = stateSelectorOptions.map((state) => (
     <FilterMultiSelectorOption

@@ -1,8 +1,5 @@
 import { useShallow } from "zustand/shallow";
 
-import { useQuery } from "@tanstack/react-query";
-import HistoryTypeService from "../../../shared/api/services/history-types-service";
-
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
   FilterMultiSelectorProps,
@@ -14,18 +11,6 @@ export default function DocumentDetailFilterStateSelector() {
   const filter = useDocumentDetailFilterStore(useShallow((state) => state.filter));
   const changeFilter = useDocumentDetailFilterStore(useShallow((state) => state.changeFilter));
   const stateSelectorOptions = useDocumentDetailFilterStore(useShallow((state) => state.stateSelectorOptions));
-  const fillStateSelectorOptions = useDocumentDetailFilterStore(useShallow((state) => state.fillStateSelectorOptions));
-
-  useQuery({
-    queryKey: ["product_state_options"],
-    queryFn: async () => {
-      const data = await HistoryTypeService.getProductsHistoryTypes();
-      if (data) {
-        fillStateSelectorOptions(data);
-        return data;
-      }
-    },
-  });
 
   const stateOptions = stateSelectorOptions.map((state) => (
     <FilterMultiSelectorOption

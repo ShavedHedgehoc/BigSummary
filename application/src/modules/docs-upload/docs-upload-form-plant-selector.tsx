@@ -1,7 +1,4 @@
 import { useShallow } from "zustand/shallow";
-import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../shared/api/services/plant-service";
-
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { DocsUploadFormParams } from "./docs-upload-form-params";
 import FormSelector, { FormSelectorOption, FormSelectorProps } from "../../shared/ui/form-selector";
@@ -11,20 +8,9 @@ export default function DocsUploadFormPlantSelector() {
   const selectedPlant = useDocsUploadFormStore(useShallow((state) => state.selectedPlant));
   const setSelectedPlant = useDocsUploadFormStore(useShallow((state) => state.setSelectedPlant));
   const plantSelectorOptions = useDocsUploadFormStore(useShallow((state) => state.plantSelectorOptions));
-  const fillPlantSelectorOptions = useDocsUploadFormStore(useShallow((state) => state.fillPlantSelectorOptions));
 
-  useQuery({
-    queryKey: ["plants_options", "docs_upload"],
-    queryFn: async () => {
-      const data = await PlantService.getAllPlants();
-      if (data) {
-        fillPlantSelectorOptions(data);
-        setSelectedPlant(data[1].id);
-        changeFilter({ key: DocsUploadFormParams.PLANT, value: "", values: [data[1].id] });
-        return data;
-      }
-    },
-  });
+  setSelectedPlant(plantSelectorOptions[0].id);
+  changeFilter({ key: DocsUploadFormParams.PLANT, value: "", values: [plantSelectorOptions[0].id] });
 
   const plantOptions = plantSelectorOptions.map((plant) => (
     <FormSelectorOption key={`plant_option_${plant.id}`} id={plant.id} value={plant.value} />

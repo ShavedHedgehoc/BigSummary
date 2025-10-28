@@ -1,11 +1,15 @@
-import Role from "src/roles/roles.model";
 import User from "src/users/users.model";
+
+export interface IUserSettings {
+  plant_id: number;
+}
 
 export interface IUserData {
   id: number;
   name: string;
   email: string;
   roles: string[];
+  settings: IUserSettings;
 }
 
 export const toRegisteredUserData = (user: User): IUserData => {
@@ -14,5 +18,6 @@ export const toRegisteredUserData = (user: User): IUserData => {
     name: user.name,
     email: user.email,
     roles: user.roles.map((x) => x.description),
+    settings: user.user_settings,
   };
 };

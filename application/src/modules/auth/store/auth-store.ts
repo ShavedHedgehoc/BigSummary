@@ -10,7 +10,7 @@ export interface IUser {
   name: string;
   email: string;
   roles: string[];
-  user_settings: IUserSettings;
+  settings: IUserSettings;
 }
 
 interface AuthStore {
@@ -24,18 +24,21 @@ interface AuthStore {
 }
 
 export const useAuthStore = create<AuthStore>()(
-  devtools((set) => ({
-    accessToken: localStorage.getItem("accessToken") || null,
-    user: null,
-    isAuth: false,
-    setToken(accessToken) {
-      if (accessToken) localStorage.setItem("accessToken", accessToken);
-      set(() => ({ accessToken: accessToken }));
-    },
-    clearToken() {
-      localStorage.removeItem("accessToken");
-    },
-    setUser: (value) => set(() => ({ user: value ? value : null })),
-    setAuth: (value) => set(() => ({ isAuth: value })),
-  }))
+  devtools(
+    (set) => ({
+      accessToken: localStorage.getItem("accessToken") || null,
+      user: null,
+      isAuth: false,
+      setToken(accessToken) {
+        if (accessToken) localStorage.setItem("accessToken", accessToken);
+        set(() => ({ accessToken: accessToken }));
+      },
+      clearToken() {
+        localStorage.removeItem("accessToken");
+      },
+      setUser: (value) => set(() => ({ user: value ? value : null })),
+      setAuth: (value) => set(() => ({ isAuth: value })),
+    }),
+    { name: "AuthStore", store: "AuthStore" }
+  )
 );

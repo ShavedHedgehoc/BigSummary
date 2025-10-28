@@ -7,21 +7,26 @@ import { Dropdown, Menu, MenuItem, MenuButton } from "@mui/joy";
 import { ForemanFilterParams } from "./filter/foreman-filter-params";
 import { useQuery } from "@tanstack/react-query";
 import PlantService from "../../shared/api/services/plant-service";
+import { useShallow } from "zustand/react/shallow";
 
 export default function MobileForemanFilter() {
-  const { plantSelectorOptions, setSelectedPlant, fillPlantSelectorOptions, changeFilter } = useForemanFilterStore();
-  useQuery({
-    queryKey: ["plants_options", "foreman"],
-    queryFn: async () => {
-      const data = await PlantService.getAllPlants();
-      if (data) {
-        fillPlantSelectorOptions(data);
-        setSelectedPlant(data[1].id);
-        changeFilter({ key: ForemanFilterParams.PLANT, value: "", values: [data[1].id] });
-        return data;
-      }
-    },
-  });
+  const changeFilter = useForemanFilterStore(useShallow((state) => state.changeFilter));
+
+  const setSelectedPlant = useForemanFilterStore(useShallow((state) => state.setSelectedPlant));
+  const plantSelectorOptions = useForemanFilterStore(useShallow((state) => state.plantSelectorOptions));
+
+  // useQuery({
+  //   queryKey: ["plants_options", "foreman"],
+  //   queryFn: async () => {
+  //     const data = await PlantService.getAllPlants();
+  //     if (data) {
+  //       fillPlantSelectorOptions(data);
+  //       setSelectedPlant(data[1].id);
+  //       changeFilter({ key: ForemanFilterParams.PLANT, value: "", values: [data[1].id] });
+  //       return data;
+  //     }
+  //   },
+  // });
 
   const handleChange = (newValue: number | null) => {
     newValue && setSelectedPlant(newValue);

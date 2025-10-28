@@ -1,13 +1,10 @@
 import * as React from "react";
-
 import { Box, FormControl, FormLabel, Input, Sheet, Typography, Button } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
 
 import LoginPendingModal from "../../shared/components/login-pending-modal";
 import { useLogin } from "./use-login";
-// import { useAuthStore } from "./store/auth-store";
 import { useRegister } from "./use-register";
-// import { useShallow } from "zustand/shallow";
 
 export default function Login() {
   const [isLogin, setIsLogin] = React.useState(true);
@@ -19,9 +16,6 @@ export default function Login() {
 
   const { login, isLoginPending } = useLogin();
   const { register, isRegisterPending } = useRegister();
-
-  // const isAuth = useAuthStore(useShallow((state) => state.isAuth));
-  // const user = useAuthStore(useShallow((state) => state.user));
 
   const handleLogin = async () => {
     await login({ email, password });
@@ -49,20 +43,98 @@ export default function Login() {
           justifyContent: "center",
         }}
       >
-        <Sheet
+        <form>
+          <Sheet
+            sx={{
+              width: "300px",
+              mx: "auto",
+              my: 4, // margin top & bottom
+              py: 3, // padding top & bottom
+              px: 2, // padding left & right
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              borderRadius: "sm",
+              boxShadow: "md",
+            }}
+            variant={"outlined"}
+          >
+            <div>
+              <Typography level="h4">{isLogin ? "Вход" : "Регистрация"}</Typography>
+            </div>
+            {!isLogin && (
+              <FormControl>
+                <FormLabel>Никнэйм</FormLabel>
+                <Input
+                  name="nickname"
+                  type="text"
+                  value={name}
+                  placeholder="Пользователь"
+                  required
+                  autoComplete="username"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </FormControl>
+            )}
+            <FormControl>
+              <FormLabel>Электропочта</FormLabel>
+              <Input
+                name="email"
+                type="email"
+                value={email}
+                placeholder="mail@mail.ru"
+                required
+                autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Пароль</FormLabel>
+              <Input
+                name="password"
+                type="password"
+                value={password}
+                placeholder="*******"
+                required
+                autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormControl>
+            {isLogin && <Button onClick={() => handleLogin()}>Войти</Button>}
+            {!isLogin && <Button onClick={() => handleRegister()}>Зарегистрироваться</Button>}
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+              <Typography level="body-sm">{isLogin ? "В первый раз? " : "Уже зарегистрирован? "}</Typography>
+              <Typography
+                level="body-sm"
+                color="primary"
+                onClick={() => setIsLogin(!isLogin)}
+                sx={{ textDecoration: "underline", cursor: "pointer" }}
+              >
+                {isLogin ? "Зарегистрироваться" : "Войти"}
+              </Typography>
+            </Box>
+          </Sheet>
+        </form>
+      </Box>
+      <form>
+        <Box
+          className="MainContent"
           sx={{
-            width: "300px",
-            mx: "auto",
-            my: 4, // margin top & bottom
-            py: 3, // padding top & bottom
-            px: 2, // padding left & right
-            display: "flex",
+            flex: 1,
+            display: { xs: "flex", sm: "none" },
             flexDirection: "column",
-            gap: 2,
-            borderRadius: "sm",
-            boxShadow: "md",
+            minWidth: 0,
+            height: "100dvh",
+            gap: 3,
+            mx: "auto",
+
+            my: "auto", // margin top & bottom
+            py: 3, // padding top & bottom
+            px: 3, // padding left & right
+
+            alignItems: "left",
+            justifyContent: "flex-start",
           }}
-          variant={"outlined"}
         >
           <div>
             <Typography level="h4">{isLogin ? "Вход" : "Регистрация"}</Typography>
@@ -75,6 +147,8 @@ export default function Login() {
                 type="text"
                 value={name}
                 placeholder="Пользователь"
+                required
+                autoComplete="username"
                 onChange={(e) => setName(e.target.value)}
               />
             </FormControl>
@@ -85,6 +159,8 @@ export default function Login() {
               name="email"
               type="email"
               value={email}
+              required
+              autoComplete="email"
               placeholder="mail@mail.ru"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -96,11 +172,21 @@ export default function Login() {
               type="password"
               value={password}
               placeholder="*******"
+              required
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormControl>
-          {isLogin && <Button onClick={() => handleLogin()}>Войти</Button>}
-          {!isLogin && <Button onClick={() => handleRegister()}>Зарегистрироваться</Button>}
+          {isLogin && (
+            <Button size="lg" onClick={() => handleLogin()}>
+              Войти
+            </Button>
+          )}
+          {!isLogin && (
+            <Button size="lg" onClick={() => handleRegister()}>
+              Зарегистрироваться
+            </Button>
+          )}
           <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <Typography level="body-sm">{isLogin ? "В первый раз? " : "Уже зарегистрирован? "}</Typography>
             <Typography
@@ -112,84 +198,8 @@ export default function Login() {
               {isLogin ? "Зарегистрироваться" : "Войти"}
             </Typography>
           </Box>
-        </Sheet>
-      </Box>
-      <Box
-        className="MainContent"
-        sx={{
-          flex: 1,
-          display: { xs: "flex", sm: "none" },
-          flexDirection: "column",
-          minWidth: 0,
-          height: "100dvh",
-          gap: 3,
-          mx: "auto",
-
-          my: "auto", // margin top & bottom
-          py: 3, // padding top & bottom
-          px: 3, // padding left & right
-
-          alignItems: "left",
-          justifyContent: "flex-start",
-        }}
-      >
-        <div>
-          <Typography level="h4">{isLogin ? "Вход" : "Регистрация"}</Typography>
-        </div>
-        {!isLogin && (
-          <FormControl>
-            <FormLabel>Никнэйм</FormLabel>
-            <Input
-              name="nickname"
-              type="text"
-              value={name}
-              placeholder="Пользователь"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </FormControl>
-        )}
-        <FormControl>
-          <FormLabel>Электропочта</FormLabel>
-          <Input
-            name="email"
-            type="email"
-            value={email}
-            placeholder="mail@mail.ru"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Пароль</FormLabel>
-          <Input
-            name="password"
-            type="password"
-            value={password}
-            placeholder="*******"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </FormControl>
-        {isLogin && (
-          <Button size="lg" onClick={() => handleLogin()}>
-            Войти
-          </Button>
-        )}
-        {!isLogin && (
-          <Button size="lg" onClick={() => handleRegister()}>
-            Зарегистрироваться
-          </Button>
-        )}
-        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-          <Typography level="body-sm">{isLogin ? "В первый раз? " : "Уже зарегистрирован? "}</Typography>
-          <Typography
-            level="body-sm"
-            color="primary"
-            onClick={() => setIsLogin(!isLogin)}
-            sx={{ textDecoration: "underline", cursor: "pointer" }}
-          >
-            {isLogin ? "Зарегистрироваться" : "Войти"}
-          </Typography>
         </Box>
-      </Box>
+      </form>
     </>
   );
 }
