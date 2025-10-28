@@ -217,8 +217,7 @@ export default function UpdateBases() {
               <Button
                 size="sm"
                 disabled={file === undefined}
-                sx={{ display: file === undefined ? "none" : "block" }}
-                // onClick={() => props.clearFileSelect()}
+                sx={{ display: file === undefined ? "none" : "block" }}                
                 onClick={() => clearData()}
               >
                 Очистить

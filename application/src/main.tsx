@@ -12,7 +12,6 @@ import { additionalTheme } from "./shared/additional-theme.ts";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  // <React.StrictMode>
   <QueryClientProvider client={queryClient}>
     <CssVarsProvider theme={additionalTheme}>
       <CssBaseline />
@@ -22,5 +21,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </CssVarsProvider>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
-  // </React.StrictMode>
 );

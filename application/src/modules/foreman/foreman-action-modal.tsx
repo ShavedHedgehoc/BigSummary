@@ -331,23 +331,6 @@ export default function ForemanActionModal() {
               justifyContent: "flex-start",
               fontSize: "1rem",
             },
-            // () => ({
-            //   ...(record.stateValue === "base_check" && {
-            //     color: mode === "light" ? "#fef08a" : "#fde047",
-            //   }),
-            //   ...(record.stateValue === "base_correct" && {
-            //     color: mode === "light" ? "#fef08a" : "#fde047",
-            //   }),
-            //   ...(record.stateValue === "base_continue" && {
-            //     color: mode === "light" ? "#fef08a" : "#fde047",
-            //   }),
-            //   ...(record.stateValue === "plug_pass" && {
-            //     color: mode === "light" ? "#bbf7d0" : "#86efac",
-            //   }),
-            //   ...(record.stateValue === "base_fail" && {
-            //     color: mode === "light" ? "#fecaca" : "#fca5a5",
-            //   }),
-            // }),
           ]}
         >
           <Box sx={{ width: "100%", textAlign: "center" }}>
