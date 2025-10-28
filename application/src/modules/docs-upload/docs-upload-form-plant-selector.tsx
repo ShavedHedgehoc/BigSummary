@@ -9,9 +9,6 @@ export default function DocsUploadFormPlantSelector() {
   const setSelectedPlant = useDocsUploadFormStore(useShallow((state) => state.setSelectedPlant));
   const plantSelectorOptions = useDocsUploadFormStore(useShallow((state) => state.plantSelectorOptions));
 
-  setSelectedPlant(plantSelectorOptions[0].id);
-  changeFilter({ key: DocsUploadFormParams.PLANT, value: "", values: [plantSelectorOptions[0].id] });
-
   const plantOptions = plantSelectorOptions.map((plant) => (
     <FormSelectorOption key={`plant_option_${plant.id}`} id={plant.id} value={plant.value} />
   ));
