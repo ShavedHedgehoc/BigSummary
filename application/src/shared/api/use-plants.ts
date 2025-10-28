@@ -19,7 +19,6 @@ export const usePlants = () => {
   const { fillPlantSelectorOptions: fillDocumentsOptions } = useDocumentsFilterStore();
   const { fillPlantSelectorOptions: fillTimeReportOptions } = useTimeReportFilterStore();
 
-  console.log("execusePlants");
   return useQuery({
     queryKey: ["plants"],
     queryFn: async () => {
