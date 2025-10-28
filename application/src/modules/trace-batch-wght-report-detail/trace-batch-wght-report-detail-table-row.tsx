@@ -4,7 +4,7 @@ import { TableIconButton } from "../../shared/ui/table-icon-button";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { TableState } from "../../shared/ui/table-state";
 import { useTraceBatchWghtReportDetailDeleteModalStore } from "./store/use-trace-batch-wght-report-detail-delete-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { DbRoles } from "../../shared/db-roles";
 import { useAuthStore } from "../auth/store/auth-store";
 

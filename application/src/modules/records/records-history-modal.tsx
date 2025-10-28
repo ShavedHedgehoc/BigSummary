@@ -13,7 +13,7 @@ import { formatDateToString, formatTimeToString } from "../../shared/helpers/dat
 import { rowScope } from "../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../shared/ui/styled-typography";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
 import TableLoaderComponent from "../../shared/components/table-loader";

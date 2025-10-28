@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
 import { useTimeReportFilterStore } from "../store/use-time-report-filter-store";

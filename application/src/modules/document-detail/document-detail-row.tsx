@@ -7,7 +7,7 @@ import { TableState } from "../../shared/ui/table-state";
 import { TableIconButton } from "../../shared/ui/table-icon-button";
 import { Box } from "@mui/joy";
 import { useDocumentDetailDeleteRecordlModalStore } from "./store/use-document-detail-delete-record-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useDocumentDetailEditRecordlModalStore } from "./store/use-document-detail-edit-record-modal-store";
 import { useDocumentDetailHistoryModalStore } from "./store/use-document-detail-history-modal-store";
 import { DbRoles } from "../../shared/db-roles";

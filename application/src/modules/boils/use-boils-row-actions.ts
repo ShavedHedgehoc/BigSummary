@@ -1,7 +1,7 @@
 import { useCreateHistory } from "../../shared/api/use-create-history";
 import { useAuthStore } from "../auth/store/auth-store";
 import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const setOpen = useAddBoilModalStore(useShallow((state) => state.setOpen));

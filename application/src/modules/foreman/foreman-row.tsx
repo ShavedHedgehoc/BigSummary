@@ -1,6 +1,6 @@
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useForemanHistoryModalStore } from "./store/use-foreman-history-modal-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";
 import { TableState } from "../../shared/ui/table-state";

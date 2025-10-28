@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterSwitcher, { FilterSwitcherProps } from "../../shared/ui/filter-switcher";
 import { useCansListFilterStore } from "./store/use-cans-list-filter-store";
 import { CansListFilterParams } from "./cans-list-filter-params";

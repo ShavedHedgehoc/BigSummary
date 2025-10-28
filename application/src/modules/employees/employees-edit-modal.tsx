@@ -7,7 +7,7 @@ import FormControl from "@mui/joy/FormControl";
 import FormHelperText from "@mui/joy/FormHelperText";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useQuery } from "@tanstack/react-query";
 
 import { useEmployeesEditModalStore } from "./store/use-employees-edit-modal-store";

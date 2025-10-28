@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import FilterButton, { FilterButtonProps } from "../../shared/ui/filter-button";
 import { useEmployeeAddModalStore } from "./store/use-employees-add-modal-store";

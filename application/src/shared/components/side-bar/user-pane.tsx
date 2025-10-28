@@ -2,7 +2,7 @@ import { Avatar, Box, IconButton, Typography } from "@mui/joy";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuthStore } from "../../../modules/auth/store/auth-store";
 import { useLogout } from "../../../modules/auth/use-logout";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function UserPane() {
   const user = useAuthStore(useShallow((state) => state.user));

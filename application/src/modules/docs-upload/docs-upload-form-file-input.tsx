@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Typography } from "@mui/joy";
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function DocsUploadFormFileInput() {
   const filename = useDocsUploadFormStore(useShallow((state) => state.fileName));

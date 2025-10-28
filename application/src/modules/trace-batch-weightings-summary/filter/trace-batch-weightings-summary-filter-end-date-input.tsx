@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterDateInput, { FilterDateInputProps } from "../../../shared/ui/filter-date-input";
 import { useTraceBatchWeightingsSummaryFilterStore } from "../store/use-trace-batch-weightings-summary-filter-store";
 import { TraceBatchWeightingsSummaryFilterParams } from "./trace-batch-weightings-summary-filter-params";

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 import { RecordsFilterParams } from "./records-filter-params";
 import { useRecordsFilterStore } from "./store/use-record-filter-store";

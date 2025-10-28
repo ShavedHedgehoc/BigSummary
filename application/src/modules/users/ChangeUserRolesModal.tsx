@@ -6,7 +6,7 @@ import Sheet from "@mui/joy/Sheet";
 import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useRoles } from "./use-roles";
 import { useRolesListStore } from "./hooks/useRolesListStore";
 import { enqueueSnackbar } from "notistack";

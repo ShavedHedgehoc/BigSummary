@@ -1,7 +1,7 @@
 import { Box, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Check } from "@mui/icons-material";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useBasesUploadFormStore } from "./store/use-bases-upload-form-store";
 
 export default function BasesUploadStepper() {

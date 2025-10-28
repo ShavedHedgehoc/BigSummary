@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/joy";
 import { useDocumentDetailAddHistoryModalStore } from "../store/use-document-detail-add-history-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useCreateHistoryDirect } from "../../../shared/api/use-create-history-direct";
 import { useDocumentDetailAddHistoryModalFormStore } from "../store/use-document-detail-add-history-modal-form-store";
 

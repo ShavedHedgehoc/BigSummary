@@ -9,7 +9,7 @@ import TableLoaderComponent from "../../shared/components/table-loader";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { rowScope } from "../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../shared/ui/styled-typography";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
 import { useBoilsHistories } from "../../shared/api/use-boils-histories";
 import { useBoilHistoryModalStore } from "./store/use-boil-history-modal-store";

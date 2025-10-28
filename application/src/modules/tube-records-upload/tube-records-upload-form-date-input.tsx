@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FormrDateInput, { FormDateInputProps } from "../../shared/ui/form-date-input";
 import { useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";
 import { TubeRecordsUploadFormParams } from "./tube-records-upload-form-params";

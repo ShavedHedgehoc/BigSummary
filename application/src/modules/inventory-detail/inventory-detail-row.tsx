@@ -1,7 +1,7 @@
 import { InventoryRowsData } from "../../shared/api/services/inventory-rows-service";
 import { formatDateToString } from "../../shared/helpers/date-time-formatters";
 import { TableState } from "../../shared/ui/table-state";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useInventoryDetailFilterStore } from "./store/inventory-detail-filter-store";
 
 export default function InventoryDetailRowComponent({ row }: { row: InventoryRowsData }) {

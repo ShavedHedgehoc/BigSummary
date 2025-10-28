@@ -1,6 +1,6 @@
 import Box from "@mui/joy/Box";
 import Sheet from "@mui/joy/Sheet";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import ModalMobileLayout from "../../shared/layouts/modal-mobile-layout";
 import { useColorScheme } from "@mui/joy";
 import { useCreateHistoryMobile } from "../../shared/api/use-create-history-mobile";

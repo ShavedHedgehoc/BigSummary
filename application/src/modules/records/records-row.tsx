@@ -4,7 +4,7 @@ import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useRecordHistoryModalStore } from "./store/use-record-history-modal-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";
 import { useAddRecordModalStore } from "./store/use-add-record-modal-store";

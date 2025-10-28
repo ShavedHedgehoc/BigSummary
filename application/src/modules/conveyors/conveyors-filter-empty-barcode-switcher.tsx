@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterSwitcher, { FilterSwitcherProps } from "../../shared/ui/filter-switcher";
 import { useConveyorsFilterStore } from "./store/use-conveyors-filter-store";
 import { ConveyorsFilterParams } from "./conveyors-filter-params";

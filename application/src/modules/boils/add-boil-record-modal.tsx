@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Button, Typography, FormControl, Textarea, FormHelperText } from "@mui/joy";
 import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
 import { useBoilHistoryNoteStore } from "./store/use-boil-history-note-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";

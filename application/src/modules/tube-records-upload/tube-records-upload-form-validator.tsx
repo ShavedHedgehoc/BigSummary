@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import Ajv from "ajv";
 import { read, utils } from "xlsx";
 import { ValError, useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/joy";

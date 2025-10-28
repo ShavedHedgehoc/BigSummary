@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useBoilsUploadUploadModalStore } from "./store/use-boils-upload-upload-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import UniversalProcessModal, { UniversalProcessModalProps } from "../../shared/components/universal-process-modal";
 import { Box, Button, Typography } from "@mui/joy";
 import { useBoilsUploadEndUploadModalStore } from "./store/use-boils-upload-end-upload-modal";

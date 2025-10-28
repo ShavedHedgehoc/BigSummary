@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import { read, utils } from "xlsx";
 import { IXLSRegulationsData, useRegulationsUpsertFormStore } from "./store/use-regulations-upsert-form-store";

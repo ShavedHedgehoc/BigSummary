@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../../shared/ui/filter-selector";
 import { useBoilsReportFilterStore } from "../store/use-boils-report-filter-store";
 import { BoilsReportFilterParams } from "./boils-report-filter-params";

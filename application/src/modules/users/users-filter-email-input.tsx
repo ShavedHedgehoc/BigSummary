@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { UsersFilterParams } from "./users-filter-params";
 import FilterInput, { FilterInputProps } from "../../shared/ui/filter-input";
 import { useUsersFilterStore } from "./store/use-users-filter-store";

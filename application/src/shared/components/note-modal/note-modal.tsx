@@ -1,6 +1,6 @@
 import Sheet from "@mui/joy/Sheet";
 import ModalLayout from "../../layouts/modal-layout";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useNoteModalStore } from "./use-note-modal-store";
 import { useNote } from "../../api/use-note";
 import { SxProps } from "@mui/joy/styles/types";

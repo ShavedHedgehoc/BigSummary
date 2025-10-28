@@ -3,7 +3,7 @@ import * as React from "react";
 import TableLoaderComponent from "../../shared/components/table-loader";
 import TableNotFoundComponent from "../../shared/components/table-not-found";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useUsers } from "./use-users";
 
 import { useUsersFilterStore } from "./store/use-users-filter-store";

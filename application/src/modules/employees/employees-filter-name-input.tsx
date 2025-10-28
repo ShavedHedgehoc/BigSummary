@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import FilterInputWithSort, { FilterInputWithSortProps } from "../../shared/ui/filter-input-with-sort";
 import { useEmployeesFilterStore } from "./store/use-employees-filter-store";

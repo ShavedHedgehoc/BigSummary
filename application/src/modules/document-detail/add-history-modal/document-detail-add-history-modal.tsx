@@ -1,5 +1,5 @@
 import ModalLayout from "../../../shared/layouts/modal-layout";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import DocumentDetailAddHistoryModalStateSelector from "./document-detail-add-history-state-selector";
 import { useDocumentDetailAddHistoryModalStore } from "../store/use-document-detail-add-history-modal-store";

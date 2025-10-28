@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/joy";
 import { ValError, useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 // import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import Ajv from "ajv";
 import { read, utils } from "xlsx";

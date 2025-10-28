@@ -4,7 +4,7 @@ import Typography from "@mui/joy/Typography";
 import { formatDateToString, formatTimeToString } from "../../../shared/helpers/date-time-formatters";
 import { rowScope } from "../../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../../shared/ui/styled-typography";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useNoteModalStore } from "../../../shared/components/note-modal/use-note-modal-store";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutline";
 import { useDeleteHistory } from "../../../shared/api/use-delete-history";

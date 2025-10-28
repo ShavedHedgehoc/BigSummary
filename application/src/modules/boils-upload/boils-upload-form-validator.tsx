@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import Ajv from "ajv";
 import ajvErrors from "ajv-errors";
 import { read, utils } from "xlsx";

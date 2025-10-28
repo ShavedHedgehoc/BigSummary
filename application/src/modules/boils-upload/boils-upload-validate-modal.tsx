@@ -1,7 +1,7 @@
 import * as React from "react";
 import UniversalProcessModal, { UniversalProcessModalProps } from "../../shared/components/universal-process-modal";
 import { useBoilsUploadValidateModalStore } from "./store/use-boils-upload-validate-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { Box, CircularProgress, Typography } from "@mui/joy";
 
 export default function BoilsUploadValidateModal() {

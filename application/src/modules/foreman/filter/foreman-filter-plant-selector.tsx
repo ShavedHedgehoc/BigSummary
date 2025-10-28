@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useForemanFilterStore } from "../store/use-foreman-filter-store";
 import { ForemanFilterParams } from "./foreman-filter-params";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../../shared/ui/filter-selector";

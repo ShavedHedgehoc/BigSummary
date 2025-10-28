@@ -1,7 +1,7 @@
 import { Box, Sheet, useColorScheme } from "@mui/joy";
 import { keyframes } from "@emotion/react";
 import { useDashHistoryModalStore } from "./store/use-dash-history-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { DbRoles } from "../../shared/db-roles";
 import { useAuthStore } from "../auth/store/auth-store";
 

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useTraceBatchWghtReportDetailDeleteModalStore } from "./store/use-trace-batch-wght-report-detail-delete-modal-store";
 import ModalLayout from "../../shared/layouts/modal-layout";
 import { Box, Typography } from "@mui/joy";

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useBoilsFilterStore } from "./store/use-boils-filter-store";
 import { BoilsFilterParams } from "./boils-filter-params";
 

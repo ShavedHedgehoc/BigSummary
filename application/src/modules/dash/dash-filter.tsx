@@ -4,7 +4,7 @@ import { Box, Dropdown, IconButton, Menu, MenuButton, MenuItem, Sheet } from "@m
 import { SxProps } from "@mui/joy/styles/types";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import DashFilterPlantSelector from "./dash-filter-plant-selector";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useAuthStore } from "../auth/store/auth-store";
 import DashFilterSwitcher from "./dash-filter-switcher";
 

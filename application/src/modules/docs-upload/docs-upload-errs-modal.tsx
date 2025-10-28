@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
 import TableLayout from "../../shared/layouts/table-layout";
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterDateInput, { FilterDateInputProps } from "../../shared/ui/filter-date-input";
 import { DocumentsFilterParams } from "./documents-filter-params";
 import { useDocumentsFilterStore } from "./store/use-documents-filter-store";

@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";
 
 export default function TubeRecordsUploadFormFileInput() {

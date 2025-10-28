@@ -1,7 +1,7 @@
 import { Box, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Check } from "@mui/icons-material";
 import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function DocsUploadStepper() {
   const file = useDocsUploadFormStore(useShallow((state) => state.file));

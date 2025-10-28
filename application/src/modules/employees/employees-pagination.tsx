@@ -1,5 +1,5 @@
 import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useEmployeesPaginationStore } from "./store/use-employees-pagination-store";
 
 export default function EmployeesPagination() {

@@ -6,7 +6,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useEditModalStore } from "./store/use-edit-modal-store";
 import ConveyorService from "../../shared/api/services/conveyor-service";
 import { enqueueSnackbar } from "notistack";

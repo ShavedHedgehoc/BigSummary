@@ -5,7 +5,7 @@ import { DbRoles } from "../db-roles";
 import { useCheckAuth } from "../../modules/auth/use-check-auth";
 import { useAuthStore } from "../../modules/auth/store/auth-store";
 import Layout from "../layouts/layout";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { usePlants } from "../api/use-plants";
 import { useBoilsHistoryTypes } from "../api/use-boils-history-types";
 import { useProductsHistoryTypes } from "../api/use-products-history-types";

@@ -1,5 +1,5 @@
 import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useTraceBatchWeightingsSummaryDetailPaginationStore } from "./store/use-trace-batch-weightings-summary-detail-pagination-store";
 
 export default function TraceBatchWeightingsSummaryDetailPagination() {

@@ -1,5 +1,5 @@
 // import * as React from "react";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { usePDFModalStore } from "../store/use-pdf-modal-store";
 import ModalLayout from "../../../shared/layouts/modal-layout";
 import DocumentDetailPDFView from "./document-detail-pdf-view";

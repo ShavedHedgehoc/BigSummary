@@ -4,7 +4,7 @@ import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
 // import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import { IUserRow } from "../../shared/api/services/UserService";
 import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
