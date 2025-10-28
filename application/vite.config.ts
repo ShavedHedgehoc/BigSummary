@@ -13,20 +13,24 @@ export default defineConfig({
     nodePolyfills(),
   ],
 
-  // build: {
-  //   rollupOptions: {
-  //     output: {
-  //       manualChunks(id) {
-  //         // if (id.includes("node_modules")) {
-  //         //   return "vendor"; // Split vendor libraries
-  //         // }
-  //         if (id.includes("src/components/")) {
-  //           return "components"; // Split components into their own chunk
-  //         }
-  //       },
-  //     },
-  //   },
-  // },
+  build: {
+    rollupOptions: {
+      output: {
+        // manualChunks(id) {
+        //   if (id.includes("xlsx.min.js")) {
+        //     return "charts"; // Split vendor libraries
+        //   }
+        //   if (id.includes("xlsx.mjs")) {
+        //     return "chartsx"; // Split vendor libraries
+        //   }
+        //   if (id.includes("src/components/")) {
+        //     return "components"; // Split components into their own chunk
+        //   }
+        // },
+        inlineDynamicImports: true,
+      },
+    },
+  },
 
   preview: { port: 4000 },
   server: {

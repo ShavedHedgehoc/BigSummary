@@ -42,9 +42,11 @@ export default function DashFilter() {
   const plantSelectorOptions = useDashFilterStore(useShallow((state) => state.plantSelectorOptions));
   const setSelectedPlant = useDashFilterStore(useShallow((state) => state.setSelectedPlant));
   const changeFilter = useDashFilterStore(useShallow((state) => state.changeFilter));
-  const plant_id = user?.settings?.plant_id || plantSelectorOptions[0].id;
-  setSelectedPlant(plant_id);
-  changeFilter({ key: DashFilterParams.PLANT, value: "", values: [plant_id] });
+  if (user && plantSelectorOptions.length) {
+    const plant_id = user?.settings?.plant_id || plantSelectorOptions[0].id;
+    setSelectedPlant(plant_id);
+    changeFilter({ key: DashFilterParams.PLANT, value: "", values: [plant_id] });
+  }
 
   const sheetSXProps: SxProps = [
     {
