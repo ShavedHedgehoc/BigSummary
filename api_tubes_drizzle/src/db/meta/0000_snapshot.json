@@ -1,0 +1,487 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.Employee": {
+      "name": "Employee",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "barcode": {
+          "name": "barcode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "Employee_barcode_key": {
+          "name": "Employee_barcode_key",
+          "columns": [
+            {
+              "expression": "barcode",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Production": {
+      "name": "Production",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marking": {
+          "name": "marking",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "Production_code_key": {
+          "name": "Production_code_key",
+          "columns": [
+            {
+              "expression": "code",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.ExtrusionHardwareParamsRecord": {
+      "name": "ExtrusionHardwareParamsRecord",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "annealing_furnace_temp": {
+          "name": "annealing_furnace_temp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blow_time": {
+          "name": "blow_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "employee_id": {
+          "name": "employee_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "press_speed": {
+          "name": "press_speed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "summary_id": {
+          "name": "summary_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "turning_machine_speed": {
+          "name": "turning_machine_speed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ExtrusionHardwareParamsRecord_summary_id_fkey": {
+          "name": "ExtrusionHardwareParamsRecord_summary_id_fkey",
+          "tableFrom": "ExtrusionHardwareParamsRecord",
+          "tableTo": "Summary",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "summary_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "ExtrusionHardwareParamsRecord_employee_id_fkey": {
+          "name": "ExtrusionHardwareParamsRecord_employee_id_fkey",
+          "tableFrom": "ExtrusionHardwareParamsRecord",
+          "tableTo": "Employee",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "employee_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Summary": {
+      "name": "Summary",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "production_id": {
+          "name": "production_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "batch_id": {
+          "name": "batch_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "conveyor_id": {
+          "name": "conveyor_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plan": {
+          "name": "plan",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isActive": {
+          "name": "isActive",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "isFinished": {
+          "name": "isFinished",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Summary_production_id_fkey": {
+          "name": "Summary_production_id_fkey",
+          "tableFrom": "Summary",
+          "tableTo": "Production",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "production_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Summary_batch_id_fkey": {
+          "name": "Summary_batch_id_fkey",
+          "tableFrom": "Summary",
+          "tableTo": "Batch",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "batch_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "Summary_conveyor_id_fkey": {
+          "name": "Summary_conveyor_id_fkey",
+          "tableFrom": "Summary",
+          "tableTo": "Conveyor",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "conveyor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Batch": {
+      "name": "Batch",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "Batch_name_key": {
+          "name": "Batch_name_key",
+          "columns": [
+            {
+              "expression": "name",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Conveyor": {
+      "name": "Conveyor",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "Conveyor_name_key": {
+          "name": "Conveyor_name_key",
+          "columns": [
+            {
+              "expression": "name",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "text_ops",
+              "isExpression": false
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.ExtrusionHardwareTresholdsRecord": {
+      "name": "ExtrusionHardwareTresholdsRecord",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "production_id": {
+          "name": "production_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "press_speed_min": {
+          "name": "press_speed_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "press_speed_max": {
+          "name": "press_speed_max",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blow_time_min": {
+          "name": "blow_time_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blow_time_max": {
+          "name": "blow_time_max",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "turning_machine_speed_min": {
+          "name": "turning_machine_speed_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "turning_machine_speed_max": {
+          "name": "turning_machine_speed_max",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "annealing_furnace_temp_min": {
+          "name": "annealing_furnace_temp_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "annealing_furnace_temp_max": {
+          "name": "annealing_furnace_temp_max",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ExtrusionHardwareTresholdsRecord_production_id_fkey": {
+          "name": "ExtrusionHardwareTresholdsRecord_production_id_fkey",
+          "tableFrom": "ExtrusionHardwareTresholdsRecord",
+          "tableTo": "Production",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "production_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {}
+  }
+}
