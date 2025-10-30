@@ -9,6 +9,7 @@ interface RolesListStore {
 
 export const useRolesListStore = create<RolesListStore>()((set) => ({
   rolesList: [],
+
   addRole: (val: number) =>
     set((state) => ({
       rolesList: [...state.rolesList, val],

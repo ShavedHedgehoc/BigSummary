@@ -20,6 +20,7 @@ export class UsersController {
   @ApiResponse({ status: 201, type: [User] })
   // @Roles("ADMIN")
   // @UseGuards(RoleGuard)
+  @UseGuards(JwtAuthguard)
   @Post("/list")
   getAllUsers(@Body() dto: GethUsersDto) {
     return this.usersService.getAllUserWithFilter(dto);

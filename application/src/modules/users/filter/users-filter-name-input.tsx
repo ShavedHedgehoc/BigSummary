@@ -1,8 +1,8 @@
 import { useShallow } from "zustand/react/shallow";
 import { UsersFilterParams } from "./users-filter-params";
 
-import { useUsersFilterStore } from "./store/use-users-filter-store";
-import FilterInputWithSort, { FilterInputWithSortProps } from "../../shared/ui/filter-input-with-sort";
+import { useUsersFilterStore } from "../store/use-users-filter-store";
+import FilterInputWithSort, { FilterInputWithSortProps } from "../../../shared/ui/filter-input-with-sort";
 
 export default function UsersFilterNameInput() {
   const filter = useUsersFilterStore(useShallow((state) => state.filter));

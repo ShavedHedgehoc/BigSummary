@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/react/shallow";
-import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
-import { useEmployeesFilterStore } from "./store/use-employees-filter-store";
+import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../../shared/ui/filter-selector";
+import { useEmployeesFilterStore } from "../store/use-employees-filter-store";
 import { EmployeesFilterParams } from "./employees-filter-params";
 
 export default function EmployeesFilterOcupationSelector() {

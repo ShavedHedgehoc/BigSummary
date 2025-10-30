@@ -1,6 +1,4 @@
 import { useShallow } from "zustand/react/shallow";
-// import { useQuery } from "@tanstack/react-query";
-// import HistoryTypeService from "../../../shared/api/services/history-types-service";
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
   FilterMultiSelectorProps,

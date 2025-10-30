@@ -46,7 +46,6 @@ export class EmployeesService {
   }
 
   async getAllEmployeesWithFilter(dto: GetEmployeesDto) {
-    console.log(dto);
     const nameOrder = dto.filter.nameAsc ? "ASC" : "DESC";
     let filter = {};
     if (dto.filter.name !== "") {

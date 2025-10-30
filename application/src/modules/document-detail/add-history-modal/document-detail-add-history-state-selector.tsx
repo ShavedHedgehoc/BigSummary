@@ -52,8 +52,6 @@ export default function DocumentDetailAddHistoryModalStateSelector() {
             listbox: { sx: { zIndex: 999999 } },
           }}
           sx={{
-            // minWidth: "220px",
-            // maxWidth: "220px",
             display: "flex",
             flexGrow: 1,
             mt: 1,

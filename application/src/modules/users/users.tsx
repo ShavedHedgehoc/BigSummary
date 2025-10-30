@@ -2,9 +2,9 @@ import * as React from "react";
 import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
 import MainPageHeader from "../../shared/components/headers/MainPageHeader";
 
-import { ChangeUserRolesModal } from "./ChangeUserRolesModal";
+import { ChangeUserRolesModal } from "./change-user-role-modal";
 import NotMobileVersion from "../../shared/components/not-mobile-version";
-import UsersFilter from "./users-filter";
+import UsersFilter from "./filter/users-filter";
 import UsersPagination from "./users-pagination";
 import UsersTable from "./users-table";
 

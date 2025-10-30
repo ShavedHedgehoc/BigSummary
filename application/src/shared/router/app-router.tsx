@@ -10,7 +10,12 @@ import { usePlants } from "../api/use-plants";
 import { useBoilsHistoryTypes } from "../api/use-boils-history-types";
 import { useProductsHistoryTypes } from "../api/use-products-history-types";
 import { useOccupations } from "../api/use-occupations";
+import { useRoles } from "../api/use-roles";
+import { useCheckHealth } from "../api/use-check-health";
+import { useHealthStore } from "../../modules/server-falldown/use-health-store";
+// import ServerFalldown from "../../modules/server-falldown/server-falldown";
 
+const ServerFalldown = React.lazy(() => import("../../modules/server-falldown/server-falldown"));
 const Login = React.lazy(() => import("../../modules/auth/login"));
 const Users = React.lazy(() => import("../../modules/users/users"));
 const Products = React.lazy(() => import("../../modules/records/records"));
@@ -49,21 +54,38 @@ const TraceBatchWeightingsSummaryDetail = React.lazy(
 const BoilsUpload = React.lazy(() => import("../../modules/boils-upload/boils-upload"));
 
 export default function AppRouter() {
+  const isHealthy = useHealthStore(useShallow((state) => state.isHealthy));
+  const init = useHealthStore(useShallow((state) => state.init));
   const { checkAuth, isCheckPending } = useCheckAuth();
+
   const isAuth = useAuthStore(useShallow((state) => state.isAuth));
   const user = useAuthStore(useShallow((state) => state.user));
   const accessToken = localStorage.getItem("accessToken");
 
   const ProtectedRoutes = () => {
-    if (accessToken && !isAuth && !isCheckPending) {
+    useCheckHealth();
+    if (!isHealthy && init)
+      return (
+        <React.Suspense>
+          <ServerFalldown />
+        </React.Suspense>
+      );
+    if (isHealthy && init && accessToken && !isAuth && !isCheckPending) {
       checkAuth();
       usePlants();
       useBoilsHistoryTypes();
       useProductsHistoryTypes();
       useOccupations();
+      useRoles();
     }
-    if (!accessToken) return <Navigate to={RouteNames.LOGIN} />;
-    return <Outlet />;
+    if (!accessToken && isHealthy && init)
+      return (
+        <React.Suspense>
+          <Login />
+        </React.Suspense>
+      );
+
+    if (isHealthy && init) return <Outlet />;
   };
 
   interface RoleProtectedRoutesProps {
@@ -71,7 +93,7 @@ export default function AppRouter() {
   }
 
   const RoleProtectedRoutes = (props: RoleProtectedRoutesProps) => {
-    if (accessToken && isAuth && !isCheckPending && !user) checkAuth();
+    if (isHealthy && accessToken && isAuth && !isCheckPending && !user) checkAuth();
     if (user?.roles && !user?.roles?.includes(props.role)) return <Navigate to={RouteNames.FORBIDDEN} />;
     return <Outlet />;
   };

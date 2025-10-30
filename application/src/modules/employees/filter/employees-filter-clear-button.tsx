@@ -1,8 +1,8 @@
 import { useShallow } from "zustand/react/shallow";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import FilterButton, { FilterButtonProps } from "../../shared/ui/filter-button";
-import { useEmployeesFilterStore } from "./store/use-employees-filter-store";
+import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
+import { useEmployeesFilterStore } from "../store/use-employees-filter-store";
 
 export default function EmployeesFilterClearButton() {
   const clearFilter = useEmployeesFilterStore(useShallow((state) => state.clearFilter));

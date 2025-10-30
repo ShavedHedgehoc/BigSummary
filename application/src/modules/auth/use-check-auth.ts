@@ -5,7 +5,7 @@ import AuthService from "../../shared/api/services/auth-service";
 import { useAuthStore } from "./store/auth-store";
 
 export function useCheckAuth() {
-  const { setAuth, setToken, setUser } = useAuthStore();
+  const { setAuth, setToken, setUser, clearToken } = useAuthStore();
   const {
     mutate: checkAuth,
     isPending: isCheckPending,
@@ -20,6 +20,9 @@ export function useCheckAuth() {
     },
     onError: (err) => {
       if (err instanceof Error) {
+        clearToken();
+        setUser(null);
+        setAuth(false);
         const error = handleError(err);
         enqueueSnackbar(error, { variant: "error", anchorOrigin: { vertical: "top", horizontal: "right" } });
       }

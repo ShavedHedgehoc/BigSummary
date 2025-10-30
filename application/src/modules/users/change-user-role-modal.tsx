@@ -5,23 +5,21 @@ import Checkbox from "@mui/joy/Checkbox";
 import Sheet from "@mui/joy/Sheet";
 import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
+import { useChangeUserRolesModalStore } from "./store/use-change-user-roles-modal-store";
 import { useShallow } from "zustand/react/shallow";
-import { useRoles } from "./use-roles";
-import { useRolesListStore } from "./hooks/useRolesListStore";
+
+import { useRolesListStore } from "./store/use-roles-list-store";
 import { enqueueSnackbar } from "notistack";
 import handleError from "../../shared/api/http/handleError";
-import UserService from "../../shared/api/services/UserService";
+import UserService from "../../shared/api/services/user-service";
+import { useUsersFilterStore } from "./store/use-users-filter-store";
 
 const ContentComponent = () => {
-  const { isPending, isRefetching, data } = useRoles();
-
+  const roleSelectorOptions = useUsersFilterStore(useShallow((state) => state.roleSelectorOptions));
   const rolesList = useRolesListStore(useShallow((state) => state.rolesList));
   const addRole = useRolesListStore(useShallow((state) => state.addRole));
   const removeRole = useRolesListStore(useShallow((state) => state.removeRole));
-  if (isPending || isRefetching) {
-    return <>Loading...</>;
-  }
+
   const handleChange = ({ event, id }: { event: React.ChangeEvent<HTMLInputElement>; id: number }) => {
     if (event.target.checked) {
       addRole(id);
@@ -29,11 +27,12 @@ const ContentComponent = () => {
       removeRole(id);
     }
   };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, minHeight: 0 }}>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1, overflow: "auto" }}>
-        {data &&
-          data.map((item) => (
+        {roleSelectorOptions &&
+          roleSelectorOptions.map((item) => (
             <Sheet
               variant="outlined"
               key={`roleSheet_${item.id}`}
@@ -127,12 +126,10 @@ export const ChangeUserRolesModal = () => {
     open: open,
     onClose: () => setOpen(false),
     title: "Редактирование прав пользователя",
-    // content: <ContentComponent />,
     height: 600,
     minHeight: 0,
     width: 400,
     onlyCloseButton: false,
-    // buttons: <ButtonComponent />,
   };
 
   return (

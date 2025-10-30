@@ -92,6 +92,8 @@ export class UsersService {
         ["name", nameOrder],
         [{ model: Role, as: "roles" }, "description", "ASC"],
       ],
+      limit: dto.limit,
+      offset: dto.limit * (dto.page - 1),
     });
     return { rows: users, total: count };
   }

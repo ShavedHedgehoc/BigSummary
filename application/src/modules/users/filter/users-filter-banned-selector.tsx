@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/react/shallow";
-import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
-import { useUsersFilterStore } from "./store/use-users-filter-store";
+import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../../shared/ui/filter-selector";
+import { useUsersFilterStore } from "../store/use-users-filter-store";
 import { UsersFilterParams } from "./users-filter-params";
 
 export default function UsersFilterBannedSelector() {

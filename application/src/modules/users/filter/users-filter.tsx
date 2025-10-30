@@ -1,4 +1,4 @@
-import PageFilterLayout from "../../shared/layouts/page-filter-layout";
+import PageFilterLayout from "../../../shared/layouts/page-filter-layout";
 import UsersFilterBannedSelector from "./users-filter-banned-selector";
 import UsersFilterClearButton from "./users-filter-clear-button";
 import UsersFilterEmailInput from "./users-filter-email-input";

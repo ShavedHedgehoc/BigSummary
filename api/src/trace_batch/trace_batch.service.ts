@@ -666,7 +666,6 @@ export class TraceBatchService {
     interface CountResp {
       count: number;
     }
-    console.log(dto);
     const count_qry_new = `
     SELECT COUNT(*) AS count 
     FROM Weightings w 

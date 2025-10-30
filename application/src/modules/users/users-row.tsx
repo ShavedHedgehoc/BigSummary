@@ -6,18 +6,16 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 
 import { useShallow } from "zustand/react/shallow";
 
-import { IUserRow } from "../../shared/api/services/UserService";
-import { useChangeUserRolesModalStore } from "./hooks/useChangeUserRolesModalStore";
-import { useRolesListStore } from "./hooks/useRolesListStore";
+import { IUserRow } from "../../shared/api/services/user-service";
+import { useChangeUserRolesModalStore } from "./store/use-change-user-roles-modal-store";
+import { useRolesListStore } from "./store/use-roles-list-store";
 import { TableState } from "../../shared/ui/table-state";
-import { useUsersFilterStore } from "./store/use-users-filter-store";
 import { useChangeUserStatus } from "./use-change-user-banned-status";
 
 export default function UsersRow({ row }: { row: IUserRow }) {
   const openChangeRolesModal = useChangeUserRolesModalStore(useShallow((state) => state.setOpen));
   const setId = useChangeUserRolesModalStore(useShallow((state) => state.setId));
   const setRoles = useRolesListStore(useShallow((state) => state.setRoles));
-  const filter = useUsersFilterStore(useShallow((state) => state.filter));
 
   const handleChangeRolesButtonClick = () => {
     const roles = row.roles.map((role) => role.id);
@@ -42,16 +40,15 @@ export default function UsersRow({ row }: { row: IUserRow }) {
       </td>
       <td style={{ width: 180, textAlign: "left", padding: "12px 6px" }}>
         <Typography level="body-xs">
-          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", gap: 1 }}>
-            {row.roles.length
-              ? row.roles.map((item) => (
-                  <TableState
-                    key={item.id}
-                    text={item.description}
-                    state={[...filter.roles].includes(item.id) ? "success" : ""}
-                  />
-                ))
-              : "-"}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              gap: 1,
+            }}
+          >
+            <Typography>{row.roles.length ? row.roles.map((item) => item.description).join(", ") : "-"}</Typography>
           </Box>
         </Typography>
       </td>
