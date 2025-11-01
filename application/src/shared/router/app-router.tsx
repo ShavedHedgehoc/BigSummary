@@ -65,12 +65,12 @@ export default function AppRouter() {
     if (!isHealthy && init) return <ServerFalldown />;
     //  Fire when resfresh page
     if (isHealthy && init && accessToken && !isAuth && !isCheckPending) {
-      checkAuth();
       usePlants();
       useBoilsHistoryTypes();
       useProductsHistoryTypes();
       useOccupations();
       useRoles();
+      checkAuth();
     }
     if (!accessToken && isHealthy && init) {
       usePlants();

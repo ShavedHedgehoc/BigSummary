@@ -204,7 +204,15 @@ export class UsersService {
   async getUserByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: { email: email },
-      include: [{ model: Role, as: "roles", through: { attributes: [] } }],
+      include: [
+        { model: Role, as: "roles", through: { attributes: [] } },
+        {
+          model: UserSettings,
+          as: "user_settings",
+          attributes: ["plant_id"],
+          include: [{ model: Plant, as: "plant", attributes: [] }],
+        },
+      ],
     });
     return user;
   }
