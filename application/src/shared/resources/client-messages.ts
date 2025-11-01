@@ -10,4 +10,6 @@ export enum ClientMessages {
   EMPLOYEE_CREATED = "Сотрудник успешно добавлен",
   EMPLOYEE_UPDATED = "Данные сотрудника успешно обновлены",
   EMPLOYEE_REMOVED = "Сотрудник успешно удален",
+  USER_UPDATED = "Данные пользователя успешно обновлены",
+  USER_ROLES_UPDATED = "Роли пользователя успешно обновлены",
 }

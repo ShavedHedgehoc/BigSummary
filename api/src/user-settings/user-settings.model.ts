@@ -1,4 +1,15 @@
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+} from "sequelize-typescript";
 import User from "src/users/users.model";
 import Plant from "src/plants/plant.model";
 
@@ -15,11 +26,14 @@ export default class UserSettings extends Model<UserSettings, UserSettingsCreati
   id: number;
 
   @ForeignKey(() => User)
-  @Column
+  @Unique
+  @AllowNull(false)
+  @Column({ type: DataType.INTEGER })
   user_id: number;
 
   @ForeignKey(() => Plant)
-  @Column
+  @AllowNull(false)
+  @Column({ type: DataType.INTEGER })
   plant_id: number;
 
   @BelongsTo(() => User)

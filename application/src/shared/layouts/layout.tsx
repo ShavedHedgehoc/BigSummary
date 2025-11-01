@@ -1,15 +1,17 @@
 import * as React from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/joy";
-import SideBar from "../components/side-bar/side-bar";
-import Header from "../components/headers/header";
-import TableLoaderComponent from "../components/table-loader";
+
+const SideBar = React.lazy(() => import("../components/side-bar/side-bar"));
+const Header = React.lazy(() => import("../components/headers/header"));
 
 function Layout() {
   return (
     <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-      <Header />
-      <SideBar />
+      <React.Suspense fallback={<div></div>}>
+        <Header />
+        <SideBar />
+      </React.Suspense>
       <Box
         component="main"
         className="MainContent"
@@ -29,8 +31,7 @@ function Layout() {
           gap: 1,
         }}
       >
-        {/* <Outlet /> */}
-        <React.Suspense fallback={<TableLoaderComponent />}>
+        <React.Suspense fallback={<div></div>}>
           <Outlet />
         </React.Suspense>
       </Box>

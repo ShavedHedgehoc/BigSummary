@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards, UsePipes } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, UseGuards, UsePipes } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
@@ -10,6 +10,7 @@ import { AddRoleDto } from "./dto/add-role.dto";
 import { ValidationPipe } from "src/pipes/validation.pipe";
 import { UpdateRolesDto } from "./dto/update-roles.dto";
 import { GethUsersDto } from "./dto/get-users-dto";
+import { UpdateUserDto } from "./dto/update-user-dto";
 
 @ApiTags("Пользователи")
 @Controller("users")
@@ -20,7 +21,7 @@ export class UsersController {
   @ApiResponse({ status: 201, type: [User] })
   // @Roles("ADMIN")
   // @UseGuards(RoleGuard)
-  @UseGuards(JwtAuthguard)
+  // @UseGuards(JwtAuthguard)
   @Post("/list")
   getAllUsers(@Body() dto: GethUsersDto) {
     return this.usersService.getAllUserWithFilter(dto);
@@ -32,6 +33,14 @@ export class UsersController {
   @Post()
   createUser(@Body() userDto: CreateUserDto) {
     return this.usersService.createUser(userDto);
+  }
+
+  @ApiOperation({ summary: "Обновление данных пользователя" })
+  @ApiResponse({ status: 201, type: User })
+  @UsePipes(ValidationPipe)
+  @Put()
+  updateUser(@Body() userDto: UpdateUserDto) {
+    return this.usersService.updateUser(userDto);
   }
 
   @ApiOperation({ summary: "Поменять статус бана пользователя по id" })

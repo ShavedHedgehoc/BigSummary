@@ -13,6 +13,7 @@ import { AuthModule } from "src/auth/auth.module";
 // import { SeedUserRole } from "src/seeds/userRoles.seed";
 import { UserRolesModule } from "src/user-roles/user-roles.module";
 import { TokenModule } from "src/token/token.module";
+import { UserSettingsModule } from "src/user-settings/user-settings.module";
 
 @Module({
   controllers: [UsersController],
@@ -22,6 +23,7 @@ import { TokenModule } from "src/token/token.module";
     RolesModule,
     TokenModule,
     UserRolesModule,
+    UserSettingsModule,
     forwardRef(() => AuthModule),
     // SeederModule.forFeature([SeedUser]),
   ],

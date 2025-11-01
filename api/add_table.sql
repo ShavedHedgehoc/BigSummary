@@ -1,6 +1,6 @@
 -- Table: public.user_settings
 
--- DROP TABLE IF EXISTS public.user_settings;
+DROP TABLE IF EXISTS public.user_settings;
 
 CREATE SEQUENCE user_settings_id_seq START WITH 1;
 
@@ -10,7 +10,7 @@ IF NOT EXISTS public.user_settings
 (
     id integer NOT NULL DEFAULT nextval
 ('user_settings_id_seq'::regclass),
-    user_id integer,
+    user_id integer UNIQUE,
     plant_id integer,
     CONSTRAINT user_settings_pkey PRIMARY KEY
 (id),

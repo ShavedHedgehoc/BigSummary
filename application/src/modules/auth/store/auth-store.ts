@@ -21,6 +21,8 @@ interface AuthStore {
   accessToken: string | null;
   user: IUser | null;
   isAuth: boolean;
+  lastCheckTime: Date | null;
+  setLastCheckTime: (val: Date | null) => void;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -29,6 +31,7 @@ export const useAuthStore = create<AuthStore>()(
       accessToken: localStorage.getItem("accessToken") || null,
       user: null,
       isAuth: false,
+      lastCheckTime: null,
       setToken(accessToken) {
         if (accessToken) localStorage.setItem("accessToken", accessToken);
         set(() => ({ accessToken: accessToken }));
@@ -38,7 +41,8 @@ export const useAuthStore = create<AuthStore>()(
       },
       setUser: (value) => set(() => ({ user: value ? value : null })),
       setAuth: (value) => set(() => ({ isAuth: value })),
+      setLastCheckTime: (value) => set(() => ({ lastCheckTime: value })),
     }),
-    { name: "AuthStore", store: "AuthStore" }
+    { name: "AuthStore", store: "useAuthStore" }
   )
 );

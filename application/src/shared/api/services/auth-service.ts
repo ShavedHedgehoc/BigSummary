@@ -30,10 +30,17 @@ export default class AuthService {
   static async logout(): Promise<void> {
     return $api.post(ApiRoutes.LOGOUT);
   }
-  static async refresh(): Promise<AxiosResponse<AuthResponce>> {
-    return $api.post(ApiRoutes.REFRESH);
-  }
+  // static async refresh(): Promise<AxiosResponse<AuthResponce>> {
+  //   return $api.post(ApiRoutes.REFRESH);
+  // }
+  // static async check(): Promise<AxiosResponse<AuthResponce>> {
+  //   return $clearApi.post(ApiRoutes.REFRESH);
+  // }
   static async check(): Promise<AxiosResponse<AuthResponce>> {
+    return $api.post(ApiRoutes.CHECK);
+  }
+
+  static async refresh(): Promise<AxiosResponse<AuthResponce>> {
     return $clearApi.post(ApiRoutes.REFRESH);
   }
 }

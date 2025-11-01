@@ -89,12 +89,21 @@ export class AuthService {
     }
   }
 
+  async verifyAccessToken(token: string) {
+    try {
+      const userData = await this.jwtService.verify(token, { secret: "JWT_ACCESS_SECRET" });
+      return this.cleanJWT(userData);
+    } catch (error) {
+      throw new HttpException("Не авторизован", HttpStatus.UNAUTHORIZED);
+    }
+  }
+
   async getTokens(user: User) {
     const payload = { email: user.email, id: user.id, roles: user.roles };
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: "JWT_ACCESS_SECRET",
-        expiresIn: "60m", //"15m",
+        expiresIn: "30s", //"15m",
       }),
       this.jwtService.signAsync(payload, {
         secret: "JWT_REFRESH_SECRET",
@@ -110,10 +119,31 @@ export class AuthService {
 
   async logout() {}
 
+  async check(authHeader: string) {
+    try {
+      const bearer = authHeader.split(" ")[0];
+      const token = authHeader.split(" ")[1];
+      if (bearer !== "Bearer" || !token) {
+        throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+      }
+      const userData = await this.verifyAccessToken(token);
+      const user = await this.userService.getByPk(userData.id);
+      if (user) {
+        return { user: mapper.toRegisteredUserData(user), accessToken: token };
+      }
+      throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+    } catch (error) {
+      throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+    }
+  }
+
   private async validateUser(dto: LoginUserDto) {
     const user = await this.userService.getUserByEmail(dto.email);
     if (!user) {
       throw new HttpException("Пользователь с таким email не найден", HttpStatus.NOT_FOUND);
+    }
+    if (user.banned) {
+      throw new HttpException("Доступ запрещен", HttpStatus.FORBIDDEN);
     }
     const passEquals = await bcrypt.compare(dto.password, user.password);
     if (user && passEquals) {
@@ -121,4 +151,6 @@ export class AuthService {
     }
     throw new UnauthorizedException({ message: "Некорректный пароль" });
   }
+
+  async updateUser(dto) {}
 }

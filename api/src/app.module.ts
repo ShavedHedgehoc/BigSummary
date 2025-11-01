@@ -177,7 +177,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      logging: process.env.NODE_ENV === "development" ? true : false,
+      logging: process.env.NODE_ENV === "development" ? console.log : false,
 
       models: [
         User,

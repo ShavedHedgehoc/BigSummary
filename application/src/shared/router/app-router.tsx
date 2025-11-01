@@ -13,10 +13,9 @@ import { useOccupations } from "../api/use-occupations";
 import { useRoles } from "../api/use-roles";
 import { useCheckHealth } from "../api/use-check-health";
 import { useHealthStore } from "../../modules/server-falldown/use-health-store";
-// import ServerFalldown from "../../modules/server-falldown/server-falldown";
+import ServerFalldown from "../../modules/server-falldown/server-falldown";
+import Login from "../../modules/auth/login";
 
-const ServerFalldown = React.lazy(() => import("../../modules/server-falldown/server-falldown"));
-const Login = React.lazy(() => import("../../modules/auth/login"));
 const Users = React.lazy(() => import("../../modules/users/users"));
 const Products = React.lazy(() => import("../../modules/records/records"));
 const Boils = React.lazy(() => import("../../modules/boils/boils"));
@@ -57,19 +56,14 @@ export default function AppRouter() {
   const isHealthy = useHealthStore(useShallow((state) => state.isHealthy));
   const init = useHealthStore(useShallow((state) => state.init));
   const { checkAuth, isCheckPending } = useCheckAuth();
-
   const isAuth = useAuthStore(useShallow((state) => state.isAuth));
   const user = useAuthStore(useShallow((state) => state.user));
   const accessToken = localStorage.getItem("accessToken");
 
   const ProtectedRoutes = () => {
     useCheckHealth();
-    if (!isHealthy && init)
-      return (
-        <React.Suspense>
-          <ServerFalldown />
-        </React.Suspense>
-      );
+    if (!isHealthy && init) return <ServerFalldown />;
+    //  Fire when resfresh page
     if (isHealthy && init && accessToken && !isAuth && !isCheckPending) {
       checkAuth();
       usePlants();
@@ -78,13 +72,14 @@ export default function AppRouter() {
       useOccupations();
       useRoles();
     }
-    if (!accessToken && isHealthy && init)
-      return (
-        <React.Suspense>
-          <Login />
-        </React.Suspense>
-      );
-
+    if (!accessToken && isHealthy && init) {
+      usePlants();
+      useBoilsHistoryTypes();
+      useProductsHistoryTypes();
+      useOccupations();
+      useRoles();
+      return <Login />;
+    }
     if (isHealthy && init) return <Outlet />;
   };
 

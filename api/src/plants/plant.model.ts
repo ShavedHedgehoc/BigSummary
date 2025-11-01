@@ -1,9 +1,20 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsToMany,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import Boil from "src/boils/boil.model";
 import Doc from "src/docs/docs.model";
 import History from "src/histories/histories.model";
 import UserSettings from "src/user-settings/user-settings.model";
+import User from "src/users/users.model";
 
 interface PlantsCreationsAttrs {
   value: string;

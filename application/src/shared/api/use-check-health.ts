@@ -18,7 +18,7 @@ export function useCheckHealth() {
         });
       return 1;
     },
-    refetchInterval: 5000,
+    refetchInterval: 10000,
     throwOnError: false,
   });
 }

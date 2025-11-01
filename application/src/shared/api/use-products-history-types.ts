@@ -17,7 +17,6 @@ export const useProductsHistoryTypes = () => {
         fillForemanOptions(data);
         fillRecordsOptions(data);
       }
-
       return data;
     },
   });

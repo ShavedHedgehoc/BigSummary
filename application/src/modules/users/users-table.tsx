@@ -39,6 +39,7 @@ export default function UsersTable() {
     { width: 48, value: "Имя", align: "left", padding: "12px 6px 12px 40px" },
     { width: 48, value: "Email", align: "left", padding: "12px 6px" },
     { width: 160, value: "Роли", align: "left" },
+    { width: 48, value: "Площадка" },
     { width: 32, value: "Доступ" },
     { width: 48, value: "Действия" },
   ];

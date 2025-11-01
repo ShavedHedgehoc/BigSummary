@@ -9,7 +9,10 @@ import { useAuthStore } from "../auth/store/auth-store";
 import DashFilterSwitcher from "./dash-filter-switcher";
 
 function MobileDashFilter() {
-  const { plantSelectorOptions, setSelectedPlant, changeFilter } = useDashFilterStore();
+  // const { plantSelectorOptions, setSelectedPlant, changeFilter } = useDashFilterStore();
+  const plantSelectorOptions = useDashFilterStore(useShallow((state) => state.plantSelectorOptions));
+  const setSelectedPlant = useDashFilterStore(useShallow((state) => state.setSelectedPlant));
+  const changeFilter = useDashFilterStore(useShallow((state) => state.changeFilter));
   const handleChange = (newValue: number | null) => {
     newValue && setSelectedPlant(newValue);
     newValue && changeFilter({ key: DashFilterParams.PLANT, value: "", values: [newValue] });
@@ -42,7 +45,9 @@ export default function DashFilter() {
   const plantSelectorOptions = useDashFilterStore(useShallow((state) => state.plantSelectorOptions));
   const setSelectedPlant = useDashFilterStore(useShallow((state) => state.setSelectedPlant));
   const changeFilter = useDashFilterStore(useShallow((state) => state.changeFilter));
-  if (user && plantSelectorOptions.length) {
+  const selectedPlant = useDashFilterStore(useShallow((state) => state.selectedPlant));
+
+  if (user && plantSelectorOptions.length && !selectedPlant) {
     const plant_id = user?.settings?.plant_id || plantSelectorOptions[0].id;
     setSelectedPlant(plant_id);
     changeFilter({ key: DashFilterParams.PLANT, value: "", values: [plant_id] });

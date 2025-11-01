@@ -8,9 +8,11 @@ import { useBoilsReportFilterStore } from "../../modules/boils-report/store/use-
 import { useDocsUploadFormStore } from "../../modules/docs-upload/store/use-docs-upload-form-store";
 import { useDocumentsFilterStore } from "../../modules/documents/store/use-documents-filter-store";
 import { useTimeReportFilterStore } from "../../modules/time-report.tsx/store/use-time-report-filter-store";
+import { useShallow } from "zustand/react/shallow";
+import { useUserUpdateModalStore } from "../../modules/users/store/use-update-user-modal-store";
 
 export const usePlants = () => {
-  const { fillPlantSelectorOptions: fillDashOptions } = useDashFilterStore();
+  const fillDashOptions = useDashFilterStore(useShallow((state) => state.fillPlantSelectorOptions));
   const { fillPlantSelectorOptions: fillForemanOptions } = useForemanFilterStore();
   const { fillPlantSelectorOptions: fillRecordsOptions } = useRecordsFilterStore();
   const { fillPlantSelectorOptions: fillBoilsOptions } = useBoilsFilterStore();
@@ -18,6 +20,7 @@ export const usePlants = () => {
   const { fillPlantSelectorOptions: fillDocsUploadOptions } = useDocsUploadFormStore();
   const { fillPlantSelectorOptions: fillDocumentsOptions } = useDocumentsFilterStore();
   const { fillPlantSelectorOptions: fillTimeReportOptions } = useTimeReportFilterStore();
+  const { fillPlantSelectorOptions: fillUserUpdateModalOptions } = useUserUpdateModalStore();
 
   return useQuery({
     queryKey: ["plants"],
@@ -32,6 +35,7 @@ export const usePlants = () => {
         fillDocsUploadOptions(data);
         fillDocumentsOptions(data);
         fillTimeReportOptions(data);
+        fillUserUpdateModalOptions(data);
       }
       return data;
     },
