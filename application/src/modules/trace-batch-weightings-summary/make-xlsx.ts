@@ -72,7 +72,7 @@ export default function makeXLSXFile(data: ITraceWeightingsSummaryData[], title:
     },
     {
       v: row.w_total.toFixed(3),
-      t: "s",
+      t: "n",
       s: {
         alignment: { horizontal: "center" },
         border: {

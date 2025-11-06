@@ -7,6 +7,7 @@ export default function TraceBatchWghtReportPagination() {
     page: useTraceBatchWghtReportPaginationStore(useShallow((state) => state.page)),
     total: useTraceBatchWghtReportPaginationStore(useShallow((state) => state.total)),
     limit: useTraceBatchWghtReportPaginationStore(useShallow((state) => state.limit)),
+    extPerPage: true,
     increasePage: useTraceBatchWghtReportPaginationStore(useShallow((state) => state.increasePage)),
     decreasePage: useTraceBatchWghtReportPaginationStore(useShallow((state) => state.decreasePage)),
     setLimit: useTraceBatchWghtReportPaginationStore(useShallow((state) => state.setLimit)),

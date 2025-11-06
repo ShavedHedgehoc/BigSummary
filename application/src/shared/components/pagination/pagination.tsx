@@ -8,10 +8,12 @@ import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDou
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 
 export const perPageValues = [10, 15, 20, 50, 90];
+export const extPerPageValues = [10, 15, 20, 50, 90, 200, 1000, 2000, 10000, 50000];
 export interface PaginationProps {
   page: number;
   total: number;
   limit: number;
+  extPerPage?: boolean;
   increasePage: () => void;
   decreasePage: () => void;
   setLimit: (val: number) => void;
@@ -20,6 +22,7 @@ export interface PaginationProps {
 
 export function Pagination(props: PaginationProps) {
   const pages = Math.ceil(props.total / props.limit);
+
   return (
     <React.Fragment>
       <Sheet
@@ -64,11 +67,17 @@ export function Pagination(props: PaginationProps) {
                 event && newValue && props.setLimit(newValue);
               }}
             >
-              {perPageValues.map((val) => (
-                <Option value={val} key={val}>
-                  <Typography level="body-xs">{val}</Typography>
-                </Option>
-              ))}
+              {props.extPerPage
+                ? extPerPageValues.map((val) => (
+                    <Option value={val} key={val}>
+                      <Typography level="body-xs">{val}</Typography>
+                    </Option>
+                  ))
+                : perPageValues.map((val) => (
+                    <Option value={val} key={val}>
+                      <Typography level="body-xs">{val}</Typography>
+                    </Option>
+                  ))}
             </Select>
           </Box>
         </Box>
