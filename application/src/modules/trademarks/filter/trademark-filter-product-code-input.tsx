@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
 import { useTrademarksFilterStore } from "../store/use-trademarks-filter-store";
 import { TrademarksFilterParams } from "./trademarks-filter-params";

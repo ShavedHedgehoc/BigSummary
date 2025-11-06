@@ -8,7 +8,7 @@ import { Params } from "../../shared/router/params";
 import { GetWeightingsSummaryDetailDto } from "../../shared/api/services/trace-batchs-service";
 import TraceBatchWeightingsSummaryDetailTableRow from "./trace-batch-weightings-summary-detail-table-row";
 import { useTraceBatchWeightingsSummaryDetailPaginationStore } from "./store/use-trace-batch-weightings-summary-detail-pagination-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 const commonThead: TheadProperties[] = [
   { width: 10, value: "", align: "center" },

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useQuery } from "@tanstack/react-query";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../../shared/ui/filter-selector";
 import { useCansFilterStore } from "./store/use-cans-filter-store";

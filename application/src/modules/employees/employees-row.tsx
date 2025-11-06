@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/joy";
 import IconButton from "@mui/joy/IconButton";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { useDeleteEmployee } from "./use-delete-employee";

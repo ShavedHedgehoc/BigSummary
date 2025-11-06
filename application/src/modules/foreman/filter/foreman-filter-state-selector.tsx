@@ -1,9 +1,6 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useForemanFilterStore } from "../store/use-foreman-filter-store";
 import { ForemanFilterParams } from "./foreman-filter-params";
-
-import { useQuery } from "@tanstack/react-query";
-import HistoryTypeService from "../../../shared/api/services/history-types-service";
 
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
@@ -14,18 +11,6 @@ export default function ForemanFilterStateSelector() {
   const filter = useForemanFilterStore(useShallow((state) => state.filter));
   const changeFilter = useForemanFilterStore(useShallow((state) => state.changeFilter));
   const stateSelectorOptions = useForemanFilterStore(useShallow((state) => state.stateSelectorOptions));
-  const fillStateSelectorOptions = useForemanFilterStore(useShallow((state) => state.fillStateSelectorOptions));
-
-  useQuery({
-    queryKey: ["product_state_options"],
-    queryFn: async () => {
-      const data = await HistoryTypeService.getProductsHistoryTypes();
-      if (data) {
-        fillStateSelectorOptions(data);
-        return data;
-      }
-    },
-  });
 
   const stateOptions = stateSelectorOptions.map((state) => (
     <FilterMultiSelectorOption

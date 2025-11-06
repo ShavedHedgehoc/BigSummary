@@ -1,7 +1,7 @@
 import { Sheet } from "@mui/joy";
 import { Document, Page, PDFViewer, Text, View, Font, StyleSheet } from "@react-pdf/renderer";
 import { usePDFModalStore } from "../store/use-pdf-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useRecordHistories } from "../../../shared/api/use-record-histories";
 import { formatDateToString, formatTimeToString } from "../../../shared/helpers/date-time-formatters";
 

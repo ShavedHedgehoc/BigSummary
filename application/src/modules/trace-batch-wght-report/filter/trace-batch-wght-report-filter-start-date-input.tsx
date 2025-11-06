@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterDateInput, { FilterDateInputProps } from "../../../shared/ui/filter-date-input";
 import { TraceBatchWghtReportFilterParams } from "./trace-batch-wght-report-filter-params";
 import { useTraceBatchWghtReportFilterStore } from "../store/use-trace-batch-wght-report-filter-store";

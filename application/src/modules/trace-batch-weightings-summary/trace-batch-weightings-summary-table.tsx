@@ -4,7 +4,7 @@ import TableNotFoundComponent from "../../shared/components/table-not-found";
 import TraceBatchWeightingsSummaryTableRow from "./trace-batch-weightings-summary-table-row";
 import { useTraceBatchWeightingsSummary } from "./use-trace-batch-weightings-summary";
 import { useTraceBatchWeightingsSummaryFilterStore } from "./store/use-trace-batch-weightings-summary-filter-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 const commonThead: TheadProperties[] = [
   { width: 60, value: "Сотрудник", align: "left", padding: "12px 6px 12px 40px" },

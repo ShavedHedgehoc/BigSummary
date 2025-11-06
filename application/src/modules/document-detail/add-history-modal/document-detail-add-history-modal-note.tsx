@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Textarea, Typography } from "@mui/joy";
 import { useDocumentDetailAddHistoryModalFormStore } from "../store/use-document-detail-add-history-modal-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function DocumentDetailAddHistoryModalNote() {
   const historyNote = useDocumentDetailAddHistoryModalFormStore(useShallow((state) => state.historyNote));

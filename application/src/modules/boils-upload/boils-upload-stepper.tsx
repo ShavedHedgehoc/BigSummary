@@ -1,7 +1,7 @@
 import { Box, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Check } from "@mui/icons-material";
 import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function BoilsUploadStepper() {
   const file = useBoilsUploadFormStore(useShallow((state) => state.file));

@@ -6,7 +6,7 @@ import { Sheet, useColorScheme } from "@mui/joy";
 import { useCans } from "./use-cans";
 import CanCard from "./can-card";
 import { useCansFilterStore } from "./filter/store/use-cans-filter-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function CansView() {
   const { mode } = useColorScheme();

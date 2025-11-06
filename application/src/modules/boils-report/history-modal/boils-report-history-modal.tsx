@@ -1,7 +1,7 @@
 import ModalLayout from "../../../shared/layouts/modal-layout";
 import TableLayout from "../../../shared/layouts/table-layout";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import TableLoaderComponent from "../../../shared/components/table-loader";
 import { useBoilsReportHistoryModalStore } from "../store/use-boils-report-history-modal-store";
 import BoilsReportHistoryModalRow from "./boils-report-history-modal-row";

@@ -46,10 +46,10 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
   @Column({ type: DataType.STRING })
   letter: string;
 
-  @Column({ type: DataType.NUMBER })
+  @Column({ type: DataType.INTEGER })
   number: number;
 
-  @Column({ type: DataType.NUMBER })
+  @Column({ type: DataType.INTEGER })
   year: number;
 
   @BelongsTo(() => Base)

@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
 import { useBoilsUploadUploadModalStore } from "./store/use-boils-upload-upload-modal-store";

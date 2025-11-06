@@ -1,9 +1,9 @@
-import * as XLSX from "xlsx-js-style";
+import { utils, writeFile } from "xlsx-js-style";
 import { TimeReportRowData } from "../../shared/api/services/record-service";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 
 export default function makeXLSXFile(data: TimeReportRowData[], title: string) {
-  const workbook = XLSX.utils.book_new();
+  const workbook = utils.book_new();
   const headers = [
     "Конвейер",
     "Код 1С",
@@ -18,7 +18,7 @@ export default function makeXLSXFile(data: TimeReportRowData[], title: string) {
     "Фасовка завершена",
   ];
 
-  const worksheet = XLSX.utils.aoa_to_sheet([
+  const worksheet = utils.aoa_to_sheet([
     headers.map((cell) => ({
       v: cell,
       t: "s",
@@ -36,7 +36,7 @@ export default function makeXLSXFile(data: TimeReportRowData[], title: string) {
     })),
   ]);
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Отчет");
+  utils.book_append_sheet(workbook, worksheet, "Отчет");
   worksheet["!cols"] = [
     { wch: 10 },
     { wch: 10 },
@@ -198,6 +198,6 @@ export default function makeXLSXFile(data: TimeReportRowData[], title: string) {
     },
   ]);
 
-  XLSX.utils.sheet_add_aoa(worksheet, rows, { origin: "A2" });
-  XLSX.writeFile(workbook, `${title}.xlsx`, { compression: true });
+  utils.sheet_add_aoa(worksheet, rows, { origin: "A2" });
+  writeFile(workbook, `${title}.xlsx`, { compression: true });
 }

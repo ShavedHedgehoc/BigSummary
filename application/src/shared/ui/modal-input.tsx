@@ -8,8 +8,8 @@ export interface ModalInputProps {
 
 export default function ModalInput(props: ModalInputProps) {
   return (
-    <Box sx={{ display: "flex" }}>
-      <FormControl size="sm">
+    <Box sx={{ display: "flex", width: "100%" }}>
+      <FormControl size="sm" sx={{ width: "100%" }}>
         <Input
           sx={{
             "&:focus-within": {
@@ -18,6 +18,7 @@ export default function ModalInput(props: ModalInputProps) {
             // minWidth: "150px",
             // maxWidth: "150px",
             display: "flex",
+            width: "100%",
             // flexGrow: 1,
             // flexShrink: 1,
           }}

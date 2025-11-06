@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import { useQuery } from "@tanstack/react-query";
 import PlantService from "../../../shared/api/services/plant-service";

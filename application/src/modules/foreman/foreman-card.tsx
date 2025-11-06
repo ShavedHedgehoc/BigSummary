@@ -1,7 +1,7 @@
 import { Box, Sheet, useColorScheme } from "@mui/joy";
 import { keyframes } from "@emotion/react";
 import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useForemanActionModalStore } from "./store/use-foreman-action-modal-store";
 
 const pulse = keyframes`

@@ -1,5 +1,5 @@
 {
-  "editor.minimap.enabled": false,
+  "editor.minimap.enabled": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorBlinking": true,
   "files.autoSave": "onFocusChange",

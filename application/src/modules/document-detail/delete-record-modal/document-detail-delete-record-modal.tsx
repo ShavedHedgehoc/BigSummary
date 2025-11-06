@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { Box, Button, Typography } from "@mui/joy";
 import ModalLayout, { ModalLayoutProps } from "../../../shared/layouts/modal-layout";
 import { useDocumentDetailDeleteRecordlModalStore } from "../store/use-document-detail-delete-record-modal-store";

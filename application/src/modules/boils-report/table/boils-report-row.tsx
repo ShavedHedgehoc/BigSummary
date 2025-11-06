@@ -1,7 +1,7 @@
 import { Typography, useColorScheme } from "@mui/joy";
 import IconButton from "@mui/joy/IconButton";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { TableState } from "../../../shared/ui/table-state";
 import { useBoilsReportHistoryModalStore } from "../store/use-boils-report-history-modal-store";
 import { formatTwoDatesDiffTimeToString } from "../../../shared/helpers/date-time-formatters";

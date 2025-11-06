@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useRegulationsUpsertFormStore } from "./store/use-regulations-upsert-form-store";
 
 export default function RegulationsUpsertFormFileInput() {

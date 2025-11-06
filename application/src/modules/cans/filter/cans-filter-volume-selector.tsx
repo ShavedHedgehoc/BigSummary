@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useQuery } from "@tanstack/react-query";
 
 import { useCansFilterStore } from "./store/use-cans-filter-store";

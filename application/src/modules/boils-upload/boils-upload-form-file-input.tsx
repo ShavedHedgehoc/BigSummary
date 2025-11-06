@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Typography } from "@mui/joy";
 import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function BoilsUploadFormFileInput() {
   const filename = useBoilsUploadFormStore(useShallow((state) => state.fileName));

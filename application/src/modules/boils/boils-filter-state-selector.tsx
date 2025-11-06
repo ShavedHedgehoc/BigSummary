@@ -1,9 +1,6 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useBoilsFilterStore } from "./store/use-boils-filter-store";
 import { BoilsFilterParams } from "./boils-filter-params";
-
-import { useQuery } from "@tanstack/react-query";
-import HistoryTypeService from "../../shared/api/services/history-types-service";
 
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
@@ -14,19 +11,6 @@ export default function BoilsFilterStateSelector() {
   const filter = useBoilsFilterStore(useShallow((state) => state.filter));
   const changeFilter = useBoilsFilterStore(useShallow((state) => state.changeFilter));
   const stateSelectorOptions = useBoilsFilterStore(useShallow((state) => state.stateSelectorOptions));
-  const fillStateSelectorOptions = useBoilsFilterStore(useShallow((state) => state.fillStateSelectorOptions));
-
-  useQuery({
-    queryKey: ["boil_states_options"],
-    queryFn: async () => {
-      const data = await HistoryTypeService.getBoilsHistoryTypes();
-      if (data) {
-        fillStateSelectorOptions(data);
-        changeFilter({ key: BoilsFilterParams.STATES, value: "", values: [1] });
-        return data;
-      }
-    },
-  });
 
   const stateOptions = stateSelectorOptions.map((state) => (
     <FilterMultiSelectorOption

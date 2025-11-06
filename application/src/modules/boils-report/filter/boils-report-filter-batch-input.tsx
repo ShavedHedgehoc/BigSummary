@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useBoilsReportFilterStore } from "../store/use-boils-report-filter-store";
 import FilterInputWithSort, { FilterInputWithSortProps } from "../../../shared/ui/filter-input-with-sort";
 import { BoilsReportFilterParams } from "./boils-report-filter-params";

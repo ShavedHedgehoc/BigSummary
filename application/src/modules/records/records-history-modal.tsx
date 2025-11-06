@@ -1,4 +1,3 @@
-import * as React from "react";
 import IconButton from "@mui/joy/IconButton";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import Typography from "@mui/joy/Typography";
@@ -14,15 +13,14 @@ import { formatDateToString, formatTimeToString } from "../../shared/helpers/dat
 import { rowScope } from "../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../shared/ui/styled-typography";
 
-import { Context } from "../../main";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
 import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
 import TableLoaderComponent from "../../shared/components/table-loader";
+import { useAuthStore } from "../auth/store/auth-store";
 
 export default function RecordsHistoryModal() {
-  const { store } = React.useContext(Context);
-
+  const user = useAuthStore(useShallow((state) => state.user));
   const open = useRecordHistoryModalStore(useShallow((state) => state.open));
   const cancelButtonEnabled = useRecordHistoryModalStore(useShallow((state) => state.cancelButtonEnabled));
   const record_id = useRecordHistoryModalStore(useShallow((state) => state.record_id));
@@ -50,17 +48,19 @@ export default function RecordsHistoryModal() {
   };
 
   const handleCancelButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: record_id,
-      boil_value: null, //add state to store
-      historyType: "product_check", // condition between boil & record = > state
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: "Отмена ошибочного внесения",
-    };
-    setOpen(false);
-    addHistoryDirect(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: record_id,
+        boil_value: null, //add state to store
+        historyType: "product_check", // condition between boil & record = > state
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: "Отмена ошибочного внесения",
+      };
+      setOpen(false);
+      addHistoryDirect(data);
+    }
   };
 
   const setNoteModalOpen = useNoteModalStore(useShallow((state) => state.setOpen));

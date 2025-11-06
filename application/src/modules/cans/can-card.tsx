@@ -3,7 +3,7 @@ import { keyframes } from "@emotion/react";
 import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { ITraceCanData } from "../../shared/api/services/trace-cans-service";
 import { useCansHistoryModalStore } from "./store/use-cans-history-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 const pulse = keyframes`
     0% {

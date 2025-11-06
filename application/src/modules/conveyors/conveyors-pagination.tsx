@@ -1,6 +1,6 @@
 import { useConveyorsPaginationStore } from "./store/use-conveyors-pagination-store";
 import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function ConveyorsPagination() {
   const paginationProps: PaginationProps = {

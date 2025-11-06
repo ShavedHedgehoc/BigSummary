@@ -42,13 +42,32 @@ export class DocsService {
 
   async getAllDocsWithFilter(dto: GetDocsDto) {
     let filter = {};
-    const dateFilter = {
-      [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
-    };
-    filter = {
-      ...filter,
-      date: dateFilter,
-    };
+    let dateFilter = {};
+    if (dto.filter.startDate && dto.filter.endDate) {
+      dateFilter = {
+        [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
+      };
+      filter = {
+        ...filter,
+        date: dateFilter,
+      };
+    } else if (dto.filter.startDate && !dto.filter.endDate) {
+      dateFilter = {
+        [Op.gte]: new Date(dto.filter.startDate).setHours(0),
+      };
+      filter = {
+        ...filter,
+        date: dateFilter,
+      };
+    } else if (!dto.filter.startDate && dto.filter.endDate) {
+      dateFilter = {
+        [Op.lte]: new Date(dto.filter.endDate).setHours(23),
+      };
+      filter = {
+        ...filter,
+        date: dateFilter,
+      };
+    }
     if (dto.filter.plants.length > 0) {
       const plantFilter = { [Op.in]: [...dto.filter.plants] };
       filter = { ...filter, plantId: plantFilter };

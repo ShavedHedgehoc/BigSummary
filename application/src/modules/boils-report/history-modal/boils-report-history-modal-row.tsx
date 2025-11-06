@@ -4,7 +4,7 @@ import Typography from "@mui/joy/Typography";
 import { formatDateToString, formatTimeToString } from "../../../shared/helpers/date-time-formatters";
 import { rowScope } from "../../../shared/helpers/status-conditions";
 import { StyledTypography } from "../../../shared/ui/styled-typography";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useNoteModalStore } from "../../../shared/components/note-modal/use-note-modal-store";
 
 export default function BoilsReportHistoryModalRow({ row }: { row: IHistory }) {

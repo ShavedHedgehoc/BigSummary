@@ -6,7 +6,7 @@ import TableNotFoundComponent from "../../shared/components/table-not-found";
 
 // import RowComponent from "./conveyors-row";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useCansListPaginationStore } from "./store/use-cans-list-pagination-store";
 import { useCansList } from "./use-cans-list";
 import { useCansListFilterStore } from "./store/use-cans-list-filter-store";

@@ -8,7 +8,7 @@ import { useConveyors } from "./use-conveyors";
 import RowComponent from "./conveyors-row";
 import { useConveyorsFilterStore } from "./store/use-conveyors-filter-store";
 import { useConveyorsPaginationStore } from "./store/use-conveyors-pagination-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 const commonThead: TheadProperties[] = [
   { width: 50, align: "center", value: "Конвейер" },

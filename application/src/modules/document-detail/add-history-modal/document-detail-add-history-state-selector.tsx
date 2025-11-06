@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useQuery } from "@tanstack/react-query";
 import { useDocumentDetailAddHistoryModalFormStore } from "../store/use-document-detail-add-history-modal-form-store";
 
@@ -52,8 +52,6 @@ export default function DocumentDetailAddHistoryModalStateSelector() {
             listbox: { sx: { zIndex: 999999 } },
           }}
           sx={{
-            // minWidth: "220px",
-            // maxWidth: "220px",
             display: "flex",
             flexGrow: 1,
             mt: 1,

@@ -19,7 +19,6 @@ import { WorkshopsModule } from "./workshops/workshops.module";
 import { HistoriesModule } from "./histories/histories.module";
 import { HistoryTypesModule } from "./history_types/hystory_types.module";
 import { TokenModule } from "./token/token.module";
-// import { SeederModule } from "nestjs-sequelize-seeder";
 import { TestModule } from "./test/test.module";
 import { BoilsListModule } from "./boils.list/boils.list.module";
 import { DocDetailModule } from "./doc.detail/doc.detail.module";
@@ -49,6 +48,7 @@ import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.modul
 import { ZplModule } from "./zpl/zpl.module";
 import { TestdbSqlModule } from "./testdb_sql/testdb_sql.module";
 import { TraceDirectConnectionModule } from "./trace_direct_connection/trace_direct_connection.module";
+import { UserSettingsModule } from "./user-settings/user-settings.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -100,7 +100,10 @@ import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
 import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
 import { RecordCountersModule } from "./record_counters/record_counters.module";
+
+import { HealthCheckModule } from "./health_check/health_check.module";
 import RecordCounter from "./record_counters/record_counters.model";
+import UserSettings from "./user-settings/user-settings.model";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
   date = this._applyTimezone(date, options);
@@ -174,7 +177,8 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      logging: process.env.NODE_ENV === "development" ? true : false,
+      logging: process.env.NODE_ENV === "development" ? console.log : false,
+
       models: [
         User,
         Role,
@@ -201,13 +205,10 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         RecordRegulation,
         SemiProduct,
         ApiError,
+        UserSettings,
         RecordCounter,
       ],
     }),
-    // SeederModule.forRoot({
-    //   runOnlyIfTableIsEmpty: true,
-    //   foreignDelay: 10000,
-    // }),
     AuthModule,
     UsersModule,
     RolesModule,
@@ -256,6 +257,8 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     ZplModule,
     TestdbSqlModule,
     TraceDirectConnectionModule,
+    UserSettingsModule,
+    HealthCheckModule,
   ],
 })
 export default class AppModule {}

@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/joy";
 import { ValError, useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 // import Ajv, { SchemaObject } from "ajv/dist/jtd";
 import Ajv from "ajv";
-import * as XLSX from "xlsx";
+import { read, utils } from "xlsx";
 import { IXLSDocsRowData } from "../../shared/api/services/record-service";
 
 export default function DocsUploadFormValidator() {
@@ -102,9 +102,9 @@ export default function DocsUploadFormValidator() {
       // let json: IXLSData[] = [];
       let json: IXLSDocsRowData[] = [];
       try {
-        const wb = XLSX.read(data);
+        const wb = read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];
-        json = XLSX.utils.sheet_to_json(ws, { raw: false });
+        json = utils.sheet_to_json(ws, { raw: false });
 
         for (let i = 0; i < json.length; i++) {
           // const parsedData = parse(JSON.stringify(json[i]));
