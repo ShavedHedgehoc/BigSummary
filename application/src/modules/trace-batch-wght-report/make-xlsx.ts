@@ -1,11 +1,10 @@
 import { utils, writeFile } from "xlsx-js-style";
-
 import { formatDateToString } from "../../shared/helpers/date-time-formatters";
-import { InventoryRowsData } from "../../shared/api/services/inventory-rows-service";
+import { ITraceBatchWghtReportRowData } from "../../shared/api/services/trace-batchs-service";
 
-export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
+export default function makeXLSXFile(data: ITraceBatchWghtReportRowData[], title: string) {
   const workbook = utils.book_new();
-  const headers = ["Код 1С", "Наименование", "Партия", "Срок годности", "Остаток, дней", "Количество"];
+  const headers = ["Дата", "Площадка", "Партия", "Код 1С", "Наименование", "План", "Факт"];
 
   const worksheet = utils.aoa_to_sheet([
     headers.map((cell) => ({
@@ -25,16 +24,55 @@ export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
     })),
   ]);
 
-  utils.book_append_sheet(workbook, worksheet, "Переучет");
-  worksheet["!cols"] = [{ wch: 10 }, { wch: 50 }, { wch: 25 }, { wch: 20 }, { wch: 20 }, { wch: 20 }];
+  utils.book_append_sheet(workbook, worksheet, "Отчет");
+  worksheet["!cols"] = [{ wch: 10 }, { wch: 20 }, { wch: 10 }, { wch: 10 }, { wch: 60 }, { wch: 10 }, { wch: 10 }];
 
   const rows = data.map((row) => [
+    {
+      v: formatDateToString(row.batch_date),
+      t: "s",
+      s: {
+        alignment: { horizontal: "center" },
+
+        border: {
+          top: { style: "thin", color: { rgb: "000000" } },
+          bottom: { style: "thin", color: { rgb: "000000" } },
+          left: { style: "thin", color: { rgb: "000000" } },
+          right: { style: "thin", color: { rgb: "000000" } },
+        },
+      },
+    },
+    {
+      v: row.plant,
+      t: "s",
+      s: {
+        alignment: { horizontal: "center" },
+        border: {
+          top: { style: "thin", color: { rgb: "000000" } },
+          bottom: { style: "thin", color: { rgb: "000000" } },
+          left: { style: "thin", color: { rgb: "000000" } },
+          right: { style: "thin", color: { rgb: "000000" } },
+        },
+      },
+    },
+    {
+      v: row.batch_name,
+      t: "s",
+      s: {
+        alignment: { horizontal: "center" },
+        border: {
+          top: { style: "thin", color: { rgb: "000000" } },
+          bottom: { style: "thin", color: { rgb: "000000" } },
+          left: { style: "thin", color: { rgb: "000000" } },
+          right: { style: "thin", color: { rgb: "000000" } },
+        },
+      },
+    },
     {
       v: row.product_id,
       t: "s",
       s: {
         alignment: { horizontal: "center" },
-
         border: {
           top: { style: "thin", color: { rgb: "000000" } },
           bottom: { style: "thin", color: { rgb: "000000" } },
@@ -57,8 +95,8 @@ export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
       },
     },
     {
-      v: row.lot_name,
-      t: "s",
+      v: row.plan_q,
+      t: "n",
       s: {
         alignment: { horizontal: "center" },
         border: {
@@ -70,33 +108,7 @@ export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
       },
     },
     {
-      v: row.exp_date ? `${formatDateToString(row.exp_date)} ` : "-",
-      t: "s",
-      s: {
-        alignment: { horizontal: "center" },
-        border: {
-          top: { style: "thin", color: { rgb: "000000" } },
-          bottom: { style: "thin", color: { rgb: "000000" } },
-          left: { style: "thin", color: { rgb: "000000" } },
-          right: { style: "thin", color: { rgb: "000000" } },
-        },
-      },
-    },
-    {
-      v: row.days_to_exp,
-      t: "s",
-      s: {
-        alignment: { horizontal: "center" },
-        border: {
-          top: { style: "thin", color: { rgb: "000000" } },
-          bottom: { style: "thin", color: { rgb: "000000" } },
-          left: { style: "thin", color: { rgb: "000000" } },
-          right: { style: "thin", color: { rgb: "000000" } },
-        },
-      },
-    },
-    {
-      v: row.quantity,
+      v: row.fact_q,
       t: "n",
       s: {
         alignment: { horizontal: "center" },

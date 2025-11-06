@@ -9,6 +9,7 @@ import TraceBatchWghtReportFilterTodayButton from "./trace-batch-wght-report-tod
 import TraceBatchWghtReportFilterTomorrowButton from "./trace-batch-wght-report-tomorrow-button";
 import TraceBatchWghtReportFilterSortByBatchSwitch from "./trace-batch-wght-report-sort-by-batch-switch";
 import TraceBatchWghtReportFilterEndDateInput from "./trace-batch-wght-report-filter-end-date-input";
+import TraceBatchWghtReportFilterToXlsxButton from "./trace-batch-wght-report-filter-to-xlsx-button";
 
 export default function TraceBatchWghtReportFilter() {
   return (
@@ -23,6 +24,7 @@ export default function TraceBatchWghtReportFilter() {
         <TraceBatchWghtReportFilterSortByBatchSwitch />
       </PageFilterLayout.Left>
       <PageFilterLayout.Right>
+        <TraceBatchWghtReportFilterToXlsxButton />
         <TraceBatchWghtReportFilterTodayButton />
         <TraceBatchWghtReportFilterTomorrowButton />
         <TraceBatchWghtReportFilterClearButton />
