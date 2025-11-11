@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param, Query } from "@nestjs/common";
 import { EmployeesService } from "./employees.service";
 import { ApiTags } from "@nestjs/swagger";
 
@@ -8,7 +8,12 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Get()
-  findAll() {
-    return this.employeesService.findAll();
+  GetAllEmployees() {
+    return this.employeesService.getAllEmployees();
+  }
+  //  used in employee auth
+  @Get("/by_barcode/:barcode")
+  GetEmployeeByBarcode(@Param("barcode") barcode: string) {
+    return this.employeesService.getEmployeeByBarcode(barcode);
   }
 }

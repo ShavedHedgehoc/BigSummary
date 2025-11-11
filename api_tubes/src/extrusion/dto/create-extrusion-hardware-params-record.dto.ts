@@ -12,4 +12,6 @@ export default class CreateExtrusionHardwareParamsRecordDto {
   readonly annealing_furnace_temp: number;
   @ApiProperty({ required: true, example: 1000 })
   readonly employee_id: number;
+  @ApiProperty({ required: true, example: 1000 })
+  readonly rondel_type_id: number;
 }

@@ -17,7 +17,13 @@ export class ExtrusionController {
   @ApiOperation({ summary: "Получить границы параметры работы оборудования по id продукции" })
   @Get("get_trehsholds/:product_id")
   getExtrusionHardwareTresholdsByProductionId(@Param("product_id") product_id: string) {
-    return this.extrusionService.findExtrusionHardwareTresholdsByProductionId(Number(product_id));
+    return this.extrusionService.getExtrusionHardwareTresholdsByProductionId(Number(product_id));
+  }
+
+  @ApiOperation({ summary: "Получить текущие параметры работы оборудования по id сводки" })
+  @Get("get_params/:summary_id")
+  getExtrusionHardwareCurrentParamsBySummaryId(@Param("summary_id") summary_id: string) {
+    return this.extrusionService.getExtrusionHardwareCurrentParamsBySummaryId(Number(summary_id));
   }
 
   @ApiOperation({ summary: "Создать запись заданных параметров работы оборудования" })

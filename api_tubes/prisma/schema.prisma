@@ -11,10 +11,13 @@ datasource db {
 
 // Сотрудники
 model Employee {
-  id                                Int                             @id @default(autoincrement())
+  id                                Int                               @id @default(autoincrement())
   name                              String
-  barcode                           String                          @unique
+  barcode                           String                            @unique
   extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
+  raw_materials_current_records     SummaryRawMaterialCurrentRecord[]
+
+  @@map("employees")
 }
 
 model Production {
@@ -24,6 +27,8 @@ model Production {
   name                                 String
   extrusion_hardware_tresholds_records ExtrusionHardwareTresholdsRecord[]
   summaries                            Summary[]
+
+  @@map("productions")
 }
 
 // Конвейеры
@@ -31,29 +36,38 @@ model Conveyor {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   summaries Summary[]
+
+  @@map("conveyors")
 }
 
 model Batch {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   summaries Summary[]
+
+  @@map("batches")
 }
 
 // 
 // model ConveyorJobs {}
 
 model Summary {
-  id                                Int                             @id @default(autoincrement())
-  production                        Production                      @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id                                Int                               @id @default(autoincrement())
+  production                        Production                        @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   production_id                     Int
-  batch                             Batch                           @relation(fields: [batch_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  batch                             Batch                             @relation(fields: [batch_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   batch_id                          Int
-  conveyor                          Conveyor                        @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor                          Conveyor                          @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   conveyor_id                       Int
   plan                              Int
-  isActive                          Boolean                         @default(false)
-  isFinished                        Boolean                         @default(false)
+  isActive                          Boolean                           @default(false)
+  isFinished                        Boolean                           @default(false)
   extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
+  raw_materials_records             SummaryRawMaterialRecord[]
+  raw_materials_current_records     SummaryRawMaterialCurrentRecord[]
+  chief_notes                       ChiefTechnologistNote[]
+
+  @@map("summary_records")
 }
 
 model ExtrusionHardwareTresholdsRecord {
@@ -68,17 +82,78 @@ model ExtrusionHardwareTresholdsRecord {
   turning_machine_speed_max  Int
   annealing_furnace_temp_min Int
   annealing_furnace_temp_max Int
+  rondel_type                RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rondel_type_id             Int
+
+  @@map("extrusion_hardware_tresholds_records")
 }
 
 model ExtrusionHardwareParamsRecord {
-  id                     Int      @id @default(autoincrement())
-  summary                Summary  @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id                     Int        @id @default(autoincrement())
+  summary                Summary    @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   summary_id             Int
   press_speed            Int
   blow_time              Int
   turning_machine_speed  Int
   annealing_furnace_temp Int
-  employee               Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rondel_type            RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rondel_type_id         Int
+  employee               Employee   @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   employee_id            Int
-  createdAt              DateTime @default(now())
+  createdAt              DateTime   @default(now())
+
+  @@map("extrusion_hardware_params_records")
+}
+
+model RawMaterial {
+  id                            Int                               @id @default(autoincrement())
+  code                          String                            @unique
+  name                          String
+  post_number                   Int
+  raw_materials_records         SummaryRawMaterialRecord[]
+  raw_materials_current_records SummaryRawMaterialCurrentRecord[]
+
+  @@map("raw_materials")
+}
+
+model SummaryRawMaterialRecord {
+  id              Int         @id @default(autoincrement())
+  summary         Summary     @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id      Int
+  raw_material    RawMaterial @relation(fields: [raw_material_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  raw_material_id Int
+
+  @@map("summary_raw_materials")
+}
+
+model SummaryRawMaterialCurrentRecord {
+  id              Int         @id @default(autoincrement())
+  summary         Summary     @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id      Int
+  raw_material    RawMaterial @relation(fields: [raw_material_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  raw_material_id Int
+  lot             String
+  employee        Employee    @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id     Int
+  createdAt       DateTime    @default(now())
+
+  @@map("summary_raw_current_materials")
+}
+
+model ChiefTechnologistNote {
+  id         Int     @id @default(autoincrement())
+  summary    Summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id Int
+  note       String
+
+  @@map("chief_technologist_notes")
+}
+
+model RondelType {
+  id                Int                                @id @default(autoincrement())
+  value             String
+  tresholds_records ExtrusionHardwareTresholdsRecord[]
+  params_records    ExtrusionHardwareParamsRecord[]
+
+  @@map("rondel_type")
 }

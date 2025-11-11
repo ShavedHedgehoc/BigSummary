@@ -7,11 +7,13 @@ import CreateExtrusionHardwareParamsRecordDto from "./dto/create-extrusion-hardw
 export class ExtrusionService {
   constructor(private prisma: PrismaService) {}
 
-  async findExtrusionHardwareTresholdsByProductionId(production_id: number) {
-    // return this.prisma.$queryRawTyped(get_tresholds(production_id));
+  async getExtrusionHardwareTresholdsByProductionId(production_id: number) {
     const extrusionHardwareTresholdsRecord = await this.prisma.extrusionHardwareTresholdsRecord.findFirst({
       where: {
         production_id: production_id,
+      },
+      include: {
+        rondel_type: true,
       },
     });
     return extrusionHardwareTresholdsRecord;
@@ -22,5 +24,18 @@ export class ExtrusionService {
       data: { ...dto },
     });
     return extrusionHardwareParamsRecord;
+  }
+
+  async getExtrusionHardwareCurrentParamsBySummaryId(summary_id: number) {
+    const extrusionHardwareCurrentParams = await this.prisma.extrusionHardwareParamsRecord.findFirst({
+      where: {
+        summary_id: summary_id,
+      },
+      orderBy: { createdAt: "desc" },
+      include: {
+        rondel_type: true,
+      },
+    });
+    return extrusionHardwareCurrentParams;
   }
 }

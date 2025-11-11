@@ -10,7 +10,7 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 
-  app.setGlobalPrefix("api");
+  app.setGlobalPrefix("api_tubes");
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle("Tubes production API")
