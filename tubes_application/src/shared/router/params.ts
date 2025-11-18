@@ -1,3 +1,3 @@
 export enum Params {
-  CONVEYOR = "conveyor",
+  CONVEYOR_NAME = "conveyor_name",
 }

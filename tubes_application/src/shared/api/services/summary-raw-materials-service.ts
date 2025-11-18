@@ -34,7 +34,7 @@ export default class SummaryRawMaterialsService {
   static async getSummaryRawMaterialsBySummaryId(
     dto: GetSummaryRawMaterialsBySummaryId | null
   ): Promise<ISummaryRawMaterial[]> {
-    const res = await $api.post(ApiRoutes.SUMMARY_RAW_MATERIALS_BY_SUMMARY_ID, dto);
+    const res = await $api.post(ApiRoutes.GET_SUMMARY_RAW_MATERIALS_BY_SUMMARY_ID, dto);
     return res.data;
   }
 }

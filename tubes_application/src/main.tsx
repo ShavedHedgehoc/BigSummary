@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SnackbarProvider } from "notistack";
 import { ChakraProvider } from "@chakra-ui/react";
 import { system } from "./theme";
+
 import App from "./App.tsx";
 
 const queryClient = new QueryClient();

@@ -28,6 +28,8 @@ const config = defineConfig({
           value: { base: `{colors.blue.50}`, _dark: `{colors.orange.600}` },
         },
         bg: {
+          // value: { _dark: `{colors.gray.900}` },
+
           success: {
             value: { _dark: `{colors.gray.900}` },
           },
@@ -42,6 +44,18 @@ const config = defineConfig({
           },
           info: {
             value: { _dark: `{colors.gray.900}` },
+          },
+        },
+        // fg: { value: { _dark: `{colors.teal.400}` } },
+        border: {
+          success: {
+            value: { _light: `{colors.gray.200}` },
+          },
+          warning: {
+            value: { _light: `{colors.gray.200}` },
+          },
+          error: {
+            value: { _light: `{colors.gray.200}` },
           },
         },
       },

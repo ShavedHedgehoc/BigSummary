@@ -12,6 +12,7 @@ export const useDate = () => {
       clearInterval(timer);
     };
   }, []);
+
   const day = today.toLocaleDateString(locale, { weekday: "long" });
   const date = `${day}, ${today.getDate()} ${today.toLocaleDateString(locale, { month: "long" })}\n\n`;
 
@@ -22,8 +23,5 @@ export const useDate = () => {
     second: "numeric",
   });
 
-  return {
-    date,
-    time,
-  };
+  return { date, time, today };
 };

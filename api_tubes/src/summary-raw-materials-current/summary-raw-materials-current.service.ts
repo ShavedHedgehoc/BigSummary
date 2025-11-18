@@ -25,17 +25,25 @@ export class SummaryRawMaterialsCurrentService {
   }
 
   async createSummaryRawMaterialsCurrentRecord(dto: CreateSummaryRawMaterialCurrentDto) {
-    const raw_material = await this.prisma.summaryRawMaterialRecord.findFirst({
+    const raw_material_in_specification = await this.prisma.summaryRawMaterialRecord.findFirst({
       where: { raw_material: { code: dto.code } },
     });
-    if (!raw_material) throw new HttpException(ApiMessages.MATERIAL_NOT_BELONG_TO_CURRENT, HttpStatus.BAD_REQUEST);
+
+    if (!raw_material_in_specification)
+      throw new HttpException(ApiMessages.MATERIAL_NOT_BELONG_TO_CURRENT, HttpStatus.BAD_REQUEST);
+
+    const raw_material_in_spec_by_post = await this.prisma.summaryRawMaterialRecord.findFirst({
+      where: { raw_material: { code: dto.code, post_number: dto.post_id } },
+    });
+    if (!raw_material_in_spec_by_post)
+      throw new HttpException(ApiMessages.MATERIAL_NOT_BELONG_TO_CURRENT_POST, HttpStatus.BAD_REQUEST);
 
     const record = await this.prisma.summaryRawMaterialCurrentRecord.create({
       data: {
         summary_id: dto.summary_id,
         employee_id: dto.employee_id,
         lot: dto.lot,
-        raw_material_id: raw_material.id,
+        raw_material_id: raw_material_in_spec_by_post.id,
       },
     });
     return record;

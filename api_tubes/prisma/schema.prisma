@@ -11,22 +11,35 @@ datasource db {
 
 // Сотрудники
 model Employee {
-  id                                Int                               @id @default(autoincrement())
-  name                              String
-  barcode                           String                            @unique
-  extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
-  raw_materials_current_records     SummaryRawMaterialCurrentRecord[]
+  id                            Int                               @id @default(autoincrement())
+  name                          String
+  barcode                       String                            @unique
+  // extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
+  raw_materials_current_records SummaryRawMaterialCurrentRecord[]
+  ExtrusionParam                ExtrusionParam[]
 
   @@map("employees")
 }
 
+// model LaboratoryAssistant {
+//   id                                       Int                                   @id @default(autoincrement())
+//   name                                     String
+//   barcode                                  String                                @unique
+//   extrusion_quality_control_params_records ExtrusionQualityControlParamsRecord[]
+
+//   @@map("laboratory_assistants")
+// }
+
+//remane to product
 model Production {
-  id                                   Int                                @id @default(autoincrement())
-  code                                 String                             @unique
-  marking                              String
-  name                                 String
-  extrusion_hardware_tresholds_records ExtrusionHardwareTresholdsRecord[]
-  summaries                            Summary[]
+  id                  Int                 @id @default(autoincrement())
+  code                String              @unique
+  marking             String
+  name                String
+  // extrusion_hardware_tresholds_records        ExtrusionHardwareTresholdsRecord[]
+  // extrusion_quality_control_tresholds_records ExtrusionQualityControlTresholdsRecord[]
+  summaries           Summary[]
+  extrusion_tresholds ExtrusionTreshold[]
 
   @@map("productions")
 }
@@ -49,62 +62,160 @@ model Batch {
 }
 
 // 
-// model ConveyorJobs {}
+// model Lots {} // material lots
 
+//rename  to Production??
 model Summary {
-  id                                Int                               @id @default(autoincrement())
-  production                        Production                        @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  production_id                     Int
-  batch                             Batch                             @relation(fields: [batch_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  batch_id                          Int
-  conveyor                          Conveyor                          @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  conveyor_id                       Int
-  plan                              Int
-  isActive                          Boolean                           @default(false)
-  isFinished                        Boolean                           @default(false)
-  extrusion_hardware_params_records ExtrusionHardwareParamsRecord[]
-  raw_materials_records             SummaryRawMaterialRecord[]
-  raw_materials_current_records     SummaryRawMaterialCurrentRecord[]
-  chief_notes                       ChiefTechnologistNote[]
+  id                            Int                               @id @default(autoincrement())
+  production                    Production                        @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  production_id                 Int
+  batch                         Batch                             @relation(fields: [batch_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  batch_id                      Int
+  conveyor                      Conveyor                          @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id                   Int
+  plan                          Int
+  isActive                      Boolean                           @default(false)
+  isFinished                    Boolean                           @default(false)
+  // extrusion_hardware_params_records        ExtrusionHardwareParamsRecord[]
+  // extrusion_quality_control_params_records ExtrusionQualityControlParamsRecord[]
+  raw_materials_records         SummaryRawMaterialRecord[]
+  raw_materials_current_records SummaryRawMaterialCurrentRecord[]
+  chief_notes                   ChiefTechnologistNote[]
+  extrusion_params              ExtrusionParam[]
 
   @@map("summary_records")
 }
 
-model ExtrusionHardwareTresholdsRecord {
-  id                         Int        @id @default(autoincrement())
-  production                 Production @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  production_id              Int
-  press_speed_min            Int
-  press_speed_max            Int
-  blow_time_min              Int
-  blow_time_max              Int
-  turning_machine_speed_min  Int
-  turning_machine_speed_max  Int
-  annealing_furnace_temp_min Int
-  annealing_furnace_temp_max Int
-  rondel_type                RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  rondel_type_id             Int
+// model ExtrusionHardwareTresholdsRecord {
+//   id                         Int        @id @default(autoincrement())
+//   production                 Production @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   production_id              Int
+//   press_speed_min            Int
+//   press_speed_max            Int
+//   blow_time_min              Int
+//   blow_time_max              Int
+//   turning_machine_speed_min  Int
+//   turning_machine_speed_max  Int
+//   annealing_furnace_temp_min Int
+//   annealing_furnace_temp_max Int
+//   rondel_type                RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   rondel_type_id             Int
 
-  @@map("extrusion_hardware_tresholds_records")
+//   @@map("extrusion_hardware_tresholds_records")
+// }
+
+// model ExtrusionHardwareParamsRecord {
+//   id                     Int        @id @default(autoincrement())
+//   summary                Summary    @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   summary_id             Int
+//   counter_value          Int
+//   press_speed            Int
+//   blow_time              Int
+//   turning_machine_speed  Int
+//   annealing_furnace_temp Int
+//   rondel_type            RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   rondel_type_id         Int
+//   employee               Employee   @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   employee_id            Int
+//   createdAt              DateTime   @default(now())
+
+//   @@map("extrusion_hardware_params_records")
+// }
+
+model ExtrusionParam {
+  id                                 Int        @id @default(autoincrement())
+  summary                            Summary    @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id                         Int
+  counter_value                      Int
+  press_speed                        Int
+  blow_time                          Int
+  turning_machine_speed              Int
+  annealing_furnace_temp             Int
+  rondel_type                        RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rondel_type_id                     Int
+  tube_cilindrical_section_length    Int
+  membrane_thickness                 Float
+  tube_diameter                      Float
+  tube_cilindrical_section_thickness Float
+  tube_rigidity                      Int
+  tube_cutting_quality               Boolean    @default(false)
+  tightness                          Boolean    @default(false)
+  external_thread_quality            Boolean    @default(false)
+  employee                           Employee   @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id                        Int
+  createdAt                          DateTime   @default(now())
+
+  @@map("extrusion_params")
 }
 
-model ExtrusionHardwareParamsRecord {
-  id                     Int        @id @default(autoincrement())
-  summary                Summary    @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  summary_id             Int
-  press_speed            Int
-  blow_time              Int
-  turning_machine_speed  Int
-  annealing_furnace_temp Int
-  rondel_type            RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  rondel_type_id         Int
-  employee               Employee   @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  employee_id            Int
-  createdAt              DateTime   @default(now())
+model ExtrusionTreshold {
+  id                                     Int        @id @default(autoincrement())
+  production                             Production @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  production_id                          Int
+  press_speed_min                        Int
+  press_speed_max                        Int
+  blow_time_min                          Int
+  blow_time_max                          Int
+  turning_machine_speed_min              Int
+  turning_machine_speed_max              Int
+  annealing_furnace_temp_min             Int
+  annealing_furnace_temp_max             Int
+  rondel_type                            RondelType @relation(fields: [rondel_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rondel_type_id                         Int
+  tube_cilindrical_section_length_min    Int
+  tube_cilindrical_section_length_max    Int
+  membrane_thickness_min                 Float
+  membrane_thickness_max                 Float
+  tube_diameter_min                      Float
+  tube_diameter_max                      Float
+  tube_cilindrical_section_thickness_min Float
+  tube_cilindrical_section_thickness_max Float
+  tube_rigidity_min                      Int
+  tube_rigidity_max                      Int
+  external_thread_value                  String
 
-  @@map("extrusion_hardware_params_records")
+  @@map("extrusion_tresholds")
 }
 
+// model ExtrusionQualityControlTresholdsRecord {
+//   id                                     Int        @id @default(autoincrement())
+//   production                             Production @relation(fields: [production_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   production_id                          Int
+//   tube_cilindrical_section_length_min    Int
+//   tube_cilindrical_section_length_max    Int
+//   membrane_thickness_min                 Float
+//   membrane_thickness_max                 Float
+//   tube_diameter_min                      Float
+//   tube_diameter_max                      Float
+//   tube_cilindrical_section_thickness_min Float
+//   tube_cilindrical_section_thickness_max Float
+//   tube_rigidity_min                      Int
+//   tube_rigidity_max                      Int
+//   external_thread_value                  String
+
+//   @@map("extrusion_quality_control_tresholds_records")
+// }
+
+// model ExtrusionQualityControlParamsRecord {
+//   id                                 Int                 @id @default(autoincrement())
+//   summary                            Summary             @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   summary_id                         Int
+//   tube_cilindrical_section_length    Int
+//   membrane_thickness                 Float
+//   tube_diameter                      Float
+//   tube_cilindrical_section_thickness Float
+//   tube_rigidity                      Int
+//   tube_cutting_quality               Boolean             @default(false)
+//   tightness                          Boolean             @default(false)
+//   external_thread_quality            Boolean             @default(false)
+//   laboratory_assistant               LaboratoryAssistant @relation(fields: [laboratory_assistant_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   laboratory_assistant_id            Int
+//   createdAt                          DateTime            @default(now())
+
+//   @@map("extrusion_quality_control_params_records")
+// }
+
+// rename to material
 model RawMaterial {
   id                            Int                               @id @default(autoincrement())
   code                          String                            @unique
@@ -116,6 +227,7 @@ model RawMaterial {
   @@map("raw_materials")
 }
 
+//rename to specification
 model SummaryRawMaterialRecord {
   id              Int         @id @default(autoincrement())
   summary         Summary     @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -126,6 +238,7 @@ model SummaryRawMaterialRecord {
   @@map("summary_raw_materials")
 }
 
+// raneme to ComponentLot
 model SummaryRawMaterialCurrentRecord {
   id              Int         @id @default(autoincrement())
   summary         Summary     @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -144,16 +257,20 @@ model ChiefTechnologistNote {
   id         Int     @id @default(autoincrement())
   summary    Summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   summary_id Int
+  post_id    Int
   note       String
 
   @@map("chief_technologist_notes")
 }
 
+//  rename to notes
 model RondelType {
-  id                Int                                @id @default(autoincrement())
-  value             String
-  tresholds_records ExtrusionHardwareTresholdsRecord[]
-  params_records    ExtrusionHardwareParamsRecord[]
+  id                  Int                 @id @default(autoincrement())
+  value               String
+  // tresholds_records   ExtrusionHardwareTresholdsRecord[]
+  // params_records      ExtrusionHardwareParamsRecord[]
+  extrusion_params    ExtrusionParam[]
+  extrusion_tresholds ExtrusionTreshold[]
 
   @@map("rondel_type")
 }

@@ -1,0 +1,16 @@
+export enum ParameterNames {
+  COUNTER_VALUE = "Показания счетчика",
+  EXTRUSION_PRESS_SPEED = "Скорость пресса",
+  EXTRUSION_BLOW_TIME = "Время выдува",
+  EXTRUSION_TURNING_MACHINE_SPEED = "Скорость токарного автомата",
+  EXTRUSION_ANNEALING_FURNACE_TEMP = "Температура печи отжига",
+  EXTRUSION_TUBE_CILINDRICAL_SECTION_LENGTH = "Длина цилиндрической части тубы",
+  EXTRUSION_MEMBRANE_THICKNESS = "Толщина мембраны",
+  EXTRUSION_TUBE_DIAMETER = "Диаметр тубы",
+  EXTRUSION_TUBE_CILINDRICAL_THICKNESS = "Толщина цилиндрической части тубы",
+  EXTRUSION_TUBE_RIGIDITY = "Жесткость тубы",
+  EXTRUSION_TUBE_CUTTING_QUALITY = "Качество обрезки тубы",
+  EXTRUSION_TIGHTNESS = "Герметичность",
+  EXTRUSION_RONDEL_TYPE = "Тип рондоли",
+  EXTRUSION_EXTERNAL_THREAD_QUALITY = "Внешняя резьба",
+}

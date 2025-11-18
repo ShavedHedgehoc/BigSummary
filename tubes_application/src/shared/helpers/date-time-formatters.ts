@@ -55,6 +55,15 @@ export function getCurrentDay() {
   return date;
 }
 
+export function formatTimeOnly(tickItem: Date) {
+  const date = new Date(tickItem);
+  return date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+}
+
 // export function getCurrentDay() {
 //   let date = new Date();
 //   return new Date(date.setHours(12));

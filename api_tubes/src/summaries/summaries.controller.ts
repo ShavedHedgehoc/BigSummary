@@ -10,4 +10,9 @@ export class SummariesController {
   getActiveSummaryRecordByConveyorId(@Param("conveyor_id") conveyor_id: string) {
     return this.summaryService.getActiveSummaryRecordByConveyorId(Number(conveyor_id));
   }
+
+  @Get("/active_counters/:id")
+  getActiveSummaryCountersByConveyorId(@Param("id") id: string) {
+    return this.summaryService.getActiveSummaryCountersById(Number(id));
+  }
 }

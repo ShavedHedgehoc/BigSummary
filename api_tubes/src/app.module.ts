@@ -10,20 +10,22 @@ import { ConveyorsModule } from "./conveyors/conveyors.module";
 import { SummariesModule } from "./summaries/summaries.module";
 import { SummaryRawMaterialsModule } from "./summary-raw-materials/summary-raw-materials.module";
 import { SummaryRawMaterialsCurrentModule } from "./summary-raw-materials-current/summary-raw-materials-current.module";
-import { ChiefTechnologistNotesModule } from './chief-technologist-notes/chief-technologist-notes.module';
+import { ChiefTechnologistNotesModule } from "./chief-technologist-notes/chief-technologist-notes.module";
+import { RondelTypesModule } from "./rondel-types/rondel-types.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     PrismaModule,
-    EmployeesModule,
     ExtrusionModule,
+    EmployeesModule,
     HealthCheckModule,
     ConveyorsModule,
     SummariesModule,
     SummaryRawMaterialsModule,
     SummaryRawMaterialsCurrentModule,
     ChiefTechnologistNotesModule,
+    RondelTypesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,7 +8,7 @@ export interface IConveyor {
 
 export default class ConveyorService {
   static async getConveyorByName(conveyorName: string | null): Promise<IConveyor> {
-    const res = await $api.get(`${ApiRoutes.CONVEYORS}/${conveyorName}`);
+    const res = await $api.get(`${ApiRoutes.GET_CONVEYORS}/${conveyorName}`);
     return res.data;
   }
 }

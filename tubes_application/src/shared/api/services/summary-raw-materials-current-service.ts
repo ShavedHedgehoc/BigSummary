@@ -13,6 +13,7 @@ export interface GetSummaryRawMaterialCurrentDto {
 export interface CreateSummaryRawMaterialsCurrentRecordDto {
   summary_id: number;
   employee_id: number;
+  post_id: number;
   code: string;
   lot: string;
 }

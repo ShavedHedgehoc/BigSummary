@@ -1,78 +1,61 @@
-import type { MainLayoutProps } from "@/shared/layouts/main-page-layout";
-import MainPageLayout from "@/shared/layouts/main-page-layout";
-import type { ExtrusionLayoutProps } from "./extrusion-layout";
-import ExtrusionLayout from "./extrusion-layout";
-import ExtrusionReglamentCard from "./extrusion-reglament-card";
-import ExtrusionPictureCard from "./extrusion-picture-card";
-import ExtrusionUserCard from "./extrusion-user-card";
-import ExtrusionTimeCard from "./extrusion-time-card";
-import ExtrusionDateCard from "./extrusion-date-card";
-import ExtrusionProductCard from "./extrusion-product-card";
-import ExtrusionCurrentCard from "./extrusion-current-card";
-import ExtrusionNoteCard from "./extrusion-note-card";
-import ExtrusionMaterialCard from "./extrusion-material-card";
-import ExtrusionMenuCard from "./extrusion-menu-card";
-import QualityControlModal from "./extrusion-quality-control-modal/extrusion-quality-control-modal";
-import ExtrusionAuthModal from "./extrusion-auth-modal/extruison-auth-modal";
-import { useSearchParams } from "react-router-dom";
-import { Params } from "@/shared/router/params";
-import NotFound from "@/shared/components/not-found";
-import { AppMessages } from "@/shared/resources/app-messages";
+import React from "react";
+import { useActiveSummary } from "@/shared/api/use-active-summary";
 import { useConveyor } from "@/shared/api/use-conveyor";
+import NotFound from "@/shared/components/not-found-full-screen";
+import { AppMessages } from "@/shared/resources/app-messages";
+import type { Params } from "@/shared/router/params";
+import { useParams } from "react-router-dom";
 import { useExtrusionConveyorStore } from "./store/use-extrusion-conveyor-store";
 import { useShallow } from "zustand/react/shallow";
-import Loader from "@/shared/components/loader";
-import { useActiveSummary } from "./use-active-summary";
-import ExtrusionMaterialScanModal from "./extrusion-material-scan-modal";
-import ExtrusionRawMaterialTableModal from "./extrusion-raw-material-table-modal/extrusion-raw-material-table-modal";
+import type { PageLayoutProps } from "../common/page-layout";
+import PageLayout from "../common/page-layout";
+import TimeComponent from "../common/time-component";
+import HeaderComponent from "../common/header-component";
+import UserComponent from "../common/user-component";
+import { useExtrusionEmployeeStore } from "./store/use-extrusion-employee-store";
+import ProductionCard from "../common/production-card";
+import MaterialPieChartComponent from "../common/material-pie-chart-component";
+import Loader from "../common/loader";
+import Info from "../common/info";
+import ProductionLineChart from "../common/production-line-chart";
+import ExtrusionParameters from "./extrusion/extrusion-parameters";
+import ExtrusionMenu from "./extrusion/extrusion-menu";
+import ExtrusionAuthModal from "./extrusion/modals/extrusion-auth-modal";
+import { PostNames } from "@/shared/helpers/post-names";
+import ExtrusionMaterialScanModal from "./extrusion/modals/extrusion-material-scan-modal";
+import ExtrusionLogoutAlertModal from "./extrusion/modals/extrusion-logout-alert-modal";
 
 export default function Extrusion() {
-  const [searchParams] = useSearchParams();
-  const conveyor: string | null = searchParams.get(Params.CONVEYOR);
-
-  const { isPending } = useConveyor(conveyor);
+  const params = useParams<Params.CONVEYOR_NAME>();
+  const { isPending } = useConveyor(params.conveyor_name ?? null);
   const extrusionConveyor = useExtrusionConveyorStore(useShallow((state) => state.extrusionConveyor));
-  const {
-    data,
-    isPending: isPendingSummary,
-    isSuccess,
-  } = useActiveSummary(extrusionConveyor ? extrusionConveyor.id : null);
+  const employee = useExtrusionEmployeeStore(useShallow((state) => state.extrusionEmployee));
+  const { data: summaryData, isPending: isPendingSummary } = useActiveSummary(extrusionConveyor?.id ?? null);
 
-  if (!conveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_SPECIFIED} />;
   if (isPending) return <Loader />;
   if (!extrusionConveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_EXISTS} />;
 
-  const layoutProps: MainLayoutProps = {
-    title: `Конвейер ${extrusionConveyor.name}. Экструзия и токарный автомат (Пост 1)`,
+  const pageLayoutProps: PageLayoutProps = {
+    timeComponent: <TimeComponent />,
+    headerComponent: <HeaderComponent conveyorName={extrusionConveyor.name} postName={PostNames.EXTRUSION} />,
+    parameterComponent: <ExtrusionParameters data={summaryData ?? null} />,
+    materialPieChartComponent: <MaterialPieChartComponent summaryId={summaryData?.id} postId={1} />,
+    productionLineChartComponent: <ProductionLineChart summaryId={summaryData?.id} postId={1} />,
+    productionCardComponent: <ProductionCard data={summaryData ?? null} postId={1} />,
+    menuComponent: <ExtrusionMenu />,
+    userComponent: <UserComponent employee={employee} />,
+    loaderComponent: <Loader />,
+    notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
+    isLoading: isPendingSummary,
+    isNotFound: !summaryData && !isPendingSummary,
   };
 
-  const extrusionLayoutProps: ExtrusionLayoutProps = {
-    product: <ExtrusionProductCard />,
-    picture: <ExtrusionPictureCard />,
-    time: <ExtrusionTimeCard />,
-    date: <ExtrusionDateCard />,
-    user: <ExtrusionUserCard />,
-    reglament: <ExtrusionReglamentCard production_id={data?.production_id} />,
-    current: <ExtrusionCurrentCard summary_id={data?.id} production_id={data?.production_id} />,
-    note: <ExtrusionNoteCard summary_id={data?.id} />,
-    material: <ExtrusionMaterialCard summary_id={data?.id} />,
-    menu: <ExtrusionMenuCard />,
-  };
   return (
-    <MainPageLayout props={layoutProps}>
-      {isPendingSummary ? (
-        <Loader />
-      ) : data && isSuccess ? (
-        <>
-          <ExtrusionLayout props={extrusionLayoutProps} />
-          <QualityControlModal />
-          <ExtrusionAuthModal />
-          <ExtrusionMaterialScanModal summary_id={data?.id} />
-          <ExtrusionRawMaterialTableModal summary_id={data?.id} />
-        </>
-      ) : (
-        <NotFound message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />
-      )}
-    </MainPageLayout>
+    <React.Fragment>
+      <PageLayout {...pageLayoutProps} />
+      <ExtrusionAuthModal />
+      <ExtrusionLogoutAlertModal />
+      <ExtrusionMaterialScanModal summary_id={summaryData?.id} />
+    </React.Fragment>
   );
 }
