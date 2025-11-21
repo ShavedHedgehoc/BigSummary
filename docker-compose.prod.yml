@@ -129,7 +129,7 @@ services:
       context: .
       dockerfile: docker/api_tubes/Dockerfile.prod
       args:
-        -NODE_ENV=production
+        - NODE_ENV=production
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/summary
       POSTGRES_HOST: postgres
