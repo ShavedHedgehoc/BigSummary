@@ -1,6 +1,6 @@
 import { Box, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Check } from "@mui/icons-material";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";
 
 export default function TubeRecordsUploadStepper() {

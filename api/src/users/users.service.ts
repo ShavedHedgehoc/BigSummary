@@ -6,17 +6,20 @@ import { RolesService } from "src/roles/roles.service";
 import Role from "src/roles/roles.model";
 import { UserRolesService } from "src/user-roles/user-roles.service";
 import { UpdateRolesDto } from "./dto/update-roles.dto";
-import { TokenService } from "src/token/token.service";
 import { GethUsersDto } from "./dto/get-users-dto";
-import { Op, col, fn } from "sequelize";
-import UserRoles from "src/user-roles/user-roles.model";
+import { Op, col } from "sequelize";
+import UserSettings from "src/user-settings/user-settings.model";
+import { UpdateUserDto } from "./dto/update-user-dto";
+import { UserSettingsService } from "src/user-settings/user-settings.service";
+import Plant from "src/plants/plant.model";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User) private userRepository: typeof User,
     private roleService: RolesService,
-    private userRoleService: UserRolesService
+    private userRoleService: UserRolesService,
+    private userSettingService: UserSettingsService
   ) {}
 
   async createUser(dto: CreateUserDto) {
@@ -25,6 +28,32 @@ export class UsersService {
     await user.$set("roles", [role.id]);
     user.roles = [role];
     return user;
+  }
+
+  async updateUser(dto: UpdateUserDto) {
+    console.log(dto);
+    const existsUser = await this.userRepository.findByPk(dto.user_id);
+    if (!existsUser) {
+      throw new HttpException("Пользователь не найден", HttpStatus.NOT_FOUND);
+    }
+    try {
+      existsUser.set({
+        name: dto.name,
+        email: dto.email,
+      });
+      await existsUser.save();
+      if (dto.user_settings) {
+        await this.userSettingService.upsertUserSetttings({
+          user_id: dto.user_id,
+          user_settings: dto.user_settings,
+        });
+      } else {
+        await this.userSettingService.deleteUserSetttingsByUserId(dto.user_id);
+      }
+      return existsUser;
+    } catch (error) {
+      throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
+    }
   }
 
   async getAllUserWithFilter(dto: GethUsersDto) {
@@ -70,7 +99,8 @@ export class UsersService {
 
     const users = await this.userRepository.findAll({
       where: { ...filter },
-      attributes: ["id", "name", "email", "banned"],
+      attributes: { include: ["id", "name", "email", "banned"] },
+
       include: [
         {
           model: Role,
@@ -85,12 +115,21 @@ export class UsersService {
         {
           model: Role,
           as: "roles",
+          through: { attributes: [] },
+        },
+        {
+          model: UserSettings,
+          as: "user_settings",
+          attributes: ["plant_id"],
+          include: [{ model: Plant, as: "plant", attributes: ["value"] }],
         },
       ],
       order: [
         ["name", nameOrder],
         [{ model: Role, as: "roles" }, "description", "ASC"],
       ],
+      limit: dto.limit,
+      offset: dto.limit * (dto.page - 1),
     });
     return { rows: users, total: count };
   }
@@ -145,7 +184,19 @@ export class UsersService {
 
   async getByPk(id: number) {
     const user = await this.userRepository.findByPk(id, {
-      include: { model: Role, as: "roles", through: { attributes: [] } },
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+        include: [[col("user_settings.plant.value"), "default_plant_name"]],
+      },
+      include: [
+        { model: Role, as: "roles", through: { attributes: [] } },
+        {
+          model: UserSettings,
+          as: "user_settings",
+          attributes: ["plant_id"],
+          include: [{ model: Plant, as: "plant", attributes: [] }],
+        },
+      ],
     });
     return user;
   }
@@ -153,7 +204,15 @@ export class UsersService {
   async getUserByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: { email: email },
-      include: { model: Role, as: "roles" },
+      include: [
+        { model: Role, as: "roles", through: { attributes: [] } },
+        {
+          model: UserSettings,
+          as: "user_settings",
+          attributes: ["plant_id"],
+          include: [{ model: Plant, as: "plant", attributes: [] }],
+        },
+      ],
     });
     return user;
   }

@@ -68,9 +68,7 @@ export default function CanDashCard({ row }: { row: ITraceCanData }) {
           //can_need_wash brown
           ...(row.stateValue === "can_need_wash" && {
             color: "common.white",
-            // bgcolor: mode === "light" ? "#A16207" : "#B45309", // первый вариант
-            // bgcolor: mode === "light" ? "#A16207" : "#451A03", //говно с кровью
-            bgcolor: mode === "light" ? "#A16207" : "#78350F", //просто говно
+            bgcolor: mode === "light" ? "#A16207" : "#78350F",
           }),
 
           //can_correct yellow

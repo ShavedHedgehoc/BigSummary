@@ -2,10 +2,15 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres:16.2-alpine
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       POSTGRES_DB: "summary"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - summary-data:/var/lib/postgresql/data
     restart: always
@@ -14,7 +19,12 @@ services:
 
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:7.2
+    image: dpage/pgadmin4:9.9
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       PGADMIN_DEFAULT_EMAIL: "eagle221174@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "1"
@@ -36,6 +46,11 @@ services:
       dockerfile: docker/api/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
@@ -56,6 +71,57 @@ services:
       - postgres
       - general
 
+  # public_api:
+  #   container_name: public_api_container
+  #   build:
+  #     context: .
+  #     dockerfile: docker/public_api/Dockerfile.prod
+  #     args:
+  #       - NODE_ENV=production
+  #   environment:
+  #     DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/summary
+  #     POSTGRES_HOST: postgres
+  #     POSTGRES_PORT: "5432"
+  #     POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     POSTGRES_DB: "summary"
+  #     PORT: "8000"
+  #     BOT_TOKEN: ${BOT_TOKEN}
+  #     CHAT_ID: ${CHAT_ID}
+  #   depends_on:
+  #     - postgres
+  #   restart: always
+  #   ports:
+  #     - 8000:8000
+  #   networks:
+  #     - postgres
+  #     - general
+
+  public_api:
+    container_name: public_api_container
+    build:
+      context: .
+      dockerfile: docker/public_api_2/Dockerfile.prod
+      args:
+        - NODE_ENV=production
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/summary
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: "summary"
+      PORT: "8000"
+      BOT_TOKEN: ${BOT_TOKEN}
+      CHAT_ID: ${CHAT_ID}
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - postgres
+      - general
   app:
     container_name: app_container
     build:
@@ -63,6 +129,11 @@ services:
       dockerfile: docker/application/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
     restart: always
@@ -76,6 +147,11 @@ services:
       dockerfile: docker/workstation/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
     restart: always
@@ -89,6 +165,11 @@ services:
       dockerfile: docker/dashboard/Dockerfile.prod
       args:
         - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - api
     restart: always
@@ -98,6 +179,11 @@ services:
   nginx:
     container_name: nginx_container
     build: ./docker/nginx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: always
     ports:
       - "80:80"

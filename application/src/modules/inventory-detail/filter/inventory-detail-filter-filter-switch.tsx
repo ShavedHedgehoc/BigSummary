@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import { Box, FormControl, FormHelperText, Switch } from "@mui/joy";
 import { Typography } from "@mui/joy";

@@ -1,10 +1,9 @@
-import * as React from "react";
 import { Box, Sheet, useColorScheme } from "@mui/joy";
 import { keyframes } from "@emotion/react";
-import { Context } from "../../main";
 import { useDashHistoryModalStore } from "./store/use-dash-history-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { DbRoles } from "../../shared/db-roles";
+import { useAuthStore } from "../auth/store/auth-store";
 
 const pulse = keyframes`
     0% {
@@ -20,14 +19,14 @@ const pulse = keyframes`
 
 export default function DashSmallCard({ row }: { row: IDocRow }) {
   const { mode } = useColorScheme();
-  const { store } = React.useContext(Context);
 
   const setOpen = useDashHistoryModalStore(useShallow((state) => state.setOpen));
   const setRecordId = useDashHistoryModalStore(useShallow((state) => state.setRecordId));
   const setTitle = useDashHistoryModalStore(useShallow((state) => state.setTitle));
+  const user = useAuthStore(useShallow((state) => state.user));
 
   const handleClick = () => {
-    if (store.AuthStore.user?.roles?.includes(DbRoles.CARDS)) {
+    if (user?.roles?.includes(DbRoles.CARDS)) {
       setRecordId(row.id);
       setTitle(`Историй статусов по продукту ${row.product}, партия - ${row.boil}`);
       setOpen(true);

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 import { devtools } from "zustand/middleware";
-import { EmployeesFilterParams } from "../employees-filter-params";
+import { EmployeesFilterParams } from "../filter/employees-filter-params";
 
 interface EmployeesFilterStore {
   filter: FetchEmployeesFilter;

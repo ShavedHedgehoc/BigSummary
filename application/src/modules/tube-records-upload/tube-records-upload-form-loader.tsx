@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import UploadPendingModal from "../../shared/components/upload-pending-modal";
 import { useUploadTubeRecords } from "./use-upload-tube-records";
 import { useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";

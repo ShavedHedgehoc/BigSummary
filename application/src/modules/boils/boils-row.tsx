@@ -7,7 +7,7 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useBoilHistoryModalStore } from "./store/use-boil-history-modal-store";
 import TableButton, { TableButtonProps } from "../../shared/ui/table-button";
 import { TableIconButton } from "../../shared/ui/table-icon-button";

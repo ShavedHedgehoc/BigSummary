@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useCansHistoryModalStore } from "../store/use-cans-history-modal-store";
 import { useCanRecords } from "../use-cans-records";
 import TableLoaderComponent from "../../../shared/components/table-loader";

@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import Ajv from "ajv";
-import * as XLSX from "xlsx";
+import { read, utils } from "xlsx";
 import { ValError, useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";
 import { IXLSXTubeRecordRowData } from "../../shared/api/services/tube-records-service";
 
@@ -190,9 +190,9 @@ export default function TubeRecordsUploadFormValidator() {
       // let json: IXLSData[] = [];
       let json: IXLSXTubeRecordRowData[] = [];
       try {
-        const wb = XLSX.read(data);
+        const wb = read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];
-        json = XLSX.utils.sheet_to_json(ws, { raw: false });
+        json = utils.sheet_to_json(ws, { raw: false });
 
         for (let i = 0; i < json.length; i++) {
           // const parsedData = parse(JSON.stringify(json[i]));

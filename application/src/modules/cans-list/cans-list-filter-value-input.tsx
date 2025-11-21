@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useCansListFilterStore } from "./store/use-cans-list-filter-store";
 import { CansListFilterParams } from "./cans-list-filter-params";
 import FilterInputWithSort, { FilterInputWithSortProps } from "../../shared/ui/filter-input-with-sort";

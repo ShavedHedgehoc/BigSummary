@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   AllowNull,
   AutoIncrement,
+  BelongsTo,
   BelongsToMany,
   Column,
   DataType,
@@ -17,6 +18,8 @@ import History from "src/histories/histories.model";
 import Role from "src/roles/roles.model";
 import UserRoles from "src/user-roles/user-roles.model";
 import Token from "src/token/token.model";
+import UserSettings from "src/user-settings/user-settings.model";
+import Plant from "src/plants/plant.model";
 
 interface UserCreationsAttrs {
   name: string;
@@ -64,4 +67,7 @@ export default class User extends Model<User, UserCreationsAttrs> {
 
   @HasMany(() => Token)
   token: Token;
+
+  @HasOne(() => UserSettings)
+  user_settings?: UserSettings;
 }

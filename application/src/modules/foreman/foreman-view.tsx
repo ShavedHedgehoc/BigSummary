@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 import { useCurrentRecords } from "../../shared/api/use-current-records";
 import { SxProps } from "@mui/joy/styles/types";

@@ -1,7 +1,4 @@
-import { useShallow } from "zustand/shallow";
-
-import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../shared/api/services/plant-service";
+import { useShallow } from "zustand/react/shallow";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 import { RecordsFilterParams } from "./records-filter-params";
 import { useRecordsFilterStore } from "./store/use-record-filter-store";
@@ -11,20 +8,6 @@ export default function RecordsFilterPlantSelector() {
   const selectedPlant = useRecordsFilterStore(useShallow((state) => state.selectedPlant));
   const setSelectedPlant = useRecordsFilterStore(useShallow((state) => state.setSelectedPlant));
   const plantSelectorOptions = useRecordsFilterStore(useShallow((state) => state.plantSelectorOptions));
-  const fillPlantSelectorOptions = useRecordsFilterStore(useShallow((state) => state.fillPlantSelectorOptions));
-
-  useQuery({
-    queryKey: ["plants_options", "foreman"],
-    queryFn: async () => {
-      const data = await PlantService.getAllPlants();
-      if (data) {
-        fillPlantSelectorOptions(data);
-        setSelectedPlant(data[1].id);
-        changeFilter({ key: RecordsFilterParams.PLANT, value: "", values: [data[1].id] });
-        return data;
-      }
-    },
-  });
   const plantOptions = plantSelectorOptions.map((plant) => (
     <FilterSelectorOption key={`plant_option_${plant.id}`} id={plant.id} value={plant.value} />
   ));

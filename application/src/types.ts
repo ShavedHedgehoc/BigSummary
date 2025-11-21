@@ -160,38 +160,27 @@ export interface IRecord {
   doc: IDoc;
   id: number;
   productId: number;
-  // product: string;
-  // boil: string;
   plan: number;
-  // apparatus: string;
   bbf: string;
   note: string;
-  // can: string;
-  // conveyor: string;
-  // workshop: string;
   historiesCount: number;
   state: string;
   stateValue: string;
   docId: number;
   doc_id: number;
-
   boilId: number;
   apparatusId: number;
   canId: number;
   conveyorId: number;
-
   workshopId: number;
   createdAt: Date;
   updatedAt: Date;
   product: IProduct;
-
   boil: IBoil;
   apparatus: IApparatus;
-
   can: ICan;
   conveyor: IConveyor;
   workshop: IWorkshop;
-
   histories: IHistory[] | [];
 }
 
@@ -199,7 +188,6 @@ export interface ISummary {
   code1C: string;
   product: string;
   serie: string;
-  // boil: string;
   batch: string;
   apparatus: string;
   can: string;
@@ -221,7 +209,6 @@ export interface IXLSData {
   code1C: string;
   product: string;
   serie: string;
-  // boil: string;
   batch: string;
   apparatus: string;
   can: string;
@@ -243,12 +230,3 @@ export interface IBoilsListItem {
   base_code: string;
   base_marking: string;
 }
-
-// export interface IDoc {
-//   id: number;
-//   plantId: number;
-//   date: Date;
-//   records_count: string;
-//   histories_count: string;
-//   plants: IPlant;
-// }

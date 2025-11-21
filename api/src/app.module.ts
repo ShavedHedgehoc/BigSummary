@@ -19,7 +19,6 @@ import { WorkshopsModule } from "./workshops/workshops.module";
 import { HistoriesModule } from "./histories/histories.module";
 import { HistoryTypesModule } from "./history_types/hystory_types.module";
 import { TokenModule } from "./token/token.module";
-import { SeederModule } from "nestjs-sequelize-seeder";
 import { TestModule } from "./test/test.module";
 import { BoilsListModule } from "./boils.list/boils.list.module";
 import { DocDetailModule } from "./doc.detail/doc.detail.module";
@@ -40,29 +39,16 @@ import { SemiProductsModule } from "./semi_products/semi_products.module";
 import { ApiErrorsModule } from "./api_errors/api_errors.module";
 import { TraceCanRecordsModule } from "./trace_can_records/trace_can_records.module";
 import { TraceCansModule } from "./trace_cans/trace_cans.module";
-
 import { TracePlantsModule } from "./trace_plants/trace_plants.module";
 import { TraceCanStatesModule } from "./trace_can_states/trace_can_states.module";
 import { TraceCanLocationsModule } from "./trace_can_locations/trace_can_locations.module";
-import { TubeProductsModule } from "./tube_products/tube_products.module";
-import { TubeConveyorsModule } from "./tube_conveyors/tube_conveyors.module";
-import { TubeRecordsModule } from "./tube_records/tube_records.module";
-import { TubeMaterialsModule } from "./tube_materials/tube_materials.module";
-import { TubeConveyorPostsModule } from "./tube_conveyor_posts/tube_conveyor_posts.module";
-import { TubeSpecificationsModule } from "./tube_specifications/tube_specifications.module";
-import { TubeHistoryTypesModule } from "./tube_history_types/tube_history_types.module";
-
-import { TubeHistoriesModule } from "./tube_histories/tube_histories.module";
-import { TubeHistoryNotesModule } from "./tube_history_notes/tube_history_notes.module";
-import { TubeSessionsModule } from "./tube_sessions/tube_sessions.module";
-import { TubeParametersModule } from "./tube_parameters/tube_parameters.module";
-import { TubeAssemblyModule } from "./tube_assembly/tube_assembly.module";
 import { TraceInventoryDocsModule } from "./trace_inventory_docs/trace_inventory_docs.module";
 import { TraceInventoryRowsModule } from "./trace_inventory_rows/trace_inventory_rows.module";
 import { TraceTrademarksModule } from "./trace_trademarks/trace_trademarks.module";
 import { ZplModule } from "./zpl/zpl.module";
 import { TestdbSqlModule } from "./testdb_sql/testdb_sql.module";
 import { TraceDirectConnectionModule } from "./trace_direct_connection/trace_direct_connection.module";
+import { UserSettingsModule } from "./user-settings/user-settings.module";
 import User from "./users/users.model";
 import Role from "./roles/roles.model";
 import UserRoles from "./user-roles/user-roles.model";
@@ -109,22 +95,15 @@ import TracePlant from "./trace_models/trace_plant.model";
 import TraceCanState from "./trace_models/trace_can_state.model";
 import TraceBtProduct from "./trace_models/trace_bt_product.model";
 import TraceCanLocation from "./trace_models/trace_can_location.model";
-import TubeProduct from "./tube_products/tube_products.model";
-import TubeConveyor from "./tube_conveyors/tube_conveyors.model";
-import TubeRecord from "./tube_records/tube_records.model";
-import TubeMaterial from "./tube_materials/tube_materials.model";
-import TubeConveyorPost from "./tube_conveyor_posts/tube_conveyor_posts.model";
-import TubeSpecification from "./tube_specifications/tube_specifications.model";
-import TubeHistoryType from "./tube_history_types/tube_history_types.model";
-import TubeHistory from "./tube_histories/tube_histories.model";
-import TubeHistoryNote from "./tube_history_notes/tube_history_notes.model";
-import TubeSession from "./tube_sessions/tube_sessions.model";
-import TubeParameter from "./tube_parameters/tube_parameters.model";
-import TubeAssembly from "./tube_assembly/tube_assembly.model";
 import TraceInventoryDoc from "./trace_models/trace_inventory_doc.model";
 import TraceInventoryRow from "./trace_models/trace_inventory_row.model";
 import TraceAuthorOccupation from "./trace_models/tarce_author_occupation.model";
 import * as DataTypes from "sequelize/lib/data-types";
+import { RecordCountersModule } from "./record_counters/record_counters.module";
+
+import { HealthCheckModule } from "./health_check/health_check.module";
+import RecordCounter from "./record_counters/record_counters.model";
+import UserSettings from "./user-settings/user-settings.model";
 
 DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
   date = this._applyTimezone(date, options);
@@ -198,7 +177,8 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      logging: process.env.NODE_ENV === "development" ? true : false,
+      logging: process.env.NODE_ENV === "development" ? console.log : false,
+
       models: [
         User,
         Role,
@@ -225,25 +205,9 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
         RecordRegulation,
         SemiProduct,
         ApiError,
-        // ********************
-        TubeProduct,
-        TubeConveyor,
-        TubeRecord,
-        TubeMaterial,
-        TubeConveyorPost,
-        TubeSpecification,
-        TubeHistoryType,
-        TubeHistory,
-        TubeHistoryNote,
-        TubeSession,
-        TubeParameter,
-        TubeAssembly,
+        UserSettings,
+        RecordCounter,
       ],
-      // autoLoadModels: true,
-    }),
-    SeederModule.forRoot({
-      runOnlyIfTableIsEmpty: true,
-      foreignDelay: 10000,
     }),
     AuthModule,
     UsersModule,
@@ -253,6 +217,7 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     DocsModule,
     PlantsModule,
     RecordsModule,
+    RecordCountersModule,
     ProductsModule,
     SeriesModule,
     BoilsModule,
@@ -286,24 +251,14 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     TracePlantsModule,
     TraceCanStatesModule,
     TraceCanLocationsModule,
-    TubeProductsModule,
-    TubeConveyorsModule,
-    TubeRecordsModule,
-    TubeMaterialsModule,
-    TubeConveyorPostsModule,
-    TubeSpecificationsModule,
-    TubeHistoryTypesModule,
-    TubeHistoriesModule,
-    TubeHistoryNotesModule,
-    TubeSessionsModule,
-    TubeParametersModule,
-    TubeAssemblyModule,
     TraceInventoryDocsModule,
     TraceInventoryRowsModule,
     TraceTrademarksModule,
     ZplModule,
     TestdbSqlModule,
     TraceDirectConnectionModule,
+    UserSettingsModule,
+    HealthCheckModule,
   ],
 })
 export default class AppModule {}

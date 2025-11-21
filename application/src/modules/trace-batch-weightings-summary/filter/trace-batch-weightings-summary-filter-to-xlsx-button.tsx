@@ -2,7 +2,7 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
 import makeXLSXFile from "../make-xlsx";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useTraceBatchWeightingsSummaryFilterStore } from "../store/use-trace-batch-weightings-summary-filter-store";
 import { useTraceBatchWeightingsSummary } from "../use-trace-batch-weightings-summary";
 

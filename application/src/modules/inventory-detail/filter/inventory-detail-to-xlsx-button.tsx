@@ -1,6 +1,6 @@
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useParams } from "react-router-dom";
 import { Params } from "../../../shared/router/params";
 import { useInventoryDetailFilterStore } from "../store/inventory-detail-filter-store";

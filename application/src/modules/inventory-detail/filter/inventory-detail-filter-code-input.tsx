@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
 import { useInventoryDetailFilterStore } from "../store/inventory-detail-filter-store";
 import { InventoryDetailFilterParams } from "../store/inventory-detail-filter-params";

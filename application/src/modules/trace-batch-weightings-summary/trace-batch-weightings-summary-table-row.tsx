@@ -6,7 +6,7 @@ import { ITraceWeightingsSummaryData } from "../../shared/api/services/trace-bat
 import { useNavigate } from "react-router-dom";
 import { RouteNames } from "../../shared/router/route-names";
 import { useTraceBatchWeightingsSummaryFilterStore } from "./store/use-trace-batch-weightings-summary-filter-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 
 export default function TraceBatchWeightingsSummaryTableRow({ row }: { row: ITraceWeightingsSummaryData }) {
   const navigate = useNavigate();

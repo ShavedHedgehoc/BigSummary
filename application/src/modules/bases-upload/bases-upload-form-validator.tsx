@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import Ajv, { SchemaObject } from "ajv/dist/jtd";
-import * as XLSX from "xlsx";
+import { read, utils } from "xlsx";
 import { IXLSBasesData, useBasesUploadFormStore } from "./store/use-bases-upload-form-store";
 
 export default function BasesUploadFormValidator() {
@@ -36,9 +36,9 @@ export default function BasesUploadFormValidator() {
       let valResult = true;
       let json: IXLSBasesData[] = [];
       try {
-        const wb = XLSX.read(data);
+        const wb = read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];
-        json = XLSX.utils.sheet_to_json(ws, { raw: false });
+        json = utils.sheet_to_json(ws, { raw: false });
 
         for (let i = 0; i < json.length; i++) {
           const parsedData = parse(JSON.stringify(json[i]));

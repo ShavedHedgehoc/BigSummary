@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import DashCard from "./dash-card";
 import { useDashFilterStore } from "./store/dash-filter-store";
 import { useCurrentRecords } from "../../shared/api/use-current-records";

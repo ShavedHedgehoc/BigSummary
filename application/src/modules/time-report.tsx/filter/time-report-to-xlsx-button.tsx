@@ -2,7 +2,7 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
 import makeXLSXFile from "../make-xlsx";
 import { useTimeReportFilterStore } from "../store/use-time-report-filter-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useTimeReport } from "../use-time-report";
 
 export default function TimeReportToXLSXButton() {

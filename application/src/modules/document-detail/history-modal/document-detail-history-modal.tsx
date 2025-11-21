@@ -1,7 +1,7 @@
 import ModalLayout from "../../../shared/layouts/modal-layout";
 import TableLayout from "../../../shared/layouts/table-layout";
 import { useRecordHistories } from "../../../shared/api/use-record-histories";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import TableLoaderComponent from "../../../shared/components/table-loader";
 import { useDocumentDetailHistoryModalStore } from "../store/use-document-detail-history-modal-store";
 import DocumentDetailHistoryModalRow from "./document-detail-history-modal-row";

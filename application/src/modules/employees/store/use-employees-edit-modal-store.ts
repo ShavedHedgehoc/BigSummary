@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface EditModalStore {
   id: number | null;
@@ -15,18 +16,23 @@ interface EditModalStore {
   fillOccupationOptions: (values: IOccupation[]) => void;
   clearData: () => void;
 }
-export const useEmployeesEditModalStore = create<EditModalStore>()((set) => ({
-  id: null,
-  open: false,
-  name: "",
-  barcode: "",
-  occupation: null,
-  occupationsOptions: [],
-  setId: (val: number) => set(() => ({ id: val })),
-  setOpen: (val: boolean) => set(() => ({ open: val })),
-  setName: (val: string) => set(() => ({ name: val })),
-  setBarcode: (val: string) => set(() => ({ barcode: val })),
-  setOccupation: (val: number) => set(() => ({ occupation: val })),
-  clearData: () => set(() => ({ name: "", barcode: "", occupation: null })),
-  fillOccupationOptions: (values) => set(() => ({ occupationsOptions: [...values] })),
-}));
+export const useEmployeesEditModalStore = create<EditModalStore>()(
+  devtools(
+    (set) => ({
+      id: null,
+      open: false,
+      name: "",
+      barcode: "",
+      occupation: null,
+      occupationsOptions: [],
+      setId: (val: number) => set(() => ({ id: val })),
+      setOpen: (val: boolean) => set(() => ({ open: val })),
+      setName: (val: string) => set(() => ({ name: val })),
+      setBarcode: (val: string) => set(() => ({ barcode: val })),
+      setOccupation: (val: number) => set(() => ({ occupation: val })),
+      clearData: () => set(() => ({ name: "", barcode: "", occupation: null })),
+      fillOccupationOptions: (values) => set(() => ({ occupationsOptions: [...values] })),
+    }),
+    { name: "EmployeeEditModalStore", store: "useEmployeeEditModalStore" }
+  )
+);

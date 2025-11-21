@@ -1,20 +1,14 @@
-import * as React from "react";
-
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
-
-import { Context } from "../../main";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useForemanHistoryModalStore } from "./store/use-foreman-history-modal-store";
 import { useCreateHistory } from "../../shared/api/use-create-history";
-
 import { TableState } from "../../shared/ui/table-state";
 import TableButton from "../../shared/ui/table-button";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
-// import { useAddRecordModalStore } from "./store/use-add-record-modal-store";
+import { useAuthStore } from "../auth/store/auth-store";
 
 const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
   const setOpen = useForemanHistoryModalStore(useShallow((state) => state.setOpen));
@@ -48,21 +42,21 @@ const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
 };
 
 export default function RowComponent({ row }: { row: IDocRow }) {
-  const { store } = React.useContext(Context);
-
+  const user = useAuthStore(useShallow((state) => state.user));
   const { addHistory, isPending } = useCreateHistory();
-
   const makeHistoryRecord = (id: number, state: string) => {
-    const data: AddHistoryDto = {
-      record_id: id,
-      boil_value: null,
-      historyType: state,
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: null,
-    };
-    addHistory(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: id,
+        boil_value: null,
+        historyType: state,
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: null,
+      };
+      addHistory(data);
+    }
   };
 
   return (

@@ -1,12 +1,12 @@
 import * as React from "react";
 import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
 import MainPageHeader from "../../shared/components/headers/MainPageHeader";
-
-import { ChangeUserRolesModal } from "./ChangeUserRolesModal";
 import NotMobileVersion from "../../shared/components/not-mobile-version";
-import UsersFilter from "./users-filter";
+import UsersFilter from "./filter/users-filter";
 import UsersPagination from "./users-pagination";
 import UsersTable from "./users-table";
+import UpdateUserModal from "./update-user-modal/update-user-modal";
+import UpdateUserRolesModal from "./update-user-roles-modal/update-user-roles-modal";
 
 const Users = () => {
   return (
@@ -16,7 +16,8 @@ const Users = () => {
       <UsersFilter />
       <NotMobileVersion />
       <UsersTable />
-      <ChangeUserRolesModal />
+      <UpdateUserRolesModal />
+      <UpdateUserModal />
       <UsersPagination />
     </React.Fragment>
   );

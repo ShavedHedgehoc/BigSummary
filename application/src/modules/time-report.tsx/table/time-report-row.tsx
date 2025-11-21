@@ -5,9 +5,7 @@ import { formatDateToString, formatTimeToString } from "../../../shared/helpers/
 import { TimeReportRowData } from "../../../shared/api/services/record-service";
 import { TableIconButton } from "../../../shared/ui/table-icon-button";
 import { useTimeReportHistoryModalStore } from "../store/use-time-report-history-modal-store";
-import { useShallow } from "zustand/shallow";
-
-
+import { useShallow } from "zustand/react/shallow";
 
 export default function TimeReportRow({ row }: { row: TimeReportRowData }) {
   const setOpen = useTimeReportHistoryModalStore(useShallow((state) => state.setOpen));

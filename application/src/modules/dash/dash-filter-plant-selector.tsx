@@ -1,8 +1,4 @@
-import { useShallow } from "zustand/shallow";
-
-import { useQuery } from "@tanstack/react-query";
-import PlantService from "../../shared/api/services/plant-service";
-
+import { useShallow } from "zustand/react/shallow";
 import { useDashFilterStore } from "./store/dash-filter-store";
 import { DashFilterParams } from "./dash-filter-params";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
@@ -12,20 +8,6 @@ export default function DashFilterPlantSelector() {
   const selectedPlant = useDashFilterStore(useShallow((state) => state.selectedPlant));
   const setSelectedPlant = useDashFilterStore(useShallow((state) => state.setSelectedPlant));
   const plantSelectorOptions = useDashFilterStore(useShallow((state) => state.plantSelectorOptions));
-  const fillPlantSelectorOptions = useDashFilterStore(useShallow((state) => state.fillPlantSelectorOptions));
-
-  useQuery({
-    queryKey: ["plants_options", "foreman"],
-    queryFn: async () => {
-      const data = await PlantService.getAllPlants();
-      if (data) {
-        fillPlantSelectorOptions(data);
-        setSelectedPlant(data[1].id);
-        changeFilter({ key: DashFilterParams.PLANT, value: "", values: [data[1].id] });
-        return data;
-      }
-    },
-  });
 
   const plantOptions = plantSelectorOptions.map((plant) => (
     <FilterSelectorOption key={`plant_option_${plant.id}`} id={plant.id} value={plant.value} />

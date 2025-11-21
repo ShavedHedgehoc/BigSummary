@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import TableLayout from "../../shared/layouts/table-layout";
 import RowComponent from "./records-row";
 import TableLoaderComponent from "../../shared/components/table-loader";

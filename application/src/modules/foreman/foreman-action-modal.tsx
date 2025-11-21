@@ -1,18 +1,15 @@
-import * as React from "react";
 import Box from "@mui/joy/Box";
 import Sheet from "@mui/joy/Sheet";
-import { Context } from "../../main";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import ModalMobileLayout from "../../shared/layouts/modal-mobile-layout";
 import { useColorScheme } from "@mui/joy";
 import { useCreateHistoryMobile } from "../../shared/api/use-create-history-mobile";
 import { useCreateHistoryDirectMobile } from "../../shared/api/use-create-history-direct-mobile";
 import { useForemanActionModalStore } from "./store/use-foreman-action-modal-store";
 import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
+import { useAuthStore } from "../auth/store/auth-store";
 
 export default function ForemanActionModal() {
-  const { store } = React.useContext(Context);
-
   const open = useForemanActionModalStore(useShallow((state) => state.open));
   const record = useForemanActionModalStore(useShallow((state) => state.record));
   const startButtonEnabled = useForemanActionModalStore(useShallow((state) => state.startButtonEnabled));
@@ -20,20 +17,23 @@ export default function ForemanActionModal() {
   const cancelStartButtonEnabled = useForemanActionModalStore(useShallow((state) => state.cancelStartButtonEnabled));
   const cancelFinishButtonEnabled = useForemanActionModalStore(useShallow((state) => state.cancelFinishButtonEnabled));
   const setOpen = useForemanActionModalStore(useShallow((state) => state.setOpen));
+  const user = useAuthStore(useShallow((state) => state.user));
   const addHistoryDirectMobile = useCreateHistoryDirectMobile();
   const addHistoryMobile = useCreateHistoryMobile();
 
   const makeHistoryRecord = (id: number, state: string) => {
-    const data: AddHistoryDto = {
-      record_id: id,
-      boil_value: null,
-      historyType: state,
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: null,
-    };
-    addHistoryMobile(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: id,
+        boil_value: null,
+        historyType: state,
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: null,
+      };
+      addHistoryMobile(data);
+    }
   };
 
   const modalProps = {
@@ -57,31 +57,35 @@ export default function ForemanActionModal() {
   };
 
   const handleCancelStartButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: record ? record.id : null,
-      boil_value: null, //add state to store
-      historyType: "product_pass", // condition between boil & record = > state
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: "Отмена ошибочного внесения",
-    };
-    setOpen(false);
-    addHistoryDirectMobile(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: record ? record.id : null,
+        boil_value: null, //add state to store
+        historyType: "product_pass", // condition between boil & record = > state
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: "Отмена ошибочного внесения",
+      };
+      setOpen(false);
+      addHistoryDirectMobile(data);
+    }
   };
 
   const handleCancelFinishButtonClick = () => {
-    const data: AddHistoryDto = {
-      record_id: record ? record.id : null,
-      boil_value: null, //add state to store
-      historyType: "product_in_progress", // condition between boil & record = > state
-      userId: store.AuthStore.user.id,
-      employeeId: null,
-      note: null,
-      history_note: "Отмена ошибочного внесения",
-    };
-    setOpen(false);
-    addHistoryDirectMobile(data);
+    if (user) {
+      const data: AddHistoryDto = {
+        record_id: record ? record.id : null,
+        boil_value: null, //add state to store
+        historyType: "product_in_progress", // condition between boil & record = > state
+        userId: user.id,
+        employeeId: null,
+        note: null,
+        history_note: "Отмена ошибочного внесения",
+      };
+      setOpen(false);
+      addHistoryDirectMobile(data);
+    }
   };
 
   const CardComponent = () => {
@@ -327,23 +331,6 @@ export default function ForemanActionModal() {
               justifyContent: "flex-start",
               fontSize: "1rem",
             },
-            // () => ({
-            //   ...(record.stateValue === "base_check" && {
-            //     color: mode === "light" ? "#fef08a" : "#fde047",
-            //   }),
-            //   ...(record.stateValue === "base_correct" && {
-            //     color: mode === "light" ? "#fef08a" : "#fde047",
-            //   }),
-            //   ...(record.stateValue === "base_continue" && {
-            //     color: mode === "light" ? "#fef08a" : "#fde047",
-            //   }),
-            //   ...(record.stateValue === "plug_pass" && {
-            //     color: mode === "light" ? "#bbf7d0" : "#86efac",
-            //   }),
-            //   ...(record.stateValue === "base_fail" && {
-            //     color: mode === "light" ? "#fecaca" : "#fca5a5",
-            //   }),
-            // }),
           ]}
         >
           <Box sx={{ width: "100%", textAlign: "center" }}>

@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
 import { useTrademarksFilterStore } from "../store/use-trademarks-filter-store";

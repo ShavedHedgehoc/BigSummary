@@ -1,4 +1,4 @@
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { Box } from "@mui/joy";
 import { Typography } from "@mui/joy";
 import FormSwitcher, { FormSwitcherProps } from "../../shared/ui/form-switcher";

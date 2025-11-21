@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useBoilsUploadUploadModalStore } from "./store/use-boils-upload-upload-modal-store";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import UniversalProcessModal, { UniversalProcessModalProps } from "../../shared/components/universal-process-modal";
 import { Box, Button, Typography } from "@mui/joy";
 import { useBoilsUploadEndUploadModalStore } from "./store/use-boils-upload-end-upload-modal";
-
 import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
@@ -47,7 +46,6 @@ export default function BoilsUploadEndUploadModal() {
   );
   const props: UniversalProcessModalProps = {
     open: open,
-    // open: true,
     minWidth: 500,
     title: "",
     content: content,

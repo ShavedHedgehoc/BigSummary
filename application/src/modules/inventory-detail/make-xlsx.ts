@@ -1,13 +1,13 @@
-import * as XLSX from "xlsx-js-style";
+import { utils, writeFile } from "xlsx-js-style";
 
 import { formatDateToString } from "../../shared/helpers/date-time-formatters";
 import { InventoryRowsData } from "../../shared/api/services/inventory-rows-service";
 
 export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
-  const workbook = XLSX.utils.book_new();
+  const workbook = utils.book_new();
   const headers = ["Код 1С", "Наименование", "Партия", "Срок годности", "Остаток, дней", "Количество"];
 
-  const worksheet = XLSX.utils.aoa_to_sheet([
+  const worksheet = utils.aoa_to_sheet([
     headers.map((cell) => ({
       v: cell,
       t: "s",
@@ -25,7 +25,7 @@ export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
     })),
   ]);
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Переучет");
+  utils.book_append_sheet(workbook, worksheet, "Переучет");
   worksheet["!cols"] = [{ wch: 10 }, { wch: 50 }, { wch: 25 }, { wch: 20 }, { wch: 20 }, { wch: 20 }];
 
   const rows = data.map((row) => [
@@ -97,7 +97,7 @@ export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
     },
     {
       v: row.quantity,
-      t: "s",
+      t: "n",
       s: {
         alignment: { horizontal: "center" },
         border: {
@@ -110,6 +110,6 @@ export default function makeXLSXFile(data: InventoryRowsData[], title: string) {
     },
   ]);
 
-  XLSX.utils.sheet_add_aoa(worksheet, rows, { origin: "A2" });
-  XLSX.writeFile(workbook, `${title}.xlsx`, { compression: true });
+  utils.sheet_add_aoa(worksheet, rows, { origin: "A2" });
+  writeFile(workbook, `${title}.xlsx`, { compression: true });
 }

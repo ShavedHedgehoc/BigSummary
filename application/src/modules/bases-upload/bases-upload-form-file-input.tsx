@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Typography } from "@mui/joy";
 
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useBasesUploadFormStore } from "./store/use-bases-upload-form-store";
 
 export default function BasesUploadFormFileInput() {

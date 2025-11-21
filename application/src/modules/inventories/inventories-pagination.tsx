@@ -1,5 +1,5 @@
 import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 import { useInventoriesPaginationStore } from "./store/use-inventories-pagination-store";
 
 export default function InventoriesPagination() {
