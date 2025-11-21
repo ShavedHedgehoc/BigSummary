@@ -4,28 +4,30 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { PrismaModule } from "./prisma/prisma.module";
 import { EmployeesModule } from "./employees/employees.module";
-import { ExtrusionModule } from "./extrusion/extrusion.module";
+import { ParamsModule } from "./params/params.module";
 import { HealthCheckModule } from "./health-check/health-check.module";
 import { ConveyorsModule } from "./conveyors/conveyors.module";
 import { SummariesModule } from "./summaries/summaries.module";
-import { SummaryRawMaterialsModule } from "./summary-raw-materials/summary-raw-materials.module";
-import { SummaryRawMaterialsCurrentModule } from "./summary-raw-materials-current/summary-raw-materials-current.module";
-import { ChiefTechnologistNotesModule } from "./chief-technologist-notes/chief-technologist-notes.module";
-import { RondelTypesModule } from "./rondel-types/rondel-types.module";
+
+import { RondelsModule } from "./rondels/rondels.module";
+
+import { ConsumedMaterialsModule } from "./consumed-materials/consumed-materials.module";
+import { ProductsModule } from './products/products.module';
+import { PicturesModule } from './pictures/pictures.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     PrismaModule,
-    ExtrusionModule,
-    EmployeesModule,
-    HealthCheckModule,
-    ConveyorsModule,
     SummariesModule,
-    SummaryRawMaterialsModule,
-    SummaryRawMaterialsCurrentModule,
-    ChiefTechnologistNotesModule,
-    RondelTypesModule,
+    ParamsModule,
+    ConsumedMaterialsModule,
+    EmployeesModule,
+    ConveyorsModule,
+    RondelsModule,
+    HealthCheckModule,
+    ProductsModule,
+    PicturesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

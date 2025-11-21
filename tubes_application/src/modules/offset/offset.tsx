@@ -1,27 +1,30 @@
-import React from "react";
 import { useActiveSummary } from "@/shared/api/use-active-summary";
 import { useConveyor } from "@/shared/api/use-conveyor";
-import NotFound from "@/shared/components/not-found-full-screen";
+import NotFound from "@/shared/components/info/not-found-full-screen";
 import { AppMessages } from "@/shared/resources/app-messages";
 import type { Params } from "@/shared/router/params";
 import { useParams } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
-import type { PageLayoutProps } from "../common/page-layout";
-import PageLayout from "../common/page-layout";
-import TimeComponent from "../common/time-component";
-import HeaderComponent from "../common/header-component";
-import UserComponent from "../common/user-component";
-import ProductionCard from "../common/production-card";
-import MaterialPieChartComponent from "../common/material-pie-chart-component";
-import Loader from "../common/loader";
-import Info from "../common/info";
-import ProductionLineChart from "../common/production-line-chart";
-import OffsetMenu from "./offset-menu";
-
-import OffsetAuthModal from "./offset-auth-modal";
+import type { PageLayoutProps } from "../../shared/components/layouts/page-layout";
+import PageLayout from "../../shared/components/layouts/page-layout";
+import TimeComponent from "../../shared/components/lines/time-component";
+import HeaderComponent from "../../shared/components/headers/header-component";
+import UserComponent from "../../shared/components/lines/user-component";
+import ProductionCard from "../../shared/components/cards/production-card/production-card";
+import MaterialPieChartComponent from "../../shared/components/charts/material-pie-chart-component";
+import Loader from "../../shared/components/info/loader";
+import Info from "../../shared/components/info/info";
+import ProductionLineChart from "../../shared/components/charts/production-line-chart";
+import OffsetMenu from "./dash/menu/offset-menu";
 import { useOffsetConveyorStore } from "./store/use-offset-conveyor-store";
 import { useOffsetEmployeeStore } from "./store/use-offset-employee-store";
 import { PostNames } from "@/shared/helpers/post-names";
+import { ColorModeProvider } from "@/components/ui/color-mode";
+import { Theme } from "@chakra-ui/react";
+import OffsetAuthModal from "./dash/modals/offset-auth-modal";
+import OffsetLogoutAlertModal from "./dash/modals/offset-logout-alert-modal";
+import OffsetMaterialScanModal from "./dash/modals/offset-material-scan-modal";
+import OffsetParameters from "./dash/offset-parameters";
 
 export default function Offset() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -36,11 +39,12 @@ export default function Offset() {
   const pageLayoutProps: PageLayoutProps = {
     timeComponent: <TimeComponent />,
     headerComponent: <HeaderComponent conveyorName={offsetConveyor.name} postName={PostNames.OFFSET} />,
-    parameterComponent: undefined,
-    materialPieChartComponent: <MaterialPieChartComponent summaryId={summaryData?.id} postId={3} />,
-    productionLineChartComponent: <ProductionLineChart summaryId={summaryData?.id} postId={3} />,
-    productionCardComponent: <ProductionCard data={summaryData ?? null} postId={3} />,
+    parameterComponent: <OffsetParameters summaryData={summaryData ?? null} />,
+    materialPieChartComponent: <MaterialPieChartComponent summaryData={summaryData ?? null} postId={3} />,
+    productionLineChartComponent: <ProductionLineChart summaryData={summaryData ?? null} postId={3} />,
+    productionCardComponent: <ProductionCard summaryData={summaryData ?? null} postId={3} />,
     menuComponent: <OffsetMenu />,
+
     userComponent: <UserComponent employee={employee} />,
     loaderComponent: <Loader />,
     notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
@@ -49,9 +53,13 @@ export default function Offset() {
   };
 
   return (
-    <React.Fragment>
-      <PageLayout {...pageLayoutProps} />
-      <OffsetAuthModal />
-    </React.Fragment>
+    <ColorModeProvider forcedTheme="dark">
+      <Theme appearance="dark" colorPalette="gray">
+        <PageLayout {...pageLayoutProps} />
+        <OffsetAuthModal />
+        <OffsetLogoutAlertModal />
+        <OffsetMaterialScanModal summary_id={summaryData?.data.id} />
+      </Theme>
+    </ColorModeProvider>
   );
 }

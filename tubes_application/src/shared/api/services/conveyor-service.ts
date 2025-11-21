@@ -6,9 +6,10 @@ export interface IConveyor {
   name: string;
 }
 
+//use-conveyors
 export default class ConveyorService {
   static async getConveyorByName(conveyorName: string | null): Promise<IConveyor> {
-    const res = await $api.get(`${ApiRoutes.GET_CONVEYORS}/${conveyorName}`);
+    const res = await $api.get(`${ApiRoutes.GET_CONVEYOR_BY_NAME}${conveyorName}`);
     return res.data;
   }
 }

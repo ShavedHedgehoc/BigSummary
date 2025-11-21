@@ -1,4 +1,4 @@
-import { CloseButton, Dialog, Input, Portal } from "@chakra-ui/react";
+import { CloseButton, Dialog, Input } from "@chakra-ui/react";
 
 import { useRef, useState } from "react";
 
@@ -32,30 +32,30 @@ export default function ScanModal(props: ScanModalProps) {
       onOpenChange={(e) => props.setOpen(e.open)}
       initialFocusEl={() => ref.current}
     >
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Header>
-              <Dialog.Title color="fg.subtle">{props.title}</Dialog.Title>
-            </Dialog.Header>
-            <Dialog.Body>
-              <Input
-                ref={ref}
-                type="text"
-                color="fg.subtle"
-                focusRingColor="fg.subtle"
-                value={inputField}
-                onChange={(e) => setInputField(e.target.value)}
-                onKeyDown={(e) => handleInputKeyDown(e)}
-              />
-            </Dialog.Body>
-            <Dialog.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Dialog.CloseTrigger>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      {/* <Portal> */}
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title color="fg.subtle">{props.title}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Body>
+            <Input
+              ref={ref}
+              type="text"
+              color="fg.subtle"
+              focusRingColor="fg.subtle"
+              value={inputField}
+              onChange={(e) => setInputField(e.target.value)}
+              onKeyDown={(e) => handleInputKeyDown(e)}
+            />
+          </Dialog.Body>
+          <Dialog.CloseTrigger asChild>
+            <CloseButton size="sm" />
+          </Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+      {/* </Portal> */}
     </Dialog.Root>
   );
 }

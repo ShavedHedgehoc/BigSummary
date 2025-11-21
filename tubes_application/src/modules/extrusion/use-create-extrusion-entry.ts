@@ -1,6 +1,6 @@
 import handleError from "@/shared/api/http/handle-error";
-import ExtrusionService from "@/shared/api/services/extrusion-service";
-import { ClientMessages } from "@/shared/resources/client-messages";
+import ParamsService from "@/shared/api/services/params-service";
+import { AppMessages } from "@/shared/resources/app-messages";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 
@@ -8,10 +8,10 @@ export function useCreateExtrusionEntry() {
   const client = useQueryClient();
 
   const { mutate: createExtrusionEntry, isPending } = useMutation({
-    mutationFn: ExtrusionService.createExtrusionEntry,
+    mutationFn: ParamsService.createExtrusionEntry,
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["active_summary"] });
-      enqueueSnackbar(ClientMessages.RECORD_SUCCESFULL_ADDED, {
+      enqueueSnackbar(AppMessages.RECORD_SUCCESFULL_ADDED, {
         variant: "success",
         anchorOrigin: { vertical: "top", horizontal: "right" },
       });

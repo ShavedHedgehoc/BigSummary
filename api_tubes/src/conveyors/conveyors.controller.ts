@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, Param, Query } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ConveyorsService } from "./conveyors.service";
 
@@ -6,9 +6,15 @@ import { ConveyorsService } from "./conveyors.service";
 @Controller("conveyors")
 export class ConveyorsController {
   constructor(private readonly conveyorService: ConveyorsService) {}
+  @ApiOperation({ summary: "Получить конвейер по id" })
+  @Get("/:id")
+  getConveyorById(@Param("id") id: string) {
+    return this.conveyorService.getConveyorById(Number(id));
+  }
+  // used in dashboard conveyor service
   @ApiOperation({ summary: "Получить конвейер по имени" })
-  @Get("/:conveyor_name")
-  getConveyorByName(@Param("conveyor_name") conveyor_name: string) {
-    return this.conveyorService.getConveyorByName(conveyor_name);
+  @Get()
+  getConveyorByName(@Query("name") name: string) {
+    return this.conveyorService.getConveyorByName(name);
   }
 }

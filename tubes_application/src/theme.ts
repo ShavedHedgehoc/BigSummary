@@ -9,7 +9,6 @@ const config = defineConfig({
       },
     },
     tokens: {
-      colors: {},
       animations: {
         colorCycle: { value: `colorChange 1s  infinite` },
       },

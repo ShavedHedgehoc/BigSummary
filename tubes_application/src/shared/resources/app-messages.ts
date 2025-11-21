@@ -1,8 +1,15 @@
 export enum AppMessages {
   CONVEYOR_NOT_SPECIFIED = "В строке поиска отсутствует конвейер",
   CONVEYOR_NOT_EXISTS = "Конвейера с таким номером нет в базе данных",
+  PRODUCT_NOT_EXISTS = "Продукта с таким id нет в базе данных",
   SERVER_FALLDOWN = "Сервер недоступен",
   ACTIVE_SUMMARY_NOT_FOUND = "Нет активной записи сводки ",
   PARAMETERS_OUT_TRESHOLDS = "Некоторые параметры выходят за границы регламентных значений",
   WANT_TO_QUIT_PROMPT = "Вы действительно хотите выйти?",
+  AUTH_SUCCESSFUL = "Авторизация успешна",
+  EMPLOYEE_NOT_FOUND = "Сотрудник с таким штрихкодом не найден",
+  MATERIAL_SCAN_ERROR = "Ошибка сканирования материалов",
+  RECORD_SUCCESFULL_ADDED = "Запись успешно внесена",
+  ROUTE_NOT_FOUND = "Адрес страницы не найден",
+  PICTURES_NOT_FOUND = "Сопоставленных изображений не найдено",
 }

@@ -1,4 +1,4 @@
-import type { IRondelType } from "@/shared/api/services/rondel-type-service";
+import type { IRondel } from "@/shared/api/services/rondel-service";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
@@ -8,7 +8,7 @@ interface DataFormField {
   values?: string[];
 }
 
-interface ICurrentParametersInputData {
+interface IExtrusionParameterData {
   counter_value: string;
   press_speed: string;
   blow_time: string;
@@ -28,20 +28,20 @@ interface ICurrentParametersInputData {
   rondel_type: string | null;
 }
 
-interface ExtrusionInputCurrentParametersStore {
-  data: ICurrentParametersInputData;
+interface ExtrusionInputStore {
+  data: IExtrusionParameterData;
   selectedRondelType: string[] | undefined;
-  rondelTypeSelectorOptions: IRondelType[] | [];
+  rondelTypeSelectorOptions: IRondel[] | [];
   initData: () => void;
   changeData: (value: DataFormField) => void;
   clearData: (value: Partial<DataFormField>) => void;
   sliceData: (value: Partial<DataFormField>) => void;
   roundData: (value: Partial<DataFormField>) => void;
-  fillRondelTypeSelectorOptions: (values: IRondelType[]) => void;
+  fillRondelTypeSelectorOptions: (values: IRondel[]) => void;
   setSelectedRondelType: (value: string[] | undefined) => void;
 }
 
-const initDataValue: ICurrentParametersInputData = {
+export const initDataValue: IExtrusionParameterData = {
   counter_value: "0",
   press_speed: "0",
   blow_time: "0",
@@ -59,7 +59,7 @@ const initDataValue: ICurrentParametersInputData = {
   rondel_type: null,
 };
 
-export enum CurrentParametersInputDataParams {
+export enum ExtrusionInputParams {
   COUNTER_VALUE = "counter_value",
   PRESS_SPEED = "press_speed",
   BLOW_TIME = "blow_time",
@@ -77,7 +77,7 @@ export enum CurrentParametersInputDataParams {
 }
 
 //extrusionParamsStore
-export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurrentParametersStore>()(
+export const useExtrusionInputStore = create<ExtrusionInputStore>()(
   devtools((set) => ({
     data: initDataValue,
     selectedRondelType: undefined,
@@ -85,46 +85,46 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
     initData: () => set(() => ({ data: initDataValue, selectedRondelType: undefined })),
     clearData: ({ key }) => {
       switch (key) {
-        case CurrentParametersInputDataParams.COUNTER_VALUE:
+        case ExtrusionInputParams.COUNTER_VALUE:
           set((state) => ({ data: { ...state.data, counter_value: "0" } }));
           break;
-        case CurrentParametersInputDataParams.PRESS_SPEED:
+        case ExtrusionInputParams.PRESS_SPEED:
           set((state) => ({ data: { ...state.data, press_speed: "0" } }));
           break;
-        case CurrentParametersInputDataParams.BLOW_TIME:
+        case ExtrusionInputParams.BLOW_TIME:
           set((state) => ({ data: { ...state.data, blow_time: "0" } }));
           break;
-        case CurrentParametersInputDataParams.TURNING_MACHINE_SPEED:
+        case ExtrusionInputParams.TURNING_MACHINE_SPEED:
           set((state) => ({ data: { ...state.data, turning_machine_speed: "0" } }));
           break;
-        case CurrentParametersInputDataParams.ANNEALING_FURNACE_TEMP:
+        case ExtrusionInputParams.ANNEALING_FURNACE_TEMP:
           set((state) => ({ data: { ...state.data, annealing_furnace_temp: "0" } }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_SECTION_LENGTH:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_SECTION_LENGTH:
           set((state) => ({ data: { ...state.data, tube_cilindrical_section_length: "0" } }));
           break;
-        case CurrentParametersInputDataParams.MEMBRANE_THICKNESS:
+        case ExtrusionInputParams.MEMBRANE_THICKNESS:
           set((state) => ({ data: { ...state.data, membrane_thickness: "0" } }));
           break;
-        case CurrentParametersInputDataParams.TUBE_DIAMETER:
+        case ExtrusionInputParams.TUBE_DIAMETER:
           set((state) => ({ data: { ...state.data, tube_diameter: "0" } }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_THICKNESS:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_THICKNESS:
           set((state) => ({ data: { ...state.data, tube_cilindrical_thikness: "0" } }));
           break;
-        case CurrentParametersInputDataParams.TUBE_RIGIDITY:
+        case ExtrusionInputParams.TUBE_RIGIDITY:
           set((state) => ({ data: { ...state.data, tube_rigidity: "0" } }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CUTTING_QUALITY:
+        case ExtrusionInputParams.TUBE_CUTTING_QUALITY:
           set((state) => ({ data: { ...state.data, tube_cutting_quality: false } }));
           break;
-        case CurrentParametersInputDataParams.TIGHTNESS:
+        case ExtrusionInputParams.TIGHTNESS:
           set((state) => ({ data: { ...state.data, tightness: false } }));
           break;
-        case CurrentParametersInputDataParams.EXTERNAL_THREAD_QUALITY:
+        case ExtrusionInputParams.EXTERNAL_THREAD_QUALITY:
           set((state) => ({ data: { ...state.data, external_thread_quality: false } }));
           break;
-        case CurrentParametersInputDataParams.RONDEL_TYPE:
+        case ExtrusionInputParams.RONDEL_TYPE:
           set((state) => ({ data: { ...state.data, rondel_type_id: null } }));
           break;
         default:
@@ -133,7 +133,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
     },
     sliceData: ({ key }) => {
       switch (key) {
-        case CurrentParametersInputDataParams.COUNTER_VALUE:
+        case ExtrusionInputParams.COUNTER_VALUE:
           set((state) => ({
             data: {
               ...state.data,
@@ -141,7 +141,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.PRESS_SPEED:
+        case ExtrusionInputParams.PRESS_SPEED:
           set((state) => ({
             data: {
               ...state.data,
@@ -149,7 +149,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.BLOW_TIME:
+        case ExtrusionInputParams.BLOW_TIME:
           set((state) => ({
             data: {
               ...state.data,
@@ -157,7 +157,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TURNING_MACHINE_SPEED:
+        case ExtrusionInputParams.TURNING_MACHINE_SPEED:
           set((state) => ({
             data: {
               ...state.data,
@@ -166,7 +166,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.ANNEALING_FURNACE_TEMP:
+        case ExtrusionInputParams.ANNEALING_FURNACE_TEMP:
           set((state) => ({
             data: {
               ...state.data,
@@ -175,7 +175,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_SECTION_LENGTH:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_SECTION_LENGTH:
           set((state) => ({
             data: {
               ...state.data,
@@ -186,7 +186,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.MEMBRANE_THICKNESS:
+        case ExtrusionInputParams.MEMBRANE_THICKNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -195,7 +195,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_DIAMETER:
+        case ExtrusionInputParams.TUBE_DIAMETER:
           set((state) => ({
             data: {
               ...state.data,
@@ -203,7 +203,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_THICKNESS:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_THICKNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -214,7 +214,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_RIGIDITY:
+        case ExtrusionInputParams.TUBE_RIGIDITY:
           set((state) => ({
             data: {
               ...state.data,
@@ -228,7 +228,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
     },
     changeData: ({ key, value }) => {
       switch (key) {
-        case CurrentParametersInputDataParams.COUNTER_VALUE:
+        case ExtrusionInputParams.COUNTER_VALUE:
           set((state) => ({
             data: {
               ...state.data,
@@ -247,7 +247,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.PRESS_SPEED:
+        case ExtrusionInputParams.PRESS_SPEED:
           set((state) => ({
             data: {
               ...state.data,
@@ -266,7 +266,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.BLOW_TIME:
+        case ExtrusionInputParams.BLOW_TIME:
           set((state) => ({
             data: {
               ...state.data,
@@ -283,7 +283,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TURNING_MACHINE_SPEED:
+        case ExtrusionInputParams.TURNING_MACHINE_SPEED:
           set((state) => ({
             data: {
               ...state.data,
@@ -303,7 +303,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.ANNEALING_FURNACE_TEMP:
+        case ExtrusionInputParams.ANNEALING_FURNACE_TEMP:
           set((state) => ({
             data: {
               ...state.data,
@@ -323,7 +323,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_SECTION_LENGTH:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_SECTION_LENGTH:
           set((state) => ({
             data: {
               ...state.data,
@@ -343,7 +343,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.MEMBRANE_THICKNESS:
+        case ExtrusionInputParams.MEMBRANE_THICKNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -363,7 +363,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_DIAMETER:
+        case ExtrusionInputParams.TUBE_DIAMETER:
           set((state) => ({
             data: {
               ...state.data,
@@ -382,7 +382,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_THICKNESS:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_THICKNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -402,7 +402,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_RIGIDITY:
+        case ExtrusionInputParams.TUBE_RIGIDITY:
           set((state) => ({
             data: {
               ...state.data,
@@ -421,7 +421,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CUTTING_QUALITY:
+        case ExtrusionInputParams.TUBE_CUTTING_QUALITY:
           set((state) => ({
             data: {
               ...state.data,
@@ -429,7 +429,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TIGHTNESS:
+        case ExtrusionInputParams.TIGHTNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -437,7 +437,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.EXTERNAL_THREAD_QUALITY:
+        case ExtrusionInputParams.EXTERNAL_THREAD_QUALITY:
           set((state) => ({
             data: {
               ...state.data,
@@ -445,7 +445,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.RONDEL_TYPE:
+        case ExtrusionInputParams.RONDEL_TYPE:
           set((state) => ({
             data: {
               ...state.data,
@@ -467,7 +467,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
     },
     roundData: ({ key }) => {
       switch (key) {
-        case CurrentParametersInputDataParams.COUNTER_VALUE:
+        case ExtrusionInputParams.COUNTER_VALUE:
           set((state) => ({
             data: {
               ...state.data,
@@ -475,7 +475,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.PRESS_SPEED:
+        case ExtrusionInputParams.PRESS_SPEED:
           set((state) => ({
             data: {
               ...state.data,
@@ -483,7 +483,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.BLOW_TIME:
+        case ExtrusionInputParams.BLOW_TIME:
           set((state) => ({
             data: {
               ...state.data,
@@ -491,7 +491,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TURNING_MACHINE_SPEED:
+        case ExtrusionInputParams.TURNING_MACHINE_SPEED:
           set((state) => ({
             data: {
               ...state.data,
@@ -499,7 +499,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.ANNEALING_FURNACE_TEMP:
+        case ExtrusionInputParams.ANNEALING_FURNACE_TEMP:
           set((state) => ({
             data: {
               ...state.data,
@@ -507,7 +507,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_SECTION_LENGTH:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_SECTION_LENGTH:
           set((state) => ({
             data: {
               ...state.data,
@@ -515,7 +515,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.MEMBRANE_THICKNESS:
+        case ExtrusionInputParams.MEMBRANE_THICKNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -523,7 +523,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_DIAMETER:
+        case ExtrusionInputParams.TUBE_DIAMETER:
           set((state) => ({
             data: {
               ...state.data,
@@ -531,7 +531,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_CILINDRICAL_THICKNESS:
+        case ExtrusionInputParams.TUBE_CILINDRICAL_THICKNESS:
           set((state) => ({
             data: {
               ...state.data,
@@ -539,7 +539,7 @@ export const useExtrusionInputCurrentParametersStore = create<ExtrusionInputCurr
             },
           }));
           break;
-        case CurrentParametersInputDataParams.TUBE_RIGIDITY:
+        case ExtrusionInputParams.TUBE_RIGIDITY:
           set((state) => ({
             data: {
               ...state.data,

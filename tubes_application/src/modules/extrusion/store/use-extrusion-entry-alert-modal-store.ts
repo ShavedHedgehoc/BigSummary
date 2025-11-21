@@ -1,4 +1,4 @@
-import type { CreateExtrusionEntryDto } from "@/shared/api/services/extrusion-service";
+import type { CreateExtrusionEntryDto } from "@/shared/api/services/params-service";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 

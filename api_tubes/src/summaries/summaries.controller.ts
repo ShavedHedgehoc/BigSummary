@@ -1,18 +1,14 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Param, Query } from "@nestjs/common";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { SummariesService } from "./summaries.service";
 
-@ApiTags("Записи сводок")
+@ApiTags("Сводки")
 @Controller("summaries")
 export class SummariesController {
   constructor(private readonly summaryService: SummariesService) {}
-  @Get("/active/:conveyor_id")
-  getActiveSummaryRecordByConveyorId(@Param("conveyor_id") conveyor_id: string) {
+  @ApiOperation({ summary: "Получить активную сводку по id конвейера" })
+  @Get("/active")
+  getActiveSummaryRecordByConveyorId(@Query("conveyor_id") conveyor_id: string) {
     return this.summaryService.getActiveSummaryRecordByConveyorId(Number(conveyor_id));
-  }
-
-  @Get("/active_counters/:id")
-  getActiveSummaryCountersByConveyorId(@Param("id") id: string) {
-    return this.summaryService.getActiveSummaryCountersById(Number(id));
   }
 }

@@ -6,10 +6,10 @@ export interface IEmployee {
   name: string;
   barcode: string;
 }
-
+// employee login
 export default class EmployeeService {
   static async getEmployeeByBarcode(barcode: string): Promise<IEmployee> {
-    const res = await $api.get(`${ApiRoutes.GET_EMPLOYEES_BY_BARCODE}/${barcode}`);
+    const res = await $api.get(`${ApiRoutes.GET_EMPLOYEES_BY_BARCODE}${barcode}`);
     return res.data;
   }
 }
