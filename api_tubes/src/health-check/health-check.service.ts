@@ -6,6 +6,6 @@ import { PrismaService } from "src/prisma/prisma.service";
 export class HealthCheckService {
   constructor(private prisma: PrismaService) {}
   async checkHeath() {
-    return this.prisma.$queryRawTyped(health_check());
+    return this.prisma.$queryRaw`SELECT 1 AS health`;
   }
 }

@@ -131,7 +131,7 @@ services:
       args:
         - NODE_ENV=production
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/summary
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/tubesdb?schema=public
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
       POSTGRES_USERNAME: ${POSTGRES_USERNAME}
