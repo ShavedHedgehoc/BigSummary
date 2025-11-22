@@ -9,10 +9,9 @@ import NotFound from "../components/info/not-found-full-screen";
 import { AppMessages } from "../resources/app-messages";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Theme } from "@chakra-ui/react";
-import Posts from "../../modules/posts/posts";
 
 const Home = lazy(() => import("../../modules/home/home"));
-const Post = lazy(() => import("../../modules/posts/posts"));
+const Posts = lazy(() => import("../../modules/posts/posts"));
 const Extrusion = lazy(() => import("../../modules/extrusion/extrusion"));
 const ExtrusionAddEntry = lazy(() => import("../../modules/extrusion/extrusion-add-entry"));
 const Varnish = lazy(() => import("../../modules/varnish/varnish"));
