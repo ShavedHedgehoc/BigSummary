@@ -1,4 +1,9 @@
+// import { ApiProperty } from "@nestjs/swagger";
+// import { IsNumber } from "class-validator";
+
 export class CreateExtrusionEntryDto {
+  // @IsNumber()
+  // @ApiProperty({ example: 1, description: "id строки сводки" })
   readonly summary_id: number;
   readonly employee_id: number;
   readonly counter_value: number;

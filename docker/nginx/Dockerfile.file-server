@@ -1,0 +1,56 @@
+# Dockerfile для nginx файлового сервера
+FROM nginx:alpine
+
+# Создаем директорию для файлов
+RUN mkdir -p /usr/share/nginx/files
+
+# Копируем конфигурацию nginx для файлового сервера
+COPY nginx-file-server.conf /etc/nginx/conf.d/default.conf
+
+# Создаем простую HTML страницу для индекса
+RUN echo '<!DOCTYPE html>
+<html>
+<head>
+    <title>File Server</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { background: #f0f0f0; padding: 20px; border-radius: 5px; }
+        .info { background: #e8f4fd; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📁 Nginx File Server</h1>
+            <p>Сервер для отдачи статических файлов</p>
+        </div>
+        <div class="info">
+            <h3>Информация:</h3>
+            <ul>
+                <li>Файлы находятся в директории: <code>/usr/share/nginx/files</code></li>
+                <li>Доступ к файлам: <code>http://localhost:8080/files/</code></li>
+                <li>Volume: <code>files-data</code></li>
+            </ul>
+        </div>
+        <div class="info">
+            <h3>Примеры использования:</h3>
+            <ul>
+                <li>Скачать файл: <code>http://localhost:8080/files/document.pdf</code></li>
+                <li>Просмотр изображений: <code>http://localhost:8080/files/images/</code></li>
+                <li>Скачать архив: <code>http://localhost:8080/files/archive.zip</code></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>' > /usr/share/nginx/files/index.html
+
+# Устанавливаем права доступа
+RUN chmod -R 755 /usr/share/nginx/files
+
+# Открываем порт 8080
+EXPOSE 8080
+
+# Запускаем nginx
+CMD ["nginx", "-g", "daemon off;"]

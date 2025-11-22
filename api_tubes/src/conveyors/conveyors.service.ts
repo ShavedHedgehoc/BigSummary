@@ -13,4 +13,11 @@ export class ConveyorsService {
   async getConveyorById(id: number) {
     return this.prisma.conveyor.findUnique({ where: { id: id } });
   }
+  async getAllConveyors() {
+    const conveyors = await this.prisma.conveyor.findMany();
+    if (!conveyors) {
+      throw new HttpException("Conveyors not found", HttpStatus.NOT_FOUND);
+    }
+    return conveyors;
+  }
 }

@@ -22,7 +22,7 @@ ENV PATH /tubes_application/node_modules/.bin:$PATH
 COPY ./tubes_application/package*.json ./
 COPY ./tubes_application/tsconfig*.json ./
 COPY ./tubes_application/vite.config*.json ./
-COPY ./tubes_applicationh/src ./src
+COPY ./tubes_application/src ./src
 RUN npm ci
 COPY ./tubes_application .
 RUN npm run build

@@ -27,9 +27,24 @@ services:
     networks:
       - postgres
 
+  nginx-file-server:
+    container_name: nginx_file_server_container
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile.file-server
+    volumes:
+      - files-data:/usr/share/nginx/files
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - postgres
+
 volumes:
   summary-data:
   pgadmin-data:
+  files-data:
+
 networks:
   postgres:
     driver: bridge

@@ -228,7 +228,8 @@ services:
     restart: always
     ports:
       - "80:80"
-      - "3000:3000"
+      - "3000:3000" 
+      - "3100:3100"
       - "5000:5000"
     networks:
       - general
@@ -236,9 +237,32 @@ services:
       - app
       - workstation
 
+  nginx-file-server:
+    container_name: nginx_file_server_container
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile.file-server
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - files-data:/usr/share/nginx/files
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - postgres
+      - general
+    depends_on:
+      - postgres
+
 volumes:
   summary-data:
   pgadmin-data:
+  files-data:
+
 networks:
   general:
     driver: bridge
