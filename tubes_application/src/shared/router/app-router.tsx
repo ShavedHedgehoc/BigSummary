@@ -9,7 +9,10 @@ import NotFound from "../components/info/not-found-full-screen";
 import { AppMessages } from "../resources/app-messages";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Theme } from "@chakra-ui/react";
+import Posts from "../../modules/posts/posts";
 
+const Home = lazy(() => import("../../modules/home/home"));
+const Post = lazy(() => import("../../modules/posts/posts"));
 const Extrusion = lazy(() => import("../../modules/extrusion/extrusion"));
 const ExtrusionAddEntry = lazy(() => import("../../modules/extrusion/extrusion-add-entry"));
 const Varnish = lazy(() => import("../../modules/varnish/varnish"));
@@ -31,6 +34,8 @@ const AppRouter = () => {
       <Theme appearance="dark" colorPalette="gray">
         <BrowserRouter>
           <Routes>
+            <Route path={RouteNames.ROOT} element={<RouteSuspense children={<Home />} />} />
+            <Route path={RouteNames.POSTS} element={<RouteSuspense children={<Posts />} />} />
             <Route path={RouteNames.EXTRUSION} element={<RouteSuspense children={<Extrusion />} />} />
             <Route path={RouteNames.EXTRUSION_ADD_ENTRY} element={<RouteSuspense children={<ExtrusionAddEntry />} />} />
             <Route path={RouteNames.VARNISH} element={<RouteSuspense children={<Varnish />} />}></Route>

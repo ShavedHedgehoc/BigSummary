@@ -12,4 +12,8 @@ export default class ConveyorService {
     const res = await $api.get(`${ApiRoutes.GET_CONVEYOR_BY_NAME}${conveyorName}`);
     return res.data;
   }
+  static async getAllConveyors(): Promise<IConveyor[] | []> {
+    const res = await $api.get(ApiRoutes.GET_CONVEYORS);
+    return res.data;
+  }
 }

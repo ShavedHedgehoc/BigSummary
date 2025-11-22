@@ -1,6 +1,7 @@
 export enum ApiRoutes {
   HEALTH_CHECK = "health-check",
   GET_CONVEYOR_BY_NAME = "conveyors?name=",
+  GET_CONVEYORS = "conveyors/all",
   GET_PRODUCT_BY_ID = "products",
   GET_ACTIVE_SUMMARY = "summaries/active?conveyor_id=",
   GET_EMPLOYEES_BY_BARCODE = "employees?barcode=",

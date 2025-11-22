@@ -1,6 +1,7 @@
 export enum AppMessages {
   CONVEYOR_NOT_SPECIFIED = "В строке поиска отсутствует конвейер",
   CONVEYOR_NOT_EXISTS = "Конвейера с таким номером нет в базе данных",
+  CONVEYORS_NOT_FOUND = "Конвейера не найдены",
   PRODUCT_NOT_EXISTS = "Продукта с таким id нет в базе данных",
   SERVER_FALLDOWN = "Сервер недоступен",
   ACTIVE_SUMMARY_NOT_FOUND = "Нет активной записи сводки ",

@@ -1,4 +1,5 @@
 export enum RouteNames {
+  ROOT = "/",
   NOT_FOUND = "*",
   EXTRUSION_ROOT = "/extrusion",
   EXTRUSION = "/extrusion/:conveyor_name",
@@ -18,4 +19,6 @@ export enum RouteNames {
   SEALANT_ADD_ENTRY = "/sealant_add_entry/:conveyor_name",
   PICTURES = "/pictures/:product_id",
   PICTURES_ROOT = "/pictures",
+  POSTS = "/posts/:conveyor_name",
+  POSTS_ROOT = "/posts",
 }

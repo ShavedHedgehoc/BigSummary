@@ -6,6 +6,11 @@ import { ConveyorsService } from "./conveyors.service";
 @Controller("conveyors")
 export class ConveyorsController {
   constructor(private readonly conveyorService: ConveyorsService) {}
+  @ApiOperation({ summary: "Получить все конвейеры" })
+  @Get("/all")
+  getAllconveyors() {
+    return this.conveyorService.getAllConveyors();
+  }
   @ApiOperation({ summary: "Получить конвейер по id" })
   @Get("/:id")
   getConveyorById(@Param("id") id: string) {

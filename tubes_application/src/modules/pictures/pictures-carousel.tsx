@@ -44,7 +44,7 @@ export default function PicturesCarousel({ productId }: { productId: number | nu
                   <AspectRatio ratio={1.5 / 1} maxH="80vh" w="full">
                     <Image
                       src={new URL(`${AssestsFolderUrl}/${name}`, import.meta.url).href}
-                      alt={`Product ${index + 1}`}
+                      alt={`... ${AssestsFolderUrl}/${name}`}
                       objectFit="contain"
                     />
                   </AspectRatio>
