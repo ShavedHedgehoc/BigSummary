@@ -19,7 +19,7 @@ services:
 
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:9.9
+    image: dpage/pgadmin4:9.10
     logging:
       driver: "json-file"
       options:
