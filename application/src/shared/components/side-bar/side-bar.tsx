@@ -571,6 +571,20 @@ export default function SideBar() {
                   <ListItemContent>
                     <Link
                       component={RouterLink}
+                      to={RouteNames.TUBES_UPLOAD_PICTURES}
+                      color="neutral"
+                      underline="none"
+                      sx={{ display: "flex", gap: 1 }}
+                      onClick={() => closeSidebar()}
+                    >
+                      <Typography level="title-sm">Загрузка картинок</Typography>
+                    </Link>
+                  </ListItemContent>
+                </ListItem>
+                <ListItem sx={{ mt: 0.5 }} role="none">
+                  <ListItemContent>
+                    <Link
+                      component={RouterLink}
                       to={RouteNames.UI_PAGE}
                       color="neutral"
                       underline="none"

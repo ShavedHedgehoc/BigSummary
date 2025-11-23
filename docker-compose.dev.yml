@@ -45,7 +45,7 @@ services:
       POSTGRES_DB: "tubes_db"
       PORT: "7100"
     volumes:
-      - uploaded_files:/api_tubes/uploads 
+      - files_data:/api_tubes/uploads 
     ports:
       - "7100:7100"    
     depends_on:
@@ -117,7 +117,7 @@ volumes:
   pgadmin-data:
   files-data:
 networks:
-  # general:
-  #   driver: bridge
+  general:
+    driver: bridge
   postgres:
     driver: bridge

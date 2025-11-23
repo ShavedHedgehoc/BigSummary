@@ -31,7 +31,7 @@ export class UsersService {
   }
 
   async updateUser(dto: UpdateUserDto) {
-    console.log(dto);
+    // console.log(dto);
     const existsUser = await this.userRepository.findByPk(dto.user_id);
     if (!existsUser) {
       throw new HttpException("Пользователь не найден", HttpStatus.NOT_FOUND);

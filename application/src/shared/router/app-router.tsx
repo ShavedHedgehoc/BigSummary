@@ -51,6 +51,7 @@ const TraceBatchWeightingsSummaryDetail = React.lazy(
   () => import("../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail")
 );
 const BoilsUpload = React.lazy(() => import("../../modules/boils-upload/boils-upload"));
+const TubesUploadPictures = React.lazy(() => import("../../modules/upload-tube-pictures/upload-tube-pictures"));
 
 export default function AppRouter() {
   const isHealthy = useHealthStore(useShallow((state) => state.isHealthy));
@@ -124,6 +125,7 @@ export default function AppRouter() {
             <Route element={<RoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />
               <Route path={RouteNames.UI_PAGE} element={<UiPage />} />
+              <Route path={RouteNames.TUBES_UPLOAD_PICTURES} element={<TubesUploadPictures />} />
             </Route>
             <Route element={<RoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
               <Route path={RouteNames.CANS_DASH} element={<Cans />} />

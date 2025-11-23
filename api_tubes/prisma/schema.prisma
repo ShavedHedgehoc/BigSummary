@@ -44,6 +44,8 @@ model Pictures {
   product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   product_id Int
   src        String
+
+  @@map("pictures")
 }
 
 // Конвейеры

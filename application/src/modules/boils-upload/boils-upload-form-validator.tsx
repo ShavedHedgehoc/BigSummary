@@ -183,7 +183,7 @@ export default function BoilsUploadFormValidator() {
           if (!parsedData) {
             count++;
             parse.errors?.map((item) => {
-              console.log(item.message);
+              // console.log(item.message);
               const err: ValError = {
                 row: i + 2,
                 field: item.instancePath.substring(1),

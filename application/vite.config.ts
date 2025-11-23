@@ -29,6 +29,9 @@ export default defineConfig({
     host: true,
     port: 3000,
     proxy: {
+      "/api_tubes": {
+        target: "http://localhost:8000",
+      },
       "/api": {
         target: "http://localhost:7000",
         // rewrite: (path) => path.replace(/^\/api/, ""),

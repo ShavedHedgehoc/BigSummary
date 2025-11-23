@@ -2,6 +2,7 @@ import axios from "axios";
 import { ApiRoutes } from "./apiRoutes";
 
 export const apiUrl = `/api`;
+export const apiTubesUrl = `/api_tubes`;
 
 const $api = axios.create({
   withCredentials: true,
@@ -9,6 +10,14 @@ const $api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+const $apiTubes = axios.create({
+  withCredentials: true,
+  baseURL: apiTubesUrl,
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
 
 const $clearApi = axios.create({
@@ -61,4 +70,4 @@ $api.interceptors.response.use(
   }
 );
 
-export { $api, $clearApi };
+export { $api, $clearApi, $apiTubes };

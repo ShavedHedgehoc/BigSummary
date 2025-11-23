@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFile } from "@nestjs/common";
+import { Controller, Post, UseInterceptors, UploadedFile, BadRequestException } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Express } from "express";
 import { diskStorage } from "multer";
@@ -16,6 +16,15 @@ const editFileName = (req, file, callback) => {
   callback(null, file.originalname);
 };
 
+const imageFileFilter = (req, file, callback) => {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    // If the file extension is not valid, reject the file
+    return callback(new BadRequestException("Only image files are allowed!"), false);
+  }
+  // Accept the file
+  callback(null, true);
+};
+
 @Controller("upload")
 export class UploadController {
   @Post("file")
@@ -27,13 +36,14 @@ export class UploadController {
   @UseInterceptors(
     FileInterceptor("file", {
       storage: diskStorage({
-        destination: "./uploads", // The mounted volume path inside the container
+        destination: "./uploads/images", // The mounted volume path inside the container
         filename: editFileName, // Use the custom filename function
       }),
+      fileFilter: imageFileFilter,
     })
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
+    // console.log(file);
     return {
       message: "File uploaded successfully",
       filename: file.filename,
