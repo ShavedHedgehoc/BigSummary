@@ -27,7 +27,7 @@ RUN npm ci
 COPY ./public_api_2 .
 RUN npm run build
 
-FROM node:18-alpine AS runtime
+FROM node:20-alpine AS runtime
 WORKDIR /public_api_2
 
 COPY --from=builder /public_api_2/package*.json ./

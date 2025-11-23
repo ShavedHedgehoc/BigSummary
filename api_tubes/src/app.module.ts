@@ -8,12 +8,11 @@ import { ParamsModule } from "./params/params.module";
 import { HealthCheckModule } from "./health-check/health-check.module";
 import { ConveyorsModule } from "./conveyors/conveyors.module";
 import { SummariesModule } from "./summaries/summaries.module";
-
 import { RondelsModule } from "./rondels/rondels.module";
-
 import { ConsumedMaterialsModule } from "./consumed-materials/consumed-materials.module";
-import { ProductsModule } from './products/products.module';
-import { PicturesModule } from './pictures/pictures.module';
+import { ProductsModule } from "./products/products.module";
+import { PicturesModule } from "./pictures/pictures.module";
+import { UploadModule } from "./upload/upload.module";
 
 @Module({
   imports: [
@@ -28,6 +27,7 @@ import { PicturesModule } from './pictures/pictures.module';
     HealthCheckModule,
     ProductsModule,
     PicturesModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

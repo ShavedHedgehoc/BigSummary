@@ -28,6 +28,34 @@ services:
     restart: unless-stopped
     networks:
       - postgres
+  
+  tubes_api:
+    container_name: api_tubes
+    build:
+      context: .
+      dockerfile: docker/api_tubes/Dockerfile.prod
+      args:
+        - NODE_ENV=production
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/tubesdb?schema=public
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: "tubes_db"
+      PORT: "7100"
+    volumes:
+      - uploaded_files:/api_tubes/uploads 
+    ports:
+      - "7100:7100"    
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - postgres
+      - general
+
+
   # api:
   #   container_name: api_container
   #   build:
@@ -62,10 +90,32 @@ services:
   #     - "3000:3000"
   #   networks:
   #     - general
+  
+  nginx-file-server:
+    container_name: nginx_file_server_container
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile.file-server
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - files-data:/usr/share/nginx/files
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - postgres
+      - general
+    depends_on:
+      - postgres
 
 volumes:
   summary-data:
   pgadmin-data:
+  files-data:
 networks:
   # general:
   #   driver: bridge
