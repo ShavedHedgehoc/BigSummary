@@ -28,6 +28,8 @@ FROM node:20-alpine AS runtime
 WORKDIR /api_tubes
 COPY --from=builder /api_tubes/package*.json ./
 COPY --from=builder /api_tubes/tscongig*.json ./
+COPY --from=builder /api_tubes/prisma ./prisma
+
 RUN npm ci --omit=dev
 COPY --from=builder /api_tubes/dist ./dist
 CMD ["npm", "run", "start:migrate:prod"]
