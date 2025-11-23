@@ -1,13 +1,33 @@
-FROM node:18
+# FROM node:18
+
+# WORKDIR /api_tubes
+# COPY ./api_tubes/package*.json ./
+# COPY ./api_tubes/tsconfig*.json ./
+# COPY ./api_tubes/src ./src
+# RUN npm install
+# COPY ./api_tubes .
+# RUN npx prisma generate
+# RUN npm run build
+
+# # CMD ["npm", "run", "start:prod"]
+# CMD ["npm", "run", "start:migrate:prod"]
+
+FROM node AS builder
 
 WORKDIR /api_tubes
 COPY ./api_tubes/package*.json ./
 COPY ./api_tubes/tsconfig*.json ./
 COPY ./api_tubes/src ./src
-RUN npm install
+RUN npm ci
 COPY ./api_tubes .
 RUN npx prisma generate
 RUN npm run build
 
-# CMD ["npm", "run", "start:prod"]
+FROM node:20-alpine AS runtime
+
+WORKDIR /api_tubes
+COPY --from=builder /api_tubes/package*.json ./
+COPY --from=builder /api_tubes/tscongig*.json ./
+RUN npm ci --omit=dev
+COPY --from=builder /api_tubes/dist ./dist
 CMD ["npm", "run", "start:migrate:prod"]
