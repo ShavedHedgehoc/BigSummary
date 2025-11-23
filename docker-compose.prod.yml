@@ -139,7 +139,7 @@ services:
       POSTGRES_DB: "tubes_db"
       PORT: "7100"
     volumes:
-      - files_data:/api_tubes/uploads 
+      - files-data:/api_tubes/uploads 
     depends_on:
       - postgres
     restart: always
