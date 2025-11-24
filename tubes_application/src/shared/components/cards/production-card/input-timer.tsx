@@ -24,8 +24,8 @@ export default function InputTimer({ date, checkInterval }: { date: Date | undef
         new Date(date).getTime() + checkInterval * 60 * 1000 > new Date(today).getTime() ? "none" : "colorCycle"
       }
     >
-      <Heading size="md" w="full">{`${firstString} ${formatTimeToString(date)}`}</Heading>
-      <Heading size="md" w="full">
+      <Heading size="sm" w="full">{`${firstString} ${formatTimeToString(date)}`}</Heading>
+      <Heading size="sm" w="full">
         {new Date(date).getTime() + checkInterval * 60 * 1000 > new Date(today).getTime()
           ? `${secondString} 
                 ${new Date(

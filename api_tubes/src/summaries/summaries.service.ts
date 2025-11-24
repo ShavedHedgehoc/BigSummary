@@ -57,6 +57,7 @@ export class SummariesService {
             material: {
               include: {
                 consumed_materials: {
+                  // orderBy: { id: "desc" },
                   take: 1,
                 },
               },
@@ -118,6 +119,7 @@ export class SummariesService {
 
     return {
       data: data,
+      materials: activeRecord.specifications,
       extrusionTresholds: extrusionTreholds,
       varnishTresholds: varnishTreholds,
       offsetTresholds: offsetTreholds,

@@ -14,18 +14,19 @@ export interface ParameterCardProps {
 }
 export default function ParameterCard(props: ParameterCardProps) {
   return (
-    <Stat.Root w="full" h="full" px={6} py={8} backgroundColor="bg.panel" size="lg" rounded="lg">
-      <Stat.Label colorPalette="teal" fontSize="lg" justifyContent="center" textAlign="center">
+    // <Stat.Root w="full" h="full" px={6} py={8} backgroundColor="bg.panel" size="lg" rounded="lg">
+    <Stat.Root w="full" h="full" px={4} py={4} backgroundColor="bg.panel" size="md" rounded="lg">
+      <Stat.Label colorPalette="teal" fontSize="sm" justifyContent="center" textAlign="center">
         {props.title}
       </Stat.Label>
       <Stat.ValueText
-        fontSize={props.variant === "boolean" ? "xl" : "4xl"}
+        fontSize={props.variant === "boolean" ? "md" : "2xl"}
         justifyContent="center"
         alignItems="flex-end"
-        pt={4}
+        pt={2}
       >
         {props.variant === "numeric" && !props.minValue && !props.maxValue && (
-          <Text textStyle="xl" color="fg.subtle">
+          <Text textStyle="md" color="fg.subtle">
             Внесение не требуется
           </Text>
         )}
@@ -70,7 +71,7 @@ export default function ParameterCard(props: ParameterCardProps) {
           >
             {!(props.variant === "numeric" && !props.maxValue && !props.minValue) && <Status.Indicator />}
           </Status.Root>
-          <Stat.ValueUnit>
+          <Stat.ValueUnit pl={2}>
             {/* {props.variant === "numeric" && props.minValue && props.maxValue && (props.unit ?? "-")} */}
             {props.variant === "numeric" && (props.minValue || props.maxValue) && (props.unit ?? "-")}
           </Stat.ValueUnit>
@@ -80,7 +81,7 @@ export default function ParameterCard(props: ParameterCardProps) {
 
       {/* {props.variant === "numeric" && (props.minValue || props.maxValue) && ( */}
       {props.variant === "numeric" && typeof props.minValue === "number" && typeof props.maxValue === "number" && (
-        <HStack justifyContent="center" pt={2} gap={6}>
+        <HStack justifyContent="center" pt={1} gap={6}>
           <VStack gap={0}>
             <Text color="fg.a" textStyle="sm">
               {props.minValue ?? "-"}
@@ -89,7 +90,7 @@ export default function ParameterCard(props: ParameterCardProps) {
               Минимум
             </Text>
           </VStack>
-          <Separator orientation="vertical" height="8" size="sm" colorPalette="white" />
+          <Separator orientation="vertical" height="6" size="sm" colorPalette="white" />
           <VStack gap={0}>
             <Text color="fg.a" textStyle="sm">
               {props.maxValue ?? "-"}

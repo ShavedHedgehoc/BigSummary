@@ -15,11 +15,11 @@ export default function ProductionLineChart({ summaryData, postId }: { summaryDa
 
   const lineChart = useChart({ data: chartData, series: [{ name: "val", color: "teal.solid" }] });
   return (
-    <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={8} alignItems="center" justifyContent="center">
+    <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={4} alignItems="center" justifyContent="center">
       <VStack h="full" w="full" justify="center">
         {chartData.length ? (
           <Chart.Root boxSize="full" chart={lineChart} animation={"none"}>
-            <AreaChart data={lineChart.data} margin={{ top: 5, right: 0, left: -15, bottom: 5 }}>
+            <AreaChart data={lineChart.data} margin={{ top: 25, right: 25, left: -10, bottom: 5 }}>
               <CartesianGrid stroke={lineChart.color("border")} vertical={true} />
               <XAxis
                 axisLine={false}

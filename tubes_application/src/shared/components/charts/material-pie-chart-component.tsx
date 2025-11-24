@@ -30,8 +30,8 @@ export default function MaterialPieChartComponent({
           <Chart.Root boxSize="200px" chart={chart}>
             <PieChart>
               <Pie
-                innerRadius={80}
-                outerRadius={100}
+                innerRadius={60}
+                outerRadius={75}
                 isAnimationActive={false}
                 paddingAngle={8}
                 data={chart.data}
@@ -47,7 +47,7 @@ export default function MaterialPieChartComponent({
                   return (
                     <>
                       <text
-                        x={x}
+                        x={x + 15}
                         y={y - 10}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}
@@ -56,22 +56,22 @@ export default function MaterialPieChartComponent({
                         {`${chart.data[index].name.slice(0, 6)}`}
                       </text>
                       <text
-                        x={x}
+                        x={x + 15}
                         y={y + 10}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
                       >
-                        {`${chart.data[index].name.slice(6, 51)}`}
+                        {`${chart.data[index].name.slice(6, 40)}`}
                       </text>
                       <text
-                        x={x}
+                        x={x + 15}
                         y={y + 30}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
                       >
-                        {`${chart.data[index].name.slice(51)}`}
+                        {`${chart.data[index].name.slice(40)}`}
                       </text>
                     </>
                   );
@@ -83,6 +83,7 @@ export default function MaterialPieChartComponent({
                       viewBox={viewBox}
                       title={isAllScanned ? "OK" : "!"}
                       description={isAllScanned ? "Комплектующие" : "Отсканируйте"}
+                      // description={""}
                     />
                   )}
                 />

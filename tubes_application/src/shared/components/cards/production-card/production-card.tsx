@@ -40,10 +40,10 @@ export default function ProductionCard({ summaryData, postId }: { summaryData: I
         <HStack justify={"space-between"}>
           <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} />
           <HStack justify="end" alignItems="end" h="full">
-            <Text color="fg.subtle" textStyle="xl">
+            <Text color="fg.subtle" textStyle="md">
               Выработка поста:
             </Text>
-            <Text color="fg.a" textStyle="4xl">
+            <Text color="fg.a" textStyle="2xl">
               {production}
             </Text>
           </HStack>
