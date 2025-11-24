@@ -12,7 +12,7 @@
 # # CMD ["npm", "run", "start:prod"]
 # CMD ["npm", "run", "start:migrate:prod"]
 
-FROM node AS builder
+FROM node:18 AS builder
 
 WORKDIR /api_tubes
 COPY ./api_tubes/package*.json ./
@@ -23,7 +23,7 @@ COPY ./api_tubes .
 RUN npx prisma generate
 RUN npm run build
 
-FROM node:20-alpine AS runtime
+FROM node:18-alpine AS runtime
 
 WORKDIR /api_tubes
 COPY --from=builder /api_tubes/package*.json ./
