@@ -45,7 +45,7 @@ services:
       POSTGRES_DB: "tubes_db"
       PORT: "7100"
     volumes:
-      - files_data:/api_tubes/uploads 
+      - files-data:/api_tubes/uploads 
     ports:
       - "7100:7100"    
     depends_on:
