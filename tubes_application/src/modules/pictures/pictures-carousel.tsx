@@ -30,7 +30,7 @@ export default function PicturesCarousel({ productId }: { productId: number | nu
   return (
     <>
       {items.length ? (
-        <Carousel.Root slideCount={items.length} maxW="6xl" mx="auto" gap="4" position="relative" colorPalette="white">
+        <Carousel.Root slideCount={items.length} maxW="5xl" mx="auto" gap="4" position="relative" colorPalette="white">
           <Carousel.Control gap="4" width="full" position="relative">
             <Carousel.PrevTrigger asChild>
               <ActionButton insetStart="4">
