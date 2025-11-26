@@ -32,7 +32,7 @@ export default function Sealant() {
   const { isPending } = useConveyor(params.conveyor_name ?? null);
   const sealantConveyor = useSealantConveyorStore(useShallow((state) => state.sealantConveyor));
   const employee = useSealantEmployeeStore(useShallow((state) => state.sealantEmployee));
-  const { data: summaryData, isPending: isPendingSummary } = useActiveSummary(sealantConveyor?.id ?? null);
+  const { data: summaryData, isPending: isPendingSummary, isError } = useActiveSummary(sealantConveyor?.id ?? null);
 
   if (isPending) return <Loader />;
   if (!sealantConveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_EXISTS} />;
@@ -45,12 +45,11 @@ export default function Sealant() {
     productionLineChartComponent: <ProductionLineChart summaryData={summaryData ?? null} postId={4} />,
     productionCardComponent: <ProductionCard summaryData={summaryData ?? null} postId={4} />,
     menuComponent: <SealantMenu />,
-
     userComponent: <UserComponent employee={employee} />,
     loaderComponent: <Loader />,
     notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
     isLoading: isPendingSummary,
-    isNotFound: !summaryData && !isPendingSummary,
+    isNotFound: isError,
   };
 
   return (

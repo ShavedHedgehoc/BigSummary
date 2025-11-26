@@ -265,6 +265,22 @@ export interface IMaterial {
   scanned: boolean;
 }
 
+type state = "idle" | "working" | "finished";
+
+export interface IStatus {
+  idle: boolean;
+  finished: boolean;
+  operation_description: string;
+  createdAt: Date;
+  state: state;
+}
+
+export interface IOperation {
+  id: number;
+  value: string;
+  description: string;
+}
+
 export interface ISummary {
   data: ISummaryData;
   extrusionParams: IExtrusionParams | null;
@@ -287,6 +303,8 @@ export interface ISummary {
   varnish_materials: IMaterial[] | [];
   offset_materials: IMaterial[] | [];
   sealant_materials: IMaterial[] | [];
+  extrusionStatus: IStatus;
+  extrusionOperations: IOperation[] | [];
 }
 
 export default class SummaryService {

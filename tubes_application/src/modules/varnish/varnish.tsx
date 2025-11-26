@@ -32,7 +32,7 @@ export default function Varnish() {
   const { isPending } = useConveyor(params.conveyor_name ?? null);
   const varnishConveyor = useVarnishConveyorStore(useShallow((state) => state.varnishConveyor));
   const employee = useVarnishEmployeeStore(useShallow((state) => state.varnishEmployee));
-  const { data: summaryData, isPending: isPendingSummary } = useActiveSummary(varnishConveyor?.id ?? null);
+  const { data: summaryData, isPending: isPendingSummary, isError } = useActiveSummary(varnishConveyor?.id ?? null);
 
   if (isPending) return <Loader />;
   if (!varnishConveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_EXISTS} />;
@@ -45,12 +45,11 @@ export default function Varnish() {
     productionLineChartComponent: <ProductionLineChart summaryData={summaryData ?? null} postId={2} />,
     productionCardComponent: <ProductionCard summaryData={summaryData ?? null} postId={2} />,
     menuComponent: <VarnishMenu />,
-
     userComponent: <UserComponent employee={employee} />,
     loaderComponent: <Loader />,
     notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
     isLoading: isPendingSummary,
-    isNotFound: !summaryData && !isPendingSummary,
+    isNotFound: isError,
   };
 
   return (

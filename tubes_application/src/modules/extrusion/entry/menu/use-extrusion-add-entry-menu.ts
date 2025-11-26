@@ -100,7 +100,12 @@ export default function useExtrusionAddEntryMenu(summaryData: ISummary | null) {
   const isInputsChanged = data !== initDataValue;
 
   const handleExitClick = () => {
-    isInputsChanged ? setOpenConfirm(true) : navigate(`${RouteNames.EXTRUSION_ROOT}/${extrusionConveyor?.name}`);
+    if (isInputsChanged) {
+      return setOpenConfirm(true);
+    } else {
+      return navigate(`${RouteNames.EXTRUSION_ROOT}/${extrusionConveyor?.name}`);
+    }
+    //  ? setOpenConfirm(true) : navigate(`${RouteNames.EXTRUSION_ROOT}/${extrusionConveyor?.name}`);
   };
 
   return { saveButtonDisabledCondition, handleSaveClick, handleExitClick };

@@ -31,7 +31,7 @@ export default function Offset() {
   const { isPending } = useConveyor(params.conveyor_name ?? null);
   const offsetConveyor = useOffsetConveyorStore(useShallow((state) => state.offsetConveyor));
   const employee = useOffsetEmployeeStore(useShallow((state) => state.offsetEmployee));
-  const { data: summaryData, isPending: isPendingSummary } = useActiveSummary(offsetConveyor?.id ?? null);
+  const { data: summaryData, isPending: isPendingSummary, isError } = useActiveSummary(offsetConveyor?.id ?? null);
 
   if (isPending) return <Loader />;
   if (!offsetConveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_EXISTS} />;
@@ -44,12 +44,11 @@ export default function Offset() {
     productionLineChartComponent: <ProductionLineChart summaryData={summaryData ?? null} postId={3} />,
     productionCardComponent: <ProductionCard summaryData={summaryData ?? null} postId={3} />,
     menuComponent: <OffsetMenu />,
-
     userComponent: <UserComponent employee={employee} />,
     loaderComponent: <Loader />,
     notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
     isLoading: isPendingSummary,
-    isNotFound: !summaryData && !isPendingSummary,
+    isNotFound: isError,
   };
 
   return (

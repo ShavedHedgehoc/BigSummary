@@ -24,26 +24,26 @@ export default function ExtrusionNumericEntryModal() {
   const data = useExtrusionInputStore(
     useShallow((state) => {
       switch (dataKey) {
-        case ExtrusionInputParams.COUNTER_VALUE:
-          return state.data.counter_value;
-        case ExtrusionInputParams.PRESS_SPEED:
-          return state.data.press_speed;
-        case ExtrusionInputParams.BLOW_TIME:
-          return state.data.blow_time;
-        case ExtrusionInputParams.TURNING_MACHINE_SPEED:
-          return state.data.turning_machine_speed;
-        case ExtrusionInputParams.ANNEALING_FURNACE_TEMP:
-          return state.data.annealing_furnace_temp;
-        case ExtrusionInputParams.TUBE_CILINDRICAL_SECTION_LENGTH:
-          return state.data.tube_cilindrical_section_length;
+        // case ExtrusionInputParams.COUNTER_VALUE:
+        //   return state.data.counter_value;
+        // case ExtrusionInputParams.PRESS_SPEED:
+        //   return state.data.press_speed;
+        // case ExtrusionInputParams.BLOW_TIME:
+        //   return state.data.blow_time;
+        // case ExtrusionInputParams.TURNING_MACHINE_SPEED:
+        //   return state.data.turning_machine_speed;
+        // case ExtrusionInputParams.ANNEALING_FURNACE_TEMP:
+        //   return state.data.annealing_furnace_temp;
+        // case ExtrusionInputParams.TUBE_CILINDRICAL_SECTION_LENGTH:
+        //   return state.data.tube_cilindrical_section_length;
         case ExtrusionInputParams.MEMBRANE_THICKNESS:
           return state.data.membrane_thickness;
         case ExtrusionInputParams.TUBE_DIAMETER:
           return state.data.tube_diameter;
         case ExtrusionInputParams.TUBE_CILINDRICAL_THICKNESS:
           return state.data.tube_cilindrical_thikness;
-        case ExtrusionInputParams.TUBE_RIGIDITY:
-          return state.data.tube_rigidity;
+        // case ExtrusionInputParams.TUBE_RIGIDITY:
+        //   return state.data.tube_rigidity;
         default:
           break;
       }

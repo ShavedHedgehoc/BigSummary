@@ -1,4 +1,4 @@
-import type { ICounter, IMaterial, ISummary } from "../api/services/summary-service";
+import type { ICounter, IMaterial, IStatus, ISummary } from "../api/services/summary-service";
 
 export function getNoteData(postId: number, data: ISummary | null): { header: string; note: string } {
   const existsHeader = "Примечание главного технолога: ";
@@ -79,5 +79,21 @@ export function getMaterialsData(postId: number, data: ISummary | null): IMateri
       return data.sealant_materials;
     default:
       return [];
+  }
+}
+
+export function getStatusData(postId: number, data: ISummary | null): IStatus | null {
+  if (!data) return null;
+  switch (postId) {
+    case 1:
+      return data.extrusionStatus;
+    case 2:
+      return null;
+    case 3:
+      return null;
+    case 4:
+      return null;
+    default:
+      return null;
   }
 }

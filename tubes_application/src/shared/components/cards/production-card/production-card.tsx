@@ -5,7 +5,24 @@ import { CheckIntervals } from "@/shared/helpers/check-intervals";
 import useProductionCardData from "./use-production-card-data";
 
 export default function ProductionCard({ summaryData, postId }: { summaryData: ISummary | null; postId: number }) {
-  const { note, production, lastCheckDate } = useProductionCardData(postId, summaryData);
+  const { note, production, lastCheckDate, operationStatus } = useProductionCardData(postId, summaryData);
+  const inputTimer =
+    operationStatus &&
+    {
+      idle: (
+        <Stack>
+          <Text color="fg.a" textStyle="xl" animation="colorCycle">
+            {operationStatus.operation_description}
+          </Text>
+        </Stack>
+      ),
+      working: <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} />,
+      finished: (
+        <Text color="fg.a" textStyle="xl" animation="colorCycle">
+          Работа поста закончена
+        </Text>
+      ),
+    }[operationStatus.state];
   return (
     <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={8} alignItems="center" justifyContent="center">
       <Stack justify="space-between" h="full" w="full">
@@ -37,8 +54,19 @@ export default function ProductionCard({ summaryData, postId }: { summaryData: I
             </DataList.Item>
           </DataList.Root>
         </Stack>
+
         <HStack justify={"space-between"}>
-          <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} />
+          {inputTimer}
+          {/* {operationStatus && operationStatus.idle ? (
+            <Stack>
+              <Text color="fg.a" textStyle="xl" animation="colorCycle">
+                {operationStatus.operation_description}
+              </Text>
+            </Stack>
+          ) : (
+            <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} />
+          )} */}
+
           <HStack justify="end" alignItems="end" h="full">
             <Text color="fg.subtle" textStyle="md">
               Выработка поста:

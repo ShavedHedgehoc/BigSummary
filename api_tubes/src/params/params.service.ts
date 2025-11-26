@@ -18,6 +18,11 @@ export class ParamsService {
 
     if (lastEntry && lastEntry.counter_value > dto.counter_value)
       throw new HttpException(ApiMessages.COUNTER_LESS_THEN_LAST_VALUE, HttpStatus.BAD_REQUEST);
+
+    await this.prisma.extrusionStatus.create({
+      data: { summary_id: dto.summary_id, employee_id: dto.employee_id },
+    });
+
     const extrusionEntry = await this.prisma.extrusionParam.create({
       data: { ...dto },
     });

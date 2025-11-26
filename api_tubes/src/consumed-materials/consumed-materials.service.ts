@@ -20,7 +20,6 @@ export class ConsumedMaterialsService {
     });
     if (!material_in_specification_by_post)
       throw new HttpException(ApiMessages.MATERIAL_NOT_BELONG_TO_CURRENT_POST, HttpStatus.BAD_REQUEST);
-    console.log(material_in_specification_by_post);
     const lot = await this.prisma.lot.upsert({
       where: {
         material_lot: { value: dto.lot, material_id: material_in_specification_by_post.id },

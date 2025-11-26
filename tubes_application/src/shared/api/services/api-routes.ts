@@ -11,6 +11,8 @@ export enum ApiRoutes {
   CREATE_OFFSET_ENTRY = "params/offset",
   CREATE_SEALANT_ENTRY = "params/sealant",
 
+  CREATE_EXTRUSION_STATUS = "statuses/extrusion",
+
   GET_RONDELS = "rondels",
   GET_PICTURES = "pictures",
 

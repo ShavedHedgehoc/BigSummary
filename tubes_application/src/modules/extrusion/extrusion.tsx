@@ -25,13 +25,14 @@ import ExtrusionMaterialScanModal from "./dash/modals/extrusion-material-scan-mo
 import ExtrusionLogoutAlertModal from "./dash/modals/extrusion-logout-alert-modal";
 import { Theme } from "@chakra-ui/react";
 import { ColorModeProvider } from "@/components/ui/color-mode";
+import ExtrusionCloseSummaryAlertModal from "./dash/modals/extrusion-close-summary-alert-modal";
 
 export default function Extrusion() {
   const params = useParams<Params.CONVEYOR_NAME>();
   const { isPending } = useConveyor(params.conveyor_name ?? null);
   const extrusionConveyor = useExtrusionConveyorStore(useShallow((state) => state.extrusionConveyor));
   const employee = useExtrusionEmployeeStore(useShallow((state) => state.extrusionEmployee));
-  const { data: summaryData, isPending: isPendingSummary } = useActiveSummary(extrusionConveyor?.id ?? null);
+  const { data: summaryData, isPending: isPendingSummary, isError } = useActiveSummary(extrusionConveyor?.id ?? null);
 
   if (isPending) return <Loader />;
   if (!extrusionConveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_EXISTS} />;
@@ -48,7 +49,7 @@ export default function Extrusion() {
     loaderComponent: <Loader />,
     notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
     isLoading: isPendingSummary,
-    isNotFound: !summaryData && !isPendingSummary,
+    isNotFound: isError,
   };
 
   return (
@@ -58,6 +59,7 @@ export default function Extrusion() {
         <ExtrusionAuthModal />
         <ExtrusionLogoutAlertModal />
         <ExtrusionMaterialScanModal summary_id={summaryData?.data.id} />
+        <ExtrusionCloseSummaryAlertModal />
       </Theme>
     </ColorModeProvider>
   );

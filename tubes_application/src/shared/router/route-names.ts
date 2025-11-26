@@ -5,6 +5,8 @@ export enum RouteNames {
   EXTRUSION = "/extrusion/:conveyor_name",
   EXTRUSION_ADD_ENTRY_ROOT = "/extrusion_add_entry",
   EXTRUSION_ADD_ENTRY = "/extrusion_add_entry/:conveyor_name",
+  EXTRUSION_OPERATIONS_ROOT = "/extrusion_operations",
+  EXTRUSION_OPERATIONS = "/extrusion_operations/:conveyor_name",
   VARNISH_ROOT = "/varnish",
   VARNISH = "/varnish/:conveyor_name",
   VARNISH_ADD_ENTRY_ROOT = "/varnish_add_entry",

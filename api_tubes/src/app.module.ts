@@ -13,6 +13,7 @@ import { ConsumedMaterialsModule } from "./consumed-materials/consumed-materials
 import { ProductsModule } from "./products/products.module";
 import { PicturesModule } from "./pictures/pictures.module";
 import { UploadModule } from "./upload/upload.module";
+import { StatusesModule } from './statuses/statuses.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UploadModule } from "./upload/upload.module";
     ProductsModule,
     PicturesModule,
     UploadModule,
+    StatusesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

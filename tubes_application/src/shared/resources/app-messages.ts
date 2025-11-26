@@ -7,10 +7,12 @@ export enum AppMessages {
   ACTIVE_SUMMARY_NOT_FOUND = "Нет активной записи сводки ",
   PARAMETERS_OUT_TRESHOLDS = "Некоторые параметры выходят за границы регламентных значений",
   WANT_TO_QUIT_PROMPT = "Вы действительно хотите выйти?",
+  WANT_TO_CLOSE_PROMPT = "Вы действительно хотите закончить работу поста? Дальнейшее введение данных будет невозможно...",
   AUTH_SUCCESSFUL = "Авторизация успешна",
   EMPLOYEE_NOT_FOUND = "Сотрудник с таким штрихкодом не найден",
   MATERIAL_SCAN_ERROR = "Ошибка сканирования материалов",
   RECORD_SUCCESFULL_ADDED = "Запись успешно внесена",
   ROUTE_NOT_FOUND = "Адрес страницы не найден",
   PICTURES_NOT_FOUND = "Сопоставленных изображений не найдено",
+  OPERATIONS_LIST_NOT_FOUND = "Список операций не найден",
 }

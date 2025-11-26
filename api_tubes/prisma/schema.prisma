@@ -1,11 +1,14 @@
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../generated/prisma"
-  previewFeatures = ["typedSql"]
+  // provider = "prisma-client"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+  // previewFeatures = ["typedSql"]
+  // engineType = "client"
 }
 
 datasource db {
   provider = "postgresql"
+  // eslint-disable-next-line
   url      = env("DATABASE_URL")
 }
 
@@ -19,6 +22,7 @@ model Employee {
   varnish_params     VarnishParam[]
   offset_params      OffsetParam[]
   sealant_params     SealantParam[]
+  extrusion_statuses ExtrusionStatus[]
 
   @@map("employees")
 }
@@ -106,6 +110,7 @@ model Summary {
   varnish_params     VarnishParam[]
   offset_params      OffsetParam[]
   sealant_params     SealantParam[]
+  extrusion_statuses ExtrusionStatus[]
 
   @@map("summaries")
 }
@@ -434,4 +439,28 @@ model SealantTreshold {
   createdAt                            DateTime @default(now())
 
   @@map("sealant_tresholds")
+}
+
+model ExtrusionOperation {
+  id                          Int               @id @default(autoincrement())
+  value                       String
+  description                 String
+  extrusion_operation_reports ExtrusionStatus[]
+
+  @@map("extrusion_operations")
+}
+
+model ExtrusionStatus {
+  id           Int                 @id @default(autoincrement())
+  summary      Summary             @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id   Int
+  operation    ExtrusionOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id Int?
+  idle         Boolean             @default(false)
+  employee     Employee            @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id  Int
+  finished     Boolean             @default(false)
+  createdAt    DateTime            @default(now())
+
+  @@map("extrusion_statuses")
 }

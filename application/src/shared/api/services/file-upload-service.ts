@@ -5,9 +5,6 @@ export default class UploadPictureService {
     const formData = new FormData();
     await formData.append("file", file);
     await formData.append("filename", "filename.jpg");
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
     const res = await $apiTubes.post(`/upload/file`, formData);
     return res.data;
   }

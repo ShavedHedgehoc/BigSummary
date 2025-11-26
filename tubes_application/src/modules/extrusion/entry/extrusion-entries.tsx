@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 import type { ISummary } from "@/shared/api/services/summary-service";
 import { CountersTresholds } from "@/shared/helpers/counters-tresholds";
 import { ParameterNames } from "@/shared/helpers/parameter-names";
@@ -30,7 +31,8 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     },
   });
 
-  const { handleCardClick, handleBooleanCardClick, handleRadioCardClick } = useExtrusionEntriesHandleCardsClick();
+  const { handleCardClick, handleBooleanCardClick, handleRadioCardClick, handleIntegerCardClick } =
+    useExtrusionEntriesHandleCardsClick();
 
   const tresholdsData = summaryData?.extrusionTresholds ?? null;
   const lastCounterValue = summaryData?.extrusionParams ? summaryData.extrusionParams.counter_value : null;
@@ -42,7 +44,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: lastCounterValue ?? CountersTresholds.COUNTERS_MIN_TRESHOLD,
     maxValue: CountersTresholds.COUNTERS_MAX_TRESHOLD,
     unit: ParameterUnits.COUNTER_VALUE,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -53,7 +55,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: tresholdsData?.press_speed_min ?? 0,
     maxValue: tresholdsData?.press_speed_max ?? 0,
     unit: ParameterUnits.EXTRUSION_PRESS_SPEED,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -64,7 +66,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: tresholdsData?.blow_time_min ?? 0,
     maxValue: tresholdsData?.blow_time_max ?? 0,
     unit: ParameterUnits.EXTRUSION_BLOW_TIME,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -75,7 +77,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: tresholdsData?.turning_machine_speed_min ?? 0,
     maxValue: tresholdsData?.turning_machine_speed_max ?? 0,
     unit: ParameterUnits.EXTRUSION_TURNING_MACHINE_SPEED,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -86,7 +88,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: tresholdsData?.annealing_furnace_temp_min ?? 0,
     maxValue: tresholdsData?.annealing_furnace_temp_max ?? 0,
     unit: ParameterUnits.EXTRUSION_ANNEALING_FURNACE_TEMP,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -108,7 +110,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: tresholdsData?.tube_cilindrical_section_length_min ?? 0,
     maxValue: tresholdsData?.tube_cilindrical_section_length_max ?? 0,
     unit: ParameterUnits.EXTRUSION_TUBE_CILINDRICAL_SECTION_LENGTH,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -152,7 +154,7 @@ export default function ExtrusionEntries({ summaryData }: { summaryData: ISummar
     minValue: tresholdsData?.tube_rigidity_min ?? 0,
     maxValue: tresholdsData?.tube_rigidity_max ?? 0,
     unit: ParameterUnits.EXTRUSION_TUBE_RIGIDITY,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 

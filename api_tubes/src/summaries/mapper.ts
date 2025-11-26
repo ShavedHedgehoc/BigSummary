@@ -1,4 +1,6 @@
 import {
+  ExtrusionOperation,
+  ExtrusionStatus,
   OffsetParam,
   OffsetTreshold,
   Product,
@@ -271,6 +273,16 @@ export interface IMappedSealantTresholds {
 export interface IMappedExtrusionCounters {
   counter_value: number;
   createdAt: Date;
+}
+
+type state = "idle" | "working" | "finished";
+
+export interface IMappedOperation {
+  idle: Boolean;
+  finished: Boolean;
+  state: state;
+  operation_description: String;
+  createdAt: Date | null;
 }
 
 export const mappedSummary = ({
@@ -605,4 +617,32 @@ export const mappedCounters = (
   return params
     .sort((a, b) => a.id - b.id)
     .map((item) => ({ counter_value: item.counter_value, createdAt: item.createdAt }));
+};
+
+export const mappedStatus = ({
+  status,
+  operation,
+}: {
+  status: ExtrusionStatus | null;
+  operation: ExtrusionOperation | null;
+}): IMappedOperation => {
+  if (!status)
+    return {
+      idle: false,
+      finished: false,
+      state: "working",
+      operation_description: "-",
+      createdAt: null,
+    };
+  return {
+    idle: status.idle,
+    finished: status.finished,
+    state: status.finished === true ? "finished" : status.idle === true ? "idle" : "working",
+    createdAt: status.createdAt,
+    operation_description: operation ? operation.description : "-",
+  };
+};
+
+export const mappedOperations = () => {
+  return [];
 };

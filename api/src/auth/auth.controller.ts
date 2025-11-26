@@ -33,7 +33,6 @@ export class AuthController {
 
   @Post("/refresh")
   async refresh(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
-    // console.log("refresh");
     const [res, refreshToken] = await this.authService.refresh(request.cookies["refreshToken"]);
     response.cookie("refreshToken", refreshToken);
     return res;
@@ -41,7 +40,6 @@ export class AuthController {
 
   @Post("/check")
   async check(@Req() request: Request) {
-    // console.log(request.headers.authorization);
     const res = await this.authService.check(request.headers.authorization);
     return res;
   }

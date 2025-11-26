@@ -14,6 +14,7 @@ const Home = lazy(() => import("../../modules/home/home"));
 const Posts = lazy(() => import("../../modules/posts/posts"));
 const Extrusion = lazy(() => import("../../modules/extrusion/extrusion"));
 const ExtrusionAddEntry = lazy(() => import("../../modules/extrusion/extrusion-add-entry"));
+const ExtrusionOperations = lazy(() => import("../../modules/extrusion/extrusion-operations"));
 const Varnish = lazy(() => import("../../modules/varnish/varnish"));
 const VarnishAddEntry = lazy(() => import("../../modules/varnish/varnish-add-entry"));
 const Offset = lazy(() => import("../../modules/offset/offset"));
@@ -37,6 +38,10 @@ const AppRouter = () => {
             <Route path={RouteNames.POSTS} element={<RouteSuspense children={<Posts />} />} />
             <Route path={RouteNames.EXTRUSION} element={<RouteSuspense children={<Extrusion />} />} />
             <Route path={RouteNames.EXTRUSION_ADD_ENTRY} element={<RouteSuspense children={<ExtrusionAddEntry />} />} />
+            <Route
+              path={RouteNames.EXTRUSION_OPERATIONS}
+              element={<RouteSuspense children={<ExtrusionOperations />} />}
+            />
             <Route path={RouteNames.VARNISH} element={<RouteSuspense children={<Varnish />} />}></Route>
             <Route
               path={RouteNames.VARNISH_ADD_ENTRY}

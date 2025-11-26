@@ -7,8 +7,11 @@ import {
   mappedExtrusionTreshold,
   mappedOffsetParams,
   mappedOffsetTresholds,
+  // mappedOperations,
+  // mappedOperationStatus,
   mappedSealantParams,
   mappedSealantTresholds,
+  mappedStatus,
   mappedSummary,
   mappedVarnishParams,
   mappedVarnishTresholds,
@@ -31,6 +34,13 @@ export class SummariesService {
       include: {
         batch: true,
         notes: true,
+        extrusion_statuses: {
+          include: {
+            operation: true,
+          },
+          orderBy: { id: "desc" },
+          take: 1,
+        },
         product: {
           include: {
             extrusion_tresholds: { orderBy: { createdAt: "desc" }, take: 1, include: { rondel: true } },
@@ -117,6 +127,13 @@ export class SummariesService {
     const offsetCounters = mappedCounters(activeRecord.offset_params.length ? activeRecord.offset_params : null);
     const sealantCounters = mappedCounters(activeRecord.sealant_params.length ? activeRecord.sealant_params : null);
 
+    const extrusionStatus = mappedStatus({
+      status: activeRecord.extrusion_statuses ? activeRecord.extrusion_statuses[0] : null,
+      operation: activeRecord.extrusion_statuses.length ? activeRecord.extrusion_statuses[0].operation : null,
+    });
+
+    const extrusionOperations = await this.prisma.extrusionOperation.findMany();
+
     return {
       data: data,
       materials: activeRecord.specifications,
@@ -175,6 +192,8 @@ export class SummariesService {
           name: item.material.name,
           scanned: item.material.consumed_materials.length === 0 ? false : true,
         })),
+      extrusionStatus: extrusionStatus,
+      extrusionOperations: extrusionOperations,
     };
   }
 }

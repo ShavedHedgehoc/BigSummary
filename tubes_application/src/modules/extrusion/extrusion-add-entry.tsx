@@ -24,13 +24,14 @@ import ExtrusionBooleanEntryModal from "./entry/modals/extrusion-boolean-entry-m
 import ExtrusionRadioEntryModal from "./entry/modals/extrusion-radio-entry-modal";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Theme } from "@chakra-ui/react";
+import ExtrusionIntegerEntryModal from "./entry/modals/extrusion-integer-entry-modal";
 
 export default function ExtrusionAddEntry() {
   const params = useParams<Params.CONVEYOR_NAME>();
   const { isPending } = useConveyor(params.conveyor_name ?? null);
   const extrusionConveyor = useExtrusionConveyorStore(useShallow((state) => state.extrusionConveyor));
   const employee = useExtrusionEmployeeStore(useShallow((state) => state.extrusionEmployee));
-  const { data: summaryData, isPending: isPendingSummary } = useActiveSummary(extrusionConveyor?.id ?? null);
+  const { data: summaryData, isPending: isPendingSummary, isError } = useActiveSummary(extrusionConveyor?.id ?? null);
 
   if (isPending) return <Loader />;
   if (!extrusionConveyor) return <NotFound message={AppMessages.CONVEYOR_NOT_EXISTS} />;
@@ -44,7 +45,7 @@ export default function ExtrusionAddEntry() {
     loaderComponent: <Loader />,
     notFoundComponent: <Info message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />,
     isLoading: isPendingSummary,
-    isNotFound: !summaryData && !isPendingSummary,
+    isNotFound: isError,
   };
 
   return (
@@ -52,6 +53,7 @@ export default function ExtrusionAddEntry() {
       <Theme appearance="dark" colorPalette="gray">
         <AddEntryPageLayout {...addEntryPageLayoutProps} />
         <ExtrusionNumericEntryModal />
+        <ExtrusionIntegerEntryModal />
         <ExtrusionBooleanEntryModal />
         <ExtrusionRadioEntryModal />
         <ExtrusionCloseConfirmModal />
