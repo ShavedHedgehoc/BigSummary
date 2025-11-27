@@ -6,6 +6,7 @@ import { useShallow } from "zustand/react/shallow";
 import { DbRoles } from "../../shared/db-roles";
 import { useAuthStore } from "../auth/store/auth-store";
 import { DigitalMarkingNames } from "../../shared/helpers/digital-marking-names";
+import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
 
 const pulse = keyframes`
     0% {
@@ -180,29 +181,42 @@ export default function DashCard({ row }: { row: IDocRow }) {
         sx={[
           {
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             fontSize: "0.75rem",
           },
-          () => ({
-            ...(row.stateValue === "base_check" && {
-              color: mode === "light" ? "#fef08a" : "#fde047",
-            }),
-            ...(row.stateValue === "base_correct" && {
-              color: mode === "light" ? "#fef08a" : "#fde047",
-            }),
-            ...(row.stateValue === "base_continue" && {
-              color: mode === "light" ? "#fef08a" : "#fde047",
-            }),
-            ...(row.stateValue === "plug_pass" && {
-              color: mode === "light" ? "#bbf7d0" : "#86efac",
-            }),
-            ...(row.stateValue === "base_fail" && {
-              color: mode === "light" ? "#fecaca" : "#fca5a5",
-            }),
-          }),
         ]}
       >
-        {row.state}
+        <Box
+          sx={[
+            {
+              display: "flex",
+              justifyContent: "flex-start",
+              fontSize: "0.75rem",
+            },
+            () => ({
+              ...(row.stateValue === "base_check" && {
+                color: mode === "light" ? "#fef08a" : "#fde047",
+              }),
+              ...(row.stateValue === "base_correct" && {
+                color: mode === "light" ? "#fef08a" : "#fde047",
+              }),
+              ...(row.stateValue === "base_continue" && {
+                color: mode === "light" ? "#fef08a" : "#fde047",
+              }),
+              ...(row.stateValue === "plug_pass" && {
+                color: mode === "light" ? "#bbf7d0" : "#86efac",
+              }),
+              ...(row.stateValue === "base_fail" && {
+                color: mode === "light" ? "#fecaca" : "#fca5a5",
+              }),
+            }),
+          ]}
+        >
+          {row.state}
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", fontSize: "0.5rem" }}>
+          {digitalMarking && <QrCode2OutlinedIcon sx={{ color: "white" }} />}
+        </Box>
       </Box>
       {row.state !== "-" &&
         row.stateValue !== "base_check" &&
