@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { DigitalMarkingNames } from 'helpers/digital-marking-names';
+import { DigitalMarkingNames } from 'src/helpers/digital-marking-names';
+// import { DigitalMarkingNames } from 'helpers/digital-marking-names';
 import { Op } from 'sequelize';
 import Boil from 'src/models/boil.model';
 import Conveyor from 'src/models/conveyor.model';
