@@ -29,7 +29,7 @@ export function statusCondition(status: string) {
     case "success":
       return "success";
     default:
-      return "und";
+      return "undefined";
   }
 }
 

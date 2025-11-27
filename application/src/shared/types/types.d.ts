@@ -82,6 +82,7 @@ interface IDocRow {
   fact: number;
   apparatus: string;
   bbf: string;
+  dm: string;
   note: string;
   can: string;
   conveyor: string;
@@ -373,7 +374,7 @@ interface FetchInventoryDocsDto {
 interface IInventoryDocRow {
   id: number;
   date: Date;
-  finished: Boolean;
+  finished: boolean;
   plant_name: string;
   records: number;
 }
@@ -386,7 +387,7 @@ interface IInventoryDocsData {
 interface IInventoryDoc {
   id: number;
   date: Date;
-  finished: Boolean;
+  finished: boolean;
   plant_name: string;
 }
 

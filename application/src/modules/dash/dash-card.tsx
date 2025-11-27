@@ -5,6 +5,7 @@ import { useDashHistoryModalStore } from "./store/use-dash-history-modal-store";
 import { useShallow } from "zustand/react/shallow";
 import { DbRoles } from "../../shared/db-roles";
 import { useAuthStore } from "../auth/store/auth-store";
+import { DigitalMarkingNames } from "../../shared/helpers/digital-marking-names";
 
 const pulse = keyframes`
     0% {
@@ -25,6 +26,9 @@ export default function DashCard({ row }: { row: IDocRow }) {
   const setRecordId = useDashHistoryModalStore(useShallow((state) => state.setRecordId));
   const setTitle = useDashHistoryModalStore(useShallow((state) => state.setTitle));
   const user = useAuthStore(useShallow((state) => state.user));
+
+  // digital marking condition
+  const digitalMarking = DigitalMarkingNames.includes(row.dm);
 
   const handleClick = () => {
     if (user?.roles?.includes(DbRoles.CARDS)) {
@@ -161,7 +165,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
             justifyContent: "flex-start",
           }}
         >
-          Выпуск/План:
+          {digitalMarking ? "Выпуск/План:" : "План"}
         </Box>
         <Box
           sx={{
@@ -169,7 +173,7 @@ export default function DashCard({ row }: { row: IDocRow }) {
             justifyContent: "flex-end    ",
           }}
         >
-          {row.fact ? `${row.fact}/${row.plan}` : `-/${row.plan}`}
+          {digitalMarking ? (row.fact ? `${row.fact}/${row.plan}` : `-/${row.plan}`) : row.plan}
         </Box>
       </Box>
       <Box

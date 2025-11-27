@@ -9,6 +9,7 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useAuthStore } from "../auth/store/auth-store";
+import { DigitalMarkingNames } from "../../shared/helpers/digital-marking-names";
 
 const HistoryModalOpenButton = ({ row }: { row: IDocRow }) => {
   const setOpen = useForemanHistoryModalStore(useShallow((state) => state.setOpen));
@@ -59,6 +60,8 @@ export default function RowComponent({ row }: { row: IDocRow }) {
     }
   };
 
+  const digitalMarking = DigitalMarkingNames.includes(row.dm);
+
   return (
     <tr key={row.id}>
       <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
@@ -76,8 +79,12 @@ export default function RowComponent({ row }: { row: IDocRow }) {
       <td style={{ width: 110, textAlign: "center", padding: "18px 6px" }}>
         <TableState text={row.state} state={row.stateValue} />
       </td>
+
       <td style={{ width: 30, textAlign: "center", padding: "6px 6px" }}>
         {row.historiesCount !== 0 && <HistoryModalOpenButton row={row} />}
+      </td>
+      <td style={{ width: 30, textAlign: "center", padding: "18px 6px" }}>
+        <TableState text={digitalMarking ? "Нет" : "Да"} state={digitalMarking ? "fail" : "success"} />
       </td>
 
       <td style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
