@@ -38,6 +38,7 @@ export class ConveyorsService {
         const state = await this.historiesService.findLastHistorybyRecordId(item.id);
 
         return {
+          date: item.doc.date,
           record_id: item.id,
           conveyor_name: item.conveyor?.value,
           code_1C: item.product?.code1C,
