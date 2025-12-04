@@ -6,25 +6,28 @@ import { CreateStatusDto } from "./dto/create-status.dto";
 @Controller("statuses")
 export class StatusesController {
   constructor(private readonly statusesService: StatusesService) {}
+
   @ApiOperation({ summary: "Создать запись статуса поста 1" })
   @Post("extrusion")
-  createExtrusionParamsEntry(@Body() dto: CreateStatusDto) {
+  createExtrusionStatusEntry(@Body() dto: CreateStatusDto) {
     return this.statusesService.createExtrusionStatus(dto);
   }
 
-  //   @ApiOperation({ summary: "Создать запись параметров поста 2" })
-  //     @Post("varnish")
-  //     createVarnishParamsEntry(@Body() dto: CreateVarnishEntryDto) {
-  //       return this.paramsService.createVarnishEntry(dto);
-  //     }
-  //     @ApiOperation({ summary: "Создать запись параметров поста 3" })
-  //     @Post("offset")
-  //     createOffsetParamsEntry(@Body() dto: CreateOffsetEntryDto) {
-  //       return this.paramsService.createOffsetEntry(dto);
-  //     }
-  //     @ApiOperation({ summary: "Создать запись параметров поста 4" })
-  //     @Post("sealant")
-  //     createSealantParamsEntry(@Body() dto: CreateSealantEntryDto) {
-  //       return this.paramsService.createSealantEntry(dto);
-  //     }
+  @ApiOperation({ summary: "Создать запись параметров поста 2" })
+  @Post("varnish")
+  createVarnishStatusEntry(@Body() dto: CreateStatusDto) {
+    return this.statusesService.createVarnishStatus(dto);
+  }
+
+  @ApiOperation({ summary: "Создать запись параметров поста 3" })
+  @Post("offset")
+  createOffsetStatusEntry(@Body() dto: CreateStatusDto) {
+    return this.statusesService.createOffsetStatus(dto);
+  }
+
+  @ApiOperation({ summary: "Создать запись параметров поста 4" })
+  @Post("sealant")
+  createSealantStatusEntry(@Body() dto: CreateStatusDto) {
+    return this.statusesService.createSealantStatus(dto);
+  }
 }

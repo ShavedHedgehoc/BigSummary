@@ -24,18 +24,18 @@ export default class StatusService {
     const res = await $api.post(`${ApiRoutes.CREATE_EXTRUSION_STATUS}`, dto);
     return res.data;
   }
+  static async createVarnishStatus(dto: CreateStatusDto): Promise<IStatusResponce> {
+    const res = await $api.post(`${ApiRoutes.CREATE_VARNISH_STATUS}`, dto);
+    return res.data;
+  }
 
-  //   static async createVarnishEntry(dto: CreateVarnishEntryDto): Promise<any> {
-  //     const res = await $api.post(`${ApiRoutes.CREATE_VARNISH_ENTRY}`, dto);
-  //     return res.data;
-  //   }
-  //   static async createOffsetEntry(dto: CreateOffsetEntryDto): Promise<any> {
-  //     const res = await $api.post(`${ApiRoutes.CREATE_OFFSET_ENTRY}`, dto);
-  //     return res.data;
-  //   }
+  static async createOffsetStatus(dto: CreateStatusDto): Promise<IStatusResponce> {
+    const res = await $api.post(`${ApiRoutes.CREATE_OFFSET_STATUS}`, dto);
+    return res.data;
+  }
 
-  //   static async createSealantEntry(dto: CreateSealantEntryDto): Promise<any> {
-  //     const res = await $api.post(`${ApiRoutes.CREATE_SEALANT_ENTRY}`, dto);
-  //     return res.data;
-  //   }
+  static async createSealantStatus(dto: CreateStatusDto): Promise<IStatusResponce> {
+    const res = await $api.post(`${ApiRoutes.CREATE_SEALANT_STATUS}`, dto);
+    return res.data;
+  }
 }

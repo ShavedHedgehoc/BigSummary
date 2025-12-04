@@ -14,8 +14,7 @@ import ProductionCard from "../../shared/components/cards/production-card/produc
 import MaterialPieChartComponent from "../../shared/components/charts/material-pie-chart-component";
 import Loader from "../../shared/components/info/loader";
 import Info from "../../shared/components/info/info";
-import ProductionLineChart from "../../shared/components/charts/production-line-chart";
-
+import ProductionLineChart from "@/shared/components/charts/production-line-chart";
 import { PostNames } from "@/shared/helpers/post-names";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Theme } from "@chakra-ui/react";
@@ -26,6 +25,7 @@ import SealantMaterialScanModal from "./dash/modals/sealant-material-scan-modal"
 import SealantParameters from "./dash/sealant-parameters";
 import { useSealantConveyorStore } from "./store/use-sealant-conveyor-store";
 import { useSealantEmployeeStore } from "./store/use-sealant-employee-store";
+import SealantCloseSummaryAlertModal from "./dash/modals/sealant-close-summary-alert-modal";
 
 export default function Sealant() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -59,6 +59,7 @@ export default function Sealant() {
         <SealantAuthModal />
         <SealantLogoutAlertModal />
         <SealantMaterialScanModal summary_id={summaryData?.data.id} />
+        <SealantCloseSummaryAlertModal />
       </Theme>
     </ColorModeProvider>
   );

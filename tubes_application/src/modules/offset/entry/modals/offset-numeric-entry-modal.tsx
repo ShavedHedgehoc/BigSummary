@@ -24,34 +24,34 @@ export default function OffsetNumericEntryModal() {
   const data = useOffsetInputStore(
     useShallow((state) => {
       switch (dataKey) {
-        case OffsetInputParams.COUNTER_VALUE:
-          return state.data.counter_value;
-        case OffsetInputParams.PRINTING_MACHINE_SPEED:
-          return state.data.printing_machine_speed;
+        // case OffsetInputParams.COUNTER_VALUE:
+        //   return state.data.counter_value;
+        // case OffsetInputParams.PRINTING_MACHINE_SPEED:
+        //   return state.data.printing_machine_speed;
         case OffsetInputParams.TOTAL_AIR_PRESSURE:
           return state.data.total_air_pressure;
-        case OffsetInputParams.PADDING_FURNACE_TEMP:
-          return state.data.padding_furnace_temp;
-        case OffsetInputParams.OFFSET_FURNACE_TEMP:
-          return state.data.offset_furnace_temp;
-        case OffsetInputParams.PRINTER_MOTOR:
-          return state.data.printer_motor;
-        case OffsetInputParams.BASE_COVERS_HOLDERS_MOTOR:
-          return state.data.base_covers_holders_motor;
-        case OffsetInputParams.BASE_COVERS_STATION_MOTOR:
-          return state.data.base_covers_station_motor;
-        case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_1:
-          return state.data.imprint_quantity_printed_box_1;
-        case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_2:
-          return state.data.imprint_quantity_printed_box_2;
-        case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_3:
-          return state.data.imprint_quantity_printed_box_3;
-        case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_4:
-          return state.data.imprint_quantity_printed_box_4;
-        case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_5:
-          return state.data.imprint_quantity_printed_box_5;
-        case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_6:
-          return state.data.imprint_quantity_printed_box_6;
+        // case OffsetInputParams.PADDING_FURNACE_TEMP:
+        //   return state.data.padding_furnace_temp;
+        // case OffsetInputParams.OFFSET_FURNACE_TEMP:
+        //   return state.data.offset_furnace_temp;
+        // case OffsetInputParams.PRINTER_MOTOR:
+        //   return state.data.printer_motor;
+        // case OffsetInputParams.BASE_COVERS_HOLDERS_MOTOR:
+        //   return state.data.base_covers_holders_motor;
+        // case OffsetInputParams.BASE_COVERS_STATION_MOTOR:
+        //   return state.data.base_covers_station_motor;
+        // case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_1:
+        //   return state.data.imprint_quantity_printed_box_1;
+        // case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_2:
+        //   return state.data.imprint_quantity_printed_box_2;
+        // case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_3:
+        //   return state.data.imprint_quantity_printed_box_3;
+        // case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_4:
+        //   return state.data.imprint_quantity_printed_box_4;
+        // case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_5:
+        //   return state.data.imprint_quantity_printed_box_5;
+        // case OffsetInputParams.IMPRINT_QUANTITY_PRINTED_BOX_6:
+        //   return state.data.imprint_quantity_printed_box_6;
         case OffsetInputParams.INK_SUPPLY_TIME:
           return state.data.ink_supply_time;
         default:

@@ -254,8 +254,14 @@ interface ISealantParams {
   createdAt: Date;
 }
 
-export interface ICounter {
+// export interface ICounter {
+//   counter_value: number;
+//   createdAt: Date;
+// }
+
+export interface IStatusCounter {
   counter_value: number;
+  idle: boolean;
   createdAt: Date;
 }
 
@@ -279,6 +285,7 @@ export interface IOperation {
   id: number;
   value: string;
   description: string;
+  min_rank: number;
 }
 
 export interface ISummary {
@@ -291,10 +298,10 @@ export interface ISummary {
   varnishTresholds: IVarnishTresholds | null;
   offsetTresholds: IOffsetTresholds | null;
   sealantTresholds: ISealantTresholds | null;
-  extrusionCounters: ICounter[] | [];
-  varnishCounters: ICounter[] | [];
-  offsetCounters: ICounter[] | [];
-  sealantCounters: ICounter[] | [];
+  // extrusionCounters: ICounter[] | [];
+  // varnishCounters: ICounter[] | [];
+  // offsetCounters: ICounter[] | [];
+  // sealantCounters: ICounter[] | [];
   extrusion_note: string | null;
   varnish_note: string | null;
   offset_note: string | null;
@@ -305,6 +312,20 @@ export interface ISummary {
   sealant_materials: IMaterial[] | [];
   extrusionStatus: IStatus;
   extrusionOperations: IOperation[] | [];
+  varnishStatus: IStatus;
+  varnishOperations: IOperation[] | [];
+  offsetStatus: IStatus;
+  offsetOperations: IOperation[] | [];
+  sealantStatus: IStatus;
+  sealantOperations: IOperation[] | [];
+  extrusionIdleTime: number;
+  varnishIdleTime: number;
+  offsetIdleTime: number;
+  sealantIdleTime: number;
+  extrusionStatusCounters: IStatusCounter[];
+  varnishStatusCounters: IStatusCounter[];
+  offsetStatusCounters: IStatusCounter[];
+  sealantStatusCounters: IStatusCounter[];
 }
 
 export default class SummaryService {

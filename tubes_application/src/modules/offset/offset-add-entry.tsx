@@ -23,6 +23,7 @@ import OffsetNumericEntryModal from "./entry/modals/offset-numeric-entry-modal";
 import OffsetBooleanEntryModal from "./entry/modals/offset-boolean-entry-modal";
 import OffsetCloseConfirmModal from "./entry/modals/offset-close-confirm-modal";
 import OffsetEntryAlertModal from "./entry/modals/offset-entry-alert-modal";
+import OffsetIntegerEntryModal from "./entry/modals/offset-integer-entry-modal";
 
 export default function OffsetAddEntry() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -51,6 +52,7 @@ export default function OffsetAddEntry() {
       <Theme appearance="dark" colorPalette="gray">
         <AddEntryPageLayout {...addEntryPageLayoutProps} />
         <OffsetNumericEntryModal />
+        <OffsetIntegerEntryModal />
         <OffsetBooleanEntryModal />
         <OffsetCloseConfirmModal />
         <OffsetEntryAlertModal />

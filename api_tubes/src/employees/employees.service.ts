@@ -5,6 +5,6 @@ import { PrismaService } from "src/prisma/prisma.service";
 export class EmployeesService {
   constructor(private prisma: PrismaService) {}
   getEmployeeByBarcode(barcode: string) {
-    return this.prisma.employee.findUnique({ where: { barcode: barcode } });
+    return this.prisma.employee.findUnique({ where: { barcode: barcode }, include: { rank: true } });
   }
 }

@@ -3,24 +3,48 @@ import { Box, DataList, HStack, Stack, Text } from "@chakra-ui/react";
 import InputTimer from "./input-timer";
 import { CheckIntervals } from "@/shared/helpers/check-intervals";
 import useProductionCardData from "./use-production-card-data";
+import { formatTimeToString } from "@/shared/helpers/date-time-formatters";
 
 export default function ProductionCard({ summaryData, postId }: { summaryData: ISummary | null; postId: number }) {
-  const { note, production, lastCheckDate, operationStatus } = useProductionCardData(postId, summaryData);
+  const { note, production, lastCheckDate, operationStatus, idleTime, today } = useProductionCardData(
+    postId,
+    summaryData
+  );
+  const locale = "ru";
+
   const inputTimer =
     operationStatus &&
     {
       idle: (
         <Stack>
-          <Text color="fg.a" textStyle="xl" animation="colorCycle">
+          <Text color="fg.a" textStyle="lg" animation="colorCycle">
             {operationStatus.operation_description}
+          </Text>
+          <Text color="fg.a" textStyle="sm">
+            {`Время начала: ${formatTimeToString(operationStatus.createdAt)}`}
+          </Text>
+          <Text color="fg.a" textStyle="sm">
+            {`Длительность:  ${new Date(
+              new Date(today).getTime() - new Date(operationStatus.createdAt).getTime() - 3 * 3600 * 1000
+            ).toLocaleTimeString(locale, {
+              hour: "numeric",
+              hour12: false,
+              minute: "numeric",
+              second: "numeric",
+            })}`}
           </Text>
         </Stack>
       ),
-      working: <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} />,
+      working: <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} idleTime={idleTime} />,
       finished: (
-        <Text color="fg.a" textStyle="xl" animation="colorCycle">
-          Работа поста закончена
-        </Text>
+        <Stack>
+          <Text color="fg.a" textStyle="xl" animation="colorCycle">
+            Работа поста закончена
+          </Text>
+          <Text color="fg.a" textStyle="sm">
+            {`Время окончания: ${formatTimeToString(operationStatus.createdAt)}`}
+          </Text>
+        </Stack>
       ),
     }[operationStatus.state];
   return (
@@ -57,16 +81,6 @@ export default function ProductionCard({ summaryData, postId }: { summaryData: I
 
         <HStack justify={"space-between"}>
           {inputTimer}
-          {/* {operationStatus && operationStatus.idle ? (
-            <Stack>
-              <Text color="fg.a" textStyle="xl" animation="colorCycle">
-                {operationStatus.operation_description}
-              </Text>
-            </Stack>
-          ) : (
-            <InputTimer checkInterval={CheckIntervals.HARDWARE} date={lastCheckDate} />
-          )} */}
-
           <HStack justify="end" alignItems="end" h="full">
             <Text color="fg.subtle" textStyle="md">
               Выработка поста:

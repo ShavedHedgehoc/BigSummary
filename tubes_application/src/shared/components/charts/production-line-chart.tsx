@@ -1,25 +1,33 @@
 import type { ISummary } from "@/shared/api/services/summary-service";
 import { formatTimeOnly } from "@/shared/helpers/date-time-formatters";
-import { getCountersData } from "@/shared/helpers/summary-data-parsers";
+import { getStatusCountersData } from "@/shared/helpers/summary-data-parsers";
 import { Chart, useChart } from "@chakra-ui/charts";
 import { Box, VStack, Text } from "@chakra-ui/react";
-import { AreaChart, CartesianGrid, XAxis, YAxis, Area } from "recharts";
+import { CartesianGrid, XAxis, YAxis, LineChart, Line, Legend } from "recharts";
 
 export default function ProductionLineChart({ summaryData, postId }: { summaryData: ISummary | null; postId: number }) {
-  const data = getCountersData(postId, summaryData);
-
-  const chartData: { val: number; time: Date }[] = data.map((item) => ({
+  const data = getStatusCountersData(postId, summaryData);
+  const maxCounterValue = data.length > 0 ? data[data.length - 1].counter_value : 0;
+  const minCounterValue = data.length > 0 ? data[0].counter_value : 0;
+  const chartData: { val: number; idle: number; time: Date }[] = data.map((item) => ({
     val: item.counter_value,
+    idle: item.idle ? maxCounterValue : minCounterValue,
     time: item.createdAt,
   }));
 
-  const lineChart = useChart({ data: chartData, series: [{ name: "val", color: "teal.solid" }] });
+  const lineChart = useChart({
+    data: chartData,
+    series: [
+      { name: "val", color: "teal.solid", label: "Выработка" },
+      { name: "idle", color: "orange.solid", label: "Простой" },
+    ],
+  });
   return (
     <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={4} alignItems="center" justifyContent="center">
       <VStack h="full" w="full" justify="center">
         {chartData.length ? (
           <Chart.Root boxSize="full" chart={lineChart} animation={"none"}>
-            <AreaChart data={lineChart.data} margin={{ top: 25, right: 25, left: -10, bottom: 5 }}>
+            <LineChart data={lineChart.data} margin={{ top: 25, right: 0, left: 0, bottom: 0 }}>
               <CartesianGrid stroke={lineChart.color("border")} vertical={true} />
               <XAxis
                 axisLine={false}
@@ -27,34 +35,45 @@ export default function ProductionLineChart({ summaryData, postId }: { summaryDa
                 tickFormatter={formatTimeOnly}
                 stroke={lineChart.color("border")}
               />
-              <YAxis tickLine={false} axisLine={false} />
-              {/* <Tooltip cursor={false} animationDuration={100} content={<Chart.Tooltip />} /> */}
+
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={10}
+                yAxisId="left"
+                dataKey={lineChart.key("val")}
+                stroke={lineChart.color("border")}
+              />
+
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={10}
+                yAxisId="right"
+                orientation="right"
+                dataKey={lineChart.key("val")}
+                stroke={lineChart.color("border")}
+              />
+
+              <Legend content={<Chart.Legend />} />
 
               {lineChart.series.map((item) => (
-                <defs key={item.name}>
-                  <Chart.Gradient
-                    id={`${item.name}-gradient`}
-                    stops={[
-                      { offset: "0%", color: item.color, opacity: 0.3 },
-                      { offset: "100%", color: item.color, opacity: 0.05 },
-                    ]}
-                  />
-                </defs>
-              ))}
-
-              {lineChart.series.map((item) => (
-                <Area
+                <Line
+                  dot={false}
+                  activeDot={false}
+                  type={item.name === "idle" ? "stepAfter" : "basis"}
                   key={item.name}
-                  type="natural"
+                  connectNulls={true}
+                  // type="natural"
                   isAnimationActive={false}
                   dataKey={lineChart.key(item.name)}
-                  fill={`url(#${item.name}-gradient)`}
+                  // fill={`url(#${item.name}-gradient)`}
                   stroke={lineChart.color(item.color)}
                   strokeWidth={2}
-                  stackId="a"
+                  // stackId="a"
                 />
               ))}
-            </AreaChart>
+            </LineChart>
           </Chart.Root>
         ) : (
           <Text color="fg.subtle" textStyle="md">

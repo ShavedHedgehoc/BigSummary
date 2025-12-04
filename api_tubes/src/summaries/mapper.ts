@@ -1,13 +1,19 @@
 import {
   ExtrusionOperation,
   ExtrusionStatus,
+  OffsetOperation,
   OffsetParam,
+  OffsetStatus,
   OffsetTreshold,
   Product,
+  SealantOperation,
   SealantParam,
+  SealantStatus,
   SealantTreshold,
   Summary,
+  VarnishOperation,
   VarnishParam,
+  VarnishStatus,
   VarnishTreshold,
 } from "./../../generated/prisma/index.d";
 import { Batch } from "./../../generated/prisma/index.d";
@@ -273,6 +279,12 @@ export interface IMappedSealantTresholds {
 export interface IMappedExtrusionCounters {
   counter_value: number;
   createdAt: Date;
+}
+
+export interface IMappedStatusCounters {
+  counter_value: number;
+  createdAt: Date;
+  idle: boolean;
 }
 
 type state = "idle" | "working" | "finished";
@@ -610,21 +622,30 @@ export const mappedSealantTresholds = ({
   };
 };
 
-export const mappedCounters = (
-  params: ExtrusionParam[] | OffsetParam[] | VarnishParam[] | SealantParam[] | null
-): IMappedExtrusionCounters[] | [] => {
-  if (!params) return [];
-  return params
+// export const mappedCounters = (
+//   params: ExtrusionParam[] | OffsetParam[] | VarnishParam[] | SealantParam[] | null
+// ): IMappedExtrusionCounters[] | [] => {
+//   if (!params) return [];
+//   return params
+//     .sort((a, b) => a.id - b.id)
+//     .map((item) => ({ counter_value: item.counter_value, createdAt: item.createdAt }));
+// };
+
+export const mappedStatusCounters = (
+  statuses: ExtrusionStatus[] | VarnishStatus[] | OffsetStatus[] | SealantStatus[] | null
+): IMappedStatusCounters[] | [] => {
+  if (!statuses) return [];
+  return statuses
     .sort((a, b) => a.id - b.id)
-    .map((item) => ({ counter_value: item.counter_value, createdAt: item.createdAt }));
+    .map((item) => ({ counter_value: item.counter_value, createdAt: item.createdAt, idle: item.idle }));
 };
 
 export const mappedStatus = ({
   status,
   operation,
 }: {
-  status: ExtrusionStatus | null;
-  operation: ExtrusionOperation | null;
+  status: ExtrusionStatus | SealantStatus | VarnishStatus | OffsetStatus | null;
+  operation: ExtrusionOperation | VarnishOperation | OffsetOperation | SealantOperation | null;
 }): IMappedOperation => {
   if (!status)
     return {
@@ -634,6 +655,7 @@ export const mappedStatus = ({
       operation_description: "-",
       createdAt: null,
     };
+
   return {
     idle: status.idle,
     finished: status.finished,

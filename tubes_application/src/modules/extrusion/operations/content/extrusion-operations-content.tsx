@@ -3,22 +3,21 @@ import Info from "@/shared/components/info/info";
 import NotFound from "@/shared/components/info/not-found-full-screen";
 import { formatTimeToString } from "@/shared/helpers/date-time-formatters";
 import { AppMessages } from "@/shared/resources/app-messages";
-import { Box, createListCollection, Heading, HStack, Listbox, Text, VStack } from "@chakra-ui/react";
-import { useExtrusionOperationStore } from "../../store/use-extrusion-operation-store";
-import { useShallow } from "zustand/shallow";
+import { Box, Heading, HStack, Listbox, Text, VStack } from "@chakra-ui/react";
+import useExtrusionOperationsContent from "./use-extrusion-operations-content";
+import type { IEmployee } from "@/shared/api/services/employee-service";
 
-export default function ExtrusionOperationContent({ summaryData }: { summaryData: ISummary | null }) {
-  const items =
-    summaryData && summaryData.extrusionOperations.length > 0
-      ? summaryData.extrusionOperations.map((item) => ({
-          label: item.value,
-          value: item.id,
-          description: item.description,
-        }))
-      : [];
-  const listData = createListCollection({ items: items });
-  const selectedOperation = useExtrusionOperationStore(useShallow((state) => state.selectedOperation));
-  const setSelectedOperation = useExtrusionOperationStore(useShallow((state) => state.setSelectedOperation));
+export default function ExtrusionOperationsContent({
+  summaryData,
+  employee,
+}: {
+  summaryData: ISummary | null;
+  employee: IEmployee | null;
+}) {
+  const { listData, selectedOperation, setSelectedOperation } = useExtrusionOperationsContent({
+    // summaryData: summaryData,
+    employee: employee,
+  });
 
   if (!summaryData) return <NotFound message={AppMessages.ACTIVE_SUMMARY_NOT_FOUND} />;
   if (!summaryData.extrusionOperations.length) return <Info message={AppMessages.OPERATIONS_LIST_NOT_FOUND} />;

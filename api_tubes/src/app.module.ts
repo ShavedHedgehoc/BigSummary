@@ -14,6 +14,8 @@ import { ProductsModule } from "./products/products.module";
 import { PicturesModule } from "./pictures/pictures.module";
 import { UploadModule } from "./upload/upload.module";
 import { StatusesModule } from './statuses/statuses.module';
+import { OperationsModule } from './operations/operations.module';
+import { ZplModule } from './zpl/zpl.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { StatusesModule } from './statuses/statuses.module';
     PicturesModule,
     UploadModule,
     StatusesModule,
+    OperationsModule,
+    ZplModule,
   ],
   controllers: [AppController],
   providers: [AppService],

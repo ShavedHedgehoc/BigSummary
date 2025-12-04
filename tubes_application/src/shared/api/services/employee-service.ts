@@ -1,10 +1,17 @@
 import { $api } from "../http";
 import { ApiRoutes } from "./api-routes";
 
+export interface IRank {
+  id: number;
+  val: number;
+  description: string;
+}
+
 export interface IEmployee {
   id: number;
   name: string;
   barcode: string;
+  rank: IRank | null;
 }
 // employee login
 export default class EmployeeService {

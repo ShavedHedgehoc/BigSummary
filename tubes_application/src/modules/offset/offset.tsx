@@ -14,7 +14,7 @@ import ProductionCard from "../../shared/components/cards/production-card/produc
 import MaterialPieChartComponent from "../../shared/components/charts/material-pie-chart-component";
 import Loader from "../../shared/components/info/loader";
 import Info from "../../shared/components/info/info";
-import ProductionLineChart from "../../shared/components/charts/production-line-chart";
+import ProductionLineChart from "@/shared/components/charts/production-line-chart";
 import OffsetMenu from "./dash/menu/offset-menu";
 import { useOffsetConveyorStore } from "./store/use-offset-conveyor-store";
 import { useOffsetEmployeeStore } from "./store/use-offset-employee-store";
@@ -25,6 +25,7 @@ import OffsetAuthModal from "./dash/modals/offset-auth-modal";
 import OffsetLogoutAlertModal from "./dash/modals/offset-logout-alert-modal";
 import OffsetMaterialScanModal from "./dash/modals/offset-material-scan-modal";
 import OffsetParameters from "./dash/offset-parameters";
+import OffsetCloseSummaryAlertModal from "./dash/modals/offset-close-summary-alert-modal";
 
 export default function Offset() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -58,6 +59,7 @@ export default function Offset() {
         <OffsetAuthModal />
         <OffsetLogoutAlertModal />
         <OffsetMaterialScanModal summary_id={summaryData?.data.id} />
+        <OffsetCloseSummaryAlertModal />
       </Theme>
     </ColorModeProvider>
   );

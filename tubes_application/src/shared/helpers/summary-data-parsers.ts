@@ -1,4 +1,4 @@
-import type { ICounter, IMaterial, IStatus, ISummary } from "../api/services/summary-service";
+import type { IMaterial, IStatus, IStatusCounter, ISummary } from "../api/services/summary-service";
 
 export function getNoteData(postId: number, data: ISummary | null): { header: string; note: string } {
   const existsHeader = "Примечание главного технолога: ";
@@ -50,17 +50,33 @@ export function getLastCheckDate(postId: number, data: ISummary | null): Date | 
   }
 }
 
-export function getCountersData(postId: number, data: ISummary | null): ICounter[] | [] {
+// export function getCountersData(postId: number, data: ISummary | null): ICounter[] | [] {
+//   if (!data) return [];
+//   switch (postId) {
+//     case 1:
+//       return data.extrusionCounters;
+//     case 2:
+//       return data.varnishCounters;
+//     case 3:
+//       return data.offsetCounters;
+//     case 4:
+//       return data.sealantCounters;
+//     default:
+//       return [];
+//   }
+// }
+
+export function getStatusCountersData(postId: number, data: ISummary | null): IStatusCounter[] | [] {
   if (!data) return [];
   switch (postId) {
     case 1:
-      return data.extrusionCounters;
+      return data.extrusionStatusCounters;
     case 2:
-      return data.varnishCounters;
+      return data.varnishStatusCounters;
     case 3:
-      return data.offsetCounters;
+      return data.offsetStatusCounters;
     case 4:
-      return data.sealantCounters;
+      return data.sealantStatusCounters;
     default:
       return [];
   }
@@ -88,12 +104,28 @@ export function getStatusData(postId: number, data: ISummary | null): IStatus | 
     case 1:
       return data.extrusionStatus;
     case 2:
-      return null;
+      return data.varnishStatus;
     case 3:
-      return null;
+      return data.offsetStatus;
     case 4:
-      return null;
+      return data.sealantStatus;
     default:
       return null;
+  }
+}
+
+export function getIdleTime(postId: number, data: ISummary | null): number {
+  if (!data) return 0;
+  switch (postId) {
+    case 1:
+      return data.extrusionIdleTime;
+    case 2:
+      return data.varnishIdleTime;
+    case 3:
+      return data.offsetIdleTime;
+    case 4:
+      return data.sealantIdleTime;
+    default:
+      return 0;
   }
 }

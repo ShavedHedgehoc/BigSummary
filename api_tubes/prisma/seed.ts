@@ -24,6 +24,37 @@ async function main() {
   });
   console.log(conveyor2);
 
+  const rank1 = await prisma.rank.create({
+    data: {
+      val: 1,
+      description: "1-й разряд",
+    },
+  });
+  const rank2 = await prisma.rank.create({
+    data: {
+      val: 2,
+      description: "2-й разряд",
+    },
+  });
+  const rank3 = await prisma.rank.create({
+    data: {
+      val: 3,
+      description: "3-й разряд",
+    },
+  });
+  const rank4 = await prisma.rank.create({
+    data: {
+      val: 4,
+      description: "4-й разряд",
+    },
+  });
+  const rank5 = await prisma.rank.create({
+    data: {
+      val: 5,
+      description: "5-й разряд",
+    },
+  });
+
   // employees
   const employee1 = await prisma.employee.upsert({
     where: { barcode: "2000005358418" },
@@ -52,6 +83,27 @@ async function main() {
     },
   });
   console.log(employee3);
+
+  // await prisma.employeeRank.create({
+  //   data: {
+  //     employee_id: employee1.id,
+  //     rank_id: rank1.id,
+  //   },
+  // });
+
+  // await prisma.employeeRank.create({
+  //   data: {
+  //     employee_id: employee2.id,
+  //     rank_id: rank2.id,
+  //   },
+  // });
+
+  // await prisma.employeeRank.create({
+  //   data: {
+  //     employee_id: employee3.id,
+  //     rank_id: rank3.id,
+  //   },
+  // });
 
   // raw materials
   const materials: { code: string; name: string; post_number: number }[] = [
@@ -1190,348 +1242,449 @@ async function main() {
   });
   console.log(product7);
 
-  const batch1 = await prisma.batch.upsert({
-    where: { name: "123A5" },
-    update: {},
-    create: {
-      name: "123A5",
-    },
-  });
-  console.log(batch1);
+  const ext_operations: string[] = [
+    "Замена пуансона",
+    "Настройка вылета носика",
+    "Замена матрицы и внутреннего формирователя",
+    "Позиционирование матрицы",
+    "Настройка датчика наличия тубы",
+    "Настройка толкателя туб",
+    "Настройка длины отреза",
+    "Настройка высоты резца",
+    "Настройка накатных роликов",
+    "Замена полировочной щетки",
+    "Настройка входного и выходного барабана",
+    "Синхронизация печей",
+    "Натяжка цепей",
+    "ТО №1",
+    "Прочее",
+  ];
 
-  const batch2 = await prisma.batch.upsert({
-    where: { name: "125A5" },
-    update: {},
-    create: {
-      name: "125A5",
-    },
-  });
-  console.log(batch2);
-
-  const batch3 = await prisma.batch.upsert({
-    where: { name: "127A5" },
-    update: {},
-    create: {
-      name: "127A5",
-    },
-  });
-  console.log(batch3);
-
-  const batch4 = await prisma.batch.upsert({
-    where: { name: "129A5" },
-    update: {},
-    create: {
-      name: "129A5",
-    },
-  });
-  console.log(batch4);
-
-  const batch5 = await prisma.batch.upsert({
-    where: { name: "131A5" },
-    update: {},
-    create: {
-      name: "131A5",
-    },
-  });
-  console.log(batch5);
-
-  const batch6 = await prisma.batch.upsert({
-    where: { name: "133A5" },
-    update: {},
-    create: {
-      name: "133A5",
-    },
-  });
-  console.log(batch6);
-
-  const batch7 = await prisma.batch.upsert({
-    where: { name: "137A5" },
-    update: {},
-    create: {
-      name: "137A5",
-    },
-  });
-  console.log(batch7);
-
-  const summary1 = await prisma.summary.create({
-    data: {
-      product_id: product1.id,
-      batch_id: batch1.id,
-      conveyor_id: conveyor1.id,
-      plan: 40000,
-      isActive: true,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068866" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "069530" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "070177" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "070321" } } },
-        ],
+  for (let i = 0; i < ext_operations.length; i++) {
+    await prisma.extrusionOperation.create({
+      data: {
+        value: "1" + String(i + 1).padStart(2, "0") + "1",
+        description: ext_operations[i],
+        min_rank: 1,
       },
-    },
-  });
-  console.log(summary1);
+    });
+  }
 
-  const summary2 = await prisma.summary.create({
-    data: {
-      product_id: product2.id,
-      batch_id: batch2.id,
-      conveyor_id: conveyor2.id,
-      plan: 40000,
-      isActive: true,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068866" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "068972" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "069193" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "063754" } } },
-        ],
+  const vrn_operations: string[] = [
+    "Настройка вдува",
+    "Настройка впрыска",
+    "Настройка положения форсунок",
+    "Настройка давления впрыска",
+    "Настройка входного и выходного барабана",
+    "Синхронизация печей",
+    "Натяжка цепей",
+    "Замена лака и прокачка системы",
+    "ТО №1",
+    "Прочее",
+  ];
+
+  for (let i = 0; i < vrn_operations.length; i++) {
+    await prisma.varnishOperation.create({
+      data: {
+        value: "2" + String(i + 1).padStart(2, "0") + "1",
+        description: vrn_operations[i],
+        min_rank: 1,
       },
-    },
-  });
-  console.log(summary2);
+    });
+  }
 
-  const summary3 = await prisma.summary.create({
-    data: {
-      product_id: product3.id,
-      batch_id: batch3.id,
-      conveyor_id: conveyor1.id,
-      plan: 40000,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068866" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "068972" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "068821" } } },
-          { material: { connect: { code: "068819" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "063754" } } },
-        ],
+  const offset_operations: string[] = [
+    "Настройка положения валов",
+    "Регулировка высоты поддона с грунтом",
+    "Замена клише",
+    "Настройка количества отпечатков",
+    "Настройка положения анилоксового вала",
+    "Настройка положения формного вала",
+    "Настройка параллельности станины принтера",
+    "Настройка входного и выходного барабана",
+    "Синхронизация печей",
+    "Натяжка цепей",
+    "Регулировка толщины слоя краски",
+    "Замена офсетного полотна",
+    "ТО №1",
+    "Прочее",
+  ];
+
+  for (let i = 0; i < offset_operations.length; i++) {
+    await prisma.offsetOperation.create({
+      data: {
+        value: "3" + String(i + 1).padStart(2, "0") + "1",
+        description: offset_operations[i],
+        min_rank: 1,
       },
-    },
-  });
-  console.log(summary3);
+    });
+  }
+  const sealant_operations: string[] = [
+    "Настройка высоты колпачка",
+    "Настройка затяжки колпачка",
+    "Разборка форсунки",
+    "Сборка форсунки",
+    "Настройка распыления герметика",
+    "Замена герметика и прокачка системы",
+    "Настройка толкателя тубы",
+    "Настройка входного и выходного барабана",
+    "Натяжка цепей",
+    "ТО №1",
+    "Прочее",
+  ];
 
-  const summary4 = await prisma.summary.create({
-    data: {
-      product_id: product4.id,
-      batch_id: batch4.id,
-      conveyor_id: conveyor1.id,
-      plan: 40000,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068813" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "069530" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "068821" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "063755" } } },
-        ],
+  for (let i = 0; i < sealant_operations.length; i++) {
+    await prisma.sealantOperation.create({
+      data: {
+        value: "4" + String(i + 1).padStart(2, "0") + "1",
+        description: sealant_operations[i],
+        min_rank: 1,
       },
-    },
-  });
-  console.log(summary4);
+    });
+  }
 
-  const summary5 = await prisma.summary.create({
-    data: {
-      product_id: product5.id,
-      batch_id: batch5.id,
-      conveyor_id: conveyor1.id,
-      plan: 40000,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068866" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "069530" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "069336" } } },
-          { material: { connect: { code: "068821" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "063755" } } },
-        ],
-      },
-    },
-  });
-  console.log(summary5);
+  // const batch1 = await prisma.batch.upsert({
+  //   where: { name: "123A5" },
+  //   update: {},
+  //   create: {
+  //     name: "123A5",
+  //   },
+  // });
+  // console.log(batch1);
 
-  const summary6 = await prisma.summary.create({
-    data: {
-      product_id: product6.id,
-      batch_id: batch6.id,
-      conveyor_id: conveyor1.id,
-      plan: 40000,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068866" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "068972" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "068821" } } },
-          { material: { connect: { code: "068823" } } },
-          { material: { connect: { code: "068822" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "069579" } } },
-        ],
-      },
-    },
-  });
-  console.log(summary6);
+  // const batch2 = await prisma.batch.upsert({
+  //   where: { name: "125A5" },
+  //   update: {},
+  //   create: {
+  //     name: "125A5",
+  //   },
+  // });
+  // console.log(batch2);
 
-  const summary7 = await prisma.summary.create({
-    data: {
-      product_id: product7.id,
-      batch_id: batch7.id,
-      conveyor_id: conveyor1.id,
-      plan: 40000,
-      specifications: {
-        create: [
-          { material: { connect: { code: "068868" } } },
-          { material: { connect: { code: "067792" } } },
-          { material: { connect: { code: "068972" } } },
-          { material: { connect: { code: "068815" } } },
-          { material: { connect: { code: "069537" } } },
-          { material: { connect: { code: "068821" } } },
-          { material: { connect: { code: "068823" } } },
-          { material: { connect: { code: "068822" } } },
-          { material: { connect: { code: "071056" } } },
-          { material: { connect: { code: "071076" } } },
-          { material: { connect: { code: "063756" } } },
-        ],
-      },
-    },
-  });
-  console.log(summary7);
+  // const batch3 = await prisma.batch.upsert({
+  //   where: { name: "127A5" },
+  //   update: {},
+  //   create: {
+  //     name: "127A5",
+  //   },
+  // });
+  // console.log(batch3);
 
-  const picture1 = await prisma.pictures.create({
-    data: {
-      product_id: product2.id,
-      src: "030874.jpg",
-    },
-  });
-  console.log(picture1);
-  const picture2 = await prisma.pictures.create({
-    data: {
-      product_id: product2.id,
-      src: "030874_1.jpg",
-    },
-  });
-  console.log(picture2);
+  // const batch4 = await prisma.batch.upsert({
+  //   where: { name: "129A5" },
+  //   update: {},
+  //   create: {
+  //     name: "129A5",
+  //   },
+  // });
+  // console.log(batch4);
 
-  const picture3 = await prisma.pictures.create({
-    data: {
-      product_id: product1.id,
-      src: "002676.jpg",
-    },
-  });
-  console.log(picture3);
+  // const batch5 = await prisma.batch.upsert({
+  //   where: { name: "131A5" },
+  //   update: {},
+  //   create: {
+  //     name: "131A5",
+  //   },
+  // });
+  // console.log(batch5);
 
-  const picture4 = await prisma.pictures.create({
-    data: {
-      product_id: product1.id,
-      src: "002676_1.jpg",
-    },
-  });
-  console.log(picture4);
+  // const batch6 = await prisma.batch.upsert({
+  //   where: { name: "133A5" },
+  //   update: {},
+  //   create: {
+  //     name: "133A5",
+  //   },
+  // });
+  // console.log(batch6);
 
-  const picture5 = await prisma.pictures.create({
-    data: {
-      product_id: product3.id,
-      src: "011295.jpg",
-    },
-  });
-  console.log(picture5);
+  // const batch7 = await prisma.batch.upsert({
+  //   where: { name: "137A5" },
+  //   update: {},
+  //   create: {
+  //     name: "137A5",
+  //   },
+  // });
+  // console.log(batch7);
 
-  const picture6 = await prisma.pictures.create({
-    data: {
-      product_id: product3.id,
-      src: "011295_1.jpg",
-    },
-  });
-  console.log(picture6);
+  // const summary1 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product1.id,
+  //     batch_id: batch1.id,
+  //     conveyor_id: conveyor1.id,
+  //     plan: 40000,
+  //     isActive: true,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068866" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "069530" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "070177" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "070321" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary1);
 
-  const picture7 = await prisma.pictures.create({
-    data: {
-      product_id: product4.id,
-      src: "062625.jpg",
-    },
-  });
-  console.log(picture7);
+  // const summary2 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product2.id,
+  //     batch_id: batch2.id,
+  //     conveyor_id: conveyor2.id,
+  //     plan: 40000,
+  //     isActive: true,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068866" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "068972" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "069193" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "063754" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary2);
 
-  const picture8 = await prisma.pictures.create({
-    data: {
-      product_id: product4.id,
-      src: "062625_1.jpg",
-    },
-  });
-  console.log(picture8);
+  // const summary3 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product3.id,
+  //     batch_id: batch3.id,
+  //     conveyor_id: conveyor1.id,
+  //     plan: 40000,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068866" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "068972" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "068821" } } },
+  //         { material: { connect: { code: "068819" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "063754" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary3);
 
-  const picture9 = await prisma.pictures.create({
-    data: {
-      product_id: product5.id,
-      src: "045771.jpg",
-    },
-  });
-  console.log(picture9);
+  // const summary4 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product4.id,
+  //     batch_id: batch4.id,
+  //     conveyor_id: conveyor1.id,
+  //     plan: 40000,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068813" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "069530" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "068821" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "063755" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary4);
 
-  const picture10 = await prisma.pictures.create({
-    data: {
-      product_id: product5.id,
-      src: "045771_1.jpg",
-    },
-  });
-  console.log(picture10);
+  // const summary5 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product5.id,
+  //     batch_id: batch5.id,
+  //     conveyor_id: conveyor1.id,
+  //     plan: 40000,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068866" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "069530" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "069336" } } },
+  //         { material: { connect: { code: "068821" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "063755" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary5);
 
-  const picture11 = await prisma.pictures.create({
-    data: {
-      product_id: product6.id,
-      src: "057785.jpg",
-    },
-  });
-  console.log(picture11);
+  // const summary6 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product6.id,
+  //     batch_id: batch6.id,
+  //     conveyor_id: conveyor1.id,
+  //     plan: 40000,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068866" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "068972" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "068821" } } },
+  //         { material: { connect: { code: "068823" } } },
+  //         { material: { connect: { code: "068822" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "069579" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary6);
 
-  const picture12 = await prisma.pictures.create({
-    data: {
-      product_id: product6.id,
-      src: "057785_1.jpg",
-    },
-  });
-  console.log(picture12);
+  // const summary7 = await prisma.summary.create({
+  //   data: {
+  //     product_id: product7.id,
+  //     batch_id: batch7.id,
+  //     conveyor_id: conveyor1.id,
+  //     plan: 40000,
+  //     specifications: {
+  //       create: [
+  //         { material: { connect: { code: "068868" } } },
+  //         { material: { connect: { code: "067792" } } },
+  //         { material: { connect: { code: "068972" } } },
+  //         { material: { connect: { code: "068815" } } },
+  //         { material: { connect: { code: "069537" } } },
+  //         { material: { connect: { code: "068821" } } },
+  //         { material: { connect: { code: "068823" } } },
+  //         { material: { connect: { code: "068822" } } },
+  //         { material: { connect: { code: "071056" } } },
+  //         { material: { connect: { code: "071076" } } },
+  //         { material: { connect: { code: "063756" } } },
+  //       ],
+  //     },
+  //   },
+  // });
+  // console.log(summary7);
 
-  const picture13 = await prisma.pictures.create({
-    data: {
-      product_id: product7.id,
-      src: "057814.jpg",
-    },
-  });
-  console.log(picture13);
+  // const picture1 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product2.id,
+  //     src: "030874.jpg",
+  //   },
+  // });
+  // console.log(picture1);
+  // const picture2 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product2.id,
+  //     src: "030874_1.jpg",
+  //   },
+  // });
+  // console.log(picture2);
 
-  const picture14 = await prisma.pictures.create({
-    data: {
-      product_id: product7.id,
-      src: "057814_1.jpg",
-    },
-  });
-  console.log(picture14);
+  // const picture3 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product1.id,
+  //     src: "002676.jpg",
+  //   },
+  // });
+  // console.log(picture3);
+
+  // const picture4 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product1.id,
+  //     src: "002676_1.jpg",
+  //   },
+  // });
+  // console.log(picture4);
+
+  // const picture5 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product3.id,
+  //     src: "011295.jpg",
+  //   },
+  // });
+  // console.log(picture5);
+
+  // const picture6 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product3.id,
+  //     src: "011295_1.jpg",
+  //   },
+  // });
+  // console.log(picture6);
+
+  // const picture7 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product4.id,
+  //     src: "062625.jpg",
+  //   },
+  // });
+  // console.log(picture7);
+
+  // const picture8 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product4.id,
+  //     src: "062625_1.jpg",
+  //   },
+  // });
+  // console.log(picture8);
+
+  // const picture9 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product5.id,
+  //     src: "045771.jpg",
+  //   },
+  // });
+  // console.log(picture9);
+
+  // const picture10 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product5.id,
+  //     src: "045771_1.jpg",
+  //   },
+  // });
+  // console.log(picture10);
+
+  // const picture11 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product6.id,
+  //     src: "057785.jpg",
+  //   },
+  // });
+  // console.log(picture11);
+
+  // const picture12 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product6.id,
+  //     src: "057785_1.jpg",
+  //   },
+  // });
+  // console.log(picture12);
+
+  // const picture13 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product7.id,
+  //     src: "057814.jpg",
+  //   },
+  // });
+  // console.log(picture13);
+
+  // const picture14 = await prisma.pictures.create({
+  //   data: {
+  //     product_id: product7.id,
+  //     src: "057814_1.jpg",
+  //   },
+  // });
+  // console.log(picture14);
 
   //   // for (let index = 0; index < 100; index++) {
   //   //   await prisma.extrusionHardwareParamsRecord.create({
@@ -1876,142 +2029,142 @@ async function main() {
   // });
   // console.log(summary_raw_materials_8);
 
-  for (let index = 1; index < 5; index++) {
-    await prisma.note.create({
-      data: {
-        summary_id: summary3.id,
-        post_id: index,
-        note: `Комментарий к посту ${index}`,
-      },
-    });
-  }
+  //   for (let index = 1; index < 5; index++) {
+  //     await prisma.note.create({
+  //       data: {
+  //         summary_id: summary3.id,
+  //         post_id: index,
+  //         note: `Комментарий к посту ${index}`,
+  //       },
+  //     });
+  //   }
 
-  for (let index = 0; index < 30; index++) {
-    await prisma.extrusionParam.create({
-      data: {
-        summary_id: summary3.id,
-        counter_value: 0 + index * 1500,
-        press_speed: 72,
-        blow_time: 14,
-        turning_machine_speed: 78,
-        annealing_furnace_temp: 400,
-        rondel_id: rondel2.id,
-        tube_cilindrical_section_length: 132,
-        membrane_thickness: 0.12,
-        tube_diameter: 38,
-        tube_cilindrical_section_thickness: 0.23,
-        tube_rigidity: 6,
-        tube_cutting_quality: true,
-        tightness: true,
-        external_thread_quality: true,
-        employee_id: employee1.id,
-        createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 30 * index),
-      },
-    });
-  }
+  //   for (let index = 0; index < 30; index++) {
+  //     await prisma.extrusionParam.create({
+  //       data: {
+  //         summary_id: summary3.id,
+  //         counter_value: 0 + index * 1500,
+  //         press_speed: 72,
+  //         blow_time: 14,
+  //         turning_machine_speed: 78,
+  //         annealing_furnace_temp: 400,
+  //         rondel_id: rondel2.id,
+  //         tube_cilindrical_section_length: 132,
+  //         membrane_thickness: 0.12,
+  //         tube_diameter: 38,
+  //         tube_cilindrical_section_thickness: 0.23,
+  //         tube_rigidity: 6,
+  //         tube_cutting_quality: true,
+  //         tightness: true,
+  //         external_thread_quality: true,
+  //         employee_id: employee1.id,
+  //         createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 30 * index),
+  //       },
+  //     });
+  //   }
 
-  for (let index = 0; index < 30; index++) {
-    await prisma.varnishParam.create({
-      data: {
-        summary_id: summary3.id,
-        counter_value: 0 + index * 1500,
+  //   for (let index = 0; index < 30; index++) {
+  //     await prisma.varnishParam.create({
+  //       data: {
+  //         summary_id: summary3.id,
+  //         counter_value: 0 + index * 1500,
 
-        varnish_machine_speed: 70,
-        total_air_pressure: 4.5,
-        feed_can_air_pressure: 3.4,
-        nozzle_regulator_air_pressure: 1.2,
-        cells_speed: 12,
-        injection_a_start_position: 100,
-        injection_b_start_position: 100,
-        injection_c_start_position: 100,
-        injection_d_start_position: 100,
-        injection_a_end_position: 100,
-        injection_b_end_position: 100,
-        injection_c_end_position: 100,
-        injection_d_end_position: 100,
-        tube_molding_start_position: 100,
-        tube_molding_end_position: 100,
-        polimerization_furnace_temp: 100,
-        internal_varnish_porosity: 100,
-        internal_sectional_view: true,
-        aluminium_clearance_lack: false,
-        unpainting_lack: false,
+  //         varnish_machine_speed: 70,
+  //         total_air_pressure: 4.5,
+  //         feed_can_air_pressure: 3.4,
+  //         nozzle_regulator_air_pressure: 1.2,
+  //         cells_speed: 12,
+  //         injection_a_start_position: 100,
+  //         injection_b_start_position: 100,
+  //         injection_c_start_position: 100,
+  //         injection_d_start_position: 100,
+  //         injection_a_end_position: 100,
+  //         injection_b_end_position: 100,
+  //         injection_c_end_position: 100,
+  //         injection_d_end_position: 100,
+  //         tube_molding_start_position: 100,
+  //         tube_molding_end_position: 100,
+  //         polimerization_furnace_temp: 100,
+  //         internal_varnish_porosity: 100,
+  //         internal_sectional_view: true,
+  //         aluminium_clearance_lack: false,
+  //         unpainting_lack: false,
 
-        employee_id: employee1.id,
-        createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 10 * index),
-      },
-    });
-  }
+  //         employee_id: employee1.id,
+  //         createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 10 * index),
+  //       },
+  //     });
+  //   }
 
-  for (let index = 0; index < 30; index++) {
-    await prisma.sealantParam.create({
-      data: {
-        summary_id: summary3.id,
-        counter_value: 0 + index * 1113,
+  //   for (let index = 0; index < 30; index++) {
+  //     await prisma.sealantParam.create({
+  //       data: {
+  //         summary_id: summary3.id,
+  //         counter_value: 0 + index * 1113,
 
-        cap_machine_speed: 1234,
-        total_air_pressure: 1234,
-        holders_forward: 1234,
-        holders_opening_left: 1234,
-        holders_opening_right: 1234,
-        holders_closing: 1234,
-        injection_a_start: 1234,
-        injection_b_start: 1234,
-        injection_a_end: 1234,
-        injection_b_end: 1234,
-        injection_tube_orientation_start: 1234,
-        injection_tube_orientation_end: 1234,
-        is_cap_surface_smooth: true,
-        latex_ring_padding: 12,
-        latex_ring_width: 12,
-        tube_rigidity: 12,
-        cap_unscrewing_torque: 12,
+  //         cap_machine_speed: 1234,
+  //         total_air_pressure: 1234,
+  //         holders_forward: 1234,
+  //         holders_opening_left: 1234,
+  //         holders_opening_right: 1234,
+  //         holders_closing: 1234,
+  //         injection_a_start: 1234,
+  //         injection_b_start: 1234,
+  //         injection_a_end: 1234,
+  //         injection_b_end: 1234,
+  //         injection_tube_orientation_start: 1234,
+  //         injection_tube_orientation_end: 1234,
+  //         is_cap_surface_smooth: true,
+  //         latex_ring_padding: 12,
+  //         latex_ring_width: 12,
+  //         tube_rigidity: 12,
+  //         cap_unscrewing_torque: 12,
 
-        employee_id: employee1.id,
-        createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 10 * index),
-      },
-    });
-  }
+  //         employee_id: employee1.id,
+  //         createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 10 * index),
+  //       },
+  //     });
+  //   }
 
-  for (let index = 0; index < 30; index++) {
-    await prisma.offsetParam.create({
-      data: {
-        summary_id: summary3.id,
-        counter_value: 0 + index * 1500,
+  //   for (let index = 0; index < 30; index++) {
+  //     await prisma.offsetParam.create({
+  //       data: {
+  //         summary_id: summary3.id,
+  //         counter_value: 0 + index * 1500,
 
-        printing_machine_speed: 75,
+  //         printing_machine_speed: 75,
 
-        total_air_pressure: 6,
+  //         total_air_pressure: 6,
 
-        padding_furnace_temp: 155,
+  //         padding_furnace_temp: 155,
 
-        offset_furnace_temp: 155,
+  //         offset_furnace_temp: 155,
 
-        printer_motor: 450,
+  //         printer_motor: 450,
 
-        base_covers_holders_motor: 800,
+  //         base_covers_holders_motor: 800,
 
-        base_covers_station_motor: 450,
+  //         base_covers_station_motor: 450,
 
-        // imprint_quantity_printed_box_1_min :0,
+  //         // imprint_quantity_printed_box_1_min :0,
 
-        // imprint_quantity_printed_box_2_min :0,
+  //         // imprint_quantity_printed_box_2_min :0,
 
-        imprint_quantity_printed_box_3: 7,
+  //         imprint_quantity_printed_box_3: 7,
 
-        imprint_quantity_printed_box_4: 7,
+  //         imprint_quantity_printed_box_4: 7,
 
-        // imprint_quantity_printed_box_5_min :0,
-        // imprint_quantity_printed_box_5_max :0,
-        // imprint_quantity_printed_box_6_min :0,
-        // imprint_quantity_printed_box_6_max :0,
-        ink_supply_time: 0.4,
+  //         // imprint_quantity_printed_box_5_min :0,
+  //         // imprint_quantity_printed_box_5_max :0,
+  //         // imprint_quantity_printed_box_6_min :0,
+  //         // imprint_quantity_printed_box_6_max :0,
+  //         ink_supply_time: 0.4,
 
-        employee_id: employee1.id,
-        createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 30 * index),
-      },
-    });
-  }
+  //         employee_id: employee1.id,
+  //         createdAt: new Date(new Date(new Date().setHours(0, 0, 0)).getTime() + 1000 * 60 * 30 * index),
+  //       },
+  //     });
+  //   }
 }
 
 main()

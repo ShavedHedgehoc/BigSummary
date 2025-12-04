@@ -23,6 +23,7 @@ import SealantNumericEntryModal from "./entry/modals/sealant-numeric-entry-modal
 import SealantBooleanEntryModal from "./entry/modals/sealant-boolean-entry-modal";
 import SealantCloseConfirmModal from "./entry/modals/sealant-close-confirm-modal";
 import SealantEntryAlertModal from "./entry/modals/sealant-entry-alert-modal";
+import SealantIntegerEntryModal from "./entry/modals/sealant-integer-entry-modal";
 
 export default function SealantAddEntry() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -36,7 +37,7 @@ export default function SealantAddEntry() {
 
   const addEntryPageLayoutProps: AddEntryPageLayoutProps = {
     timeComponent: <TimeComponent />,
-    headerComponent: <HeaderComponent conveyorName={sealantConveyor.name} postName={PostNames.OFFSET} />,
+    headerComponent: <HeaderComponent conveyorName={sealantConveyor.name} postName={PostNames.SEALANT} />,
     entriesComponent: <SealantEntries summaryData={summaryData ?? null} />,
     menuComponent: <SealantAddEntryMenu summaryData={summaryData ?? null} />,
     userComponent: <UserComponent employee={employee} />,
@@ -51,6 +52,7 @@ export default function SealantAddEntry() {
       <Theme appearance="dark" colorPalette="gray">
         <AddEntryPageLayout {...addEntryPageLayoutProps} />
         <SealantNumericEntryModal />
+        <SealantIntegerEntryModal />
         <SealantBooleanEntryModal />
         <SealantCloseConfirmModal />
         <SealantEntryAlertModal />

@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 import type { ISummary } from "@/shared/api/services/summary-service";
 import { CountersTresholds } from "@/shared/helpers/counters-tresholds";
 import { ParameterNames } from "@/shared/helpers/parameter-names";
@@ -12,7 +13,7 @@ import useOffsetEntriesHandleCardsClick from "./use-offset-entries-handle-cards-
 
 export default function OffsetEntries({ summaryData }: { summaryData: ISummary | null }) {
   const data = useOffsetInputStore(useShallow((state) => state.data));
-  const { handleCardClick, handleBooleanCardClick } = useOffsetEntriesHandleCardsClick();
+  const { handleCardClick, handleIntegerCardClick, handleBooleanCardClick } = useOffsetEntriesHandleCardsClick();
 
   const tresholdsData = summaryData?.offsetTresholds ?? null;
   const lastCounterValue = summaryData?.offsetParams ? summaryData.offsetParams.counter_value : null;
@@ -24,7 +25,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: lastCounterValue ?? CountersTresholds.COUNTERS_MIN_TRESHOLD,
     maxValue: CountersTresholds.COUNTERS_MAX_TRESHOLD,
     unit: ParameterUnits.COUNTER_VALUE,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -35,7 +36,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: tresholdsData?.printing_machine_speed_min ?? null,
     maxValue: tresholdsData?.printing_machine_speed_max ?? null,
     unit: ParameterUnits.OFFSET_PRINTING_MACHINE_SPEED,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -57,7 +58,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: tresholdsData?.padding_furnace_temp_min ?? null,
     maxValue: tresholdsData?.padding_furnace_temp_max ?? null,
     unit: ParameterUnits.OFFSET_PADDING_FURNACE_TEMP,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -68,7 +69,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: tresholdsData?.offset_furnace_temp_min ?? null,
     maxValue: tresholdsData?.offset_furnace_temp_max ?? null,
     unit: ParameterUnits.OFFSET_OFFSET_FURNACE_TEMP,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -79,7 +80,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: tresholdsData?.printer_motor_min ?? null,
     maxValue: tresholdsData?.printer_motor_max ?? null,
     unit: ParameterUnits.OFFSET_PRINTER_MOTOR,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -90,7 +91,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: tresholdsData?.base_covers_holders_motor_min ?? null,
     maxValue: tresholdsData?.base_covers_holders_motor_max ?? null,
     unit: ParameterUnits.OFFSET_BASE_COVERS_HOLDERS_MOTOR,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -101,7 +102,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     minValue: tresholdsData?.base_covers_station_motor_min ?? null,
     maxValue: tresholdsData?.base_covers_station_motor_max ?? null,
     unit: ParameterUnits.OFFSET_BASE_COVERS_STATION_MOTOR,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -111,7 +112,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     value: Number(data.imprint_quantity_printed_box_1) ?? null,
     minValue: tresholdsData?.imprint_quantity_printed_box_1_min ?? null,
     maxValue: tresholdsData?.imprint_quantity_printed_box_1_max ?? null,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -121,7 +122,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     value: Number(data.imprint_quantity_printed_box_2) ?? null,
     minValue: tresholdsData?.imprint_quantity_printed_box_2_min ?? null,
     maxValue: tresholdsData?.imprint_quantity_printed_box_2_max ?? null,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -131,7 +132,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     value: Number(data.imprint_quantity_printed_box_3) ?? null,
     minValue: tresholdsData?.imprint_quantity_printed_box_3_min ?? null,
     maxValue: tresholdsData?.imprint_quantity_printed_box_3_max ?? null,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -141,7 +142,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     value: Number(data.imprint_quantity_printed_box_4) ?? null,
     minValue: tresholdsData?.imprint_quantity_printed_box_4_min ?? null,
     maxValue: tresholdsData?.imprint_quantity_printed_box_4_max ?? null,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -151,7 +152,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     value: Number(data.imprint_quantity_printed_box_5) ?? null,
     minValue: tresholdsData?.imprint_quantity_printed_box_5_min ?? null,
     maxValue: tresholdsData?.imprint_quantity_printed_box_5_max ?? null,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -161,7 +162,7 @@ export default function OffsetEntries({ summaryData }: { summaryData: ISummary |
     value: Number(data.imprint_quantity_printed_box_6) ?? null,
     minValue: tresholdsData?.imprint_quantity_printed_box_6_min ?? null,
     maxValue: tresholdsData?.imprint_quantity_printed_box_6_max ?? null,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 

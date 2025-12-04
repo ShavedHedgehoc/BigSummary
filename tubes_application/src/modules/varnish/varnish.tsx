@@ -14,8 +14,7 @@ import ProductionCard from "../../shared/components/cards/production-card/produc
 import MaterialPieChartComponent from "../../shared/components/charts/material-pie-chart-component";
 import Loader from "../../shared/components/info/loader";
 import Info from "../../shared/components/info/info";
-import ProductionLineChart from "../../shared/components/charts/production-line-chart";
-
+import ProductionLineChart from "@/shared/components/charts/production-line-chart";
 import { PostNames } from "@/shared/helpers/post-names";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 import { Theme } from "@chakra-ui/react";
@@ -26,6 +25,7 @@ import VarnishMaterialScanModal from "./dash/modals/varnish-material-scan-modal"
 import VarnishParameters from "./dash/varnish-parameters";
 import { useVarnishConveyorStore } from "./store/use-varnish-conveyor-store";
 import { useVarnishEmployeeStore } from "./store/use-varnish-employee-store";
+import VarnishCloseSummaryAlertModal from "./dash/modals/varnish-close-summery-alert-modal";
 
 export default function Varnish() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -59,6 +59,7 @@ export default function Varnish() {
         <VarnishAuthModal />
         <VarnishLogoutAlertModal />
         <VarnishMaterialScanModal summary_id={summaryData?.data.id} />
+        <VarnishCloseSummaryAlertModal />
       </Theme>
     </ColorModeProvider>
   );

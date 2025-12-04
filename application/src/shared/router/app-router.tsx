@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import * as React from "react";
 import { Routes, Navigate, Outlet, Route, BrowserRouter } from "react-router-dom";
 import { RouteNames } from "./route-names";
@@ -51,7 +52,7 @@ const TraceBatchWeightingsSummaryDetail = React.lazy(
   () => import("../../modules/trace-weighting-summary-detail/trace-batch-weighting-summary-detail")
 );
 const BoilsUpload = React.lazy(() => import("../../modules/boils-upload/boils-upload"));
-const TubesUploadPictures = React.lazy(() => import("../../modules/upload-tube-pictures/upload-tube-pictures"));
+const TubeUploadPictures = React.lazy(() => import("../../modules/upload-tube-pictures/upload-tube-pictures"));
 
 export default function AppRouter() {
   const isHealthy = useHealthStore(useShallow((state) => state.isHealthy));
@@ -100,6 +101,9 @@ export default function AppRouter() {
         <Route element={<ProtectedRoutes />}>
           <Route path={RouteNames.HOME} element={<Layout />}>
             <Route index element={<Dash />} />
+            <Route path={RouteNames.TUBES_MONITOR} element={<Boils />} />
+            <Route path={RouteNames.TUBES_SUMMARY} element={<Boils />} />
+            <Route path={RouteNames.TUBES_EMPLOYEES} element={<Boils />} />
             <Route element={<RoleProtectedRoutes role={DbRoles.LABORATORY} />}>
               <Route path={RouteNames.BOILS_LIST} element={<Boils />} />
               <Route path={RouteNames.LABORATORY} element={<Products />} />
@@ -125,7 +129,7 @@ export default function AppRouter() {
             <Route element={<RoleProtectedRoutes role={DbRoles.ADMIN} />}>
               <Route path={RouteNames.USERS_LIST} element={<Users />} />
               <Route path={RouteNames.UI_PAGE} element={<UiPage />} />
-              <Route path={RouteNames.TUBES_UPLOAD_PICTURES} element={<TubesUploadPictures />} />
+              <Route path={RouteNames.TUBES_UPLOAD_PICTURES} element={<TubeUploadPictures />} />
             </Route>
             <Route element={<RoleProtectedRoutes role={DbRoles.TECHNOLOGIST} />}>
               <Route path={RouteNames.CANS_DASH} element={<Cans />} />

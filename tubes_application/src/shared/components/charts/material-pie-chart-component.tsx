@@ -40,7 +40,7 @@ export default function MaterialPieChartComponent({
                 labelLine={false}
                 label={({ cx, cy, midAngle, innerRadius, outerRadius, index }) => {
                   const RADIAN = Math.PI / 180;
-                  const radius = 25 + innerRadius + (outerRadius - innerRadius);
+                  const radius = 40 + innerRadius + (outerRadius - innerRadius);
                   const x = cx + radius * Math.cos(midAngle ? -midAngle * RADIAN : 0);
                   const y = cy + radius * Math.sin(midAngle ? -midAngle * RADIAN : 0);
 
@@ -65,7 +65,7 @@ export default function MaterialPieChartComponent({
                         {`${chart.data[index].name.slice(6, 40)}`}
                       </text>
                       <text
-                        x={x + 15}
+                        x={x + 20}
                         y={y + 30}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}

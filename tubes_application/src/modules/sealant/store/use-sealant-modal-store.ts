@@ -33,3 +33,10 @@ export const useSealantMaterialScanModalStore = create<SimplyModalStore>()(
     setOpen: (value) => set(() => ({ open: value })),
   }))
 );
+
+export const useSealantCloseSummaryModalStore = create<SimplyModalStore>()(
+  devtools((set) => ({
+    open: false,
+    setOpen: (value) => set(() => ({ open: value })),
+  }))
+);

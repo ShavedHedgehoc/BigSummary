@@ -12,9 +12,18 @@ export enum ApiRoutes {
   CREATE_SEALANT_ENTRY = "params/sealant",
 
   CREATE_EXTRUSION_STATUS = "statuses/extrusion",
+  CREATE_OFFSET_STATUS = "statuses/offset",
+  CREATE_VARNISH_STATUS = "statuses/varnish",
+  CREATE_SEALANT_STATUS = "statuses/sealant",
 
   GET_RONDELS = "rondels",
   GET_PICTURES = "pictures",
+
+  GET_EXTRUSION_OPERATIONS = "operations/extrusion",
+  GET_VARNISH_OPERATIONS = "operations/varnish",
+  GET_OFFSET_OPERATIONS = "operations/offset",
+  GET_SEALANT_OPERATIONS = "operations/sealant",
+  ZPL = "zpl",
 
   // GET_SUMMARY_RAW_MATERIALS_BY_SUMMARY_ID = "summary-raw-materials/by_summary_id",
 

@@ -45,4 +45,7 @@ export enum RouteNames {
   TRACE_WGHT_SUMMARY_DETAIL = "/trace_wght_summary_detail",
   TRACE_UPLOAD_BOILS = "/trace_upload_boils",
   TUBES_UPLOAD_PICTURES = "/tubes_upload_pictures",
+  TUBES_EMPLOYEES = "/tubes_employees",
+  TUBES_MONITOR = "/tubes_monitor",
+  TUBES_SUMMARY = "/tubes_summary",
 }

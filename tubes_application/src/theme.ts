@@ -29,15 +29,15 @@ const config = defineConfig({
         bg: {
           // value: { _dark: `{colors.gray.900}` },
 
-          success: {
-            value: { _dark: `{colors.gray.900}` },
-          },
-          warning: {
-            value: { _dark: `{colors.gray.900}` },
-          },
-          error: {
-            value: { _dark: `{colors.gray.900}` },
-          },
+          // success: {
+          //   value: { _dark: `{colors.gray.900}` },
+          // },
+          // warning: {
+          //   value: { _dark: `{colors.gray.900}` },
+          // },
+          // error: {
+          //   value: { _dark: `{colors.gray.900}` },
+          // },
           panel: {
             value: { _dark: `{colors.gray.900}` },
           },

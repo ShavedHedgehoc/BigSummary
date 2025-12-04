@@ -16,7 +16,7 @@ import ProductionCard from "../../shared/components/cards/production-card/produc
 import MaterialPieChartComponent from "../../shared/components/charts/material-pie-chart-component";
 import Loader from "../../shared/components/info/loader";
 import Info from "../../shared/components/info/info";
-import ProductionLineChart from "../../shared/components/charts/production-line-chart";
+import ProductionLineChart from "@/shared/components/charts/production-line-chart";
 import ExtrusionParameters from "./dash/extrusion-parameters";
 import ExtrusionMenu from "./dash/menu/extrusion-menu";
 import ExtrusionAuthModal from "./dash/modals/extrusion-auth-modal";
@@ -43,6 +43,7 @@ export default function Extrusion() {
     parameterComponent: <ExtrusionParameters summaryData={summaryData ?? null} />,
     materialPieChartComponent: <MaterialPieChartComponent summaryData={summaryData ?? null} postId={1} />,
     productionLineChartComponent: <ProductionLineChart summaryData={summaryData ?? null} postId={1} />,
+
     productionCardComponent: <ProductionCard summaryData={summaryData ?? null} postId={1} />,
     menuComponent: <ExtrusionMenu />,
     userComponent: <UserComponent employee={employee} />,

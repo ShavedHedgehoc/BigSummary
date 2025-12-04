@@ -14,13 +14,17 @@ const Home = lazy(() => import("../../modules/home/home"));
 const Posts = lazy(() => import("../../modules/posts/posts"));
 const Extrusion = lazy(() => import("../../modules/extrusion/extrusion"));
 const ExtrusionAddEntry = lazy(() => import("../../modules/extrusion/extrusion-add-entry"));
-const ExtrusionOperations = lazy(() => import("../../modules/extrusion/extrusion-operations"));
+// const ExtrusionOperations = lazy(() => import("../../modules/extrusion/extrusion-operations"));
+const ExtrusionOperationsNew = lazy(() => import("../../modules/extrusion/extrusion-operations-new"));
 const Varnish = lazy(() => import("../../modules/varnish/varnish"));
 const VarnishAddEntry = lazy(() => import("../../modules/varnish/varnish-add-entry"));
+const VarnishOperations = lazy(() => import("../../modules/varnish/varnish-operations"));
 const Offset = lazy(() => import("../../modules/offset/offset"));
 const OffsetAddEntry = lazy(() => import("../../modules/offset/offset-add-entry"));
+const OffsetOperations = lazy(() => import("../../modules/offset/offset-operations"));
 const Sealant = lazy(() => import("../../modules/sealant/sealant"));
 const SealantAddEntry = lazy(() => import("../../modules/sealant/sealant-add-entry"));
+const SealantOperations = lazy(() => import("../../modules/sealant/sealant-operations"));
 const Pictures = lazy(() => import("../../modules/pictures/pictures"));
 
 const AppRouter = () => {
@@ -40,17 +44,18 @@ const AppRouter = () => {
             <Route path={RouteNames.EXTRUSION_ADD_ENTRY} element={<RouteSuspense children={<ExtrusionAddEntry />} />} />
             <Route
               path={RouteNames.EXTRUSION_OPERATIONS}
-              element={<RouteSuspense children={<ExtrusionOperations />} />}
+              // element={<RouteSuspense children={<ExtrusionOperations />} />}
+              element={<RouteSuspense children={<ExtrusionOperationsNew />} />}
             />
-            <Route path={RouteNames.VARNISH} element={<RouteSuspense children={<Varnish />} />}></Route>
-            <Route
-              path={RouteNames.VARNISH_ADD_ENTRY}
-              element={<RouteSuspense children={<VarnishAddEntry />} />}
-            ></Route>
+            <Route path={RouteNames.VARNISH} element={<RouteSuspense children={<Varnish />} />} />
+            <Route path={RouteNames.VARNISH_ADD_ENTRY} element={<RouteSuspense children={<VarnishAddEntry />} />} />
+            <Route path={RouteNames.VARNISH_OPERATIONS} element={<RouteSuspense children={<VarnishOperations />} />} />
             <Route path={RouteNames.OFFSET} element={<RouteSuspense children={<Offset />} />} />
             <Route path={RouteNames.OFFSET_ADD_ENTRY} element={<RouteSuspense children={<OffsetAddEntry />} />} />
+            <Route path={RouteNames.OFFSET_OPERATIONS} element={<RouteSuspense children={<OffsetOperations />} />} />
             <Route path={RouteNames.SEALANT} element={<RouteSuspense children={<Sealant />} />} />
             <Route path={RouteNames.SEALANT_ADD_ENTRY} element={<RouteSuspense children={<SealantAddEntry />} />} />
+            <Route path={RouteNames.SEALANT_OPERATIONS} element={<RouteSuspense children={<SealantOperations />} />} />
             <Route path={RouteNames.PICTURES} element={<RouteSuspense children={<Pictures />} />}></Route>
             <Route path={RouteNames.NOT_FOUND} element={<NotFound message={AppMessages.ROUTE_NOT_FOUND} />} />
           </Routes>

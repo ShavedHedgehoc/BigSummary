@@ -20,7 +20,7 @@ export class ParamsService {
       throw new HttpException(ApiMessages.COUNTER_LESS_THEN_LAST_VALUE, HttpStatus.BAD_REQUEST);
 
     await this.prisma.extrusionStatus.create({
-      data: { summary_id: dto.summary_id, employee_id: dto.employee_id },
+      data: { summary_id: dto.summary_id, employee_id: dto.employee_id, counter_value: dto.counter_value },
     });
 
     const extrusionEntry = await this.prisma.extrusionParam.create({
@@ -37,6 +37,11 @@ export class ParamsService {
 
     if (lastEntry && lastEntry.counter_value > dto.counter_value)
       throw new HttpException(ApiMessages.COUNTER_LESS_THEN_LAST_VALUE, HttpStatus.BAD_REQUEST);
+
+    await this.prisma.varnishStatus.create({
+      data: { summary_id: dto.summary_id, employee_id: dto.employee_id, counter_value: dto.counter_value },
+    });
+
     const varnishEntry = await this.prisma.varnishParam.create({
       data: { ...dto },
     });
@@ -51,6 +56,11 @@ export class ParamsService {
 
     if (lastEntry && lastEntry.counter_value > dto.counter_value)
       throw new HttpException(ApiMessages.COUNTER_LESS_THEN_LAST_VALUE, HttpStatus.BAD_REQUEST);
+
+    await this.prisma.offsetStatus.create({
+      data: { summary_id: dto.summary_id, employee_id: dto.employee_id, counter_value: dto.counter_value },
+    });
+
     const offsetEntry = await this.prisma.offsetParam.create({
       data: { ...dto },
     });
@@ -65,9 +75,15 @@ export class ParamsService {
 
     if (lastEntry && lastEntry.counter_value > dto.counter_value)
       throw new HttpException(ApiMessages.COUNTER_LESS_THEN_LAST_VALUE, HttpStatus.BAD_REQUEST);
+
+    await this.prisma.sealantStatus.create({
+      data: { summary_id: dto.summary_id, employee_id: dto.employee_id, counter_value: dto.counter_value },
+    });
+
     const sealantEntry = await this.prisma.sealantParam.create({
       data: { ...dto },
     });
+
     return sealantEntry;
   }
 }

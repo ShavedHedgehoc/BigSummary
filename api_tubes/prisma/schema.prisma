@@ -17,14 +17,28 @@ model Employee {
   id                 Int                @id @default(autoincrement())
   name               String
   barcode            String             @unique @db.VarChar(13)
+  rank               Rank?              @relation(fields: [rank_id], references: [id])
+  rank_id            Int?
   consumed_materials ConsumedMaterial[]
   extrusion_params   ExtrusionParam[]
   varnish_params     VarnishParam[]
   offset_params      OffsetParam[]
   sealant_params     SealantParam[]
   extrusion_statuses ExtrusionStatus[]
+  varnish_statuses   VarnishStatus[]
+  offset_statuses    OffsetStatus[]
+  sealant_statuses   SealantStatus[]
 
   @@map("employees")
+}
+
+model Rank {
+  id          Int        @id @default(autoincrement())
+  val         Int
+  description String
+  employees   Employee[]
+
+  @@map("ranks")
 }
 
 //  Продукция
@@ -103,6 +117,7 @@ model Summary {
   plan               Int
   isActive           Boolean            @default(false)
   isFinished         Boolean            @default(false)
+  date               DateTime
   specifications     Specification[]
   consumed_materials ConsumedMaterial[]
   notes              Note[]
@@ -111,6 +126,9 @@ model Summary {
   offset_params      OffsetParam[]
   sealant_params     SealantParam[]
   extrusion_statuses ExtrusionStatus[]
+  varnish_statuses   VarnishStatus[]
+  offset_statuses    OffsetStatus[]
+  sealant_statuses   SealantStatus[]
 
   @@map("summaries")
 }
@@ -442,25 +460,109 @@ model SealantTreshold {
 }
 
 model ExtrusionOperation {
-  id                          Int               @id @default(autoincrement())
-  value                       String
-  description                 String
-  extrusion_operation_reports ExtrusionStatus[]
+  id          Int               @id @default(autoincrement())
+  value       String
+  min_rank    Int               @default(1)
+  description String
+  statuses    ExtrusionStatus[]
 
   @@map("extrusion_operations")
 }
 
 model ExtrusionStatus {
-  id           Int                 @id @default(autoincrement())
-  summary      Summary             @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  summary_id   Int
-  operation    ExtrusionOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  operation_id Int?
-  idle         Boolean             @default(false)
-  employee     Employee            @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  employee_id  Int
-  finished     Boolean             @default(false)
-  createdAt    DateTime            @default(now())
+  id            Int                 @id @default(autoincrement())
+  summary       Summary             @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id    Int
+  counter_value Int
+  operation     ExtrusionOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id  Int?
+  idle          Boolean             @default(false)
+  employee      Employee            @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int
+  idle_time     Int?
+  finished      Boolean             @default(false)
+  createdAt     DateTime            @default(now())
 
   @@map("extrusion_statuses")
+}
+
+model VarnishOperation {
+  id          Int             @id @default(autoincrement())
+  value       String
+  min_rank    Int             @default(1)
+  description String
+  statuses    VarnishStatus[]
+
+  @@map("varnish_operations")
+}
+
+model VarnishStatus {
+  id            Int               @id @default(autoincrement())
+  summary       Summary           @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id    Int
+  counter_value Int
+  operation     VarnishOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id  Int?
+  idle          Boolean           @default(false)
+  employee      Employee          @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int
+  idle_time     Int?
+  finished      Boolean           @default(false)
+  createdAt     DateTime          @default(now())
+
+  @@map("varnish_statuses")
+}
+
+model OffsetOperation {
+  id          Int            @id @default(autoincrement())
+  value       String
+  min_rank    Int            @default(1)
+  description String
+  statuses    OffsetStatus[]
+
+  @@map("offset_operations")
+}
+
+model OffsetStatus {
+  id            Int              @id @default(autoincrement())
+  summary       Summary          @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id    Int
+  counter_value Int
+  operation     OffsetOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id  Int?
+  idle          Boolean          @default(false)
+  employee      Employee         @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int
+  idle_time     Int?
+  finished      Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+
+  @@map("offset_statuses")
+}
+
+model SealantOperation {
+  id          Int             @id @default(autoincrement())
+  value       String
+  min_rank    Int             @default(1)
+  description String
+  statuses    SealantStatus[]
+
+  @@map("sealant_operations")
+}
+
+model SealantStatus {
+  id            Int               @id @default(autoincrement())
+  summary       Summary           @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id    Int
+  counter_value Int
+  operation     SealantOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id  Int?
+  idle          Boolean           @default(false)
+  employee      Employee          @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int
+  idle_time     Int?
+  finished      Boolean           @default(false)
+  createdAt     DateTime          @default(now())
+
+  @@map("sealant_statuses")
 }

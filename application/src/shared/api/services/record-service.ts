@@ -91,7 +91,7 @@ export default class RecordService {
     return res.data;
   }
 
-  static async deleteRecord(record_id: number): Promise<any> {
+  static async deleteRecord(record_id: number) {
     const res = await $api.delete(`/records/${record_id}`);
     return res.data;
   }

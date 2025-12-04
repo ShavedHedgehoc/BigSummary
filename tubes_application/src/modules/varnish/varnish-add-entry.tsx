@@ -23,6 +23,7 @@ import VarnishNumericEntryModal from "./entry/modals/varnish-numeric-entry-modal
 import VarnishBooleanEntryModal from "./entry/modals/varnish-boolean-entry-modal";
 import VarnishCloseConfirmModal from "./entry/modals/varnish-close-confirm-modal";
 import VarnishEntryAlertModal from "./entry/modals/varnish-entry-alert-modal";
+import VarnishIntegerEntryModal from "./entry/modals/varnish-integer-entry-modal";
 
 export default function VarnishAddEntry() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -36,7 +37,7 @@ export default function VarnishAddEntry() {
 
   const addEntryPageLayoutProps: AddEntryPageLayoutProps = {
     timeComponent: <TimeComponent />,
-    headerComponent: <HeaderComponent conveyorName={varnishConveyor.name} postName={PostNames.OFFSET} />,
+    headerComponent: <HeaderComponent conveyorName={varnishConveyor.name} postName={PostNames.VARNISH} />,
     entriesComponent: <VarnishEntries summaryData={summaryData ?? null} />,
     menuComponent: <VarnishAddEntryMenu summaryData={summaryData ?? null} />,
     userComponent: <UserComponent employee={employee} />,
@@ -51,6 +52,7 @@ export default function VarnishAddEntry() {
       <Theme appearance="dark" colorPalette="gray">
         <AddEntryPageLayout {...addEntryPageLayoutProps} />
         <VarnishNumericEntryModal />
+        <VarnishIntegerEntryModal />
         <VarnishBooleanEntryModal />
         <VarnishCloseConfirmModal />
         <VarnishEntryAlertModal />

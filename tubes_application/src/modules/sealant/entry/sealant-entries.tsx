@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 import type { ISummary } from "@/shared/api/services/summary-service";
 import { CountersTresholds } from "@/shared/helpers/counters-tresholds";
 import { ParameterNames } from "@/shared/helpers/parameter-names";
@@ -12,7 +13,7 @@ import useSealantEntriesHandleCardsClick from "./use-sealant-entries-handle-card
 
 export default function SealantEntries({ summaryData }: { summaryData: ISummary | null }) {
   const data = useSealantInputStore(useShallow((state) => state.data));
-  const { handleCardClick, handleBooleanCardClick } = useSealantEntriesHandleCardsClick();
+  const { handleCardClick, handleIntegerCardClick, handleBooleanCardClick } = useSealantEntriesHandleCardsClick();
 
   const tresholdsData = summaryData?.sealantTresholds ?? null;
   const lastCounterValue = summaryData?.sealantParams ? summaryData.sealantParams.counter_value : null;
@@ -24,7 +25,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: lastCounterValue ?? CountersTresholds.COUNTERS_MIN_TRESHOLD,
     maxValue: CountersTresholds.COUNTERS_MAX_TRESHOLD,
     unit: ParameterUnits.COUNTER_VALUE,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -35,7 +36,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.cap_machine_speed_min ?? null,
     maxValue: tresholdsData?.cap_machine_speed_max ?? null,
     unit: ParameterUnits.SEALANT_CAP_MACHINE_SPEED,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const totalAirPressureCardProps: AddParameterCardProps = {
@@ -55,7 +56,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.holders_forward_min ?? null,
     maxValue: tresholdsData?.holders_forward_max ?? null,
     unit: ParameterUnits.SEALANT_HOLDERS_FORWARD,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const holdersOpeningLeftCardProps: AddParameterCardProps = {
@@ -65,7 +66,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.holders_opening_left_min ?? null,
     maxValue: tresholdsData?.holders_opening_left_max ?? null,
     unit: ParameterUnits.SEALANT_HOLDERS_OPENING_LEFT,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const holdersOpeningRightCardProps: AddParameterCardProps = {
@@ -75,7 +76,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.holders_opening_right_min ?? null,
     maxValue: tresholdsData?.holders_opening_right_max ?? null,
     unit: ParameterUnits.SEALANT_HOLDERS_OPENING_RIGHT,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const holdersClosingCardProps: AddParameterCardProps = {
@@ -85,7 +86,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.holders_closing_min ?? null,
     maxValue: tresholdsData?.holders_closing_max ?? null,
     unit: ParameterUnits.SEALANT_HOLDER_CLOSING,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -96,7 +97,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_a_start_min ?? null,
     maxValue: tresholdsData?.injection_a_start_max ?? null,
     // unit: ParameterUnits.SEALANT_INJECTION_A_START,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionBStartCardProps: AddParameterCardProps = {
@@ -106,7 +107,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_b_start_min ?? null,
     maxValue: tresholdsData?.injection_b_start_max ?? null,
     // unit: ParameterUnits.SEALANT_INJECTION_B_START,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionAEndCardProps: AddParameterCardProps = {
@@ -116,7 +117,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_a_end_min ?? null,
     maxValue: tresholdsData?.injection_a_end_max ?? null,
     // unit: ParameterUnits.SEALANT_INJECTION_A_END,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionBEndCardProps: AddParameterCardProps = {
@@ -126,7 +127,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_b_end_min ?? null,
     maxValue: tresholdsData?.injection_b_end_max ?? null,
     // unit: ParameterUnits.SEALANT_INJECTION_B_END,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionTubeOrientationStartCardProps: AddParameterCardProps = {
@@ -136,7 +137,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_tube_orientation_start_min ?? null,
     maxValue: tresholdsData?.injection_tube_orientation_start_max ?? null,
     // unit: ParameterUnits.SEALANT_INJECTION_TUBE_ORIENTATION_START,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionTubeOrientationEndCardProps: AddParameterCardProps = {
@@ -146,7 +147,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_tube_orientation_end_min ?? null,
     maxValue: tresholdsData?.injection_tube_orientation_end_max ?? null,
     // unit: ParameterUnits.SEALANT_INJECTION_TUBE_ORIENTATION_END,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const isCapSurfaceSmoothCardProps: AddParameterCardProps = {
@@ -163,7 +164,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.latex_ring_padding_min ?? null,
     maxValue: tresholdsData?.latex_ring_padding_max ?? null,
     unit: ParameterUnits.SEALANT_LATEX_RING_PADDING,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const latexRingWidthCardProps: AddParameterCardProps = {
@@ -173,7 +174,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.latex_ring_width_min ?? null,
     maxValue: tresholdsData?.latex_ring_width_max ?? null,
     unit: ParameterUnits.SEALANT_LATEX_RING_WIDTH,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const tubeRigidityCardProps: AddParameterCardProps = {
@@ -183,7 +184,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.tube_rigidity_min ?? null,
     maxValue: tresholdsData?.tube_rigidity_max ?? null,
     unit: ParameterUnits.SEALANT_TUBE_RIGIDITY,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const capUnscrewingTorqueCardProps: AddParameterCardProps = {
@@ -193,7 +194,7 @@ export default function SealantEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.cap_unscrewing_torque_min ?? null,
     maxValue: tresholdsData?.cap_unscrewing_torque_max ?? null,
     unit: ParameterUnits.SEALANT_CAP_UNSCREWING_TORQUE,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 

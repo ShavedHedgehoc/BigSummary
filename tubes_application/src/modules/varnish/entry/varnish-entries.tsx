@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 import type { ISummary } from "@/shared/api/services/summary-service";
 import { CountersTresholds } from "@/shared/helpers/counters-tresholds";
 import { ParameterNames } from "@/shared/helpers/parameter-names";
@@ -12,7 +13,7 @@ import useVarnishEntriesHandleCardsClick from "./use-varnish-entries-handle-card
 
 export default function VarnishEntries({ summaryData }: { summaryData: ISummary | null }) {
   const data = useVarnishInputStore(useShallow((state) => state.data));
-  const { handleCardClick, handleBooleanCardClick } = useVarnishEntriesHandleCardsClick();
+  const { handleCardClick, handleIntegerCardClick, handleBooleanCardClick } = useVarnishEntriesHandleCardsClick();
 
   const tresholdsData = summaryData?.varnishTresholds ?? null;
   const lastCounterValue = summaryData?.varnishParams ? summaryData.varnishParams.counter_value : null;
@@ -24,7 +25,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: lastCounterValue ?? CountersTresholds.COUNTERS_MIN_TRESHOLD,
     maxValue: CountersTresholds.COUNTERS_MAX_TRESHOLD,
     unit: ParameterUnits.COUNTER_VALUE,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const varnishMachineSpeedCardProps: AddParameterCardProps = {
@@ -34,7 +35,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.varnish_machine_speed_min ?? null,
     maxValue: tresholdsData?.varnish_machine_speed_max ?? null,
     unit: ParameterUnits.VARNISH_VARNISH_MACHINE_SPEED,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -75,7 +76,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.cells_speed_min ?? null,
     maxValue: tresholdsData?.cells_speed_max ?? null,
     unit: ParameterUnits.VARNISH_CELLS_SPEED,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionAStartPositionCardProps: AddParameterCardProps = {
@@ -85,7 +86,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_a_start_position_min ?? null,
     maxValue: tresholdsData?.injection_a_start_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_A_START_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionBStartPositionCardProps: AddParameterCardProps = {
@@ -95,7 +96,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_b_start_position_min ?? null,
     maxValue: tresholdsData?.injection_b_start_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_B_START_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionCStartPositionCardProps: AddParameterCardProps = {
@@ -105,7 +106,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_c_start_position_min ?? null,
     maxValue: tresholdsData?.injection_c_start_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_C_START_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionDStartPositionCardProps: AddParameterCardProps = {
@@ -115,7 +116,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_d_start_position_min ?? null,
     maxValue: tresholdsData?.injection_d_start_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_D_START_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionAEndPositionCardProps: AddParameterCardProps = {
@@ -125,7 +126,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_a_end_position_min ?? null,
     maxValue: tresholdsData?.injection_a_end_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_A_END_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionBEndPositionCardProps: AddParameterCardProps = {
@@ -135,7 +136,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_b_end_position_min ?? null,
     maxValue: tresholdsData?.injection_b_end_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_B_END_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionCEndPositionCardProps: AddParameterCardProps = {
@@ -145,7 +146,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_c_end_position_min ?? null,
     maxValue: tresholdsData?.injection_c_end_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_C_END_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const injectionDEndPositionCardProps: AddParameterCardProps = {
@@ -155,7 +156,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.injection_d_end_position_min ?? null,
     maxValue: tresholdsData?.injection_d_end_position_max ?? null,
     unit: ParameterUnits.VARNISH_INJECTION_D_END_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -166,7 +167,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.tube_molding_start_position_min ?? null,
     maxValue: tresholdsData?.tube_molding_start_position_max ?? null,
     unit: ParameterUnits.VARNISH_TUBE_MOLDING_START_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -177,7 +178,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.tube_molding_end_position_min ?? null,
     maxValue: tresholdsData?.tube_molding_end_position_max ?? null,
     unit: ParameterUnits.VARNISH_TUBE_MOLDING_END_POSITION,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const polimerizationFurnaceTempCardProps: AddParameterCardProps = {
@@ -187,7 +188,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.polimerization_furnace_temp_min ?? null,
     maxValue: tresholdsData?.polimerization_furnace_temp_max ?? null,
     unit: ParameterUnits.VARNISH_POLIMERIZATION_FURNACE_TEMP,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
   const internalVarnishPorosityCardProps: AddParameterCardProps = {
@@ -197,7 +198,7 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     minValue: tresholdsData?.internal_varnish_porosity_min ?? null,
     maxValue: tresholdsData?.internal_varnish_porosity_max ?? null,
     unit: ParameterUnits.VARNISH_INTERNAL_VARNISH_POROSITY,
-    onClick: (val) => handleCardClick(val),
+    onClick: (val) => handleIntegerCardClick(val),
     variant: "numeric",
   };
 
@@ -216,9 +217,9 @@ export default function VarnishEntries({ summaryData }: { summaryData: ISummary 
     variant: "boolean",
   };
   const unpaintingLackCardProps: AddParameterCardProps = {
-    id: VarnishInputParams.INTERNAL_SECTIONAL_VIEW,
-    title: ParameterNames.VARNISH_INTERNAL_SECTIONAL_VIEW,
-    booleanValue: data.internal_sectional_view ?? null,
+    id: VarnishInputParams.UNPAINTING_LACK,
+    title: ParameterNames.VARNISH_UNPAINTING_LACK,
+    booleanValue: data.unpainting_lack ?? null,
     onClick: (val) => handleBooleanCardClick(val),
     variant: "boolean",
   };

@@ -19,6 +19,7 @@ import { RouteNames } from "../../router/route-names";
 import { Link as RouterLink } from "react-router-dom";
 import ColorSchemeToggle from "./color-scheme-toggle";
 import UserPane from "./user-pane";
+import EngineeringOutlinedIcon from "@mui/icons-material/EngineeringOutlined";
 
 function Toggler({
   defaultExpanded = false,
@@ -210,6 +211,18 @@ export default function SideBar() {
                     onClick={() => closeSidebar()}
                   >
                     <Typography level="title-sm">Обновление основ</Typography>
+                  </Link>
+                </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.TUBE_RECORDS_UPLOAD}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">{`Загрузка сводок (Тубы)`}</Typography>
                   </Link>
                 </ListItem>
               </List>
@@ -479,6 +492,72 @@ export default function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
+
+          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <EngineeringOutlinedIcon />
+                  <ListItemContent>
+                    <Typography level="title-sm">Тубы</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={"/"}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Монитор</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={"/"}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Продукция</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton role="none">
+                    <ListItemContent>
+                      <Link
+                        component={RouterLink}
+                        to={"/"}
+                        color="neutral"
+                        underline="none"
+                        sx={{ display: "flex", gap: 1 }}
+                        onClick={() => closeSidebar()}
+                      >
+                        <Typography level="title-sm">Сотрудники</Typography>
+                      </Link>
+                    </ListItemContent>
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
+          </ListItem>
+
           <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
