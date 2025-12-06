@@ -16,14 +16,21 @@ export enum ApiRoutes {
   CREATE_VARNISH_STATUS = "statuses/varnish",
   CREATE_SEALANT_STATUS = "statuses/sealant",
 
+  PRODUCTION_BOX = "production-box",
+
   GET_RONDELS = "rondels",
   GET_PICTURES = "pictures",
+  GET_EXTRUSION_SOP_PICTURES = "sop/extrusion",
+  GET_VARNISH_SOP_PICTURES = "sop/varnish",
+  GET_OFFSET_SOP_PICTURES = "sop/offset",
+  GET_SEALANT_SOP_PICTURES = "sop/sealant",
 
   GET_EXTRUSION_OPERATIONS = "operations/extrusion",
   GET_VARNISH_OPERATIONS = "operations/varnish",
   GET_OFFSET_OPERATIONS = "operations/offset",
   GET_SEALANT_OPERATIONS = "operations/sealant",
   ZPL = "zpl",
+  PRINTER = "printer",
 
   // GET_SUMMARY_RAW_MATERIALS_BY_SUMMARY_ID = "summary-raw-materials/by_summary_id",
 

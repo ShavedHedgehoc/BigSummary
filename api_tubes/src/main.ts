@@ -4,6 +4,7 @@ import * as bodyParser from "body-parser";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { PrismaClientExceptionFilter } from "./prisma-client-exception/prisma-client-exception.filter";
+import { ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const PORT = process.env.PORT || 8000;
@@ -27,6 +28,12 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(bodyParser.json({ limit: "10mb" }));
   app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     transform: true,
+  //     whitelist: true,
+  //   })
+  // );
   await app.listen(PORT, () => console.log(`API started on ${PORT}`));
 }
 bootstrap();

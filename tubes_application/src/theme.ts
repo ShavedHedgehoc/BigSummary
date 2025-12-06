@@ -7,10 +7,15 @@ const config = defineConfig({
         "0%, 100%": { color: "var(--chakra-colors-fg)" },
         "50%": { color: "var(--chakra-colors-fg-error)" },
       },
+      colorChangeWhiteSubtle: {
+        "0%, 100%": { color: "var(--chakra-colors-fg)" },
+        "50%": { color: "var(--chakra-colors-fg-subtle)" },
+      },
     },
     tokens: {
       animations: {
         colorCycle: { value: `colorChange 1s  infinite` },
+        colorCycleWhiteSubtle: { value: `colorChangeWhiteSubtle 1s  infinite` },
       },
       fonts: {
         body: { value: "Segoe UI, sans-serif" },

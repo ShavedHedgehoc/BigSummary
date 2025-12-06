@@ -10,7 +10,7 @@ export interface CreateConsumedMaterialDto {
 }
 
 export default class ConsumedMaterialService {
-  static async createConsumedMaterial(dto: CreateConsumedMaterialDto | null): Promise<any> {
+  static async createConsumedMaterial(dto: CreateConsumedMaterialDto | null) {
     const res = await $api.post(ApiRoutes.CREATE_CONSUMED_MATERIAL, dto);
     return res.data;
   }

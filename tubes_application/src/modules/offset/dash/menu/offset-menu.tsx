@@ -1,6 +1,14 @@
 import Menu from "../../../../shared/components/menu/menu";
 import type { MenuButtonProps } from "../../../../shared/components/menu/menu-button";
-import { TbAdjustments, TbAutomation, TbBarcode, TbLibraryPhoto, TbLogin2, TbLogout2 } from "react-icons/tb";
+import {
+  TbAdjustments,
+  TbAutomation,
+  TbBarcode,
+  TbInfoTriangle,
+  TbLibraryPhoto,
+  TbLogin2,
+  TbLogout2,
+} from "react-icons/tb";
 import MenuButton from "../../../../shared/components/menu/menu-button";
 import { TbStopwatch } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
@@ -46,6 +54,16 @@ export default function OffsetMenu() {
     action: () => navigate(`${RouteNames.OFFSET_OPERATIONS_ROOT}/${offsetConveyor?.name}`),
   };
 
+  const sopButtonProps: MenuButtonProps = {
+    title: "Инфо",
+    icon: <TbInfoTriangle />,
+    disabled: false,
+    action: () =>
+      summaryData?.offsetStatus.operation_id
+        ? navigate(`${RouteNames.OFFSET_SOP_ROOT}/${summaryData.extrusionStatus.operation_id}`)
+        : undefined,
+  };
+
   const picturesButtonProps: MenuButtonProps = {
     title: "Изображения",
     icon: <TbLibraryPhoto />,
@@ -73,6 +91,7 @@ export default function OffsetMenu() {
       <MenuButton {...inputParametersButtonProps} />
       <MenuButton {...scanMaterilButtonProps} />
       <MenuButton {...operationsButtonProps} />
+      {summaryData && summaryData.offsetStatus.state === "idle" && <MenuButton {...sopButtonProps} />}
       <MenuButton {...picturesButtonProps} />
       <MenuButton {...endButtonProps} />
       <MenuButton {...loginButtonProps} />

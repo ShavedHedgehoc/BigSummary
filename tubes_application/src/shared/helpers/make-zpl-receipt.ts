@@ -4,7 +4,6 @@ import { Receiptconstants } from "./receipt-constants";
 function parseCyrillicToURLEncoded(val: string) {
   const encodeURI = encodeURIComponent(val);
   const parsedEncodedURI = encodeURI.replaceAll("%", "_");
-  console.log(parsedEncodedURI);
   return parsedEncodedURI;
 }
 
@@ -14,16 +13,21 @@ export function makeBoxReceipt({
   batch,
   boxNumber,
   quantity,
+  summaryId,
   employee,
+  employeeId,
 }: {
   name: string;
   code: string;
   batch: string;
   boxNumber: number;
   quantity: number;
+  summaryId: number | null;
   employee: string;
+  employeeId: number | null;
 }) {
   const date = new Date();
+  const uuid = crypto.randomUUID();
   const parsedBrand = parseCyrillicToURLEncoded(Receiptconstants.BRAND);
   const parsedName = parseCyrillicToURLEncoded(name);
   const parsedBatch = parseCyrillicToURLEncoded(`Партия: ${batch}`);
@@ -32,6 +36,7 @@ export function makeBoxReceipt({
   const parsedEmployee = parseCyrillicToURLEncoded(`Оператор: ${employee}`);
   const parsedDate = parseCyrillicToURLEncoded(`Дата: ${formatDateToString(date)}`);
   const parsedTime = parseCyrillicToURLEncoded(`Время: ${formatTimeToString(date)}`);
+  const qrCode = `${uuid}#${boxNumber}#${summaryId}#${employeeId}#${quantity}#${date.toISOString()}`;
 
   return `^XA^CI28^FO 20,20^GB760,560,1,B,0^FS^FO40,40 ^FB700,1,,C^A0N,20,20^FH^FD${parsedBrand}^FS\
   ^FO40,80 ^FB700,3,,C^A0N,50,50^FH^FD${code}^FS^FO40,150 ^FB700,3,6,L^A0N,30,30^FH^FD${parsedName}^FS
@@ -41,8 +46,6 @@ export function makeBoxReceipt({
   ^FO40,470 ^FB700,1,,L^A0N,20,20^FH^FD${parsedEmployee}^FS\
   ^FO40,500 ^FB700,1,,L^A0N,20,20^FH^FD${parsedDate}^FS\
   ^FO40,530 ^FB700,1,,L^A0N,20,20^FH^FD${parsedTime}^FS\
-  ^FO600,390^BQ,2,4^FDQA,${code}#${batch}#${boxNumber}#${formatDateToString(date)}#${formatTimeToString(
-    date
-  )}#b26bf567-2a37-43b1-a242-c5bb59cbe1ba^FS\
+  ^FO590,380^BQ,2,4^FDQA,${qrCode}^FS\
   ^PQ1^XZ`;
 }

@@ -1,15 +1,21 @@
 import Menu from "../../../../shared/components/menu/menu";
 import type { MenuButtonProps } from "../../../../shared/components/menu/menu-button";
-import { TbAdjustments, TbAutomation, TbBarcode, TbLibraryPhoto, TbLogin2, TbLogout2, TbPrinter } from "react-icons/tb";
+import {
+  TbAdjustments,
+  TbAutomation,
+  TbBarcode,
+  TbInfoTriangle,
+  TbLibraryPhoto,
+  TbLogin2,
+  TbLogout2,
+  TbPrinter,
+} from "react-icons/tb";
 import MenuButton from "../../../../shared/components/menu/menu-button";
 import { TbStopwatch } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { RouteNames } from "@/shared/router/route-names";
 import useSealantMenu from "./use-sealant-menu";
 import { useActiveSummary } from "@/shared/api/use-active-summary";
-import type { PrintReceiptDto } from "@/shared/api/services/zpl-service";
-import { usePrintZpl } from "../../use-print-zpl";
-import { makeBoxReceipt } from "@/shared/helpers/make-zpl-receipt";
 
 export default function SealantMenu() {
   const navigate = useNavigate();
@@ -24,36 +30,10 @@ export default function SealantMenu() {
     scanMaterialsButtonDisabledCondition,
     operationButtonDisabledCondition,
     pictureButtonDisabledCondition,
+    printButtonDisabledCondition,
     endButtonDisabledCondition,
   } = useSealantMenu();
   const { data: summaryData } = useActiveSummary(sealantConveyor?.id ?? null);
-
-  const { printZPL } = usePrintZpl();
-
-  const handlePrintClick = () => {
-    const zplData: {
-      name: string;
-      code: string;
-      batch: string;
-      boxNumber: number;
-      quantity: number;
-      employee: string;
-    } = {
-      name: summaryData?.data.product_name ?? "",
-      code: summaryData?.data.product_code ?? "",
-      batch: summaryData?.data.batch_name ?? "",
-      boxNumber: 1,
-      quantity: 300,
-      employee: employee?.name ?? "",
-    };
-    const zpl = makeBoxReceipt(zplData);
-    const dto: PrintReceiptDto = {
-      ip: "192.168.250.95",
-      port: 9100,
-      zpl: zpl,
-    };
-    printZPL(dto);
-  };
 
   const inputParametersButtonProps: MenuButtonProps = {
     title: "Параметры",
@@ -75,6 +55,15 @@ export default function SealantMenu() {
     disabled: operationButtonDisabledCondition,
     action: () => navigate(`${RouteNames.SEALANT_OPERATIONS_ROOT}/${sealantConveyor?.name}`),
   };
+  const sopButtonProps: MenuButtonProps = {
+    title: "Инфо",
+    icon: <TbInfoTriangle />,
+    disabled: false,
+    action: () =>
+      summaryData?.sealantStatus.operation_id
+        ? navigate(`${RouteNames.SEALANT_SOP_ROOT}/${summaryData.sealantStatus.operation_id}`)
+        : undefined,
+  };
 
   const picturesButtonProps: MenuButtonProps = {
     title: "Изображения",
@@ -93,8 +82,8 @@ export default function SealantMenu() {
   const printButtonProps: MenuButtonProps = {
     title: "Печать",
     icon: <TbPrinter />,
-    disabled: false,
-    action: () => handlePrintClick(),
+    disabled: printButtonDisabledCondition,
+    action: () => navigate(`${RouteNames.SEALANT_PRINT_ROOT}/${sealantConveyor?.name}`),
   };
 
   const loginButtonProps: MenuButtonProps = {
@@ -109,10 +98,10 @@ export default function SealantMenu() {
       <MenuButton {...inputParametersButtonProps} />
       <MenuButton {...scanMaterilButtonProps} />
       <MenuButton {...operationsButtonProps} />
+      {summaryData && summaryData.sealantStatus.state === "idle" && <MenuButton {...sopButtonProps} />}
       <MenuButton {...picturesButtonProps} />
       <MenuButton {...endButtonProps} />
       <MenuButton {...printButtonProps} />
-
       <MenuButton {...loginButtonProps} />
     </Menu>
   );

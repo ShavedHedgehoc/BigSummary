@@ -279,6 +279,7 @@ export interface IStatus {
   operation_description: string;
   createdAt: Date;
   state: state;
+  operation_id: number | null;
 }
 
 export interface IOperation {

@@ -40,3 +40,10 @@ export const useSealantCloseSummaryModalStore = create<SimplyModalStore>()(
     setOpen: (value) => set(() => ({ open: value })),
   }))
 );
+
+export const useSealantBoxConfirmModalStore = create<SimplyModalStore>()(
+  devtools((set) => ({
+    open: false,
+    setOpen: (value) => set(() => ({ open: value })),
+  }))
+);

@@ -1,6 +1,14 @@
 import Menu from "../../../../shared/components/menu/menu";
 import type { MenuButtonProps } from "../../../../shared/components/menu/menu-button";
-import { TbAdjustments, TbAutomation, TbBarcode, TbLibraryPhoto, TbLogin2, TbLogout2 } from "react-icons/tb";
+import {
+  TbAdjustments,
+  TbAutomation,
+  TbBarcode,
+  TbInfoTriangle,
+  TbLibraryPhoto,
+  TbLogin2,
+  TbLogout2,
+} from "react-icons/tb";
 import MenuButton from "../../../../shared/components/menu/menu-button";
 import { TbStopwatch } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
@@ -46,6 +54,16 @@ export default function ExtrusionMenu() {
     action: () => navigate(`${RouteNames.EXTRUSION_OPERATIONS_ROOT}/${extrusionConveyor?.name}`),
   };
 
+  const sopButtonProps: MenuButtonProps = {
+    title: "Инфо",
+    icon: <TbInfoTriangle />,
+    disabled: false,
+    action: () =>
+      summaryData?.extrusionStatus.operation_id
+        ? navigate(`${RouteNames.EXTRUSION_SOP_ROOT}/${summaryData.extrusionStatus.operation_id}`)
+        : undefined,
+  };
+
   const picturesButtonProps: MenuButtonProps = {
     title: "Изображения",
     icon: <TbLibraryPhoto />,
@@ -73,6 +91,8 @@ export default function ExtrusionMenu() {
       <MenuButton {...inputParametersButtonProps} />
       <MenuButton {...scanMaterilButtonProps} />
       <MenuButton {...operationsButtonProps} />
+      {summaryData && summaryData.extrusionStatus.state === "idle" && <MenuButton {...sopButtonProps} />}
+
       <MenuButton {...picturesButtonProps} />
       <MenuButton {...endButtonProps} />
       <MenuButton {...loginButtonProps} />

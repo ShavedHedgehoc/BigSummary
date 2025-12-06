@@ -5,37 +5,61 @@ import { PrismaService } from "src/prisma/prisma.service";
 export class OperationsService {
   constructor(private prisma: PrismaService) {}
 
-  async getExtrusionOperations(rank: number | undefined) {
-    if (!rank) return [];
+  async getExtrusionOperations({ rank, id }: { rank: string | undefined; id: string | undefined }) {
+    let filter = {};
+    if (rank) {
+      filter = { ...filter, min_rank: { lte: Number(rank) } };
+    }
+    if (id) {
+      filter = { ...filter, id: Number(id) };
+    }
     const operations = await this.prisma.extrusionOperation.findMany({
-      where: { min_rank: { lte: rank } },
+      where: { ...filter },
       orderBy: { id: "asc" },
     });
     return operations;
   }
 
-  async getVarnishOperations(rank: number | undefined) {
-    if (!rank) return [];
+  async getVarnishOperations({ rank, id }: { rank: string | undefined; id: string | undefined }) {
+    let filter = {};
+    if (rank) {
+      filter = { ...filter, min_rank: { lte: Number(rank) } };
+    }
+    if (id) {
+      filter = { ...filter, id: Number(id) };
+    }
     const operations = await this.prisma.varnishOperation.findMany({
-      where: { min_rank: { lte: rank } },
+      where: { ...filter },
       orderBy: { id: "asc" },
     });
     return operations;
   }
 
-  async getOffsetOperations(rank: number | undefined) {
-    if (!rank) return [];
+  async getOffsetOperations({ rank, id }: { rank: string | undefined; id: string | undefined }) {
+    let filter = {};
+    if (rank) {
+      filter = { ...filter, min_rank: { lte: Number(rank) } };
+    }
+    if (id) {
+      filter = { ...filter, id: Number(id) };
+    }
     const operations = await this.prisma.offsetOperation.findMany({
-      where: { min_rank: { lte: rank } },
+      where: { ...filter },
       orderBy: { id: "asc" },
     });
     return operations;
   }
 
-  async getSealantOperations(rank: number | undefined) {
-    if (!rank) return [];
+  async getSealantOperations({ rank, id }: { rank: string | undefined; id: string | undefined }) {
+    let filter = {};
+    if (rank) {
+      filter = { ...filter, min_rank: { lte: Number(rank) } };
+    }
+    if (id) {
+      filter = { ...filter, id: Number(id) };
+    }
     const operations = await this.prisma.sealantOperation.findMany({
-      where: { min_rank: { lte: rank } },
+      where: { ...filter },
       orderBy: { id: "asc" },
     });
     return operations;

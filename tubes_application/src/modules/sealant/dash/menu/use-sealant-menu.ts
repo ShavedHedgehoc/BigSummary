@@ -41,6 +41,9 @@ export default function useSealantMenu() {
     summaryData.sealantStatus.idle ||
     summaryData.sealantStatus.finished;
 
+  const printButtonDisabledCondition =
+    !employee || !summaryData || summaryData.sealantStatus.idle || summaryData.sealantStatus.finished;
+
   return {
     employee,
     sealantConveyor,
@@ -53,5 +56,6 @@ export default function useSealantMenu() {
     operationButtonDisabledCondition,
     pictureButtonDisabledCondition,
     endButtonDisabledCondition,
+    printButtonDisabledCondition,
   };
 }

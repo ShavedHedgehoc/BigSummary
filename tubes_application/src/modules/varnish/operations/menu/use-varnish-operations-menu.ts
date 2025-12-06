@@ -23,26 +23,27 @@ export default function useVarnishOperationsMenu(summaryData: ISummary | null) {
   const setWorkingButtonVisibleCondition =
     summaryData && summaryData.varnishStatus ? (summaryData.varnishStatus.idle === true ? true : false) : false;
 
-  const setIdleButtonDisableCondition = !(summaryData && employee && selectedOperation.length);
+  const setIdleButtonDisableCondition = !(summaryData && employee && selectedOperation);
 
   const setWorkingButtonDisableCondition = !(summaryData && employee);
 
   const handleExitClick = () => {
     navigate(`${RouteNames.VARNISH_ROOT}/${varnishConveyor?.name}`);
+    setSelectedOperation(null);
   };
 
   const handleSetClick = () => {
-    if (summaryData && employee && selectedOperation.length) {
+    if (summaryData && employee && selectedOperation) {
       const dto: CreateStatusDto = {
         summary_id: summaryData.data.id,
         employee_id: employee.id,
-        operation_id: Number(selectedOperation[0]),
+        operation_id: Number(selectedOperation.id),
         idle: true,
         finished: false,
       };
       createVarnishStatus(dto);
       navigate(`${RouteNames.VARNISH_ROOT}/${varnishConveyor?.name}`);
-      setSelectedOperation([]);
+      setSelectedOperation(null);
     }
   };
 
@@ -57,7 +58,7 @@ export default function useVarnishOperationsMenu(summaryData: ISummary | null) {
       };
       createVarnishStatus(dto);
       navigate(`${RouteNames.VARNISH_ROOT}/${varnishConveyor?.name}`);
-      setSelectedOperation([]);
+      setSelectedOperation(null);
     }
   };
 

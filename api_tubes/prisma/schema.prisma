@@ -28,6 +28,7 @@ model Employee {
   varnish_statuses   VarnishStatus[]
   offset_statuses    OffsetStatus[]
   sealant_statuses   SealantStatus[]
+  production_boxes   ProductionBox[]
 
   @@map("employees")
 }
@@ -66,11 +67,48 @@ model Pictures {
   @@map("pictures")
 }
 
+model ExtrusionSopPictures {
+  id           Int                @id @default(autoincrement())
+  operation    ExtrusionOperation @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id Int
+  src          String
+
+  @@map("extrusion_sop_pictures")
+}
+
+model VarnishSopPictures {
+  id           Int              @id @default(autoincrement())
+  operation    VarnishOperation @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id Int
+  src          String
+
+  @@map("varnish_sop_pictures")
+}
+
+model OffsetSopPictures {
+  id           Int             @id @default(autoincrement())
+  operation    OffsetOperation @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id Int
+  src          String
+
+  @@map("offset_sop_pictures")
+}
+
+model SealantSopPictures {
+  id           Int              @id @default(autoincrement())
+  operation    SealantOperation @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  operation_id Int
+  src          String
+
+  @@map("sealant_sop_pictures")
+}
+
 // Конвейеры
 model Conveyor {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   summaries Summary[]
+  printers  Printer[]
 
   @@map("conveyors")
 }
@@ -81,6 +119,30 @@ model Batch {
   summaries Summary[]
 
   @@map("batches")
+}
+
+model ProductionBox {
+  id          Int      @id @default(autoincrement())
+  uuid        String   @unique
+  box_number  Int
+  summary     Summary  @relation(fields: [summary_id], references: [id], onUpdate: Cascade)
+  summary_id  Int
+  employee    Employee @relation(fields: [employee_id], references: [id], onUpdate: Cascade)
+  employee_id Int
+  quantity    Int
+  createdAt   DateTime @default(now())
+
+  @@map("production_boxes")
+}
+
+model Printer {
+  id          Int      @id @default(autoincrement())
+  conveyor    Conveyor @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id Int      @unique
+  ip          String
+  port        Int
+
+  @@map("printers")
 }
 
 //  Рондоль
@@ -129,6 +191,7 @@ model Summary {
   varnish_statuses   VarnishStatus[]
   offset_statuses    OffsetStatus[]
   sealant_statuses   SealantStatus[]
+  production_boxes   ProductionBox[]
 
   @@map("summaries")
 }
@@ -460,11 +523,12 @@ model SealantTreshold {
 }
 
 model ExtrusionOperation {
-  id          Int               @id @default(autoincrement())
-  value       String
-  min_rank    Int               @default(1)
-  description String
-  statuses    ExtrusionStatus[]
+  id                   Int                    @id @default(autoincrement())
+  value                String
+  min_rank             Int                    @default(1)
+  description          String
+  statuses             ExtrusionStatus[]
+  extrusionSopPictures ExtrusionSopPictures[]
 
   @@map("extrusion_operations")
 }
@@ -487,11 +551,12 @@ model ExtrusionStatus {
 }
 
 model VarnishOperation {
-  id          Int             @id @default(autoincrement())
-  value       String
-  min_rank    Int             @default(1)
-  description String
-  statuses    VarnishStatus[]
+  id                 Int                  @id @default(autoincrement())
+  value              String
+  min_rank           Int                  @default(1)
+  description        String
+  statuses           VarnishStatus[]
+  varnishSopPictures VarnishSopPictures[]
 
   @@map("varnish_operations")
 }
@@ -514,11 +579,12 @@ model VarnishStatus {
 }
 
 model OffsetOperation {
-  id          Int            @id @default(autoincrement())
-  value       String
-  min_rank    Int            @default(1)
-  description String
-  statuses    OffsetStatus[]
+  id                Int                 @id @default(autoincrement())
+  value             String
+  min_rank          Int                 @default(1)
+  description       String
+  statuses          OffsetStatus[]
+  offsetSopPictures OffsetSopPictures[]
 
   @@map("offset_operations")
 }
@@ -541,11 +607,12 @@ model OffsetStatus {
 }
 
 model SealantOperation {
-  id          Int             @id @default(autoincrement())
-  value       String
-  min_rank    Int             @default(1)
-  description String
-  statuses    SealantStatus[]
+  id                 Int                  @id @default(autoincrement())
+  value              String
+  min_rank           Int                  @default(1)
+  description        String
+  statuses           SealantStatus[]
+  sealantSopPictures SealantSopPictures[]
 
   @@map("sealant_operations")
 }

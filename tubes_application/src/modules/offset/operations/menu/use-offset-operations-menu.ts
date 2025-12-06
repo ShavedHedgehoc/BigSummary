@@ -23,26 +23,27 @@ export default function useOffsetOperationsMenu(summaryData: ISummary | null) {
   const setWorkingButtonVisibleCondition =
     summaryData && summaryData.offsetStatus ? (summaryData.offsetStatus.idle === true ? true : false) : false;
 
-  const setIdleButtonDisableCondition = !(summaryData && employee && selectedOperation.length);
+  const setIdleButtonDisableCondition = !(summaryData && employee && selectedOperation);
 
   const setWorkingButtonDisableCondition = !(summaryData && employee);
 
   const handleExitClick = () => {
     navigate(`${RouteNames.OFFSET_ROOT}/${offsetConveyor?.name}`);
+    setSelectedOperation(null);
   };
 
   const handleSetClick = () => {
-    if (summaryData && employee && selectedOperation.length) {
+    if (summaryData && employee && selectedOperation) {
       const dto: CreateStatusDto = {
         summary_id: summaryData.data.id,
         employee_id: employee.id,
-        operation_id: Number(selectedOperation[0]),
+        operation_id: Number(selectedOperation.id),
         idle: true,
         finished: false,
       };
       createOffsetStatus(dto);
       navigate(`${RouteNames.OFFSET_ROOT}/${offsetConveyor?.name}`);
-      setSelectedOperation([]);
+      setSelectedOperation(null);
     }
   };
 
@@ -57,7 +58,7 @@ export default function useOffsetOperationsMenu(summaryData: ISummary | null) {
       };
       createOffsetStatus(dto);
       navigate(`${RouteNames.OFFSET_ROOT}/${offsetConveyor?.name}`);
-      setSelectedOperation([]);
+      setSelectedOperation(null);
     }
   };
 

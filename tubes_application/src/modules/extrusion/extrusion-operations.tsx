@@ -16,8 +16,8 @@ import { PostNames } from "@/shared/helpers/post-names";
 import { Theme } from "@chakra-ui/react";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 import OperationPageLayout, { type OperationPageLayoutProps } from "@/shared/components/layouts/operation-page-layout";
-import ExtrusionOperationsMenu from "./operations/menu/extrusion-operations-menu";
-import ExtrusionOperationContent from "./operations/content/extrusion-operations-content";
+import ExtrusionOperationsMenu from "./operatrions/menu/extrusion-operations-menu";
+import ExtrusionOperationsContent from "./operatrions/content/extrusion-operations-content";
 
 export default function ExtrusionOperations() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -32,7 +32,7 @@ export default function ExtrusionOperations() {
   const pageLayoutProps: OperationPageLayoutProps = {
     timeComponent: <TimeComponent />,
     headerComponent: <HeaderComponent conveyorName={extrusionConveyor.name} postName={PostNames.EXTRUSION} />,
-    operationComponent: <ExtrusionOperationContent summaryData={summaryData ?? null} employee={employee} />,
+    operationComponent: <ExtrusionOperationsContent summaryData={summaryData ?? null} />,
     menuComponent: <ExtrusionOperationsMenu summaryData={summaryData ?? null} />,
     userComponent: <UserComponent employee={employee} />,
     loaderComponent: <Loader />,

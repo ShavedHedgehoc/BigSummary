@@ -120,7 +120,11 @@ export default function useSealantAddEntryMenu(summaryData: ISummary | null) {
   const isInputsChanged = data !== initDataValue;
 
   const handleExitClick = () => {
-    isInputsChanged ? setOpenConfirm(true) : navigate(`${RouteNames.SEALANT_ROOT}/${sealantConveyor?.name}`);
+    if (isInputsChanged) {
+      setOpenConfirm(true);
+    } else {
+      navigate(`${RouteNames.SEALANT_ROOT}/${sealantConveyor?.name}`);
+    }
   };
 
   return { saveButtonDisabledCondition, handleSaveClick, handleExitClick };

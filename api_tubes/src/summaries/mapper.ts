@@ -295,6 +295,7 @@ export interface IMappedOperation {
   state: state;
   operation_description: String;
   createdAt: Date | null;
+  operation_id: number | null;
 }
 
 export const mappedSummary = ({
@@ -654,6 +655,7 @@ export const mappedStatus = ({
       state: "working",
       operation_description: "-",
       createdAt: null,
+      operation_id: null,
     };
 
   return {
@@ -662,6 +664,7 @@ export const mappedStatus = ({
     state: status.finished === true ? "finished" : status.idle === true ? "idle" : "working",
     createdAt: status.createdAt,
     operation_description: operation ? operation.description : "-",
+    operation_id: operation ? operation.id : null,
   };
 };
 

@@ -23,26 +23,27 @@ export default function useSealantOperationsMenu(summaryData: ISummary | null) {
   const setWorkingButtonVisibleCondition =
     summaryData && summaryData.sealantStatus ? (summaryData.sealantStatus.idle === true ? true : false) : false;
 
-  const setIdleButtonDisableCondition = !(summaryData && employee && selectedOperation.length);
+  const setIdleButtonDisableCondition = !(summaryData && employee && selectedOperation);
 
   const setWorkingButtonDisableCondition = !(summaryData && employee);
 
   const handleExitClick = () => {
     navigate(`${RouteNames.SEALANT_ROOT}/${sealantConveyor?.name}`);
+    setSelectedOperation(null);
   };
 
   const handleSetClick = () => {
-    if (summaryData && employee && selectedOperation.length) {
+    if (summaryData && employee && selectedOperation) {
       const dto: CreateStatusDto = {
         summary_id: summaryData.data.id,
         employee_id: employee.id,
-        operation_id: Number(selectedOperation[0]),
+        operation_id: Number(selectedOperation.id),
         idle: true,
         finished: false,
       };
       createSealantStatus(dto);
       navigate(`${RouteNames.SEALANT_ROOT}/${sealantConveyor?.name}`);
-      setSelectedOperation([]);
+      setSelectedOperation(null);
     }
   };
 
@@ -57,7 +58,7 @@ export default function useSealantOperationsMenu(summaryData: ISummary | null) {
       };
       createSealantStatus(dto);
       navigate(`${RouteNames.SEALANT_ROOT}/${sealantConveyor?.name}`);
-      setSelectedOperation([]);
+      setSelectedOperation(null);
     }
   };
 

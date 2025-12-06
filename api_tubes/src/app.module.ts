@@ -13,9 +13,12 @@ import { ConsumedMaterialsModule } from "./consumed-materials/consumed-materials
 import { ProductsModule } from "./products/products.module";
 import { PicturesModule } from "./pictures/pictures.module";
 import { UploadModule } from "./upload/upload.module";
-import { StatusesModule } from './statuses/statuses.module';
-import { OperationsModule } from './operations/operations.module';
-import { ZplModule } from './zpl/zpl.module';
+import { StatusesModule } from "./statuses/statuses.module";
+import { OperationsModule } from "./operations/operations.module";
+import { ZplModule } from "./zpl/zpl.module";
+import { ProductionBoxModule } from "./production-box/production-box.module";
+import { PrinterModule } from "./printer/printer.module";
+import { SopModule } from './sop/sop.module';
 
 @Module({
   imports: [
@@ -34,6 +37,9 @@ import { ZplModule } from './zpl/zpl.module';
     StatusesModule,
     OperationsModule,
     ZplModule,
+    ProductionBoxModule,
+    PrinterModule,
+    SopModule,
   ],
   controllers: [AppController],
   providers: [AppService],

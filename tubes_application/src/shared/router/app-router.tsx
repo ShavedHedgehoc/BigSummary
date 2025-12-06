@@ -14,17 +14,22 @@ const Home = lazy(() => import("../../modules/home/home"));
 const Posts = lazy(() => import("../../modules/posts/posts"));
 const Extrusion = lazy(() => import("../../modules/extrusion/extrusion"));
 const ExtrusionAddEntry = lazy(() => import("../../modules/extrusion/extrusion-add-entry"));
-// const ExtrusionOperations = lazy(() => import("../../modules/extrusion/extrusion-operations"));
-const ExtrusionOperationsNew = lazy(() => import("../../modules/extrusion/extrusion-operations-new"));
+const ExtrusionOperations = lazy(() => import("../../modules/extrusion/extrusion-operations"));
+const ExtrusionSop = lazy(() => import("../../modules/extrusion/extrusion-sop"));
 const Varnish = lazy(() => import("../../modules/varnish/varnish"));
 const VarnishAddEntry = lazy(() => import("../../modules/varnish/varnish-add-entry"));
 const VarnishOperations = lazy(() => import("../../modules/varnish/varnish-operations"));
+const VarnishSop = lazy(() => import("../../modules/varnish/varnish-sop"));
 const Offset = lazy(() => import("../../modules/offset/offset"));
 const OffsetAddEntry = lazy(() => import("../../modules/offset/offset-add-entry"));
 const OffsetOperations = lazy(() => import("../../modules/offset/offset-operations"));
+const OffsetSop = lazy(() => import("../../modules/offset/offset-sop"));
 const Sealant = lazy(() => import("../../modules/sealant/sealant"));
 const SealantAddEntry = lazy(() => import("../../modules/sealant/sealant-add-entry"));
 const SealantOperations = lazy(() => import("../../modules/sealant/sealant-operations"));
+const SealantSop = lazy(() => import("../../modules/sealant/sealant-sop"));
+const SealantPrint = lazy(() => import("../../modules/sealant/sealant-print"));
+
 const Pictures = lazy(() => import("../../modules/pictures/pictures"));
 
 const AppRouter = () => {
@@ -44,18 +49,22 @@ const AppRouter = () => {
             <Route path={RouteNames.EXTRUSION_ADD_ENTRY} element={<RouteSuspense children={<ExtrusionAddEntry />} />} />
             <Route
               path={RouteNames.EXTRUSION_OPERATIONS}
-              // element={<RouteSuspense children={<ExtrusionOperations />} />}
-              element={<RouteSuspense children={<ExtrusionOperationsNew />} />}
+              element={<RouteSuspense children={<ExtrusionOperations />} />}
             />
+            <Route path={RouteNames.EXTRUSION_SOP} element={<RouteSuspense children={<ExtrusionSop />} />} />
             <Route path={RouteNames.VARNISH} element={<RouteSuspense children={<Varnish />} />} />
             <Route path={RouteNames.VARNISH_ADD_ENTRY} element={<RouteSuspense children={<VarnishAddEntry />} />} />
             <Route path={RouteNames.VARNISH_OPERATIONS} element={<RouteSuspense children={<VarnishOperations />} />} />
+            <Route path={RouteNames.VARNISH_SOP} element={<RouteSuspense children={<VarnishSop />} />} />
             <Route path={RouteNames.OFFSET} element={<RouteSuspense children={<Offset />} />} />
             <Route path={RouteNames.OFFSET_ADD_ENTRY} element={<RouteSuspense children={<OffsetAddEntry />} />} />
             <Route path={RouteNames.OFFSET_OPERATIONS} element={<RouteSuspense children={<OffsetOperations />} />} />
+            <Route path={RouteNames.OFFSET_SOP} element={<RouteSuspense children={<OffsetSop />} />} />
             <Route path={RouteNames.SEALANT} element={<RouteSuspense children={<Sealant />} />} />
             <Route path={RouteNames.SEALANT_ADD_ENTRY} element={<RouteSuspense children={<SealantAddEntry />} />} />
             <Route path={RouteNames.SEALANT_OPERATIONS} element={<RouteSuspense children={<SealantOperations />} />} />
+            <Route path={RouteNames.SEALANT_SOP} element={<RouteSuspense children={<SealantSop />} />} />
+            <Route path={RouteNames.SEALANT_PRINT} element={<RouteSuspense children={<SealantPrint />} />} />
             <Route path={RouteNames.PICTURES} element={<RouteSuspense children={<Pictures />} />}></Route>
             <Route path={RouteNames.NOT_FOUND} element={<NotFound message={AppMessages.ROUTE_NOT_FOUND} />} />
           </Routes>

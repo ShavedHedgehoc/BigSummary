@@ -15,6 +15,9 @@ export enum AppMessages {
   ROUTE_NOT_FOUND = "Адрес страницы не найден",
   PICTURES_NOT_FOUND = "Сопоставленных изображений не найдено",
   OPERATIONS_LIST_NOT_FOUND = "Список операций не найден",
+  OPERATION_NOT_FOUND = "Операция не найдена",
   NOT_AUTHORIZED = "Не авторизован",
   PRINT_SUCCESFULL = "Успешно напечатано",
+  BOX_SCAN_ERROR = "Ошибка сканирования короба",
+  RECORDS_NOT_FOUND = "Записей не найдено",
 }
