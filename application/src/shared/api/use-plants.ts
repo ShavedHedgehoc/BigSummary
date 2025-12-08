@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import PlantService from "./services/plant-service";
-import { useDashFilterStore } from "../../modules/dash/store/dash-filter-store";
+import { useDashFilterStore } from "../../modules/dash/store/use-dash-filter-store";
 import { useForemanFilterStore } from "../../modules/foreman/store/use-foreman-filter-store";
 import { useRecordsFilterStore } from "../../modules/records/store/use-record-filter-store";
 import { useBoilsFilterStore } from "../../modules/boils/store/use-boils-filter-store";

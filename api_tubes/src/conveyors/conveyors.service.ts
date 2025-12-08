@@ -20,4 +20,16 @@ export class ConveyorsService {
     }
     return conveyors;
   }
+
+  async getConveyorsData() {
+    const conveyors = await this.prisma.conveyor.findMany({
+      include: {
+        summaries: {
+          where: { isActive: true },
+          include: { batch: true, product: true, extrusion_statuses: { orderBy: { id: "desc" }, take: 1 } },
+        },
+      },
+    });
+    return { conveyors: conveyors };
+  }
 }

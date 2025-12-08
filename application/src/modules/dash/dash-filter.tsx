@@ -1,46 +1,17 @@
-import { useDashFilterStore } from "./store/dash-filter-store";
+import { useDashFilterStore } from "./store/use-dash-filter-store";
 import { DashFilterParams } from "./dash-filter-params";
-import { Box, Dropdown, IconButton, Menu, MenuButton, MenuItem, Sheet } from "@mui/joy";
+import { Box, Sheet } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import DashFilterPlantSelector from "./dash-filter-plant-selector";
 import { useShallow } from "zustand/react/shallow";
 import { useAuthStore } from "../auth/store/auth-store";
 import DashFilterSwitcher from "./dash-filter-switcher";
-
-function MobileDashFilter() {
-  // const { plantSelectorOptions, setSelectedPlant, changeFilter } = useDashFilterStore();
-  const plantSelectorOptions = useDashFilterStore(useShallow((state) => state.plantSelectorOptions));
-  const setSelectedPlant = useDashFilterStore(useShallow((state) => state.setSelectedPlant));
-  const changeFilter = useDashFilterStore(useShallow((state) => state.changeFilter));
-  const handleChange = (newValue: number | null) => {
-    newValue && setSelectedPlant(newValue);
-    newValue && changeFilter({ key: DashFilterParams.PLANT, value: "", values: [newValue] });
-  };
-  return (
-    <Box
-      sx={{ display: { xs: "initial", sm: "none" }, position: "absolute", right: "1rem", top: "4rem", zIndex: 99999 }}
-    >
-      <Dropdown>
-        <MenuButton
-          slots={{ root: IconButton }}
-          slotProps={{ root: { variant: "soft", color: "neutral", size: "md" } }}
-        >
-          <FilterAltOutlinedIcon />
-        </MenuButton>
-        <Menu size="sm" sx={{ minWidth: 140 }}>
-          {plantSelectorOptions.map((plant) => (
-            <MenuItem key={`Record_filter_plant_option_${plant.id}`} onClick={() => handleChange(plant.id)}>
-              {plant.value}
-            </MenuItem>
-          ))}
-        </Menu>
-      </Dropdown>
-    </Box>
-  );
-}
+import MobileDashFilter from "./dash-mobile-switcher";
+import DashFilterModeSelector from "./dash-filter-mode-selector";
+import { useDashModeStore } from "./store/use-dash-mode-store";
 
 export default function DashFilter() {
+  const mode = useDashModeStore(useShallow((state) => state.mode));
   const user = useAuthStore(useShallow((state) => state.user));
   const plantSelectorOptions = useDashFilterStore(useShallow((state) => state.plantSelectorOptions));
   const setSelectedPlant = useDashFilterStore(useShallow((state) => state.setSelectedPlant));
@@ -58,7 +29,8 @@ export default function DashFilter() {
       display: { xs: "none", sm: "flex" },
       width: "100%",
       borderRadius: "sm",
-      justifyContent: "flex-end",
+      // justifyContent: "flex-end",
+      justifyContent: "space-between",
       alignItems: "center",
       gap: 2,
       py: 1,
@@ -72,9 +44,14 @@ export default function DashFilter() {
       <MobileDashFilter />
       <Sheet variant="plain" sx={sheetSXProps}>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-          <DashFilterSwitcher />
-          <DashFilterPlantSelector />
+          <DashFilterModeSelector />
         </Box>
+        {mode === "packaging" && (
+          <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+            <DashFilterSwitcher />
+            <DashFilterPlantSelector />
+          </Box>
+        )}
       </Sheet>
     </>
   );

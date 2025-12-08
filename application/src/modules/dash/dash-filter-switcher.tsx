@@ -1,4 +1,4 @@
-import { useDashFilterStore } from "./store/dash-filter-store";
+import { useDashFilterStore } from "./store/use-dash-filter-store";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useShallow } from "zustand/react/shallow";

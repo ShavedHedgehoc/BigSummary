@@ -1,18 +1,21 @@
-import { useShallow } from "zustand/react/shallow";
-import DashCard from "./dash-card";
-import { useDashFilterStore } from "./store/use-dash-filter-store";
-import { useCurrentRecords } from "../../shared/api/use-current-records";
+// import { useShallow } from "zustand/react/shallow";
+// import DashCard from "./dash-card";
+// import { useDashFilterStore } from "./store/use-dash-filter-store";
+// import { useCurrentRecords } from "../../shared/api/use-current-records";
 import { SxProps } from "@mui/joy/styles/types";
 import TableLoaderComponent from "../../shared/components/table-loader";
 import TableNotFoundComponent from "../../shared/components/table-not-found";
 import { Sheet, useColorScheme } from "@mui/joy";
-import DashSmallCard from "./dash-small-card";
+import { useTubeConveyorsData } from "../../shared/api/use-tube-conveyors-data";
+import DashTubeConveyorCard from "./dash-tube-conveyor-card";
 
-export default function DashView() {
+function ConveyorCard() {}
+
+export default function DashTubeView() {
   const { mode } = useColorScheme();
-  const filter = useDashFilterStore(useShallow((state) => state.filter));
-  const smallCardView = useDashFilterStore(useShallow((state) => state.smallCardView));
-  const { isPending, data, isSuccess } = useCurrentRecords({ filter: filter });
+
+  //   const smallCardView = useDashFilterStore(useShallow((state) => state.smallCardView));
+  const { isPending, data, isSuccess } = useTubeConveyorsData();
 
   const sheetSxProps: SxProps = [
     {
@@ -48,7 +51,7 @@ export default function DashView() {
     return <TableLoaderComponent />;
   }
 
-  if (isSuccess && data.records.length === 0) {
+  if (isSuccess && data.conveyors.length === 0) {
     return <TableNotFoundComponent />;
   }
   return (
@@ -57,19 +60,23 @@ export default function DashView() {
         sx={{
           borderRadius: "sm",
           display: "grid",
-          gap: 1,
+          height: "100%",
+          gap: 2,
           gridTemplateColumns: {
             // xs: "repeat(auto-fill, 100%)",`repeat(auto-fill, [col-start] minmax(${smallCardView ? 80 : 250}px, 1fr) [col-end])`,
-            xs: `${
-              smallCardView ? "repeat(auto-fill, [col-start] minmax(80px, 1fr) [col-end])" : "repeat(auto-fill, 100%)"
-            }`,
-            sm: `repeat(auto-fill, [col-start] minmax(${smallCardView ? 80 : 250}px, 1fr) [col-end])`,
+            // xs: `${
+            //   smallCardView ? "repeat(auto-fill, [col-start] minmax(80px, 1fr) [col-end])" : "repeat(auto-fill, 100%)"
+            // }`,
+            sm: `repeat(2, 1fr)`,
           },
+          gridTemplateRows: { sm: `repeat(2, 1fr)` },
           backgroundColor: "background.body",
         }}
       >
-        {isSuccess && smallCardView && data.records.map((row) => <DashSmallCard key={`Card_${row.id}`} row={row} />)}
-        {isSuccess && !smallCardView && data.records.map((row) => <DashCard key={`Card_${row.id}`} row={row} />)}
+        {isSuccess &&
+          data.conveyors.map((conveyor) => (
+            <DashTubeConveyorCard key={`ConveyorCard_${conveyor.id}`} conveyor={conveyor} />
+          ))}
       </Sheet>
     </Sheet>
   );

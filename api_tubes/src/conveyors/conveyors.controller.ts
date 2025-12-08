@@ -11,11 +11,17 @@ export class ConveyorsController {
   getAllconveyors() {
     return this.conveyorService.getAllConveyors();
   }
+  @ApiOperation({ summary: "Получить данные конвейеров (монитор)" })
+  @Get("/all_data")
+  getConveyorsData() {
+    return this.conveyorService.getConveyorsData();
+  }
   @ApiOperation({ summary: "Получить конвейер по id" })
   @Get("/:id")
   getConveyorById(@Param("id") id: string) {
     return this.conveyorService.getConveyorById(Number(id));
   }
+
   // used in dashboard conveyor service
   @ApiOperation({ summary: "Получить конвейер по имени" })
   @Get()

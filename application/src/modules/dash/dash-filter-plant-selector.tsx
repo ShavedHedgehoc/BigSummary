@@ -1,5 +1,5 @@
 import { useShallow } from "zustand/react/shallow";
-import { useDashFilterStore } from "./store/dash-filter-store";
+import { useDashFilterStore } from "./store/use-dash-filter-store";
 import { DashFilterParams } from "./dash-filter-params";
 import FilterSelector, { FilterSelectorOption, FilterSelectorProps } from "../../shared/ui/filter-selector";
 

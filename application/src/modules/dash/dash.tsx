@@ -5,14 +5,18 @@ import DashFilter from "./dash-filter";
 import DashView from "./dash-view";
 import DashHistoryModal from "./dash-history-modal";
 import NoteModal from "../../shared/components/note-modal/note-modal";
+import { useDashModeStore } from "./store/use-dash-mode-store";
+import { useShallow } from "zustand/react/shallow";
+import DashTubeView from "./dash-tube-view";
 
 export default function Dash() {
+  const mode = useDashModeStore(useShallow((state) => state.mode));
   return (
     <React.Fragment>
       <BreadCrumbHeader breadcrumbs={["Текущая сводка"]} />
       <MainPageHeader pageTitle={"Текущая сводка"} />
       <DashFilter />
-      <DashView />
+      {mode === "packaging" ? <DashView /> : <DashTubeView />}
       <DashHistoryModal />
       <NoteModal />
     </React.Fragment>
