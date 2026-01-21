@@ -6,6 +6,6 @@ export const useActiveSummary = (conveyorId: number | null) =>
     queryKey: ["active_summary", conveyorId],
     queryFn: () => SummaryService.getActiveSummaryRecordByConveyorId(conveyorId),
     enabled: !!conveyorId,
-    refetchInterval: 1000 * 30,
+    refetchInterval: 1000 * 5,
     retry: false,
   });

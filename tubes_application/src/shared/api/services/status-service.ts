@@ -7,6 +7,7 @@ export interface CreateStatusDto {
   idle: boolean;
   finished: boolean;
   employee_id: number;
+  defect_value?: string;
 }
 
 export interface IStatusResponce {

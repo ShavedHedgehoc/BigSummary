@@ -6,4 +6,5 @@ export enum ApiMessages {
   ACTIVE_SUMMARY_NOT_FOUND = "Активная сводка не найдена",
   PREVISIOUS_STATUS_NOT_FOUND = "Не найдена предыдущая запись статуса",
   BOX_ALREADY_IN_DATABASE = "Короб уже записан в базу данных",
+  CONVEYOR_NOT_FOUND = "Конвейер не найден",
 }

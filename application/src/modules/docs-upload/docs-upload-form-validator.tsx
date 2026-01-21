@@ -5,6 +5,7 @@ import { useShallow } from "zustand/react/shallow";
 import Ajv from "ajv";
 import { read, utils } from "xlsx";
 import { IXLSDocsRowData } from "../../shared/api/services/record-service";
+import ajvErrors from "ajv-errors";
 
 export default function DocsUploadFormValidator() {
   const isValid = useDocsUploadFormStore(useShallow((state) => state.isValid));
@@ -24,15 +25,28 @@ export default function DocsUploadFormValidator() {
   };
 
   const ajv = new Ajv({ allErrors: true });
+  ajvErrors(ajv);
 
   const valSchema = {
     type: "object",
     properties: {
-      code1C: { type: "string", pattern: "^[0-9]{6}$" },
+      code1C: {
+        type: "string",
+        pattern: "^[0-9]{6}$",
+        errorMessage: { pattern: "Код 1С должен быть шестизначным числом" },
+      },
       serie: { type: "string", minLength: 1 },
       product: { type: "string", minLength: 1 },
-      batch: { type: "string", minLength: 1 },
-      plan: { type: "string", minLength: 1 },
+      batch: {
+        type: "string",
+        pattern: "^[1-9]{1}[0-9]{1,3}[A-L]{1}\\d{1}[R,S,Z,X]{0,1}$",
+        errorMessage: { pattern: "Шаблон партии не совпадает" },
+      },
+      plan: {
+        type: "string",
+        pattern: "^(?:[1-9]\\d{0,5})$",
+        errorMessage: { pattern: "План должен быть целым числом от 1 до 999 999" },
+      },
       apparatus: { type: "string", minLength: 1 },
       can: { type: "string", minLength: 1 },
       conveyor: { type: "string", minLength: 1 },

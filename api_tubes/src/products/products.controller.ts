@@ -6,7 +6,13 @@ import { ApiOperation, ApiTags } from "@nestjs/swagger";
 @Controller("products")
 export class ProductsController {
   constructor(private readonly productService: ProductsService) {}
+
   @ApiOperation({ summary: "Получить номенклатуру по id" })
+  @Get()
+  getAll() {
+    return this.productService.getProducts();
+  }
+
   @Get("/:id")
   getConveyorById(@Param("id") id: string) {
     return this.productService.getProductById(Number(id));

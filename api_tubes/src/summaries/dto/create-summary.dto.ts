@@ -1,6 +1,7 @@
 interface CreateSummaryRow {
   code1C: string;
   product_marking: string;
+  product_name: string;
   batch: string;
   plan: string;
   conveyor: string;

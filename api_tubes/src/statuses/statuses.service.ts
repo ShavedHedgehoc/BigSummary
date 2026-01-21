@@ -28,8 +28,23 @@ export class StatusesService {
       });
     }
 
+    if (dto.defect_value) {
+      await this.prisma.extrusionDefect.upsert({
+        where: { summary_id: dto.summary_id },
+        update: { value: Number(dto.defect_value) },
+        create: { summary_id: dto.summary_id, value: Number(dto.defect_value) },
+      });
+    }
+
     const extrusionEntry = await this.prisma.extrusionStatus.create({
-      data: { ...dto, counter_value: lastStatusEntry.counter_value },
+      data: {
+        summary_id: dto.summary_id,
+        operation_id: dto.operation_id,
+        idle: dto.idle,
+        finished: dto.finished,
+        employee_id: dto.employee_id,
+        counter_value: lastStatusEntry.counter_value,
+      },
     });
 
     return extrusionEntry;
@@ -46,6 +61,7 @@ export class StatusesService {
 
     if (lastStatusEntry.idle) {
       const timeDelta = await (new Date().getTime() - new Date(lastStatusEntry.createdAt).getTime());
+
       await this.prisma.varnishStatus.update({
         where: {
           id: lastStatusEntry.id,
@@ -56,8 +72,23 @@ export class StatusesService {
       });
     }
 
+    if (dto.defect_value) {
+      await this.prisma.varnishDefect.upsert({
+        where: { summary_id: dto.summary_id },
+        update: { value: Number(dto.defect_value) },
+        create: { summary_id: dto.summary_id, value: Number(dto.defect_value) },
+      });
+    }
+
     const varnishEntry = await this.prisma.varnishStatus.create({
-      data: { ...dto, counter_value: lastStatusEntry.counter_value },
+      data: {
+        summary_id: dto.summary_id,
+        operation_id: dto.operation_id,
+        idle: dto.idle,
+        finished: dto.finished,
+        employee_id: dto.employee_id,
+        counter_value: lastStatusEntry.counter_value,
+      },
     });
 
     return varnishEntry;
@@ -84,8 +115,23 @@ export class StatusesService {
       });
     }
 
+    if (dto.defect_value) {
+      await this.prisma.offsetDefect.upsert({
+        where: { summary_id: dto.summary_id },
+        update: { value: Number(dto.defect_value) },
+        create: { summary_id: dto.summary_id, value: Number(dto.defect_value) },
+      });
+    }
+
     const offsetEntry = await this.prisma.offsetStatus.create({
-      data: { ...dto, counter_value: lastStatusEntry.counter_value },
+      data: {
+        summary_id: dto.summary_id,
+        operation_id: dto.operation_id,
+        idle: dto.idle,
+        finished: dto.finished,
+        employee_id: dto.employee_id,
+        counter_value: lastStatusEntry.counter_value,
+      },
     });
 
     return offsetEntry;
@@ -112,8 +158,23 @@ export class StatusesService {
       });
     }
 
+    if (dto.defect_value) {
+      await this.prisma.sealantDefect.upsert({
+        where: { summary_id: dto.summary_id },
+        update: { value: Number(dto.defect_value) },
+        create: { summary_id: dto.summary_id, value: Number(dto.defect_value) },
+      });
+    }
+
     const sealantEntry = await this.prisma.sealantStatus.create({
-      data: { ...dto, counter_value: lastStatusEntry.counter_value },
+      data: {
+        summary_id: dto.summary_id,
+        operation_id: dto.operation_id,
+        idle: dto.idle,
+        finished: dto.finished,
+        employee_id: dto.employee_id,
+        counter_value: lastStatusEntry.counter_value,
+      },
     });
 
     return sealantEntry;

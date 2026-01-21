@@ -18,7 +18,8 @@ model Employee {
   name               String
   barcode            String             @unique @db.VarChar(13)
   rank               Rank?              @relation(fields: [rank_id], references: [id])
-  rank_id            Int?
+  rank_id            Int
+  banned             Boolean            @default(false)
   consumed_materials ConsumedMaterial[]
   extrusion_params   ExtrusionParam[]
   varnish_params     VarnishParam[]
@@ -105,10 +106,14 @@ model SealantSopPictures {
 
 // Конвейеры
 model Conveyor {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  summaries Summary[]
-  printers  Printer[]
+  id                 Int                 @id @default(autoincrement())
+  name               String              @unique
+  summaries          Summary[]
+  printers           Printer[]
+  extrusionTresholds ExtrusionTreshold[]
+  varnishTresholds   VarnishTreshold[]
+  offsetTresholds    OffsetTreshold[]
+  sealantTresholds   SealantTreshold[]
 
   @@map("conveyors")
 }
@@ -192,8 +197,48 @@ model Summary {
   offset_statuses    OffsetStatus[]
   sealant_statuses   SealantStatus[]
   production_boxes   ProductionBox[]
+  extrusion_defects  ExtrusionDefect[]
+  varnish_defects    VarnishDefect[]
+  offset_defects     OffsetDefect[]
+  selant_defects     SealantDefect[]
 
   @@map("summaries")
+}
+
+model ExtrusionDefect {
+  id         Int     @id @default(autoincrement())
+  summary    Summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id Int     @unique
+  value      Float
+
+  @@map("extrusion_defects")
+}
+
+model VarnishDefect {
+  id         Int     @id @default(autoincrement())
+  summary    Summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id Int     @unique
+  value      Float
+
+  @@map("varnish_defects")
+}
+
+model OffsetDefect {
+  id         Int     @id @default(autoincrement())
+  summary    Summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id Int     @unique
+  value      Float
+
+  @@map("offset_defects")
+}
+
+model SealantDefect {
+  id         Int     @id @default(autoincrement())
+  summary    Summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary_id Int     @unique
+  value      Float
+
+  @@map("sealant_defects")
 }
 
 // Комплектующие
@@ -279,6 +324,8 @@ model ExtrusionTreshold {
   id                                     Int      @id @default(autoincrement())
   product                                Product  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   product_id                             Int
+  conveyor                               Conveyor @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id                            Int
   press_speed_min                        Int
   press_speed_max                        Int
   blow_time_min                          Int
@@ -342,6 +389,8 @@ model VarnishTreshold {
   id                                Int      @id @default(autoincrement())
   product                           Product  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   product_id                        Int
+  conveyor                          Conveyor @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id                       Int
   varnish_machine_speed_min         Int
   varnish_machine_speed_max         Int
   total_air_pressure_min            Float
@@ -417,6 +466,8 @@ model OffsetTreshold {
   id                                 Int      @id @default(autoincrement())
   product                            Product  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   product_id                         Int
+  conveyor                           Conveyor @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id                        Int
   printing_machine_speed_min         Int
   printing_machine_speed_max         Int
   total_air_pressure_min             Int
@@ -485,6 +536,8 @@ model SealantTreshold {
   id                                   Int      @id @default(autoincrement())
   product                              Product  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   product_id                           Int
+  conveyor                             Conveyor @relation(fields: [conveyor_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  conveyor_id                          Int
   cap_machine_speed_min                Int
   cap_machine_speed_max                Int
   total_air_pressure_min               Float
@@ -535,14 +588,14 @@ model ExtrusionOperation {
 
 model ExtrusionStatus {
   id            Int                 @id @default(autoincrement())
-  summary       Summary             @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary       Summary             @relation(fields: [summary_id], references: [id], onUpdate: Cascade)
   summary_id    Int
   counter_value Int
   operation     ExtrusionOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   operation_id  Int?
   idle          Boolean             @default(false)
-  employee      Employee            @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  employee_id   Int
+  employee      Employee?           @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int?
   idle_time     Int?
   finished      Boolean             @default(false)
   createdAt     DateTime            @default(now())
@@ -563,14 +616,14 @@ model VarnishOperation {
 
 model VarnishStatus {
   id            Int               @id @default(autoincrement())
-  summary       Summary           @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary       Summary           @relation(fields: [summary_id], references: [id], onUpdate: Cascade)
   summary_id    Int
   counter_value Int
   operation     VarnishOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   operation_id  Int?
   idle          Boolean           @default(false)
-  employee      Employee          @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  employee_id   Int
+  employee      Employee?         @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int?
   idle_time     Int?
   finished      Boolean           @default(false)
   createdAt     DateTime          @default(now())
@@ -591,14 +644,14 @@ model OffsetOperation {
 
 model OffsetStatus {
   id            Int              @id @default(autoincrement())
-  summary       Summary          @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary       Summary          @relation(fields: [summary_id], references: [id], onUpdate: Cascade)
   summary_id    Int
   counter_value Int
   operation     OffsetOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   operation_id  Int?
   idle          Boolean          @default(false)
-  employee      Employee         @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  employee_id   Int
+  employee      Employee?        @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int?
   idle_time     Int?
   finished      Boolean          @default(false)
   createdAt     DateTime         @default(now())
@@ -619,14 +672,14 @@ model SealantOperation {
 
 model SealantStatus {
   id            Int               @id @default(autoincrement())
-  summary       Summary           @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  summary       Summary           @relation(fields: [summary_id], references: [id], onUpdate: Cascade)
   summary_id    Int
   counter_value Int
   operation     SealantOperation? @relation(fields: [operation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   operation_id  Int?
   idle          Boolean           @default(false)
-  employee      Employee          @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  employee_id   Int
+  employee      Employee?         @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  employee_id   Int?
   idle_time     Int?
   finished      Boolean           @default(false)
   createdAt     DateTime          @default(now())

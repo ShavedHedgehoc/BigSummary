@@ -222,7 +222,19 @@ export default function SideBar() {
                     sx={{ display: "flex", gap: 1 }}
                     onClick={() => closeSidebar()}
                   >
-                    <Typography level="title-sm">{`Загрузка сводок (Тубы)`}</Typography>
+                    <Typography level="title-sm">{`Загрузка (Тубы)`}</Typography>
+                  </Link>
+                </ListItem>
+                <ListItem role="none">
+                  <Link
+                    component={RouterLink}
+                    to={RouteNames.TUBES_RECORDS_LIST}
+                    color="neutral"
+                    underline="none"
+                    sx={{ display: "flex", gap: 1 }}
+                    onClick={() => closeSidebar()}
+                  >
+                    <Typography level="title-sm">{`Список (Тубы)`}</Typography>
                   </Link>
                 </ListItem>
               </List>
@@ -511,13 +523,13 @@ export default function SideBar() {
                     <ListItemContent>
                       <Link
                         component={RouterLink}
-                        to={"/"}
+                        to={RouteNames.TUBES_TRESHOLDS}
                         color="neutral"
                         underline="none"
                         sx={{ display: "flex", gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
-                        <Typography level="title-sm">Монитор</Typography>
+                        <Typography level="title-sm">Границы</Typography>
                       </Link>
                     </ListItemContent>
                   </ListItemButton>
@@ -527,23 +539,7 @@ export default function SideBar() {
                     <ListItemContent>
                       <Link
                         component={RouterLink}
-                        to={"/"}
-                        color="neutral"
-                        underline="none"
-                        sx={{ display: "flex", gap: 1 }}
-                        onClick={() => closeSidebar()}
-                      >
-                        <Typography level="title-sm">Продукция</Typography>
-                      </Link>
-                    </ListItemContent>
-                  </ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton role="none">
-                    <ListItemContent>
-                      <Link
-                        component={RouterLink}
-                        to={"/"}
+                        to={RouteNames.TUBES_EMPLOYEES}
                         color="neutral"
                         underline="none"
                         sx={{ display: "flex", gap: 1 }}

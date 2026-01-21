@@ -20,4 +20,5 @@ export enum AppMessages {
   PRINT_SUCCESFULL = "Успешно напечатано",
   BOX_SCAN_ERROR = "Ошибка сканирования короба",
   RECORDS_NOT_FOUND = "Записей не найдено",
+  PARAMS_NOT_FOUND = "Параметры для этого продукта не найдены",
 }

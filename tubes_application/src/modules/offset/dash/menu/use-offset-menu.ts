@@ -24,10 +24,15 @@ export default function useOffsetMenu() {
     summaryData.offsetStatus.idle ||
     !summaryData.offset_materials.length ||
     summaryData.offsetStatus.finished ||
+    !summaryData.offsetTresholds ||
     summaryData.offset_materials.map((item) => item.scanned).includes(false);
 
   const scanMaterialsButtonDisabledCondition =
-    !employee || !summaryData || summaryData.offsetStatus.finished || summaryData.offsetStatus.idle;
+    !employee ||
+    !summaryData ||
+    summaryData.offsetStatus.finished ||
+    summaryData.offsetStatus.idle ||
+    !summaryData.offsetTresholds;
 
   const operationButtonDisabledCondition =
     !employee || !summaryData || !summaryData.offsetStatus.createdAt || summaryData.offsetStatus.finished;

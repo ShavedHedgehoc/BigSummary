@@ -48,4 +48,8 @@ export enum RouteNames {
   TUBES_EMPLOYEES = "/tubes_employees",
   TUBES_MONITOR = "/tubes_monitor",
   TUBES_SUMMARY = "/tubes_summary",
+  TUBES_RECORDS_LIST = "/tubes_records_list",
+  TUBES_TRESHOLDS = "/tubes_tresholds",
+  TUBES_RECORDS_DETAIL = "/tubes_record_detail/:id",
+  TUBES_RECORDS_DETAIL_ROOT = "/tubes_record_detail",
 }

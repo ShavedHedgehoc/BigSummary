@@ -26,7 +26,12 @@ export const useEmployeeAddModalStore = create<AddModalStore>()(
       setName: (val: string) => set(() => ({ name: val })),
       setBarcode: (val: string) => set(() => ({ barcode: val })),
       setOccupation: (val: number) => set(() => ({ occupation: val })),
-      clearData: () => set(() => ({ name: "", barcode: "", occupation: null })),
+      clearData: () =>
+        set((state) => ({
+          name: "",
+          barcode: "",
+          occupation: state.occupationsOptions.length > 0 ? state.occupationsOptions[1].id : null,
+        })),
       fillOccupationOptions: (values) => set(() => ({ occupationsOptions: [...values] })),
     }),
     { name: "EmployeeAddModalStore", store: "useEmployeeAddModalStore" }

@@ -22,6 +22,12 @@ export default function ProductionLineChart({ summaryData, postId }: { summaryDa
       { name: "idle", color: "orange.solid", label: "Простой" },
     ],
   });
+
+  if (!summaryData?.extrusionTresholds && postId === 1) return;
+  if (summaryData && !summaryData.varnishTresholds && postId === 2) return;
+  if (!summaryData?.offsetTresholds && postId === 3) return;
+  if (!summaryData?.sealantTresholds && postId === 4) return;
+
   return (
     <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={4} alignItems="center" justifyContent="center">
       <VStack h="full" w="full" justify="center">

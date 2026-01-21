@@ -25,7 +25,8 @@ import ExtrusionMaterialScanModal from "./dash/modals/extrusion-material-scan-mo
 import ExtrusionLogoutAlertModal from "./dash/modals/extrusion-logout-alert-modal";
 import { Theme } from "@chakra-ui/react";
 import { ColorModeProvider } from "@/components/ui/color-mode";
-import ExtrusionCloseSummaryAlertModal from "./dash/modals/extrusion-close-summary-alert-modal";
+import ExtrusionCloseSummaryModal from "./dash/modals/extrusion-close-summary-modal";
+import ExtrusionDefectEntryModal from "./dash/modals/extrusion-defect-enter-modal";
 
 export default function Extrusion() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -43,7 +44,6 @@ export default function Extrusion() {
     parameterComponent: <ExtrusionParameters summaryData={summaryData ?? null} />,
     materialPieChartComponent: <MaterialPieChartComponent summaryData={summaryData ?? null} postId={1} />,
     productionLineChartComponent: <ProductionLineChart summaryData={summaryData ?? null} postId={1} />,
-
     productionCardComponent: <ProductionCard summaryData={summaryData ?? null} postId={1} />,
     menuComponent: <ExtrusionMenu />,
     userComponent: <UserComponent employee={employee} />,
@@ -60,7 +60,8 @@ export default function Extrusion() {
         <ExtrusionAuthModal />
         <ExtrusionLogoutAlertModal />
         <ExtrusionMaterialScanModal summary_id={summaryData?.data.id} />
-        <ExtrusionCloseSummaryAlertModal />
+        <ExtrusionCloseSummaryModal />
+        <ExtrusionDefectEntryModal />
       </Theme>
     </ColorModeProvider>
   );

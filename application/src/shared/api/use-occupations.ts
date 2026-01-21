@@ -7,13 +7,20 @@ import { useEmployeeAddModalStore } from "../../modules/employees/store/use-empl
 export const useOccupations = () => {
   const { fillOccupationSelectorOptions: fillEmployeesOptions } = useEmployeesFilterStore();
   const { fillOccupationOptions: fillEmployeesEditModalOccupationsOptions } = useEmployeesEditModalStore();
-  const { fillOccupationOptions: fillEmployeesAddModalOccupationsOptions } = useEmployeeAddModalStore();
+  const {
+    fillOccupationOptions: fillEmployeesAddModalOccupationsOptions,
+    setOccupation: setEmployeeAddModalOccupation,
+  } = useEmployeeAddModalStore();
+
   return useQuery({
     queryKey: ["occupations"],
     queryFn: async () => {
       const data = await OccupationService.getOccupations();
       if (data) {
         fillEmployeesOptions(data);
+        if (data.length) {
+          setEmployeeAddModalOccupation(data[1].id);
+        }
         fillEmployeesEditModalOccupationsOptions(data);
         fillEmployeesAddModalOccupationsOptions(data);
       }

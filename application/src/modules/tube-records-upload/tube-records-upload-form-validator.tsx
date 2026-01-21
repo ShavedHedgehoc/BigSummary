@@ -4,6 +4,7 @@ import Ajv from "ajv";
 import { read, utils } from "xlsx";
 import { ValError, useTubeRecordsUploadFormStore } from "./store/use-records-upload-form-store";
 import { IXLSXTubeRecordRowData } from "../../shared/api/services/tube-records-service";
+import ajvErrors from "ajv-errors";
 
 export default function TubeRecordsUploadFormValidator() {
   const isValid = useTubeRecordsUploadFormStore(useShallow((state) => state.isValid));
@@ -23,20 +24,61 @@ export default function TubeRecordsUploadFormValidator() {
   };
 
   const ajv = new Ajv({ allErrors: true });
+  ajvErrors(ajv);
 
   const valSchema = {
     type: "object",
     properties: {
-      code1C: { type: "string", pattern: "^[0-9]{6}$" },
-      product_marking: { type: "string", minLength: 1 },
-      batch: { type: "string", minLength: 1 },
-      plan: { type: "string", minLength: 1 },
-      conveyor: { type: "string", minLength: 1 },
-      specification: { type: "string", minLength: 1 },
+      code1C: {
+        type: "string",
+        pattern: "^[0-9]{6}$",
+        errorMessage: { pattern: "Код 1С должен быть шестизначным числом" },
+      },
+      product_marking: {
+        type: "string",
+        minLength: 1,
+        maxLength: 50,
+        errorMessage: {
+          minLength: "Артикул должен содержать хотя бы один символ",
+          maxLength: "Длина артикула не должна быть больше 50 символов",
+          type: "",
+        },
+      },
+      product_name: {
+        type: "string",
+        minLength: 1,
+        maxLength: 200,
+        errorMessage: {
+          minLength: "Наименование должно содержать хотя бы один символ",
+          maxLength: "Длина наименования не должна быть больше 200 символов",
+          type: "",
+        },
+      },
+      batch: {
+        type: "string",
+        pattern: "^[1-9]{1}[0-9]{1,3}[A-L]{1}\\d{1}[R,S,Z,X]{0,1}$",
+        errorMessage: { pattern: "Шаблон партии не совпадает" },
+      },
+      plan: {
+        type: "string",
+        pattern: "^(?:[1-9]\\d{0,5})$",
+        errorMessage: { pattern: "План должен быть целым числом от 1 до 999 999" },
+      },
+      conveyor: {
+        type: "string",
+        pattern: "^(?:[1-9]\\d{1,2})$",
+        errorMessage: { pattern: "Номер конвейера должен быть целым трехзначным  числом" },
+      },
+      specification: {
+        type: "string",
+        pattern: "^([{]{1}\\d{6}#[^#{}]+#[1-4]{1}[}]{1})+$",
+        errorMessage: {
+          pattern: "Шаблон спецификации '{<Код (6 цифр)>#<Наименование>#<Номер поста (1-4)>}' не совпадает",
+        },
+      },
     },
-    required: ["code1C", "product_marking", "batch", "plan", "conveyor", "specification"],
+    required: ["code1C", "product_marking", "product_name", "batch", "plan", "conveyor", "specification"],
   };
-  // const parse = ajv.compileParser(valSchema);
   const parse = ajv.compile(valSchema);
 
   const validate = () => {
@@ -44,7 +86,6 @@ export default function TubeRecordsUploadFormValidator() {
     reader.onload = function (event) {
       const data = event.target?.result;
       let valResult = true;
-      // let json: IXLSData[] = [];
       let json: IXLSXTubeRecordRowData[] = [];
       try {
         const wb = read(data);
@@ -52,10 +93,7 @@ export default function TubeRecordsUploadFormValidator() {
         json = utils.sheet_to_json(ws, { raw: false });
 
         for (let i = 0; i < json.length; i++) {
-          // const parsedData = parse(JSON.stringify(json[i]));
           const parsedData = parse(json[i]);
-
-          // if (parsedData === undefined) {
           if (!parsedData) {
             parse.errors?.map((item) => {
               const err: ValError = {

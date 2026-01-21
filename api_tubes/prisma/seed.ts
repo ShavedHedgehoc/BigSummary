@@ -62,6 +62,7 @@ async function main() {
     create: {
       name: "Проничев В.Л.",
       barcode: "2000005358418",
+      rank_id: rank1.id,
     },
   });
   console.log(employee1);
@@ -71,6 +72,7 @@ async function main() {
     create: {
       name: "Ашихмин С.А.",
       barcode: "2000001377208",
+      rank_id: rank1.id,
     },
   });
   console.log(employee2);
@@ -80,6 +82,7 @@ async function main() {
     create: {
       name: "Скрипковский М.Ю.",
       barcode: "2000001416426",
+      rank_id: rank1.id,
     },
   });
   console.log(employee3);
@@ -209,6 +212,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -235,6 +239,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 75,
             varnish_machine_speed_max: 83,
             total_air_pressure_min: 6.3,
@@ -275,6 +280,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -309,6 +315,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -358,6 +365,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -384,6 +392,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 75,
             varnish_machine_speed_max: 83,
             total_air_pressure_min: 6.3,
@@ -424,6 +433,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -458,6 +468,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -507,6 +518,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -533,6 +545,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 75,
             varnish_machine_speed_max: 83,
             total_air_pressure_min: 6.3,
@@ -573,6 +586,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -607,6 +621,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -656,6 +671,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -682,6 +698,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 75,
             varnish_machine_speed_max: 83,
             total_air_pressure_min: 6.3,
@@ -722,6 +739,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -756,6 +774,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -805,6 +824,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -831,6 +851,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 65,
             varnish_machine_speed_max: 83,
             total_air_pressure_min: 6.3,
@@ -871,6 +892,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -905,6 +927,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -954,6 +977,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -980,6 +1004,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 65,
             varnish_machine_speed_max: 83,
             total_air_pressure_min: 6.3,
@@ -1020,6 +1045,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -1054,6 +1080,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -1103,6 +1130,7 @@ async function main() {
       extrusion_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             press_speed_min: 70,
             press_speed_max: 80,
             blow_time_min: 13,
@@ -1129,6 +1157,7 @@ async function main() {
       varnish_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             varnish_machine_speed_min: 75,
             varnish_machine_speed_max: 85,
             total_air_pressure_min: 6.3,
@@ -1169,6 +1198,7 @@ async function main() {
       offset_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             printing_machine_speed_min: 75,
             printing_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -1203,6 +1233,7 @@ async function main() {
       sealant_tresholds: {
         create: [
           {
+            conveyor_id: conveyor1.id,
             cap_machine_speed_min: 70,
             cap_machine_speed_max: 85,
             total_air_pressure_min: 6,
@@ -1257,6 +1288,8 @@ async function main() {
     "Синхронизация печей",
     "Натяжка цепей",
     "ТО №1",
+    "ТО №2",
+    "ТО №3",
     "Прочее",
   ];
 
@@ -1280,6 +1313,8 @@ async function main() {
     "Натяжка цепей",
     "Замена лака и прокачка системы",
     "ТО №1",
+    "ТО №2",
+    "ТО №3",
     "Прочее",
   ];
 
@@ -1307,6 +1342,8 @@ async function main() {
     "Регулировка толщины слоя краски",
     "Замена офсетного полотна",
     "ТО №1",
+    "ТО №2",
+    "ТО №3",
     "Прочее",
   ];
 
@@ -1330,6 +1367,8 @@ async function main() {
     "Настройка входного и выходного барабана",
     "Натяжка цепей",
     "ТО №1",
+    "ТО №2",
+    "ТО №3",
     "Прочее",
   ];
 

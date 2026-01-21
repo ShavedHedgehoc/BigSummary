@@ -25,7 +25,8 @@ import VarnishMaterialScanModal from "./dash/modals/varnish-material-scan-modal"
 import VarnishParameters from "./dash/varnish-parameters";
 import { useVarnishConveyorStore } from "./store/use-varnish-conveyor-store";
 import { useVarnishEmployeeStore } from "./store/use-varnish-employee-store";
-import VarnishCloseSummaryAlertModal from "./dash/modals/varnish-close-summery-alert-modal";
+import VarnishDefectEntryModal from "./dash/modals/varnish-defect-entry-modal";
+import VarnishCloseSummaryModal from "./dash/modals/varnish-close-summary-modal";
 
 export default function Varnish() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -59,7 +60,8 @@ export default function Varnish() {
         <VarnishAuthModal />
         <VarnishLogoutAlertModal />
         <VarnishMaterialScanModal summary_id={summaryData?.data.id} />
-        <VarnishCloseSummaryAlertModal />
+        <VarnishCloseSummaryModal />
+        <VarnishDefectEntryModal />
       </Theme>
     </ColorModeProvider>
   );

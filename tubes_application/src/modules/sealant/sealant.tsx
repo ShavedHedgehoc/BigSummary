@@ -25,7 +25,8 @@ import SealantMaterialScanModal from "./dash/modals/sealant-material-scan-modal"
 import SealantParameters from "./dash/sealant-parameters";
 import { useSealantConveyorStore } from "./store/use-sealant-conveyor-store";
 import { useSealantEmployeeStore } from "./store/use-sealant-employee-store";
-import SealantCloseSummaryAlertModal from "./dash/modals/sealant-close-summary-alert-modal";
+import SealantCloseSummaryModal from "./dash/modals/sealant-close-summary-modal";
+import SealantDefectEntryModal from "./dash/modals/sealant-defect-entry-modal";
 
 export default function Sealant() {
   const params = useParams<Params.CONVEYOR_NAME>();
@@ -59,7 +60,8 @@ export default function Sealant() {
         <SealantAuthModal />
         <SealantLogoutAlertModal />
         <SealantMaterialScanModal summary_id={summaryData?.data.id} />
-        <SealantCloseSummaryAlertModal />
+        <SealantCloseSummaryModal />
+        <SealantDefectEntryModal />
       </Theme>
     </ColorModeProvider>
   );

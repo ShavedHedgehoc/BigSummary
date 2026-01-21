@@ -14,4 +14,6 @@ export enum DbRoles {
   CARDS = "Карточки",
   WEIGHER = "Весовой участок",
   TRACE = "Прослеживаемость",
+  TUBE_DASH = "Карточки тубы",
+  TUBES = "Тубы",
 }

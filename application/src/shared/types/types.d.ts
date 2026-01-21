@@ -5,6 +5,14 @@ interface TheadProperties {
   value: string;
 }
 
+interface TheadFullHeightProperties {
+  width: number;
+  align?: CanvasTextAlign;
+  rotate?: boolean;
+  padding?: string;
+  value: string;
+}
+
 interface IHistory {
   id: number;
   record_id: number;
@@ -373,7 +381,7 @@ interface FetchInventoryDocsDto {
 interface IInventoryDocRow {
   id: number;
   date: Date;
-  finished: Boolean;
+  finished: boolean;
   plant_name: string;
   records: number;
 }
@@ -386,7 +394,7 @@ interface IInventoryDocsData {
 interface IInventoryDoc {
   id: number;
   date: Date;
-  finished: Boolean;
+  finished: boolean;
   plant_name: string;
 }
 

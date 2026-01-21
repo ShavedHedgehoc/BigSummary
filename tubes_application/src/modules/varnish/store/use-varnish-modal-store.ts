@@ -40,3 +40,10 @@ export const useVarnishCloseSummaryModalStore = create<SimplyModalStore>()(
     setOpen: (value) => set(() => ({ open: value })),
   }))
 );
+
+export const useVarnishDefectInputModalStore = create<SimplyModalStore>()(
+  devtools((set) => ({
+    open: false,
+    setOpen: (value) => set(() => ({ open: value })),
+  }))
+);

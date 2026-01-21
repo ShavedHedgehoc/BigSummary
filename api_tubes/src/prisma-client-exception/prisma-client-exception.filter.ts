@@ -23,7 +23,7 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         const status = HttpStatus.BAD_REQUEST;
         response.status(status).json({
           statusCode: status,
-          message: message,
+          message: "Запись не может быть удалена, так как связана с другими записями",
         });
         break;
       }

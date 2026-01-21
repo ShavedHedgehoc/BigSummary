@@ -24,10 +24,15 @@ export default function useVarnishMenu() {
     summaryData.varnishStatus.idle ||
     !summaryData.varnish_materials.length ||
     summaryData.varnishStatus.finished ||
+    !summaryData.varnishTresholds ||
     summaryData.varnish_materials.map((item) => item.scanned).includes(false);
 
   const scanMaterialsButtonDisabledCondition =
-    !employee || !summaryData || summaryData.varnishStatus.finished || summaryData.varnishStatus.idle;
+    !employee ||
+    !summaryData ||
+    summaryData.varnishStatus.finished ||
+    summaryData.varnishStatus.idle ||
+    !summaryData.varnishTresholds;
 
   const operationButtonDisabledCondition =
     !employee || !summaryData || !summaryData.varnishStatus.createdAt || summaryData.varnishStatus.finished;

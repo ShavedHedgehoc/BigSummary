@@ -47,6 +47,12 @@ export default function ProductionCard({ summaryData, postId }: { summaryData: I
         </Stack>
       ),
     }[operationStatus.state];
+
+  if (!summaryData?.extrusionTresholds && postId === 1) return;
+  if (summaryData && !summaryData.varnishTresholds && postId === 2) return;
+  if (!summaryData?.offsetTresholds && postId === 3) return;
+  if (!summaryData?.sealantTresholds && postId === 4) return;
+
   return (
     <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={8} alignItems="center" justifyContent="center">
       <Stack justify="space-between" h="full" w="full">

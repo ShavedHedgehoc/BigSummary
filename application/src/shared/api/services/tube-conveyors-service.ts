@@ -1,42 +1,51 @@
 import { $apiTubes } from "../http";
 
-interface ITubeBatch {
-  id: number;
-  name: string;
+type IState = "idle" | "working" | "finished";
+
+interface IPostData {
+  production: number | null;
+  state: IState;
+  employee: string;
 }
 
-interface ITubeSummary {
+interface ITubeConveyorSummary {
   id: number;
   product_id: number;
+  product_code: string;
+  product_name: string;
   batch_id: number;
-  conveyor_id: number;
+  batch_name: string;
   plan: number;
-  isActive: boolean;
-  isFinished: boolean;
-  date: Date;
-  batch: ITubeBatch;
-  //   product: {
-  //     id: 1;
-  //     code: "002676";
-  //     marking: "D28xL129_Only Looks";
-  //     name: "Туба LOOKS 50 мл D 28 мм металлическая";
-  //   };
-  //   extrusion_statuses: [];
+
+  extrusion: IPostData | null;
+  varnish: IPostData | null;
+  offset: IPostData | null;
+  sealant: IPostData | null;
 }
 
-export interface IConveyor {
+export interface IConveyorData {
   id: number;
   name: string;
-  summaries: ITubeSummary[] | [];
+  summary: ITubeConveyorSummary | null;
+}
+
+export interface ITubeConveyor {
+  id: number;
+  name: string;
 }
 
 export interface IConveyorsDataResponse {
-  conveyors: IConveyor[];
+  conveyors: IConveyorData[];
 }
 
 export default class TubeConveyorsService {
-  static async getconveyorsData(): Promise<IConveyorsDataResponse> {
+  static async getConveyorsData(): Promise<IConveyorsDataResponse> {
     const res = await $apiTubes.get(`/conveyors/all_data`);
+    return res.data;
+  }
+
+  static async getConveyors(): Promise<ITubeConveyor[]> {
+    const res = await $apiTubes.get(`/conveyors/all`);
     return res.data;
   }
 }

@@ -60,7 +60,7 @@ export default function OffsetMenu() {
     disabled: false,
     action: () =>
       summaryData?.offsetStatus.operation_id
-        ? navigate(`${RouteNames.OFFSET_SOP_ROOT}/${summaryData.extrusionStatus.operation_id}`)
+        ? navigate(`${RouteNames.OFFSET_SOP_ROOT}/${summaryData.offsetStatus.operation_id}`)
         : undefined,
   };
 

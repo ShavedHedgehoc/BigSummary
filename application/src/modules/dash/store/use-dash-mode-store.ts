@@ -11,8 +11,8 @@ interface DashModeStore {
 export const useDashModeStore = create<DashModeStore>()(
   devtools(
     (set) => ({
-      // mode: "packaging",
-      mode: "tubes",
+      mode: "packaging",
+      // mode: "tubes",
       changeMode: (value) => set(() => ({ mode: value })),
     }),
     { name: "DashModeStore", store: "DashModeStore" }

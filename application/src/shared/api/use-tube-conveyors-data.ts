@@ -4,6 +4,6 @@ import TubeConveyorsService from "./services/tube-conveyors-service";
 export const useTubeConveyorsData = () =>
   useQuery({
     queryKey: ["tube_conveyors_data"],
-    queryFn: () => TubeConveyorsService.getconveyorsData(),
+    queryFn: () => TubeConveyorsService.getConveyorsData(),
     refetchInterval: 1000 * 10,
   });

@@ -24,10 +24,15 @@ export default function useSealantMenu() {
     summaryData.sealantStatus.idle ||
     !summaryData.sealant_materials.length ||
     summaryData.sealantStatus.finished ||
+    !summaryData.sealantTresholds ||
     summaryData.sealant_materials.map((item) => item.scanned).includes(false);
 
   const scanMaterialsButtonDisabledCondition =
-    !employee || !summaryData || summaryData.sealantStatus.finished || summaryData.sealantStatus.idle;
+    !employee ||
+    !summaryData ||
+    summaryData.sealantStatus.finished ||
+    summaryData.sealantStatus.idle ||
+    !summaryData.sealantTresholds;
 
   const operationButtonDisabledCondition =
     !employee || !summaryData || !summaryData.sealantStatus.createdAt || summaryData.sealantStatus.finished;

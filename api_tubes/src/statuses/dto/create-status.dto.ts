@@ -4,4 +4,5 @@ export class CreateStatusDto {
   readonly idle: boolean;
   readonly finished: boolean;
   readonly employee_id: number;
+  readonly defect_value?: string;
 }

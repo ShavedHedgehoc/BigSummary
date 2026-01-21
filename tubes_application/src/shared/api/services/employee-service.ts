@@ -11,6 +11,7 @@ export interface IEmployee {
   id: number;
   name: string;
   barcode: string;
+  banned: boolean;
   rank: IRank | null;
 }
 // employee login

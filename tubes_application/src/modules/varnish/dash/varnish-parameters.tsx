@@ -3,6 +3,8 @@ import { VStack, HStack } from "@chakra-ui/react";
 import ParameterCard, { type ParameterCardProps } from "../../../shared/components/cards/parameter-card";
 import { ParameterNames } from "@/shared/helpers/parameter-names";
 import { ParameterUnits } from "@/shared/helpers/parameter-units";
+import NotFound from "@/shared/components/info/not-found-full-screen";
+import { AppMessages } from "@/shared/resources/app-messages";
 
 export default function VarnishParameters({ summaryData }: { summaryData: ISummary | null }) {
   const paramsData = summaryData?.varnishParams ?? null;
@@ -162,6 +164,8 @@ export default function VarnishParameters({ summaryData }: { summaryData: ISumma
     booleanValue: paramsData?.unpainting_lack ?? null,
     variant: "boolean",
   };
+
+  if (!tresholdsData) return <NotFound message={AppMessages.PARAMS_NOT_FOUND} />;
 
   return (
     <VStack gap={2} h="full" w="full">

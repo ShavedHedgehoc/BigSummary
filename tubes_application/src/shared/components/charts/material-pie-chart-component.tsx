@@ -23,6 +23,11 @@ export default function MaterialPieChartComponent({
 
   const isAllScanned = data.length && !data.map((item) => item.scanned).includes(false);
 
+  if (!summaryData?.extrusionTresholds && postId === 1) return;
+  if (summaryData && !summaryData.varnishTresholds && postId === 2) return;
+  if (!summaryData?.offsetTresholds && postId === 3) return;
+  if (!summaryData?.sealantTresholds && postId === 4) return;
+
   return (
     <Box backgroundColor="bg.panel" w="full" h="full" rounded="lg" p={8} alignItems="center" justifyContent="center">
       <VStack h="full" justify="center">
@@ -47,8 +52,8 @@ export default function MaterialPieChartComponent({
                   return (
                     <>
                       <text
-                        x={x + 15}
-                        y={y - 10}
+                        x={chartData.length === 1 ? x + 30 : chartData.length > 4 ? x - 10 : x + 5}
+                        y={chartData.length === 1 ? y : y - 10}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
@@ -56,8 +61,8 @@ export default function MaterialPieChartComponent({
                         {`${chart.data[index].name.slice(0, 6)}`}
                       </text>
                       <text
-                        x={x + 15}
-                        y={y + 10}
+                        x={chartData.length === 1 ? x + 30 : chartData.length > 4 ? x - 10 : x + 5}
+                        y={chartData.length === 1 ? y + 12 : y + 2}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
@@ -65,8 +70,8 @@ export default function MaterialPieChartComponent({
                         {`${chart.data[index].name.slice(6, 40)}`}
                       </text>
                       <text
-                        x={x + 20}
-                        y={y + 30}
+                        x={chartData.length === 1 ? x + 30 : chartData.length > 4 ? x - 10 : x + 5}
+                        y={chartData.length === 1 ? y + 24 : y + 14}
                         fill="#a1a1aa"
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"

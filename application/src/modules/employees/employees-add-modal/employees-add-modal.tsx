@@ -16,13 +16,16 @@ export default function EmployeesAddModal() {
   const occupationsOptions = useEmployeeAddModalStore(useShallow((state) => state.occupationsOptions));
   const setOccupation = useEmployeeAddModalStore(useShallow((state) => state.setOccupation));
 
-  if (occupationsOptions.length) {
-    setOccupation(occupationsOptions[1].id);
-  }
+  const handleClose = () => {
+    setOpen(false);
+    if (occupationsOptions.length) {
+      setOccupation(occupationsOptions[1].id);
+    }
+  };
 
   const modalProps: ModalLayoutProps = {
     open: open,
-    onClose: () => setOpen(false),
+    onClose: () => handleClose(),
     title: "Создание нового сотрудника",
     height: 400,
     minHeight: 0,

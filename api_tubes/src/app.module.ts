@@ -19,6 +19,8 @@ import { ZplModule } from "./zpl/zpl.module";
 import { ProductionBoxModule } from "./production-box/production-box.module";
 import { PrinterModule } from "./printer/printer.module";
 import { SopModule } from './sop/sop.module';
+import { RanksModule } from './ranks/ranks.module';
+import { TresholdsModule } from './tresholds/tresholds.module';
 
 @Module({
   imports: [
@@ -40,6 +42,8 @@ import { SopModule } from './sop/sop.module';
     ProductionBoxModule,
     PrinterModule,
     SopModule,
+    RanksModule,
+    TresholdsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

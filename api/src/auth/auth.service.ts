@@ -29,8 +29,6 @@ export class AuthService {
     const tokens = await this.getTokens(user);
     await this.tokenService.createOrUpdate(user.id, tokens.refreshToken);
     return [{ user: mapper.toRegisteredUserData(user), accessToken: tokens.accessToken }, tokens.refreshToken];
-
-    // return this.generateToken(user);
   }
 
   async register(dto: CreateUserDto) {
@@ -77,7 +75,6 @@ export class AuthService {
       }
     }
     return null;
-    // throw new HttpException("Не авторизован", HttpStatus.UNAUTHORIZED);
   }
 
   async verifyToken(token: string) {

@@ -4,7 +4,7 @@ import * as bodyParser from "body-parser";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { PrismaClientExceptionFilter } from "./prisma-client-exception/prisma-client-exception.filter";
-import { ValidationPipe } from "@nestjs/common";
+// import { ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const PORT = process.env.PORT || 8000;

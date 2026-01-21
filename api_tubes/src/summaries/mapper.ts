@@ -1,4 +1,5 @@
 import {
+  Conveyor,
   ExtrusionOperation,
   ExtrusionStatus,
   OffsetOperation,
@@ -33,6 +34,23 @@ export interface IMappedSummary {
   isFinished: boolean;
   product_name: string;
   marking: string;
+  date: Date;
+}
+
+export interface IMappedSummaryReportData {
+  id: number;
+  batch_name: string;
+  product_id: number;
+  product_code: string;
+  batch_id: number;
+  conveyor_id: number;
+  conveyor_name: string;
+  plan: number;
+  isActive: boolean;
+  isFinished: boolean;
+  product_name: string;
+  marking: string;
+  date: Date;
 }
 
 export interface IMappedExtrusionTresholds {
@@ -309,6 +327,7 @@ export const mappedSummary = ({
 }): IMappedSummary => {
   return {
     id: summary.id,
+    date: summary.date,
     batch_name: batch.name,
     product_id: summary.product_id,
     product_code: product.code,
@@ -316,6 +335,34 @@ export const mappedSummary = ({
     marking: product.marking,
     batch_id: summary.batch_id,
     conveyor_id: summary.conveyor_id,
+    plan: summary.plan,
+    isActive: summary.isActive,
+    isFinished: summary.isFinished,
+  };
+};
+
+export const mappedSummaryReportData = ({
+  summary,
+  batch,
+  product,
+  conveyor,
+}: {
+  summary: Summary;
+  batch: Batch;
+  product: Product;
+  conveyor: Conveyor;
+}): IMappedSummaryReportData => {
+  return {
+    id: summary.id,
+    date: summary.date,
+    batch_name: batch.name,
+    product_id: summary.product_id,
+    product_code: product.code,
+    product_name: product.name,
+    marking: product.marking,
+    batch_id: summary.batch_id,
+    conveyor_id: summary.conveyor_id,
+    conveyor_name: conveyor.name,
     plan: summary.plan,
     isActive: summary.isActive,
     isFinished: summary.isFinished,

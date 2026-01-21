@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum ParameterNames {
   COUNTER_VALUE = "Показания счетчика",
   EXTRUSION_PRESS_SPEED = "Скорость пресса",

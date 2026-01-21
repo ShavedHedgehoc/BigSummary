@@ -40,3 +40,10 @@ export const useExtrusionCloseSummaryModalStore = create<SimplyModalStore>()(
     setOpen: (value) => set(() => ({ open: value })),
   }))
 );
+
+export const useExtrusionDefectInputModalStore = create<SimplyModalStore>()(
+  devtools((set) => ({
+    open: false,
+    setOpen: (value) => set(() => ({ open: value })),
+  }))
+);

@@ -40,3 +40,10 @@ export const useOffsetCloseSummaryModalStore = create<SimplyModalStore>()(
     setOpen: (value) => set(() => ({ open: value })),
   }))
 );
+
+export const useOffsetDefectInputModalStore = create<SimplyModalStore>()(
+  devtools((set) => ({
+    open: false,
+    setOpen: (value) => set(() => ({ open: value })),
+  }))
+);
