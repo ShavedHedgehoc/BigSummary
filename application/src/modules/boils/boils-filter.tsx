@@ -17,7 +17,7 @@ export default function BoilsFilter() {
   const setSelectedPlant = useBoilsFilterStore(useShallow((state) => state.setSelectedPlant));
   const plant_id = user?.settings?.plant_id || plantSelectorOptions[0].id;
   setSelectedPlant(plant_id);
-  changeFilter({ key: BoilsFilterParams.PLANTS, value: "", values: [plant_id] });
+  changeFilter({ key: BoilsFilterParams.PLANTS, value: "", values: plant_id === 999999 ? [] : [plant_id] });
   changeFilter({ key: BoilsFilterParams.STATES, value: "", values: [1] });
   return (
     <PageFilterLayout>

@@ -95,12 +95,14 @@ export class BoilsListService {
   }
 
   async getBoilsListWithFilter(dto: GetBoilsDto) {
+    console.log(dto);
     const { boils, count } = await this.boilsService.getBoilsWithFilter(dto);
     const result = await Promise.all(await boils.map((item) => this.getBoilListRowData(item)));
     return { rows: result, total: count };
   }
 
   async getBoilsReportWithFilter(dto: GetBoilsDto) {
+    console.log(dto);
     const { boils, count } = await this.boilsService.getBoilsWithFilter(dto);
     const result = await Promise.all(await boils.map((item) => this.getBoilReportRowData(item)));
     return { rows: result, total: count };
