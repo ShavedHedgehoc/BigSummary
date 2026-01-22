@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { formatDateToString, formatTimeToString } from "./date-time-formatters";
 import { Receiptconstants } from "./receipt-constants";
 
@@ -27,7 +28,8 @@ export function makeBoxReceipt({
   employeeId: number | null;
 }) {
   const date = new Date();
-  const uuid = crypto.randomUUID();
+  const uuid = uuidv4();
+  // const uuid = crypto.randomUUID();
   const parsedBrand = parseCyrillicToURLEncoded(Receiptconstants.BRAND);
   const parsedName = parseCyrillicToURLEncoded(name);
   const parsedBatch = parseCyrillicToURLEncoded(`Партия: ${batch}`);
