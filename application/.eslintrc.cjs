@@ -8,5 +8,6 @@ module.exports = {
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "mobx/missing-observer": "off",
+    "prettier/prettier": "off",
   },
 };

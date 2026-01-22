@@ -3,6 +3,7 @@ import { keyframes } from "@emotion/react";
 import { formatTimeToString } from "../../shared/helpers/date-time-formatters";
 import { useShallow } from "zustand/react/shallow";
 import { useForemanActionModalStore } from "./store/use-foreman-action-modal-store";
+import { DigitalMarkingNames } from "../../shared/helpers/digital-marking-names";
 
 const pulse = keyframes`
     0% {
@@ -44,6 +45,8 @@ export default function ForemanCard({ row }: { row: IDocRow }) {
 
     setOpen(true);
   };
+
+  const digitalMarking = DigitalMarkingNames.includes(row.dm);
 
   return (
     <Sheet
@@ -158,11 +161,21 @@ export default function ForemanCard({ row }: { row: IDocRow }) {
         >
           {row.product}
         </Box>
+        {/*  */}
         <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
-
+            fontSize: "0.75rem",
+          }}
+        >
+          {digitalMarking ? "" : "ЗАПУСК ВРУЧНУЮ"}
+        </Box>
+        {/*  */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
             fontSize: "0.75rem",
           }}
         >

@@ -13,6 +13,7 @@ const commonThead: TheadProperties[] = [
   { width: 50, align: "center", value: "Конвейер" },
   { width: 110, align: "center", value: "Статус" },
   { width: 30, align: "center", value: "..." },
+  { width: 30, align: "center", value: "Вручную" },
   { width: 80, align: "center", value: "Начало" },
   { width: 80, align: "center", value: "Окончание" },
 ];

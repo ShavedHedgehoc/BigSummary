@@ -90,6 +90,7 @@ interface IDocRow {
   fact: number;
   apparatus: string;
   bbf: string;
+  dm: string;
   note: string;
   can: string;
   conveyor: string;

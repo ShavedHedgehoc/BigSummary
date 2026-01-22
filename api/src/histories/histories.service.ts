@@ -195,6 +195,7 @@ export class HistoriesService {
         throw new HttpException(ApiMessages.NEED_EMPTY_OR_FAIL_OR_CORRECT, HttpStatus.BAD_REQUEST);
       }
 
+      // Not set
       if (!record.isSet && !lastHistory) {
         await this.apiErrorsService.create({
           dto: JSON.stringify(dto),
@@ -210,7 +211,9 @@ export class HistoriesService {
         lastHistory.historyType.value !== "product_fail" &&
         lastHistory.historyType.value !== "product_correct"
       ) {
-        if (lastHistory.historyType.value === "product_check") {
+        if (lastHistory.historyType.value === "product_in_progress") {
+          dto = { ...dto, history_note: "Дополнительная проба" };
+        } else if (lastHistory.historyType.value === "product_check") {
           await this.apiErrorsService.create({
             dto: JSON.stringify(dto),
             message: ApiMessages.PRODUCT_ALREADY_ON_CHECK,
@@ -219,9 +222,9 @@ export class HistoriesService {
         } else {
           await this.apiErrorsService.create({
             dto: JSON.stringify(dto),
-            message: ApiMessages.NEED_EMPTY_OR_FAIL,
+            message: ApiMessages.NEED_PROGRESS_OR_FAIL_OR_CORRECT,
           });
-          throw new HttpException(ApiMessages.NEED_EMPTY_OR_FAIL, HttpStatus.BAD_REQUEST);
+          throw new HttpException(ApiMessages.NEED_PROGRESS_OR_FAIL_OR_CORRECT, HttpStatus.BAD_REQUEST);
         }
       }
     }

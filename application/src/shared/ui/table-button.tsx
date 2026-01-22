@@ -1,7 +1,7 @@
 import { Button } from "@mui/joy";
 
 export interface TableButtonProps {
-  variant?: CustomColorsVariants;
+  variant?: CustomColorsVariants | null;
   startDecorator?: React.ReactNode;
   disabled?: boolean;
   label: string;
