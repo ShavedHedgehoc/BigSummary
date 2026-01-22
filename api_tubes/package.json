@@ -1,7 +1,6 @@
 {
   "name": "api_tubes",
   "version": "0.0.1",
-  "type": "module",
   "description": "",
   "author": "",
   "private": true,
@@ -22,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "generate": "npx prisma generate",
     "seed": "npx prisma db seed",
+    "tsx_seed": "tsx prisma/seed.ts",
     "reset": "npx prisma migrate reset",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
@@ -41,7 +41,8 @@
     "cross-env": "^10.1.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
