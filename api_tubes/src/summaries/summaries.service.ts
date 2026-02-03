@@ -22,17 +22,17 @@ import { CreateSummaryDto } from "./dto/create-summary.dto";
 import { parseAssemblies } from "src/helpers/parse-assemblies";
 import { ChangeSummaryStateDto } from "./dto/change-summary-state.dto";
 import { GetSummariesListDto } from "./dto/get-summaries-list.dto";
-import {
-  Employee,
-  ExtrusionOperation,
-  ExtrusionStatus,
-  OffsetOperation,
-  OffsetStatus,
-  SealantOperation,
-  SealantStatus,
-  VarnishOperation,
-  VarnishStatus,
-} from "generated/prisma";
+// import {
+//   Employee,
+//   ExtrusionOperation,
+//   ExtrusionStatus,
+//   OffsetOperation,
+//   OffsetStatus,
+//   SealantOperation,
+//   SealantStatus,
+//   VarnishOperation,
+//   VarnishStatus,
+// } from "generated/prisma";
 
 @Injectable()
 export class SummariesService {
@@ -222,6 +222,21 @@ export class SummariesService {
       include: { employee: true, rondel: true },
     });
 
+    const varnishParams = await this.prisma.varnishParam.findMany({
+      where: { summary_id: record.id },
+      include: { employee: true },
+    });
+
+    const offsetParams = await this.prisma.offsetParam.findMany({
+      where: { summary_id: record.id },
+      include: { employee: true },
+    });
+
+    const sealantParams = await this.prisma.sealantParam.findMany({
+      where: { summary_id: record.id },
+      include: { employee: true },
+    });
+
     const extrusionParamsResult = await Promise.all(
       await extrusionParams.map(async (item) => {
         return {
@@ -253,11 +268,6 @@ export class SummariesService {
         };
       })
     );
-
-    const varnishParams = await this.prisma.varnishParam.findMany({
-      where: { summary_id: record.id },
-      include: { employee: true },
-    });
 
     const varnishParamsResult = await Promise.all(
       await varnishParams.map(async (item) => {
@@ -297,11 +307,6 @@ export class SummariesService {
         };
       })
     );
-
-    const offsetParams = await this.prisma.offsetParam.findMany({
-      where: { summary_id: record.id },
-      include: { employee: true },
-    });
 
     const offsetParamsResult = await Promise.all(
       await offsetParams.map(async (item) => {
@@ -353,11 +358,6 @@ export class SummariesService {
         };
       })
     );
-
-    const sealantParams = await this.prisma.sealantParam.findMany({
-      where: { summary_id: record.id },
-      include: { employee: true },
-    });
 
     const sealantParamsResult = await Promise.all(
       await sealantParams.map(async (item) => {
@@ -492,10 +492,36 @@ export class SummariesService {
     const offsetDefect = await this.prisma.offsetDefect.findUnique({ where: { summary_id: record.id } });
     const sealantDefect = await this.prisma.sealantDefect.findUnique({ where: { summary_id: record.id } });
 
+    const extrusionTresholds = await this.prisma.extrusionTreshold.findMany({
+      where: { conveyor_id: record.conveyor_id, product_id: record.product_id },
+      include: { rondel: true },
+      orderBy: { id: "desc" },
+      take: 1,
+    });
+
+    const varnishTresholds = await this.prisma.varnishTreshold.findMany({
+      where: { conveyor_id: record.conveyor_id, product_id: record.product_id },
+      orderBy: { id: "desc" },
+      take: 1,
+    });
+
+    const offsetTresholds = await this.prisma.offsetTreshold.findMany({
+      where: { conveyor_id: record.conveyor_id, product_id: record.product_id },
+      orderBy: { id: "desc" },
+      take: 1,
+    });
+
+    const sealantTresholds = await this.prisma.sealantTreshold.findMany({
+      where: { conveyor_id: record.conveyor_id, product_id: record.product_id },
+      orderBy: { id: "desc" },
+      take: 1,
+    });
+
     return {
       data: data,
       extrusion: {
         params: extrusionParamsResult.length ? extrusionParamsResult : [],
+        tresholds: extrusionTresholds.length ? extrusionTresholds[0] : null,
         operations: extrusionOperationsResult.length ? extrusionOperationsResult : [],
         defect: extrusionDefect ? extrusionDefect.value : null,
         status: extrusionStatus
@@ -508,6 +534,7 @@ export class SummariesService {
       },
       varnish: {
         params: varnishParamsResult.length ? varnishParamsResult : [],
+        tresholds: varnishTresholds.length ? varnishTresholds[0] : null,
         operations: varnishOperationsResult.length ? varnishOperationsResult : [],
         defect: varnishDefect ? varnishDefect.value : null,
         status: varnishStatus
@@ -520,6 +547,7 @@ export class SummariesService {
       },
       offset: {
         params: offsetParamsResult.length ? offsetParamsResult : [],
+        tresholds: offsetTresholds.length ? offsetTresholds[0] : null,
         operations: offsetOperationsResult.length ? offsetOperationsResult : [],
         defect: offsetDefect ? offsetDefect.value : null,
         status: offsetStatus
@@ -532,6 +560,7 @@ export class SummariesService {
       },
       sealant: {
         params: sealantParamsResult.length ? sealantParamsResult : [],
+        tresholds: sealantTresholds.length ? sealantTresholds[0] : null,
         operations: sealantOperationsResult.length ? sealantOperationsResult : [],
         defect: sealantDefect ? sealantDefect.value : null,
         status: sealantStatus

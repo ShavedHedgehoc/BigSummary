@@ -39,6 +39,10 @@ interface IConveyor {
   name: string;
 }
 
+interface IRondel {
+  id: number;
+  value: string;
+}
 export interface IAvailableSummary {
   id: number;
   product_id: number;
@@ -232,9 +236,152 @@ export interface TubeRecordDetailOperation {
   operation_description: string;
 }
 
+export interface TubeRecordDetailExtrusionTresholds {
+  id: number;
+  product_id: number;
+  conveyor_id: number;
+  press_speed_min: number;
+  press_speed_max: number;
+  blow_time_min: number;
+  blow_time_max: number;
+  turning_machine_speed_min: number;
+  turning_machine_speed_max: number;
+  annealing_furnace_temp_min: number;
+  annealing_furnace_temp_max: number;
+  rondel_id: number;
+  tube_cilindrical_section_length_min: number;
+  tube_cilindrical_section_length_max: number;
+  membrane_thickness_min: number;
+  membrane_thickness_max: number;
+  tube_diameter_min: number;
+  tube_diameter_max: number;
+  tube_cilindrical_section_thickness_min: number;
+  tube_cilindrical_section_thickness_max: number;
+  tube_rigidity_min: number;
+  tube_rigidity_max: number;
+  external_thread_value: string;
+  createdAt: Date;
+  rondel: IRondel;
+}
+
+export interface TubeRecordDetailVarnishTresholds {
+  id: number;
+  product_id: number;
+  conveyor_id: number;
+  varnish_machine_speed_min: number;
+  varnish_machine_speed_max: number;
+  total_air_pressure_min: number;
+  total_air_pressure_max: number;
+  feed_can_air_pressure_min: number;
+  feed_can_air_pressure_max: number;
+  nozzle_regulator_air_pressure_min: number;
+  nozzle_regulator_air_pressure_max: number;
+  cells_speed_min: number;
+  cells_speed_max: number;
+  injection_a_start_position_min: number;
+  injection_a_start_position_max: number;
+  injection_b_start_position_min: number;
+  injection_b_start_position_max: number;
+  injection_c_start_position_min: number;
+  injection_c_start_position_max: number;
+  injection_d_start_position_min: number;
+  injection_d_start_position_max: number;
+  injection_a_end_position_min: number;
+  injection_a_end_position_max: number;
+  injection_b_end_position_min: number;
+  injection_b_end_position_max: number;
+  injection_c_end_position_min: number;
+  injection_c_end_position_max: number;
+  injection_d_end_position_min: number;
+  injection_d_end_position_max: number;
+  tube_molding_start_position_min: number;
+  tube_molding_start_position_max: number;
+  tube_molding_end_position_min: number;
+  tube_molding_end_position_max: number;
+  polimerization_furnace_temp_min: number;
+  polimerization_furnace_temp_max: number;
+  internal_varnish_porosity_min: number;
+  internal_varnish_porosity_max: number;
+  createdAt: Date;
+}
+
+export interface TubeRecordDetailOffsetTresholds {
+  id: number;
+  product_id: number;
+  conveyor_id: number;
+  printing_machine_speed_min: number;
+  printing_machine_speed_max: number;
+  total_air_pressure_min: number;
+  total_air_pressure_max: number;
+  padding_furnace_temp_min: number;
+  padding_furnace_temp_max: number;
+  offset_furnace_temp_min: number;
+  offset_furnace_temp_max: number;
+  printer_motor_min: number;
+  printer_motor_max: number;
+  base_covers_holders_motor_min: number;
+  base_covers_holders_motor_max: number;
+  base_covers_station_motor_min: number;
+  base_covers_station_motor_max: number;
+  imprint_quantity_printed_box_1_min: number | null;
+  imprint_quantity_printed_box_1_max: number | null;
+  imprint_quantity_printed_box_2_min: number | null;
+  imprint_quantity_printed_box_2_max: number | null;
+  imprint_quantity_printed_box_3_min: number | null;
+  imprint_quantity_printed_box_3_max: number | null;
+  imprint_quantity_printed_box_4_min: number | null;
+  imprint_quantity_printed_box_4_max: number | null;
+  imprint_quantity_printed_box_5_min: number | null;
+  imprint_quantity_printed_box_5_max: number | null;
+  imprint_quantity_printed_box_6_min: number | null;
+  imprint_quantity_printed_box_6_max: number | null;
+  ink_supply_time_min: number;
+  ink_supply_time_max: number;
+  createdAt: Date;
+}
+export interface TubeRecordDetailSealantTresholds {
+  id: number;
+  product_id: number;
+  conveyor_id: number;
+  cap_machine_speed_min: number;
+  cap_machine_speed_max: number;
+  total_air_pressure_min: number;
+  total_air_pressure_max: number;
+  holders_forward_min: number;
+  holders_forward_max: number;
+  holders_opening_left_min: number;
+  holders_opening_left_max: number;
+  holders_opening_right_min: number;
+  holders_opening_right_max: number;
+  holders_closing_min: number;
+  holders_closing_max: number;
+  injection_a_start_min: number;
+  injection_a_start_max: number;
+  injection_b_start_min: number;
+  injection_b_start_max: number;
+  injection_a_end_min: number;
+  injection_a_end_max: number;
+  injection_b_end_min: number;
+  injection_b_end_max: number;
+  injection_tube_orientation_start_min: number;
+  injection_tube_orientation_start_max: number;
+  injection_tube_orientation_end_min: number;
+  injection_tube_orientation_end_max: number;
+  latex_ring_padding_min: number;
+  latex_ring_padding_max: number;
+  latex_ring_width_min: number;
+  latex_ring_width_max: number;
+  tube_rigidity_min: number;
+  tube_rigidity_max: number;
+  cap_unscrewing_torque_min: number;
+  cap_unscrewing_torque_max: number;
+  createdAt: Date;
+}
+
 export type PostState = "working" | "finished" | "idle";
 export interface TubeRecordDetailDataExtrusion {
   params: TubeRecordDetailDataExtrusionParam[] | [];
+  tresholds: TubeRecordDetailExtrusionTresholds | null;
   operations: TubeRecordDetailOperation[];
   defect: number | null;
   status: PostState | null;
@@ -242,18 +389,21 @@ export interface TubeRecordDetailDataExtrusion {
 
 export interface TubeRecordDetailDataVarnish {
   params: TubeRecordDetailDataVarnishParam[] | [];
+  tresholds: TubeRecordDetailVarnishTresholds | null;
   operations: TubeRecordDetailOperation[];
   defect: number | null;
   status: PostState | null;
 }
 export interface TubeRecordDetailDataOffset {
   params: TubeRecordDetailDataOffsetParam[] | [];
+  tresholds: TubeRecordDetailOffsetTresholds | null;
   operations: TubeRecordDetailOperation[];
   defect: number | null;
   status: PostState | null;
 }
 export interface TubeRecordDetailDataSealant {
   params: TubeRecordDetailDataSealantParam[] | [];
+  tresholds: TubeRecordDetailSealantTresholds | null;
   operations: TubeRecordDetailOperation[];
   defect: number | null;
   status: PostState | null;

@@ -2,6 +2,8 @@ export enum ApiMessages {
   RECORD_NOT_FOUND = "Запись в сводке не найдена",
   BASE_ALREADY_ON_CHECK = "Основа уже отнесена на пробу",
   PRODUCT_ALREADY_ON_CHECK = "Продукт уже отнесен на пробу",
+  PRODUCT_ALREADY_IN_PROGRESS = "Продукт уже фасуется",
+  PRODUCT_ALREADY_PASSED = "Продукт уже допущен",
   NEED_EMPTY_OR_FAIL = 'Необходимо отсутствие записей или статус "Брак продукта"',
   NEED_EMPTY_OR_FAIL_OR_CORRECT = 'Необходимо отсутствие записей или статусы "Брак продукта" или "Требуется доработка"',
   NEED_PROGRESS_OR_FAIL_OR_CORRECT = 'Необходимы статусы "Фасуется", "Брак продукта" или "Требуется доработка"',

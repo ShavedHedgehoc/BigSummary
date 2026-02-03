@@ -229,6 +229,18 @@ export class HistoriesService {
       }
     }
 
+    if (dto.historyType === "product_pass" && lastHistory && lastHistory.historyType.value === "product_pass") {
+      throw new HttpException(ApiMessages.PRODUCT_ALREADY_PASSED, HttpStatus.BAD_REQUEST);
+    }
+
+    if (
+      dto.historyType === "product_in_progress" &&
+      lastHistory &&
+      lastHistory.historyType.value === "product_in_progress"
+    ) {
+      throw new HttpException(ApiMessages.PRODUCT_ALREADY_IN_PROGRESS, HttpStatus.BAD_REQUEST);
+    }
+
     const history = await this.createHistory({ ...dto, record_id: record_id });
     return history;
   }
