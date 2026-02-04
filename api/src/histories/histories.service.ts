@@ -134,7 +134,6 @@ export class HistoriesService {
         const $plant = $document ? await $document.$get("plants") : null;
         const $conveyor = await $record.$get("conveyor");
         const msg = `${$user ? $user.name : "\\-"}:%0AКонвейер: *${$conveyor ? $conveyor.value : "\\-"}*%0AПродукт: *${$product ? $product.marking : "\\-"}*%0AПартия: *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A_${$note ? $note.value : ""}_`;
-        console.log(msg);
         if ($plant && $plant.abb === "КЛП") {
           try {
             await axios.get(
@@ -178,7 +177,6 @@ export class HistoriesService {
   }
 
   async createHistory(dto: AddHistoryDtoNew) {
-    console.log(dto);
     const historyType = await this.getHistoryType(dto.historyType);
     const isBase =
       ["base_check", "plug_pass", "base_fail", "base_correct", "base_continue"].indexOf(dto.historyType) !== -1;
