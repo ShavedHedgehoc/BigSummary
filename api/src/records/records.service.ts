@@ -191,6 +191,15 @@ export class RecordsService {
     });
     return record;
   }
+  ///
+  async getLastRecordByBoilId(id: number | null) {
+    if (!id) return null;
+    const record = await this.recordsRepository.findOne({
+      where: { water_base_id: id },
+      order: [["id", "DESC"]],
+    });
+    return record;
+  }
 
   async getAllRecords() {
     const records = await this.recordsRepository.findAll();

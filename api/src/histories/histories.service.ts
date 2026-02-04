@@ -46,9 +46,113 @@ export class HistoriesService {
       const $boil = $record ? await $record.$get("boil") : await history.$get("boil");
       const $historyType = await history.$get("historyType");
       const msg = `${$user ? $user.name : $employee.name}: ${$product ? $product.marking : "Основа"} - ${$boil ? $boil.value : "-"} - ${$historyType.description} `;
-      await axios.get(
-        `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`
-      );
+      try {
+        await axios.get(
+          `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`
+        );
+      } catch (error) {
+        console.log(error);
+      }
+
+      if ($historyType && $historyType.value === "base_correct") {
+        const $note = await history.$get("history_note");
+        const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
+        const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
+        const $plant = $boil ? await $boil.$get("plant") : null;
+        const tech_msg = `${$user ? $user.name : "НЛО"}:%0AАппарат: *${$apparatus ? $apparatus.value : "\\-"}*%0AПартия *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A_${$note ? $note.value : "\\-"}_`;
+        if ($plant && $plant.abb === "КЛП") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        } else if ($plant && $plant.abb === "ПСК") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      if ($historyType && $historyType.value === "plug_pass") {
+        const $note = await history.$get("history_note");
+        const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
+        const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
+        const $plant = $boil ? await $boil.$get("plant") : null;
+        const tech_msg = `${$user ? $user.name : "НЛО"}:%0AАппарат: *${$apparatus ? $apparatus.value : "\\-"}*%0AПартия *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A_${$note ? $note.value : ""}_`;
+        if ($plant && $plant.abb === "КЛП") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        } else if ($plant && $plant.abb === "ПСК") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      if ($historyType && $historyType.value === "base_continue") {
+        const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
+        const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
+        const $plant = $boil ? await $boil.$get("plant") : null;
+        const tech_msg = `${$user ? $user.name : "НЛО"}:%0AАппарат: *${$apparatus ? $apparatus.value : "\\-"}*%0AПартия *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*`;
+        if ($plant && $plant.abb === "КЛП") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        } else if ($plant && $plant.abb === "ПСК") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      if ($historyType && $historyType.value === "product_pass") {
+        const $note = await history.$get("history_note");
+        const $document = await $record.$get("doc");
+        const $plant = $document ? await $document.$get("plants") : null;
+        const $conveyor = await $record.$get("conveyor");
+        const msg = `${$user ? $user.name : "\\-"}:%0AКонвейер: *${$conveyor ? $conveyor.value : "\\-"}*%0AПродукт: *${$product ? $product.marking : "\\-"}*%0AПартия: *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A_${$note ? $note.value : ""}_`;
+        console.log(msg);
+        if ($plant && $plant.abb === "КЛП") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_PACKAGING_CHAT_ID}&parse_mode=MarkdownV2&text=${msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        } else if ($plant && $plant.abb === "ПСК") {
+          try {
+            await axios.get(
+              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_PACKAGING_CHAT_ID}&parse_mode=MarkdownV2&text=${msg}`
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
     });
   }
 
@@ -74,6 +178,7 @@ export class HistoriesService {
   }
 
   async createHistory(dto: AddHistoryDtoNew) {
+    console.log(dto);
     const historyType = await this.getHistoryType(dto.historyType);
     const isBase =
       ["base_check", "plug_pass", "base_fail", "base_correct", "base_continue"].indexOf(dto.historyType) !== -1;

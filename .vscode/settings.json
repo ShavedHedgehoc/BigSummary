@@ -11,5 +11,6 @@
   "window.commandCenter": false,
   "git.autoRepositoryDetection": "subFolders",
   "editor.formatOnSave": true,
-  "prettier.printWidth": 120
+  "prettier.printWidth": 120,
+  "git.ignoreLimitWarning": true
 }
