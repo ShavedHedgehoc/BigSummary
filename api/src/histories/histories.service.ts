@@ -133,7 +133,7 @@ export class HistoriesService {
         const $document = await $record.$get("doc");
         const $plant = $document ? await $document.$get("plants") : null;
         const $conveyor = await $record.$get("conveyor");
-        const msg = `${$user ? $user.name : "\\-"}:%0AКонвейер: *${$conveyor ? $conveyor.value : "\\-"}*%0AПродукт: *${$product ? $product.marking : "\\-"}*%0AПартия: *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A${$note ? "_" + $note.value + "_" : ""}`;
+        const msg = `${$user ? $user.name : "\\-"}:%0AКонвейер: *${$conveyor ? $conveyor.value.replace(".", "\\.") : "\\-"}*%0AПродукт: *${$product ? $product.marking : "\\-"}*%0AПартия: *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A${$note ? "_" + $note.value + "_" : ""}`;
         if ($plant && $plant.abb === "КЛП") {
           try {
             await axios.get(
