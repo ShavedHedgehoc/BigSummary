@@ -127,7 +127,8 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       },
       timezone: process.env.NODE_ENV === "development" ? "+03:00" : "+00:00",
       name: "trace_test_db_connection",
-      logging: process.env.NODE_ENV === "development" ? true : false,
+      // logging: process.env.NODE_ENV === "development" ? true : false,
+      logging: false,
       models: [],
     }),
     SequelizeModule.forRoot({
@@ -142,7 +143,8 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       },
       timezone: process.env.NODE_ENV === "development" ? "+03:00" : "+00:00",
       name: "trace_connection",
-      logging: process.env.NODE_ENV === "development" ? true : false,
+      // logging: process.env.NODE_ENV === "development" ? true : false,
+      logging: false,
       models: [
         TraceAuthor,
         TraceBatch,
@@ -177,7 +179,8 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      logging: process.env.NODE_ENV === "development" ? console.log : false,
+      // logging: process.env.NODE_ENV === "development" ? console.log : false,
+      logging: false,
 
       models: [
         User,

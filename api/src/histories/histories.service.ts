@@ -37,6 +37,11 @@ export class HistoriesService {
     private apiErrorsService: ApiErrorsService
   ) {}
 
+  private replaceEscapeChars(textString: string) {
+    textString = textString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return textString;
+  }
+
   async sendMessages(hystories: History[]) {
     hystories.forEach(async (history) => {
       const $record = await history.$get("record");
@@ -46,10 +51,15 @@ export class HistoriesService {
       const $boil = $record ? await $record.$get("boil") : await history.$get("boil");
       const $historyType = await history.$get("historyType");
       const msg = `${$user ? $user.name : $employee.name}: ${$product ? $product.marking : "Основа"} - ${$boil ? $boil.value : "-"} - ${$historyType.description} `;
+      const htmlSafeMsg = this.replaceEscapeChars(msg);
       try {
-        await axios.get(
-          `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${msg}`
-        );
+        await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+          params: {
+            chat_id: process.env.CHAT_ID,
+            text: htmlSafeMsg,
+            parse_mode: "HTML",
+          },
+        });
       } catch (error) {
         console.log(error);
       }
@@ -59,20 +69,30 @@ export class HistoriesService {
         const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
         const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
         const $plant = $boil ? await $boil.$get("plant") : null;
-        const tech_msg = `${$user ? $user.name : "НЛО"}:%0AАппарат: *${$apparatus ? $apparatus.value : "\\-"}*%0AПартия *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A${$note ? "_" + $note.value + "_" : "\\-"}`;
+
+        const base_correct_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nАппарат: <b>${this.replaceEscapeChars($apparatus ? $apparatus.value : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>\n<i>${this.replaceEscapeChars($note ? $note.value : "")}</i>`;
+
         if ($plant && $plant.abb === "КЛП") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.KLP_TECHNOLOGIST_CHAT_ID,
+                text: base_correct_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
         } else if ($plant && $plant.abb === "ПСК") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.PSK_TECHNOLOGIST_CHAT_ID,
+                text: base_correct_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
@@ -84,20 +104,28 @@ export class HistoriesService {
         const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
         const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
         const $plant = $boil ? await $boil.$get("plant") : null;
-        const tech_msg = `${$user ? $user.name : "НЛО"}:%0AАппарат: *${$apparatus ? $apparatus.value : "\\-"}*%0AПартия *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A${$note ? "_" + $note.value + "_" : ""}`;
+        const plug_pass_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nАппарат: <b>${this.replaceEscapeChars($apparatus ? $apparatus.value : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>\n<i>${this.replaceEscapeChars($note ? $note.value : "")}</i>`;
         if ($plant && $plant.abb === "КЛП") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.KLP_TECHNOLOGIST_CHAT_ID,
+                text: plug_pass_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
         } else if ($plant && $plant.abb === "ПСК") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.PSK_TECHNOLOGIST_CHAT_ID,
+                text: plug_pass_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
@@ -108,20 +136,28 @@ export class HistoriesService {
         const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
         const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
         const $plant = $boil ? await $boil.$get("plant") : null;
-        const tech_msg = `${$user ? $user.name : "НЛО"}:%0AАппарат: *${$apparatus ? $apparatus.value : "\\-"}*%0AПартия *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*`;
+        const base_continue_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nАппарат: <b>${this.replaceEscapeChars($apparatus ? $apparatus.value : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>`;
         if ($plant && $plant.abb === "КЛП") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.KLP_TECHNOLOGIST_CHAT_ID,
+                text: base_continue_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
         } else if ($plant && $plant.abb === "ПСК") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_TECHNOLOGIST_CHAT_ID}&parse_mode=MarkdownV2&text=${tech_msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.PSK_TECHNOLOGIST_CHAT_ID,
+                text: base_continue_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
@@ -133,20 +169,29 @@ export class HistoriesService {
         const $document = await $record.$get("doc");
         const $plant = $document ? await $document.$get("plants") : null;
         const $conveyor = await $record.$get("conveyor");
-        const msg = `${$user ? $user.name : "\\-"}:%0AКонвейер: *${$conveyor ? $conveyor.value.replace(".", "\\.") : "\\-"}*%0AПродукт: *${$product ? $product.marking : "\\-"}*%0AПартия: *${$boil ? $boil.value : "\\-"}*%0A*${$historyType.description}*%0A${$note ? "_" + $note.value + "_" : ""}`;
+        const product_pass_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nКонвейер: <b>${this.replaceEscapeChars($conveyor ? $conveyor.value : "-")}</b>\nПродукт: <b>${this.replaceEscapeChars($product ? $product.marking : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>\n<i>${this.replaceEscapeChars($note ? $note.value : "")}</i>`;
+
         if ($plant && $plant.abb === "КЛП") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.KLP_PACKAGING_CHAT_ID}&parse_mode=MarkdownV2&text=${msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.KLP_PACKAGING_CHAT_ID,
+                text: product_pass_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
         } else if ($plant && $plant.abb === "ПСК") {
           try {
-            await axios.get(
-              `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.PSK_PACKAGING_CHAT_ID}&parse_mode=MarkdownV2&text=${msg}`
-            );
+            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+              params: {
+                chat_id: process.env.PSK_PACKAGING_CHAT_ID,
+                text: product_pass_msg,
+                parse_mode: "HTML",
+              },
+            });
           } catch (error) {
             console.log(error);
           }
