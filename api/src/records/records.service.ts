@@ -348,7 +348,7 @@ export class RecordsService {
     });
     if (recordExist) {
       throw new HttpException(
-        `Строка (Конвейер: ${conveyor.value}, Продукт: ${product.marking}, Партия: ${boil.value}) совпадает с существующей строкой в сводке. Обновление отменено...`,
+        `Строка (Конвейер: ${conveyor ? conveyor.value : "-"}, Продукт: ${product ? product.marking : "-"}, Партия: ${boil ? boil.value : "-"}) совпадает с существующей строкой в сводке. Обновление отменено...`,
         HttpStatus.BAD_REQUEST
       );
     }
