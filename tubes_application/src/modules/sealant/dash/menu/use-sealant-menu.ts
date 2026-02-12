@@ -47,7 +47,11 @@ export default function useSealantMenu() {
     summaryData.sealantStatus.finished;
 
   const printButtonDisabledCondition =
-    !employee || !summaryData || summaryData.sealantStatus.idle || summaryData.sealantStatus.finished;
+    !employee ||
+    !summaryData ||
+    summaryData.sealantStatus.idle ||
+    summaryData.sealantStatus.finished ||
+    summaryData.sealant_materials.map((item) => item.scanned).includes(false);
 
   return {
     employee,

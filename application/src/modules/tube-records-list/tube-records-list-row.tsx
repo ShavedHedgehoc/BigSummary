@@ -60,6 +60,9 @@ export default function TubeRecordsListRow({ row }: { row: ITubeRecordRow }) {
         <Typography level="body-xs">{row.conveyor.name}</Typography>
       </td>
       <td style={{ width: 40, textAlign: "center", padding: "12px 6px" }}>
+        <Typography level="body-xs">{row.shift}</Typography>
+      </td>
+      <td style={{ width: 40, textAlign: "center", padding: "12px 6px" }}>
         <Typography level="body-xs">{row.batch.name}</Typography>
       </td>
       <td style={{ width: 40, textAlign: "center", padding: "12px 6px" }}>

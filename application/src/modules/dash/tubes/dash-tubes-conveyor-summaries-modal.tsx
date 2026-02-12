@@ -16,6 +16,7 @@ export default function DashTubesConveyorSummariesModal() {
 
   const tube_summaries_table_thead: TheadProperties[] = [
     { width: 50, padding: "18px 6px", value: "Дата" },
+    { width: 50, padding: "18px 6px", value: "Смена" },
     { width: 50, padding: "18px 6px", value: "Партия" },
     { width: 80, padding: "18px 6px", value: "Артикул" },
     { width: 150, padding: "18px 6px", value: "Наименование" },

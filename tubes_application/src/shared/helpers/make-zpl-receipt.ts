@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { formatDateToString, formatTimeToString } from "./date-time-formatters";
 import { Receiptconstants } from "./receipt-constants";
 
@@ -12,6 +12,7 @@ export function makeBoxReceipt({
   name,
   code,
   batch,
+  batchId,
   boxNumber,
   quantity,
   summaryId,
@@ -21,6 +22,7 @@ export function makeBoxReceipt({
   name: string;
   code: string;
   batch: string;
+  batchId: number | null;
   boxNumber: number;
   quantity: number;
   summaryId: number | null;
@@ -38,7 +40,8 @@ export function makeBoxReceipt({
   const parsedEmployee = parseCyrillicToURLEncoded(`Оператор: ${employee}`);
   const parsedDate = parseCyrillicToURLEncoded(`Дата: ${formatDateToString(date)}`);
   const parsedTime = parseCyrillicToURLEncoded(`Время: ${formatTimeToString(date)}`);
-  const qrCode = `${uuid}#${boxNumber}#${summaryId}#${employeeId}#${quantity}#${date.toISOString()}`;
+  // const qrCode = `${uuid}#${boxNumber}#${summaryId}#${employeeId}#${quantity}#${date.toISOString()}`;
+  const qrCode = `${uuid}#${boxNumber}#${batchId}#${summaryId}#${employeeId}#${quantity}#${date.toISOString()}`;
 
   return `^XA^CI28^FO 20,20^GB760,560,1,B,0^FS^FO40,40 ^FB700,1,,C^A0N,20,20^FH^FD${parsedBrand}^FS\
   ^FO40,80 ^FB700,3,,C^A0N,50,50^FH^FD${code}^FS^FO40,150 ^FB700,3,6,L^A0N,30,30^FH^FD${parsedName}^FS

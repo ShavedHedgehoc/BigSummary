@@ -14,15 +14,15 @@ export class ProductionBoxService {
     return box;
   }
 
-  async getProductionBoxes({ summary_id }: { summary_id: string | undefined }) {
-    let summaryFilter = {};
+  async getProductionBoxes({ batch_id }: { batch_id: string | undefined }) {
+    let batchFilter = {};
 
-    if (summary_id) {
-      summaryFilter = { ...summaryFilter, summary_id: Number(summary_id) };
+    if (batch_id) {
+      batchFilter = { ...batchFilter, batch_id: Number(batch_id) };
     }
     const boxes = await this.prisma.productionBox.findMany({
       where: {
-        ...summaryFilter,
+        ...batchFilter,
       },
       orderBy: { id: "desc" },
       include: {

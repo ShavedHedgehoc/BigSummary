@@ -49,7 +49,7 @@ export default function PrintModal({ summaryData }: { summaryData: ISummary | nu
   const employee = useSealantEmployeeStore(useShallow((state) => state.sealantEmployee));
   const sealantConveyor = useSealantConveyorStore(useShallow((state) => state.sealantConveyor));
   const { data: printerData } = usePrinter(sealantConveyor?.id ?? null);
-  const { data: boxData } = useProductionBoxes(summaryData?.data.id ?? null);
+  const { data: boxData } = useProductionBoxes(summaryData?.data.batch_id ?? null);
 
   const { printZPL } = usePrintZpl();
   const handleOpenchange = (e: DialogOpenChangeDetails) => {
@@ -65,6 +65,7 @@ export default function PrintModal({ summaryData }: { summaryData: ISummary | nu
         name: string;
         code: string;
         batch: string;
+        batchId: number | null;
         boxNumber: number;
         quantity: number;
         employee: string;
@@ -74,6 +75,7 @@ export default function PrintModal({ summaryData }: { summaryData: ISummary | nu
         name: summaryData?.data.product_name ?? "",
         code: summaryData?.data.product_code ?? "",
         batch: summaryData?.data.batch_name ?? "",
+        batchId: summaryData?.data.batch_id ?? null,
         boxNumber: boxData && boxData.length > 0 ? boxData.length + 1 : 1,
         quantity: Number(data),
         employee: employee?.name ?? "",

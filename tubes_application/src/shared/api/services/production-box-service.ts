@@ -6,6 +6,7 @@ import type { IProduct } from "./product-service";
 export interface CreateProductionBoxDto {
   uuid: string;
   summary_id: string;
+  batch_id: string;
   employee_id: string;
   quantity: string;
   createdAt: string;
@@ -33,7 +34,7 @@ export interface IProductionBox {
   id: number;
   box_number: number;
   uuid: string;
-  summary_id: number;
+  batch_id: number;
   employee_id: number;
   quantity: number;
   createdAt: Date;
@@ -47,8 +48,8 @@ export default class ProductionBoxService {
     return res.data;
   }
 
-  static async getProductionBoxes(summary_id: number | null): Promise<IProductionBox[] | []> {
-    const res = await $api.get(`${ApiRoutes.PRODUCTION_BOX}?summary_id=${summary_id}`);
+  static async getProductionBoxes(batch_id: number | null): Promise<IProductionBox[] | []> {
+    const res = await $api.get(`${ApiRoutes.PRODUCTION_BOX}?summary_id=${batch_id}`);
     return res.data;
   }
 }

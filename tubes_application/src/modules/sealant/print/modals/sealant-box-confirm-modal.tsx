@@ -16,11 +16,12 @@ export default function SealantBoxConfirmModal() {
   const processBarcode = (val: string) => {
     setOpen(false);
 
-    const { uuid, box_number, summary_id, employee_id, quantity, createdAt } = parseBoxBarcode(val);
+    const { uuid, box_number, batch_id, summary_id, employee_id, quantity, createdAt } = parseBoxBarcode(val);
     if (uuid && summary_id && employee_id && quantity && createdAt) {
       const dto: CreateProductionBoxDto = {
         uuid: uuid,
         box_number: box_number,
+        batch_id: batch_id,
         summary_id: summary_id,
         employee_id: employee_id,
         quantity: quantity,

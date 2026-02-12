@@ -11,6 +11,7 @@ import TubeRecordsListRow from "./tube-records-list-row";
 const commonThead: TheadProperties[] = [
   { width: 40, value: "Дата", align: "center", padding: " 12px 24px" },
   { width: 40, value: "Конвейер" },
+  { width: 40, value: "Смена" },
   { width: 40, value: "Партия" },
   { width: 40, value: "Код 1С" },
   { width: 90, value: "Артикул", align: "left" },

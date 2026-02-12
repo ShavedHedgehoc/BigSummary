@@ -438,7 +438,7 @@ export default function makeVarnishPage({ workbook, data }: { workbook: WorkBook
   };
 
   worksheet["R6"] = {
-    v: `Конвейер: ${data.data.conveyor_name}`,
+    v: `Конвейер: ${data.data.conveyor_name} (${data.data.shift === 1 ? "День" : "Ночь"})`,
     t: "s",
     s: {
       alignment: {

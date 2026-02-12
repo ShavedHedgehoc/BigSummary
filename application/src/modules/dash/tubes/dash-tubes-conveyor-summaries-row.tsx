@@ -33,6 +33,9 @@ export default function DashTubesConveyorSummariesRow({ row }: { row: IAvailable
         <Typography level="body-xs">{formatDateToString(row.date)}</Typography>
       </td>
       <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+        <Typography level="body-xs">{row.shift}</Typography>
+      </td>
+      <td style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
         <Typography level="body-xs">{row.batch.name}</Typography>
       </td>
       <td style={{ width: 80, textAlign: "center", padding: "18px 6px" }}>

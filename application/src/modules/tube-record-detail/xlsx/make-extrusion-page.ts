@@ -405,7 +405,7 @@ export default function makeExtrusionPage({ workbook, data }: { workbook: WorkBo
   };
 
   worksheet["P6"] = {
-    v: `Конвейер: ${data.data.conveyor_name}`,
+    v: `Конвейер: ${data.data.conveyor_name} (Смена: ${data.data.shift})`,
     t: "s",
     s: {
       alignment: {

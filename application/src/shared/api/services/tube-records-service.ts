@@ -54,6 +54,7 @@ export interface IAvailableSummary {
   date: Date;
   product: IProduct;
   batch: IBatch;
+  shift: number;
 }
 
 export interface IAvailabletubeSummariesResponse {
@@ -93,6 +94,7 @@ export interface ITubeRecordRow {
   batch: IBatch;
   conveyor: IConveyor;
   date: Date;
+  shift: number;
   _count: TubePostStatusRecordCount;
 }
 
@@ -115,6 +117,7 @@ export interface TubeRecordDetailData {
   plan: number;
   isActive: boolean;
   isFinished: boolean;
+  shift: number;
 }
 
 export interface TubeRecordDetailConsumedMaterial {

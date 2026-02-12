@@ -21,25 +21,33 @@ export interface parsedBoxBarcode {
   quantity: string;
   createdAt: string;
   box_number: string;
+  batch_id: string;
 }
 
 export function parseBoxBarcode(value: string) {
   let result: parsedBoxBarcode[] = [];
   const re =
-    /([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})#([0-9]+)#([0-9]+)#([0-9]+)#([0-9]+)#(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|[-+]\d\d:\d\d))/g;
-
+    // /([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})#([0-9]+)#([0-9]+)#([0-9]+)#([0-9]+)#(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|[-+]\d\d:\d\d))/g;
+    /([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})#([0-9]+)#([0-9]+)#([0-9]+)#([0-9]+)#([0-9]+)#(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|[-+]\d\d:\d\d))/g;
   const matchArr = [...value.matchAll(re)];
   if (matchArr.length > 0) {
     matchArr.map((item) => {
       result = [
         ...result,
         {
+          // uuid: item[1],
+          // box_number: item[2],
+          // summary_id: item[3],
+          // employee_id: item[4],
+          // quantity: item[5],
+          // createdAt: item[6],
           uuid: item[1],
           box_number: item[2],
-          summary_id: item[3],
-          employee_id: item[4],
-          quantity: item[5],
-          createdAt: item[6],
+          batch_id: item[3],
+          summary_id: item[4],
+          employee_id: item[5],
+          quantity: item[6],
+          createdAt: item[7],
         },
       ];
     });
@@ -47,5 +55,13 @@ export function parseBoxBarcode(value: string) {
 
   return result.length
     ? result[0]
-    : { uuid: null, box_number: null, summary_id: null, employee_id: null, quantity: null, createdAt: null };
+    : {
+        uuid: null,
+        box_number: null,
+        batch_id: null,
+        summary_id: null,
+        employee_id: null,
+        quantity: null,
+        createdAt: null,
+      };
 }

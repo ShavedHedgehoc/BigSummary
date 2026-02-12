@@ -6,6 +6,7 @@ interface CreateSummaryRow {
   plan: string;
   conveyor: string;
   specification: string;
+  shift: string;
 }
 export class CreateSummaryDto {
   summaryDate: string;

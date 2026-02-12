@@ -22,17 +22,6 @@ import { CreateSummaryDto } from "./dto/create-summary.dto";
 import { parseAssemblies } from "src/helpers/parse-assemblies";
 import { ChangeSummaryStateDto } from "./dto/change-summary-state.dto";
 import { GetSummariesListDto } from "./dto/get-summaries-list.dto";
-// import {
-//   Employee,
-//   ExtrusionOperation,
-//   ExtrusionStatus,
-//   OffsetOperation,
-//   OffsetStatus,
-//   SealantOperation,
-//   SealantStatus,
-//   VarnishOperation,
-//   VarnishStatus,
-// } from "generated/prisma";
 
 @Injectable()
 export class SummariesService {
@@ -130,6 +119,7 @@ export class SummariesService {
           select: { extrusion_statuses: true, varnish_statuses: true, offset_statuses: true, sealant_statuses: true },
         },
       },
+      orderBy: [{ date: "asc" }, { conveyor: { name: "asc" } }, { shift: "asc" }],
       take: query.limit,
       skip: query.limit * (query.page - 1),
     });
@@ -149,8 +139,10 @@ export class SummariesService {
         name: item.product_name,
       });
       const batch = await this.checkBatch(item.batch);
+      const shift = item.shift === "day" ? 1 : item.shift === "night" ? 2 : null;
+      if (!shift) throw new HttpException("Ошибка парсинга смены!", HttpStatus.BAD_REQUEST);
       const existsSummary = await this.prisma.summary.findFirst({
-        where: { batch: { name: item.batch }, product: { code: item.code1C } },
+        where: { date: parsedDate, batch: { name: item.batch }, product: { code: item.code1C }, shift: shift },
       });
       if (existsSummary) throw new HttpException("Уже есть!", HttpStatus.BAD_REQUEST);
       const summary = await this.prisma.summary.create({
@@ -160,6 +152,7 @@ export class SummariesService {
           conveyor_id: conveyor.id,
           batch_id: batch.id,
           plan: Number(item.plan),
+          shift: shift,
         },
       });
 
@@ -857,9 +850,12 @@ export class SummariesService {
   }
 
   async getAvailableSummariesRecordByConveyorId(conveyor_id: number) {
+    // Не отображать записи с датой меньше сегодняшней?
+    const curDate = new Date(new Date(new Date().getTime()).setHours(12, 0, 0, 0));
     const summaries = await this.prisma.summary.findMany({
-      where: { conveyor_id: conveyor_id, isActive: false, isFinished: false },
+      where: { conveyor_id: conveyor_id, isActive: false, isFinished: false, date: { gte: curDate } },
       include: { product: true, batch: true },
+      orderBy: [{ date: "asc" }, { shift: "asc" }],
     });
     return { summaries: summaries };
   }

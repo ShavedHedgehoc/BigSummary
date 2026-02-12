@@ -13,6 +13,7 @@ interface ISummaryData {
   plan: number;
   isActive: boolean;
   isFinished: boolean;
+  shift: number;
 }
 
 interface IVarnishTresholds {

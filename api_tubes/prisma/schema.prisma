@@ -119,9 +119,10 @@ model Conveyor {
 }
 
 model Batch {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  summaries Summary[]
+  id               Int             @id @default(autoincrement())
+  name             String          @unique
+  summaries        Summary[]
+  production_boxes ProductionBox[]
 
   @@map("batches")
 }
@@ -132,6 +133,8 @@ model ProductionBox {
   box_number  Int
   summary     Summary  @relation(fields: [summary_id], references: [id], onUpdate: Cascade)
   summary_id  Int
+  batch       Batch    @relation(fields: [batch_id], references: [id], onUpdate: Cascade)
+  batch_id    Int
   employee    Employee @relation(fields: [employee_id], references: [id], onUpdate: Cascade)
   employee_id Int
   quantity    Int
@@ -185,6 +188,7 @@ model Summary {
   isActive           Boolean            @default(false)
   isFinished         Boolean            @default(false)
   date               DateTime
+  shift              Int                @default(1)
   specifications     Specification[]
   consumed_materials ConsumedMaterial[]
   notes              Note[]

@@ -76,8 +76,15 @@ export default function TubeRecordsUploadFormValidator() {
           pattern: "Шаблон спецификации '{<Код (6 цифр)>#<Наименование>#<Номер поста (1-4)>}' не совпадает",
         },
       },
+      shift: {
+        type: "string",
+        pattern: "^\\bday|night\\b$",
+        errorMessage: {
+          pattern: "В столбце shift возможны только значения `day` или `night`",
+        },
+      },
     },
-    required: ["code1C", "product_marking", "product_name", "batch", "plan", "conveyor", "specification"],
+    required: ["code1C", "product_marking", "product_name", "batch", "plan", "conveyor", "specification", "shift"],
   };
   const parse = ajv.compile(valSchema);
 
@@ -91,6 +98,7 @@ export default function TubeRecordsUploadFormValidator() {
         const wb = read(data);
         const ws = wb.Sheets[wb.SheetNames[0]];
         json = utils.sheet_to_json(ws, { raw: false });
+        console.log(json);
 
         for (let i = 0; i < json.length; i++) {
           const parsedData = parse(json[i]);

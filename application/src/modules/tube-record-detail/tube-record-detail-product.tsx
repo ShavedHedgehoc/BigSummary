@@ -9,6 +9,7 @@ export default function TubeRecordDetailProduct({ productData }: { productData: 
         <Typography>{`${productData.product_code} ${productData.product_name}`}</Typography>
         <Typography>{`Партия: ${productData.batch_name}`}</Typography>
         <Typography>{`Конвейер: ${productData.conveyor_name}`}</Typography>
+        <Typography>{`Смена: ${productData.shift}`}</Typography>
         <Typography>{`План: ${productData.plan}`}</Typography>
       </Stack>
       <Stack justifyContent="space-between">

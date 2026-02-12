@@ -35,6 +35,7 @@ export interface IMappedSummary {
   product_name: string;
   marking: string;
   date: Date;
+  shift: number;
 }
 
 export interface IMappedSummaryReportData {
@@ -51,6 +52,7 @@ export interface IMappedSummaryReportData {
   product_name: string;
   marking: string;
   date: Date;
+  shift: number;
 }
 
 export interface IMappedExtrusionTresholds {
@@ -338,6 +340,7 @@ export const mappedSummary = ({
     plan: summary.plan,
     isActive: summary.isActive,
     isFinished: summary.isFinished,
+    shift: summary.shift,
   };
 };
 
@@ -366,6 +369,7 @@ export const mappedSummaryReportData = ({
     plan: summary.plan,
     isActive: summary.isActive,
     isFinished: summary.isFinished,
+    shift: summary.shift,
   };
 };
 

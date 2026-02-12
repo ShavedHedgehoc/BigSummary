@@ -63,15 +63,21 @@ export default function ProductionCard({ summaryData, postId }: { summaryData: I
               <DataList.ItemValue>{`${summaryData?.data.product_code} ${summaryData?.data.product_name}`}</DataList.ItemValue>
             </DataList.Item>
           </DataList.Root>
-          <HStack>
+          <HStack gap={6}>
             <DataList.Root size="lg">
-              <DataList.Item>
+              <DataList.Item alignItems={"center"}>
+                <DataList.ItemLabel>Смена</DataList.ItemLabel>
+                <DataList.ItemValue>{`${summaryData?.data.shift}`}</DataList.ItemValue>
+              </DataList.Item>
+            </DataList.Root>
+            <DataList.Root size="lg">
+              <DataList.Item alignItems={"center"}>
                 <DataList.ItemLabel>Партия</DataList.ItemLabel>
                 <DataList.ItemValue>{`${summaryData?.data.batch_name}`}</DataList.ItemValue>
               </DataList.Item>
             </DataList.Root>
             <DataList.Root size="lg">
-              <DataList.Item>
+              <DataList.Item alignItems={"center"}>
                 <DataList.ItemLabel>План</DataList.ItemLabel>
                 <DataList.ItemValue>{`${summaryData?.data.plan}`}</DataList.ItemValue>
               </DataList.Item>

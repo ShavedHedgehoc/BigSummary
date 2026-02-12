@@ -3,7 +3,7 @@ import { useProductionBoxes } from "../use-production-boxes";
 import Loader from "@/shared/components/info/loader";
 import { AppMessages } from "@/shared/resources/app-messages";
 import { Box, Center, HStack, Icon, Stack, Table, Text, VStack } from "@chakra-ui/react";
-import { formatTimeToString } from "@/shared/helpers/date-time-formatters";
+import { formatDateToString, formatTimeToString } from "@/shared/helpers/date-time-formatters";
 import type { IPrinter } from "@/shared/api/services/printer-service";
 import { IoWarningOutline } from "react-icons/io5";
 
@@ -14,7 +14,7 @@ export default function PrintContent({
   summaryData: ISummary | null;
   printerData: IPrinter | null;
 }) {
-  const { data, isPending, isSuccess } = useProductionBoxes(summaryData?.data.id ?? null);
+  const { data, isPending, isSuccess } = useProductionBoxes(summaryData?.data.batch_id ?? null);
   if (isPending) return <Loader />;
   if (isSuccess && data && data.length === 0)
     return (
@@ -53,7 +53,8 @@ export default function PrintContent({
                   <Table.ColumnHeader textAlign="center">Партия</Table.ColumnHeader>
                   <Table.ColumnHeader textAlign="center">В коробе, шт</Table.ColumnHeader>
                   <Table.ColumnHeader>Сотрудник</Table.ColumnHeader>
-                  <Table.ColumnHeader>Время</Table.ColumnHeader>
+                  <Table.ColumnHeader textAlign="center">Дата</Table.ColumnHeader>
+                  <Table.ColumnHeader textAlign="center">Время</Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -74,7 +75,8 @@ export default function PrintContent({
                       <Table.Cell textAlign="center">{item.summary.batch.name}</Table.Cell>
                       <Table.Cell textAlign="center">{item.quantity}</Table.Cell>
                       <Table.Cell>{item.employee.name}</Table.Cell>
-                      <Table.Cell>{formatTimeToString(item.createdAt)}</Table.Cell>
+                      <Table.Cell textAlign="center">{formatDateToString(item.createdAt)}</Table.Cell>
+                      <Table.Cell textAlign="center">{formatTimeToString(item.createdAt)}</Table.Cell>
                     </Table.Row>
                   ))}
               </Table.Body>

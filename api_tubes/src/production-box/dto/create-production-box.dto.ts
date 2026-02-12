@@ -13,6 +13,11 @@ export class CreateProductionBoxDto {
   @IsNotEmpty()
   @Type(() => Number)
   @IsNumber()
+  batch_id: number;
+
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
   box_number: number;
 
   @IsNotEmpty()
