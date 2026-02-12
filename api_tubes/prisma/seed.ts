@@ -56,36 +56,36 @@ async function main() {
   });
 
   // employees
-  const employee1 = await prisma.employee.upsert({
-    where: { barcode: "2000005358418" },
-    update: {},
-    create: {
-      name: "Проничев В.Л.",
-      barcode: "2000005358418",
-      rank_id: rank1.id,
-    },
-  });
-  console.log(employee1);
-  const employee2 = await prisma.employee.upsert({
-    where: { barcode: "2000001377208" },
-    update: {},
-    create: {
-      name: "Ашихмин С.А.",
-      barcode: "2000001377208",
-      rank_id: rank1.id,
-    },
-  });
-  console.log(employee2);
-  const employee3 = await prisma.employee.upsert({
-    where: { barcode: "2000001416426" },
-    update: {},
-    create: {
-      name: "Скрипковский М.Ю.",
-      barcode: "2000001416426",
-      rank_id: rank1.id,
-    },
-  });
-  console.log(employee3);
+  // const employee1 = await prisma.employee.upsert({
+  //   where: { barcode: "2000005358418" },
+  //   update: {},
+  //   create: {
+  //     name: "Проничев В.Л.",
+  //     barcode: "2000005358418",
+  //     rank_id: rank1.id,
+  //   },
+  // });
+  // console.log(employee1);
+  // const employee2 = await prisma.employee.upsert({
+  //   where: { barcode: "2000001377208" },
+  //   update: {},
+  //   create: {
+  //     name: "Ашихмин С.А.",
+  //     barcode: "2000001377208",
+  //     rank_id: rank1.id,
+  //   },
+  // });
+  // console.log(employee2);
+  // const employee3 = await prisma.employee.upsert({
+  //   where: { barcode: "2000001416426" },
+  //   update: {},
+  //   create: {
+  //     name: "Скрипковский М.Ю.",
+  //     barcode: "2000001416426",
+  //     rank_id: rank1.id,
+  //   },
+  // });
+  // console.log(employee3);
 
   // await prisma.employeeRank.create({
   //   data: {
@@ -107,6 +107,62 @@ async function main() {
   //     rank_id: rank3.id,
   //   },
   // });
+
+  // employees
+
+  const employees: { name: string; barcode: string; rank_id: number }[] = [
+    {
+      name: "Скрипковский М.Ю.",
+      barcode: "2000001416426",
+      rank_id: rank1.id,
+    },
+    { name: "Нестеров А.В.", barcode: "2000875313050", rank_id: rank5.id },
+    { name: "Михайлюта В.В.", barcode: "2000875313067", rank_id: rank5.id },
+    { name: "Кулагин М.В.", barcode: "2000875313074", rank_id: rank5.id },
+    { name: "Карташов В.С.", barcode: "2000875313081", rank_id: rank5.id },
+    { name: "Антипин Д.Б.", barcode: "2000874419142", rank_id: rank5.id },
+    { name: "Варфоломеев С.Н.", barcode: "2000875313128", rank_id: rank3.id },
+    { name: "Кандыба А.А.", barcode: "2000042277086", rank_id: rank3.id },
+    { name: "Клюев С.Э.", barcode: "2000875313135", rank_id: rank4.id },
+    { name: "Кузнецов М.В.", barcode: "2000039532150", rank_id: rank5.id },
+    { name: "Кулейкин А.А.", barcode: "2000875313142", rank_id: rank4.id },
+    { name: "Михалковский А.Д.", barcode: "2000875313159", rank_id: rank3.id },
+    { name: "Савьевский Д.А.", barcode: "2000875313166", rank_id: rank4.id },
+    { name: "Тихонов А.А.", barcode: "2000875313173", rank_id: rank5.id },
+    { name: "Колосков В.В.", barcode: "2000875313098", rank_id: rank5.id },
+    { name: "Вакула А.М.", barcode: "2000872540411", rank_id: rank3.id },
+    { name: "Залевский А.Ю.", barcode: "2000875313180", rank_id: rank4.id },
+    { name: "Ищук О.В.", barcode: "2000875313197", rank_id: rank4.id },
+    { name: "Куцеволов С.Ю.", barcode: "2000875313203", rank_id: rank2.id },
+    { name: "Лотик Р.В.", barcode: "2000875313210", rank_id: rank3.id },
+    { name: "Мачулко С.В.", barcode: "2000874419197", rank_id: rank5.id },
+    { name: "Островский В.А.", barcode: "2000875313227", rank_id: rank5.id },
+    { name: "Романов В.М.", barcode: "2000042301408", rank_id: rank4.id },
+    { name: "Румянцев В.В.", barcode: "2000875313234", rank_id: rank4.id },
+    { name: "Тырышкин А.А.", barcode: "2000875313241", rank_id: rank3.id },
+    { name: "Цветков Д.В.", barcode: "2000875313104", rank_id: rank5.id },
+    { name: "Абатуров А.Н.", barcode: "2000874638932", rank_id: rank2.id },
+    { name: "Борисов К.С.", barcode: "2000039532136", rank_id: rank3.id },
+    { name: "Горбунов Р.Ю.", barcode: "2000875313258", rank_id: rank5.id },
+    { name: "Миханов А.Ю.", barcode: "2000875313265", rank_id: rank3.id },
+    { name: "Новожилов М.А.", barcode: "2000040120155", rank_id: rank3.id },
+    { name: "Петров М.В.", barcode: "2000875313272", rank_id: rank2.id },
+    { name: "Пялисов А.Д.", barcode: "2000872911983", rank_id: rank2.id },
+    { name: "Солтанов Р.Ш.", barcode: "2000875313289", rank_id: rank5.id },
+    { name: "Тямин В.В.", barcode: "2000875313296", rank_id: rank5.id },
+    { name: "Халилов К.Н.", barcode: "2000040741916", rank_id: rank4.id },
+    { name: "Слащев Д.А.", barcode: "2000875313111", rank_id: rank5.id },
+    { name: "Абакшинов Н.Б.", barcode: "2000875313302", rank_id: rank4.id },
+    { name: "Белослудцев Д.М.", barcode: "2000875313319", rank_id: rank2.id },
+    { name: "Дудин И.В.", barcode: "2000875313326", rank_id: rank5.id },
+    { name: "Дмитриев А.Н.", barcode: "2000875313333", rank_id: rank1.id },
+    { name: "Коваленко Д.С.", barcode: "2000875313340", rank_id: rank2.id },
+    { name: "Король С.М.", barcode: "2000875313357", rank_id: rank3.id },
+    { name: "Максимов Л.Л.", barcode: "2000875313364", rank_id: rank2.id },
+    { name: "Панарин С.В.", barcode: "2000875313371", rank_id: rank3.id },
+    { name: "Скляренко Э.Г.", barcode: "2000875313388", rank_id: rank4.id },
+    { name: "Сметанин А.А.", barcode: "2000875313395", rank_id: rank2.id },
+  ];
 
   // raw materials
   const materials: { code: string; name: string; post_number: number }[] = [
@@ -153,6 +209,12 @@ async function main() {
     { code: "068821", name: "Краска Черная TV-9075 Black C", post_number: 3 },
     { code: "056448", name: "Пигмент Colorstream T10-02 Arctic Fire", post_number: 3 },
   ];
+
+  for (let index = 0; index < employees.length; index++) {
+    await prisma.employee.create({
+      data: employees[index],
+    });
+  }
 
   for (let index = 0; index < materials.length; index++) {
     await prisma.material.create({
