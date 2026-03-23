@@ -35,7 +35,7 @@ export class HistoriesService {
     private basesService: BasesService,
     private notesService: NotesService,
     private apiErrorsService: ApiErrorsService
-  ) {}
+  ) { }
 
   private replaceEscapeChars(textString: string) {
     textString = textString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -43,26 +43,30 @@ export class HistoriesService {
   }
 
   async sendMessages(hystories: History[]) {
+    const apiUrl = `http://192.168.1.7:8000`
+    const testChatId = `5856d0d7-c0cc-5d5e-b4a6-8108a569d827`
     hystories.forEach(async (history) => {
+
       const $record = await history.$get("record");
       const $user = await history.$get("user");
-      const $employee = await history.$get("employee");
+      // const $employee = await history.$get("employee");
       const $product = $record ? await $record.$get("product") : null;
       const $boil = $record ? await $record.$get("boil") : await history.$get("boil");
       const $historyType = await history.$get("historyType");
-      const msg = `${$user ? $user.name : $employee.name}: ${$product ? $product.marking : "Основа"} - ${$boil ? $boil.value : "-"} - ${$historyType.description} `;
-      const htmlSafeMsg = this.replaceEscapeChars(msg);
-      try {
-        await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-          params: {
-            chat_id: process.env.CHAT_ID,
-            text: htmlSafeMsg,
-            parse_mode: "HTML",
-          },
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      // const msg = `${$user ? $user.name : $employee.name}: ${$product ? $product.marking : "Основа"} - ${$boil ? $boil.value : "-"} - ${$historyType.description} `;
+      // const htmlSafeMsg = this.replaceEscapeChars(msg);
+      // try {
+      //   await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+      //     params: {
+      //       chat_id: process.env.CHAT_ID,
+      //       text: htmlSafeMsg,
+      //       parse_mode: "HTML",
+      //     },
+      //   });
+      // } catch (error) {
+      //   console.log(error);
+      // }
+      http://192.168.1.7:8000/send_msg/?chatid=5856d0d7-c0cc-5d5e-b4a6-8108a569d827&text=%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80
 
       if ($historyType && $historyType.value === "base_correct") {
         const $note = await history.$get("history_note");
@@ -80,6 +84,14 @@ export class HistoriesService {
                 text: base_correct_msg,
                 parse_mode: "HTML",
               },
+
+
+            });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: base_correct_msg
+              }
             });
           } catch (error) {
             console.log(error);
@@ -92,6 +104,12 @@ export class HistoriesService {
                 text: base_correct_msg,
                 parse_mode: "HTML",
               },
+            });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: base_correct_msg
+              }
             });
           } catch (error) {
             console.log(error);
@@ -114,6 +132,12 @@ export class HistoriesService {
                 parse_mode: "HTML",
               },
             });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: plug_pass_msg
+              }
+            });
           } catch (error) {
             console.log(error);
           }
@@ -125,6 +149,12 @@ export class HistoriesService {
                 text: plug_pass_msg,
                 parse_mode: "HTML",
               },
+            });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: plug_pass_msg
+              }
             });
           } catch (error) {
             console.log(error);
@@ -146,6 +176,12 @@ export class HistoriesService {
                 parse_mode: "HTML",
               },
             });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: base_continue_msg
+              }
+            });
           } catch (error) {
             console.log(error);
           }
@@ -157,6 +193,12 @@ export class HistoriesService {
                 text: base_continue_msg,
                 parse_mode: "HTML",
               },
+            });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: base_continue_msg
+              }
             });
           } catch (error) {
             console.log(error);
@@ -180,6 +222,12 @@ export class HistoriesService {
                 parse_mode: "HTML",
               },
             });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: product_pass_msg
+              }
+            });
           } catch (error) {
             console.log(error);
           }
@@ -191,6 +239,12 @@ export class HistoriesService {
                 text: product_pass_msg,
                 parse_mode: "HTML",
               },
+            });
+            await axios.get(`${apiUrl}/send_msg/`, {
+              params: {
+                chatid: testChatId,
+                text: product_pass_msg
+              }
             });
           } catch (error) {
             console.log(error);
