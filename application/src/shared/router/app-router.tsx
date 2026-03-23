@@ -33,7 +33,6 @@ const Cans = React.lazy(() => import("../../modules/cans/cans"));
 const CansList = React.lazy(() => import("../../modules/cans-list/cans-list"));
 const CansDash = React.lazy(() => import("../../modules/cans-dash/cans-dash"));
 const BoilsReport = React.lazy(() => import("../../modules/boils-report/boils-report"));
-const TubeRecordsUpload = React.lazy(() => import("../../modules/tube-records-upload/tube-records-upload"));
 const TimeReport = React.lazy(() => import("../../modules/time-report.tsx/time-report"));
 const Inventories = React.lazy(() => import("../../modules/inventories/inventories"));
 const InventoryDetail = React.lazy(() => import("../../modules/inventory-detail/inventory-detail"));
@@ -112,7 +111,6 @@ export default function AppRouter() {
             <Route element={<RoleProtectedRoutes role={DbRoles.PLANNER} />}>
               <Route path={RouteNames.DOCUMENTS} element={<Documents />} />
               <Route path={RouteNames.SUMMARY_UPLOAD} element={<DocsUpload />} />
-              <Route path={RouteNames.TUBE_RECORDS_UPLOAD} element={<TubeRecordsUpload />} />
               <Route path={RouteNames.SUMMARY_DETAIL} element={<DocumentDetail />} />
               <Route path={RouteNames.CONVEYORS} element={<Conveyors />} />
               <Route path={RouteNames.BASES_UPDATE} element={<BasesUpload />} />
