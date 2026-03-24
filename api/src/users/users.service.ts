@@ -19,7 +19,7 @@ export class UsersService {
     @InjectModel(User) private userRepository: typeof User,
     private roleService: RolesService,
     private userRoleService: UserRolesService,
-    private userSettingService: UserSettingsService
+    private userSettingService: UserSettingsService,
   ) {}
 
   async createUser(dto: CreateUserDto) {

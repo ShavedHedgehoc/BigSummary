@@ -8,7 +8,7 @@ import sequelize from "sequelize";
 export class TraceTrademarksService {
   constructor(
     @InjectModel(TraceTrademark, "trace_connection")
-    private traceTrademarksRepository: typeof TraceTrademark
+    private traceTrademarksRepository: typeof TraceTrademark,
   ) {}
 
   async getTrademarks(dto: GetTraceTrademarksDto) {
@@ -46,25 +46,29 @@ OFFSET (:offset) ROWS
 FETCH NEXT (:limit) ROWS ONLY;
 `;
 
-    const countResp: CountResp[] = await this.traceTrademarksRepository.sequelize.query(count_qry, {
-      replacements: {
-        productCode: `%${dto.filter.product_code}%`,
-        productName: `%${dto.filter.product_name}%`,
-        trademarkName: `%${dto.filter.trademark}%`,
-      },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const countResp: CountResp[] =
+      await this.traceTrademarksRepository.sequelize.query(count_qry, {
+        replacements: {
+          productCode: `%${dto.filter.product_code}%`,
+          productName: `%${dto.filter.product_name}%`,
+          trademarkName: `%${dto.filter.trademark}%`,
+        },
+        type: sequelize.QueryTypes.SELECT,
+      });
 
-    const rowsResp = await this.traceTrademarksRepository.sequelize.query(row_qry, {
-      replacements: {
-        productCode: `%${dto.filter.product_code}%`,
-        productName: `%${dto.filter.product_name}%`,
-        trademarkName: `%${dto.filter.trademark}%`,
-        offset: dto.limit * (dto.page - 1),
-        limit: dto.limit,
+    const rowsResp = await this.traceTrademarksRepository.sequelize.query(
+      row_qry,
+      {
+        replacements: {
+          productCode: `%${dto.filter.product_code}%`,
+          productName: `%${dto.filter.product_name}%`,
+          trademarkName: `%${dto.filter.trademark}%`,
+          offset: dto.limit * (dto.page - 1),
+          limit: dto.limit,
+        },
+        type: sequelize.QueryTypes.SELECT,
       },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    );
 
     return { total: countResp[0].count, rows: rowsResp };
   }

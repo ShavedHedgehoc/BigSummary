@@ -7,14 +7,16 @@ import { BaseRow, UpdateBaseDto } from "./dto/update-base.dto";
 export class BasesService {
   constructor(
     @InjectModel(Base)
-    private basesRepository: typeof Base
+    private basesRepository: typeof Base,
   ) {}
 
   async getOrCreateByCode(code: string) {
     if (!code) {
       return null;
     }
-    const [base, _] = await this.basesRepository.findOrCreate({ where: { code: code } });
+    const [base, _] = await this.basesRepository.findOrCreate({
+      where: { code: code },
+    });
     return base;
   }
 
@@ -24,7 +26,9 @@ export class BasesService {
   }
 
   async updateBase(row: BaseRow) {
-    const base = await this.basesRepository.findOne({ where: { code: row.code } });
+    const base = await this.basesRepository.findOne({
+      where: { code: row.code },
+    });
     if (base) {
       base.set({ marking: row.marking });
       await base.save();

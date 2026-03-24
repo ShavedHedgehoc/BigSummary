@@ -10,6 +10,12 @@ import { PlantsModule } from "src/plants/plants.module";
 @Module({
   providers: [BoilsListService],
   controllers: [BoilsListController],
-  imports: [BoilsModule, RecordsModule, HistoriesModule, BasesModule, PlantsModule],
+  imports: [
+    BoilsModule,
+    RecordsModule,
+    HistoriesModule,
+    BasesModule,
+    PlantsModule,
+  ],
 })
 export class BoilsListModule {}

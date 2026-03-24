@@ -14,7 +14,7 @@ export class TraceCansService {
     @InjectModel(TraceCan, "trace_connection")
     private traceCansRepository: typeof TraceCan,
     private traceCanRecordsService: TraceCanRecordsService,
-    private traceCanLocationsService: TraceCanLocationsService
+    private traceCanLocationsService: TraceCanLocationsService,
   ) {}
 
   async getVolumes() {
@@ -26,35 +26,55 @@ export class TraceCansService {
 
   async getCans() {
     var offset = 3;
-    const cans = await this.traceCansRepository.findAll({ order: [["CanOrderValue", "ASC"]] });
+    const cans = await this.traceCansRepository.findAll({
+      order: [["CanOrderValue", "ASC"]],
+    });
     const cansResult = await Promise.all(
       await cans.map(async (item) => {
-        const state = await this.traceCanRecordsService.getLastStateById(item.CanPK);
-        const location = await this.traceCanLocationsService.getLastLocationByCanId(item.CanPK);
+        const state = await this.traceCanRecordsService.getLastStateById(
+          item.CanPK,
+        );
+        const location =
+          await this.traceCanLocationsService.getLastLocationByCanId(
+            item.CanPK,
+          );
         return {
           id: item.CanPK,
           name: item.CanName,
           volume: item.CanVolume,
           baseContain: state ? (await state.$get("batch"))?.BatchName : null,
           baseContainMarking: state
-            ? (await (await (await state.$get("batch"))?.$get("bt_products"))?.$get("trace_product"))?.ProductMarking
+            ? (
+                await (
+                  await (await state.$get("batch"))?.$get("bt_products")
+                )?.$get("trace_product")
+              )?.ProductMarking
             : null,
           stateValue: state ? (await state.$get("state")).CanStateName : "-",
           state: state ? (await state.$get("state")).CanStateDescription : "-",
-          stateTime: state ? new Date(state.CreateDate.getTime() - offset * 3600 * 1000) : null,
+          stateTime: state
+            ? new Date(state.CreateDate.getTime() - offset * 3600 * 1000)
+            : null,
           author: state ? (await state.$get("author")).AuthorName : null,
           isUpdated: state
-            ? new Date().getTime() - (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) < 1000 * 60 * 2
+            ? new Date().getTime() -
+                (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) <
+              1000 * 60 * 2
             : false,
           transit: location ? location.Transit : null,
-          plant: location && location.PlantPK ? (await location.$get("plant")).PlantAlias : null,
+          plant:
+            location && location.PlantPK
+              ? (await location.$get("plant")).PlantAlias
+              : null,
         };
-      })
+      }),
     );
     return cansResult;
   }
 
-  async getCansIdsByStateTypeIds(typeArr: number[] | []): Promise<number[] | []> {
+  async getCansIdsByStateTypeIds(
+    typeArr: number[] | [],
+  ): Promise<number[] | []> {
     interface RespItem {
       CanPK: number;
     }
@@ -77,10 +97,13 @@ export class TraceCansService {
     if (typeArr.length === 0) {
       return [];
     }
-    const result: RespItem[] = await this.traceCansRepository.sequelize.query(qry, {
-      replacements: { ids: typeArr },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const result: RespItem[] = await this.traceCansRepository.sequelize.query(
+      qry,
+      {
+        replacements: { ids: typeArr },
+        type: sequelize.QueryTypes.SELECT,
+      },
+    );
     return [...result.map((i) => i.CanPK)];
   }
 
@@ -105,10 +128,13 @@ export class TraceCansService {
     if (typeArr.length === 0) {
       return [];
     }
-    const result: RespItem[] = await this.traceCansRepository.sequelize.query(qry, {
-      replacements: { ids: typeArr },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const result: RespItem[] = await this.traceCansRepository.sequelize.query(
+      qry,
+      {
+        replacements: { ids: typeArr },
+        type: sequelize.QueryTypes.SELECT,
+      },
+    );
     return [...result.map((i) => i.CanPK)];
   }
 
@@ -130,10 +156,13 @@ export class TraceCansService {
     on CanLocations.CanLocationPK = maxPKs.crpk    
     where CanLocations.Transit =(:cnd)
     `;
-    const result: RespItem[] = await this.traceCansRepository.sequelize.query(qry, {
-      replacements: { cnd: condition ? 1 : 0 },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const result: RespItem[] = await this.traceCansRepository.sequelize.query(
+      qry,
+      {
+        replacements: { cnd: condition ? 1 : 0 },
+        type: sequelize.QueryTypes.SELECT,
+      },
+    );
     return [...result.map((i) => i.CanPK)];
   }
 
@@ -162,14 +191,26 @@ export class TraceCansService {
     transitFilter = { CanPK: { [Op.in]: [...idst] } };
 
     const cans = await this.traceCansRepository.findAll({
-      where: { [Op.and]: [{ ...filter }, { ...plantFilter }, { ...stateFilter }, { ...transitFilter }] },
+      where: {
+        [Op.and]: [
+          { ...filter },
+          { ...plantFilter },
+          { ...stateFilter },
+          { ...transitFilter },
+        ],
+      },
       order: [["CanOrderValue", "ASC"]],
     });
 
     const cansResult = await Promise.all(
       await cans.map(async (item) => {
-        const state = await this.traceCanRecordsService.getLastStateById(item.CanPK);
-        const location = await this.traceCanLocationsService.getLastLocationByCanId(item.CanPK);
+        const state = await this.traceCanRecordsService.getLastStateById(
+          item.CanPK,
+        );
+        const location =
+          await this.traceCanLocationsService.getLastLocationByCanId(
+            item.CanPK,
+          );
         var offset = 3;
         return {
           id: item.CanPK,
@@ -177,20 +218,31 @@ export class TraceCansService {
           volume: item.CanVolume,
           baseContain: state ? (await state.$get("batch"))?.BatchName : null,
           baseContainMarking: state
-            ? (await (await (await state.$get("batch"))?.$get("bt_products"))?.$get("trace_product"))?.ProductMarking
+            ? (
+                await (
+                  await (await state.$get("batch"))?.$get("bt_products")
+                )?.$get("trace_product")
+              )?.ProductMarking
             : null,
 
           stateValue: state ? (await state.$get("state")).CanStateName : "-",
           state: state ? (await state.$get("state")).CanStateDescription : "-",
-          stateTime: state ? new Date(state.CreateDate.getTime() - offset * 3600 * 1000) : null,
+          stateTime: state
+            ? new Date(state.CreateDate.getTime() - offset * 3600 * 1000)
+            : null,
           author: state ? (await state.$get("author")).AuthorName : null,
           isUpdated: state
-            ? new Date().getTime() - (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) < 1000 * 60 * 2
+            ? new Date().getTime() -
+                (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) <
+              1000 * 60 * 2
             : false,
           transit: location ? location.Transit : null,
-          plant: location && location.PlantPK ? (await location.$get("plant")).PlantAlias : null,
+          plant:
+            location && location.PlantPK
+              ? (await location.$get("plant")).PlantAlias
+              : null,
         };
-      })
+      }),
     );
     return cansResult;
   }
@@ -210,7 +262,9 @@ export class TraceCansService {
       const plantFilter = { [Op.in]: [...dto.filter.plants] };
       filter = { ...filter, PlantPK: plantFilter };
     }
-    const count = await this.traceCansRepository.count({ where: { ...filter } });
+    const count = await this.traceCansRepository.count({
+      where: { ...filter },
+    });
 
     const cans = await this.traceCansRepository.findAll({
       where: { ...filter },

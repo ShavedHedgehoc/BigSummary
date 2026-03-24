@@ -9,7 +9,7 @@ import { GetBoilsDto } from "./dto/get-boils.dto";
 export class BoilsService {
   constructor(
     @InjectModel(Boil)
-    private boilsRepository: typeof Boil
+    private boilsRepository: typeof Boil,
   ) {}
 
   async getAllBoils() {
@@ -24,7 +24,9 @@ export class BoilsService {
     return boils;
   }
 
-  async getBoilsIdsByHistoryTypeIds(typeArr: number[] | []): Promise<number[] | []> {
+  async getBoilsIdsByHistoryTypeIds(
+    typeArr: number[] | [],
+  ): Promise<number[] | []> {
     interface RespItem {
       id: number;
     }
@@ -135,7 +137,9 @@ export class BoilsService {
     if (value === "-" || !value) {
       return null;
     }
-    const [boil, _] = await this.boilsRepository.findOrCreate({ where: { value: value } });
+    const [boil, _] = await this.boilsRepository.findOrCreate({
+      where: { value: value },
+    });
     return boil;
   }
 
@@ -143,7 +147,9 @@ export class BoilsService {
     if (value === "-" || !value) {
       return null;
     }
-    const boil = await this.boilsRepository.findOne({ where: { value: value } });
+    const boil = await this.boilsRepository.findOne({
+      where: { value: value },
+    });
     return boil;
   }
 }

@@ -43,7 +43,8 @@ export default class Product extends Model<Product, ProductCreationsAttrs> {
   marking: string;
 
   @ApiProperty({
-    example: "CNT9/65 Тонирующая маска для волос NEWTONE ESTEL HAUTE COUTURE 9/65 Блондин фиолетово-красный, 400 мл",
+    example:
+      "CNT9/65 Тонирующая маска для волос NEWTONE ESTEL HAUTE COUTURE 9/65 Блондин фиолетово-красный, 400 мл",
     description: "Наименование продукта",
   })
   @AllowNull(true)

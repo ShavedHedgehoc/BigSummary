@@ -19,7 +19,7 @@ export class DocDetailService {
     private historiesService: HistoriesService,
     private semiProductsService: SemiProductsService,
     private recordRegulationsService: RecordRegulationsService,
-    private recordsCountersService: RecordCountersService
+    private recordsCountersService: RecordCountersService,
   ) {}
 
   async recordResult<
@@ -42,14 +42,30 @@ export class DocDetailService {
       isSet: boolean;
     },
   >(item: Record) {
-    const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(item.id, item.water_base_id);
+    const histories =
+      await this.historiesService.getAllHistoriesByRecIdAndBoilId(
+        item.id,
+        item.water_base_id,
+      );
     const historiesCount = histories.length;
-    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
-    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
-    const stateTime = historiesCount > 0 ? histories[histories.length - 1].createdAt : null;
-    const isUpdated = stateTime ? new Date().getTime() - new Date(stateTime).getTime() < 1000 * 60 * 2 : false;
-    const semiProducts = await this.semiProductsService.getSemiProductsByRecordId(item.id);
-    const regulation = await this.recordRegulationsService.getByRecordId(item.id);
+    const state =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.description
+        : "-";
+    const stateValue =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.value
+        : null;
+    const stateTime =
+      historiesCount > 0 ? histories[histories.length - 1].createdAt : null;
+    const isUpdated = stateTime
+      ? new Date().getTime() - new Date(stateTime).getTime() < 1000 * 60 * 2
+      : false;
+    const semiProducts =
+      await this.semiProductsService.getSemiProductsByRecordId(item.id);
+    const regulation = await this.recordRegulationsService.getByRecordId(
+      item.id,
+    );
     const doc = await item.$get("doc");
 
     const fact = await this.recordsCountersService.getTaskSum(item.id);
@@ -99,7 +115,9 @@ export class DocDetailService {
 
     const records = await this.recordsService.getRecordsByDocId(doc.id);
 
-    const recordsResult = await Promise.all(await records.map(async (item) => this.recordResult(item)));
+    const recordsResult = await Promise.all(
+      await records.map(async (item) => this.recordResult(item)),
+    );
     const res = {
       ...JSON.parse(JSON.stringify(doc, replacer)),
       plant: doc.plants.value,
@@ -118,7 +136,9 @@ export class DocDetailService {
 
     const records = await this.recordsService.getAppRecordsByDocId(doc.id);
 
-    const recordsResult = await Promise.all(await records.map(async (item) => this.recordResult(item)));
+    const recordsResult = await Promise.all(
+      await records.map(async (item) => this.recordResult(item)),
+    );
     const res = {
       ...JSON.parse(JSON.stringify(doc, replacer)),
       plant: doc.plants.value,
@@ -135,9 +155,14 @@ export class DocDetailService {
       return undefined;
     };
 
-    const records = await this.recordsService.getRecordsByDocIdWithFilter(doc.id, dto);
+    const records = await this.recordsService.getRecordsByDocIdWithFilter(
+      doc.id,
+      dto,
+    );
 
-    const recordsResult = await Promise.all(await records.map(async (item) => this.recordResult(item)));
+    const recordsResult = await Promise.all(
+      await records.map(async (item) => this.recordResult(item)),
+    );
     const res = {
       ...JSON.parse(JSON.stringify(doc, replacer)),
       plant: doc.plants.value,
@@ -216,26 +241,54 @@ export class DocDetailService {
   }
 
   async getTimeReport(dto: TimeReportDto) {
-    const doc = await this.docsService.getDocByPlantAndDate(dto.filter.date, dto.filter.plant);
+    const doc = await this.docsService.getDocByPlantAndDate(
+      dto.filter.date,
+      dto.filter.plant,
+    );
     if (!doc) {
       return { records: [] };
     }
-    const doc_recs = await this.recordsService.getRecordsByDocIdWithFilter(doc.id, dto);
-    const recordsResult = await Promise.all(await doc_recs.map(async (item) => this.timeResult(item)));
+    const doc_recs = await this.recordsService.getRecordsByDocIdWithFilter(
+      doc.id,
+      dto,
+    );
+    const recordsResult = await Promise.all(
+      await doc_recs.map(async (item) => this.timeResult(item)),
+    );
     return recordsResult;
   }
 
   async timeResult(item: Record) {
-    const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(item.id, item.water_base_id);
+    const histories =
+      await this.historiesService.getAllHistoriesByRecIdAndBoilId(
+        item.id,
+        item.water_base_id,
+      );
     const historiesCount = histories.length;
-    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
-    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
-    const lastBaseCheck = await this.historiesService.getLastBaseCheck(item.water_base_id);
-    const lastPlugPass = await this.historiesService.getLastPlugPass(item.water_base_id);
-    const lastProductCheck = await this.historiesService.getLastProductCheck(item.id);
-    const lastProductPass = await this.historiesService.getLastProductPass(item.id);
-    const lastProductInProgress = await this.historiesService.getLastProductInProgress(item.id);
-    const lastProductFinished = await this.historiesService.getLastProductFinished(item.id);
+    const state =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.description
+        : "-";
+    const stateValue =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.value
+        : null;
+    const lastBaseCheck = await this.historiesService.getLastBaseCheck(
+      item.water_base_id,
+    );
+    const lastPlugPass = await this.historiesService.getLastPlugPass(
+      item.water_base_id,
+    );
+    const lastProductCheck = await this.historiesService.getLastProductCheck(
+      item.id,
+    );
+    const lastProductPass = await this.historiesService.getLastProductPass(
+      item.id,
+    );
+    const lastProductInProgress =
+      await this.historiesService.getLastProductInProgress(item.id);
+    const lastProductFinished =
+      await this.historiesService.getLastProductFinished(item.id);
 
     return {
       id: item.id,
@@ -250,8 +303,12 @@ export class DocDetailService {
       lastPlugPass: lastPlugPass ? lastPlugPass.createdAt : null,
       lastProductCheck: lastProductCheck ? lastProductCheck.createdAt : null,
       lastProductPass: lastProductPass ? lastProductPass.createdAt : null,
-      lastProductInProgress: lastProductInProgress ? lastProductInProgress.createdAt : null,
-      lastProductFinished: lastProductFinished ? lastProductFinished.createdAt : null,
+      lastProductInProgress: lastProductInProgress
+        ? lastProductInProgress.createdAt
+        : null,
+      lastProductFinished: lastProductFinished
+        ? lastProductFinished.createdAt
+        : null,
     };
   }
 }

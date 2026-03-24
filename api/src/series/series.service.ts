@@ -21,7 +21,9 @@ export class SeriesService {
     if (value === "-" || !value) {
       return null;
     }
-    const [serie, _] = await this.serieRepository.findOrCreate({ where: { value: value } });
+    const [serie, _] = await this.serieRepository.findOrCreate({
+      where: { value: value },
+    });
     return serie;
   }
 }

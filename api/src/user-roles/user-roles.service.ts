@@ -5,7 +5,9 @@ import Role from "src/roles/roles.model";
 
 @Injectable()
 export class UserRolesService {
-  constructor(@InjectModel(UserRoles) private userRoleRepository: typeof UserRoles) {}
+  constructor(
+    @InjectModel(UserRoles) private userRoleRepository: typeof UserRoles,
+  ) {}
 
   async getRolesListByUserId(id: number) {
     const userRoles = await this.userRoleRepository.findAll({
@@ -15,7 +17,11 @@ export class UserRolesService {
       include: { model: Role, attributes: ["id", "value", "description"] },
     });
     const result = userRoles.map((item) => {
-      return { id: item.role.id, value: item.role.value, description: item.role.description };
+      return {
+        id: item.role.id,
+        value: item.role.value,
+        description: item.role.description,
+      };
     });
 
     return result;
@@ -45,7 +51,9 @@ export class UserRolesService {
   }
 
   async getRowByUserIdAndRoleId(userId: number, roleId: number) {
-    const row = await this.userRoleRepository.findOne({ where: { userId: userId, roleId: roleId } });
+    const row = await this.userRoleRepository.findOne({
+      where: { userId: userId, roleId: roleId },
+    });
     return row;
   }
 
@@ -54,7 +62,10 @@ export class UserRolesService {
   }
 
   async addRecord(userId: number, roleId: number) {
-    const newRow = await this.userRoleRepository.create({ userId: userId, roleId: roleId });
+    const newRow = await this.userRoleRepository.create({
+      userId: userId,
+      roleId: roleId,
+    });
     return newRow;
   }
 }

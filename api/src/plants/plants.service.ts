@@ -7,7 +7,7 @@ import { CreatePlantDto } from "./dto/create-plant.dto";
 export class PlantsService {
   constructor(
     @InjectModel(Plant)
-    private plantRepository: typeof Plant
+    private plantRepository: typeof Plant,
   ) {}
 
   async getAllPlants() {
@@ -21,7 +21,9 @@ export class PlantsService {
   }
 
   async getPlantByValue(value: string) {
-    const plant = await this.plantRepository.findOne({ where: { value: value } });
+    const plant = await this.plantRepository.findOne({
+      where: { value: value },
+    });
     return plant;
   }
 

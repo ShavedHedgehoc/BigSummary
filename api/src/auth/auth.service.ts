@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { LoginUserDto } from "src/users/dto/login-user.dto";
@@ -14,7 +19,7 @@ export class AuthService {
   constructor(
     private userService: UsersService,
     private tokenService: TokenService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   private cleanJWT(token: any) {
@@ -28,7 +33,13 @@ export class AuthService {
     const user = await this.validateUser(dto);
     const tokens = await this.getTokens(user);
     await this.tokenService.createOrUpdate(user.id, tokens.refreshToken);
-    return [{ user: mapper.toRegisteredUserData(user), accessToken: tokens.accessToken }, tokens.refreshToken];
+    return [
+      {
+        user: mapper.toRegisteredUserData(user),
+        accessToken: tokens.accessToken,
+      },
+      tokens.refreshToken,
+    ];
 
     // return this.generateToken(user);
   }
@@ -36,13 +47,25 @@ export class AuthService {
   async register(dto: CreateUserDto) {
     const candidate = await this.userService.getUserByEmail(dto.email);
     if (candidate) {
-      throw new HttpException("Пользователь уже существует", HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        "Пользователь уже существует",
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const hashPassword = await bcrypt.hash(dto.password, 5);
-    const user = await this.userService.createUser({ ...dto, password: hashPassword });
+    const user = await this.userService.createUser({
+      ...dto,
+      password: hashPassword,
+    });
     const tokens = await this.getTokens(user);
     await this.tokenService.createOrUpdate(user.id, tokens.refreshToken);
-    return [{ user: mapper.toRegisteredUserData(user), accessToken: tokens.accessToken }, tokens.refreshToken];
+    return [
+      {
+        user: mapper.toRegisteredUserData(user),
+        accessToken: tokens.accessToken,
+      },
+      tokens.refreshToken,
+    ];
   }
 
   async refresh(token: string) {
@@ -57,7 +80,13 @@ export class AuthService {
     }
     const tokens = await this.getTokens(user);
     await this.tokenService.createOrUpdate(user.id, tokens.refreshToken);
-    return [{ user: mapper.toRegisteredUserData(user), accessToken: tokens.accessToken }, tokens.refreshToken];
+    return [
+      {
+        user: mapper.toRegisteredUserData(user),
+        accessToken: tokens.accessToken,
+      },
+      tokens.refreshToken,
+    ];
   }
 
   async generateToken(user: User) {
@@ -71,7 +100,10 @@ export class AuthService {
     if (refreshToken) {
       const userData = await this.verifyToken(refreshToken);
       const user = await this.userService.getByPk(userData.id);
-      const tokenFromDb = await this.tokenService.findByToken(user.id, refreshToken);
+      const tokenFromDb = await this.tokenService.findByToken(
+        user.id,
+        refreshToken,
+      );
       if (tokenFromDb) {
         return mapper.toRegisteredUserData(user);
       }
@@ -82,7 +114,9 @@ export class AuthService {
 
   async verifyToken(token: string) {
     try {
-      const userData = await this.jwtService.verify(token, { secret: "JWT_REFRESH_SECRET" });
+      const userData = await this.jwtService.verify(token, {
+        secret: "JWT_REFRESH_SECRET",
+      });
       return this.cleanJWT(userData);
     } catch (error) {
       throw new HttpException("Не авторизован", HttpStatus.UNAUTHORIZED);
@@ -91,7 +125,9 @@ export class AuthService {
 
   async verifyAccessToken(token: string) {
     try {
-      const userData = await this.jwtService.verify(token, { secret: "JWT_ACCESS_SECRET" });
+      const userData = await this.jwtService.verify(token, {
+        secret: "JWT_ACCESS_SECRET",
+      });
       return this.cleanJWT(userData);
     } catch (error) {
       throw new HttpException("Не авторизован", HttpStatus.UNAUTHORIZED);
@@ -124,23 +160,32 @@ export class AuthService {
       const bearer = authHeader.split(" ")[0];
       const token = authHeader.split(" ")[1];
       if (bearer !== "Bearer" || !token) {
-        throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+        throw new UnauthorizedException({
+          message: "Пользователь не авторизован",
+        });
       }
       const userData = await this.verifyAccessToken(token);
       const user = await this.userService.getByPk(userData.id);
       if (user) {
         return { user: mapper.toRegisteredUserData(user), accessToken: token };
       }
-      throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+      throw new UnauthorizedException({
+        message: "Пользователь не авторизован",
+      });
     } catch (error) {
-      throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+      throw new UnauthorizedException({
+        message: "Пользователь не авторизован",
+      });
     }
   }
 
   private async validateUser(dto: LoginUserDto) {
     const user = await this.userService.getUserByEmail(dto.email);
     if (!user) {
-      throw new HttpException("Пользователь с таким email не найден", HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        "Пользователь с таким email не найден",
+        HttpStatus.NOT_FOUND,
+      );
     }
     if (user.banned) {
       throw new HttpException("Доступ запрещен", HttpStatus.FORBIDDEN);

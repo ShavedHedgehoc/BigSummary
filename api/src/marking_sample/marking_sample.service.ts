@@ -6,14 +6,16 @@ import MarkingSample from "./marking_sample.model";
 export class MarkingSampleService {
   constructor(
     @InjectModel(MarkingSample)
-    private markingSampleRepository: typeof MarkingSample
+    private markingSampleRepository: typeof MarkingSample,
   ) {}
 
   async getOrCreateByValue(value: string) {
     if (value === "-" || !value) {
       return null;
     }
-    const [marking_sample, _] = await this.markingSampleRepository.findOrCreate({ where: { value: value } });
+    const [marking_sample, _] = await this.markingSampleRepository.findOrCreate(
+      { where: { value: value } },
+    );
     return marking_sample;
   }
 }

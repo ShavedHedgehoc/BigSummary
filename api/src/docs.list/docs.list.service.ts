@@ -9,7 +9,7 @@ export class DocsListService {
   constructor(
     private docsService: DocsService,
     private recordsService: RecordsService,
-    private historiesService: HistoriesService
+    private historiesService: HistoriesService,
   ) {}
 
   async getDocsList() {
@@ -20,9 +20,11 @@ export class DocsListService {
         const recordsCount = records.length;
         const historiesCounts = await Promise.all(
           await records.map(async (item) => {
-            const count = await this.historiesService.getHistoriesCountByRecId(item.id);
+            const count = await this.historiesService.getHistoriesCountByRecId(
+              item.id,
+            );
             return count;
-          })
+          }),
         );
         const historiesCount = historiesCounts.reduce((a, b) => a + b, 0);
         return {
@@ -32,7 +34,7 @@ export class DocsListService {
           recordsCount: recordsCount,
           historiesCount: historiesCount,
         };
-      })
+      }),
     );
     return docsResult;
   }
@@ -44,9 +46,11 @@ export class DocsListService {
         const recordsCount = records.length;
         const historiesCounts = await Promise.all(
           await records.map(async (item) => {
-            const count = await this.historiesService.getHistoriesCountByRecId(item.id);
+            const count = await this.historiesService.getHistoriesCountByRecId(
+              item.id,
+            );
             return count;
-          })
+          }),
         );
         const historiesCount = historiesCounts.reduce((a, b) => a + b, 0);
 
@@ -57,7 +61,7 @@ export class DocsListService {
           recordsCount: recordsCount,
           historiesCount: historiesCount,
         };
-      })
+      }),
     );
     return { rows: docsResult, total: total };
   }

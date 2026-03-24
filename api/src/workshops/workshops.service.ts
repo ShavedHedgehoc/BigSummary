@@ -7,7 +7,7 @@ import { CreateWorkshopDto } from "./dto/create-workshop.dto";
 export class WorkshopsService {
   constructor(
     @InjectModel(Workshop)
-    private workshopsRepository: typeof Workshop
+    private workshopsRepository: typeof Workshop,
   ) {}
 
   async getAllWorkshops() {
@@ -16,7 +16,9 @@ export class WorkshopsService {
   }
 
   async getOrCreateByValue(value: string) {
-    const [workshops, _] = await this.workshopsRepository.findOrCreate({ where: { value: value } });
+    const [workshops, _] = await this.workshopsRepository.findOrCreate({
+      where: { value: value },
+    });
     return workshops;
   }
 

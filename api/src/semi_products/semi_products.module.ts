@@ -7,7 +7,11 @@ import { BoilsModule } from "src/boils/boils.module";
 
 @Module({
   providers: [SemiProductsService],
-  imports: [SequelizeModule.forFeature([SemiProduct]), ProductsModule, BoilsModule],
+  imports: [
+    SequelizeModule.forFeature([SemiProduct]),
+    ProductsModule,
+    BoilsModule,
+  ],
   exports: [SemiProductsService],
 })
 export class SemiProductsModule {}

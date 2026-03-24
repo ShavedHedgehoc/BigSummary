@@ -9,7 +9,9 @@ export class TraceInventoryRowsController {
   constructor(private inventoryRowsService: TraceInventoryRowsService) {}
   @ApiOperation({ summary: "Получить строки переучета по id документа" })
   @Post()
-  getInventoryRowsByIdWithFilter(@Body() dto: GetInventoryRowsByIdWithFilterDto) {
+  getInventoryRowsByIdWithFilter(
+    @Body() dto: GetInventoryRowsByIdWithFilterDto,
+  ) {
     return this.inventoryRowsService.getInventoryByIdWithFilter(dto);
   }
 }

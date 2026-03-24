@@ -1,5 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AllowNull,
+  AutoIncrement,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import History from "src/histories/histories.model";
 
 interface HistoryTypesCreationsAttrs {
@@ -7,7 +16,10 @@ interface HistoryTypesCreationsAttrs {
 }
 
 @Table({ tableName: "history_types", createdAt: false, updatedAt: false })
-export default class HistoryType extends Model<HistoryType, HistoryTypesCreationsAttrs> {
+export default class HistoryType extends Model<
+  HistoryType,
+  HistoryTypesCreationsAttrs
+> {
   @ApiProperty({ example: "1", description: "Уникальный id типа записи" })
   @PrimaryKey
   @AutoIncrement
@@ -19,7 +31,10 @@ export default class HistoryType extends Model<HistoryType, HistoryTypesCreation
   @Column({ type: DataType.STRING, unique: true })
   value: string;
 
-  @ApiProperty({ example: "Основа на пробе", description: "Описание типа записи" })
+  @ApiProperty({
+    example: "Основа на пробе",
+    description: "Описание типа записи",
+  })
   @AllowNull(false)
   @Column({ type: DataType.STRING, unique: true })
   description: string;

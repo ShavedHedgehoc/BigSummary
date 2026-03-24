@@ -9,7 +9,12 @@ import { SeriesModule } from "src/series/series.module";
 
 @Module({
   controllers: [RegulationsController],
-  imports: [SequelizeModule.forFeature([Regulation]), ProductsModule, MarkingSampleModule, SeriesModule],
+  imports: [
+    SequelizeModule.forFeature([Regulation]),
+    ProductsModule,
+    MarkingSampleModule,
+    SeriesModule,
+  ],
   providers: [RegulationsService],
 })
 export class RegulationsModule {}

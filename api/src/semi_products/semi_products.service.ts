@@ -14,11 +14,15 @@ export class SemiProductsService {
     @InjectModel(SemiProduct)
     private semiProductsService: typeof SemiProduct,
     private productsService: ProductsService,
-    private boilsService: BoilsService
+    private boilsService: BoilsService,
   ) {}
 
   async createSemiProduct(dto: CreateSemiProductDto) {
-    const product = await this.productsService.getOrCreateByCode(dto.code, dto.marking, null);
+    const product = await this.productsService.getOrCreateByCode(
+      dto.code,
+      dto.marking,
+      null,
+    );
     const boil = await this.boilsService.getOrCreateByValue(dto.boil);
     const semiProduct = await this.semiProductsService.create({
       record_id: dto.record_id,
@@ -32,7 +36,14 @@ export class SemiProductsService {
     const semiProducts = await this.semiProductsService.findAll({
       where: { record_id: id },
       attributes: {
-        exclude: ["id", "record_id", "product_id", "boil_id", "createdAt", "updatedAt"],
+        exclude: [
+          "id",
+          "record_id",
+          "product_id",
+          "boil_id",
+          "createdAt",
+          "updatedAt",
+        ],
         include: [
           [col("product.code1C"), "code"],
           [col("product.marking"), "marking"],

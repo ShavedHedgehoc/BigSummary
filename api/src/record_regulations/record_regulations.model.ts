@@ -1,4 +1,13 @@
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import MarkingSample from "src/marking_sample/marking_sample.model";
 import Record from "src/records/records.model";
 
@@ -21,7 +30,10 @@ interface RecordRegulationCreationsAttrs {
 }
 
 @Table({ tableName: "record_regulations" })
-export default class RecordRegulation extends Model<RecordRegulation, RecordRegulationCreationsAttrs> {
+export default class RecordRegulation extends Model<
+  RecordRegulation,
+  RecordRegulationCreationsAttrs
+> {
   @PrimaryKey
   @AutoIncrement
   @Column({ type: DataType.INTEGER, unique: true })

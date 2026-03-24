@@ -263,4 +263,4 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
     HealthCheckModule,
   ],
 })
-export default class AppModule { }
+export default class AppModule {}

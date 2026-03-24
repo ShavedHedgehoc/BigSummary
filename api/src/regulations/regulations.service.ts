@@ -16,33 +16,54 @@ export class RegulationsService {
     private regulationRepository: typeof Regulation,
     private productService: ProductsService,
     private markingSampleService: MarkingSampleService,
-    private seriesService: SeriesService
+    private seriesService: SeriesService,
   ) {}
 
   async bulkUpdateRegulations(dto: BulkUpdateRegulationsDto[]) {
     for (let index = 0; index < dto.length; index++) {
       try {
-        const serie = await this.seriesService.getOrCreateByValue(dto[index].serie);
-        const product = await this.productService.getOrCreateByCode(dto[index].code, dto[index].marking, serie.id);
-        const marking_sample = await this.markingSampleService.getOrCreateByValue(dto[index].marking_sample);
-        const [regulation, created] = await this.regulationRepository.findOrCreate({
-          where: { product_id: product.id },
-        });
-        regulation.water_base_min_weight = Number(dto[index].water_base_min_weight);
-        regulation.water_base_max_weight = Number(dto[index].water_base_max_weight);
+        const serie = await this.seriesService.getOrCreateByValue(
+          dto[index].serie,
+        );
+        const product = await this.productService.getOrCreateByCode(
+          dto[index].code,
+          dto[index].marking,
+          serie.id,
+        );
+        const marking_sample =
+          await this.markingSampleService.getOrCreateByValue(
+            dto[index].marking_sample,
+          );
+        const [regulation, created] =
+          await this.regulationRepository.findOrCreate({
+            where: { product_id: product.id },
+          });
+        regulation.water_base_min_weight = Number(
+          dto[index].water_base_min_weight,
+        );
+        regulation.water_base_max_weight = Number(
+          dto[index].water_base_max_weight,
+        );
         regulation.per_box = Number(dto[index].per_box);
         regulation.box_per_row = Number(dto[index].box_per_row);
         regulation.row_on_pallet = Number(dto[index].row_on_pallet);
-        regulation.gasket = dto[index].gasket === "-" ? null : dto[index].gasket;
+        regulation.gasket =
+          dto[index].gasket === "-" ? null : dto[index].gasket;
         regulation.seal = dto[index].seal;
-        regulation.technician_note = dto[index].technician_note === "-" ? null : dto[index].technician_note;
-        regulation.packaging_note = dto[index].packaging_note === "-" ? null : dto[index].packaging_note;
-        regulation.marking_sample_id = marking_sample ? marking_sample.id : null;
+        regulation.technician_note =
+          dto[index].technician_note === "-"
+            ? null
+            : dto[index].technician_note;
+        regulation.packaging_note =
+          dto[index].packaging_note === "-" ? null : dto[index].packaging_note;
+        regulation.marking_sample_id = marking_sample
+          ? marking_sample.id
+          : null;
         await regulation.save();
       } catch (error) {
         throw new HttpException(
           `Ошибка при обновлении в строке №${index + 1}, обновление прервано`,
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
       }
     }

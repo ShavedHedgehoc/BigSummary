@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller } from "@nestjs/common";
 
-@Controller('api-errors')
+@Controller("api-errors")
 export class ApiErrorsController {}

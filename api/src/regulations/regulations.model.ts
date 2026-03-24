@@ -1,5 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import MarkingSample from "src/marking_sample/marking_sample.model";
 import Product from "src/products/products.model";
 
@@ -18,7 +27,10 @@ interface RegulationCreationsAttrs {
 }
 
 @Table({ tableName: "regulations" })
-export default class Regulation extends Model<Regulation, RegulationCreationsAttrs> {
+export default class Regulation extends Model<
+  Regulation,
+  RegulationCreationsAttrs
+> {
   @ApiProperty({ example: "1", description: "Уникальный id строки" })
   @PrimaryKey
   @AutoIncrement

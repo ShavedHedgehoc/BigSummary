@@ -17,6 +17,8 @@ export class TraceInventoryDocsController {
   @ApiOperation({ summary: "Получить документ по id" })
   @Get("/:inventory_id")
   getInventoryByid(@Param("inventory_id") inventory_id: string) {
-    return this.traceInventoryDocsService.getInventoryById(Number(inventory_id));
+    return this.traceInventoryDocsService.getInventoryById(
+      Number(inventory_id),
+    );
   }
 }

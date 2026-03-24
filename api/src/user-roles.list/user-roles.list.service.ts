@@ -8,7 +8,7 @@ export class UserRolesListService {
   constructor(
     private userRoleService: UserRolesService,
     private roleService: RolesService,
-    private userService: UsersService
+    private userService: UsersService,
   ) {}
   async changeUserRole(userId: number, roleValue: string) {
     const role = await this.roleService.getroleByValue(roleValue);
@@ -19,7 +19,10 @@ export class UserRolesListService {
     if (!user) {
       throw new HttpException("Пользователь не найден", HttpStatus.NOT_FOUND);
     }
-    const roleRecord = await this.userRoleService.getRowByUserIdAndRoleId(user.id, role.id);
+    const roleRecord = await this.userRoleService.getRowByUserIdAndRoleId(
+      user.id,
+      role.id,
+    );
     if (roleRecord) {
       await this.userRoleService.removeRecord(roleRecord.id);
       return;

@@ -1,4 +1,12 @@
-import { BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import TraceProduct from "./trace_product.model";
 import TraceWeighting from "./trace_weighting.model";
 import TraceSeller from "./trace_seller.model";

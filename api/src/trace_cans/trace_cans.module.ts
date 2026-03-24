@@ -9,7 +9,11 @@ import { TraceCanLocationsModule } from "src/trace_can_locations/trace_can_locat
 @Module({
   providers: [TraceCansService],
   controllers: [TraceCansController],
-  imports: [SequelizeModule.forFeature([TraceCan], "trace_connection"), TraceCanRecordsModule, TraceCanLocationsModule],
+  imports: [
+    SequelizeModule.forFeature([TraceCan], "trace_connection"),
+    TraceCanRecordsModule,
+    TraceCanLocationsModule,
+  ],
   exports: [TraceCansService],
 })
 export class TraceCansModule {}

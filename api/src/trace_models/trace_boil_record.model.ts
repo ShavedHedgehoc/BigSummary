@@ -1,4 +1,11 @@
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 
 import TraceBatch from "./trace_batch.model";
 import TraceOperation from "./trace_operation.model";

@@ -1,5 +1,4 @@
 import { useCreateHistory } from "../../shared/api/use-create-history";
-import { useAuthStore } from "../auth/store/auth-store";
 import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
 import { useShallow } from "zustand/react/shallow";
 
@@ -10,22 +9,15 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const setState = useAddBoilModalStore(useShallow((state) => state.setState));
   const setNoteRequired = useAddBoilModalStore(useShallow((state) => state.setNoteRequired));
 
-  const { addHistory, isPending } = useCreateHistory();
-  const user = useAuthStore(useShallow((state) => state.user));
+  const { isPending } = useCreateHistory();
+
 
   const handleContinueButtonClick = () => {
-    if (user) {
-      const data: AddHistoryDto = {
-        record_id: null,
-        boil_value: row.value,
-        historyType: "base_continue",
-        userId: user.id,
-        employeeId: null,
-        note: null,
-        history_note: null,
-      };
-      addHistory(data);
-    }
+    setBoilValue(row.value);
+    setTitle(`Партия - ${row.value}, статус - "Продолжение варки"`);
+    setState("base_continue");
+    setNoteRequired(false);
+    setOpen(true);
   };
 
   const handleCorrectButtonClick = () => {
@@ -35,6 +27,7 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
     setNoteRequired(true);
     setOpen(true);
   };
+
   const handlePassButtonClick = () => {
     setBoilValue(row.value);
     setTitle(`Партия - ${row.value}, статус - "Допуск на подключение"`);

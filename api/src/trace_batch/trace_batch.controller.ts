@@ -1,6 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { TraceBatchService } from "./trace_batch.service";
-import { ApiOperation, ApiOkResponse, ApiNotFoundResponse, ApiTags, ApiResponse } from "@nestjs/swagger";
+import {
+  ApiOperation,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+  ApiResponse,
+} from "@nestjs/swagger";
 import { GetTraceBatchsDto } from "./dto/get-trace-batchs.dto";
 import { GetTraceBatchsWghtReportDto } from "./dto/get-trace-batchs-wght-report.dto";
 import { GetTraceBatchsWghtReportDetailDto } from "./dto/get-batchs-wght-report-detail.dto";
@@ -64,7 +70,9 @@ export class TraceBatchController {
     return this.traceBatchService.getBatchsWghtReport(dto);
   }
 
-  @ApiOperation({ summary: "Отчет по взвешиваниям, детально по варке и продукту" })
+  @ApiOperation({
+    summary: "Отчет по взвешиваниям, детально по варке и продукту",
+  })
   @Post("/wght-report-detail")
   getWghtReportDetail(@Body() dto: GetTraceBatchsWghtReportDetailDto) {
     return this.traceBatchService.getBatchsWghtReportDetail(dto);
@@ -91,7 +99,9 @@ export class TraceBatchController {
 
   @ApiOperation({ summary: "Получить детальную сводку по весовому участку" })
   @Post("/weightings_department_summary_detail")
-  getWeightingDepartmentSummaryDetail(@Body() dto: GetWeightingsSummaryDetailDto) {
+  getWeightingDepartmentSummaryDetail(
+    @Body() dto: GetWeightingsSummaryDetailDto,
+  ) {
     return this.traceBatchService.getWeightingsDepartmentsSummaryDetail(dto);
   }
 }

@@ -15,7 +15,7 @@ export class BoilsListService {
     private recordsService: RecordsService,
     private historiesService: HistoriesService,
     private basesService: BasesService,
-    private plantService: PlantsService
+    private plantService: PlantsService,
   ) {}
 
   async getBoilListRowData(item: Boil) {
@@ -29,9 +29,18 @@ export class BoilsListService {
     const histories = await this.historiesService.getHistoriesByBoilId(item.id);
     const recordsCount = records.length;
     const historiesCount = histories.length;
-    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
-    const state_id = historiesCount > 0 ? histories[histories.length - 1].historyType.id : null;
-    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
+    const state =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.description
+        : "-";
+    const state_id =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.id
+        : null;
+    const stateValue =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.value
+        : null;
     const base = await this.basesService.getByid(item.base_id);
     const plant = await this.plantService.getPlantByPk(item.plant_id);
     return {
@@ -57,15 +66,26 @@ export class BoilsListService {
     const records = await this.recordsService.getRecordsByBoilId(item.id);
     const histories = await this.historiesService.getHistoriesByBoilId(item.id);
 
-    const firstBaseCheck = await this.historiesService.getFirstBaseCheck(item.id);
+    const firstBaseCheck = await this.historiesService.getFirstBaseCheck(
+      item.id,
+    );
     const lastBaseCheck = await this.historiesService.getLastBaseCheck(item.id);
     const lastPlugPass = await this.historiesService.getLastPlugPass(item.id);
 
     const recordsCount = records.length;
     const historiesCount = histories.length;
-    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
-    const state_id = historiesCount > 0 ? histories[histories.length - 1].historyType.id : null;
-    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
+    const state =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.description
+        : "-";
+    const state_id =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.id
+        : null;
+    const stateValue =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.value
+        : null;
     const base = await this.basesService.getByid(item.base_id);
     const plant = await this.plantService.getPlantByPk(item.plant_id);
 
@@ -90,21 +110,27 @@ export class BoilsListService {
 
   async getBoilsList() {
     const boils = await this.boilsService.getAllBoils();
-    const result = await Promise.all(await boils.map((item) => this.getBoilListRowData(item)));
+    const result = await Promise.all(
+      await boils.map((item) => this.getBoilListRowData(item)),
+    );
     return result;
   }
 
   async getBoilsListWithFilter(dto: GetBoilsDto) {
     // console.log(dto);
     const { boils, count } = await this.boilsService.getBoilsWithFilter(dto);
-    const result = await Promise.all(await boils.map((item) => this.getBoilListRowData(item)));
+    const result = await Promise.all(
+      await boils.map((item) => this.getBoilListRowData(item)),
+    );
     return { rows: result, total: count };
   }
 
   async getBoilsReportWithFilter(dto: GetBoilsDto) {
     // console.log(dto);
     const { boils, count } = await this.boilsService.getBoilsWithFilter(dto);
-    const result = await Promise.all(await boils.map((item) => this.getBoilReportRowData(item)));
+    const result = await Promise.all(
+      await boils.map((item) => this.getBoilReportRowData(item)),
+    );
     return { rows: result, total: count };
   }
 

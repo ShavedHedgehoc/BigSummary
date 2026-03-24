@@ -16,7 +16,9 @@ export class RegulationsController {
     return this.regulationsService.bulkUpdateRegulations(dto);
   }
 
-  @ApiOperation({ summary: "Получить строку регламента с деталями по id продукта" })
+  @ApiOperation({
+    summary: "Получить строку регламента с деталями по id продукта",
+  })
   @ApiResponse({ status: 200 })
   @Get("/:id")
   getRecordsById(@Param("id") id: string) {

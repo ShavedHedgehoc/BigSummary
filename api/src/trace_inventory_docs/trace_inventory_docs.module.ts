@@ -7,7 +7,9 @@ import TraceInventoryDoc from "src/trace_models/trace_inventory_doc.model";
 @Module({
   providers: [TraceInventoryDocsService],
   controllers: [TraceInventoryDocsController],
-  imports: [SequelizeModule.forFeature([TraceInventoryDoc], "trace_connection")],
+  imports: [
+    SequelizeModule.forFeature([TraceInventoryDoc], "trace_connection"),
+  ],
   exports: [TraceInventoryDocsService],
 })
 export class TraceInventoryDocsModule {}

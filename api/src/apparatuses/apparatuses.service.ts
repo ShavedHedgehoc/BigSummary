@@ -6,19 +6,23 @@ import Apparatus from "./apparatuses.model";
 export class ApparatusesService {
   constructor(
     @InjectModel(Apparatus)
-    private apparatusRepository: typeof Apparatus
+    private apparatusRepository: typeof Apparatus,
   ) {}
 
   async getOrCreateByValue(value: string) {
     if (value === "-" || !value) {
       return null;
     }
-    const [apparatus, _] = await this.apparatusRepository.findOrCreate({ where: { value: value } });
+    const [apparatus, _] = await this.apparatusRepository.findOrCreate({
+      where: { value: value },
+    });
     return apparatus;
   }
 
   async getByValue(value: string) {
-    const apparatus = await this.apparatusRepository.findOne({ where: { value: value } });
+    const apparatus = await this.apparatusRepository.findOne({
+      where: { value: value },
+    });
     return apparatus;
   }
 }

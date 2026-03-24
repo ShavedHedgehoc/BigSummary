@@ -7,7 +7,7 @@ import { CreateHistoryTypeDto } from "./dto/create-history-type.dto";
 export class HistoryTypesService {
   constructor(
     @InjectModel(HistoryType)
-    private historyTypesRepository: typeof HistoryType
+    private historyTypesRepository: typeof HistoryType,
   ) {}
 
   async getAllHistoryTypes() {
@@ -30,7 +30,9 @@ export class HistoryTypesService {
   }
 
   async getByValue(value: string) {
-    const historyType = await this.historyTypesRepository.findOne({ where: { value: value } });
+    const historyType = await this.historyTypesRepository.findOne({
+      where: { value: value },
+    });
     return historyType;
   }
 

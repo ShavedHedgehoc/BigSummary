@@ -8,7 +8,10 @@ import { TraceLoadsModule } from "src/trace_loads/trace_loads.module";
 @Module({
   providers: [TraceTechnologyService],
   controllers: [TraceTechnologyController],
-  imports: [SequelizeModule.forFeature([TraceBoilRecord], "trace_connection"), TraceLoadsModule],
+  imports: [
+    SequelizeModule.forFeature([TraceBoilRecord], "trace_connection"),
+    TraceLoadsModule,
+  ],
   exports: [TraceTechnologyService],
 })
 export class TraceTechnologyModule {}

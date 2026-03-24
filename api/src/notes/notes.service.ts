@@ -6,7 +6,7 @@ import Note from "./notes.model";
 export class NotesService {
   constructor(
     @InjectModel(Note)
-    private notesRepository: typeof Note
+    private notesRepository: typeof Note,
   ) {}
 
   async create(value: string) {

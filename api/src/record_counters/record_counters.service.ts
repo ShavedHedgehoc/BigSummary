@@ -6,7 +6,7 @@ import RecordCounter from "./record_counters.model";
 export class RecordCountersService {
   constructor(
     @InjectModel(RecordCounter)
-    private recordCounterRepository: typeof RecordCounter
+    private recordCounterRepository: typeof RecordCounter,
   ) {}
 
   async getTaskSum(id: number): Promise<number> {
