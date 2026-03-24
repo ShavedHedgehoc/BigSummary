@@ -108,8 +108,9 @@ export class HistoriesService {
             `${$note?.value ? `\n*${esc($note.value)}*` : ""}`;
           break;
       }
-      console.log(text);
-      console.log(process.env.EXPRESS_API_URL);
+
+      console.log("API_URL", process.env.EXPRESS_API_URL);
+      console.log("plant_abb", $plant?.abb);
       if (text && $plant?.abb) {
         const plantPrefix = PLANT_MAP[$plant.abb] || $plant.abb;
         const envKey = `${plantPrefix}_${chatType}_CHAT_ID`;
