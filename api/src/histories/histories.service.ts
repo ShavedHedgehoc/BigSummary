@@ -41,7 +41,7 @@ export class HistoriesService {
     private basesService: BasesService,
     private notesService: NotesService,
     private apiErrorsService: ApiErrorsService,
-  ) {}
+  ) { }
 
   private replaceEscapeChars(textString: string) {
     textString = textString
@@ -108,12 +108,13 @@ export class HistoriesService {
             `${$note?.value ? `\n*${esc($note.value)}*` : ""}`;
           break;
       }
-
+      console.log(text);
+      console.log(process.env.EXPRESS_API_URL);
       if (text && $plant?.abb) {
         const plantPrefix = PLANT_MAP[$plant.abb] || $plant.abb;
         const envKey = `${plantPrefix}_${chatType}_CHAT_ID`;
         const chatId = process.env[envKey];
-
+        console.log(chatId);
         if (chatId) {
           try {
             await axios.get(process.env.EXPRESS_API_URL, {
