@@ -76,12 +76,14 @@ export class HistoriesService {
       const $apparatus = $lastRecord
         ? await $lastRecord.$get("apparatus")
         : null;
-      const $plant = $boil ? await $boil.$get("plant") : null;
+
+
 
       const esc = (val: string | null) => this.replaceEscapeChars(val || "-");
 
       let text = "";
       let chatType = "TECHNOLOGIST";
+      let $plant = null
 
       const commonHeader =
         `${esc($user?.name)}:\n` +
@@ -92,12 +94,15 @@ export class HistoriesService {
         case "base_correct":
         case "plug_pass":
         case "base_continue":
+          $plant = $boil ? await $boil.$get("plant") : null;
           text = `${commonHeader}\n**${esc($historyType.description)}**${$note?.value ? `\n*${esc($note.value)}*` : ""}`;
           break;
 
         case "product_pass":
           const product = $record ? await $record.$get("product") : null;
           const conveyor = $record ? await $record.$get("conveyor") : null;
+          const $document = await $record.$get("doc");
+          $plant = $document ? await $document.$get("plants") : null;
           chatType = "PACKAGING";
           text =
             `${esc($user?.name)}:\n` +
