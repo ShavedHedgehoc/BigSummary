@@ -109,7 +109,7 @@ export class HistoriesService {
           break;
       }
 
-      console.log("API_URL", process.env.EXPRESS_API_URL);
+      console.log("plant", $plant);
       console.log("plant_abb", $plant?.abb);
       if (text && $plant?.abb) {
         const plantPrefix = PLANT_MAP[$plant.abb] || $plant.abb;
