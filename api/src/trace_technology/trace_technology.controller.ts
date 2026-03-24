@@ -6,7 +6,10 @@ import { TraceTechnologyService } from "./trace_technology.service";
 @Controller("trace-technology")
 export class TraceTechnologyController {
   constructor(private traceTechnologyService: TraceTechnologyService) {}
-  @ApiOperation({ summary: "Получить строки технологии и взвешиваний из прослеживаемости по id партии" })
+  @ApiOperation({
+    summary:
+      "Получить строки технологии и взвешиваний из прослеживаемости по id партии",
+  })
   @Get("/:batchPK")
   getWeightingsRows(@Param("batchPK") batchPK: string) {
     // return this.traceTechnologyService.getTechnologyRows(Number(batchPK));

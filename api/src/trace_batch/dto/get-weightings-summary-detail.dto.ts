@@ -1,9 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class GetWeightingsSummaryDetailDto {
-  @ApiProperty({ example: "2025-10-06 00:00:00.000", description: "Начальная дата" })
+  @ApiProperty({
+    example: "2025-10-06 00:00:00.000",
+    description: "Начальная дата",
+  })
   readonly startDate: string;
-  @ApiProperty({ example: "2025-10-31 00:00:00.000", description: "Конечная дата" })
+  @ApiProperty({
+    example: "2025-10-31 00:00:00.000",
+    description: "Конечная дата",
+  })
   readonly endDate: string;
   @ApiProperty({ example: 28538, description: "id работника" })
   readonly author_id: number;

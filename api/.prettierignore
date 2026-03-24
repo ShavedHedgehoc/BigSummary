@@ -1,0 +1,18 @@
+# Сборки и кэш
+dist/
+build/
+.next/
+out/
+node_modules/
+
+# Prisma (сгенерированные типы не нужно форматировать)
+api_tubes/generated/
+api_tubes/node_modules/.prisma/
+
+# Конфиги и логи
+*.log
+.dockerignore
+package-lock.json
+
+# Если есть статика
+public/

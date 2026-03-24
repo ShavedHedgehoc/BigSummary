@@ -9,17 +9,22 @@ export class ProductsService {
   constructor(
     @InjectModel(Product)
     private productRepository: typeof Product,
-    private serieService: SeriesService
+    private serieService: SeriesService,
   ) {}
 
   async createProduct(dto: CreateProductDto) {
     const serie = await this.serieService.getOrCreateByValue(dto.serie);
-    const product = await this.productRepository.create({ ...dto, serieId: serie.id });
+    const product = await this.productRepository.create({
+      ...dto,
+      serieId: serie.id,
+    });
     return product;
   }
 
   async getAllProducts() {
-    const products = await this.productRepository.findAll({ include: { all: true } });
+    const products = await this.productRepository.findAll({
+      include: { all: true },
+    });
     return products;
   }
 
@@ -29,11 +34,17 @@ export class ProductsService {
   }
 
   async getOrCreateByCode(code: string, marking: string, serieId: number) {
-    const existProduct = await this.productRepository.findOne({ where: { code1C: code } });
+    const existProduct = await this.productRepository.findOne({
+      where: { code1C: code },
+    });
     if (existProduct) {
       return existProduct;
     }
-    const product = await this.productRepository.create({ code1C: code, marking: marking, serieId: serieId });
+    const product = await this.productRepository.create({
+      code1C: code,
+      marking: marking,
+      serieId: serieId,
+    });
     return product;
   }
 }

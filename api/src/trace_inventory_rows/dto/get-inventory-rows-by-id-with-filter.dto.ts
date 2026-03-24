@@ -9,6 +9,8 @@ export interface GetInventoryRowsFilter {
 export class GetInventoryRowsByIdWithFilterDto {
   @ApiProperty({ example: 1 })
   readonly inventoryId: number;
-  @ApiProperty({ example: `{"productCode":"000334", "dayToExpire":15, "toFilter":true}` })
+  @ApiProperty({
+    example: `{"productCode":"000334", "dayToExpire":15, "toFilter":true}`,
+  })
   readonly filter: GetInventoryRowsFilter;
 }

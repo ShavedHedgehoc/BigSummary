@@ -20,7 +20,10 @@ interface RecordCounterCreationsAttrs {
 }
 
 @Table({ tableName: "record_counters" })
-export default class RecordCounter extends Model<RecordCounter, RecordCounterCreationsAttrs> {
+export default class RecordCounter extends Model<
+  RecordCounter,
+  RecordCounterCreationsAttrs
+> {
   @ApiProperty({ example: "1", description: "Уникальный id записи" })
   @PrimaryKey
   @AutoIncrement
@@ -32,7 +35,10 @@ export default class RecordCounter extends Model<RecordCounter, RecordCounterCre
   @Column
   record_id: number;
 
-  @ApiProperty({ example: "c4a40b9a-a608-4a38-832b-6b16d0cc8a72", description: "uuid задачи маркировки" })
+  @ApiProperty({
+    example: "c4a40b9a-a608-4a38-832b-6b16d0cc8a72",
+    description: "uuid задачи маркировки",
+  })
   @Unique
   @Column
   task_uid: string;

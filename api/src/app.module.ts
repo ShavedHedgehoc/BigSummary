@@ -181,7 +181,6 @@ DataTypes.DATE.prototype._stringify = function _stringify(date, options) {
       database: process.env.POSTGRES_DB,
       // logging: process.env.NODE_ENV === "development" ? console.log : false,
       logging: false,
-
       models: [
         User,
         Role,

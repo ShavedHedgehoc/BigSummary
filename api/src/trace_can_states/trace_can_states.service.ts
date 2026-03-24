@@ -6,7 +6,7 @@ import TraceCanState from "src/trace_models/trace_can_state.model";
 export class TraceCanStatesService {
   constructor(
     @InjectModel(TraceCanState, "trace_connection")
-    private traceCanStateRepository: typeof TraceCanState
+    private traceCanStateRepository: typeof TraceCanState,
   ) {}
 
   async getCanStates() {

@@ -1,4 +1,10 @@
-import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import TraceWeighting from "src/trace_models/trace_weighting.model";
 import TraceBoil from "./trace_boils.model";
 import TraceBtProduct from "./trace_bt_product.model";

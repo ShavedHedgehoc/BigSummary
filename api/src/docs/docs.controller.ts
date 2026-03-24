@@ -1,5 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
-import { ApiBadRequestResponse, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBadRequestResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import { DocsService } from "./docs.service";
 import Doc from "./docs.model";
 import { CreateDocDto } from "./dto/create-doc.dto";
@@ -40,7 +45,9 @@ export class DocsController {
 
   @ApiOperation({ summary: "Создание новой сводки" })
   @ApiResponse({ status: 201, type: Doc })
-  @ApiBadRequestResponse({ description: "Сводка на эту площадку и дату уже существует" })
+  @ApiBadRequestResponse({
+    description: "Сводка на эту площадку и дату уже существует",
+  })
   @Post()
   create(@Body() dto: CreateDocDto) {
     return this.docsService.createDoc(dto);

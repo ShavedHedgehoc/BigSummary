@@ -8,7 +8,7 @@ export class TraceTechnologyService {
   constructor(
     @InjectModel(TraceBoilRecord, "trace_connection")
     private traceBoilRecordRepository: typeof TraceBoilRecord,
-    private traceLoadService: TraceLoadsService
+    private traceLoadService: TraceLoadsService,
   ) {}
 
   async technologyResult(item: TraceBoilRecord) {
@@ -28,16 +28,22 @@ export class TraceTechnologyService {
   }
 
   async getTechnologyRows(batchPK: number) {
-    const technologies = await this.traceBoilRecordRepository.findAll<TraceBoilRecord>({
-      where: { BatchId: batchPK },
-      order: [["CreateDate", "ASC"]],
-    });
-    return await Promise.all(await technologies.map((item) => this.technologyResult(item)));
+    const technologies =
+      await this.traceBoilRecordRepository.findAll<TraceBoilRecord>({
+        where: { BatchId: batchPK },
+        order: [["CreateDate", "ASC"]],
+      });
+    return await Promise.all(
+      await technologies.map((item) => this.technologyResult(item)),
+    );
   }
 
   async getBoilCard(batchPK: number) {
     const tech_rows = await this.getTechnologyRows(batchPK);
-    const load_rows = await this.traceLoadService.getLoadsRowsForTechnology(batchPK);
-    return [...tech_rows, ...load_rows].sort((a, b) => (a.date > b.date ? 1 : b.date > a.date ? -1 : 0));
+    const load_rows =
+      await this.traceLoadService.getLoadsRowsForTechnology(batchPK);
+    return [...tech_rows, ...load_rows].sort((a, b) =>
+      a.date > b.date ? 1 : b.date > a.date ? -1 : 0,
+    );
   }
 }

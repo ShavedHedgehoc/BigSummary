@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { NotesService } from "./notes.service";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { NotesController } from './notes.controller';
+import { NotesController } from "./notes.controller";
 import Note from "./notes.model";
 
 @Module({

@@ -6,7 +6,10 @@ interface ITrademarkFilter {
 }
 
 export class GetTraceTrademarksDto {
-  @ApiProperty({ example: `{"trademark":"", "product_code":"", "product_name":""}`, description: "Фильтр" })
+  @ApiProperty({
+    example: `{"trademark":"", "product_code":"", "product_name":""}`,
+    description: "Фильтр",
+  })
   readonly filter: ITrademarkFilter;
   @ApiProperty({ example: 10, description: "На странице" })
   readonly limit: number;

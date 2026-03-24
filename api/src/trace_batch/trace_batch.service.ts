@@ -14,10 +14,15 @@ export interface TraceBatchByIdResp {}
 
 @Injectable()
 export class TraceBatchService {
-  constructor(@InjectModel(TraceBatch, "trace_connection") private traceBatchRepository: typeof TraceBatch) {}
+  constructor(
+    @InjectModel(TraceBatch, "trace_connection")
+    private traceBatchRepository: typeof TraceBatch,
+  ) {}
 
   async getByName(batchName: string): Promise<TraceBatch> {
-    const traceBatch = await this.traceBatchRepository.findOne<TraceBatch>({ where: { BatchName: batchName } });
+    const traceBatch = await this.traceBatchRepository.findOne<TraceBatch>({
+      where: { BatchName: batchName },
+    });
     if (!traceBatch) {
       throw new HttpException("Партия не найдена", HttpStatus.NOT_FOUND);
     }
@@ -30,7 +35,12 @@ export class TraceBatchService {
         [col("TraceBatch.BatchPK"), "batch_id"],
         [col("BatchName"), "batch_name"],
         [col("BatchDate"), "date"],
-        [literal("CASE WHEN Plant = 'П' THEN 'Пискаревка' WHEN Plant = 'К' THEN 'Колпино' ELSE '' END"), "plant"],
+        [
+          literal(
+            "CASE WHEN Plant = 'П' THEN 'Пискаревка' WHEN Plant = 'К' THEN 'Колпино' ELSE '' END",
+          ),
+          "plant",
+        ],
         [col("bt_products.trace_product.ProductId"), "product_id"],
         [col("bt_products.trace_product.ProductMarking"), "marking"],
       ],
@@ -97,33 +107,37 @@ export class TraceBatchService {
     OPTION (RECOMPILE)    
     `;
 
-    const countResp: CountResp[] = await this.traceBatchRepository.sequelize.query(new_count_query, {
-      replacements: {
-        batch: dto.filter.batch === "" ? null : dto.filter.batch,
-        start_date: dto.filter.startDate,
-        end_date: dto.filter.endDate,
-        plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
-        marking: dto.filter.marking === "" ? null : dto.filter.marking,
-        month: dto.filter.month === "" ? null : dto.filter.month,
-        year: dto.filter.year === "" ? null : dto.filter.year,
-      },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const countResp: CountResp[] =
+      await this.traceBatchRepository.sequelize.query(new_count_query, {
+        replacements: {
+          batch: dto.filter.batch === "" ? null : dto.filter.batch,
+          start_date: dto.filter.startDate,
+          end_date: dto.filter.endDate,
+          plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
+          marking: dto.filter.marking === "" ? null : dto.filter.marking,
+          month: dto.filter.month === "" ? null : dto.filter.month,
+          year: dto.filter.year === "" ? null : dto.filter.year,
+        },
+        type: sequelize.QueryTypes.SELECT,
+      });
 
-    const rowsResp = await this.traceBatchRepository.sequelize.query(new_row_query, {
-      replacements: {
-        batch: dto.filter.batch === "" ? null : dto.filter.batch,
-        start_date: dto.filter.startDate,
-        end_date: dto.filter.endDate,
-        plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
-        marking: dto.filter.marking === "" ? null : dto.filter.marking,
-        month: dto.filter.month === "" ? null : dto.filter.month,
-        year: dto.filter.year === "" ? null : dto.filter.year,
-        offset: dto.limit * (dto.page - 1),
-        limit: dto.limit,
+    const rowsResp = await this.traceBatchRepository.sequelize.query(
+      new_row_query,
+      {
+        replacements: {
+          batch: dto.filter.batch === "" ? null : dto.filter.batch,
+          start_date: dto.filter.startDate,
+          end_date: dto.filter.endDate,
+          plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
+          marking: dto.filter.marking === "" ? null : dto.filter.marking,
+          month: dto.filter.month === "" ? null : dto.filter.month,
+          year: dto.filter.year === "" ? null : dto.filter.year,
+          offset: dto.limit * (dto.page - 1),
+          limit: dto.limit,
+        },
+        type: sequelize.QueryTypes.SELECT,
       },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    );
 
     return { total: countResp[0].count, rows: rowsResp };
     // return { total: 50000, rows: rowsResp };
@@ -186,12 +200,15 @@ export class TraceBatchService {
         END
     ASC
     `;
-    const summaryData = await this.traceBatchRepository.sequelize.query(summary_qry, {
-      replacements: {
-        batch_id: id,
+    const summaryData = await this.traceBatchRepository.sequelize.query(
+      summary_qry,
+      {
+        replacements: {
+          batch_id: id,
+        },
+        type: sequelize.QueryTypes.SELECT,
       },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    );
     return { summary_data: summaryData };
   }
 
@@ -472,20 +489,23 @@ export class TraceBatchService {
             );
     `;
 
-    const countResp: CountResp[] = await this.traceBatchRepository.sequelize.query(c_qry2, {
-      replacements: {
-        batchName: dto.filter.batchName,
-        startDate: dto.filter.startDate,
-        endDate: dto.filter.endDate,
-        productId: dto.filter.productId,
-        compare: dto.filter.compare ? "true" : "false",
-        plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
-      },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const countResp: CountResp[] =
+      await this.traceBatchRepository.sequelize.query(c_qry2, {
+        replacements: {
+          batchName: dto.filter.batchName,
+          startDate: dto.filter.startDate,
+          endDate: dto.filter.endDate,
+          productId: dto.filter.productId,
+          compare: dto.filter.compare ? "true" : "false",
+          plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
+        },
+        type: sequelize.QueryTypes.SELECT,
+      });
 
     const rowsResp = await this.traceBatchRepository.sequelize.query(
-      dto.filter.sortByBatch ? rq_head + rq_sort_by_batch + rq_end : rq_head + rq_sort_by_product + rq_end,
+      dto.filter.sortByBatch
+        ? rq_head + rq_sort_by_batch + rq_end
+        : rq_head + rq_sort_by_product + rq_end,
       {
         replacements: {
           batchName: dto.filter.batchName,
@@ -498,7 +518,7 @@ export class TraceBatchService {
           limit: dto.limit,
         },
         type: sequelize.QueryTypes.SELECT,
-      }
+      },
     );
 
     return { total: countResp[0].count, rows: rowsResp };
@@ -556,14 +576,17 @@ export class TraceBatchService {
             ON Load_qry.ContainerPK = Weightings.ContainerPK
         WHERE BatchName = (:batchName) AND Weightings.ProductId = (:productId)
         ORDER BY Documents.CreateDate ASC`;
-    const detailResp = await this.traceBatchRepository.sequelize.query(detail_query, {
-      replacements: {
-        batchName: dto.batchName,
-        productId: dto.productId,
-      },
+    const detailResp = await this.traceBatchRepository.sequelize.query(
+      detail_query,
+      {
+        replacements: {
+          batchName: dto.batchName,
+          productId: dto.productId,
+        },
 
-      type: sequelize.QueryTypes.SELECT,
-    });
+        type: sequelize.QueryTypes.SELECT,
+      },
+    );
     return detailResp;
   }
   async deleteWeightingsByContainerId(conatinerId: number) {
@@ -586,15 +609,19 @@ export class TraceBatchService {
         ContainerPK = (:ContainerPK)
     `;
 
-    const countResp: CountResp[] = await this.traceBatchRepository.sequelize.query(load_qry, {
-      replacements: {
-        ContainerPK: conatinerId,
-      },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const countResp: CountResp[] =
+      await this.traceBatchRepository.sequelize.query(load_qry, {
+        replacements: {
+          ContainerPK: conatinerId,
+        },
+        type: sequelize.QueryTypes.SELECT,
+      });
 
     if (countResp[0].count > 0) {
-      throw new HttpException(`Емкость загружена, удаление невозможно...`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        `Емкость загружена, удаление невозможно...`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
     await this.traceBatchRepository.sequelize.query(deleteQuery, {
       replacements: {
@@ -650,19 +677,24 @@ export class TraceBatchService {
     ORDER BY  a.AuthorName ;
     `;
 
-    const rowsResp = await this.traceBatchRepository.sequelize.query(new_query, {
-      replacements: {
-        startDate: dto.filter.startDate,
-        endDate: dto.filter.endDate,
-        author: dto.filter.author === "" ? null : dto.filter.author,
-        plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
+    const rowsResp = await this.traceBatchRepository.sequelize.query(
+      new_query,
+      {
+        replacements: {
+          startDate: dto.filter.startDate,
+          endDate: dto.filter.endDate,
+          author: dto.filter.author === "" ? null : dto.filter.author,
+          plant: dto.filter.plants.length ? dto.filter.plants[0] : null,
+        },
+        type: sequelize.QueryTypes.SELECT,
       },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    );
 
     return rowsResp;
   }
-  async getWeightingsDepartmentsSummaryDetail(dto: GetWeightingsSummaryDetailDto) {
+  async getWeightingsDepartmentsSummaryDetail(
+    dto: GetWeightingsSummaryDetailDto,
+  ) {
     interface CountResp {
       count: number;
     }
@@ -702,25 +734,29 @@ export class TraceBatchService {
     FETCH NEXT (:limit) ROWS ONLY
     `;
 
-    const countResp: CountResp[] = await this.traceBatchRepository.sequelize.query(count_qry_new, {
-      replacements: {
-        startDate: dto.startDate,
-        endDate: dto.endDate,
-        author_id: dto.author_id,
-      },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const countResp: CountResp[] =
+      await this.traceBatchRepository.sequelize.query(count_qry_new, {
+        replacements: {
+          startDate: dto.startDate,
+          endDate: dto.endDate,
+          author_id: dto.author_id,
+        },
+        type: sequelize.QueryTypes.SELECT,
+      });
 
-    const rowsResp = await this.traceBatchRepository.sequelize.query(row_qry_new, {
-      replacements: {
-        startDate: dto.startDate,
-        endDate: dto.endDate,
-        author_id: dto.author_id,
-        offset: dto.limit * (dto.page - 1),
-        limit: dto.limit,
+    const rowsResp = await this.traceBatchRepository.sequelize.query(
+      row_qry_new,
+      {
+        replacements: {
+          startDate: dto.startDate,
+          endDate: dto.endDate,
+          author_id: dto.author_id,
+          offset: dto.limit * (dto.page - 1),
+          limit: dto.limit,
+        },
+        type: sequelize.QueryTypes.SELECT,
       },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    );
 
     return { total: countResp[0].count, rows: rowsResp };
   }

@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Inject, Injectable, forwardRef } from "@nestjs/common";
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  forwardRef,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import axios from "axios";
 import { Op } from "sequelize";
@@ -11,7 +17,7 @@ import { RecordsService } from "src/records/records.service";
 import { UsersService } from "src/users/users.service";
 import { BoilsService } from "src/boils/boils.service";
 import HistoryType from "src/history_types/history_types.model";
-import { DbRoles } from "src/resources/dbRoles";
+// import { DbRoles } from "src/resources/dbRoles";
 import { EmployeesService } from "src/employees/employees.service";
 import { ProductsService } from "src/products/products.service";
 import { BasesService } from "src/bases/bases.service";
@@ -34,170 +40,95 @@ export class HistoriesService {
     private productService: ProductsService,
     private basesService: BasesService,
     private notesService: NotesService,
-    private apiErrorsService: ApiErrorsService
-  ) {}
+    private apiErrorsService: ApiErrorsService,
+  ) { }
 
   private replaceEscapeChars(textString: string) {
-    textString = textString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    textString = textString
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
     return textString;
   }
 
   async sendMessages(hystories: History[]) {
-    hystories.forEach(async (history) => {
-      const $record = await history.$get("record");
-      const $user = await history.$get("user");
-      const $employee = await history.$get("employee");
-      const $product = $record ? await $record.$get("product") : null;
-      const $boil = $record ? await $record.$get("boil") : await history.$get("boil");
-      const $historyType = await history.$get("historyType");
-      const msg = `${$user ? $user.name : $employee.name}: ${$product ? $product.marking : "Основа"} - ${$boil ? $boil.value : "-"} - ${$historyType.description} `;
-      const htmlSafeMsg = this.replaceEscapeChars(msg);
-      try {
-        await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-          params: {
-            chat_id: process.env.CHAT_ID,
-            text: htmlSafeMsg,
-            parse_mode: "HTML",
-          },
-        });
-      } catch (error) {
-        console.log(error);
+    const PLANT_MAP: Record<string, string> = {
+      КЛП: "KLP",
+      ПСК: "PSK",
+    };
+
+    for (const history of hystories) {
+      const [$record, $user, $historyType, $note] = await Promise.all([
+        history.$get("record"),
+        history.$get("user"),
+        history.$get("historyType"),
+        history.$get("history_note"),
+      ]);
+
+      if (!$historyType) continue;
+
+      const $boil = $record
+        ? await $record.$get("boil")
+        : await history.$get("boil");
+      const $lastRecord = $boil
+        ? await this.recordsService.getLastRecordByBoilId($boil.id)
+        : null;
+      const $apparatus = $lastRecord
+        ? await $lastRecord.$get("apparatus")
+        : null;
+
+
+
+      const esc = (val: string | null) => this.replaceEscapeChars(val || "-");
+
+      let text = "";
+      let chatType = "TECHNOLOGIST";
+      let $plant = null
+
+      const commonHeader =
+        `${esc($user?.name)}:\n` +
+        `Аппарат: **${esc($apparatus?.value)}**\n` +
+        `Партия: **${esc($boil?.value)}**`;
+
+      switch ($historyType.value) {
+        case "base_correct":
+        case "plug_pass":
+        case "base_continue":
+          $plant = $boil ? await $boil.$get("plant") : null;
+          text = `${commonHeader}\n**${esc($historyType.description)}**${$note?.value ? `\n*${esc($note.value)}*` : ""}`;
+          break;
+
+        case "product_pass":
+          const product = $record ? await $record.$get("product") : null;
+          const conveyor = $record ? await $record.$get("conveyor") : null;
+          const $document = await $record.$get("doc");
+          $plant = $document ? await $document.$get("plants") : null;
+          chatType = "PACKAGING";
+          text =
+            `${esc($user?.name)}:\n` +
+            `Конвейер: **${esc(conveyor?.value)}**\n` +
+            `Продукт: **${esc(product?.marking)}**\n` +
+            `Партия: **${esc($boil?.value)}**\n` +
+            `**${esc($historyType.description)}**` +
+            `${$note?.value ? `\n*${esc($note.value)}*` : ""}`;
+          break;
       }
 
-      if ($historyType && $historyType.value === "base_correct") {
-        const $note = await history.$get("history_note");
-        const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
-        const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
-        const $plant = $boil ? await $boil.$get("plant") : null;
-
-        const base_correct_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nАппарат: <b>${this.replaceEscapeChars($apparatus ? $apparatus.value : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>\n<i>${this.replaceEscapeChars($note ? $note.value : "")}</i>`;
-
-        if ($plant && $plant.abb === "КЛП") {
+      if (text && $plant?.abb) {
+        const plantPrefix = PLANT_MAP[$plant.abb] || $plant.abb;
+        const envKey = `${plantPrefix}_${chatType}_CHAT_ID`;
+        const chatId = process.env[envKey];
+        if (chatId) {
           try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.KLP_TECHNOLOGIST_CHAT_ID,
-                text: base_correct_msg,
-                parse_mode: "HTML",
-              },
+            await axios.get(process.env.EXPRESS_API_URL, {
+              params: { chatid: chatId, text },
             });
           } catch (error) {
-            console.log(error);
-          }
-        } else if ($plant && $plant.abb === "ПСК") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.PSK_TECHNOLOGIST_CHAT_ID,
-                text: base_correct_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
+            console.error(`Ошибка отправки: ${error.message}`);
           }
         }
       }
-
-      if ($historyType && $historyType.value === "plug_pass") {
-        const $note = await history.$get("history_note");
-        const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
-        const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
-        const $plant = $boil ? await $boil.$get("plant") : null;
-        const plug_pass_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nАппарат: <b>${this.replaceEscapeChars($apparatus ? $apparatus.value : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>\n<i>${this.replaceEscapeChars($note ? $note.value : "")}</i>`;
-        if ($plant && $plant.abb === "КЛП") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.KLP_TECHNOLOGIST_CHAT_ID,
-                text: plug_pass_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        } else if ($plant && $plant.abb === "ПСК") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.PSK_TECHNOLOGIST_CHAT_ID,
-                text: plug_pass_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      }
-
-      if ($historyType && $historyType.value === "base_continue") {
-        const $lastRecord = await this.recordsService.getLastRecordByBoilId($boil.id);
-        const $apparatus = $lastRecord ? await $lastRecord.$get("apparatus") : null;
-        const $plant = $boil ? await $boil.$get("plant") : null;
-        const base_continue_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nАппарат: <b>${this.replaceEscapeChars($apparatus ? $apparatus.value : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>`;
-        if ($plant && $plant.abb === "КЛП") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.KLP_TECHNOLOGIST_CHAT_ID,
-                text: base_continue_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        } else if ($plant && $plant.abb === "ПСК") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.PSK_TECHNOLOGIST_CHAT_ID,
-                text: base_continue_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      }
-
-      if ($historyType && $historyType.value === "product_pass") {
-        const $note = await history.$get("history_note");
-        const $document = await $record.$get("doc");
-        const $plant = $document ? await $document.$get("plants") : null;
-        const $conveyor = await $record.$get("conveyor");
-        const product_pass_msg = `${this.replaceEscapeChars($user ? $user.name : "-")}:\nКонвейер: <b>${this.replaceEscapeChars($conveyor ? $conveyor.value : "-")}</b>\nПродукт: <b>${this.replaceEscapeChars($product ? $product.marking : "-")}</b>\nПартия: <b>${this.replaceEscapeChars($boil ? $boil.value : "-")}</b>\n<b>${this.replaceEscapeChars($historyType.description)}</b>\n<i>${this.replaceEscapeChars($note ? $note.value : "")}</i>`;
-
-        if ($plant && $plant.abb === "КЛП") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.KLP_PACKAGING_CHAT_ID,
-                text: product_pass_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        } else if ($plant && $plant.abb === "ПСК") {
-          try {
-            await axios.get(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-              params: {
-                chat_id: process.env.PSK_PACKAGING_CHAT_ID,
-                text: product_pass_msg,
-                parse_mode: "HTML",
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      }
-    });
+    }
   }
 
   async checkUserRole(id: number | null, role: string) {
@@ -209,7 +140,10 @@ export class HistoriesService {
     }
     //move to userService
     if (userRoles.indexOf(role) === -1) {
-      throw new HttpException(`Недостаточно прав для внесения записей...`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        `Недостаточно прав для внесения записей...`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
@@ -224,7 +158,13 @@ export class HistoriesService {
   async createHistory(dto: AddHistoryDtoNew) {
     const historyType = await this.getHistoryType(dto.historyType);
     const isBase =
-      ["base_check", "plug_pass", "base_fail", "base_correct", "base_continue"].indexOf(dto.historyType) !== -1;
+      [
+        "base_check",
+        "plug_pass",
+        "base_fail",
+        "base_correct",
+        "base_continue",
+      ].indexOf(dto.historyType) !== -1;
     const boil = await this.boilService.getOrCreateByValue(dto.boil_value);
     const base = await this.basesService.getOrCreateByCode(dto.base_code);
     if (boil && base && dto.plant_id) {
@@ -239,7 +179,13 @@ export class HistoriesService {
     const note = await this.notesService.create(dto.history_note);
 
     const note_id = note ? note.id : null;
-    const recDto = { ...dto, historyTypeId: historyType.id, record_id: record_id, boil_id: boil_id, note_id: note_id };
+    const recDto = {
+      ...dto,
+      historyTypeId: historyType.id,
+      record_id: record_id,
+      boil_id: boil_id,
+      note_id: note_id,
+    };
     const history = await this.historyRepository.create(recDto);
     await this.sendMessages([history]);
     return history;
@@ -248,9 +194,14 @@ export class HistoriesService {
   async directAddHistorie(dto: AddHistoryDtoNew) {
     if (
       !dto.boil_value &&
-      (dto.historyType === "base_check" || dto.historyType === "base_fail" || dto.historyType === "plug_pass")
+      (dto.historyType === "base_check" ||
+        dto.historyType === "base_fail" ||
+        dto.historyType === "plug_pass")
     ) {
-      throw new HttpException("Нет основы, прикрепленной к строке сводки", HttpStatus.CONFLICT);
+      throw new HttpException(
+        "Нет основы, прикрепленной к строке сводки",
+        HttpStatus.CONFLICT,
+      );
     }
     // await this.checkUserRole(dto.userId, DbRoles.GODMODE);
     const history = await this.createHistory(dto);
@@ -260,7 +211,10 @@ export class HistoriesService {
   async addHistorie(dto: AddHistoryDtoNew) {
     const findRecordId = async () => {
       if (dto.boil_value && dto.code) {
-        const record = await this.recordsService.getCurrentRecordByBoilAndCode(dto.boil_value, dto.code);
+        const record = await this.recordsService.getCurrentRecordByBoilAndCode(
+          dto.boil_value,
+          dto.code,
+        );
         return record ? record.id : dto.record_id;
       }
       return dto.record_id;
@@ -295,7 +249,10 @@ export class HistoriesService {
           dto: JSON.stringify(dto),
           message: ApiMessages.BASE_ALREADY_ON_CHECK,
         });
-        throw new HttpException(ApiMessages.BASE_ALREADY_ON_CHECK, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ApiMessages.BASE_ALREADY_ON_CHECK,
+          HttpStatus.BAD_REQUEST,
+        );
       }
       const isValid =
         lastHistory?.historyType.value === "base_fail" ||
@@ -306,7 +263,10 @@ export class HistoriesService {
           dto: JSON.stringify(dto),
           message: ApiMessages.SECOND_CHECK_FAIL,
         });
-        throw new HttpException(ApiMessages.SECOND_CHECK_FAIL, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ApiMessages.SECOND_CHECK_FAIL,
+          HttpStatus.BAD_REQUEST,
+        );
       }
     }
 
@@ -316,17 +276,27 @@ export class HistoriesService {
           dto: JSON.stringify(dto),
           message: ApiMessages.RECORD_NOT_FOUND,
         });
-        throw new HttpException(ApiMessages.RECORD_NOT_FOUND, HttpStatus.NOT_FOUND);
+        throw new HttpException(
+          ApiMessages.RECORD_NOT_FOUND,
+          HttpStatus.NOT_FOUND,
+        );
       }
       const record = await this.recordsService.getById(record_id);
 
       // Set
-      if (record.isSet && lastHistory && lastHistory.historyType.value === "product_check") {
+      if (
+        record.isSet &&
+        lastHistory &&
+        lastHistory.historyType.value === "product_check"
+      ) {
         await this.apiErrorsService.create({
           dto: JSON.stringify(dto),
           message: ApiMessages.PRODUCT_ALREADY_ON_CHECK,
         });
-        throw new HttpException(ApiMessages.PRODUCT_ALREADY_ON_CHECK, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ApiMessages.PRODUCT_ALREADY_ON_CHECK,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       if (
@@ -340,7 +310,10 @@ export class HistoriesService {
           dto: JSON.stringify(dto),
           message: ApiMessages.NEED_EMPTY_OR_FAIL_OR_CORRECT,
         });
-        throw new HttpException(ApiMessages.NEED_EMPTY_OR_FAIL_OR_CORRECT, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ApiMessages.NEED_EMPTY_OR_FAIL_OR_CORRECT,
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       // Not set
@@ -366,13 +339,19 @@ export class HistoriesService {
             dto: JSON.stringify(dto),
             message: ApiMessages.PRODUCT_ALREADY_ON_CHECK,
           });
-          throw new HttpException(ApiMessages.PRODUCT_ALREADY_ON_CHECK, HttpStatus.BAD_REQUEST);
+          throw new HttpException(
+            ApiMessages.PRODUCT_ALREADY_ON_CHECK,
+            HttpStatus.BAD_REQUEST,
+          );
         } else {
           await this.apiErrorsService.create({
             dto: JSON.stringify(dto),
             message: ApiMessages.NEED_PROGRESS_OR_FAIL_OR_CORRECT,
           });
-          throw new HttpException(ApiMessages.NEED_PROGRESS_OR_FAIL_OR_CORRECT, HttpStatus.BAD_REQUEST);
+          throw new HttpException(
+            ApiMessages.NEED_PROGRESS_OR_FAIL_OR_CORRECT,
+            HttpStatus.BAD_REQUEST,
+          );
         }
       }
     }
@@ -381,11 +360,16 @@ export class HistoriesService {
     return history;
   }
 
-  async getLastHistory(boilValue: string | null, recordId: number | null): Promise<History> {
+  async getLastHistory(
+    boilValue: string | null,
+    recordId: number | null,
+  ): Promise<History> {
     if (boilValue) {
       const boil = await this.boilService.getOrCreateByValue(boilValue);
       const history = await this.historyRepository.findOne({
-        where: recordId ? { [Op.or]: [{ record_id: recordId }, { boil_id: boil.id }] } : { boil_id: boil.id },
+        where: recordId
+          ? { [Op.or]: [{ record_id: recordId }, { boil_id: boil.id }] }
+          : { boil_id: boil.id },
         include: [{ model: HistoryType, as: "historyType" }],
         order: [["id", "DESC"]],
       });
@@ -422,8 +406,14 @@ export class HistoriesService {
       order: [["createdAt", "ASC"]],
     });
     const historiesCount = histories.length;
-    const state = historiesCount > 0 ? histories[histories.length - 1].historyType.description : "-";
-    const stateValue = historiesCount > 0 ? histories[histories.length - 1].historyType.value : null;
+    const state =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.description
+        : "-";
+    const stateValue =
+      historiesCount > 0
+        ? histories[histories.length - 1].historyType.value
+        : null;
 
     return {
       historiesCount: historiesCount,
@@ -435,9 +425,14 @@ export class HistoriesService {
   async getHistoriesCountByRecId(recordId: number) {
     const record = await this.recordsService.getById(recordId);
     if (!record) {
-      throw new HttpException("Запись в сводке не найдена", HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        "Запись в сводке не найдена",
+        HttpStatus.NOT_FOUND,
+      );
     }
-    const histories = await this.historyRepository.findAll({ where: { record_id: recordId } });
+    const histories = await this.historyRepository.findAll({
+      where: { record_id: recordId },
+    });
     return histories.length;
   }
 
@@ -459,11 +454,16 @@ export class HistoriesService {
     return histories;
   }
 
-  async getAllHistoriesByRecIdAndBoilId(recordId: number, boilId: number | null) {
+  async getAllHistoriesByRecIdAndBoilId(
+    recordId: number,
+    boilId: number | null,
+  ) {
     // Это для запроса использовать
     const histories = await this.historyRepository.findAll({
       // where: { [Op.or]: [{ record_id: recordId }, { boil_id: boilId }] },
-      where: boilId ? { [Op.or]: [{ record_id: recordId }, { boil_id: boilId }] } : { record_id: recordId },
+      where: boilId
+        ? { [Op.or]: [{ record_id: recordId }, { boil_id: boilId }] }
+        : { record_id: recordId },
       include: [
         {
           model: HistoryType,
@@ -484,7 +484,14 @@ export class HistoriesService {
     }
     const firstBaseCheck = await this.historyRepository.findOne({
       where: { boil_id: boilId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "base_check" } }],
+      include: [
+        {
+          model: HistoryType,
+          as: "historyType",
+          required: true,
+          where: { value: "base_check" },
+        },
+      ],
       order: [["createdAt", "ASC"]],
     });
     return firstBaseCheck;
@@ -496,7 +503,14 @@ export class HistoriesService {
     }
     const lastBaseCheck = await this.historyRepository.findOne({
       where: { boil_id: boilId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "base_check" } }],
+      include: [
+        {
+          model: HistoryType,
+          as: "historyType",
+          required: true,
+          where: { value: "base_check" },
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
     return lastBaseCheck;
@@ -508,7 +522,14 @@ export class HistoriesService {
     }
     const lastProductCheck = await this.historyRepository.findOne({
       where: { record_id: recordId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_check" } }],
+      include: [
+        {
+          model: HistoryType,
+          as: "historyType",
+          required: true,
+          where: { value: "product_check" },
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
     return lastProductCheck;
@@ -536,7 +557,14 @@ export class HistoriesService {
     }
     const lastProductPass = await this.historyRepository.findOne({
       where: { record_id: recordId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_pass" } }],
+      include: [
+        {
+          model: HistoryType,
+          as: "historyType",
+          required: true,
+          where: { value: "product_pass" },
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
     return lastProductPass;
@@ -555,12 +583,22 @@ export class HistoriesService {
       return null;
     }
     const typeValue = await lastHistory.$get("historyType");
-    if (typeValue.value !== "product_finished" && typeValue.value !== "product_in_progress") {
+    if (
+      typeValue.value !== "product_finished" &&
+      typeValue.value !== "product_in_progress"
+    ) {
       return null;
     }
     const lastProductInProgress = await this.historyRepository.findOne({
       where: { record_id: recordId },
-      include: [{ model: HistoryType, as: "historyType", required: true, where: { value: "product_in_progress" } }],
+      include: [
+        {
+          model: HistoryType,
+          as: "historyType",
+          required: true,
+          where: { value: "product_in_progress" },
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
     return lastProductInProgress;
@@ -618,15 +656,23 @@ export class HistoriesService {
       limit: 10,
       order: [["id", "DESC"]],
     });
-    const result = await Promise.all(await histories.map((item) => this.parseHistory(item)));
+    const result = await Promise.all(
+      await histories.map((item) => this.parseHistory(item)),
+    );
     return result;
   }
 
   async parseHistory(item: History) {
     const record = await this.recordsService.getById(item.record_id);
-    const product = record ? await this.productService.getById(record.productId) : null;
-    const boil = await this.boilService.getById(record ? record.boilId : item.boil_id);
-    const historyType = await this.historyTypesService.getById(item.historyTypeId);
+    const product = record
+      ? await this.productService.getById(record.productId)
+      : null;
+    const boil = await this.boilService.getById(
+      record ? record.boilId : item.boil_id,
+    );
+    const historyType = await this.historyTypesService.getById(
+      item.historyTypeId,
+    );
     const employee = await this.employeeService.getById(item.employeeId);
     const base = boil ? await this.basesService.getByid(boil.base_id) : null;
     return {

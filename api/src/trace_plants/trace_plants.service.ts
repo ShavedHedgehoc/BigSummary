@@ -6,7 +6,7 @@ import TracePlant from "src/trace_models/trace_plant.model";
 export class TracePlantsService {
   constructor(
     @InjectModel(TracePlant, "trace_connection")
-    private tracePlantRepository: typeof TracePlant
+    private tracePlantRepository: typeof TracePlant,
   ) {}
 
   async getPlants() {

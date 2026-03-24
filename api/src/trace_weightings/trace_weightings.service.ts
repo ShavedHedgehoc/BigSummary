@@ -5,7 +5,8 @@ import TraceWeighting from "../trace_models/trace_weighting.model";
 @Injectable()
 export class TraceWeightingsService {
   constructor(
-    @InjectModel(TraceWeighting, "trace_connection") private traceWeightingRepository: typeof TraceWeighting
+    @InjectModel(TraceWeighting, "trace_connection")
+    private traceWeightingRepository: typeof TraceWeighting,
   ) {}
 
   async weightingResult(item: TraceWeighting) {
@@ -27,16 +28,21 @@ export class TraceWeightingsService {
       lot: lot.LotName,
       trademark: trademark ? trademark.TrademarkName : null,
       user: user.AuthorName,
-      date: new Date(document.CreateDate.setHours(document.CreateDate.getHours() + 3)),
+      date: new Date(
+        document.CreateDate.setHours(document.CreateDate.getHours() + 3),
+      ),
     };
 
     return itemResult;
   }
 
   async getWeightingsRows(batchPK: number) {
-    const weightings = await this.traceWeightingRepository.findAll<TraceWeighting>({
-      where: { BatchPK: batchPK },
-    });
-    return await Promise.all(await weightings.map((item) => this.weightingResult(item)));
+    const weightings =
+      await this.traceWeightingRepository.findAll<TraceWeighting>({
+        where: { BatchPK: batchPK },
+      });
+    return await Promise.all(
+      await weightings.map((item) => this.weightingResult(item)),
+    );
   }
 }

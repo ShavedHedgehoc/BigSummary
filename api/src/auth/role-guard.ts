@@ -15,15 +15,17 @@ import { ROLES_KEY } from "./roles-auth.decorator";
 export class RoleGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private reflector: Reflector
+    private reflector: Reflector,
   ) {}
 
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
     try {
-      const requiredRoles: string[] = this.reflector.getAllAndOverride(ROLES_KEY, [
-        context.getHandler(),
-        context.getClass(),
-      ]);
+      const requiredRoles: string[] = this.reflector.getAllAndOverride(
+        ROLES_KEY,
+        [context.getHandler(), context.getClass()],
+      );
       if (!requiredRoles) {
         return true;
       }
@@ -32,14 +34,21 @@ export class RoleGuard implements CanActivate {
       const bearer = authHeader.split(" ")[0];
       const token = authHeader.split(" ")[1];
       if (bearer !== "Bearer" || !token) {
-        throw new UnauthorizedException({ message: "Пользователь не авторизован" });
+        throw new UnauthorizedException({
+          message: "Пользователь не авторизован",
+        });
       }
 
-      const user = this.jwtService.verify(token, { secret: "JWT_ACCESS_SECRET" });
+      const user = this.jwtService.verify(token, {
+        secret: "JWT_ACCESS_SECRET",
+      });
       req.user = user;
       return user.roles.some((role) => requiredRoles.includes(role.value));
     } catch (error) {
-      throw new HttpException("Прав недостаточно (Role guard)", HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        "Прав недостаточно (Role guard)",
+        HttpStatus.UNAUTHORIZED,
+      );
     }
   }
 }

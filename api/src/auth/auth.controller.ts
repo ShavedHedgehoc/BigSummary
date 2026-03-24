@@ -1,4 +1,13 @@
-import { Body, Controller, HttpCode, Post, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  Req,
+  Res,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { LoginUserDto } from "src/users/dto/login-user.dto";
@@ -11,13 +20,16 @@ import { TokenService } from "src/token/token.service";
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
   ) {}
 
   @UsePipes(ValidationPipe)
   @Post("/login")
   @HttpCode(200)
-  async login(@Body() dto: LoginUserDto, @Res({ passthrough: true }) response: Response) {
+  async login(
+    @Body() dto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     const [res, refreshToken] = await this.authService.login(dto);
     response.cookie("refreshToken", refreshToken);
     return res;
@@ -25,16 +37,24 @@ export class AuthController {
 
   @UsePipes(ValidationPipe)
   @Post("/register")
-  async register(@Body() dto: CreateUserDto, @Res({ passthrough: true }) response: Response) {
+  async register(
+    @Body() dto: CreateUserDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     const [res, refreshToken] = await this.authService.register(dto);
     response.cookie("refreshToken", refreshToken);
     return res;
   }
 
   @Post("/refresh")
-  async refresh(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
+  async refresh(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     // console.log("refresh");
-    const [res, refreshToken] = await this.authService.refresh(request.cookies["refreshToken"]);
+    const [res, refreshToken] = await this.authService.refresh(
+      request.cookies["refreshToken"],
+    );
     response.cookie("refreshToken", refreshToken);
     return res;
   }
@@ -50,14 +70,20 @@ export class AuthController {
 
   @Post("/get_user")
   @HttpCode(200)
-  async getUser(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
+  async getUser(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     const res = await this.authService.getUser(request.cookies["refreshToken"]);
     return res;
   }
 
   @Post("/logout")
   @HttpCode(200)
-  async logout(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
+  async logout(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     await this.tokenService.removeToken(request.cookies["refreshToken"]);
     response.clearCookie("refreshToken");
   }

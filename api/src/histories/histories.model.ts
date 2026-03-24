@@ -60,7 +60,10 @@ export default class History extends Model<History, HistoriesCreationsAttrs> {
   @Column
   employeeId: number;
 
-  @ApiProperty({ example: "Комментарий к записи", description: "Комментарий к записи" })
+  @ApiProperty({
+    example: "Комментарий к записи",
+    description: "Комментарий к записи",
+  })
   @Column({ type: DataType.STRING })
   note: string;
 

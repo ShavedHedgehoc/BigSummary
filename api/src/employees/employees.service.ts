@@ -14,7 +14,7 @@ export class EmployeesService {
   constructor(
     @InjectModel(Employee)
     private employeeRepository: typeof Employee,
-    private occupationService: OccupationsService
+    private occupationService: OccupationsService,
   ) {}
 
   async createEmployee(dto: CreateEmployeeDto) {
@@ -22,8 +22,14 @@ export class EmployeesService {
       const employee = await this.employeeRepository.create(dto);
       return employee;
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeUniqueConstraintError") {
-        throw new HttpException("Пользователь с таким ФИО или штрихкодом уже существует", HttpStatus.BAD_REQUEST);
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeUniqueConstraintError"
+      ) {
+        throw new HttpException(
+          "Пользователь с таким ФИО или штрихкодом уже существует",
+          HttpStatus.BAD_REQUEST,
+        );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
       }
@@ -72,7 +78,10 @@ export class EmployeesService {
   }
 
   async getEmployeeByBarcode(barcode: string) {
-    const employee = await this.employeeRepository.findOne({ where: { barcode: barcode }, include: { all: true } });
+    const employee = await this.employeeRepository.findOne({
+      where: { barcode: barcode },
+      include: { all: true },
+    });
     return employee;
   }
 
@@ -84,10 +93,13 @@ export class EmployeesService {
     try {
       await employee.destroy();
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeForeignKeyConstraintError"
+      ) {
         throw new HttpException(
           "Существуют записи, связанные с этим пользователем. Удаление невозможно...",
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
@@ -109,8 +121,14 @@ export class EmployeesService {
       await employee.save();
       return employee;
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeUniqueConstraintError") {
-        throw new HttpException("Пользователь с таким ФИО или штрихкодом уже существует", HttpStatus.BAD_REQUEST);
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeUniqueConstraintError"
+      ) {
+        throw new HttpException(
+          "Пользователь с таким ФИО или штрихкодом уже существует",
+          HttpStatus.BAD_REQUEST,
+        );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
       }
@@ -119,13 +137,18 @@ export class EmployeesService {
 
   async addOccupation(dto: AddOccupationDto) {
     const employee = await this.employeeRepository.findByPk(dto.userId);
-    const occupation = await this.occupationService.getOccupationByValue(dto.value);
+    const occupation = await this.occupationService.getOccupationByValue(
+      dto.value,
+    );
 
     if (employee && occupation) {
       employee.occupationId = occupation.id;
       await employee.save();
       return dto;
     }
-    throw new HttpException("Пользователь или специальность не найдена", HttpStatus.NOT_FOUND);
+    throw new HttpException(
+      "Пользователь или специальность не найдена",
+      HttpStatus.NOT_FOUND,
+    );
   }
 }

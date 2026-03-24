@@ -10,7 +10,7 @@ import TraceCanState from "src/trace_models/trace_can_state.model";
 export class TraceCanRecordsService {
   constructor(
     @InjectModel(TraceCanRecord, "trace_connection")
-    private traceCanRecordsRepository: typeof TraceCanRecord
+    private traceCanRecordsRepository: typeof TraceCanRecord,
   ) {}
 
   async getLastStateById(id: number) {

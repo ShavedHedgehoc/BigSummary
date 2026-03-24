@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from "@nestjs/common";
 import { EmployeesService } from "./employees.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import Employee from "./employees.model";
@@ -12,7 +20,9 @@ import { UpdateEmployeeDto } from "./dto/update-employee.dto";
 export class EmployeesController {
   constructor(private employeeService: EmployeesService) {}
 
-  @ApiOperation({ summary: "Получить пользователя рабочей станции по штрихкоду" })
+  @ApiOperation({
+    summary: "Получить пользователя рабочей станции по штрихкоду",
+  })
   @ApiResponse({ status: 200, type: Employee })
   @Get("/:barcode")
   getAllEmployeeByBarcode(@Param("barcode") barcode: string) {
@@ -50,7 +60,9 @@ export class EmployeesController {
   }
 
   // Нужно?
-  @ApiOperation({ summary: "Назначить специализацию пользователю рабочей станции" })
+  @ApiOperation({
+    summary: "Назначить специализацию пользователю рабочей станции",
+  })
   @ApiResponse({ status: 200 })
   @Post("/occupation")
   addOccupation(@Body() dto: AddOccupationDto) {

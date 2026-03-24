@@ -6,12 +6,16 @@ import { RecordsService } from "src/records/records.service";
 export class TestService {
   constructor(
     private recordsService: RecordsService,
-    private historiesService: HistoriesService
+    private historiesService: HistoriesService,
   ) {}
   async getRecordDetail(id: number) {
     const record = await this.recordsService.getByIdWitDetailsNew(id);
     if (record) {
-      const histories = await this.historiesService.getAllHistoriesByRecIdAndBoilId(id, record.boilId);
+      const histories =
+        await this.historiesService.getAllHistoriesByRecIdAndBoilId(
+          id,
+          record.boilId,
+        );
       const result = {
         ...JSON.parse(JSON.stringify(record)),
         histories: histories,

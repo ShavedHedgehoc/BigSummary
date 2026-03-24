@@ -1,4 +1,11 @@
-import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 
 import TraceCan from "./trace_can.model";
 import TraceAuthor from "./trace_author.model";

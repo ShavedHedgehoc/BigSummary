@@ -7,7 +7,10 @@ interface IInventoryDocsFilter {
 }
 
 export class GetInventoryDocsDto {
-  @ApiProperty({ example: `{"startDate":"2025-09-02", "endDate":"2025-09-30", "plants":[1,2]}`, description: "Фильтр" })
+  @ApiProperty({
+    example: `{"startDate":"2025-09-02", "endDate":"2025-09-30", "plants":[1,2]}`,
+    description: "Фильтр",
+  })
   readonly filter: IInventoryDocsFilter;
   @ApiProperty({ example: 10, description: "На странице" })
   readonly limit: number;

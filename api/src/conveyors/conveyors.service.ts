@@ -10,7 +10,7 @@ import { Op } from "sequelize";
 export class ConveyorsService {
   constructor(
     @InjectModel(Conveyor)
-    private conveyorsRepository: typeof Conveyor
+    private conveyorsRepository: typeof Conveyor,
   ) {}
 
   // async getAllConveyors() {
@@ -29,7 +29,9 @@ export class ConveyorsService {
       const barcodeFilter = { [Op.eq]: null };
       filter = { ...filter, barcode: barcodeFilter };
     }
-    const count = await this.conveyorsRepository.count({ where: { ...filter } });
+    const count = await this.conveyorsRepository.count({
+      where: { ...filter },
+    });
 
     const conveyors = await this.conveyorsRepository.findAll({
       where: { ...filter },
@@ -41,12 +43,16 @@ export class ConveyorsService {
   }
 
   async getByBarcode(barcode: string) {
-    const conveyor = await this.conveyorsRepository.findOne({ where: { barcode: barcode } });
+    const conveyor = await this.conveyorsRepository.findOne({
+      where: { barcode: barcode },
+    });
     return conveyor;
   }
 
   async getOrCreateByValue(value: string) {
-    const [conveyors, _] = await this.conveyorsRepository.findOrCreate({ where: { value: value } });
+    const [conveyors, _] = await this.conveyorsRepository.findOrCreate({
+      where: { value: value },
+    });
     return conveyors;
   }
 
@@ -68,8 +74,14 @@ export class ConveyorsService {
       await conveyor.save();
       return conveyor;
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeUniqueConstraintError") {
-        throw new HttpException("Конвейер с таким наименованием или штрихкодом уже существует", HttpStatus.BAD_REQUEST);
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeUniqueConstraintError"
+      ) {
+        throw new HttpException(
+          "Конвейер с таким наименованием или штрихкодом уже существует",
+          HttpStatus.BAD_REQUEST,
+        );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
       }
@@ -84,10 +96,13 @@ export class ConveyorsService {
     try {
       await conveyor.destroy();
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeForeignKeyConstraintError"
+      ) {
         throw new HttpException(
           "Существуют записи, связанные с этим конвейером. Удаление невозможно...",
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
@@ -96,7 +111,9 @@ export class ConveyorsService {
   }
 
   async getByValue(value: string) {
-    const conveyor = await this.conveyorsRepository.findOne({ where: { value: value } });
+    const conveyor = await this.conveyorsRepository.findOne({
+      where: { value: value },
+    });
     return conveyor;
   }
 }

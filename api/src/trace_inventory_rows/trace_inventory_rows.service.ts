@@ -11,7 +11,7 @@ import TraceAuthor from "src/trace_models/trace_author.model";
 export class TraceInventoryRowsService {
   constructor(
     @InjectModel(TraceInventoryRow, "trace_connection")
-    private inventoryRowsRepository: typeof TraceInventoryRow
+    private inventoryRowsRepository: typeof TraceInventoryRow,
   ) {}
 
   async getInventoryByIdWithFilter(dto: GetInventoryRowsByIdWithFilterDto) {
@@ -41,7 +41,15 @@ export class TraceInventoryRowsService {
         [col("TraceInventoryRow.Quantity"), "quantity"],
         [col("TraceInventoryRow.ExpDate"), "exp_date"],
         [col("author.AuthorName"), "author_name"],
-        [fn("DATEDIFF", literal("day"), literal("GETDATE()"), col("TraceInventoryRow.ExpDate")), "days_to_exp"],
+        [
+          fn(
+            "DATEDIFF",
+            literal("day"),
+            literal("GETDATE()"),
+            col("TraceInventoryRow.ExpDate"),
+          ),
+          "days_to_exp",
+        ],
       ],
       where: { InventoryDocPK: dto.inventoryId, ...filter },
       include: [

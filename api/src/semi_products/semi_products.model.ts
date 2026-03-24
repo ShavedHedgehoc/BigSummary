@@ -1,4 +1,13 @@
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import Boil from "src/boils/boil.model";
 import Product from "src/products/products.model";
 import Record from "src/records/records.model";
@@ -10,7 +19,10 @@ interface SemiProductCreationsAttrs {
 }
 
 @Table({ tableName: "semi_products" })
-export default class SemiProduct extends Model<SemiProduct, SemiProductCreationsAttrs> {
+export default class SemiProduct extends Model<
+  SemiProduct,
+  SemiProductCreationsAttrs
+> {
   @PrimaryKey
   @AutoIncrement
   @Column({ type: DataType.INTEGER, unique: true })

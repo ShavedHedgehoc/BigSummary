@@ -1,5 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AutoIncrement, Column, DataType, ForeignKey, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  Column,
+  DataType,
+  ForeignKey,
+  HasOne,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 
 import History from "src/histories/histories.model";
 
@@ -15,7 +24,10 @@ export default class Note extends Model<History, NotesCreationsAttrs> {
   @Column({ type: DataType.INTEGER, unique: true })
   id: number;
 
-  @ApiProperty({ example: "Комментарий к записи", description: "Значение комментария" })
+  @ApiProperty({
+    example: "Комментарий к записи",
+    description: "Значение комментария",
+  })
   @Column({ type: DataType.STRING })
   value: string;
 

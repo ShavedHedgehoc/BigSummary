@@ -11,9 +11,14 @@ export class UpdateUserDto {
   readonly user_id: number;
   @ApiProperty({ example: "Иванов А.В.", description: "Имя пользователя" })
   @IsString({ message: "Имя должно быть строкой" })
-  @Length(1, 60, { message: "Имя пользователя должно содержать от 1 до 60 символов" })
+  @Length(1, 60, {
+    message: "Имя пользователя должно содержать от 1 до 60 символов",
+  })
   readonly name: string;
-  @ApiProperty({ example: "ivanov@mail.ru", description: "Электронная почта пользователя" })
+  @ApiProperty({
+    example: "ivanov@mail.ru",
+    description: "Электронная почта пользователя",
+  })
   @IsString({ message: "Email должен быть строкой" })
   @IsEmail({}, { message: "Некорректный email" })
   readonly email: string;

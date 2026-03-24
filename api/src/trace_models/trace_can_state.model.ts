@@ -1,4 +1,10 @@
-import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import TraceCanRecord from "./trace_can_record.model";
 
 @Table({ tableName: "CanStates" })

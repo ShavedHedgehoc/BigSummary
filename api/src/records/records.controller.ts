@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from "@nestjs/common";
 import { RecordsService } from "./records.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import Record from "./records.model";
@@ -28,7 +36,9 @@ export class RecordsController {
     return this.recordsService.bulkCreateRecords(dto);
   }
 
-  @ApiOperation({ summary: "Создание нового  или обновление текущего документа сводки" })
+  @ApiOperation({
+    summary: "Создание нового  или обновление текущего документа сводки",
+  })
   @ApiResponse({ status: 201 })
   @Post("/upload_doc")
   bulkCreatecreateWithUpload(@Body() dto: UploadDocDto) {
@@ -42,7 +52,10 @@ export class RecordsController {
     return this.recordsService.getCurrentRecordsByBoil(boil);
   }
 
-  @ApiOperation({ summary: "Получить строки текущей сводки по партии, коду продукта и коду площадки" })
+  @ApiOperation({
+    summary:
+      "Получить строки текущей сводки по партии, коду продукта и коду площадки",
+  })
   @ApiResponse({ status: 200, type: [Record] })
   @Post("/related")
   getRelatedRecords(@Body() dto: FetchRelatedRecordsDto) {

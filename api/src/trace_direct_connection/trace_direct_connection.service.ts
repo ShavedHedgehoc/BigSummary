@@ -6,7 +6,9 @@ import { UploadBoilDto } from "./dto/upload-boil-dto";
 
 @Injectable()
 export class TraceDirectConnectionService {
-  constructor(@InjectConnection("trace_connection") private readonly sequelize: Sequelize) {}
+  constructor(
+    @InjectConnection("trace_connection") private readonly sequelize: Sequelize,
+  ) {}
 
   async execInsertXML(dto: UploadBoilDto) {
     const options = { compact: true };
@@ -19,7 +21,9 @@ export class TraceDirectConnectionService {
         type: sequelize.QueryTypes.SELECT,
       },
     });
-    const normalized = Object.entries(results[0]).map(([key, value]) => ({ value }));
+    const normalized = Object.entries(results[0]).map(([key, value]) => ({
+      value,
+    }));
 
     return normalized[0];
   }

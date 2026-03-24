@@ -18,7 +18,9 @@ export class RolesService {
   }
 
   async getAllRoles() {
-    const role = await this.roleRepository.findAll({ attributes: ["id", "value", "description"] });
+    const role = await this.roleRepository.findAll({
+      attributes: ["id", "value", "description"],
+    });
     return role;
   }
 }

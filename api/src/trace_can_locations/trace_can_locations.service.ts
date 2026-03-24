@@ -6,7 +6,7 @@ import TraceCanLocation from "src/trace_models/trace_can_location.model";
 export class TraceCanLocationsService {
   constructor(
     @InjectModel(TraceCanLocation, "trace_connection")
-    private traceCanLocationsRepository: typeof TraceCanLocation
+    private traceCanLocationsRepository: typeof TraceCanLocation,
   ) {}
   async getLastLocationByCanId(id: number) {
     const location = await this.traceCanLocationsRepository.findOne({

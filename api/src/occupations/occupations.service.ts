@@ -7,7 +7,7 @@ import { CreateOccupationDto } from "./dto/create-occupation.dto";
 export class OccupationsService {
   constructor(
     @InjectModel(Occupation)
-    private occupationRepository: typeof Occupation
+    private occupationRepository: typeof Occupation,
   ) {}
 
   async createOccupation(dto: CreateOccupationDto) {
@@ -21,7 +21,9 @@ export class OccupationsService {
   }
 
   async getOccupationByValue(value: string) {
-    const occupation = await this.occupationRepository.findOne({ where: { value: value } });
+    const occupation = await this.occupationRepository.findOne({
+      where: { value: value },
+    });
     return occupation;
   }
 }

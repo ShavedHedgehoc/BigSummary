@@ -50,7 +50,7 @@ export class RecordsService {
     private plantService: PlantsService,
     private markingSamplesService: MarkingSampleService,
     private recordRegulationsServive: RecordRegulationsService,
-    private semiProductsService: SemiProductsService
+    private semiProductsService: SemiProductsService,
   ) {}
 
   async getRecordsByDocId(docId: number) {
@@ -85,7 +85,9 @@ export class RecordsService {
     return records;
   }
 
-  async getRecordsIdsByHistoryTypeIds(typeArr: number[] | []): Promise<number[] | []> {
+  async getRecordsIdsByHistoryTypeIds(
+    typeArr: number[] | [],
+  ): Promise<number[] | []> {
     interface RespItem {
       id: number;
     }
@@ -110,10 +112,13 @@ export class RecordsService {
     if (typeArr.length === 0) {
       return [];
     }
-    const result: RespItem[] = await this.recordsRepository.sequelize.query(qry, {
-      replacements: { ids: typeArr },
-      type: sequelize.QueryTypes.SELECT,
-    });
+    const result: RespItem[] = await this.recordsRepository.sequelize.query(
+      qry,
+      {
+        replacements: { ids: typeArr },
+        type: sequelize.QueryTypes.SELECT,
+      },
+    );
     return [...result.map((i) => i.id)];
   }
 
@@ -306,13 +311,23 @@ export class RecordsService {
 
   async createRecord(dto: CreateRecordDto) {
     const serie = await this.seriesService.getOrCreateByValue(dto.serie);
-    const product = await this.productsService.getOrCreateByCode(dto.code1C, dto.product, serie.id);
+    const product = await this.productsService.getOrCreateByCode(
+      dto.code1C,
+      dto.product,
+      serie.id,
+    );
     // const boil = await this.boilsService.getOrCreateByValue(dto.boil);
     const boil = await this.boilsService.getOrCreateByValue(dto.batch);
-    const apparatus = await this.apparatusesService.getOrCreateByValue(dto.apparatus);
+    const apparatus = await this.apparatusesService.getOrCreateByValue(
+      dto.apparatus,
+    );
     const can = await this.cansService.getOrCreateByValue(dto.can);
-    const conveyor = await this.conveyorsService.getOrCreateByValue(dto.conveyor);
-    const workshop = await this.workshopsService.getOrCreateByValue(dto.workshop);
+    const conveyor = await this.conveyorsService.getOrCreateByValue(
+      dto.conveyor,
+    );
+    const workshop = await this.workshopsService.getOrCreateByValue(
+      dto.workshop,
+    );
     const water_base = await this.boilsService.getOrCreateByValue(dto.boil1);
     const organic_base = await this.boilsService.getOrCreateByValue(dto.boil2);
 
@@ -334,9 +349,15 @@ export class RecordsService {
 
   async checkRecord(dto: CreateRecordDto) {
     const boil = await this.boilsService.getOrCreateByValue(dto.batch);
-    const conveyor = await this.conveyorsService.getOrCreateByValue(dto.conveyor);
+    const conveyor = await this.conveyorsService.getOrCreateByValue(
+      dto.conveyor,
+    );
     const serie = await this.seriesService.getOrCreateByValue(dto.serie);
-    const product = await this.productsService.getOrCreateByCode(dto.code1C, dto.product, serie.id);
+    const product = await this.productsService.getOrCreateByCode(
+      dto.code1C,
+      dto.product,
+      serie.id,
+    );
 
     const recordExist = await this.recordsRepository.findOne({
       where: {
@@ -349,7 +370,7 @@ export class RecordsService {
     if (recordExist) {
       throw new HttpException(
         `Строка (Конвейер: ${conveyor ? conveyor.value : "-"}, Продукт: ${product ? product.marking : "-"}, Партия: ${boil ? boil.value : "-"}) совпадает с существующей строкой в сводке. Обновление отменено...`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
   }
@@ -360,14 +381,20 @@ export class RecordsService {
     if (!plant) {
       throw new HttpException(`Площадка не найдена...`, HttpStatus.NOT_FOUND);
     }
-    const docExists = await this.docsService.getDocByPlantAndDate(dto.summaryDate, plant.id);
+    const docExists = await this.docsService.getDocByPlantAndDate(
+      dto.summaryDate,
+      plant.id,
+    );
     if (docExists) {
       throw new HttpException(
         `Документ на эти дату и площадку уже существует. Попробуйте удалить существующий документ и попробовать снова...`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
-    const doc = await this.docsService.createDoc({ date: dto.summaryDate, plant: plant.value });
+    const doc = await this.docsService.createDoc({
+      date: dto.summaryDate,
+      plant: plant.value,
+    });
     for (let index = 0; index < dto.rows.length; index++) {
       const createDto: CreateRecordDto = {
         ...dto.rows[index],
@@ -383,17 +410,20 @@ export class RecordsService {
     if (!plant) {
       throw new HttpException(`Площадка не найдена...`, HttpStatus.NOT_FOUND);
     }
-    const docExists = await this.docsService.getDocByPlantAndDate(dto.summaryDate, plant.id);
+    const docExists = await this.docsService.getDocByPlantAndDate(
+      dto.summaryDate,
+      plant.id,
+    );
     if (docExists && !dto.update) {
       throw new HttpException(
         `Документ на эти дату и площадку уже существует. Попробуйте режим обновления или удалить существующий документ и попробовать снова...`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
     if (!docExists && dto.update) {
       throw new HttpException(
         `Документ на эти дату и площадку не существует. обновление не возможно...`,
-        HttpStatus.BAD_REQUEST
+        HttpStatus.BAD_REQUEST,
       );
     }
 
@@ -415,7 +445,10 @@ export class RecordsService {
         await this.createSemiProducts(record, dto.rows[index].semi_product);
       }
     } else {
-      const doc = await this.docsService.createDoc({ date: dto.summaryDate, plant: plant.value });
+      const doc = await this.docsService.createDoc({
+        date: dto.summaryDate,
+        plant: plant.value,
+      });
       for (let index = 0; index < dto.rows.length; index++) {
         const createDto: CreateRecordDto = {
           ...dto.rows[index],
@@ -445,7 +478,9 @@ export class RecordsService {
   }
 
   async createRegulation(record: Record, row: UploadDocRow) {
-    const marking_sample = await this.markingSamplesService.getOrCreateByValue(row.marking_sample);
+    const marking_sample = await this.markingSamplesService.getOrCreateByValue(
+      row.marking_sample,
+    );
     const regDto: CreateRecordRegulationDto = {
       record_id: record.id,
       org_base_min_weight: Number(row.org_base_min_weight),
@@ -460,7 +495,8 @@ export class RecordsService {
       technician_note: row.technician_note === "-" ? null : row.technician_note,
       packaging_note: row.packaging_note === "-" ? null : row.packaging_note,
       marking_sample_id: marking_sample ? marking_sample.id : null,
-      inc_color: row.ink_color === "-" || row.ink_color === " -" ? null : row.ink_color,
+      inc_color:
+        row.ink_color === "-" || row.ink_color === " -" ? null : row.ink_color,
       marking_feature: row.marking_feature === "-" ? null : row.marking_feature,
     };
     await this.recordRegulationsServive.createRecordRegulation(regDto);
@@ -469,15 +505,21 @@ export class RecordsService {
   async deleteRecord(id: number) {
     const record = await this.recordsRepository.findByPk(id);
     if (!record) {
-      throw new HttpException("Строка сводки для удаления не найдена", HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        "Строка сводки для удаления не найдена",
+        HttpStatus.NOT_FOUND,
+      );
     }
     try {
       await record.destroy();
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeForeignKeyConstraintError"
+      ) {
         throw new HttpException(
           "Существуют записи, связанные с этой строкой. Удаление невозможно...",
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
@@ -491,13 +533,22 @@ export class RecordsService {
 
     const record = await this.recordsRepository.findByPk(dto.id);
     if (!record) {
-      throw new HttpException("Строка сводки для обновления не найдена", HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        "Строка сводки для обновления не найдена",
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-    if (dto.apparatus !== "-" || (dto.apparatus === "-" && record.apparatusId)) {
+    if (
+      dto.apparatus !== "-" ||
+      (dto.apparatus === "-" && record.apparatusId)
+    ) {
       const apparatus = await this.apparatusesService.getByValue(dto.apparatus);
       if (!apparatus) {
-        throw new HttpException("Аппарат не найден в списке", HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          "Аппарат не найден в списке",
+          HttpStatus.BAD_REQUEST,
+        );
       }
       apparatus_id = apparatus.id;
     }
@@ -505,19 +556,28 @@ export class RecordsService {
     if (dto.can !== "-" || (dto.can === "-" && record.canId)) {
       const can = await this.cansService.getByValue(dto.can);
       if (!can) {
-        throw new HttpException("Емкость не найдена в списке", HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          "Емкость не найдена в списке",
+          HttpStatus.BAD_REQUEST,
+        );
       }
       can_id = can.id;
     }
 
     const conveyor = await this.conveyorsService.getByValue(dto.conveyor);
     if (!conveyor) {
-      throw new HttpException("Конвейер не найден в списке", HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        "Конвейер не найден в списке",
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     const plan = Number(dto.plan);
     if (!plan) {
-      throw new HttpException("Невозможно преобразовать значение плана в число", HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        "Невозможно преобразовать значение плана в число",
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     record.apparatusId = apparatus_id;
@@ -564,7 +624,10 @@ export class RecordsService {
     }
 
     const dateFilter = {
-      [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
+      [Op.between]: [
+        new Date(dto.filter.startDate).setHours(0),
+        new Date(dto.filter.endDate).setHours(23),
+      ],
     };
 
     docFilter = { ...docFilter, date: dateFilter };
@@ -598,11 +661,21 @@ export class RecordsService {
         ],
       },
       include: [
-        { model: Product, as: "product", where: { ...productCond }, attributes: [] },
+        {
+          model: Product,
+          as: "product",
+          where: { ...productCond },
+          attributes: [],
+        },
         { model: Boil, as: "boil", where: { ...boilCond }, attributes: [] },
         { model: Apparatus, as: "apparatus", attributes: [] },
         { model: Can, as: "can", attributes: [] },
-        { model: Conveyor, as: "conveyor", where: { ...conveyorCond }, attributes: [] },
+        {
+          model: Conveyor,
+          as: "conveyor",
+          where: { ...conveyorCond },
+          attributes: [],
+        },
         { model: Workshop, as: "workshop", attributes: [] },
         { model: Doc, where: { ...docFilter }, attributes: [] },
         // { model: History, as: "histories", where: { id: fn("MAX", col("histories.id")) } },

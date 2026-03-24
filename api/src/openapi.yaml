@@ -11,7 +11,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Партия варки, полученная по имени
           content:
             application/json:
@@ -27,12 +27,12 @@ paths:
                     type: string
                   BatchDate:
                     description: Дата варки
-                    example: '2023-01-10T00:00:00.000Z'                    
+                    example: "2023-01-10T00:00:00.000Z"
                   Plant:
                     description: Первая буква площадки
                     example: К
                     type: string
-        '404':
+        "404":
           description: Партия не найдена
       tags:
         - Варки (для теста)
@@ -47,8 +47,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
       tags:
         - Взвешивания (для теста)
   /api/trace-loads/{batchPK}:
@@ -62,8 +62,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
       tags:
         - Загрузки (для теста)
   /api/trace-technology/{batchPK}:
@@ -79,18 +79,18 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
       tags:
         - Технология (для теста)
 info:
   title: Trace API
   description: API for trace database
-  version: '1.0'
+  version: "1.0"
   contact: {}
 tags:
   - name: Trace API
-    description: ''
+    description: ""
 servers: []
 components:
   schemas: {}

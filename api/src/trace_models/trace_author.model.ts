@@ -1,4 +1,11 @@
-import { Column, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  HasMany,
+  HasOne,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import TraceDocument from "./trace_document.model";
 import TraceBoilRecord from "./trace_boil_record.model";
 import TraceCanRecord from "./trace_can_record.model";

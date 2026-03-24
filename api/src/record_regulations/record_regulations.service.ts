@@ -9,7 +9,7 @@ import { col } from "sequelize";
 export class RecordRegulationsService {
   constructor(
     @InjectModel(RecordRegulation)
-    private recordRegulationRepository: typeof RecordRegulation
+    private recordRegulationRepository: typeof RecordRegulation,
   ) {}
 
   async createRecordRegulation(dto: CreateRecordRegulationDto) {
@@ -21,7 +21,13 @@ export class RecordRegulationsService {
     const record_regulation = await this.recordRegulationRepository.findOne({
       where: { record_id: id },
       attributes: {
-        exclude: ["id", "record_id", "marking_sample_id", "createdAt", "updatedAt"],
+        exclude: [
+          "id",
+          "record_id",
+          "marking_sample_id",
+          "createdAt",
+          "updatedAt",
+        ],
         include: [[col("marking_sample.value"), "marking_sample_value"]],
       },
       include: [{ model: MarkingSample, as: "marking_sample", attributes: [] }],

@@ -19,7 +19,10 @@ interface UserSettingsCreationsAttrs {
 }
 
 @Table({ tableName: "user_settings", createdAt: false, updatedAt: false })
-export default class UserSettings extends Model<UserSettings, UserSettingsCreationsAttrs> {
+export default class UserSettings extends Model<
+  UserSettings,
+  UserSettingsCreationsAttrs
+> {
   @PrimaryKey
   @AutoIncrement
   @Column({ type: DataType.INTEGER, unique: true })

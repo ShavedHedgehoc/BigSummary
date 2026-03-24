@@ -1,5 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 import Regulation from "src/regulations/regulations.model";
 
 interface MarkingSampleCreationsAttrs {
@@ -17,7 +25,10 @@ interface MarkingSampleCreationsAttrs {
 }
 
 @Table({ tableName: "marking_sample" })
-export default class MarkingSample extends Model<MarkingSample, MarkingSampleCreationsAttrs> {
+export default class MarkingSample extends Model<
+  MarkingSample,
+  MarkingSampleCreationsAttrs
+> {
   @ApiProperty({ example: "1", description: "Уникальный id строки" })
   @PrimaryKey
   @AutoIncrement

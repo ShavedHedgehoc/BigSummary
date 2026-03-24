@@ -10,7 +10,7 @@ import TraceInventoryRow from "src/trace_models/trace_inventory_row.model";
 export class TraceInventoryDocsService {
   constructor(
     @InjectModel(TraceInventoryDoc, "trace_connection")
-    private InventoryDocsRepository: typeof TraceInventoryDoc
+    private InventoryDocsRepository: typeof TraceInventoryDoc,
   ) {}
 
   async getInventoryById(id: number) {
@@ -36,7 +36,10 @@ export class TraceInventoryDocsService {
   async getInventoryDocs(dto: GetInventoryDocsDto) {
     let filter = {};
     const dateFilter = {
-      [Op.between]: [new Date(dto.filter.startDate), new Date(dto.filter.endDate)],
+      [Op.between]: [
+        new Date(dto.filter.startDate),
+        new Date(dto.filter.endDate),
+      ],
     };
     filter = {
       ...filter,

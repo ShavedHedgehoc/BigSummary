@@ -11,7 +11,10 @@ interface Resp {
 }
 @Injectable()
 export class TestdbSqlService {
-  constructor(@InjectConnection("trace_test_db_connection") private readonly sequelize: Sequelize) {}
+  constructor(
+    @InjectConnection("trace_test_db_connection")
+    private readonly sequelize: Sequelize,
+  ) {}
 
   async getBatchs() {
     interface CountResp {
@@ -112,7 +115,9 @@ export class TestdbSqlService {
         type: sequelize.QueryTypes.SELECT,
       },
     });
-    const normalized = Object.entries(results[0]).map(([key, value]) => ({ value }));
+    const normalized = Object.entries(results[0]).map(([key, value]) => ({
+      value,
+    }));
 
     // const data = [
     //   {

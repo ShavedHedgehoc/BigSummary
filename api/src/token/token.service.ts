@@ -6,22 +6,29 @@ import Token from "./token.model";
 export class TokenService {
   constructor(
     @InjectModel(Token)
-    private tokenRepository: typeof Token
+    private tokenRepository: typeof Token,
   ) {}
 
   async createOrUpdate(userId: number, refreshToken: string) {
-    const token = await this.tokenRepository.findOne({ where: { userId: userId } });
+    const token = await this.tokenRepository.findOne({
+      where: { userId: userId },
+    });
     if (token) {
       token.token = refreshToken;
       await token.save();
       return token;
     }
-    const newToken = await this.tokenRepository.create({ userId: userId, token: refreshToken });
+    const newToken = await this.tokenRepository.create({
+      userId: userId,
+      token: refreshToken,
+    });
     return newToken;
   }
 
   async findByToken(userId: number, refreshToken: string) {
-    const token = await this.tokenRepository.findOne({ where: { userId: userId, token: refreshToken } });
+    const token = await this.tokenRepository.findOne({
+      where: { userId: userId, token: refreshToken },
+    });
     return token;
   }
 

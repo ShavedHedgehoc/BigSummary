@@ -14,13 +14,18 @@ export class DocsService {
   constructor(
     @InjectModel(Doc)
     private docRepository: typeof Doc,
-    private plantService: PlantsService
+    private plantService: PlantsService,
   ) {}
 
   // used in current summary
   async getCurrentDocByPlantId(plantId: number) {
     var offset = 3;
-    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
+    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(
+      12,
+      0,
+      0,
+      0,
+    );
     // const date = new Date().setHours(12, 0, 0, 0);
     const doc = await this.docRepository.findOne({
       where: { plantId: plantId, date: date },
@@ -31,7 +36,12 @@ export class DocsService {
 
   async getTomorrowDocByPlantId(plantId: number) {
     var offset = 3 + 24;
-    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
+    const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(
+      12,
+      0,
+      0,
+      0,
+    );
     // const date = new Date().setHours(12, 0, 0, 0);
     const doc = await this.docRepository.findOne({
       where: { plantId: plantId, date: date },
@@ -45,7 +55,10 @@ export class DocsService {
     let dateFilter = {};
     if (dto.filter.startDate && dto.filter.endDate) {
       dateFilter = {
-        [Op.between]: [new Date(dto.filter.startDate).setHours(0), new Date(dto.filter.endDate).setHours(23)],
+        [Op.between]: [
+          new Date(dto.filter.startDate).setHours(0),
+          new Date(dto.filter.endDate).setHours(23),
+        ],
       };
       filter = {
         ...filter,
@@ -86,7 +99,11 @@ export class DocsService {
       },
       include: [
         { model: Plant, as: "plants", attributes: [] },
-        { model: Record, attributes: [], include: [{ model: History, as: "histories", attributes: [] }] },
+        {
+          model: Record,
+          attributes: [],
+          include: [{ model: History, as: "histories", attributes: [] }],
+        },
       ],
       group: ["Doc.id", "plants.value"],
       subQuery: false,
@@ -108,7 +125,10 @@ export class DocsService {
   }
 
   async getDocById(id: number) {
-    const doc = await this.docRepository.findOne({ where: { id: id }, include: { model: Plant } });
+    const doc = await this.docRepository.findOne({
+      where: { id: id },
+      include: { model: Plant },
+    });
     if (!doc) {
       throw new HttpException("Сводка на найдена", HttpStatus.NOT_FOUND);
     }
@@ -128,7 +148,11 @@ export class DocsService {
       },
       include: [
         { model: Plant, as: "plants", attributes: [] },
-        { model: Record, attributes: [], include: [{ model: History, as: "histories", attributes: [] }] },
+        {
+          model: Record,
+          attributes: [],
+          include: [{ model: History, as: "histories", attributes: [] }],
+        },
       ],
       group: ["Doc.id", "plants.value"],
       order: [["date", "ASC"]],
@@ -142,10 +166,17 @@ export class DocsService {
       // fix date format here
       const existsDoc = await this.getDocByPlantAndDate(dto.date, plant.id);
       if (existsDoc) {
-        throw new HttpException("Сводка на эту площадку и дату уже существует", HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          "Сводка на эту площадку и дату уже существует",
+          HttpStatus.BAD_REQUEST,
+        );
       }
       const parsedDate = new Date(`${dto.date} 12:00:00:000`);
-      const doc = await this.docRepository.create({ ...dto, date: parsedDate, plantId: plant.id });
+      const doc = await this.docRepository.create({
+        ...dto,
+        date: parsedDate,
+        plantId: plant.id,
+      });
       return doc;
     }
     throw new HttpException("Площадка на найдена", HttpStatus.NOT_FOUND);
@@ -154,15 +185,21 @@ export class DocsService {
   async deleteDoc(id: number) {
     const doc = await this.docRepository.findByPk(id);
     if (!doc) {
-      throw new HttpException("Документ для удаления не найден", HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        "Документ для удаления не найден",
+        HttpStatus.NOT_FOUND,
+      );
     }
     try {
       await doc.destroy();
     } catch (error) {
-      if (error instanceof Error && error.name === "SequelizeForeignKeyConstraintError") {
+      if (
+        error instanceof Error &&
+        error.name === "SequelizeForeignKeyConstraintError"
+      ) {
         throw new HttpException(
           "Существуют записи, связанные с этой сводкой. Удаление невозможно...",
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         );
       } else {
         throw new HttpException("Неизвестная ошибка", HttpStatus.BAD_REQUEST);
