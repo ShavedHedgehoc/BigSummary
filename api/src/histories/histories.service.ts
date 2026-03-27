@@ -57,6 +57,13 @@ export class HistoriesService {
       ПСК: "PSK",
     };
 
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + process.env.EXPRESS_API_TOKEN,
+      }
+    }
+
     for (const history of hystories) {
       const [$record, $user, $historyType, $note] = await Promise.all([
         history.$get("record"),
@@ -114,15 +121,21 @@ export class HistoriesService {
           break;
       }
 
+
       if (text && $plant?.abb) {
         const plantPrefix = PLANT_MAP[$plant.abb] || $plant.abb;
         const envKey = `${plantPrefix}_${chatType}_CHAT_ID`;
         const chatId = process.env[envKey];
         if (chatId) {
+          const data = {
+            group_chat_id: chatId,
+            notification: {
+              status: 'ok',
+              body: text
+            }
+          }
           try {
-            await axios.get(process.env.EXPRESS_API_URL, {
-              params: { chatid: chatId, text },
-            });
+            await axios.post(process.env.EXPRESS_API_URL, data, config)
           } catch (error) {
             console.error(`Ошибка отправки: ${error.message}`);
           }
