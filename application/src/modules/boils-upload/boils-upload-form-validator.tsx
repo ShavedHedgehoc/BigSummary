@@ -121,7 +121,7 @@ export default function BoilsUploadFormValidator() {
       date: { type: "string" },
       fin_productid: { type: "string", MustBeNumeric: "prefix", minLength: 1 },
       marking: { type: "string", minLength: 1 },
-      batch: { type: "string", minLength: 1 },
+      batch: { type: "string", minLength: 1 },// add pattern
       apparatus: { type: "string", MustBeNumeric: "prefix", minLength: 1 },
       plan: { type: "string", MustBeNumeric: "prefix", NotZeroValue: "prefix", minLength: 1 },
       productid: { type: "string", MustBeNumeric: "prefix", minLength: 1 },
@@ -194,7 +194,7 @@ export default function BoilsUploadFormValidator() {
             valResult = false;
           }
         }
-      } catch (error) {}
+      } catch (error) { }
       valResult ? handleValidationComplete(json) : handleValidationFail();
     };
 
