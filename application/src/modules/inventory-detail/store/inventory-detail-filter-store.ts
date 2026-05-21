@@ -10,7 +10,7 @@ export interface InventoryDetailFilterStore {
   setSelectedDays: (value: number) => void;
 }
 
-export const expDaysValues = [30, 60, 90];
+export const expDaysValues = [30, 45, 60, 90];
 
 export const initFilterValue: FetchInventoryRowsFilter = {
   productCode: "",
