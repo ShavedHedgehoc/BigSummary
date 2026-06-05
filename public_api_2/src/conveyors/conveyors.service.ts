@@ -3,15 +3,16 @@ import { InjectModel } from '@nestjs/sequelize';
 import { HistoriesService } from 'src/histories/histories.service';
 import Conveyor from 'src/models/conveyor.model';
 import { RecordsService } from 'src/records/records.service';
+import { TaskRow, TasksResponse } from './dto/tasks.response';
 
 @Injectable()
 export class ConveyorsService {
   constructor(
     @InjectModel(Conveyor)
-    private conveyorService: typeof Conveyor,
-    private recordsService: RecordsService,
-    private historiesService: HistoriesService,
-  ) {}
+    private readonly conveyorService: typeof Conveyor,
+    private readonly recordsService: RecordsService,
+    private readonly historiesService: HistoriesService,
+  ) { }
 
   async findAll() {
     const conveyors = await this.conveyorService.findAll();
@@ -22,57 +23,38 @@ export class ConveyorsService {
     conveyor,
     record_id,
     barcode,
+    allRecords
   }: {
     conveyor: string | undefined;
     record_id: number | undefined;
     barcode: string | undefined;
-  }) {
-    const records = this.recordsService.getTodayRecordsByConveyorValue({
+    allRecords: boolean | undefined;
+  }): Promise<TasksResponse> {
+    const records = await this.recordsService.getTodayRecordsByConveyorValue({
       conveyor_name: conveyor,
       record_id: record_id,
       barcode: barcode,
+      allRecords: allRecords
     });
 
-    const recordsResult = await Promise.all(
-      (await records).map(async (item) => {
+    const recordsResult: TasksResponse = await Promise.all(
+      records.map(async (item): Promise<TaskRow> => {
         const state = await this.historiesService.findLastHistorybyRecordId(item.id);
-
         return {
-          date: item.doc.date,
+          date: item.doc?.date ?? null,
           record_id: item.id,
-          conveyor_name: item.conveyor?.value,
-          code_1C: item.product?.code1C,
-          marking: item.product?.marking,
-          boil_value: item.boil?.value,
+          conveyor_name: item.conveyor?.value ?? null,
+          code_1C: item.product?.code1C ?? null,
+          marking: item.product?.marking ?? null,
+          boil_value: item.boil?.value ?? null,
           plan: item.plan,
-          state: state ? state.historyType?.value : null,
-          state_description: state ? state.historyType?.description : null,
-        };
+          state: state?.historyType?.value ?? null,
+          state_description: state?.historyType?.description ?? null,
+          plant: item.doc?.plants?.value ?? null
+        }
       }),
-    );
+    )
 
     return recordsResult;
   }
-
-  // async getTasksByBarcode(barcode: string) {
-  //   const records = this.recordsService.getTodayRecordsByConveyorBarcode(barcode);
-
-  //   const recordsResult = await Promise.all(
-  //     (await records).map(async (item) => {
-  //       const state = await this.historiesService.findLastHistorybyRecordId(item.id);
-  //       return {
-  //         record_id: item.id,
-  //         conveyor_name: item.conveyor?.value,
-  //         code_1C: item.product?.code1C,
-  //         marking: item.product?.marking,
-  //         boil_value: item.boil?.value,
-  //         plan: item.plan,
-  //         state: state ? state.historyType?.value : null,
-  //         state_description: state ? state.historyType?.description : null,
-  //       };
-  //     }),
-  //   );
-
-  //   return recordsResult;
-  // }
 }
