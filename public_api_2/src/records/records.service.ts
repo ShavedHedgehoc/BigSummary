@@ -8,13 +8,14 @@ import Conveyor from 'src/models/conveyor.model';
 import Doc from 'src/models/docs.model';
 import Product from 'src/models/products.model';
 import Record from 'src/models/records.model';
+import Plant from 'src/models/plant.model';
 
 @Injectable()
 export class RecordsService {
   constructor(
     @InjectModel(Record)
     private recordsService: typeof Record,
-  ) {}
+  ) { }
 
   async getRecordById(id: number) {
     const record = await this.recordsService.findByPk(id);
@@ -25,10 +26,12 @@ export class RecordsService {
     conveyor_name,
     record_id,
     barcode,
+    allRecords
   }: {
     conveyor_name: string | undefined;
     record_id: number | undefined;
     barcode: string | undefined;
+    allRecords: boolean | undefined;
   }) {
     const offset = 3;
     const date = new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0);
@@ -43,21 +46,30 @@ export class RecordsService {
       conveyorFilter = { ...conveyorFilter, barcode: barcode };
     }
 
-    let recordIdfilter = {};
-
+    const recordWhereCondition: any = {};
     if (record_id) {
-      recordIdfilter = { id: Number(record_id) };
+      recordWhereCondition.id = Number(record_id);
     }
-    const likeConditions = DigitalMarkingNames.map((pattern) => ({
-      dm: {
-        [Op.like]: pattern,
-      },
-    }));
+
+    if (allRecords === true) {
+      const likeConditions = DigitalMarkingNames.map((pattern) => ({
+        dm: {
+          [Op.like]: pattern,
+        },
+      }));
+      recordWhereCondition[Op.or] = likeConditions;
+    }
 
     const records = await this.recordsService.findAll({
-      where: { [Op.or]: likeConditions, ...recordIdfilter },
+      where: recordWhereCondition,
       include: [
-        { model: Doc, as: 'doc', where: { date: new Date(date) } },
+        {
+          model: Doc, as: 'doc',
+          where: { date: new Date(date) },
+          include: [
+            { model: Plant, as: 'plants' }
+          ]
+        },
         { model: Conveyor, as: 'conveyor', where: { ...conveyorFilter } },
         { model: Product, as: 'product' },
         { model: Boil, as: 'boil' },
