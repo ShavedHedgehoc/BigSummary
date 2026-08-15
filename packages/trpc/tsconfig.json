@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "incremental": true,
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@repo/db": [
+                "../db/src/index.ts"
+            ],
+            "@repo/schemas": [
+                "../schemas/src/index.ts"
+            ]
+        }
+    },
+    "references": [
+        {
+            "path": "../schemas"
+        }
+    ],
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

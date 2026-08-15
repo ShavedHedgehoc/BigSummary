@@ -1,0 +1,17 @@
+{
+    "name": "repo",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        "db:generate": "pnpm --filter @repo/db-postgres generate",
+        "api:dev": "pnpm --filter api_v2 dev",
+        "schema": "pnpm --filter api_v2 schema"
+    },
+    "devDependencies": {
+        "typescript": "5.5.4"
+    }
+}
