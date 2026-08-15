@@ -12,6 +12,7 @@ import { TrpcPanelController } from './trpc-panel.controller';
             basePath: '/trpc',
             context: TrpcContextFactory,
 
+
         }),
     ],
     providers: [PrismaService, TrpcContextFactory],
