@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext", // 👈 Меняем с NodeNext
+        "moduleResolution": "Bundler", // 👈 Меняем с NodeNext
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "isolatedModules": true
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

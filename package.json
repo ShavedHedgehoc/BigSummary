@@ -1,0 +1,19 @@
+{
+    "name": "big-summary-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        "db:generate": "pnpm --filter @repo/db generate",
+        "public-api:dev": "pnpm --filter public_api dev",
+        "api:dev": "pnpm --filter api start:dev",
+        "studio": "trpc-studio extract --router ./apps/api/src/v2/trpc/studio-proxy.ts --tsconfig ./apps/api/tsconfig.json && pnpm exec trpc-studio"
+    },
+    "devDependencies": {
+        "@srawad/trpc-studio": "^0.2.0",
+        "@trpc/server": "11.18.0"
+    }
+}

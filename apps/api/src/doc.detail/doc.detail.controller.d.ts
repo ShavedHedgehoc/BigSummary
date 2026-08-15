@@ -1,0 +1,41 @@
+import { DocDetailService } from "./doc.detail.service";
+import { GetCurrentDocDto } from "./dto/get-current-doc.dto";
+import { GetDocByIdDto } from "./dto/get-doc-by-id.dto";
+import { TimeReportDto } from "./dto/time-report.dto";
+export declare class DocDetailController {
+    private docDetailService;
+    constructor(docDetailService: DocDetailService);
+    getCurrentDocDetail(plantId: string): Promise<any>;
+    getCurrentAppDocDetail(plantId: string): Promise<any>;
+    getTomorrowAppDocDetail(plantId: string): Promise<any>;
+    getDocDetailByDocId(doc_id: string): Promise<any>;
+    getRecordDetail(record_id: string): Promise<{
+        id: any;
+        productId: any;
+        product: any;
+        boil: any;
+        plan: any;
+        fact: any;
+        apparatus: any;
+        bbf: any;
+        dm: any;
+        note: any;
+        can: any;
+        conveyor: any;
+        workshop: any;
+        historiesCount: any;
+        state: any;
+        stateValue: any;
+        stateTime: any;
+        isUpdated: boolean;
+        isSet: any;
+        semiProducts: any;
+        regulation: any;
+        water_base_id: any;
+        plant_id: any;
+        history_note: any;
+    }>;
+    getCurrentDocWithParams(dto: GetCurrentDocDto): Promise<any>;
+    getTimeReport(dto: TimeReportDto): Promise<any>;
+    getDocByIDWithParams(dto: GetDocByIdDto): Promise<any>;
+}

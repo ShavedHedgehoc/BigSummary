@@ -1,0 +1,590 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Api_errors {
+  id        Int      @id @default(autoincrement())
+  dto       String?  @db.VarChar(255)
+  message   String?  @db.VarChar(255)
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+
+  @@map("api_errors")
+}
+
+model Apparatuses {
+  id    Int    @id @default(autoincrement())
+  value String @unique @db.VarChar(255)
+
+  @@map("apparatuses")
+}
+
+model Bases {
+  id      Int     @id @default(autoincrement())
+  code    String  @unique @db.VarChar(255)
+  marking String? @db.VarChar(255)
+  boils   boils[]
+
+  @@map("bases")
+}
+
+model Cans {
+  id    Int    @id @default(autoincrement())
+  value String @unique @db.VarChar(255)
+
+  @@map("cans")
+}
+
+model Conveyors {
+  id      Int       @id @default(autoincrement())
+  value   String    @unique @db.VarChar(255)
+  barcode String?   @db.VarChar(13)
+  records Records[]
+
+  @@map("conveyors")
+}
+
+model Docs {
+  id        Int       @id @default(autoincrement())
+  plantId   Int?
+  date      DateTime  @db.Timestamptz(6)
+  createdAt DateTime  @db.Timestamptz(6)
+  updatedAt DateTime  @db.Timestamptz(6)
+  plants    Plants?   @relation(fields: [plantId], references: [id], onDelete: Cascade)
+  records   Records[]
+
+  @@index([plantId], map: "idx_docs_plantid")
+  @@index([plantId, date], map: "idx_docs_plantid_date")
+  @@map("docs")
+}
+
+model Employees {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique @db.VarChar(255)
+  barcode        String           @unique @db.VarChar(255)
+  occupationId   Int?
+  createdAt      DateTime         @db.Timestamptz(6)
+  updatedAt      DateTime         @db.Timestamptz(6)
+  occupations    Occupations?     @relation(fields: [occupationId], references: [id], onDelete: Cascade)
+  histories      Histories[]
+  tube_histories Tube_histories[]
+  tube_sessions  Tube_sessions[]
+
+  @@map("employees")
+}
+
+model Histories {
+  id            Int            @id @default(autoincrement())
+  record_id     Int?
+  boil_id       Int?
+  historyTypeId Int?
+  userId        Int?
+  employeeId    Int?
+  note          String?        @db.VarChar(255)
+  createdAt     DateTime       @db.Timestamptz(6)
+  updatedAt     DateTime       @db.Timestamptz(6)
+  note_id       Int?
+  plant_id      Int?
+  boils         boils?         @relation(fields: [boil_id], references: [id], onDelete: Cascade)
+  employees     Employees?     @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  history_types History_types? @relation(fields: [historyTypeId], references: [id], onDelete: Cascade)
+  records       Records?       @relation(fields: [record_id], references: [id], onDelete: Cascade)
+  users         Users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([record_id, createdAt], map: "idx_hist_record_createdat")
+  @@index([boil_id, createdAt, id, record_id, historyTypeId, userId, employeeId, note, note_id, plant_id, updatedAt], map: "idx_histories_boil_createdat_include")
+  @@index([boil_id], map: "idx_histories_boil_id")
+  @@index([employeeId], map: "idx_histories_employee_id")
+  @@index([historyTypeId], map: "idx_histories_history_type_id")
+  @@index([note_id], map: "idx_histories_note_id")
+  @@index([plant_id], map: "idx_histories_plant_id")
+  @@index([record_id, createdAt], map: "idx_histories_record_createdat")
+  @@index([record_id], map: "idx_histories_record_id")
+  @@index([record_id, createdAt, id, boil_id, historyTypeId, userId, employeeId, note_id, plant_id, updatedAt], map: "idx_histories_recordid_createdat")
+  @@index([userId], map: "idx_histories_user_id")
+  @@map("histories")
+}
+
+model History_types {
+  id          Int         @id @default(autoincrement())
+  value       String      @unique @db.VarChar(255)
+  description String      @unique @db.VarChar(255)
+  for_boil    Boolean?
+  histories   Histories[]
+
+  @@map("history_types")
+}
+
+model Marking_sample {
+  id                 Int                  @id @default(autoincrement())
+  value              String?              @db.VarChar(255)
+  createdAt          DateTime             @db.Timestamptz(6)
+  updatedAt          DateTime             @db.Timestamptz(6)
+  record_regulations Record_regulations[]
+  regulations        Regulations[]
+
+  @@map("marking_sample")
+}
+
+model Notes {
+  id    Int     @id @default(autoincrement())
+  value String? @db.VarChar(255)
+
+  @@map("notes")
+}
+
+model Occupations {
+  id          Int         @id @default(autoincrement())
+  value       String      @unique @db.VarChar(255)
+  description String      @unique @db.VarChar(255)
+  employees   Employees[]
+
+  @@map("occupations")
+}
+
+model Plants {
+  id            Int             @id @default(autoincrement())
+  value         String          @unique @db.VarChar(255)
+  abb           String?         @db.VarChar(10)
+  docs          Docs[]
+  user_settings User_settings[]
+
+  @@map("plants")
+}
+
+model Products {
+  id            Int             @id @default(autoincrement())
+  code1C        String          @unique @db.VarChar(255)
+  marking       String          @db.VarChar(255)
+  name          String?         @db.VarChar(255)
+  serieId       Int?
+  createdAt     DateTime        @db.Timestamptz(6)
+  updatedAt     DateTime        @db.Timestamptz(6)
+  series        Series?         @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  regulations   Regulations[]
+  semi_products Semi_products[]
+
+  @@map("products")
+}
+
+model Record_counters {
+  id            Int      @id @default(autoincrement())
+  record_id     Int?
+  task_uid      String?  @unique @db.VarChar(255)
+  counter_value Int
+  createdAt     DateTime @db.Timestamptz(6)
+  updatedAt     DateTime @db.Timestamptz(6)
+  records       Records? @relation(fields: [record_id], references: [id], onDelete: Cascade)
+
+  @@map("record_counters")
+}
+
+model Record_regulations {
+  id                    Int             @id @default(autoincrement())
+  record_id             Int?
+  org_base_min_weight   Decimal?        @db.Decimal
+  org_base_max_weight   Decimal?        @db.Decimal
+  water_base_min_weight Decimal?        @db.Decimal
+  water_base_max_weight Decimal?        @db.Decimal
+  per_box               Int?
+  box_per_row           Int?
+  row_on_pallet         Int?
+  gasket                String?         @db.VarChar(255)
+  seal                  Boolean?
+  technician_note       String?         @db.VarChar(255)
+  packaging_note        String?         @db.VarChar(255)
+  marking_sample_id     Int?
+  inc_color             String?         @db.VarChar(255)
+  marking_feature       String?         @db.VarChar(255)
+  createdAt             DateTime        @db.Timestamptz(6)
+  updatedAt             DateTime        @db.Timestamptz(6)
+  marking_sample        Marking_sample? @relation(fields: [marking_sample_id], references: [id], onDelete: NoAction)
+  records               Records?        @relation(fields: [record_id], references: [id], onDelete: Cascade)
+
+  @@index([marking_sample_id], map: "idx_record_regulations_marking_sample_id")
+  @@index([record_id], map: "idx_record_regulations_record_id")
+  @@map("record_regulations")
+}
+
+model Records {
+  id                 Int                  @id @default(autoincrement())
+  doc_id             Int?
+  productId          Int?
+  boilId             Int?
+  apparatusId        Int?
+  canId              Int?
+  conveyorId         Int?
+  plan               Int
+  bbf                String               @db.VarChar(255)
+  note               String               @db.VarChar(1024)
+  workshopId         Int?
+  createdAt          DateTime             @db.Timestamptz(6)
+  updatedAt          DateTime             @db.Timestamptz(6)
+  isSet              Boolean?
+  organic_base_id    Int?
+  water_base_id      Int?
+  dm                 String               @default("-") @db.VarChar(48)
+  histories          Histories[]
+  record_counters    Record_counters[]
+  record_regulations Record_regulations[]
+  conveyors          Conveyors?           @relation(fields: [conveyorId], references: [id], onDelete: Restrict)
+  docs               Docs?                @relation(fields: [doc_id], references: [id], onDelete: Cascade)
+  workshops          Workshops?           @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+  semi_products      Semi_products[]
+
+  @@index([apparatusId], map: "idx_records_apparatusid")
+  @@index([boilId], map: "idx_records_boilid")
+  @@index([canId], map: "idx_records_canid")
+  @@index([conveyorId], map: "idx_records_conveyorid")
+  @@index([doc_id], map: "idx_records_doc_id")
+  @@index([doc_id, id, productId, boilId, conveyorId, apparatusId, canId, workshopId, plan, bbf, dm, createdAt, updatedAt], map: "idx_records_docid_cover")
+  @@index([doc_id, id], map: "idx_records_docid_id")
+  @@index([organic_base_id], map: "idx_records_organic_base_id")
+  @@index([productId], map: "idx_records_productid")
+  @@index([water_base_id], map: "idx_records_water_base_id")
+  @@map("records")
+}
+
+model Regulations {
+  id                    Int             @id @default(autoincrement())
+  product_id            Int?
+  water_base_min_weight Decimal?        @db.Decimal
+  water_base_max_weight Decimal?        @db.Decimal
+  per_box               Int?
+  box_per_row           Int?
+  row_on_pallet         Int?
+  gasket                String?         @db.VarChar(255)
+  seal                  Boolean?
+  technician_note       String?         @db.VarChar(255)
+  packaging_note        String?         @db.VarChar(255)
+  marking_sample_id     Int?
+  createdAt             DateTime        @db.Timestamptz(6)
+  updatedAt             DateTime        @db.Timestamptz(6)
+  marking_sample        Marking_sample? @relation(fields: [marking_sample_id], references: [id], onDelete: Restrict)
+  products              Products?       @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@map("regulations")
+}
+
+model Roles {
+  id          Int          @id @default(autoincrement())
+  value       String       @unique @db.VarChar(255)
+  description String       @unique @db.VarChar(255)
+  createdAt   DateTime     @db.Timestamptz(6)
+  updatedAt   DateTime     @db.Timestamptz(6)
+  user_roles  User_roles[]
+
+  @@map("roles")
+}
+
+model Semi_products {
+  id         Int       @id @default(autoincrement())
+  record_id  Int?
+  product_id Int?
+  boil_id    Int?
+  createdAt  DateTime  @db.Timestamptz(6)
+  updatedAt  DateTime  @db.Timestamptz(6)
+  boils      boils?    @relation(fields: [boil_id], references: [id], onDelete: Cascade)
+  products   Products? @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  records    Records?  @relation(fields: [record_id], references: [id], onDelete: Cascade)
+
+  @@index([boil_id], map: "idx_semi_products_boil_id")
+  @@index([product_id], map: "idx_semi_products_product_id")
+  @@index([record_id], map: "idx_semi_products_record_id")
+  @@map("semi_products")
+}
+
+model Series {
+  id       Int        @id @default(autoincrement())
+  value    String     @unique @db.VarChar(255)
+  products Products[]
+
+  @@map("series")
+}
+
+model Tokens {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  token     String   @unique @db.VarChar(3000)
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  users     Users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "idx_tokens_user_id")
+  @@map("tokens")
+}
+
+model Tube_assembly {
+  id                    Int                  @id @default(autoincrement())
+  tube_record_id        Int?
+  tube_material_id      Int?
+  tube_conveyor_post_id Int?
+  createdAt             DateTime             @db.Timestamptz(6)
+  updatedAt             DateTime             @db.Timestamptz(6)
+  tube_conveyor_posts   Tube_conveyor_posts? @relation(fields: [tube_conveyor_post_id], references: [id], onDelete: Cascade)
+  tube_materials        Tube_materials?      @relation(fields: [tube_material_id], references: [id], onDelete: Cascade)
+  tube_records          Tube_records?        @relation(fields: [tube_record_id], references: [id], onDelete: NoAction)
+
+  @@map("tube_assembly")
+}
+
+model Tube_conveyor_posts {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique @db.VarChar(255)
+  tube_assembly Tube_assembly[]
+
+  @@map("tube_conveyor_posts")
+}
+
+model Tube_conveyors {
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(255)
+  barcode       String?         @unique @db.VarChar(255)
+  tube_records  Tube_records[]
+  tube_sessions Tube_sessions[]
+
+  @@map("tube_conveyors")
+}
+
+model Tube_histories {
+  id                   Int                   @id @default(autoincrement())
+  tube_record_id       Int?
+  tube_history_type_id Int?
+  employee_id          Int?
+  note                 String?               @db.VarChar(255)
+  tube_history_note_id Int?
+  createdAt            DateTime              @db.Timestamptz(6)
+  updatedAt            DateTime              @db.Timestamptz(6)
+  employees            Employees?            @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+  tube_histories_notes Tube_histories_notes? @relation(fields: [tube_history_note_id], references: [id], onDelete: NoAction)
+  tube_history_types   Tube_history_types?   @relation(fields: [tube_history_type_id], references: [id], onDelete: Cascade)
+  tube_records         Tube_records?         @relation(fields: [tube_record_id], references: [id], onDelete: NoAction)
+
+  @@map("tube_histories")
+}
+
+model Tube_histories_notes {
+  id             Int              @id @default(autoincrement())
+  value          String?          @db.VarChar(255)
+  tube_histories Tube_histories[]
+
+  @@map("tube_histories_notes")
+}
+
+model Tube_history_types {
+  id             Int              @id @default(autoincrement())
+  value          String           @unique @db.VarChar(255)
+  description    String           @unique @db.VarChar(255)
+  tube_histories Tube_histories[]
+
+  @@map("tube_history_types")
+}
+
+model Tube_materials {
+  id                  Int                   @id @default(autoincrement())
+  code_1C             String?               @unique @db.VarChar(255)
+  name                String?               @db.VarChar(255)
+  tube_assembly       Tube_assembly[]
+  tube_specifications Tube_specifications[]
+
+  @@map("tube_materials")
+}
+
+model Tube_parameters {
+  id                                      Int           @id @default(autoincrement())
+  tube_record_id                          Int?
+  press_speed_min                         Int?
+  press_speed_max                         Int?
+  molding_time_min                        Int?
+  molding_time_max                        Int?
+  turning_automate_speed_min              Int?
+  turning_automate_speed_max              Int?
+  annealing_furnace_temp_min              Int?
+  annealing_furnace_temp_max              Int?
+  cap_machine_speed_min                   Int?
+  cap_machine_speed_max                   Int?
+  caps_machine_air_pressure_min           Float?
+  caps_machine_air_pressure_max           Float?
+  grips_forward_min                       Int?
+  grips_forward_max                       Int?
+  grips_opening_left_min                  Int?
+  grips_opening_left_max                  Int?
+  grips_opening_right_min                 Int?
+  grips_opening_right_max                 Int?
+  grips_closing_min                       Int?
+  grips_closing_max                       Int?
+  injection_start_min                     Int?
+  injection_start_max                     Int?
+  injection_end_min                       Int?
+  injection_end_max                       Int?
+  tube_start_position_min                 Int?
+  tube_start_position_max                 Int?
+  tube_end_position_min                   Int?
+  tube_end_position_max                   Int?
+  padding_machine_speed_min               Int?
+  padding_machine_speed_max               Int?
+  padding_machine_air_pressure_min        Float?
+  padding_machine_air_pressure_max        Float?
+  padding_furnace_temp_min                Int?
+  padding_furnace_temp_max                Int?
+  offset_furnace_temp_min                 Int?
+  offset_furnace_temp_max                 Int?
+  printer_motor_speed_min                 Int?
+  printer_motor_speed_max                 Int?
+  holders_motor_speed_min                 Int?
+  holders_motor_speed_max                 Int?
+  station_motor_speed_min                 Int?
+  station_motor_speed_max                 Int?
+  ink_injection_time_min                  Int?
+  ink_injection_time_max                  Int?
+  lacquer_machine_speed_min               Int?
+  lacquer_machine_speed_max               Int?
+  lacquer_machine_air_pressure_min        Float?
+  lacquer_machine_air_pressure_max        Float?
+  feed_can_air_pressure_min               Float?
+  feed_can_air_pressure_max               Float?
+  nozzle_regulator_air_pressure_min       Float?
+  nozzle_regulator_air_pressure_max       Float?
+  cells_speed_min                         Int?
+  cells_speed_max                         Int?
+  injection_start_position_min            Int?
+  injection_start_position_max            Int?
+  injection_end_position_min              Int?
+  injection_end_position_max              Int?
+  tube_molding_start_position_min         Int?
+  tube_molding_start_position_max         Int?
+  tube_molding_end_position_min           Int?
+  tube_molding_end_position_max           Int?
+  polimerrization_furnace_temperature_min Int?
+  polimerrization_furnace_temperature_max Int?
+  tube_records                            Tube_records? @relation(fields: [tube_record_id], references: [id], onDelete: Cascade)
+
+  @@map("tube_parameters")
+}
+
+model Tube_products {
+  id                  Int                   @id @default(autoincrement())
+  code_1C             String?               @unique @db.VarChar(255)
+  marking             String?               @db.VarChar(255)
+  name                String?               @db.VarChar(255)
+  tube_records        Tube_records[]
+  tube_specifications Tube_specifications[]
+
+  @@map("tube_products")
+}
+
+model Tube_records {
+  id               Int               @id @default(autoincrement())
+  tube_product_id  Int?
+  tube_conveyor_id Int?
+  boil_id          Int?
+  plan             Int
+  start_date       DateTime?         @db.Date
+  finished         Boolean?          @default(false)
+  createdAt        DateTime          @db.Timestamptz(6)
+  updatedAt        DateTime          @db.Timestamptz(6)
+  tube_assembly    Tube_assembly[]
+  tube_histories   Tube_histories[]
+  tube_parameters  Tube_parameters[]
+  boils            boils?            @relation(fields: [boil_id], references: [id], onDelete: Cascade)
+  tube_conveyors   Tube_conveyors?   @relation(fields: [tube_conveyor_id], references: [id], onDelete: Cascade)
+  tube_products    Tube_products?    @relation(fields: [tube_product_id], references: [id], onDelete: Cascade)
+
+  @@map("tube_records")
+}
+
+model Tube_sessions {
+  id             Int             @id @default(autoincrement())
+  conveyor_id    Int?
+  employee_id    Int?
+  finished       Boolean?        @default(false)
+  createdAt      DateTime        @db.Timestamptz(6)
+  updatedAt      DateTime        @db.Timestamptz(6)
+  tube_conveyors Tube_conveyors? @relation(fields: [conveyor_id], references: [id], onDelete: Cascade)
+  employees      Employees?      @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  @@map("tube_sessions")
+}
+
+model Tube_specifications {
+  id               Int             @id @default(autoincrement())
+  tube_product_id  Int?
+  tube_material_id Int?
+  createdAt        DateTime        @db.Timestamptz(6)
+  updatedAt        DateTime        @db.Timestamptz(6)
+  tube_materials   Tube_materials? @relation(fields: [tube_material_id], references: [id], onDelete: Cascade)
+  tube_products    Tube_products?  @relation(fields: [tube_product_id], references: [id], onDelete: Cascade)
+
+  @@map("tube_specifications")
+}
+
+model User_roles {
+  id     Int   @id @default(autoincrement())
+  roleId Int
+  userId Int
+  roles  Roles @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  users  Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, userId])
+  @@index([roleId], map: "idx_user_roles_role_id")
+  @@index([userId], map: "idx_user_roles_user_id")
+  @@map("user_roles")
+}
+
+model User_settings {
+  id       Int     @id @default(autoincrement())
+  user_id  Int?    @unique
+  plant_id Int?
+  plants   Plants? @relation(fields: [plant_id], references: [id], onDelete: Cascade)
+  users    Users?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}
+
+model Users {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(255)
+  email         String         @unique @db.VarChar(255)
+  password      String         @db.VarChar(255)
+  banned        Boolean?       @default(false)
+  createdAt     DateTime       @db.Timestamptz(6)
+  updatedAt     DateTime       @db.Timestamptz(6)
+  histories     Histories[]
+  tokens        Tokens[]
+  user_roles    User_roles[]
+  user_settings User_settings?
+
+  @@map("users")
+}
+
+model Workshops {
+  id      Int       @id @default(autoincrement())
+  value   String    @unique @db.VarChar(255)
+  records Records[]
+
+  @@map("workshops")
+}
+
+model boils {
+  id            Int             @id @default(autoincrement())
+  value         String          @unique @db.VarChar(255)
+  base_id       Int?
+  letter        String?         @db.VarChar(255)
+  year          Decimal?        @db.Decimal
+  number        Decimal?        @db.Decimal
+  plant_id      Int?
+  bases         Bases?          @relation(fields: [base_id], references: [id], onDelete: NoAction)
+  histories     Histories[]
+  semi_products Semi_products[]
+  tube_records  Tube_records[]
+
+  @@index([plant_id, year(sort: Desc), letter(sort: Desc), number(sort: Desc), id, value, base_id])
+  @@index([base_id], map: "idx_boils_base_id")
+  @@index([plant_id], map: "idx_boils_plant_id")
+}

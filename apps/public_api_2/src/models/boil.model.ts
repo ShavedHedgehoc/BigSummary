@@ -1,0 +1,103 @@
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  AllowNull,
+  AutoIncrement,
+  BeforeCreate,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
+import Base from './bases.model';
+import Plant from './plant.model';
+import Record from './records.model';
+import History from './histories.model';
+import SemiProduct from './semi_products.model';
+
+interface BoilsCreationsAttrs {
+  value: string;
+}
+
+@Table({ tableName: 'boils', createdAt: false, updatedAt: false })
+export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
+  @ApiProperty({ example: '1', description: 'Уникальный id варки' })
+  @PrimaryKey
+  @AutoIncrement
+  @Column({ type: DataType.INTEGER, unique: true })
+  id: number;
+
+  @ApiProperty({ example: '123A4Y', description: 'Варка' })
+  @AllowNull(false)
+  @Column({ type: DataType.STRING, unique: true })
+  value: string;
+
+  @ForeignKey(() => Base)
+  @Column
+  base_id: number;
+
+  @ForeignKey(() => Plant)
+  @Column
+  plant_id: number;
+
+  @Column({ type: DataType.STRING })
+  letter: string;
+
+  @Column({ type: DataType.NUMBER })
+  number: number;
+
+  @Column({ type: DataType.NUMBER })
+  year: number;
+
+  @BelongsTo(() => Base)
+  base: Base;
+
+  @BelongsTo(() => Plant)
+  plant: Plant;
+
+  @HasMany(() => Record, 'boilId')
+  records: Record[];
+
+  @HasMany(() => Record, 'water_base_id')
+  water_base_records: Record[];
+
+  @HasMany(() => Record, 'organic_base_id')
+  organic_base_records: Record[];
+
+  @HasMany(() => History)
+  histories: History[];
+
+  @HasMany(() => SemiProduct)
+  semi_products: SemiProduct[];
+
+  @BeforeCreate
+  static addMonthLetter(instance: Boil) {
+    const val = instance.value;
+    const lastSymbol = val.substring(val.length - 1);
+    const lastTwoSymbols = val.substring(val.length - 2);
+
+    let offset = 0;
+    if (lastTwoSymbols === "RS" || lastTwoSymbols === "SR") {
+      offset = 2;
+    } else if (["Z", "Y", "S", "R", "X"].includes(lastSymbol)) {
+      offset = 1;
+    }
+
+    const yearEndIdx = val.length - offset;
+    const potentialTwoDigitYear = val.substring(yearEndIdx - 2, yearEndIdx);
+
+    if (!isNaN(Number(potentialTwoDigitYear)) && potentialTwoDigitYear.length === 2) {
+      instance.year = Number("20" + potentialTwoDigitYear);
+      instance.letter = val.substring(yearEndIdx - 3, yearEndIdx - 2);
+      instance.number = Number(val.substring(0, yearEndIdx - 3));
+    } else {
+      const oneDigitYear = val.substring(yearEndIdx - 1, yearEndIdx);
+      instance.year = Number("202" + oneDigitYear);
+      instance.letter = val.substring(yearEndIdx - 2, yearEndIdx - 1);
+      instance.number = Number(val.substring(0, yearEndIdx - 2));
+    }
+  }
+}
