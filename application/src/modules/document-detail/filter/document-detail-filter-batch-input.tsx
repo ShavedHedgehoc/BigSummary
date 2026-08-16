@@ -1,8 +1,8 @@
-import { useShallow } from "zustand/react/shallow";
+import { useShallow } from 'zustand/react/shallow';
 
-import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
-import { useDocumentDetailFilterStore } from "../store/use-document-detail-filter-store";
-import { DocumentDetailFilterParams } from "./document-detail-filter-params";
+import FilterInput, { FilterInputProps } from '../../../shared/ui/filter-input';
+import { useDocumentDetailFilterStore } from '../store/use-document-detail-filter-store';
+import { DocumentDetailFilterParams } from './document-detail-filter-params';
 
 export default function DocumentDetailFilterBatchInput() {
   const filter = useDocumentDetailFilterStore(useShallow((state) => state.filter));
@@ -11,9 +11,9 @@ export default function DocumentDetailFilterBatchInput() {
   const inputProps: FilterInputProps = {
     id: DocumentDetailFilterParams.BOIL,
     value: filter.boil,
-    disabled: filter.boil === "",
-    placeholder: "Партия",
-    label: "Поиск по партии",
+    disabled: filter.boil === '',
+    placeholder: 'Партия',
+    label: 'Поиск по партии',
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface DashHistoryModalStore {
   open: boolean;
@@ -15,7 +15,7 @@ export const useDashHistoryModalStore = create<DashHistoryModalStore>()((set) =>
   open: false,
   record_id: null,
   boil_value: null,
-  title: "",
+  title: '',
   setOpen: (value) => set(() => ({ open: value })),
   setRecordId: (value) => set(() => ({ record_id: value })),
   setTitle: (value) => set(() => ({ title: value })),

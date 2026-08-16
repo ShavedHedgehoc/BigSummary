@@ -1,6 +1,6 @@
-import { action, makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { action, makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 export interface IRecord {
   id: number;
@@ -26,7 +26,7 @@ export interface FetchRelatedRecordsDto {
 export default class RelatedRecordsStore {
   records: IRecord[] = [];
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this, {
       fetchRelatedRecords: action,
@@ -47,7 +47,7 @@ export default class RelatedRecordsStore {
 
   async fetchRelatedRecords(dto: FetchRelatedRecordsDto) {
     try {
-      this.setError("");
+      this.setError('');
       this.setPending(true);
       const responce = await $api.post(`/records/related`, dto);
       this.setRecords(responce.data);

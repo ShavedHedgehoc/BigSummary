@@ -2,12 +2,64 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Monorepo: Lint",
       "type": "npm",
-      "script": "dev",
-      "path": "application",
+      "script": "monorepo:lint",
       "problemMatcher": [],
-      "label": "npm: dev - application",
-      "detail": "vite"
+      "group": "none"
+    },
+    {
+      "label": "Monorepo: Type Check",
+      "type": "npm",
+      "script": "monorepo:typecheck",
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "group": "none"
+    },
+    {
+      "label": "Monorepo: Format",
+      "type": "npm",
+      "script": "monorepo:format",
+      "problemMatcher": [],
+      "group": "none"
+    },
+    {
+      "label": "Monorepo: Check & Format All",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Monorepo: Format",
+        "Monorepo: Lint",
+        "Monorepo: Type Check"
+      ],
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "Проверка типов и формат"
+    },
+    {
+      "label": "Prisma: Generate Client",
+      "type": "npm",
+      "script": "db:generate",
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "Генерирует типы Prisma для всех пакетов"
+    },
+    {
+      "label": "TRPC: Generate schema",
+      "type": "npm",
+      "script": "schema",
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "Генерирует схему trpc для studio "
+    },
+    {
+      "label": "Monorepo: Start All Apps",
+      "type": "npm",
+      "script": "monorepo:dev",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "Запускает режим разработки (dev) для всех приложений в apps/"
     }
   ]
 }

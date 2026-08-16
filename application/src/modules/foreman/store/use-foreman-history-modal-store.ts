@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface ForemanHistoryModalStore {
   open: boolean;
@@ -23,7 +23,7 @@ export const useForemanHistoryModalStore = create<ForemanHistoryModalStore>()((s
   open: false,
   record_id: null,
   boil_value: null,
-  title: "",
+  title: '',
   startButtonEnabled: false,
   finishButtonEnabled: false,
   cancelStartButtonEnabled: false,

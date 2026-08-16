@@ -1,6 +1,6 @@
-import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/react/shallow";
-import { useCansListPaginationStore } from "./store/use-cans-list-pagination-store";
+import { Pagination, PaginationProps } from '../../shared/components/pagination/pagination';
+import { useShallow } from 'zustand/react/shallow';
+import { useCansListPaginationStore } from './store/use-cans-list-pagination-store';
 
 export default function CansListPagination() {
   const paginationProps: PaginationProps = {

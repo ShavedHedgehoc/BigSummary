@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Box, Option, Select, Sheet, Typography } from "@mui/joy";
-import IconButton from "@mui/joy/IconButton";
-import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
-import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
-import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
+import { Box, Option, Select, Sheet, Typography } from '@mui/joy';
+import IconButton from '@mui/joy/IconButton';
+import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
+import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 
 export const perPageValues = [10, 15, 20, 50, 90];
 export const extPerPageValues = [10, 15, 20, 50, 90, 200, 1000, 2000, 10000, 50000];
@@ -30,38 +30,39 @@ export function Pagination(props: PaginationProps) {
         variant="outlined"
         sx={[
           {
-            display: { xs: "none", xl: "flex" },
-            width: "100%",
-            borderRadius: "sm",
-            justifyContent: "flex-end",
-            mt: "auto",
+            display: { xs: 'none', xl: 'flex' },
+            width: '100%',
+            borderRadius: 'sm',
+            justifyContent: 'flex-end',
+            mt: 'auto',
             gap: 3,
             p: 1,
-            borderWidth: "1px",
+            borderWidth: '1px',
           },
           (theme) => ({
             backgroundColor: theme.variants.soft.neutral,
           }),
         ]}
       >
-        <Box sx={{ display: "flex", alignItems: "center", flexDirection: "row", gap: 1 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'row', gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography level="body-xs">
-              Записи: {pages === 0 ? 0 : 1 + (props.page - 1) * props.limit} -{" "}
-              {props.page * props.limit > props.total ? props.total : props.page * props.limit} из {props.total}
+              Записи: {pages === 0 ? 0 : 1 + (props.page - 1) * props.limit} -{' '}
+              {props.page * props.limit > props.total ? props.total : props.page * props.limit} из{' '}
+              {props.total}
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center", flexDirection: "row", gap: 1 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'row', gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography level="body-xs">Записей на странице:</Typography>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Select
               size="sm"
-              sx={{ fontSize: "small" }}
+              sx={{ fontSize: 'small' }}
               defaultValue={props.limit}
-              slotProps={{ button: { sx: { whiteSpace: "nowrap" } } }}
+              slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
               disabled={pages === 0}
               onChange={(event: React.SyntheticEvent | null, newValue: number | null) => {
                 event && newValue && props.setLimit(newValue);
@@ -82,7 +83,7 @@ export function Pagination(props: PaginationProps) {
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
           <IconButton
             size="sm"
             variant="outlined"
@@ -99,7 +100,7 @@ export function Pagination(props: PaginationProps) {
           >
             <KeyboardArrowLeftOutlinedIcon />
           </IconButton>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography level="body-xs">
               Страница {pages === 0 ? 0 : props.page} из {pages}
             </Typography>

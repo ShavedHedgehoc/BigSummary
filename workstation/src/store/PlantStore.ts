@@ -1,6 +1,6 @@
-import { action, computed, makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { action, computed, makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 export interface IPlant {
   id: number;
@@ -10,7 +10,7 @@ export interface IPlant {
 export default class PlantStore {
   plant: IPlant | null = null;
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this);
   }

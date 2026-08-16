@@ -1,6 +1,8 @@
-import { useShallow } from "zustand/react/shallow";
-import { useUserUpdateModalStore } from "../store/use-update-user-modal-store";
-import ModalInputWithClear, { ModalInputWithClearProps } from "../../../shared/ui/modal-input-with-clear";
+import { useShallow } from 'zustand/react/shallow';
+import { useUserUpdateModalStore } from '../store/use-update-user-modal-store';
+import ModalInputWithClear, {
+  ModalInputWithClearProps,
+} from '../../../shared/ui/modal-input-with-clear';
 
 export default function UpdateUserModalNameInput() {
   const name = useUserUpdateModalStore(useShallow((state) => state.name));
@@ -11,7 +13,7 @@ export default function UpdateUserModalNameInput() {
     disabled: !editName,
     fullWidth: true,
     onChange: (e) => setName(e),
-    onClear: () => setName(""),
+    onClear: () => setName(''),
   };
   return <ModalInputWithClear {...inputProps} />;
 }

@@ -11,10 +11,10 @@ export interface ProductFilterStore {
 }
 
 export const initFilterValue: FetchProductFilter = {
-  productCode: "",
-  boil: "",
-  marking: "",
-  conveyor: "",
+  productCode: '',
+  boil: '',
+  marking: '',
+  conveyor: '',
   haveRecord: true,
   boilAsc: false,
   states: [],

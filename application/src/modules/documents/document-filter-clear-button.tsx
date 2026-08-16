@@ -1,8 +1,11 @@
-import { useShallow } from "zustand/react/shallow";
-import { useDocumentsFilterStore } from "./store/use-documents-filter-store";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import FilterButton, { FilterButtonProps } from "../../shared/ui/filter-button";
-import { getFirstDayOfCurrentMonth, getLastDayOfCurrentMonth } from "../../shared/helpers/date-time-formatters";
+import { useShallow } from 'zustand/react/shallow';
+import { useDocumentsFilterStore } from './store/use-documents-filter-store';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import FilterButton, { FilterButtonProps } from '../../shared/ui/filter-button';
+import {
+  getFirstDayOfCurrentMonth,
+  getLastDayOfCurrentMonth,
+} from '../../shared/helpers/date-time-formatters';
 
 export default function DocumentsFilterClearButton() {
   const clearFilter = useDocumentsFilterStore(useShallow((state) => state.clearFilter));
@@ -14,7 +17,7 @@ export default function DocumentsFilterClearButton() {
     filter.plants.length === 0;
 
   const clearButtonProps: FilterButtonProps = {
-    label: "Сбросить",
+    label: 'Сбросить',
     disabled: disableDocumentFilterClearButton,
     startDecorator: <DeleteOutlineIcon />,
     onClick: () => clearFilter(),

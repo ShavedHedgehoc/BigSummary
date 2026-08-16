@@ -1,4 +1,4 @@
-import { $api } from "../http";
+import { $api } from '../http';
 
 export default class InventoryService {
   static async getInventoryListWithParams(dto: FetchInventoryDocsDto): Promise<IInventoryDocsData> {

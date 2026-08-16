@@ -1,10 +1,15 @@
-import { useShallow } from "zustand/react/shallow";
-import ModalSelector, { ModalSelectorOption, ModalSelectorProps } from "../../../shared/ui/modal-selector";
-import { useUserUpdateModalStore } from "../store/use-update-user-modal-store";
+import { useShallow } from 'zustand/react/shallow';
+import ModalSelector, {
+  ModalSelectorOption,
+  ModalSelectorProps,
+} from '../../../shared/ui/modal-selector';
+import { useUserUpdateModalStore } from '../store/use-update-user-modal-store';
 
 export default function UpdateUserModalPlantSelector() {
   const selectedPlant = useUserUpdateModalStore(useShallow((state) => state.selectedPlant));
-  const plantSelectorOptions = useUserUpdateModalStore(useShallow((state) => state.plantSelectorOptions));
+  const plantSelectorOptions = useUserUpdateModalStore(
+    useShallow((state) => state.plantSelectorOptions),
+  );
   const setSelectedPlant = useUserUpdateModalStore(useShallow((state) => state.setSelectedPlant));
   const setPlants = useUserUpdateModalStore(useShallow((state) => state.setPlants));
 
@@ -13,9 +18,9 @@ export default function UpdateUserModalPlantSelector() {
   ));
 
   const plantSelectorProps: ModalSelectorProps = {
-    id: "update-user-modal-plant-selector",
+    id: 'update-user-modal-plant-selector',
     selectedOption: selectedPlant,
-    placeholder: "Выберите площадку",
+    placeholder: 'Выберите площадку',
     fullWidth: true,
     options: plantOptions,
     setSelectedOption: (id: number) => setSelectedPlant(id),

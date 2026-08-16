@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { useHealthStore } from "../../modules/server-falldown/use-health-store";
-import HealthService from "./services/health-service";
+import { useQuery } from '@tanstack/react-query';
+import { useHealthStore } from '../../modules/server-falldown/use-health-store';
+import HealthService from './services/health-service';
 
 export function useCheckHealth() {
   const { setHealthy, setInit } = useHealthStore();
   return useQuery({
-    queryKey: ["healths"],
+    queryKey: ['healths'],
     queryFn: async () => {
       await HealthService.checkApiHealth()
         .then(() => {

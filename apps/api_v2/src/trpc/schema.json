@@ -1,0 +1,101 @@
+{
+  "inputs": {
+    "workstation.employee.getEmployeeByBarcode": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "string"
+        }
+      }
+    },
+    "workstation.coveyor.getConveyorByBarcode": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "string"
+        }
+      }
+    },
+    "dash.plant.getPlantByValue": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "outputs": {
+    "workstation.employee.getEmployeeByBarcode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "barcode": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO date string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO date string"
+        },
+        "occupationId": {
+          "type": "number"
+        },
+        "occupations": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "value": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "value", "description"]
+        }
+      },
+      "required": ["id", "name", "barcode", "createdAt", "updatedAt"]
+    },
+    "workstation.coveyor.getConveyorByBarcode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "value": {
+          "type": "string"
+        },
+        "barcode": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "value"]
+    },
+    "dash.plant.getPlantByValue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "value": {
+          "type": "string"
+        },
+        "abb": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "value", "abb"]
+    }
+  }
+}

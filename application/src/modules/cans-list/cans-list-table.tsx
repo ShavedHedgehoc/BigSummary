@@ -1,23 +1,23 @@
-import * as React from "react";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
 
 // import RowComponent from "./conveyors-row";
 
-import { useShallow } from "zustand/react/shallow";
-import { useCansListPaginationStore } from "./store/use-cans-list-pagination-store";
-import { useCansList } from "./use-cans-list";
-import { useCansListFilterStore } from "./store/use-cans-list-filter-store";
-import CansListRow from "./cans-list-row";
+import { useShallow } from 'zustand/react/shallow';
+import { useCansListPaginationStore } from './store/use-cans-list-pagination-store';
+import { useCansList } from './use-cans-list';
+import { useCansListFilterStore } from './store/use-cans-list-filter-store';
+import CansListRow from './cans-list-row';
 
 const commonThead: TheadProperties[] = [
-  { width: 50, align: "center", value: "Ёмкость" },
-  { width: 30, align: "center", value: "Объем" },
-  { width: 80, align: "center", value: "Штрихкод" },
-  { width: 80, align: "center", value: "Площадка" },
-  { width: 110, align: "center", value: "Действия" },
+  { width: 50, align: 'center', value: 'Ёмкость' },
+  { width: 30, align: 'center', value: 'Объем' },
+  { width: 80, align: 'center', value: 'Штрихкод' },
+  { width: 80, align: 'center', value: 'Площадка' },
+  { width: 110, align: 'center', value: 'Действия' },
 ];
 
 export default function CansListTable() {

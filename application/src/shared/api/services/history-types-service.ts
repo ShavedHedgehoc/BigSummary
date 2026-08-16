@@ -1,4 +1,4 @@
-import { $api } from "../http";
+import { $api } from '../http';
 
 export default class HistoryTypeService {
   //   static async getHistoryTypes(): Promise<AxiosResponse<IHistoryType[]>> {

@@ -1,4 +1,4 @@
-import { Box, Switch } from "@mui/joy";
+import { Box, Switch } from '@mui/joy';
 
 export interface FormSwitcherProps {
   condition: boolean;
@@ -7,7 +7,7 @@ export interface FormSwitcherProps {
 
 export default function FormSwitcher(props: FormSwitcherProps) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexGrow: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
       <Switch
         color="neutral"
         disabled={false}

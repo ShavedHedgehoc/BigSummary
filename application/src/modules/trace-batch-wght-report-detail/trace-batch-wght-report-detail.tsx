@@ -1,11 +1,11 @@
-import * as React from "react";
-import { useSearchParams } from "react-router-dom";
-import { Params } from "../../shared/router/params";
-import { FetchTraceBatchWghtReportDetailDto } from "../../shared/api/services/trace-batchs-service";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
-import TraceBatchWghtReportDetailTable from "./trace-batch-wght-report-detail-table";
-import TraceBatchWghtReportDetailHeader from "./trace-batch-wght-report-detail-header";
-import TraceBatchWghtReportDetailDeleteModal from "./trace-batch-wght-report-detail-delete-modal";
+import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Params } from '../../shared/router/params';
+import { FetchTraceBatchWghtReportDetailDto } from '../../shared/api/services/trace-batchs-service';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
+import TraceBatchWghtReportDetailTable from './trace-batch-wght-report-detail-table';
+import TraceBatchWghtReportDetailHeader from './trace-batch-wght-report-detail-header';
+import TraceBatchWghtReportDetailDeleteModal from './trace-batch-wght-report-detail-delete-modal';
 
 export default function TraceBatchWghtReportDetail() {
   const [searchParams] = useSearchParams();

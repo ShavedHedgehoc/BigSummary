@@ -1,19 +1,19 @@
-import * as React from "react";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
 
-import { useConveyors } from "./use-conveyors";
-import RowComponent from "./conveyors-row";
-import { useConveyorsFilterStore } from "./store/use-conveyors-filter-store";
-import { useConveyorsPaginationStore } from "./store/use-conveyors-pagination-store";
-import { useShallow } from "zustand/react/shallow";
+import { useConveyors } from './use-conveyors';
+import RowComponent from './conveyors-row';
+import { useConveyorsFilterStore } from './store/use-conveyors-filter-store';
+import { useConveyorsPaginationStore } from './store/use-conveyors-pagination-store';
+import { useShallow } from 'zustand/react/shallow';
 
 const commonThead: TheadProperties[] = [
-  { width: 50, align: "center", value: "Конвейер" },
-  { width: 80, align: "center", value: "Штрихкод" },
-  { width: 110, align: "center", value: "Действия" },
+  { width: 50, align: 'center', value: 'Конвейер' },
+  { width: 80, align: 'center', value: 'Штрихкод' },
+  { width: 110, align: 'center', value: 'Действия' },
 ];
 
 export default function ConveyorsTable() {

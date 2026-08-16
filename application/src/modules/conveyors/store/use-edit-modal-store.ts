@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface EditModalStore {
   id: number | null;
@@ -15,12 +15,12 @@ interface EditModalStore {
 export const useEditModalStore = create<EditModalStore>()((set) => ({
   id: null,
   open: false,
-  value: "",
-  barcode: "",
+  value: '',
+  barcode: '',
 
   setId: (val: number) => set(() => ({ id: val })),
   setOpen: (val: boolean) => set(() => ({ open: val })),
   setValue: (val: string) => set(() => ({ value: val })),
   setBarcode: (val: string) => set(() => ({ barcode: val })),
-  clearData: () => set(() => ({ value: "", barcode: "", occupation: null })),
+  clearData: () => set(() => ({ value: '', barcode: '', occupation: null })),
 }));

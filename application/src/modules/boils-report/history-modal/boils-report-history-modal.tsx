@@ -1,11 +1,11 @@
-import ModalLayout from "../../../shared/layouts/modal-layout";
-import TableLayout from "../../../shared/layouts/table-layout";
+import ModalLayout from '../../../shared/layouts/modal-layout';
+import TableLayout from '../../../shared/layouts/table-layout';
 
-import { useShallow } from "zustand/react/shallow";
-import TableLoaderComponent from "../../../shared/components/table-loader";
-import { useBoilsReportHistoryModalStore } from "../store/use-boils-report-history-modal-store";
-import BoilsReportHistoryModalRow from "./boils-report-history-modal-row";
-import { useBoilsHistories } from "../../../shared/api/use-boils-histories";
+import { useShallow } from 'zustand/react/shallow';
+import TableLoaderComponent from '../../../shared/components/table-loader';
+import { useBoilsReportHistoryModalStore } from '../store/use-boils-report-history-modal-store';
+import BoilsReportHistoryModalRow from './boils-report-history-modal-row';
+import { useBoilsHistories } from '../../../shared/api/use-boils-histories';
 
 export default function BoilsReportHistoryModal() {
   const open = useBoilsReportHistoryModalStore(useShallow((state) => state.open));
@@ -15,11 +15,11 @@ export default function BoilsReportHistoryModal() {
   const { isPending, data, isSuccess } = useBoilsHistories(record_id);
 
   const history_table_thead: TheadProperties[] = [
-    { width: 50, padding: "18px 6px", value: "Дата" },
-    { width: 50, padding: "18px 6px", value: "Время" },
-    { width: 100, padding: "18px 6px", value: "Статус записи" },
-    { width: 80, padding: "18px 6px", value: "Автор записи" },
-    { width: 50, padding: "18px 6px", value: "Комментарий" },
+    { width: 50, padding: '18px 6px', value: 'Дата' },
+    { width: 50, padding: '18px 6px', value: 'Время' },
+    { width: 100, padding: '18px 6px', value: 'Статус записи' },
+    { width: 80, padding: '18px 6px', value: 'Автор записи' },
+    { width: 50, padding: '18px 6px', value: 'Комментарий' },
   ];
 
   const modalProps = {

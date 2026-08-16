@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import Box from "@mui/joy/Box";
-import Checkbox from "@mui/joy/Checkbox";
-import Sheet from "@mui/joy/Sheet";
-import ModalLayout, { ModalLayoutProps } from "../../../shared/layouts/modal-layout";
-import { useChangeUserRolesModalStore } from "../store/use-change-user-roles-modal-store";
-import { useShallow } from "zustand/react/shallow";
-import { useRolesListStore } from "../store/use-roles-list-store";
-import { useUsersFilterStore } from "../store/use-users-filter-store";
-import UpdateUserRolesModalButtons from "./update-user-roles-modal-buttons";
+import Box from '@mui/joy/Box';
+import Checkbox from '@mui/joy/Checkbox';
+import Sheet from '@mui/joy/Sheet';
+import ModalLayout, { ModalLayoutProps } from '../../../shared/layouts/modal-layout';
+import { useChangeUserRolesModalStore } from '../store/use-change-user-roles-modal-store';
+import { useShallow } from 'zustand/react/shallow';
+import { useRolesListStore } from '../store/use-roles-list-store';
+import { useUsersFilterStore } from '../store/use-users-filter-store';
+import UpdateUserRolesModalButtons from './update-user-roles-modal-buttons';
 
 const ContentComponent = () => {
   const roleSelectorOptions = useUsersFilterStore(useShallow((state) => state.roleSelectorOptions));
@@ -16,7 +16,13 @@ const ContentComponent = () => {
   const addRole = useRolesListStore(useShallow((state) => state.addRole));
   const removeRole = useRolesListStore(useShallow((state) => state.removeRole));
 
-  const handleChange = ({ event, id }: { event: React.ChangeEvent<HTMLInputElement>; id: number }) => {
+  const handleChange = ({
+    event,
+    id,
+  }: {
+    event: React.ChangeEvent<HTMLInputElement>;
+    id: number;
+  }) => {
     if (event.target.checked) {
       addRole(id);
     } else {
@@ -25,21 +31,21 @@ const ContentComponent = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, minHeight: 0 }}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1, overflow: "auto" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, minHeight: 0 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, overflow: 'auto' }}>
         {roleSelectorOptions &&
           roleSelectorOptions.map((item) => (
             <Sheet
               variant="outlined"
               key={`roleSheet_${item.id}`}
               sx={{
-                borderRadius: "sm",
+                borderRadius: 'sm',
                 pl: 2,
                 pt: 1,
                 pb: 1,
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
                 gap: 2,
               }}
             >
@@ -63,7 +69,7 @@ export default function UpdateUserRolesModal() {
   const modalProps: ModalLayoutProps = {
     open: open,
     onClose: () => setOpen(false),
-    title: "Редактирование прав пользователя",
+    title: 'Редактирование прав пользователя',
     height: 600,
     minHeight: 0,
     width: 400,

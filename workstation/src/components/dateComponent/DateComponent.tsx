@@ -1,6 +1,6 @@
-import * as React from "react";
-import { useDate } from "../../helpers/UseDate";
-import { Box, Typography } from "@mui/joy";
+import * as React from 'react';
+import { useDate } from '../../helpers/UseDate';
+import { Box, Typography } from '@mui/joy';
 
 export default function DateComponent() {
   const { date } = useDate();

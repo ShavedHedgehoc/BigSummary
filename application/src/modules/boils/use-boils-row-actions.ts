@@ -1,6 +1,6 @@
-import { useCreateHistory } from "../../shared/api/use-create-history";
-import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
-import { useShallow } from "zustand/react/shallow";
+import { useCreateHistory } from '../../shared/api/use-create-history';
+import { useAddBoilModalStore } from './store/use-add-boil-modal-store';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const setOpen = useAddBoilModalStore(useShallow((state) => state.setOpen));
@@ -11,11 +11,10 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
 
   const { isPending } = useCreateHistory();
 
-
   const handleContinueButtonClick = () => {
     setBoilValue(row.value);
     setTitle(`Партия - ${row.value}, статус - "Продолжение варки"`);
-    setState("base_continue");
+    setState('base_continue');
     setNoteRequired(false);
     setOpen(true);
   };
@@ -23,7 +22,7 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const handleCorrectButtonClick = () => {
     setBoilValue(row.value);
     setTitle(`Партия - ${row.value}, статус - "Требуется корректировка"`);
-    setState("base_correct");
+    setState('base_correct');
     setNoteRequired(true);
     setOpen(true);
   };
@@ -31,7 +30,7 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const handlePassButtonClick = () => {
     setBoilValue(row.value);
     setTitle(`Партия - ${row.value}, статус - "Допуск на подключение"`);
-    setState("plug_pass");
+    setState('plug_pass');
     setNoteRequired(false);
     setOpen(true);
   };
@@ -39,7 +38,7 @@ export default function UseBoilsRowActions({ row }: { row: IBoilRow }) {
   const handleFailButtonClick = () => {
     setBoilValue(row.value);
     setTitle(`Партия - ${row.value}, статус - "Брак основы"`);
-    setState("base_fail");
+    setState('base_fail');
     setNoteRequired(true);
     setOpen(true);
   };

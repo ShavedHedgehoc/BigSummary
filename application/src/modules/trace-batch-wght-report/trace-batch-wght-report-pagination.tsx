@@ -1,6 +1,6 @@
-import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/react/shallow";
-import { useTraceBatchWghtReportPaginationStore } from "./store/use-trace-batch-wght-report-pagination-store";
+import { Pagination, PaginationProps } from '../../shared/components/pagination/pagination';
+import { useShallow } from 'zustand/react/shallow';
+import { useTraceBatchWghtReportPaginationStore } from './store/use-trace-batch-wght-report-pagination-store';
 
 export default function TraceBatchWghtReportPagination() {
   const paginationProps: PaginationProps = {

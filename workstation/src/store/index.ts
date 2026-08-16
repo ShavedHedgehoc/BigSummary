@@ -1,10 +1,10 @@
-import EmployeeStore from "./EmployeeStore";
-import HistoriesStore from "./HistoriesStore";
-import RecordsStore from "./RecordsStore";
-import HealthStore from "./HealthStore";
-import PlantStore from "./PlantStore";
-import RelatedRecordsStore from "./RelatedRecordsStore";
-import ConveyorStore from "./ConveyorStore";
+import EmployeeStore from './EmployeeStore';
+import HistoriesStore from './HistoriesStore';
+import RecordsStore from './RecordsStore';
+import HealthStore from './HealthStore';
+import PlantStore from './PlantStore';
+import RelatedRecordsStore from './RelatedRecordsStore';
+import ConveyorStore from './ConveyorStore';
 export default class RootStore {
   EmployeeStore;
   HistoriesStore;

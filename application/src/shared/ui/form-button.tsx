@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, Button, useColorScheme } from "@mui/joy";
+import * as React from 'react';
+import { Box, Button, useColorScheme } from '@mui/joy';
 
 export interface FormButtonProps {
   label: string;
@@ -11,13 +11,13 @@ export interface FormButtonProps {
 export default function FormButton(props: FormButtonProps) {
   const { mode } = useColorScheme();
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-start", gap: 2 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 2 }}>
       <Button
-        color={mode === "dark" ? "neutral" : "neutral"}
+        color={mode === 'dark' ? 'neutral' : 'neutral'}
         variant="outlined"
         startDecorator={props.startDecorator}
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
         disabled={props.disabled}
         onClick={() => props.onClick()}
       >

@@ -1,6 +1,8 @@
-import { useShallow } from "zustand/react/shallow";
-import { useUserUpdateModalStore } from "../store/use-update-user-modal-store";
-import ModalInputWithClear, { ModalInputWithClearProps } from "../../../shared/ui/modal-input-with-clear";
+import { useShallow } from 'zustand/react/shallow';
+import { useUserUpdateModalStore } from '../store/use-update-user-modal-store';
+import ModalInputWithClear, {
+  ModalInputWithClearProps,
+} from '../../../shared/ui/modal-input-with-clear';
 
 export default function UpdateUserModalEmailInput() {
   const email = useUserUpdateModalStore(useShallow((state) => state.email));
@@ -10,7 +12,7 @@ export default function UpdateUserModalEmailInput() {
     value: email,
     disabled: !editEmail,
     onChange: (e) => setEmail(e),
-    onClear: () => setEmail(""),
+    onClear: () => setEmail(''),
   };
   return <ModalInputWithClear {...inputProps} />;
 }

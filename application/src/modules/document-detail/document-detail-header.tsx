@@ -1,10 +1,10 @@
-import * as React from "react";
-import { useParams } from "react-router-dom";
-import { Params } from "../../shared/router/params";
-import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
-import { useDoc } from "./use-doc";
-import { formatDateToString } from "../../shared/helpers/date-time-formatters";
-import MainPageHeader from "../../shared/components/headers/MainPageHeader";
+import * as React from 'react';
+import { useParams } from 'react-router-dom';
+import { Params } from '../../shared/router/params';
+import BreadCrumbHeader from '../../shared/components/headers/BreadCrumbHeader';
+import { useDoc } from './use-doc';
+import { formatDateToString } from '../../shared/helpers/date-time-formatters';
+import MainPageHeader from '../../shared/components/headers/MainPageHeader';
 
 export default function DocumentDetailHeader() {
   const params = useParams<Params.SUMMARY_PARAMS>();
@@ -13,11 +13,14 @@ export default function DocumentDetailHeader() {
   return (
     <React.Fragment>
       <BreadCrumbHeader
-        breadcrumbs={["Сводка", isSuccess && data.id ? `${data.plants.value} - ${formatDateToString(data.date)}` : ""]}
+        breadcrumbs={[
+          'Сводка',
+          isSuccess && data.id ? `${data.plants.value} - ${formatDateToString(data.date)}` : '',
+        ]}
       />
       <MainPageHeader
         pageTitle={`Подробная сводка (${
-          isSuccess && data.id ? `${data.plants.value} - ${formatDateToString(data.date)}` : ""
+          isSuccess && data.id ? `${data.plants.value} - ${formatDateToString(data.date)}` : ''
         })`}
       />
     </React.Fragment>

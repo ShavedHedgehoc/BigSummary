@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { BoilsFilterParams } from "../boils-filter-params";
-import { IPlant } from "../../../types";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { BoilsFilterParams } from '../boils-filter-params';
+import { IPlant } from '../../../types';
+import { devtools } from 'zustand/middleware';
 
 interface BoilsFilterStore {
   filter: FetchBoilsFilter;
@@ -16,9 +16,9 @@ interface BoilsFilterStore {
 }
 
 const initFilterValue: FetchBoilsFilter = {
-  baseCode: "",
-  boil: "",
-  marking: "",
+  baseCode: '',
+  boil: '',
+  marking: '',
   haveRecord: true,
   boilAsc: false,
   states: [],
@@ -50,7 +50,9 @@ export const useBoilsFilterStore = create<BoilsFilterStore>()(
           set((state) => ({ filter: { ...state.filter, marking: value } }));
           break;
         case BoilsFilterParams.BOIL_ASC:
-          set((state) => ({ filter: { ...state.filter, boilAsc: value === "true" ? true : false } }));
+          set((state) => ({
+            filter: { ...state.filter, boilAsc: value === 'true' ? true : false },
+          }));
           break;
         case BoilsFilterParams.STATES:
           set((state) => ({
@@ -63,7 +65,7 @@ export const useBoilsFilterStore = create<BoilsFilterStore>()(
     },
     setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
     fillPlantSelectorOptions: (values) =>
-      set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Все", abb: "" }, ...values] })),
+      set(() => ({ plantSelectorOptions: [{ id: 999999, value: 'Все', abb: '' }, ...values] })),
     fillStateSelectorOptions: (values) => set(() => ({ stateSelectorOptions: [...values] })),
-  }))
+  })),
 );

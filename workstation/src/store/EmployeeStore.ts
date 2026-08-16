@@ -1,6 +1,6 @@
-import { makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 interface IOccupation {
   id: number;
@@ -19,7 +19,7 @@ export interface IEmployee {
 export default class EmployeeStore {
   employee: IEmployee | null = null;
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this, {});
   }
@@ -38,7 +38,7 @@ export default class EmployeeStore {
 
   async getEmployeeByBarcode(barcode: string) {
     try {
-      this.setError("");
+      this.setError('');
       this.setPending(true);
       const responce = await $api.get(`/employees/${barcode}`);
       this.setEmployee(responce.data);

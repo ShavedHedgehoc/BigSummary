@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface AddRecordModalStore {
   open: boolean;
@@ -21,7 +21,7 @@ export const useAddRecordModalStore = create<AddRecordModalStore>()(
   devtools((set) => ({
     open: false,
     record_id: null,
-    title: "",
+    title: '',
     id: null,
     state: null,
     noteRequired: false,
@@ -31,5 +31,5 @@ export const useAddRecordModalStore = create<AddRecordModalStore>()(
     setNoteRequired: (value) => set(() => ({ noteRequired: value })),
     setState: (value) => set(() => ({ state: value })),
     // setId: (value) => set(() => ({ id: value })),
-  }))
+  })),
 );

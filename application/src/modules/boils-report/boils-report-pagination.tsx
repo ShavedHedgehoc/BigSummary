@@ -1,6 +1,6 @@
-import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/react/shallow";
-import { useBoilsReportPaginationStore } from "./store/use-boils-report-pagination-store";
+import { Pagination, PaginationProps } from '../../shared/components/pagination/pagination';
+import { useShallow } from 'zustand/react/shallow';
+import { useBoilsReportPaginationStore } from './store/use-boils-report-pagination-store';
 
 export default function BoilsReportPagination() {
   const paginationProps: PaginationProps = {

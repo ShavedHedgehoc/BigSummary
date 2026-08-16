@@ -1,7 +1,7 @@
-import * as React from "react";
-import { useSearchParams } from "react-router-dom";
-import { Params } from "../../shared/router/params";
-import { Box, Typography } from "@mui/joy";
+import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Params } from '../../shared/router/params';
+import { Box, Typography } from '@mui/joy';
 
 export default function TraceBatchWeightingsSummaryDetailSubHeader() {
   const [searchParams] = useSearchParams();
@@ -12,7 +12,8 @@ export default function TraceBatchWeightingsSummaryDetailSubHeader() {
     <React.Fragment>
       <Box>
         <Typography sx={{ paddingTop: 1, paddingBottom: 1 }}>
-          Сотрудник: {authorName}, период: {startDate === endDate ? startDate : `с ${startDate} по ${endDate}`}
+          Сотрудник: {authorName}, период:{' '}
+          {startDate === endDate ? startDate : `с ${startDate} по ${endDate}`}
         </Typography>
       </Box>
     </React.Fragment>

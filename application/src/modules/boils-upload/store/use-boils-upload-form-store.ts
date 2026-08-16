@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
-import { IXLSBoilsRowData } from "../../../shared/api/services/direct-trace-service";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { IXLSBoilsRowData } from '../../../shared/api/services/direct-trace-service';
 
 export interface ValError {
   row: number;
@@ -30,7 +30,7 @@ export const useBoilsUploadFormStore = create<BoilsUploadFormStore>()(
     errsModalShow: false,
     isValid: false,
     file: undefined,
-    fileName: "",
+    fileName: '',
     errs: [],
     setErrsModalShow: (value) => set(() => ({ errsModalShow: value })),
     setIsValid: (value) => set(() => ({ isValid: value })),
@@ -40,7 +40,7 @@ export const useBoilsUploadFormStore = create<BoilsUploadFormStore>()(
       set(() => ({
         isValid: false,
         file: undefined,
-        fileName: "",
+        fileName: '',
         errs: [],
         dataForUpload: [],
         errsModalShow: false,
@@ -51,5 +51,5 @@ export const useBoilsUploadFormStore = create<BoilsUploadFormStore>()(
       }));
     },
     setDataForUpload: (arr) => set(() => ({ dataForUpload: [...arr] })),
-  }))
+  })),
 );

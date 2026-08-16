@@ -1,6 +1,6 @@
-import { Box, Button, FormControl, Typography } from "@mui/joy";
-import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
-import { useShallow } from "zustand/react/shallow";
+import { Box, Button, FormControl, Typography } from '@mui/joy';
+import { useBoilsUploadFormStore } from './store/use-boils-upload-form-store';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function BoilsUploadFormFileInput() {
   const filename = useBoilsUploadFormStore(useShallow((state) => state.fileName));
@@ -14,12 +14,14 @@ export default function BoilsUploadFormFileInput() {
     setFile(e.target.files?.[0]);
   };
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Typography level="body-sm">{filename.split("\\").slice(-1)[0] || "Файл не выбран"}</Typography>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Typography level="body-sm">
+        {filename.split('\\').slice(-1)[0] || 'Файл не выбран'}
+      </Typography>
       <FormControl size="sm">
         <input
           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-excel,application/vnd.ms-excel.sheet.macroEnabled.12"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           id="raised-button-file"
           type="file"
           value={filename}
@@ -34,10 +36,10 @@ export default function BoilsUploadFormFileInput() {
             component="span"
             disabled={file !== undefined}
             sx={{
-              display: file !== undefined ? "none" : "flex",
-              fontWeight: "normal",
-              fontSize: "small",
-              width: "200px",
+              display: file !== undefined ? 'none' : 'flex',
+              fontWeight: 'normal',
+              fontSize: 'small',
+              width: '200px',
             }}
           >
             Выберите файл
@@ -50,10 +52,10 @@ export default function BoilsUploadFormFileInput() {
           size="sm"
           disabled={file === undefined}
           sx={{
-            display: file === undefined ? "none" : "flex",
-            fontWeight: "normal",
-            fontSize: "small",
-            width: "200px",
+            display: file === undefined ? 'none' : 'flex',
+            fontWeight: 'normal',
+            fontSize: 'small',
+            width: '200px',
           }}
           onClick={() => clearData()}
         >

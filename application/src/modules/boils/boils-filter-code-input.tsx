@@ -1,7 +1,7 @@
-import { useShallow } from "zustand/react/shallow";
-import { useBoilsFilterStore } from "./store/use-boils-filter-store";
-import { BoilsFilterParams } from "./boils-filter-params";
-import FilterInput, { FilterInputProps } from "../../shared/ui/filter-input";
+import { useShallow } from 'zustand/react/shallow';
+import { useBoilsFilterStore } from './store/use-boils-filter-store';
+import { BoilsFilterParams } from './boils-filter-params';
+import FilterInput, { FilterInputProps } from '../../shared/ui/filter-input';
 
 export default function BoilsFilterCodeInput() {
   const filter = useBoilsFilterStore(useShallow((state) => state.filter));
@@ -10,9 +10,9 @@ export default function BoilsFilterCodeInput() {
   const codeInputProps: FilterInputProps = {
     id: BoilsFilterParams.BASE,
     value: filter.baseCode,
-    disabled: filter.baseCode === "",
-    label: "Поиск по коду 1С",
-    placeholder: "Код 1С",
+    disabled: filter.baseCode === '',
+    label: 'Поиск по коду 1С',
+    placeholder: 'Код 1С',
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

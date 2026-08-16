@@ -1,5 +1,14 @@
-import * as React from "react";
-import { Box, Button, DialogContent, DialogTitle, Modal, ModalClose, ModalDialog, ModalOverflow } from "@mui/joy";
+import * as React from 'react';
+import {
+  Box,
+  Button,
+  DialogContent,
+  DialogTitle,
+  Modal,
+  ModalClose,
+  ModalDialog,
+  ModalOverflow,
+} from '@mui/joy';
 
 export interface ModalLayoutProps {
   open: boolean;
@@ -22,13 +31,13 @@ export default function ModalLayout({
 }) {
   const ButtonsComponent = () => {
     return (
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }}>
         {props.onlyCloseButton && (
           <Button
             color="neutral"
             variant="outlined"
-            size={"sm"}
-            sx={{ fontWeight: "normal", fontSize: "small" }}
+            size={'sm'}
+            sx={{ fontWeight: 'normal', fontSize: 'small' }}
             onClick={() => props.onClose()}
           >
             Закрыть
@@ -43,14 +52,14 @@ export default function ModalLayout({
       <Modal
         open={props.open}
         onClose={(_event: React.MouseEvent<HTMLButtonElement>, reason: string) => {
-          if (reason === "closeClick") {
+          if (reason === 'closeClick') {
             props.onClose();
           }
         }}
         sx={{
-          display: { xs: "none", sm: "flex" },
-          justifyContent: "center",
-          alignItems: "center",
+          display: { xs: 'none', sm: 'flex' },
+          justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 999998,
         }}
       >
@@ -60,22 +69,24 @@ export default function ModalLayout({
             variant="solid"
             sx={[
               {
-                display: "flex",
-                borderRadius: "sm",
-                borderWidth: "1px",
-                backgroundColor: "var(--joy-palette-background-level1)",
+                display: 'flex',
+                borderRadius: 'sm',
+                borderWidth: '1px',
+                backgroundColor: 'var(--joy-palette-background-level1)',
               },
             ]}
           >
-            <DialogTitle sx={{ color: "var(--joy-palette-text-secondary)" }}>{props.title}</DialogTitle>
+            <DialogTitle sx={{ color: 'var(--joy-palette-text-secondary)' }}>
+              {props.title}
+            </DialogTitle>
             <DialogContent>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                   gap: 2,
                   mt: 2,
-                  overflow: "hidden",
+                  overflow: 'hidden',
                   maxHeight: `${props.height}px`,
                   minHeight: `${props.minHeight}px`,
                   minWidth: `${props.width}px`,
@@ -84,7 +95,7 @@ export default function ModalLayout({
               >
                 {children}
 
-                <Box sx={{ mt: "auto" }}>
+                <Box sx={{ mt: 'auto' }}>
                   <ButtonsComponent />
                 </Box>
               </Box>

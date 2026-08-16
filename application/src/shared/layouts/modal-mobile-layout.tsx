@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, DialogContent, Modal, ModalDialog, ModalOverflow } from "@mui/joy";
+import * as React from 'react';
+import { Box, DialogContent, Modal, ModalDialog, ModalOverflow } from '@mui/joy';
 
 export interface ModalLMobileLayoutProps {
   open: boolean;
@@ -18,14 +18,14 @@ export default function ModalMobileLayout({
       <Modal
         open={props.open}
         onClose={(_event: React.MouseEvent<HTMLButtonElement>, reason: string) => {
-          if (reason === "closeClick") {
+          if (reason === 'closeClick') {
             props.onClose();
           }
         }}
         sx={{
-          display: { xs: "flex", sm: "none" },
-          justifyContent: "center",
-          alignItems: "center",
+          display: { xs: 'flex', sm: 'none' },
+          justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 99999,
         }}
       >
@@ -35,23 +35,23 @@ export default function ModalMobileLayout({
             variant="solid"
             sx={[
               {
-                display: "flex",
-                borderRadius: "sm",
-                borderWidth: "1px",
+                display: 'flex',
+                borderRadius: 'sm',
+                borderWidth: '1px',
                 p: 1,
-                backgroundColor: "var(--joy-palette-background-body)",
+                backgroundColor: 'var(--joy-palette-background-body)',
               },
             ]}
           >
             <DialogContent>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                   gap: 1,
-                  overflow: "hidden",
-                  height: "100%",
+                  overflow: 'hidden',
+                  height: '100%',
                 }}
               >
                 {children}

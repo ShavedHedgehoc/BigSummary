@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Outlet } from "react-router-dom";
-import { Box } from "@mui/joy";
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+import { Box } from '@mui/joy';
 
-const SideBar = React.lazy(() => import("../components/side-bar/side-bar"));
-const Header = React.lazy(() => import("../components/headers/header"));
+const SideBar = React.lazy(() => import('../components/side-bar/side-bar'));
+const Header = React.lazy(() => import('../components/headers/header'));
 
 function Layout() {
   return (
-    <Box sx={{ display: "flex", minHeight: "100dvh" }}>
+    <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
       <React.Suspense fallback={<div></div>}>
         <Header />
         <SideBar />
@@ -18,16 +18,16 @@ function Layout() {
         sx={{
           px: { xs: 2, md: 6 },
           pt: {
-            xs: "calc(12px + var(--Header-height))",
-            sm: "calc(12px + var(--Header-height))",
+            xs: 'calc(12px + var(--Header-height))',
+            sm: 'calc(12px + var(--Header-height))',
             md: 3,
           },
           pb: { xs: 2, sm: 2, md: 3 },
           flex: 1,
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           minWidth: 0,
-          height: "100dvh",
+          height: '100dvh',
           gap: 1,
         }}
       >

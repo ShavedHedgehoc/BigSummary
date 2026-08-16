@@ -1,13 +1,13 @@
-import UiGroupLayout from "../../shared/layouts/ui-group-layout";
-import TableButton from "../../shared/ui/table-button";
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
+import UiGroupLayout from '../../shared/layouts/ui-group-layout';
+import TableButton from '../../shared/ui/table-button';
+import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import KeyboardDoubleArrowRightOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowRightOutlined';
 
-import { TableIconButton } from "../../shared/ui/table-icon-button";
+import { TableIconButton } from '../../shared/ui/table-icon-button';
 
 export default function TableButtons() {
-  const str = "{000335#123A4#С/П ЭСТЕЛЬ 6%}{000338#523A4#С/П ЭСТЕЛЬ 9%}";
+  const str = '{000335#123A4#С/П ЭСТЕЛЬ 6%}{000338#523A4#С/П ЭСТЕЛЬ 9%}';
 
   interface parsedSemiProduct {
     code: string;
@@ -32,7 +32,7 @@ export default function TableButtons() {
       <UiGroupLayout.Header>Table buttons</UiGroupLayout.Header>
       <UiGroupLayout.Main>
         <TableButton
-          variant={"success"}
+          variant={'success'}
           startDecorator={<CheckOutlinedIcon />}
           label="SUCCESS"
           // onClick={() => void 0}
@@ -42,7 +42,7 @@ export default function TableButtons() {
           <BlockOutlinedIcon />
         </TableIconButton>
         <TableButton
-          variant={"warning"}
+          variant={'warning'}
           startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
           label="WARNING"
           onClick={() => void 0}
@@ -50,12 +50,17 @@ export default function TableButtons() {
         <TableIconButton color="warning" onClick={() => void 0}>
           <BlockOutlinedIcon />
         </TableIconButton>
-        <TableButton variant={"danger"} startDecorator={<BlockOutlinedIcon />} label="DANGER" onClick={() => void 0} />
+        <TableButton
+          variant={'danger'}
+          startDecorator={<BlockOutlinedIcon />}
+          label="DANGER"
+          onClick={() => void 0}
+        />
         <TableIconButton color="danger" onClick={() => void 0}>
           <BlockOutlinedIcon />
         </TableIconButton>
         <TableButton
-          variant={"primary"}
+          variant={'primary'}
           startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
           label="PRIMARY"
           onClick={() => void 0}
@@ -64,7 +69,7 @@ export default function TableButtons() {
           <BlockOutlinedIcon />
         </TableIconButton>
         <TableButton
-          variant={"warning"}
+          variant={'warning'}
           startDecorator={<KeyboardDoubleArrowRightOutlinedIcon />}
           disabled={true}
           label="DISABLED"

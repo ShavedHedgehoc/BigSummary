@@ -1,10 +1,10 @@
-import ModalLayout from "../../../shared/layouts/modal-layout";
-import TableLayout from "../../../shared/layouts/table-layout";
-import { useRecordHistories } from "../../../shared/api/use-record-histories";
-import { useShallow } from "zustand/react/shallow";
-import TableLoaderComponent from "../../../shared/components/table-loader";
-import { useTimeReportHistoryModalStore } from "../store/use-time-report-history-modal-store";
-import TimeReportHistoryModalRow from "./time-report-history-modal-row";
+import ModalLayout from '../../../shared/layouts/modal-layout';
+import TableLayout from '../../../shared/layouts/table-layout';
+import { useRecordHistories } from '../../../shared/api/use-record-histories';
+import { useShallow } from 'zustand/react/shallow';
+import TableLoaderComponent from '../../../shared/components/table-loader';
+import { useTimeReportHistoryModalStore } from '../store/use-time-report-history-modal-store';
+import TimeReportHistoryModalRow from './time-report-history-modal-row';
 
 export default function TimeReportHistoryModal() {
   const open = useTimeReportHistoryModalStore(useShallow((state) => state.open));
@@ -14,11 +14,11 @@ export default function TimeReportHistoryModal() {
   const { isPending, data, isSuccess } = useRecordHistories(record_id);
 
   const history_table_thead: TheadProperties[] = [
-    { width: 50, padding: "18px 6px", value: "Дата" },
-    { width: 50, padding: "18px 6px", value: "Время" },
-    { width: 100, padding: "18px 6px", value: "Статус записи" },
-    { width: 80, padding: "18px 6px", value: "Автор записи" },
-    { width: 80, padding: "18px 6px", value: "Комментарий" },
+    { width: 50, padding: '18px 6px', value: 'Дата' },
+    { width: 50, padding: '18px 6px', value: 'Время' },
+    { width: 100, padding: '18px 6px', value: 'Статус записи' },
+    { width: 80, padding: '18px 6px', value: 'Автор записи' },
+    { width: 80, padding: '18px 6px', value: 'Комментарий' },
   ];
 
   const modalProps = {
@@ -37,7 +37,8 @@ export default function TimeReportHistoryModal() {
     }
     return (
       <TableLayout thead={history_table_thead}>
-        {isSuccess && data.histories.map((row) => <TimeReportHistoryModalRow row={row} key={row.id} />)}
+        {isSuccess &&
+          data.histories.map((row) => <TimeReportHistoryModalRow row={row} key={row.id} />)}
       </TableLayout>
     );
   };

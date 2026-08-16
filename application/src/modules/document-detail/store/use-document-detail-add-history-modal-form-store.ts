@@ -1,6 +1,6 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { devtools } from "zustand/middleware";
+import { devtools } from 'zustand/middleware';
 
 interface DocumentDetailAddHistoryModalFormStore {
   selectedHistoryType: string | null;
@@ -11,13 +11,15 @@ interface DocumentDetailAddHistoryModalFormStore {
   fillHistoryTypeSelectorOptions: (values: IHistoryType[]) => void;
 }
 
-export const useDocumentDetailAddHistoryModalFormStore = create<DocumentDetailAddHistoryModalFormStore>()(
-  devtools((set) => ({
-    selectedHistoryType: null,
-    historyNote: "",
-    historyTypeSelectorOptions: [],
-    setSelectedHistoryType: (value) => set(() => ({ selectedHistoryType: value })),
-    setHistoryNote: (value) => set(() => ({ historyNote: value })),
-    fillHistoryTypeSelectorOptions: (values) => set(() => ({ historyTypeSelectorOptions: [...values] })),
-  }))
-);
+export const useDocumentDetailAddHistoryModalFormStore =
+  create<DocumentDetailAddHistoryModalFormStore>()(
+    devtools((set) => ({
+      selectedHistoryType: null,
+      historyNote: '',
+      historyTypeSelectorOptions: [],
+      setSelectedHistoryType: (value) => set(() => ({ selectedHistoryType: value })),
+      setHistoryNote: (value) => set(() => ({ historyNote: value })),
+      fillHistoryTypeSelectorOptions: (values) =>
+        set(() => ({ historyTypeSelectorOptions: [...values] })),
+    })),
+  );

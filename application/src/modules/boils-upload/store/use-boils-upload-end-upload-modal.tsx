@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface BoilsUploadEndUploadModalStore {
   open: boolean;
@@ -10,5 +10,5 @@ export const useBoilsUploadEndUploadModalStore = create<BoilsUploadEndUploadModa
   devtools((set) => ({
     open: false,
     setOpen: (value) => set(() => ({ open: value })),
-  }))
+  })),
 );

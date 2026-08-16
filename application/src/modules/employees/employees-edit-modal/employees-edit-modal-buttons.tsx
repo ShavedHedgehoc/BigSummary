@@ -1,8 +1,8 @@
-import React from "react";
-import Button from "@mui/joy/Button";
-import { useShallow } from "zustand/react/shallow";
-import { useEmployeesEditModalStore } from "../store/use-employees-edit-modal-store";
-import { useUpdateEmployee } from "../use-update-employee";
+import React from 'react';
+import Button from '@mui/joy/Button';
+import { useShallow } from 'zustand/react/shallow';
+import { useEmployeesEditModalStore } from '../store/use-employees-edit-modal-store';
+import { useUpdateEmployee } from '../use-update-employee';
 
 export default function EmployeesEditModalButtonComponent() {
   const setOpen = useEmployeesEditModalStore(useShallow((state) => state.setOpen));
@@ -14,7 +14,7 @@ export default function EmployeesEditModalButtonComponent() {
   const { updateEmployee } = useUpdateEmployee();
 
   const handleUpdate = () => {
-    if (name !== "" && barcode !== "" && occupation && id) {
+    if (name !== '' && barcode !== '' && occupation && id) {
       updateEmployee({ id: id, name: name, barcode: barcode, occupationId: occupation });
       setOpen(false);
       clearData();
@@ -31,9 +31,9 @@ export default function EmployeesEditModalButtonComponent() {
       <Button
         color="neutral"
         variant="outlined"
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
-        disabled={!(name !== "" && barcode !== "" && occupation !== null)}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
+        disabled={!(name !== '' && barcode !== '' && occupation !== null)}
         onClick={() => handleUpdate()}
       >
         Изменить
@@ -41,8 +41,8 @@ export default function EmployeesEditModalButtonComponent() {
       <Button
         color="neutral"
         variant="outlined"
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
         onClick={() => handleCancel()}
       >
         Отмена

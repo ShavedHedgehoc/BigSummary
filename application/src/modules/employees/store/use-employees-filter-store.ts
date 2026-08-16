@@ -1,7 +1,7 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { devtools } from "zustand/middleware";
-import { EmployeesFilterParams } from "../filter/employees-filter-params";
+import { devtools } from 'zustand/middleware';
+import { EmployeesFilterParams } from '../filter/employees-filter-params';
 
 interface EmployeesFilterStore {
   filter: FetchEmployeesFilter;
@@ -14,7 +14,7 @@ interface EmployeesFilterStore {
 }
 
 const initFilterValue: FetchEmployeesFilter = {
-  name: "",
+  name: '',
   nameAsc: true,
   occupations: [],
 };
@@ -34,11 +34,16 @@ export const useEmployeesFilterStore = create<EmployeesFilterStore>()(
           break;
 
         case EmployeesFilterParams.NAME_ASC:
-          set((state) => ({ filter: { ...state.filter, nameAsc: value === "true" ? true : false } }));
+          set((state) => ({
+            filter: { ...state.filter, nameAsc: value === 'true' ? true : false },
+          }));
           break;
         case EmployeesFilterParams.OCCUPATIONS:
           set((state) => ({
-            filter: { ...state.filter, occupations: values ? [...values] : [...state.filter.occupations] },
+            filter: {
+              ...state.filter,
+              occupations: values ? [...values] : [...state.filter.occupations],
+            },
           }));
           break;
         default:
@@ -47,6 +52,8 @@ export const useEmployeesFilterStore = create<EmployeesFilterStore>()(
     },
     setSelectedOccupation: (value) => set(() => ({ selectedOccupation: value })),
     fillOccupationSelectorOptions: (values) =>
-      set(() => ({ occupationSelectorOptions: [{ id: 999999, value: "Все", description: "Все" }, ...values] })),
-  }))
+      set(() => ({
+        occupationSelectorOptions: [{ id: 999999, value: 'Все', description: 'Все' }, ...values],
+      })),
+  })),
 );

@@ -1,5 +1,13 @@
-import { Box, CircularProgress, DialogContent, Modal, ModalDialog, ModalOverflow, Typography } from "@mui/joy";
-import * as React from "react";
+import {
+  Box,
+  CircularProgress,
+  DialogContent,
+  Modal,
+  ModalDialog,
+  ModalOverflow,
+  Typography,
+} from '@mui/joy';
+import * as React from 'react';
 
 export default function UploadPendingModal({ open }: { open: boolean }) {
   return (
@@ -7,9 +15,9 @@ export default function UploadPendingModal({ open }: { open: boolean }) {
       <Modal
         open={open}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 999999,
         }}
       >
@@ -19,20 +27,20 @@ export default function UploadPendingModal({ open }: { open: boolean }) {
             variant="solid"
             sx={[
               {
-                display: "flex",
-                borderRadius: "sm",
-                borderWidth: "1px",
-                backgroundColor: "var(--joy-palette-background-level1)",
+                display: 'flex',
+                borderRadius: 'sm',
+                borderWidth: '1px',
+                backgroundColor: 'var(--joy-palette-background-level1)',
               },
             ]}
           >
             <DialogContent>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   gap: 1,
                 }}
               >

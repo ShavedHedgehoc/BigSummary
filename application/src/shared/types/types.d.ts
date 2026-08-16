@@ -391,4 +391,4 @@ interface IInventoryDoc {
   plant_name: string;
 }
 
-type CustomColorsVariants = "success" | "danger" | "warning" | "primary";
+type CustomColorsVariants = 'success' | 'danger' | 'warning' | 'primary';

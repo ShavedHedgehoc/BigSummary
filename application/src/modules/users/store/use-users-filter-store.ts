@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
-import { UsersFilterParams } from "../filter/users-filter-params";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { UsersFilterParams } from '../filter/users-filter-params';
 
 interface UsersFilterStore {
   filter: FetchUsersFilter;
@@ -14,9 +14,9 @@ interface UsersFilterStore {
 }
 
 const initFilterValue: FetchUsersFilter = {
-  name: "",
+  name: '',
   nameAsc: true,
-  email: "",
+  email: '',
   banned: [],
   roles: [],
 };
@@ -43,7 +43,9 @@ export const useUsersFilterStore = create<UsersFilterStore>()(
             }));
             break;
           case UsersFilterParams.NAME_ASC:
-            set((state) => ({ filter: { ...state.filter, nameAsc: value === "true" ? true : false } }));
+            set((state) => ({
+              filter: { ...state.filter, nameAsc: value === 'true' ? true : false },
+            }));
             break;
           case UsersFilterParams.ROLES:
             set((state) => ({
@@ -57,6 +59,6 @@ export const useUsersFilterStore = create<UsersFilterStore>()(
       setSelectedBannedOption: (value) => set(() => ({ selectedBannedOption: value })),
       fillRoleSelectorOptions: (values) => set(() => ({ roleSelectorOptions: [...values] })),
     }),
-    { name: "UserFilterStore", store: "useUserFilterStore" }
-  )
+    { name: 'UserFilterStore', store: 'useUserFilterStore' },
+  ),
 );

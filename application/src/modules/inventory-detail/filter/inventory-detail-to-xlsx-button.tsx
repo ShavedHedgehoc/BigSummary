@@ -1,13 +1,13 @@
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
-import { useShallow } from "zustand/react/shallow";
-import { useParams } from "react-router-dom";
-import { Params } from "../../../shared/router/params";
-import { useInventoryDetailFilterStore } from "../store/inventory-detail-filter-store";
-import { useInventoryRows } from "../use-inventory-rows";
-import makeXLSXFile from "../make-xlsx";
-import { useInventory } from "../use-inventory";
-import { formatDateToString } from "../../../shared/helpers/date-time-formatters";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FilterButton, { FilterButtonProps } from '../../../shared/ui/filter-button';
+import { useShallow } from 'zustand/react/shallow';
+import { useParams } from 'react-router-dom';
+import { Params } from '../../../shared/router/params';
+import { useInventoryDetailFilterStore } from '../store/inventory-detail-filter-store';
+import { useInventoryRows } from '../use-inventory-rows';
+import makeXLSXFile from '../make-xlsx';
+import { useInventory } from '../use-inventory';
+import { formatDateToString } from '../../../shared/helpers/date-time-formatters';
 
 export default function InventoryDetailToXLSXButton() {
   const params = useParams<Params.INVENTORY_PARAMS>();
@@ -18,8 +18,8 @@ export default function InventoryDetailToXLSXButton() {
 
   const handleClick = () => {
     if (dataRows && dataRows.length) {
-      const title = `Данные переучета ${dataInventory ? dataInventory.plant_name : "<Нет данных>"} от ${
-        dataInventory ? formatDateToString(dataInventory.date) : "<Нет данных>"
+      const title = `Данные переучета ${dataInventory ? dataInventory.plant_name : '<Нет данных>'} от ${
+        dataInventory ? formatDateToString(dataInventory.date) : '<Нет данных>'
       }`;
       makeXLSXFile(dataRows, title);
     }
@@ -28,7 +28,7 @@ export default function InventoryDetailToXLSXButton() {
   const disableButtonCondition = !(dataRows && dataRows.length);
 
   const downloadButtonProps: FilterButtonProps = {
-    label: "Скачать",
+    label: 'Скачать',
     disabled: disableButtonCondition,
     startDecorator: <FileDownloadOutlinedIcon />,
     onClick: () => handleClick(),

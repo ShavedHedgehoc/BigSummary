@@ -1,9 +1,9 @@
-import * as React from "react";
-import { observer } from "mobx-react-lite";
-import { Context } from "../../main";
-import LoadingComponent from "../loadingComponent/LoadingComponent";
-import InfoTable from "./InfoTable";
-import NotFoundComponent from "./NotFoundComponent";
+import * as React from 'react';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../../main';
+import LoadingComponent from '../loadingComponent/LoadingComponent';
+import InfoTable from './InfoTable';
+import NotFoundComponent from './NotFoundComponent';
 
 function InfoComponent() {
   const { store } = React.useContext(Context);

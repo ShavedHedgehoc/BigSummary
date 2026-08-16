@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface PDFModalStore {
   open: boolean;
@@ -14,5 +14,5 @@ export const usePDFModalStore = create<PDFModalStore>()(
     record: null,
     setOpen: (value) => set(() => ({ open: value })),
     setRecord: (value) => set(() => ({ record: value })),
-  }))
+  })),
 );

@@ -1,8 +1,8 @@
-import { useShallow } from "zustand/react/shallow";
-import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
-import { Box } from "@mui/system";
-import { Typography } from "@mui/joy";
-import FormSwitcher, { FormSwitcherProps } from "../../shared/ui/form-switcher";
+import { useShallow } from 'zustand/react/shallow';
+import { useDocsUploadFormStore } from './store/use-docs-upload-form-store';
+import { Box } from '@mui/system';
+import { Typography } from '@mui/joy';
+import FormSwitcher, { FormSwitcherProps } from '../../shared/ui/form-switcher';
 
 export default function DocsUploadFormUpdateSwitch() {
   const update = useDocsUploadFormStore(useShallow((state) => state.update));
@@ -15,17 +15,17 @@ export default function DocsUploadFormUpdateSwitch() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         flexGrow: 1,
         gap: 1,
-        alignItems: "center",
+        alignItems: 'center',
       }}
     >
       <FormSwitcher {...formSwitcherProps} />
-      <Typography>{update ? "Добавление" : "Загрузка"}</Typography>
+      <Typography>{update ? 'Добавление' : 'Загрузка'}</Typography>
       <Typography level="body-xs">
-        {update ? "Добавление строк в существующий документ" : "Создание нового документа"}
+        {update ? 'Добавление строк в существующий документ' : 'Создание нового документа'}
       </Typography>
     </Box>
   );

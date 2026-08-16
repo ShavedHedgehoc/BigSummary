@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { IPlant } from "../../../types";
-import { ForemanFilterParams } from "../filter/foreman-filter-params";
+import { create } from 'zustand';
+import { IPlant } from '../../../types';
+import { ForemanFilterParams } from '../filter/foreman-filter-params';
 
 interface ForemanFilterStore {
   filter: FetchProductFilter;
@@ -15,10 +15,10 @@ interface ForemanFilterStore {
 }
 
 const initFilterValue: FetchProductFilter = {
-  productCode: "",
-  boil: "",
-  marking: "",
-  conveyor: "",
+  productCode: '',
+  boil: '',
+  marking: '',
+  conveyor: '',
   haveRecord: true,
   boilAsc: false,
   states: [],
@@ -48,7 +48,9 @@ export const useForemanFilterStore = create<ForemanFilterStore>()((set) => ({
         set((state) => ({ filter: { ...state.filter, boil: value } }));
         break;
       case ForemanFilterParams.PLANT:
-        set((state) => ({ filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant } }));
+        set((state) => ({
+          filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant },
+        }));
         break;
       case ForemanFilterParams.PRODUCT:
         set((state) => ({ filter: { ...state.filter, productCode: value } }));
@@ -60,7 +62,7 @@ export const useForemanFilterStore = create<ForemanFilterStore>()((set) => ({
         set((state) => ({ filter: { ...state.filter, conveyor: value } }));
         break;
       case ForemanFilterParams.BOIL_ASC:
-        set((state) => ({ filter: { ...state.filter, boilAsc: value === "true" ? true : false } }));
+        set((state) => ({ filter: { ...state.filter, boilAsc: value === 'true' ? true : false } }));
         break;
       case ForemanFilterParams.STATES:
         set((state) => ({

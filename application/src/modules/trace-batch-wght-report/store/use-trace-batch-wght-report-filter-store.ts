@@ -1,9 +1,9 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { devtools } from "zustand/middleware";
-import { getCurrentDay, getTomorrowDate } from "../../../shared/helpers/date-time-formatters";
-import { ITraceBatchWghtReportFilter } from "../../../shared/api/services/trace-batchs-service";
-import { TraceBatchWghtReportFilterParams } from "../filter/trace-batch-wght-report-filter-params";
+import { devtools } from 'zustand/middleware';
+import { getCurrentDay, getTomorrowDate } from '../../../shared/helpers/date-time-formatters';
+import { ITraceBatchWghtReportFilter } from '../../../shared/api/services/trace-batchs-service';
+import { TraceBatchWghtReportFilterParams } from '../filter/trace-batch-wght-report-filter-params';
 
 interface FetchTraceBatchsFilterFormField {
   key: string;
@@ -26,8 +26,8 @@ interface TraceBatchsWghtReportFilterStore {
 const initFilterValue: ITraceBatchWghtReportFilter = {
   startDate: getTomorrowDate(),
   endDate: getTomorrowDate(),
-  batchName: "",
-  productId: "",
+  batchName: '',
+  productId: '',
   compare: true,
   sortByBatch: false,
   plants: [],
@@ -36,9 +36,9 @@ const initFilterValue: ITraceBatchWghtReportFilter = {
 export const useTraceBatchWghtReportFilterStore = create<TraceBatchsWghtReportFilterStore>()(
   devtools((set) => ({
     filter: initFilterValue,
-    selectedPlant: "#",
+    selectedPlant: '#',
     plantSelectorOptions: [],
-    clearFilter: () => set(() => ({ filter: initFilterValue, selectedPlant: "#" })),
+    clearFilter: () => set(() => ({ filter: initFilterValue, selectedPlant: '#' })),
     setDayToToday: () =>
       set((state) => ({
         filter: {
@@ -70,10 +70,14 @@ export const useTraceBatchWghtReportFilterStore = create<TraceBatchsWghtReportFi
           }));
           break;
         case TraceBatchWghtReportFilterParams.COMPARE:
-          set((state) => ({ filter: { ...state.filter, compare: value === "true" ? true : false } }));
+          set((state) => ({
+            filter: { ...state.filter, compare: value === 'true' ? true : false },
+          }));
           break;
         case TraceBatchWghtReportFilterParams.SORT_BY_BATCH:
-          set((state) => ({ filter: { ...state.filter, sortByBatch: value === "true" ? true : false } }));
+          set((state) => ({
+            filter: { ...state.filter, sortByBatch: value === 'true' ? true : false },
+          }));
           break;
         case TraceBatchWghtReportFilterParams.PRODUCT_ID:
           set((state) => ({
@@ -91,6 +95,6 @@ export const useTraceBatchWghtReportFilterStore = create<TraceBatchsWghtReportFi
     },
     setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
     fillPlantSelectorOptions: (values) =>
-      set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Все", abb: "#" }, ...values] })),
-  }))
+      set(() => ({ plantSelectorOptions: [{ id: 999999, value: 'Все', abb: '#' }, ...values] })),
+  })),
 );

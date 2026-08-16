@@ -1,7 +1,7 @@
-import * as React from "react";
-import { observer } from "mobx-react-lite";
-import { Box, CircularProgress, Typography } from "@mui/joy";
-import { Context } from "../../main";
+import * as React from 'react';
+import { observer } from 'mobx-react-lite';
+import { Box, CircularProgress, Typography } from '@mui/joy';
+import { Context } from '../../main';
 
 function FalldownComponent() {
   const { store } = React.useContext(Context);
@@ -15,12 +15,12 @@ function FalldownComponent() {
   return (
     <Box
       sx={{
-        display: "flex",
-        minHeight: "100dvh",
-        width: "100%",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        minHeight: '100dvh',
+        width: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         gap: 4,
       }}
     >

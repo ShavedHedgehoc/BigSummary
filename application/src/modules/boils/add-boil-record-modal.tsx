@@ -1,11 +1,11 @@
-import * as React from "react";
-import { Box, Button, Typography, FormControl, Textarea, FormHelperText } from "@mui/joy";
-import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
-import { useShallow } from "zustand/react/shallow";
-import { useAddBoilModalStore } from "./store/use-add-boil-modal-store";
-import { useBoilHistoryNoteStore } from "./store/use-boil-history-note-store";
-import { useCreateHistory } from "../../shared/api/use-create-history";
-import { useAuthStore } from "../auth/store/auth-store";
+import * as React from 'react';
+import { Box, Button, Typography, FormControl, Textarea, FormHelperText } from '@mui/joy';
+import ModalLayout, { ModalLayoutProps } from '../../shared/layouts/modal-layout';
+import { useShallow } from 'zustand/react/shallow';
+import { useAddBoilModalStore } from './store/use-add-boil-modal-store';
+import { useBoilHistoryNoteStore } from './store/use-boil-history-note-store';
+import { useCreateHistory } from '../../shared/api/use-create-history';
+import { useAuthStore } from '../auth/store/auth-store';
 
 const ContentComponent = () => {
   const historyNote = useBoilHistoryNoteStore(useShallow((state) => state.historyNote));
@@ -15,7 +15,7 @@ const ContentComponent = () => {
 
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         <Typography level="body-sm">{title}</Typography>
       </Box>
       <Box>
@@ -29,20 +29,28 @@ const ContentComponent = () => {
             onChange={(e) => setHistoryNote(e.target.value)}
             sx={[
               {
-                "&:focus-within": {
-                  "--Textarea-focusedHighlight": "var(--joy-palette-neutral)",
+                '&:focus-within': {
+                  '--Textarea-focusedHighlight': 'var(--joy-palette-neutral)',
                 },
               },
-              { mb: 1, display: "flex", flexGrow: 1 },
+              { mb: 1, display: 'flex', flexGrow: 1 },
             ]}
             endDecorator={
-              <Box sx={{ display: "flex", justifyContent: "flex-end", width: "100%", pb: 0.5, pr: 0.5 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  width: '100%',
+                  pb: 0.5,
+                  pr: 0.5,
+                }}
+              >
                 <Button
                   color="neutral"
                   variant="outlined"
                   size="sm"
-                  disabled={historyNote === ""}
-                  onClick={() => setHistoryNote("")}
+                  disabled={historyNote === ''}
+                  onClick={() => setHistoryNote('')}
                 >
                   <Typography level="body-xs">Очистить</Typography>
                 </Button>
@@ -51,7 +59,7 @@ const ContentComponent = () => {
           />
           <FormHelperText>
             <Typography level="body-xs">
-              {noteRequired ? "Для внесения записи комментарий должен быть заполнен!" : ""}
+              {noteRequired ? 'Для внесения записи комментарий должен быть заполнен!' : ''}
             </Typography>
           </FormHelperText>
         </FormControl>
@@ -65,14 +73,14 @@ const CancelButton = () => {
   const setHistoryNote = useBoilHistoryNoteStore(useShallow((state) => state.setHistoryNote));
   const handleCancelButtonClick = () => {
     setOpen(false);
-    setHistoryNote("");
+    setHistoryNote('');
   };
   return (
     <Button
       color="neutral"
       variant="outlined"
-      size={"sm"}
-      sx={{ fontWeight: "normal", fontSize: "small" }}
+      size={'sm'}
+      sx={{ fontWeight: 'normal', fontSize: 'small' }}
       onClick={() => handleCancelButtonClick()}
     >
       Отмена
@@ -98,20 +106,20 @@ const SetButton = () => {
         userId: user.id,
         employeeId: null,
         note: null,
-        history_note: historyNote === "" ? null : historyNote,
+        history_note: historyNote === '' ? null : historyNote,
       };
       setOpen(false);
       addHistory(data);
-      setHistoryNote("");
+      setHistoryNote('');
     }
   };
   return (
     <Button
       color="neutral"
       variant="outlined"
-      size={"sm"}
-      sx={{ fontWeight: "normal", fontSize: "small" }}
-      disabled={historyNote === "" && noteRequired}
+      size={'sm'}
+      sx={{ fontWeight: 'normal', fontSize: 'small' }}
+      disabled={historyNote === '' && noteRequired}
       onClick={() => handleSetButtonClick()}
     >
       Установить
@@ -134,7 +142,7 @@ export default function AddBoilRecordModal() {
   const modalProps: ModalLayoutProps = {
     open: open,
     onClose: () => setOpen(false),
-    title: "Добавление записи",
+    title: 'Добавление записи',
     height: 400,
     minHeight: 0,
     width: 800,

@@ -1,8 +1,8 @@
-import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/react/shallow";
-import Ajv, { SchemaObject } from "ajv/dist/jtd";
-import { read, utils } from "xlsx";
-import { IXLSBasesData, useBasesUploadFormStore } from "./store/use-bases-upload-form-store";
+import { Box, Button, Typography } from '@mui/joy';
+import { useShallow } from 'zustand/react/shallow';
+import Ajv, { SchemaObject } from 'ajv/dist/jtd';
+import { read, utils } from 'xlsx';
+import { IXLSBasesData, useBasesUploadFormStore } from './store/use-bases-upload-form-store';
 
 export default function BasesUploadFormValidator() {
   const isValid = useBasesUploadFormStore(useShallow((state) => state.isValid));
@@ -22,8 +22,8 @@ export default function BasesUploadFormValidator() {
 
   const valSchema: SchemaObject = {
     properties: {
-      code: { type: "string" },
-      marking: { type: "string" },
+      code: { type: 'string' },
+      marking: { type: 'string' },
     },
   };
 
@@ -58,7 +58,7 @@ export default function BasesUploadFormValidator() {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {!isValid && errs.length === 0 && (
         <Typography level="body-sm" color="neutral">
           Проверьте файл перед загрузкой
@@ -74,7 +74,7 @@ export default function BasesUploadFormValidator() {
           При проверке обнаружены ошибки...
         </Typography>
       )}
-      <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
         <Button
           color="neutral"
           variant="outlined"
@@ -82,10 +82,10 @@ export default function BasesUploadFormValidator() {
           component="span"
           disabled={file === undefined || errs.length > 0 || isValid}
           sx={{
-            display: "flex",
-            fontWeight: "normal",
-            fontSize: "small",
-            width: "200px",
+            display: 'flex',
+            fontWeight: 'normal',
+            fontSize: 'small',
+            width: '200px',
           }}
           onClick={() => validate()}
         >
@@ -99,10 +99,10 @@ export default function BasesUploadFormValidator() {
             size="sm"
             component="span"
             sx={{
-              display: "flex",
-              fontWeight: "normal",
-              fontSize: "small",
-              width: "200px",
+              display: 'flex',
+              fontWeight: 'normal',
+              fontSize: 'small',
+              width: '200px',
             }}
             onClick={() => setErrsModalShow(true)}
           >

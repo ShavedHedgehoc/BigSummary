@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Box, FormControl, FormHelperText, IconButton, Input, useColorScheme } from "@mui/joy";
-import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
+import * as React from 'react';
+import { Box, FormControl, FormHelperText, IconButton, Input, useColorScheme } from '@mui/joy';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 
 export interface FilterInputWithSortProps {
   id: string;
@@ -18,17 +18,19 @@ export default function FilterInputWithSort(props: FilterInputWithSortProps) {
   const { mode } = useColorScheme();
 
   return (
-    <Box sx={{ display: "flex", pt: 1 }}>
+    <Box sx={{ display: 'flex', pt: 1 }}>
       <FormControl size="sm" id={props.id}>
         <Input
           sx={{
-            "&:focus-within": {
-              "--Input-focusedHighlight":
-                mode === "light" ? "var(--joy-palette-neutral-400)" : "var(--joy-palette-neutral-400)",
+            '&:focus-within': {
+              '--Input-focusedHighlight':
+                mode === 'light'
+                  ? 'var(--joy-palette-neutral-400)'
+                  : 'var(--joy-palette-neutral-400)',
             },
-            minWidth: "150px",
-            maxWidth: "150px",
-            display: "flex",
+            minWidth: '150px',
+            maxWidth: '150px',
+            display: 'flex',
             flexShrink: 1,
           }}
           autoComplete="false"
@@ -41,13 +43,13 @@ export default function FilterInputWithSort(props: FilterInputWithSortProps) {
               onClick={() => {
                 props.changeFilter({
                   key: props.sortKey,
-                  value: props.sortAscValue ? "false" : "true",
+                  value: props.sortAscValue ? 'false' : 'true',
                 });
               }}
               sx={[
                 props.sortAscValue
-                  ? { "& svg": { transform: "rotate(0deg)" } }
-                  : { "& svg": { transform: "rotate(180deg)" } },
+                  ? { '& svg': { transform: 'rotate(0deg)' } }
+                  : { '& svg': { transform: 'rotate(180deg)' } },
               ]}
             >
               <FilterListOutlinedIcon />
@@ -56,10 +58,10 @@ export default function FilterInputWithSort(props: FilterInputWithSortProps) {
           endDecorator={
             <React.Fragment>
               <IconButton
-                color={mode === "dark" ? "neutral" : "neutral"}
+                color={mode === 'dark' ? 'neutral' : 'neutral'}
                 disabled={props.disabled}
                 onClick={() => {
-                  props.changeFilter({ key: props.id, value: "" });
+                  props.changeFilter({ key: props.id, value: '' });
                 }}
               >
                 <ClearOutlinedIcon />

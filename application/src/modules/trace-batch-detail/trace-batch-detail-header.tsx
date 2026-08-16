@@ -1,10 +1,10 @@
-import * as React from "react";
-import { useParams } from "react-router-dom";
-import { Params } from "../../shared/router/params";
-import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
-import { formatDateToString } from "../../shared/helpers/date-time-formatters";
-import MainPageHeader from "../../shared/components/headers/MainPageHeader";
-import { useTraceBatch } from "./use-trace-batch";
+import * as React from 'react';
+import { useParams } from 'react-router-dom';
+import { Params } from '../../shared/router/params';
+import BreadCrumbHeader from '../../shared/components/headers/BreadCrumbHeader';
+import { formatDateToString } from '../../shared/helpers/date-time-formatters';
+import MainPageHeader from '../../shared/components/headers/MainPageHeader';
+import { useTraceBatch } from './use-trace-batch';
 
 export default function TraceBatchDetailHeader() {
   const params = useParams<Params.TRACE_BATCH_PARAMS>();
@@ -14,17 +14,17 @@ export default function TraceBatchDetailHeader() {
     <React.Fragment>
       <BreadCrumbHeader
         breadcrumbs={[
-          "Варка",
+          'Варка',
           isSuccess && data.batch_id
             ? `${data.marking}, партия ${data.batch_name} - ${formatDateToString(data.date)} (${data.plant})`
-            : "",
+            : '',
         ]}
       />
       <MainPageHeader
         pageTitle={`Варка ${
           isSuccess && data.batch_id
             ? `${data.marking}, партия ${data.batch_name} - ${formatDateToString(data.date)} (${data.plant})`
-            : ""
+            : ''
         }`}
       />
     </React.Fragment>

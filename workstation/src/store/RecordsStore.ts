@@ -1,6 +1,6 @@
-import { action, computed, makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { action, computed, makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 export interface IHistorieRecord {
   id: number;
@@ -15,7 +15,7 @@ export interface IHistorieRecord {
 export default class RecordsStore {
   records: IHistorieRecord[] = [];
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this, {
       renderTable: computed,
@@ -50,7 +50,7 @@ export default class RecordsStore {
 
   async fetchRecords(plant_id: number) {
     try {
-      this.setError("");
+      this.setError('');
       this.setPending(true);
       const responce = await $api.get(`/histories/last_ten/${plant_id}`);
       this.setRecords(responce.data);

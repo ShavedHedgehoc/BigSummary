@@ -89,7 +89,10 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
     const yearEndIdx = val.length - offset;
     const potentialTwoDigitYear = val.substring(yearEndIdx - 2, yearEndIdx);
 
-    if (!isNaN(Number(potentialTwoDigitYear)) && potentialTwoDigitYear.length === 2) {
+    if (
+      !isNaN(Number(potentialTwoDigitYear)) &&
+      potentialTwoDigitYear.length === 2
+    ) {
       instance.year = Number("20" + potentialTwoDigitYear);
       instance.letter = val.substring(yearEndIdx - 3, yearEndIdx - 2);
       instance.number = Number(val.substring(0, yearEndIdx - 3));
@@ -100,5 +103,4 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
       instance.number = Number(val.substring(0, yearEndIdx - 2));
     }
   }
-
 }

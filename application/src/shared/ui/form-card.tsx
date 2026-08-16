@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/joy";
+import { Typography, Box } from '@mui/joy';
 
 export interface FormCardProps {
   title: string;
@@ -7,15 +7,21 @@ export interface FormCardProps {
   centerTitle?: boolean;
 }
 
-export default function FormCard({ props, children }: { props: FormCardProps; children: React.ReactNode }) {
+export default function FormCard({
+  props,
+  children,
+}: {
+  props: FormCardProps;
+  children: React.ReactNode;
+}) {
   return (
     <Box
       sx={{
-        border: "1px solid",
+        border: '1px solid',
         borderRadius: 5,
-        borderColor: "divider",
-        display: "flex",
-        flexDirection: "column",
+        borderColor: 'divider',
+        display: 'flex',
+        flexDirection: 'column',
         gap: 2,
         px: 2,
         py: 2,
@@ -25,8 +31,8 @@ export default function FormCard({ props, children }: { props: FormCardProps; ch
     >
       <Box
         sx={{
-          display: "flex",
-          justifyContent: props.centerTitle && props.centerTitle ? "center" : "flex-start",
+          display: 'flex',
+          justifyContent: props.centerTitle && props.centerTitle ? 'center' : 'flex-start',
         }}
       >
         <Typography color="neutral" level="h4">
@@ -35,12 +41,12 @@ export default function FormCard({ props, children }: { props: FormCardProps; ch
       </Box>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
           gap: 2,
-          width: "100%",
+          width: '100%',
         }}
       >
         {children}

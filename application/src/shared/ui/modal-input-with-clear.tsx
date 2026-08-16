@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Box, FormControl, Input, IconButton, useColorScheme } from "@mui/joy";
-import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import * as React from 'react';
+import { Box, FormControl, Input, IconButton, useColorScheme } from '@mui/joy';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
 export interface ModalInputWithClearProps {
   value: string;
@@ -13,16 +13,16 @@ export interface ModalInputWithClearProps {
 export default function ModalInputWithClear(props: ModalInputWithClearProps) {
   const { mode } = useColorScheme();
   return (
-    <Box sx={{ display: "flex", width: "100%" }}>
-      <FormControl size="sm" sx={{ width: "100%" }}>
+    <Box sx={{ display: 'flex', width: '100%' }}>
+      <FormControl size="sm" sx={{ width: '100%' }}>
         <Input
           sx={{
-            "&:focus-within": {
-              "--Input-focusedHighlight": "var(--joy-palette-neutral-400)",
+            '&:focus-within': {
+              '--Input-focusedHighlight': 'var(--joy-palette-neutral-400)',
             },
             // width: "100%",
 
-            display: "flex",
+            display: 'flex',
             // flexGrow: 1,
             // flexShrink: 1,
           }}
@@ -33,7 +33,7 @@ export default function ModalInputWithClear(props: ModalInputWithClearProps) {
           endDecorator={
             <React.Fragment>
               <IconButton
-                color={mode === "dark" ? "neutral" : "neutral"}
+                color={mode === 'dark' ? 'neutral' : 'neutral'}
                 disabled={props.disabled}
                 onClick={() => {
                   props.onClear();

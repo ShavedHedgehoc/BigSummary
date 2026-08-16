@@ -1,9 +1,9 @@
-import { Box, Button, Typography } from "@mui/joy";
-import { useDocsUploadFormStore } from "./store/use-docs-upload-form-store";
-import { useShallow } from "zustand/react/shallow";
-import { useUploadDoc } from "./use-upload-doc";
-import UploadPendingModal from "../../shared/components/upload-pending-modal";
-import { IDocUploadData } from "../../shared/api/services/record-service";
+import { Box, Button, Typography } from '@mui/joy';
+import { useDocsUploadFormStore } from './store/use-docs-upload-form-store';
+import { useShallow } from 'zustand/react/shallow';
+import { useUploadDoc } from './use-upload-doc';
+import UploadPendingModal from '../../shared/components/upload-pending-modal';
+import { IDocUploadData } from '../../shared/api/services/record-service';
 
 export default function DocsUploadFormLoader() {
   const { uploadDoc, uploadPending } = useUploadDoc();
@@ -28,7 +28,7 @@ export default function DocsUploadFormLoader() {
   };
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Typography level="body-sm" color="neutral">
           Загрузите сводку
         </Typography>
@@ -40,10 +40,10 @@ export default function DocsUploadFormLoader() {
           component="span"
           disabled={!isValid || uploadPending}
           sx={{
-            display: "flex",
-            fontWeight: "normal",
-            fontSize: "small",
-            width: "200px",
+            display: 'flex',
+            fontWeight: 'normal',
+            fontSize: 'small',
+            width: '200px',
           }}
           onClick={() => upload()}
         >

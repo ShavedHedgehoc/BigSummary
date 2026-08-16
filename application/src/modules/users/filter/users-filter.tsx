@@ -1,9 +1,9 @@
-import PageFilterLayout from "../../../shared/layouts/page-filter-layout";
-import UsersFilterBannedSelector from "./users-filter-banned-selector";
-import UsersFilterClearButton from "./users-filter-clear-button";
-import UsersFilterEmailInput from "./users-filter-email-input";
-import UsersFilterNameInput from "./users-filter-name-input";
-import UsersFilterRolesSelector from "./users-filter-roles-selector";
+import PageFilterLayout from '../../../shared/layouts/page-filter-layout';
+import UsersFilterBannedSelector from './users-filter-banned-selector';
+import UsersFilterClearButton from './users-filter-clear-button';
+import UsersFilterEmailInput from './users-filter-email-input';
+import UsersFilterNameInput from './users-filter-name-input';
+import UsersFilterRolesSelector from './users-filter-roles-selector';
 
 export default function UsersFilter() {
   return (

@@ -1,5 +1,5 @@
-import { FetchConveyorFilter } from "../../../modules/conveyors/store/use-conveyors-filter-store";
-import { $api } from "../http";
+import { FetchConveyorFilter } from '../../../modules/conveyors/store/use-conveyors-filter-store';
+import { $api } from '../http';
 
 export interface FetchConveyorsDto {
   filter: FetchConveyorFilter;

@@ -1,8 +1,10 @@
-import { useShallow } from "zustand/react/shallow";
+import { useShallow } from 'zustand/react/shallow';
 
-import FilterInputWithSort, { FilterInputWithSortProps } from "../../../shared/ui/filter-input-with-sort";
-import { useEmployeesFilterStore } from "../store/use-employees-filter-store";
-import { EmployeesFilterParams } from "./employees-filter-params";
+import FilterInputWithSort, {
+  FilterInputWithSortProps,
+} from '../../../shared/ui/filter-input-with-sort';
+import { useEmployeesFilterStore } from '../store/use-employees-filter-store';
+import { EmployeesFilterParams } from './employees-filter-params';
 
 export default function EmployeesFilterNameInput() {
   const filter = useEmployeesFilterStore(useShallow((state) => state.filter));
@@ -13,9 +15,9 @@ export default function EmployeesFilterNameInput() {
     value: filter.name,
     sortAscValue: filter.nameAsc,
     sortKey: EmployeesFilterParams.NAME_ASC,
-    disabled: filter.name === "",
-    placeholder: "ФИО",
-    label: "Поиск по ФИО",
+    disabled: filter.name === '',
+    placeholder: 'ФИО',
+    label: 'Поиск по ФИО',
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

@@ -1,6 +1,6 @@
-import { Box, Button, FormControl, Typography } from "@mui/joy";
-import { useShallow } from "zustand/react/shallow";
-import { useRegulationsUpsertFormStore } from "./store/use-regulations-upsert-form-store";
+import { Box, Button, FormControl, Typography } from '@mui/joy';
+import { useShallow } from 'zustand/react/shallow';
+import { useRegulationsUpsertFormStore } from './store/use-regulations-upsert-form-store';
 
 export default function RegulationsUpsertFormFileInput() {
   const filename = useRegulationsUpsertFormStore(useShallow((state) => state.fileName));
@@ -14,12 +14,14 @@ export default function RegulationsUpsertFormFileInput() {
     setFile(e.target.files?.[0]);
   };
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Typography level="body-sm">{filename.split("\\").slice(-1)[0] || "Файл не выбран"}</Typography>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Typography level="body-sm">
+        {filename.split('\\').slice(-1)[0] || 'Файл не выбран'}
+      </Typography>
       <FormControl size="sm">
         <input
           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           id="raised-button-file"
           type="file"
           value={filename}
@@ -34,10 +36,10 @@ export default function RegulationsUpsertFormFileInput() {
             component="span"
             disabled={file !== undefined}
             sx={{
-              display: file !== undefined ? "none" : "flex",
-              fontWeight: "normal",
-              fontSize: "small",
-              width: "200px",
+              display: file !== undefined ? 'none' : 'flex',
+              fontWeight: 'normal',
+              fontSize: 'small',
+              width: '200px',
             }}
           >
             Выберите файл
@@ -50,10 +52,10 @@ export default function RegulationsUpsertFormFileInput() {
           size="sm"
           disabled={file === undefined}
           sx={{
-            display: file === undefined ? "none" : "flex",
-            fontWeight: "normal",
-            fontSize: "small",
-            width: "200px",
+            display: file === undefined ? 'none' : 'flex',
+            fontWeight: 'normal',
+            fontSize: 'small',
+            width: '200px',
           }}
           onClick={() => clearData()}
         >

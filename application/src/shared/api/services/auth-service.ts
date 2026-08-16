@@ -1,7 +1,7 @@
-import { AxiosResponse } from "axios";
-import { $api, $clearApi } from "../http";
-import { ApiRoutes } from "../http/apiRoutes";
-import { IUser } from "../../../modules/auth/store/auth-store";
+import { AxiosResponse } from 'axios';
+import { $api, $clearApi } from '../http';
+import { ApiRoutes } from '../http/apiRoutes';
+import { IUser } from '../../../modules/auth/store/auth-store';
 
 export interface AuthResponce {
   user: IUser;

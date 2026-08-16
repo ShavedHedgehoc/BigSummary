@@ -1,11 +1,11 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { IPlant } from "../../../types";
-import { devtools } from "zustand/middleware";
+import { IPlant } from '../../../types';
+import { devtools } from 'zustand/middleware';
 
-import { getTomorrowDate } from "../../../shared/helpers/date-time-formatters";
-import { DocsUploadFormParams } from "../docs-upload-form-params";
-import { IXLSDocsRowData } from "../../../shared/api/services/record-service";
+import { getTomorrowDate } from '../../../shared/helpers/date-time-formatters';
+import { DocsUploadFormParams } from '../docs-upload-form-params';
+import { IXLSDocsRowData } from '../../../shared/api/services/record-service';
 
 interface DocsUploadFormData {
   plant: number | null;
@@ -57,7 +57,7 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
     errsModalShow: false,
     isValid: false,
     file: undefined,
-    fileName: "",
+    fileName: '',
     errs: [],
     selectedPlant: null,
     plantSelectorOptions: [],
@@ -67,7 +67,10 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
       switch (key) {
         case DocsUploadFormParams.PLANT:
           set((state) => ({
-            formData: { ...state.formData, plant: values?.length ? values[0] : state.formData.plant },
+            formData: {
+              ...state.formData,
+              plant: values?.length ? values[0] : state.formData.plant,
+            },
           }));
           break;
 
@@ -78,7 +81,7 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
           break;
         case DocsUploadFormParams.UPDATE:
           set((state) => ({
-            formData: { ...state.formData, update: value === "true" ? true : false },
+            formData: { ...state.formData, update: value === 'true' ? true : false },
           }));
           break;
         default:
@@ -94,7 +97,7 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
       set(() => ({
         isValid: false,
         file: undefined,
-        fileName: "",
+        fileName: '',
         errs: [],
         dataForUpload: [],
         errsModalShow: false,
@@ -106,5 +109,5 @@ export const useDocsUploadFormStore = create<DocsUploadFormStore>()(
       }));
     },
     setDataForUpload: (arr) => set(() => ({ dataForUpload: [...arr] })),
-  }))
+  })),
 );

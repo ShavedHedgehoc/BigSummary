@@ -1,5 +1,5 @@
-import * as React from "react";
-import classes from "./mainInput.module.css";
+import * as React from 'react';
+import classes from './mainInput.module.css';
 
 interface MainInputProps {
   handleInput: (value: string) => void;
@@ -7,7 +7,7 @@ interface MainInputProps {
 }
 
 export default function MainInput(props: MainInputProps) {
-  const [inputField, setInputField] = React.useState("");
+  const [inputField, setInputField] = React.useState('');
   const refInput = React.useRef<HTMLInputElement | null>(null);
 
   const focusInput = () => {
@@ -15,12 +15,12 @@ export default function MainInput(props: MainInputProps) {
   };
 
   const clearInput = () => {
-    setInputField("");
+    setInputField('');
     focusInput();
   };
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       props.handleInput(inputField);
       clearInput();
     }

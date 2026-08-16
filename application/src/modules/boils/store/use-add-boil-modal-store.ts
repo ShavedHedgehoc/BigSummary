@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface AddBoilModalStore {
   open: boolean;
@@ -21,7 +21,7 @@ export const useAddBoilModalStore = create<AddBoilModalStore>()(
   devtools((set) => ({
     open: false,
     boil_value: null,
-    title: "",
+    title: '',
     id: null,
     state: null,
     noteRequired: false,
@@ -31,5 +31,5 @@ export const useAddBoilModalStore = create<AddBoilModalStore>()(
     setNoteRequired: (value) => set(() => ({ noteRequired: value })),
     setState: (value) => set(() => ({ state: value })),
     setId: (value) => set(() => ({ id: value })),
-  }))
+  })),
 );

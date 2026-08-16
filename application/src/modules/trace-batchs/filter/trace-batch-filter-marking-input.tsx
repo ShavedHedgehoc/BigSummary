@@ -1,7 +1,7 @@
-import { useShallow } from "zustand/react/shallow";
-import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
-import { useTraceBatchsFilterStore } from "../store/use-trace-batchs-filter-store";
-import { TraceBatchsFilterParams } from "./trace-batchs-filter-params";
+import { useShallow } from 'zustand/react/shallow';
+import FilterInput, { FilterInputProps } from '../../../shared/ui/filter-input';
+import { useTraceBatchsFilterStore } from '../store/use-trace-batchs-filter-store';
+import { TraceBatchsFilterParams } from './trace-batchs-filter-params';
 
 export default function TraceBatchsFilterMarkingInput() {
   const filter = useTraceBatchsFilterStore(useShallow((state) => state.filter));
@@ -10,9 +10,9 @@ export default function TraceBatchsFilterMarkingInput() {
   const codeInputProps: FilterInputProps = {
     id: TraceBatchsFilterParams.MARKING,
     value: filter.marking,
-    disabled: filter.marking === "",
-    label: "Поиск по артикулу",
-    placeholder: "Артикул",
+    disabled: filter.marking === '',
+    label: 'Поиск по артикулу',
+    placeholder: 'Артикул',
     maxW: 150,
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };

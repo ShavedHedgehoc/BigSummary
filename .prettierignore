@@ -1,0 +1,22 @@
+# Полностью исключаем папки зависимостей и сборки
+node_modules
+**/node_modules/**
+dist
+**/dist/**
+.next
+**/.next/**
+.turbo
+**/.turbo/**
+build
+**/build/**
+out
+**/out/**
+
+# Системные папки
+.git
+.vscode
+.husky
+
+# Игнорируем файлы в самом корне (чтобы он не форматировал pnpm-lock.yaml)
+/*.*
+**/generated/**

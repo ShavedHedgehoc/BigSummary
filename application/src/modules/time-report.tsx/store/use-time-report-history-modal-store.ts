@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface TimeReportHistoryModalStore {
   open: boolean;
@@ -15,7 +15,7 @@ export const useTimeReportHistoryModalStore = create<TimeReportHistoryModalStore
   open: false,
   record_id: null,
   boil_value: null,
-  title: "",
+  title: '',
   setOpen: (value) => set(() => ({ open: value })),
   setRecordId: (value) => set(() => ({ record_id: value })),
   setTitle: (value) => set(() => ({ title: value })),

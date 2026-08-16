@@ -1,7 +1,7 @@
-import * as React from "react";
-import { observer } from "mobx-react-lite";
-import { Box, Typography } from "@mui/joy";
-import { Context } from "../../main";
+import * as React from 'react';
+import { observer } from 'mobx-react-lite';
+import { Box, Typography } from '@mui/joy';
+import { Context } from '../../main';
 
 interface NoSelectPlantComponentProps {
   msg: string;
@@ -19,12 +19,12 @@ function NoSelectPlantComponent(props: NoSelectPlantComponentProps) {
   return (
     <Box
       sx={{
-        display: "flex",
-        minHeight: "100dvh",
-        width: "100%",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        minHeight: '100dvh',
+        width: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         gap: 4,
       }}
     >

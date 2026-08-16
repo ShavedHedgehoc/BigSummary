@@ -1,11 +1,11 @@
-import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/react/shallow";
-import Ajv from "ajv";
-import ajvErrors from "ajv-errors";
-import { read, utils } from "xlsx";
-import { ValError, useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
-import { useBoilsUploadValidateModalStore } from "./store/use-boils-upload-validate-modal-store";
-import { IXLSBoilsRowData } from "../../shared/api/services/direct-trace-service";
+import { Box, Button, Typography } from '@mui/joy';
+import { useShallow } from 'zustand/react/shallow';
+import Ajv from 'ajv';
+import ajvErrors from 'ajv-errors';
+import { read, utils } from 'xlsx';
+import { ValError, useBoilsUploadFormStore } from './store/use-boils-upload-form-store';
+import { useBoilsUploadValidateModalStore } from './store/use-boils-upload-validate-modal-store';
+import { IXLSBoilsRowData } from '../../shared/api/services/direct-trace-service';
 
 interface IXLSBoilsSheetRow {
   date: string;
@@ -29,27 +29,37 @@ export default function BoilsUploadFormValidator() {
 
   const setErrsModalShow = useBoilsUploadFormStore(useShallow((state) => state.setErrsModalShow));
   const setDataForUpload = useBoilsUploadFormStore(useShallow((state) => state.setDataForUpload));
-  const setOpenVaildateModal = useBoilsUploadValidateModalStore(useShallow((state) => state.setOpen));
+  const setOpenVaildateModal = useBoilsUploadValidateModalStore(
+    useShallow((state) => state.setOpen),
+  );
   const formatDateString = (dateString: string) => {
-    const [day, month, year] = dateString.split(".");
+    const [day, month, year] = dateString.split('.');
     return `${year}-${month}-${day}`;
   };
   const handleValidationComplete = (json: IXLSBoilsSheetRow[]) => {
     let res: IXLSBoilsRowData[] = [];
     json.map((item) => {
-      const _row = { productid: item.productid, productname: item.productname, quantity: item.quantity };
-      if (res.some((resItem) => resItem["document"]["batch_record"]["_attributes"]["batch"] === item.batch)) {
+      const _row = {
+        productid: item.productid,
+        productname: item.productname,
+        quantity: item.quantity,
+      };
+      if (
+        res.some(
+          (resItem) => resItem['document']['batch_record']['_attributes']['batch'] === item.batch,
+        )
+      ) {
         const existsItem = res.filter(
-          (resItem) => resItem["document"]["batch_record"]["_attributes"]["batch"] === item.batch
+          (resItem) => resItem['document']['batch_record']['_attributes']['batch'] === item.batch,
         )[0];
 
-        const _attr = existsItem["document"]["batch_record"]["_attributes"];
-        const rows = existsItem["document"]["batch_record"]["row"];
+        const _attr = existsItem['document']['batch_record']['_attributes'];
+        const rows = existsItem['document']['batch_record']['row'];
         const updatedItem: IXLSBoilsRowData = {
           document: { batch_record: { _attributes: { ..._attr }, row: [...rows, { ..._row }] } },
         };
         const resWithoutUpdated = res.filter(
-          (fItem) => fItem["document"]["batch_record"]["_attributes"]["batch"] !== item.batch
+          (fItem) => fItem['document']['batch_record']['_attributes']['batch'] !== item.batch,
         );
         res = [...resWithoutUpdated, updatedItem];
       } else {
@@ -62,7 +72,9 @@ export default function BoilsUploadFormValidator() {
           plan: item.plan,
           plant: item.plant,
         };
-        const _doc: IXLSBoilsRowData = { document: { batch_record: { _attributes: { ...attr }, row: [{ ..._row }] } } };
+        const _doc: IXLSBoilsRowData = {
+          document: { batch_record: { _attributes: { ...attr }, row: [{ ..._row }] } },
+        };
         res = [...res, { ..._doc }];
       }
     }, {});
@@ -79,67 +91,67 @@ export default function BoilsUploadFormValidator() {
   const ajv = ajvErrors(new Ajv({ allErrors: true }));
 
   ajv.addKeyword({
-    keyword: "MustBeNumeric",
-    type: "string",
+    keyword: 'MustBeNumeric',
+    type: 'string',
     validate: function (schema: any, data: any) {
       if (schema === true) {
       }
-      return typeof data === "string" && !Number.isNaN(Number(data));
+      return typeof data === 'string' && !Number.isNaN(Number(data));
     },
     error: {
-      message: "Значение должно быть числом",
+      message: 'Значение должно быть числом',
     },
   });
   ajv.addKeyword({
-    keyword: "IsNotEmpty",
-    type: "string",
+    keyword: 'IsNotEmpty',
+    type: 'string',
     validate: function (schema: any, data: any) {
       if (schema === true) {
       }
-      if (typeof data === "string") return data.trim() !== "";
+      if (typeof data === 'string') return data.trim() !== '';
       return data != null;
     },
     error: {
-      message: "Значение должно быть числом",
+      message: 'Значение должно быть числом',
     },
   });
   ajv.addKeyword({
-    keyword: "NotZeroValue",
-    type: "string",
+    keyword: 'NotZeroValue',
+    type: 'string',
     validate: function (schema: any, data: any) {
       if (schema === true) {
       }
       return Number(data) !== 0;
     },
     error: {
-      message: "Значение не может быть равно нулю",
+      message: 'Значение не может быть равно нулю',
     },
   });
   const valSchema = {
-    type: "object",
+    type: 'object',
     properties: {
-      date: { type: "string" },
-      fin_productid: { type: "string", MustBeNumeric: "prefix", minLength: 1 },
-      marking: { type: "string", minLength: 1 },
-      batch: { type: "string", minLength: 1 },// add pattern
-      apparatus: { type: "string", MustBeNumeric: "prefix", minLength: 1 },
-      plan: { type: "string", MustBeNumeric: "prefix", NotZeroValue: "prefix", minLength: 1 },
-      productid: { type: "string", MustBeNumeric: "prefix", minLength: 1 },
-      productname: { type: "string", minLength: 1 },
-      quantity: { type: "string", MustBeNumeric: "prefix", NotZeroValue: "prefix", minLength: 1 },
-      plant: { type: "string", minLength: 1 },
+      date: { type: 'string' },
+      fin_productid: { type: 'string', MustBeNumeric: 'prefix', minLength: 1 },
+      marking: { type: 'string', minLength: 1 },
+      batch: { type: 'string', minLength: 1 }, // add pattern
+      apparatus: { type: 'string', MustBeNumeric: 'prefix', minLength: 1 },
+      plan: { type: 'string', MustBeNumeric: 'prefix', NotZeroValue: 'prefix', minLength: 1 },
+      productid: { type: 'string', MustBeNumeric: 'prefix', minLength: 1 },
+      productname: { type: 'string', minLength: 1 },
+      quantity: { type: 'string', MustBeNumeric: 'prefix', NotZeroValue: 'prefix', minLength: 1 },
+      plant: { type: 'string', minLength: 1 },
     },
     required: [
-      "date",
-      "fin_productid",
-      "marking",
-      "batch",
-      "apparatus",
-      "plan",
-      "productid",
-      "productname",
-      "quantity",
-      "plant",
+      'date',
+      'fin_productid',
+      'marking',
+      'batch',
+      'apparatus',
+      'plan',
+      'productid',
+      'productname',
+      'quantity',
+      'plant',
     ],
     errorMessage: {
       required: {
@@ -187,14 +199,14 @@ export default function BoilsUploadFormValidator() {
               const err: ValError = {
                 row: i + 2,
                 field: item.instancePath.substring(1),
-                error: item.message ? item.message : "",
+                error: item.message ? item.message : '',
               };
               addErrs(err);
             });
             valResult = false;
           }
         }
-      } catch (error) { }
+      } catch (error) {}
       valResult ? handleValidationComplete(json) : handleValidationFail();
     };
 
@@ -202,7 +214,7 @@ export default function BoilsUploadFormValidator() {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {!isValid && errs.length === 0 && (
         <Typography level="body-sm" color="neutral">
           Проверьте файл перед загрузкой
@@ -218,7 +230,7 @@ export default function BoilsUploadFormValidator() {
           При проверке обнаружены ошибки...
         </Typography>
       )}
-      <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
         <Button
           color="neutral"
           variant="outlined"
@@ -226,10 +238,10 @@ export default function BoilsUploadFormValidator() {
           component="span"
           disabled={file === undefined || errs.length > 0 || isValid}
           sx={{
-            display: "flex",
-            fontWeight: "normal",
-            fontSize: "small",
-            width: "200px",
+            display: 'flex',
+            fontWeight: 'normal',
+            fontSize: 'small',
+            width: '200px',
           }}
           onClick={() => validate()}
         >
@@ -242,10 +254,10 @@ export default function BoilsUploadFormValidator() {
             size="sm"
             component="span"
             sx={{
-              display: "flex",
-              fontWeight: "normal",
-              fontSize: "small",
-              width: "200px",
+              display: 'flex',
+              fontWeight: 'normal',
+              fontSize: 'small',
+              width: '200px',
             }}
             onClick={() => setErrsModalShow(true)}
           >

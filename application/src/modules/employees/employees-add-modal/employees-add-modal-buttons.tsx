@@ -1,8 +1,8 @@
-import React from "react";
-import Button from "@mui/joy/Button";
-import { useShallow } from "zustand/react/shallow";
-import { useEmployeeAddModalStore } from "../store/use-employees-add-modal-store";
-import { useCreateEmployee } from "../use-create-employee";
+import React from 'react';
+import Button from '@mui/joy/Button';
+import { useShallow } from 'zustand/react/shallow';
+import { useEmployeeAddModalStore } from '../store/use-employees-add-modal-store';
+import { useCreateEmployee } from '../use-create-employee';
 
 export default function EmployeesAddModalButtons() {
   const setOpen = useEmployeeAddModalStore(useShallow((state) => state.setOpen));
@@ -15,7 +15,7 @@ export default function EmployeesAddModalButtons() {
   const { createEmployee, isPending } = useCreateEmployee();
 
   const handleCreateEmployee = () => {
-    if (name !== "" && barcode !== "" && occupation) {
+    if (name !== '' && barcode !== '' && occupation) {
       createEmployee({ name: name, barcode: barcode, occupationId: occupation });
       setOpen(false);
       clearData();
@@ -32,9 +32,9 @@ export default function EmployeesAddModalButtons() {
       <Button
         color="neutral"
         variant="outlined"
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
-        disabled={!(name !== "" && barcode !== "" && occupation !== null) || isPending}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
+        disabled={!(name !== '' && barcode !== '' && occupation !== null) || isPending}
         onClick={() => handleCreateEmployee()}
       >
         Создать
@@ -42,8 +42,8 @@ export default function EmployeesAddModalButtons() {
       <Button
         color="neutral"
         variant="outlined"
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
         disabled={isPending}
         onClick={() => handleCancelCreation()}
       >

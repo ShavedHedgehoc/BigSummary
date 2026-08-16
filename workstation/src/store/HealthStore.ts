@@ -1,10 +1,10 @@
-import { action, computed, makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { action, computed, makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 export default class HealthStore {
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this, { serverFalldown: computed, serverOk: computed, checkHealth: action });
   }
@@ -28,7 +28,7 @@ export default class HealthStore {
     try {
       this.setPending(true);
       await $api.get(`/workshops`);
-      this.setError("");
+      this.setError('');
     } catch (error) {
       const errValue = handleError(error);
       this.setError(errValue);

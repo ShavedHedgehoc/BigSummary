@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface DocumentDetailHistoryModalStore {
   open: boolean;
@@ -13,15 +13,17 @@ interface DocumentDetailHistoryModalStore {
   setAddButtonEnabled: (value: boolean) => void;
 }
 
-export const useDocumentDetailHistoryModalStore = create<DocumentDetailHistoryModalStore>()((set) => ({
-  open: false,
-  record_id: null,
-  boil_value: null,
-  title: "",
-  addButtonEnabled: false,
-  setOpen: (value) => set(() => ({ open: value })),
-  setRecordId: (value) => set(() => ({ record_id: value })),
-  setTitle: (value) => set(() => ({ title: value })),
-  setBoilValue: (value) => set(() => ({ boil_value: value })),
-  setAddButtonEnabled: (value) => set(() => ({ addButtonEnabled: value })),
-}));
+export const useDocumentDetailHistoryModalStore = create<DocumentDetailHistoryModalStore>()(
+  (set) => ({
+    open: false,
+    record_id: null,
+    boil_value: null,
+    title: '',
+    addButtonEnabled: false,
+    setOpen: (value) => set(() => ({ open: value })),
+    setRecordId: (value) => set(() => ({ record_id: value })),
+    setTitle: (value) => set(() => ({ title: value })),
+    setBoilValue: (value) => set(() => ({ boil_value: value })),
+    setAddButtonEnabled: (value) => set(() => ({ addButtonEnabled: value })),
+  }),
+);

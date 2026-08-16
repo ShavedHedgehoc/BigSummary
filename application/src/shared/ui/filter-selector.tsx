@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, FormControl, FormHelperText, Option, Select, SelectStaticProps } from "@mui/joy";
+import * as React from 'react';
+import { Box, FormControl, FormHelperText, Option, Select, SelectStaticProps } from '@mui/joy';
 
 export interface FilterSelectorOptionProps {
   id: number;
@@ -13,7 +13,15 @@ export interface FilterSelectorProps {
   label: string;
   options: React.ReactNode;
   setSelectedOption: (id: number) => void;
-  changeFilter: ({ key, value, values }: { key: string; value: string; values: number[] | [] }) => void;
+  changeFilter: ({
+    key,
+    value,
+    values,
+  }: {
+    key: string;
+    value: string;
+    values: number[] | [];
+  }) => void;
 }
 
 export function FilterSelectorOption(props: FilterSelectorOptionProps) {
@@ -25,27 +33,32 @@ export function FilterSelectorOption(props: FilterSelectorOptionProps) {
 }
 
 export default function FilterSelector(props: FilterSelectorProps) {
-  const action: SelectStaticProps["action"] = React.useRef(null);
+  const action: SelectStaticProps['action'] = React.useRef(null);
   const handleChange = (newValue: number | null) => {
     newValue && props.setSelectedOption(newValue);
-    newValue && props.changeFilter({ key: props.id, value: "", values: newValue === 999999 ? [] : [newValue] });
+    newValue &&
+      props.changeFilter({
+        key: props.id,
+        value: '',
+        values: newValue === 999999 ? [] : [newValue],
+      });
   };
   return (
-    <Box sx={{ display: "flex", pt: 1 }}>
-      <FormControl size="sm" id={"plants"}>
+    <Box sx={{ display: 'flex', pt: 1 }}>
+      <FormControl size="sm" id={'plants'}>
         <Select
           action={action}
           size="sm"
           placeholder={props.placeholder}
           value={props.selectedOption}
           slotProps={{
-            button: { sx: { whiteSpace: "nowrap" } },
+            button: { sx: { whiteSpace: 'nowrap' } },
             listbox: { sx: { zIndex: 999999 } },
           }}
           sx={{
-            minWidth: "220px",
-            maxWidth: "220px",
-            display: "flex",
+            minWidth: '220px',
+            maxWidth: '220px',
+            display: 'flex',
             flexShrink: 1,
           }}
           onChange={(event: React.SyntheticEvent | null, newValue: number | null) => {

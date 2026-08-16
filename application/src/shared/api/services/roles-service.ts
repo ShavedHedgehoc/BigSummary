@@ -1,4 +1,4 @@
-import { $api } from "../http";
+import { $api } from '../http';
 
 export default class RoleService {
   static async getAllRoles(): Promise<IRole[]> {

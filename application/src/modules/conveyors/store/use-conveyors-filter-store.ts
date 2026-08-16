@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { ConveyorsFilterParams } from "../conveyors-filter-params";
+import { create } from 'zustand';
+import { ConveyorsFilterParams } from '../conveyors-filter-params';
 
 export interface FetchConveyorFilter {
   value: string;
@@ -14,7 +14,7 @@ interface ConveyorsFilterStore {
 }
 
 const initFilterValue: FetchConveyorFilter = {
-  value: "",
+  value: '',
   valueAsc: true,
   onlyEmptyBarcode: false,
 };
@@ -28,10 +28,14 @@ export const useConveyorsFilterStore = create<ConveyorsFilterStore>()((set) => (
         set((state) => ({ filter: { ...state.filter, value: value } }));
         break;
       case ConveyorsFilterParams.VALUE_ASC:
-        set((state) => ({ filter: { ...state.filter, valueAsc: value === "true" ? true : false } }));
+        set((state) => ({
+          filter: { ...state.filter, valueAsc: value === 'true' ? true : false },
+        }));
         break;
       case ConveyorsFilterParams.ONLY_EMPTY_BARCODE:
-        set((state) => ({ filter: { ...state.filter, onlyEmptyBarcode: value === "true" ? true : false } }));
+        set((state) => ({
+          filter: { ...state.filter, onlyEmptyBarcode: value === 'true' ? true : false },
+        }));
         break;
       default:
         break;

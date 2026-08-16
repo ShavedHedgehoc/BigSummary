@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface BoilsUploadUploadModalStore {
   open: boolean;
@@ -28,5 +28,5 @@ export const useBoilsUploadUploadModalStore = create<BoilsUploadUploadModalStore
     increaseSuccess: () => set((state) => ({ success: state.success + 1 })),
     increaseFail: () => set((state) => ({ fail: state.fail + 1 })),
     reset: () => set(() => ({ open: false, toProcess: 0, processed: 0, success: 0, fail: 0 })),
-  }))
+  })),
 );

@@ -1,9 +1,9 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { IPlant } from "../../../types";
-import { devtools } from "zustand/middleware";
-import { TimeReportFilterParams } from "../filter/time-report-filter-params";
-import { getCurrentDay } from "../../../shared/helpers/date-time-formatters";
+import { IPlant } from '../../../types';
+import { devtools } from 'zustand/middleware';
+import { TimeReportFilterParams } from '../filter/time-report-filter-params';
+import { getCurrentDay } from '../../../shared/helpers/date-time-formatters';
 
 interface TimeReportFilter {
   boil: string;
@@ -31,10 +31,10 @@ interface TimeReportFilterStore {
 
 const initFilterValue: TimeReportFilter = {
   date: getCurrentDay().toJSON().slice(0, 10),
-  productCode: "",
-  boil: "",
-  marking: "",
-  conveyor: "",
+  productCode: '',
+  boil: '',
+  marking: '',
+  conveyor: '',
   haveRecord: true,
   boilAsc: false,
   states: [],
@@ -69,7 +69,9 @@ export const useTimeReportFilterStore = create<TimeReportFilterStore>()(
           set((state) => ({ filter: { ...state.filter, boil: value } }));
           break;
         case TimeReportFilterParams.PLANT:
-          set((state) => ({ filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant } }));
+          set((state) => ({
+            filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant },
+          }));
           break;
         case TimeReportFilterParams.PRODUCT:
           set((state) => ({ filter: { ...state.filter, productCode: value } }));
@@ -81,7 +83,9 @@ export const useTimeReportFilterStore = create<TimeReportFilterStore>()(
           set((state) => ({ filter: { ...state.filter, conveyor: value } }));
           break;
         case TimeReportFilterParams.BOIL_ASC:
-          set((state) => ({ filter: { ...state.filter, boilAsc: value === "true" ? true : false } }));
+          set((state) => ({
+            filter: { ...state.filter, boilAsc: value === 'true' ? true : false },
+          }));
           break;
         case TimeReportFilterParams.STATES:
           set((state) => ({
@@ -95,5 +99,5 @@ export const useTimeReportFilterStore = create<TimeReportFilterStore>()(
     setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
     fillPlantSelectorOptions: (values) => set(() => ({ plantSelectorOptions: [...values] })),
     fillStateSelectorOptions: (values) => set(() => ({ stateSelectorOptions: [...values] })),
-  }))
+  })),
 );

@@ -1,14 +1,14 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { devtools } from "zustand/middleware";
+import { devtools } from 'zustand/middleware';
 import {
   getCurrentDay,
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
   getTomorrowDate,
-} from "../../../shared/helpers/date-time-formatters";
-import { FetchTraceBatchsFilter } from "../../../shared/api/services/trace-batchs-service";
-import { TraceBatchsFilterParams } from "../filter/trace-batchs-filter-params";
+} from '../../../shared/helpers/date-time-formatters';
+import { FetchTraceBatchsFilter } from '../../../shared/api/services/trace-batchs-service';
+import { TraceBatchsFilterParams } from '../filter/trace-batchs-filter-params';
 
 interface FetchTraceBatchsFilterFormField {
   key: string;
@@ -31,19 +31,19 @@ interface TraceBatchsFilterStore {
 const initFilterValue: FetchTraceBatchsFilter = {
   startDate: getFirstDayOfCurrentMonth().toJSON().slice(0, 10),
   endDate: getLastDayOfCurrentMonth().toJSON().slice(0, 10),
-  batch: "",
-  marking: "",
-  month: "",
-  year: "",
+  batch: '',
+  marking: '',
+  month: '',
+  year: '',
   plants: [],
 };
 
 export const useTraceBatchsFilterStore = create<TraceBatchsFilterStore>()(
   devtools((set) => ({
     filter: initFilterValue,
-    selectedPlant: "#",
+    selectedPlant: '#',
     plantSelectorOptions: [],
-    clearFilter: () => set(() => ({ filter: initFilterValue, selectedPlant: "#" })),
+    clearFilter: () => set(() => ({ filter: initFilterValue, selectedPlant: '#' })),
     setDayToToday: () =>
       set((state) => ({
         filter: {
@@ -94,6 +94,6 @@ export const useTraceBatchsFilterStore = create<TraceBatchsFilterStore>()(
     },
     setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
     fillPlantSelectorOptions: (values) =>
-      set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Все", abb: "#" }, ...values] })),
-  }))
+      set(() => ({ plantSelectorOptions: [{ id: 999999, value: 'Все', abb: '#' }, ...values] })),
+  })),
 );

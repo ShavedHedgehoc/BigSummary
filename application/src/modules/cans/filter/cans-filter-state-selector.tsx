@@ -1,22 +1,26 @@
-import { useShallow } from "zustand/react/shallow";
-import { useQuery } from "@tanstack/react-query";
+import { useShallow } from 'zustand/react/shallow';
+import { useQuery } from '@tanstack/react-query';
 
-import { useCansFilterStore } from "./store/use-cans-filter-store";
-import { CansFilterParams } from "./cans-filter-params";
+import { useCansFilterStore } from './store/use-cans-filter-store';
+import { CansFilterParams } from './cans-filter-params';
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
   FilterMultiSelectorProps,
-} from "../../../shared/ui/filter-multi-selector";
-import TraceCanStatesService from "../../../shared/api/services/trace-can-states-service";
+} from '../../../shared/ui/filter-multi-selector';
+import TraceCanStatesService from '../../../shared/api/services/trace-can-states-service';
 
 export default function CansFilterStateSelector() {
   const filter = useCansFilterStore(useShallow((state) => state.filter));
   const changeFilter = useCansFilterStore(useShallow((state) => state.changeFilter));
-  const stateSelectorOptions = useCansFilterStore(useShallow((state) => state.stateSelectorOptions));
-  const fillStateSelectorOptions = useCansFilterStore(useShallow((state) => state.fillStateSelectorOptions));
+  const stateSelectorOptions = useCansFilterStore(
+    useShallow((state) => state.stateSelectorOptions),
+  );
+  const fillStateSelectorOptions = useCansFilterStore(
+    useShallow((state) => state.fillStateSelectorOptions),
+  );
 
   useQuery({
-    queryKey: ["cans_states_options"],
+    queryKey: ['cans_states_options'],
     queryFn: async () => {
       const data = await TraceCanStatesService.getCanStates();
       if (data) {
@@ -39,8 +43,8 @@ export default function CansFilterStateSelector() {
   const stateSelectorProps: FilterMultiSelectorProps = {
     id: CansFilterParams.STATES,
     selectedOptions: filter.states,
-    placeholder: "Выберите статус",
-    label: "Поиск по статусу",
+    placeholder: 'Выберите статус',
+    label: 'Поиск по статусу',
     options: stateOptions,
     changeFilter: ({ key, value, values }: { key: string; value: string; values: number[] | [] }) =>
       changeFilter({ key, value, values }),

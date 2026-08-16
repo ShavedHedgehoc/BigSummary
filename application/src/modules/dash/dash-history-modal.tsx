@@ -1,10 +1,10 @@
-import ModalLayout from "../../shared/layouts/modal-layout";
-import TableLayout from "../../shared/layouts/table-layout";
-import { useRecordHistories } from "../../shared/api/use-record-histories";
-import { useShallow } from "zustand/react/shallow";
-import TableLoaderComponent from "../../shared/components/table-loader";
-import { useDashHistoryModalStore } from "./store/use-dash-history-modal-store";
-import DashHistoryModalRow from "./dash-history-modal-row";
+import ModalLayout from '../../shared/layouts/modal-layout';
+import TableLayout from '../../shared/layouts/table-layout';
+import { useRecordHistories } from '../../shared/api/use-record-histories';
+import { useShallow } from 'zustand/react/shallow';
+import TableLoaderComponent from '../../shared/components/table-loader';
+import { useDashHistoryModalStore } from './store/use-dash-history-modal-store';
+import DashHistoryModalRow from './dash-history-modal-row';
 
 export default function DashHistoryModal() {
   const open = useDashHistoryModalStore(useShallow((state) => state.open));
@@ -14,11 +14,11 @@ export default function DashHistoryModal() {
   const { isPending, data, isSuccess } = useRecordHistories(record_id);
 
   const history_table_thead: TheadProperties[] = [
-    { width: 50, padding: "18px 6px", value: "Дата" },
-    { width: 50, padding: "18px 6px", value: "Время" },
-    { width: 100, padding: "18px 6px", value: "Статус записи" },
-    { width: 80, padding: "18px 6px", value: "Автор записи" },
-    { width: 50, padding: "18px 6px", value: "Комментарий" },
+    { width: 50, padding: '18px 6px', value: 'Дата' },
+    { width: 50, padding: '18px 6px', value: 'Время' },
+    { width: 100, padding: '18px 6px', value: 'Статус записи' },
+    { width: 80, padding: '18px 6px', value: 'Автор записи' },
+    { width: 50, padding: '18px 6px', value: 'Комментарий' },
   ];
 
   const modalProps = {

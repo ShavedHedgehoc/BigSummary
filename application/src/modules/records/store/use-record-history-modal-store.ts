@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface RecordHistoryModalStore {
   open: boolean;
@@ -17,7 +17,7 @@ export const useRecordHistoryModalStore = create<RecordHistoryModalStore>()((set
   open: false,
   record_id: null,
   boil_value: null,
-  title: "",
+  title: '',
   cancelButtonEnabled: false,
   setOpen: (value) => set(() => ({ open: value })),
   setRecordId: (value) => set(() => ({ record_id: value })),

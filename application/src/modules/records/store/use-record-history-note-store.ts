@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface RecordHistoryNoteStore {
   historyNote: string;
@@ -8,7 +8,7 @@ interface RecordHistoryNoteStore {
 
 export const useRecordHistoryNoteStore = create<RecordHistoryNoteStore>()(
   devtools((set) => ({
-    historyNote: "",
+    historyNote: '',
     setHistoryNote: (value) => set(() => ({ historyNote: value })),
-  }))
+  })),
 );

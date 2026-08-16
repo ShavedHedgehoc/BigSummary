@@ -1,7 +1,10 @@
-import { create } from "zustand";
-import { CansFilterParams } from "../cans-filter-params";
-import { ITraceCanState } from "../../../../shared/api/services/trace-can-states-service";
-import { FetchCansFilter, ITraceCanVolume } from "../../../../shared/api/services/trace-cans-service";
+import { create } from 'zustand';
+import { CansFilterParams } from '../cans-filter-params';
+import { ITraceCanState } from '../../../../shared/api/services/trace-can-states-service';
+import {
+  FetchCansFilter,
+  ITraceCanVolume,
+} from '../../../../shared/api/services/trace-cans-service';
 
 interface ITracePlant {
   PlantPK: number;
@@ -24,7 +27,7 @@ interface CansFilterStore {
 }
 
 const initFilterValue: FetchCansFilter = {
-  can: "",
+  can: '',
   states: [],
   plants: [],
   volumes: [],
@@ -59,7 +62,7 @@ export const useCansFilterStore = create<CansFilterStore>()((set) => ({
         }));
         break;
       case CansFilterParams.TRANSIT:
-        set((state) => ({ filter: { ...state.filter, transit: value === "true" ? true : false } }));
+        set((state) => ({ filter: { ...state.filter, transit: value === 'true' ? true : false } }));
         break;
       default:
         break;
@@ -67,7 +70,9 @@ export const useCansFilterStore = create<CansFilterStore>()((set) => ({
   },
   setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
   fillPlantSelectorOptions: (values) =>
-    set(() => ({ plantSelectorOptions: [{ PlantPK: 999999, PlantName: "Все", PlantAlias: "" }, ...values] })),
+    set(() => ({
+      plantSelectorOptions: [{ PlantPK: 999999, PlantName: 'Все', PlantAlias: '' }, ...values],
+    })),
   fillStateSelectorOptions: (values) => set(() => ({ stateSelectorOptions: [...values] })),
   fillVolumeSelectorOptions: (values) => set(() => ({ volumeSelectorOptions: [...values] })),
 }));

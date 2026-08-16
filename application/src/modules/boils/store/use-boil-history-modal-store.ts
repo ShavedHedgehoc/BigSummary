@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface HistoryModalStore {
   open: boolean;
@@ -18,7 +18,7 @@ export const useBoilHistoryModalStore = create<HistoryModalStore>()((set) => ({
   open: false,
   boil_value: null,
   boil_id: null,
-  title: "",
+  title: '',
   cancelButtonEnabled: false,
   setOpen: (value) => set(() => ({ open: value })),
   setBoilValue: (value) => set(() => ({ boil_value: value })),

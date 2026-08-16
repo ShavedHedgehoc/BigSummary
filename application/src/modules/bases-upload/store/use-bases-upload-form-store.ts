@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export interface IXLSBasesData {
   code: string;
@@ -26,7 +26,7 @@ interface BasesUploadFormStore {
 export const useBasesUploadFormStore = create<BasesUploadFormStore>()(
   devtools((set) => ({
     file: undefined,
-    fileName: "",
+    fileName: '',
     isValid: false,
     errs: [],
     dataForUpload: [],
@@ -39,7 +39,7 @@ export const useBasesUploadFormStore = create<BasesUploadFormStore>()(
       set(() => ({
         isValid: false,
         file: undefined,
-        fileName: "",
+        fileName: '',
         errs: [],
         errsModalShow: false,
         dataForUpload: [],
@@ -47,5 +47,5 @@ export const useBasesUploadFormStore = create<BasesUploadFormStore>()(
     setErrs: (values) => set(() => ({ errs: values })),
     addErrs: (value) => set((state) => ({ errs: [...state.errs, value] })),
     setDataForUpload: (arr) => set(() => ({ dataForUpload: [...arr] })),
-  }))
+  })),
 );

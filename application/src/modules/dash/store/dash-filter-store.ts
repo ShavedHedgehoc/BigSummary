@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import { IPlant } from "../../../types";
-import { DashFilterParams } from "../dash-filter-params";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { IPlant } from '../../../types';
+import { DashFilterParams } from '../dash-filter-params';
+import { devtools } from 'zustand/middleware';
 
 interface DashFilterStore {
   filter: FetchProductFilter;
@@ -17,10 +17,10 @@ interface DashFilterStore {
 }
 
 const initFilterValue: FetchProductFilter = {
-  productCode: "",
-  conveyor: "",
-  boil: "",
-  marking: "",
+  productCode: '',
+  conveyor: '',
+  boil: '',
+  marking: '',
   haveRecord: true,
   boilAsc: false,
   states: [],
@@ -43,7 +43,9 @@ export const useDashFilterStore = create<DashFilterStore>()(
       changeFilter: ({ key, values }) => {
         switch (key) {
           case DashFilterParams.PLANT:
-            set((state) => ({ filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant } }));
+            set((state) => ({
+              filter: { ...state.filter, plant: values?.length ? values[0] : state.filter.plant },
+            }));
             break;
 
           default:
@@ -54,6 +56,6 @@ export const useDashFilterStore = create<DashFilterStore>()(
       fillPlantSelectorOptions: (values) => set(() => ({ plantSelectorOptions: [...values] })),
       setSmallCardView: (value) => set(() => ({ smallCardView: value })),
     }),
-    { name: "DashFilterStore", store: "DashFilterStore" }
-  )
+    { name: 'DashFilterStore', store: 'DashFilterStore' },
+  ),
 );

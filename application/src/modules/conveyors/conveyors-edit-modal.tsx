@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import Input from "@mui/joy/Input";
+import Input from '@mui/joy/Input';
 
-import Box from "@mui/joy/Box";
-import FormControl from "@mui/joy/FormControl";
-import FormHelperText from "@mui/joy/FormHelperText";
-import Typography from "@mui/joy/Typography";
-import Button from "@mui/joy/Button";
-import { useShallow } from "zustand/react/shallow";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Box from '@mui/joy/Box';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import Typography from '@mui/joy/Typography';
+import Button from '@mui/joy/Button';
+import { useShallow } from 'zustand/react/shallow';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { enqueueSnackbar } from "notistack";
+import { enqueueSnackbar } from 'notistack';
 
-import { useEditModalStore } from "./store/use-edit-modal-store";
-import ConveyorService from "../../shared/api/services/conveyor-service";
-import handleError from "../../shared/api/http/handleError";
-import ModalLayout, { ModalLayoutProps } from "../../shared/layouts/modal-layout";
+import { useEditModalStore } from './store/use-edit-modal-store';
+import ConveyorService from '../../shared/api/services/conveyor-service';
+import handleError from '../../shared/api/http/handleError';
+import ModalLayout, { ModalLayoutProps } from '../../shared/layouts/modal-layout';
 
 const ValueInput = () => {
   const value = useEditModalStore(useShallow((state) => state.value));
@@ -23,12 +23,12 @@ const ValueInput = () => {
   return (
     <Input
       sx={{
-        "&:focus-within": {
-          "--Input-focusedHighlight": "var(--joy-palette-neutral-400)",
+        '&:focus-within': {
+          '--Input-focusedHighlight': 'var(--joy-palette-neutral-400)',
         },
-        minWidth: "200px",
+        minWidth: '200px',
 
-        display: "flex",
+        display: 'flex',
         flexShrink: 1,
       }}
       value={value}
@@ -45,12 +45,12 @@ const BarcodeInput = () => {
   return (
     <Input
       sx={{
-        "&:focus-within": {
-          "--Input-focusedHighlight": "var(--joy-palette-neutral-400)",
+        '&:focus-within': {
+          '--Input-focusedHighlight': 'var(--joy-palette-neutral-400)',
         },
-        minWidth: "200px",
+        minWidth: '200px',
 
-        display: "flex",
+        display: 'flex',
         flexShrink: 1,
       }}
       value={barcode}
@@ -62,7 +62,7 @@ const BarcodeInput = () => {
 
 const ContentComponent = () => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <FormControl size="sm">
         <ValueInput />
         <FormHelperText>
@@ -95,22 +95,25 @@ const ButtonComponent = () => {
   const { mutate: update } = useMutation({
     mutationFn: ConveyorService.updateConveyor,
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["conveyors"] });
-      enqueueSnackbar("Данные конвейера успешно обновлены", {
-        variant: "success",
-        anchorOrigin: { vertical: "top", horizontal: "right" },
+      client.invalidateQueries({ queryKey: ['conveyors'] });
+      enqueueSnackbar('Данные конвейера успешно обновлены', {
+        variant: 'success',
+        anchorOrigin: { vertical: 'top', horizontal: 'right' },
       });
     },
     onError: (err) => {
       if (err instanceof Error) {
         const error = handleError(err);
-        enqueueSnackbar(error, { variant: "error", anchorOrigin: { vertical: "top", horizontal: "right" } });
+        enqueueSnackbar(error, {
+          variant: 'error',
+          anchorOrigin: { vertical: 'top', horizontal: 'right' },
+        });
       }
     },
   });
 
   const updateConveyor = () => {
-    if (value !== "" && barcode !== "" && id) {
+    if (value !== '' && barcode !== '' && id) {
       update({ id: id, value: value, barcode: barcode });
       setOpen(false);
       clearData();
@@ -127,9 +130,9 @@ const ButtonComponent = () => {
       <Button
         color="neutral"
         variant="outlined"
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
-        disabled={!(value !== "" && barcode !== "")}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
+        disabled={!(value !== '' && barcode !== '')}
         onClick={() => updateConveyor()}
       >
         Изменить
@@ -137,8 +140,8 @@ const ButtonComponent = () => {
       <Button
         color="neutral"
         variant="outlined"
-        size={"sm"}
-        sx={{ fontWeight: "normal", fontSize: "small" }}
+        size={'sm'}
+        sx={{ fontWeight: 'normal', fontSize: 'small' }}
         onClick={() => cancelUpdate()}
       >
         Отмена
@@ -154,7 +157,7 @@ export default function ConveyorEditModal() {
   const modalProps: ModalLayoutProps = {
     open: open,
     onClose: () => setOpen(false),
-    title: "Редактирование данных конвейера",
+    title: 'Редактирование данных конвейера',
     height: 400,
     minHeight: 0,
     width: 400,

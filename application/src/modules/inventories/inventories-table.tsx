@@ -1,19 +1,19 @@
-import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
-import { useInventoriesPaginationStore } from "./store/use-inventories-pagination-store";
-import { useInventories } from "./use-inventories";
-import { useInventoriesFilterStore } from "./store/use-inventories-filter-store";
-import InventoryDocsRow from "./inventories-row";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
+import { useInventoriesPaginationStore } from './store/use-inventories-pagination-store';
+import { useInventories } from './use-inventories';
+import { useInventoriesFilterStore } from './store/use-inventories-filter-store';
+import InventoryDocsRow from './inventories-row';
 
 const commonThead = [
-  { width: 64, value: "Дата" },
-  { width: 64, value: "Площадка" },
-  { width: 64, value: "Записей" },
-  { width: 64, value: "Действия" },
+  { width: 64, value: 'Дата' },
+  { width: 64, value: 'Площадка' },
+  { width: 64, value: 'Записей' },
+  { width: 64, value: 'Действия' },
 ];
 
 export default function InventoriesTable() {
@@ -23,7 +23,11 @@ export default function InventoriesTable() {
   const total = useInventoriesPaginationStore(useShallow((state) => state.total));
   const setTotal = useInventoriesPaginationStore(useShallow((state) => state.setTotal));
   const setPage = useInventoriesPaginationStore(useShallow((state) => state.setPage));
-  const { isPending, data, isSuccess } = useInventories({ filter: filter, limit: limit, page: page });
+  const { isPending, data, isSuccess } = useInventories({
+    filter: filter,
+    limit: limit,
+    page: page,
+  });
 
   //REmove useeffects
 

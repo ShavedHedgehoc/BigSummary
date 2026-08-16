@@ -1,10 +1,10 @@
-import { Box, Typography } from "@mui/joy";
-import IconButton from "@mui/joy/IconButton";
-import { useShallow } from "zustand/react/shallow";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { useDeleteEmployee } from "./use-delete-employee";
-import { useEmployeesEditModalStore } from "./store/use-employees-edit-modal-store";
+import { Box, Typography } from '@mui/joy';
+import IconButton from '@mui/joy/IconButton';
+import { useShallow } from 'zustand/react/shallow';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { useDeleteEmployee } from './use-delete-employee';
+import { useEmployeesEditModalStore } from './store/use-employees-edit-modal-store';
 
 export default function EmployeesRow({ row }: { row: IEmployee }) {
   const { deleteEmployee } = useDeleteEmployee();
@@ -28,17 +28,17 @@ export default function EmployeesRow({ row }: { row: IEmployee }) {
 
   return (
     <tr key={row.id}>
-      <td style={{ width: 64, textAlign: "left", padding: "12px 36px" }}>
+      <td style={{ width: 64, textAlign: 'left', padding: '12px 36px' }}>
         <Typography level="body-xs">{row.name}</Typography>
       </td>
-      <td style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 64, textAlign: 'center', padding: '12px 6px' }}>
         <Typography level="body-xs">{row.barcode}</Typography>
       </td>
-      <td style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 64, textAlign: 'center', padding: '12px 6px' }}>
         <Typography level="body-xs">{row.occupation.description}</Typography>
       </td>
-      <td style={{ width: 50, textAlign: "center", padding: "12px 6px" }}>
-        <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+      <td style={{ width: 50, textAlign: 'center', padding: '12px 6px' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
           <IconButton color="primary" size="sm" onClick={() => handleEdit()}>
             <EditOutlinedIcon />
           </IconButton>

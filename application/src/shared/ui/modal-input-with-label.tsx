@@ -1,4 +1,4 @@
-import { Box, FormControl, Input, Typography } from "@mui/joy";
+import { Box, FormControl, Input, Typography } from '@mui/joy';
 
 export interface ModalInputProps {
   value: string;
@@ -11,22 +11,22 @@ export default function ModalInputWithLabel(props: ModalInputProps) {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "row",
+        display: 'flex',
+        flexDirection: 'row',
         gap: 1,
-        alignItems: "center",
+        alignItems: 'center',
       }}
     >
       <Typography level="body-sm">{props.label}</Typography>
-      <Box sx={{ display: "flex", flexGrow: 1 }}>
-        <FormControl size="sm" sx={{ display: "flex", flexGrow: 1 }}>
+      <Box sx={{ display: 'flex', flexGrow: 1 }}>
+        <FormControl size="sm" sx={{ display: 'flex', flexGrow: 1 }}>
           <Input
             sx={{
-              "&:focus-within": {
-                "--Input-focusedHighlight": `${props.value === "" ? "danger" : "var(--joy-palette-neutral-400)"}`,
+              '&:focus-within': {
+                '--Input-focusedHighlight': `${props.value === '' ? 'danger' : 'var(--joy-palette-neutral-400)'}`,
               },
             }}
-            error={props.value === ""}
+            error={props.value === ''}
             autoComplete="false"
             value={props.value}
             disabled={props.disabled}

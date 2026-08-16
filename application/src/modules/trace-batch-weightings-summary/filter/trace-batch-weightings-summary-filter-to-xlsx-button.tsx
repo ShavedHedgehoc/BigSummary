@@ -1,17 +1,19 @@
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
-import makeXLSXFile from "../make-xlsx";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FilterButton, { FilterButtonProps } from '../../../shared/ui/filter-button';
+import makeXLSXFile from '../make-xlsx';
 
-import { useShallow } from "zustand/react/shallow";
-import { useTraceBatchWeightingsSummaryFilterStore } from "../store/use-trace-batch-weightings-summary-filter-store";
-import { useTraceBatchWeightingsSummary } from "../use-trace-batch-weightings-summary";
+import { useShallow } from 'zustand/react/shallow';
+import { useTraceBatchWeightingsSummaryFilterStore } from '../store/use-trace-batch-weightings-summary-filter-store';
+import { useTraceBatchWeightingsSummary } from '../use-trace-batch-weightings-summary';
 
 export default function TraceBatchWeightingsSummaryFilterToXLSXButton() {
   const filter = useTraceBatchWeightingsSummaryFilterStore(useShallow((state) => state.filter));
   const plantSelectorOption = useTraceBatchWeightingsSummaryFilterStore(
-    useShallow((state) => state.plantSelectorOptions)
+    useShallow((state) => state.plantSelectorOptions),
   );
-  const selectedPlant = useTraceBatchWeightingsSummaryFilterStore(useShallow((state) => state.selectedPlant));
+  const selectedPlant = useTraceBatchWeightingsSummaryFilterStore(
+    useShallow((state) => state.selectedPlant),
+  );
   const { data } = useTraceBatchWeightingsSummary({ filter: filter });
 
   const handleClick = () => {
@@ -25,7 +27,7 @@ export default function TraceBatchWeightingsSummaryFilterToXLSXButton() {
   const disableButtonCondition = !(data && data.length);
 
   const clearButtonProps: FilterButtonProps = {
-    label: "Скачать",
+    label: 'Скачать',
     disabled: disableButtonCondition,
     startDecorator: <FileDownloadOutlinedIcon />,
     onClick: () => handleClick(),

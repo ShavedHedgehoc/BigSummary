@@ -1,1 +1,1 @@
-export const DigitalMarkingNames = ["ЧЗ", "ЧЗл"];
+export const DigitalMarkingNames = ['ЧЗ', 'ЧЗл'];

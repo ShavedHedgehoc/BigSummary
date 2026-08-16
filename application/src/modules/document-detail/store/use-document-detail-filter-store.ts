@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { DocumentDetailFilterParams } from "../filter/document-detail-filter-params";
+import { create } from 'zustand';
+import { DocumentDetailFilterParams } from '../filter/document-detail-filter-params';
 
 export interface ProductFilterStore {
   filter: FetchDocDetailFilter;
@@ -10,10 +10,10 @@ export interface ProductFilterStore {
 }
 
 export const initFilterValue: FetchDocDetailFilter = {
-  productCode: "",
-  boil: "",
-  marking: "",
-  conveyor: "",
+  productCode: '',
+  boil: '',
+  marking: '',
+  conveyor: '',
   haveRecord: true,
   boilAsc: false,
   states: [],
@@ -51,7 +51,7 @@ export const useDocumentDetailFilterStore = create<ProductFilterStore>()((set) =
         set((state) => ({ filter: { ...state.filter, conveyor: value } }));
         break;
       case DocumentDetailFilterParams.BOIL_ASC:
-        set((state) => ({ filter: { ...state.filter, boilAsc: value === "true" ? true : false } }));
+        set((state) => ({ filter: { ...state.filter, boilAsc: value === 'true' ? true : false } }));
         break;
       case DocumentDetailFilterParams.STATES:
         set((state) => ({

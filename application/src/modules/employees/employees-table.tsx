@@ -1,20 +1,20 @@
-import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
 
-import { useEmployees } from "./use-employees";
-import { useEmployeesFilterStore } from "./store/use-employees-filter-store";
-import { useEmployeesPaginationStore } from "./store/use-employees-pagination-store";
-import EmployeesRow from "./employees-row";
+import { useEmployees } from './use-employees';
+import { useEmployeesFilterStore } from './store/use-employees-filter-store';
+import { useEmployeesPaginationStore } from './store/use-employees-pagination-store';
+import EmployeesRow from './employees-row';
 
 const commonThead: TheadProperties[] = [
-  { width: 64, value: "ФИО", align: "left", padding: " 12px 36px" },
-  { width: 64, value: "Штрихкод" },
-  { width: 64, value: "Роль" },
-  { width: 50, value: "Действия" },
+  { width: 64, value: 'ФИО', align: 'left', padding: ' 12px 36px' },
+  { width: 64, value: 'Штрихкод' },
+  { width: 64, value: 'Роль' },
+  { width: 50, value: 'Действия' },
 ];
 
 export default function EmployeesTable() {

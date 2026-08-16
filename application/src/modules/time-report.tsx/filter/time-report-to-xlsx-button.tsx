@@ -1,13 +1,15 @@
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
-import makeXLSXFile from "../make-xlsx";
-import { useTimeReportFilterStore } from "../store/use-time-report-filter-store";
-import { useShallow } from "zustand/react/shallow";
-import { useTimeReport } from "../use-time-report";
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import FilterButton, { FilterButtonProps } from '../../../shared/ui/filter-button';
+import makeXLSXFile from '../make-xlsx';
+import { useTimeReportFilterStore } from '../store/use-time-report-filter-store';
+import { useShallow } from 'zustand/react/shallow';
+import { useTimeReport } from '../use-time-report';
 
 export default function TimeReportToXLSXButton() {
   const filter = useTimeReportFilterStore(useShallow((state) => state.filter));
-  const plantSelectorOption = useTimeReportFilterStore(useShallow((state) => state.plantSelectorOptions));
+  const plantSelectorOption = useTimeReportFilterStore(
+    useShallow((state) => state.plantSelectorOptions),
+  );
   const selectedPlant = useTimeReportFilterStore(useShallow((state) => state.selectedPlant));
   const { data } = useTimeReport({ filter: filter });
 
@@ -22,7 +24,7 @@ export default function TimeReportToXLSXButton() {
   const disableButtonCondition = !(data && data.length);
 
   const clearButtonProps: FilterButtonProps = {
-    label: "Скачать",
+    label: 'Скачать',
     disabled: disableButtonCondition,
     startDecorator: <FileDownloadOutlinedIcon />,
     onClick: () => handleClick(),

@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { IUserRow } from "../../../shared/api/services/user-service";
+import { create } from 'zustand';
+import { IUserRow } from '../../../shared/api/services/user-service';
 
 interface UserUpdateModalStore {
   id: number | null;
@@ -29,9 +29,9 @@ export const useUserUpdateModalStore = create<UserUpdateModalStore>()((set) => (
   id: null,
   user: null,
   open: false,
-  name: "",
+  name: '',
   editName: false,
-  email: "",
+  email: '',
   editEmail: false,
   selectedPlant: null,
   plantSelectorOptions: [],
@@ -47,6 +47,8 @@ export const useUserUpdateModalStore = create<UserUpdateModalStore>()((set) => (
   resetEmail: () => set((state) => ({ email: state.user?.email })),
   setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
   fillPlantSelectorOptions: (values) =>
-    set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Не установлена", abb: "" }, ...values] })),
+    set(() => ({
+      plantSelectorOptions: [{ id: 999999, value: 'Не установлена', abb: '' }, ...values],
+    })),
   setPlants: ({ values }) => set((state) => ({ plants: values ? [...values] : [...state.plants] })),
 }));

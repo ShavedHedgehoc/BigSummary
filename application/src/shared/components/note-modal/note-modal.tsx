@@ -1,9 +1,9 @@
-import Sheet from "@mui/joy/Sheet";
-import ModalLayout from "../../layouts/modal-layout";
-import { useShallow } from "zustand/react/shallow";
-import { useNoteModalStore } from "./use-note-modal-store";
-import { useNote } from "../../api/use-note";
-import { SxProps } from "@mui/joy/styles/types";
+import Sheet from '@mui/joy/Sheet';
+import ModalLayout from '../../layouts/modal-layout';
+import { useShallow } from 'zustand/react/shallow';
+import { useNoteModalStore } from './use-note-modal-store';
+import { useNote } from '../../api/use-note';
+import { SxProps } from '@mui/joy/styles/types';
 
 export default function NoteModal() {
   const open = useNoteModalStore(useShallow((state) => state.open));
@@ -14,7 +14,7 @@ export default function NoteModal() {
   const modalProps = {
     open: open,
     onClose: () => setOpen(false),
-    title: "Комментарий",
+    title: 'Комментарий',
     height: 400,
     minHeight: 400,
     width: 800,
@@ -22,13 +22,13 @@ export default function NoteModal() {
   };
 
   const sxProps: SxProps = {
-    display: { xs: "none", xl: "initial" },
-    width: "100%",
-    borderRadius: "sm",
+    display: { xs: 'none', xl: 'initial' },
+    width: '100%',
+    borderRadius: 'sm',
     flexShrink: 1,
-    overflow: "auto",
+    overflow: 'auto',
     minHeight: 0,
-    height: "100%",
+    height: '100%',
     mb: 1,
     p: 2,
   };

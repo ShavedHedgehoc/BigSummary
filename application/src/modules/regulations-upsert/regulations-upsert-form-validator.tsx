@@ -1,8 +1,11 @@
-import { Box, Button, Typography } from "@mui/joy";
-import { useShallow } from "zustand/react/shallow";
-import Ajv, { SchemaObject } from "ajv/dist/jtd";
-import { read, utils } from "xlsx";
-import { IXLSRegulationsData, useRegulationsUpsertFormStore } from "./store/use-regulations-upsert-form-store";
+import { Box, Button, Typography } from '@mui/joy';
+import { useShallow } from 'zustand/react/shallow';
+import Ajv, { SchemaObject } from 'ajv/dist/jtd';
+import { read, utils } from 'xlsx';
+import {
+  IXLSRegulationsData,
+  useRegulationsUpsertFormStore,
+} from './store/use-regulations-upsert-form-store';
 
 export default function RegulationsUpsertFormValidator() {
   const isValid = useRegulationsUpsertFormStore(useShallow((state) => state.isValid));
@@ -10,8 +13,12 @@ export default function RegulationsUpsertFormValidator() {
   const errs = useRegulationsUpsertFormStore(useShallow((state) => state.errs));
   const addErrs = useRegulationsUpsertFormStore(useShallow((state) => state.addErrs));
   const file = useRegulationsUpsertFormStore(useShallow((state) => state.file));
-  const setErrsModalShow = useRegulationsUpsertFormStore(useShallow((state) => state.setErrsModalShow));
-  const setDataForUpload = useRegulationsUpsertFormStore(useShallow((state) => state.setDataForUpload));
+  const setErrsModalShow = useRegulationsUpsertFormStore(
+    useShallow((state) => state.setErrsModalShow),
+  );
+  const setDataForUpload = useRegulationsUpsertFormStore(
+    useShallow((state) => state.setDataForUpload),
+  );
 
   const handleValidationComplete = (json: IXLSRegulationsData[]) => {
     setDataForUpload(json);
@@ -22,20 +29,20 @@ export default function RegulationsUpsertFormValidator() {
 
   const valSchema: SchemaObject = {
     properties: {
-      code: { type: "string" },
-      serie: { type: "string" },
-      marking: { type: "string" },
-      name: { type: "string" },
-      water_base_min_weight: { type: "string" },
-      water_base_max_weight: { type: "string" },
-      per_box: { type: "string" },
-      box_per_row: { type: "string" },
-      row_on_pallet: { type: "string" },
-      gasket: { type: "string" },
-      seal: { type: "string" },
-      technician_note: { type: "string" },
-      packaging_note: { type: "string" },
-      marking_sample: { type: "string" },
+      code: { type: 'string' },
+      serie: { type: 'string' },
+      marking: { type: 'string' },
+      name: { type: 'string' },
+      water_base_min_weight: { type: 'string' },
+      water_base_max_weight: { type: 'string' },
+      per_box: { type: 'string' },
+      box_per_row: { type: 'string' },
+      row_on_pallet: { type: 'string' },
+      gasket: { type: 'string' },
+      seal: { type: 'string' },
+      technician_note: { type: 'string' },
+      packaging_note: { type: 'string' },
+      marking_sample: { type: 'string' },
     },
   };
 
@@ -70,7 +77,7 @@ export default function RegulationsUpsertFormValidator() {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {!isValid && errs.length === 0 && (
         <Typography level="body-sm" color="neutral">
           Проверьте файл перед загрузкой
@@ -86,7 +93,7 @@ export default function RegulationsUpsertFormValidator() {
           При проверке обнаружены ошибки...
         </Typography>
       )}
-      <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
         <Button
           color="neutral"
           variant="outlined"
@@ -94,10 +101,10 @@ export default function RegulationsUpsertFormValidator() {
           component="span"
           disabled={file === undefined || errs.length > 0 || isValid}
           sx={{
-            display: "flex",
-            fontWeight: "normal",
-            fontSize: "small",
-            width: "200px",
+            display: 'flex',
+            fontWeight: 'normal',
+            fontSize: 'small',
+            width: '200px',
           }}
           onClick={() => validate()}
         >
@@ -111,10 +118,10 @@ export default function RegulationsUpsertFormValidator() {
             size="sm"
             component="span"
             sx={{
-              display: "flex",
-              fontWeight: "normal",
-              fontSize: "small",
-              width: "200px",
+              display: 'flex',
+              fontWeight: 'normal',
+              fontSize: 'small',
+              width: '200px',
             }}
             onClick={() => setErrsModalShow(true)}
           >

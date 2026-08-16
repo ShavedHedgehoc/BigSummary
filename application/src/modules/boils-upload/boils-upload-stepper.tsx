@@ -1,14 +1,14 @@
-import { Box, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
-import { Check } from "@mui/icons-material";
-import { useBoilsUploadFormStore } from "./store/use-boils-upload-form-store";
-import { useShallow } from "zustand/react/shallow";
+import { Box, Step, StepIndicator, Stepper, Typography } from '@mui/joy';
+import { Check } from '@mui/icons-material';
+import { useBoilsUploadFormStore } from './store/use-boils-upload-form-store';
+import { useShallow } from 'zustand/react/shallow';
 
 export default function BoilsUploadStepper() {
   const file = useBoilsUploadFormStore(useShallow((state) => state.file));
   const isValid = useBoilsUploadFormStore(useShallow((state) => state.isValid));
   const errs = useBoilsUploadFormStore(useShallow((state) => state.errs));
   return (
-    <Box sx={{ mt: 4, width: "100%" }}>
+    <Box sx={{ mt: 4, width: '100%' }}>
       <Stepper size="lg">
         <Step
           orientation="vertical"

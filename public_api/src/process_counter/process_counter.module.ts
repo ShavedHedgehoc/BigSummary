@@ -4,6 +4,6 @@ import { ProcessCounterController } from './process_counter.controller';
 
 @Module({
   providers: [ProcessCounterService],
-  controllers: [ProcessCounterController]
+  controllers: [ProcessCounterController],
 })
 export class ProcessCounterModule {}

@@ -1,19 +1,21 @@
-import Box from "@mui/joy/Box";
-import FormControl from "@mui/joy/FormControl";
-import FormHelperText from "@mui/joy/FormHelperText";
-import Typography from "@mui/joy/Typography";
-import { useShallow } from "zustand/react/shallow";
-import { useEmployeeAddModalStore } from "../store/use-employees-add-modal-store";
-import ModalLayout, { ModalLayoutProps } from "../../../shared/layouts/modal-layout";
-import BarcodeInput from "./employees-add-modal-barcode-input";
-import EmployeesAddModalOccupationSelector from "./employees-add-modal-occupations-selector";
-import EmployeesAddModalButtons from "./employees-add-modal-buttons";
-import EmployeesAddModalNameInput from "./employees-add-modal-name-input";
+import Box from '@mui/joy/Box';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import Typography from '@mui/joy/Typography';
+import { useShallow } from 'zustand/react/shallow';
+import { useEmployeeAddModalStore } from '../store/use-employees-add-modal-store';
+import ModalLayout, { ModalLayoutProps } from '../../../shared/layouts/modal-layout';
+import BarcodeInput from './employees-add-modal-barcode-input';
+import EmployeesAddModalOccupationSelector from './employees-add-modal-occupations-selector';
+import EmployeesAddModalButtons from './employees-add-modal-buttons';
+import EmployeesAddModalNameInput from './employees-add-modal-name-input';
 
 export default function EmployeesAddModal() {
   const open = useEmployeeAddModalStore(useShallow((state) => state.open));
   const setOpen = useEmployeeAddModalStore(useShallow((state) => state.setOpen));
-  const occupationsOptions = useEmployeeAddModalStore(useShallow((state) => state.occupationsOptions));
+  const occupationsOptions = useEmployeeAddModalStore(
+    useShallow((state) => state.occupationsOptions),
+  );
   const setOccupation = useEmployeeAddModalStore(useShallow((state) => state.setOccupation));
 
   if (occupationsOptions.length) {
@@ -23,7 +25,7 @@ export default function EmployeesAddModal() {
   const modalProps: ModalLayoutProps = {
     open: open,
     onClose: () => setOpen(false),
-    title: "Создание нового сотрудника",
+    title: 'Создание нового сотрудника',
     height: 400,
     minHeight: 0,
     width: 400,
@@ -32,7 +34,7 @@ export default function EmployeesAddModal() {
 
   return (
     <ModalLayout props={modalProps} buttons={<EmployeesAddModalButtons />}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <FormControl size="sm">
           <EmployeesAddModalNameInput />
           <FormHelperText>

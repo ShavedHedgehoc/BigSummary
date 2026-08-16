@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface AddModalStore {
   open: boolean;
@@ -18,17 +18,17 @@ export const useEmployeeAddModalStore = create<AddModalStore>()(
   devtools(
     (set) => ({
       open: false,
-      name: "",
-      barcode: "",
+      name: '',
+      barcode: '',
       occupation: null,
       occupationsOptions: [],
       setOpen: (val: boolean) => set(() => ({ open: val })),
       setName: (val: string) => set(() => ({ name: val })),
       setBarcode: (val: string) => set(() => ({ barcode: val })),
       setOccupation: (val: number) => set(() => ({ occupation: val })),
-      clearData: () => set(() => ({ name: "", barcode: "", occupation: null })),
+      clearData: () => set(() => ({ name: '', barcode: '', occupation: null })),
       fillOccupationOptions: (values) => set(() => ({ occupationsOptions: [...values] })),
     }),
-    { name: "EmployeeAddModalStore", store: "useEmployeeAddModalStore" }
-  )
+    { name: 'EmployeeAddModalStore', store: 'useEmployeeAddModalStore' },
+  ),
 );

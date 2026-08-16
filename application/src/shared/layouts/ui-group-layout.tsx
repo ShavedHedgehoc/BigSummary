@@ -1,20 +1,20 @@
-import * as React from "react";
-import Sheet from "@mui/joy/Sheet";
-import { SxProps } from "@mui/joy/styles/types";
-import { Box, Typography } from "@mui/joy";
+import * as React from 'react';
+import Sheet from '@mui/joy/Sheet';
+import { SxProps } from '@mui/joy/styles/types';
+import { Box, Typography } from '@mui/joy';
 
 const sheetSXProps: SxProps = [
   {
-    display: { xs: "none", xl: "flex" },
-    flexDirection: "column",
-    width: "100%",
-    borderRadius: "sm",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: { xs: 'none', xl: 'flex' },
+    flexDirection: 'column',
+    width: '100%',
+    borderRadius: 'sm',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 2,
     px: 2,
     py: 2,
-    borderWidth: "1px",
+    borderWidth: '1px',
     mt: 2,
     mb: 1,
   },
@@ -22,7 +22,7 @@ const sheetSXProps: SxProps = [
 
 function Header({ children }: { children: string }) {
   return (
-    <Box sx={{ display: "flex", gap: 2, alignItems: "center", pl: 2 }}>
+    <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', pl: 2 }}>
       <Typography level="h4">{children}</Typography>
     </Box>
   );
@@ -32,11 +32,11 @@ function Main({ children }: { children: React.ReactNode }) {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         gap: 2,
-        alignItems: "center",
+        alignItems: 'center',
         py: 2,
-        justifyContent: "flex-start",
+        justifyContent: 'flex-start',
       }}
     >
       {children}

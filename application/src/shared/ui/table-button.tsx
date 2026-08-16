@@ -1,4 +1,4 @@
-import { Button } from "@mui/joy";
+import { Button } from '@mui/joy';
 
 export interface TableButtonProps {
   variant?: CustomColorsVariants | null;
@@ -16,16 +16,16 @@ export default function TableButton(props: TableButtonProps) {
         startDecorator: {
           sx: {
             color:
-              (props.variant === "success" &&
+              (props.variant === 'success' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonSuccess)) ||
-              (props.variant === "danger" &&
+              (props.variant === 'danger' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonDanger)) ||
-              (props.variant === "warning" &&
+              (props.variant === 'warning' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonWarning)) ||
-              (props.variant === "primary" &&
+              (props.variant === 'primary' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonPrimary)) ||
               ((theme) => theme.vars.palette.neutral),
@@ -40,38 +40,38 @@ export default function TableButton(props: TableButtonProps) {
           minWidth: props.minWidth ? props.minWidth : 0,
         },
         {
-          borderRadius: "sm",
-          border: "0.5px solid",
+          borderRadius: 'sm',
+          border: '0.5px solid',
           px: 2,
           py: 0.5,
-          fontSize: "xs",
+          fontSize: 'xs',
           fontWeight: 100,
           color:
-            (props.variant === "success" &&
+            (props.variant === 'success' &&
               !props.disabled &&
               ((theme) => theme.vars.palette.darkPalette.tableButtonSuccess)) ||
-            (props.variant === "danger" &&
+            (props.variant === 'danger' &&
               !props.disabled &&
               ((theme) => theme.vars.palette.darkPalette.tableButtonDanger)) ||
-            (props.variant === "warning" &&
+            (props.variant === 'warning' &&
               !props.disabled &&
               ((theme) => theme.vars.palette.darkPalette.tableButtonWarning)) ||
-            (props.variant === "primary" &&
+            (props.variant === 'primary' &&
               !props.disabled &&
               ((theme) => theme.vars.palette.darkPalette.tableButtonPrimary)) ||
             ((theme) => theme.vars.palette.neutral),
-          ":hover": {
+          ':hover': {
             backgroundColor:
-              (props.variant === "success" &&
+              (props.variant === 'success' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonHoverSuccess)) ||
-              (props.variant === "danger" &&
+              (props.variant === 'danger' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonHoverDanger)) ||
-              (props.variant === "warning" &&
+              (props.variant === 'warning' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonHoverWarning)) ||
-              (props.variant === "primary" &&
+              (props.variant === 'primary' &&
                 !props.disabled &&
                 ((theme) => theme.vars.palette.darkPalette.tableButtonHoverPrimary)) ||
               ((theme) => theme.vars.palette.neutral),

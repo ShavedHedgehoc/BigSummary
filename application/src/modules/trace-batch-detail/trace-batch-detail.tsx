@@ -1,12 +1,12 @@
-import * as React from "react";
-import { useParams } from "react-router-dom";
-import { Params } from "../../shared/router/params";
-import TraceBatchDetailHeader from "./trace-batch-detail-header";
+import * as React from 'react';
+import { useParams } from 'react-router-dom';
+import { Params } from '../../shared/router/params';
+import TraceBatchDetailHeader from './trace-batch-detail-header';
 
-import TraceBatchsDetailSummaryTable from "./trace-batch-detail-summary-table";
-import { useTraceBatchDetail } from "./use-trace-batch-detail";
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
+import TraceBatchsDetailSummaryTable from './trace-batch-detail-summary-table';
+import { useTraceBatchDetail } from './use-trace-batch-detail';
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
 
 export default function TraceBatchDetail() {
   const params = useParams<Params.TRACE_BATCH_PARAMS>();

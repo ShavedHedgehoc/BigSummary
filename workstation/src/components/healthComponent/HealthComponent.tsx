@@ -1,7 +1,7 @@
-import * as React from "react";
-import { observer } from "mobx-react-lite";
-import { Context } from "../../main";
-import { Box, Sheet, Typography } from "@mui/joy";
+import * as React from 'react';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../../main';
+import { Box, Sheet, Typography } from '@mui/joy';
 
 const healthMessage = () => {
   const { store } = React.useContext(Context);
@@ -37,7 +37,9 @@ const PlantComponent = () => {
   const { store } = React.useContext(Context);
   return (
     <Box>
-      <Typography level="body-xs">{store.PlantStore.plant ? store.PlantStore.plant.value : "Не найдено"}</Typography>
+      <Typography level="body-xs">
+        {store.PlantStore.plant ? store.PlantStore.plant.value : 'Не найдено'}
+      </Typography>
     </Box>
   );
 };
@@ -51,43 +53,43 @@ function HealthComponent() {
         className="Header"
         variant="soft"
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderRadius: "10px",
-          height: "var(--Footer-height)",
-          width: "calc(100% - 2 * var(--Global-margin))",
-          position: "fixed",
-          bottom: "var(--Global-margin)",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderRadius: '10px',
+          height: 'var(--Footer-height)',
+          width: 'calc(100% - 2 * var(--Global-margin))',
+          position: 'fixed',
+          bottom: 'var(--Global-margin)',
           left: 0,
-          mx: "var(--Global-margin)",
-          px: "var(--Global-margin)",
+          mx: 'var(--Global-margin)',
+          px: 'var(--Global-margin)',
         }}
       >
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 1 }}>
           <Box
             sx={{
-              display: "flex",
+              display: 'flex',
               gap: 1,
-              alignItems: "center",
-              justifyContent: "space-between",
+              alignItems: 'center',
+              justifyContent: 'space-between',
             }}
           >
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
 
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Typography level="body-xs">Площадка:</Typography>
             </Box>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <ObservedPlantName />
@@ -95,31 +97,31 @@ function HealthComponent() {
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 1 }}>
           <Box
             sx={{
-              display: "flex",
+              display: 'flex',
               gap: 1,
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "180px",
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '180px',
             }}
           >
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
 
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Typography level="body-xs">Здоровье сервера:</Typography>
             </Box>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <ObservedHeathMessage />

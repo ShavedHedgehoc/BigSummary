@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, FormControl, FormHelperText, Option, Select, SelectStaticProps } from "@mui/joy";
+import * as React from 'react';
+import { Box, FormControl, FormHelperText, Option, Select, SelectStaticProps } from '@mui/joy';
 
 export interface FormSelectorOptionProps {
   id: number;
@@ -13,7 +13,15 @@ export interface FormSelectorProps {
   label: string;
   options: React.ReactNode;
   setSelectedOption: (id: number) => void;
-  changeFilter: ({ key, value, values }: { key: string; value: string; values: number[] | [] }) => void;
+  changeFilter: ({
+    key,
+    value,
+    values,
+  }: {
+    key: string;
+    value: string;
+    values: number[] | [];
+  }) => void;
 }
 
 export function FormSelectorOption(props: FormSelectorOptionProps) {
@@ -25,14 +33,19 @@ export function FormSelectorOption(props: FormSelectorOptionProps) {
 }
 
 export default function FormSelector(props: FormSelectorProps) {
-  const action: SelectStaticProps["action"] = React.useRef(null);
+  const action: SelectStaticProps['action'] = React.useRef(null);
   const handleChange = (newValue: number | null) => {
     newValue && props.setSelectedOption(newValue);
-    newValue && props.changeFilter({ key: props.id, value: "", values: newValue === 999999 ? [] : [newValue] });
+    newValue &&
+      props.changeFilter({
+        key: props.id,
+        value: '',
+        values: newValue === 999999 ? [] : [newValue],
+      });
   };
   return (
-    <Box sx={{ display: "flex", pt: 1 }}>
-      <FormControl size="sm" id={"plants"}>
+    <Box sx={{ display: 'flex', pt: 1 }}>
+      <FormControl size="sm" id={'plants'}>
         <FormHelperText>{props.label}</FormHelperText>
         <Select
           action={action}
@@ -40,13 +53,13 @@ export default function FormSelector(props: FormSelectorProps) {
           placeholder={props.placeholder}
           value={props.selectedOption}
           slotProps={{
-            button: { sx: { whiteSpace: "nowrap" } },
+            button: { sx: { whiteSpace: 'nowrap' } },
             listbox: { sx: { zIndex: 999999 } },
           }}
           sx={{
-            minWidth: "220px",
-            maxWidth: "220px",
-            display: "flex",
+            minWidth: '220px',
+            maxWidth: '220px',
+            display: 'flex',
             flexShrink: 1,
             mt: 1,
           }}

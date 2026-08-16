@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface DocumentDetailEditRecordlModalStore {
   open: boolean;
@@ -24,11 +24,11 @@ export const useDocumentDetailEditRecordlModalStore = create<DocumentDetailEditR
   devtools((set) => ({
     open: false,
     updated: false,
-    plan: "",
-    apparatus: "",
-    can: "",
-    conveyor: "",
-    note: "",
+    plan: '',
+    apparatus: '',
+    can: '',
+    conveyor: '',
+    note: '',
     row: null,
     setOpen: (value) => set(() => ({ open: value })),
     setUpdated: (value) => set(() => ({ updated: value })),
@@ -38,5 +38,5 @@ export const useDocumentDetailEditRecordlModalStore = create<DocumentDetailEditR
     setConveyor: (value) => set(() => ({ conveyor: value })),
     setNote: (value) => set(() => ({ note: value })),
     setRow: (value) => set(() => ({ row: value })),
-  }))
+  })),
 );

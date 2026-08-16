@@ -1,24 +1,34 @@
-import * as React from "react";
-import { Box, Divider, GlobalStyles, Link, List, ListItem, ListItemContent, Sheet, Typography } from "@mui/joy";
+import * as React from 'react';
+import {
+  Box,
+  Divider,
+  GlobalStyles,
+  Link,
+  List,
+  ListItem,
+  ListItemContent,
+  Sheet,
+  Typography,
+} from '@mui/joy';
 
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-import ScienceRoundedIcon from "@mui/icons-material/ScienceRounded";
-import OilBarrelRoundedIcon from "@mui/icons-material/OilBarrelRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import FactoryRoundedIcon from "@mui/icons-material/FactoryRounded";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import ConstructionIcon from "@mui/icons-material/Construction";
-import ScaleRoundedIcon from "@mui/icons-material/ScaleRounded";
-import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
-import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
-import { closeSidebar } from "../../helpers/utils";
-import { RouteNames } from "../../router/route-names";
-import { Link as RouterLink } from "react-router-dom";
-import ColorSchemeToggle from "./color-scheme-toggle";
-import UserPane from "./user-pane";
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
+import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
+import OilBarrelRoundedIcon from '@mui/icons-material/OilBarrelRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import FactoryRoundedIcon from '@mui/icons-material/FactoryRounded';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import ConstructionIcon from '@mui/icons-material/Construction';
+import ScaleRoundedIcon from '@mui/icons-material/ScaleRounded';
+import ListItemButton, { listItemButtonClasses } from '@mui/joy/ListItemButton';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import { closeSidebar } from '../../helpers/utils';
+import { RouteNames } from '../../router/route-names';
+import { Link as RouterLink } from 'react-router-dom';
+import ColorSchemeToggle from './color-scheme-toggle';
+import UserPane from './user-pane';
 
 function Toggler({
   defaultExpanded = false,
@@ -27,7 +37,10 @@ function Toggler({
 }: {
   defaultExpanded?: boolean;
   children: React.ReactNode;
-  renderToggle: (params: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => React.ReactNode;
+  renderToggle: (params: {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  }) => React.ReactNode;
 }) {
   const [open, setOpen] = React.useState(defaultExpanded);
 
@@ -36,11 +49,11 @@ function Toggler({
       {renderToggle({ open, setOpen })}
       <Box
         sx={{
-          display: "grid",
-          gridTemplateRows: open ? "1fr" : "0fr",
-          transition: "0.2s ease",
-          "& > *": {
-            overflow: "hidden",
+          display: 'grid',
+          gridTemplateRows: open ? '1fr' : '0fr',
+          transition: '0.2s ease',
+          '& > *': {
+            overflow: 'hidden',
           },
         }}
       >
@@ -57,31 +70,31 @@ export default function SideBar() {
     <Sheet
       className="SideBar"
       sx={{
-        position: { xs: "fixed", md: "sticky" },
+        position: { xs: 'fixed', md: 'sticky' },
         transform: {
-          xs: "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))",
-          md: "none",
+          xs: 'translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))',
+          md: 'none',
         },
-        transition: "transform 0.4s, width 0.4s",
+        transition: 'transform 0.4s, width 0.4s',
         zIndex: 10000,
-        height: "100dvh",
-        width: "var(--Sidebar-width)",
+        height: '100dvh',
+        width: 'var(--Sidebar-width)',
         top: 0,
         p: 2,
         flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         gap: 2,
-        borderRight: "1px solid",
-        borderColor: "divider",
+        borderRight: '1px solid',
+        borderColor: 'divider',
       }}
     >
       <GlobalStyles
         styles={(theme) => ({
-          ":root": {
-            "--Sidebar-width": "220px",
-            [theme.breakpoints.up("lg")]: {
-              "--Sidebar-width": "240px",
+          ':root': {
+            '--Sidebar-width': '220px',
+            [theme.breakpoints.up('lg')]: {
+              '--Sidebar-width': '240px',
             },
           },
         })}
@@ -89,35 +102,35 @@ export default function SideBar() {
       <Box
         className="Sidebar-overlay"
         sx={{
-          position: "fixed",
+          position: 'fixed',
           zIndex: 9998,
           top: 0,
           left: 0,
-          width: "100vw",
-          height: "100vh",
-          opacity: "var(--SideNavigation-slideIn)",
-          backgroundColor: "var(--joy-palette-background-backdrop)",
-          transition: "opacity 0.4s",
+          width: '100vw',
+          height: '100vh',
+          opacity: 'var(--SideNavigation-slideIn)',
+          backgroundColor: 'var(--joy-palette-background-backdrop)',
+          transition: 'opacity 0.4s',
           transform: {
-            xs: "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1) + var(--SideNavigation-slideIn, 0) * var(--Sidebar-width, 0px)))",
-            lg: "translateX(-100%)",
+            xs: 'translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1) + var(--SideNavigation-slideIn, 0) * var(--Sidebar-width, 0px)))',
+            lg: 'translateX(-100%)',
           },
         }}
         onClick={() => closeSidebar()}
       />
       {/* SideBar Header */}
-      <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+      <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
         <Typography level="title-sm">Юникосметик</Typography>
-        <ColorSchemeToggle sx={{ ml: "auto" }} />
+        <ColorSchemeToggle sx={{ ml: 'auto' }} />
       </Box>
       <Divider />
       <Box
         sx={{
           minHeight: 0,
-          overflow: "hidden auto",
+          overflow: 'hidden auto',
           flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           [`& .${listItemButtonClasses.root}`]: {
             gap: 1.5,
           },
@@ -127,8 +140,8 @@ export default function SideBar() {
           size="sm"
           sx={{
             gap: 1,
-            "--List-nestedInsetStart": "30px",
-            "--ListItem-radius": (theme) => theme.vars.radius.sm,
+            '--List-nestedInsetStart': '30px',
+            '--ListItem-radius': (theme) => theme.vars.radius.sm,
           }}
         >
           <ListItem>
@@ -139,7 +152,7 @@ export default function SideBar() {
                   to={RouteNames.HOME}
                   color="neutral"
                   underline="none"
-                  sx={{ display: "flex", gap: 1 }}
+                  sx={{ display: 'flex', gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
                   <HomeRoundedIcon />
@@ -148,7 +161,7 @@ export default function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -156,7 +169,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Планировщик</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -168,7 +181,7 @@ export default function SideBar() {
                       to={RouteNames.DOCUMENTS}
                       color="neutral"
                       underline="none"
-                      sx={{ display: "flex", gap: 1 }}
+                      sx={{ display: 'flex', gap: 1 }}
                       onClick={() => closeSidebar()}
                     >
                       <Typography level="title-sm">Список сводок</Typography>
@@ -182,7 +195,7 @@ export default function SideBar() {
                     to={RouteNames.SUMMARY_UPLOAD}
                     color="neutral"
                     underline="none"
-                    sx={{ display: "flex", gap: 1 }}
+                    sx={{ display: 'flex', gap: 1 }}
                     onClick={() => closeSidebar()}
                   >
                     <Typography level="title-sm">Загрузка сводок</Typography>
@@ -194,7 +207,7 @@ export default function SideBar() {
                     to={RouteNames.CONVEYORS}
                     color="neutral"
                     underline="none"
-                    sx={{ display: "flex", gap: 1 }}
+                    sx={{ display: 'flex', gap: 1 }}
                     onClick={() => closeSidebar()}
                   >
                     <Typography level="title-sm">Конвейеры</Typography>
@@ -206,7 +219,7 @@ export default function SideBar() {
                     to={RouteNames.BASES_UPDATE}
                     color="neutral"
                     underline="none"
-                    sx={{ display: "flex", gap: 1 }}
+                    sx={{ display: 'flex', gap: 1 }}
                     onClick={() => closeSidebar()}
                   >
                     <Typography level="title-sm">Обновление основ</Typography>
@@ -215,7 +228,7 @@ export default function SideBar() {
               </List>
             </Toggler>
           </ListItem>
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -223,7 +236,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Лаборатория</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -236,7 +249,7 @@ export default function SideBar() {
                         to={RouteNames.BOILS_LIST}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Основы</Typography>
@@ -252,7 +265,7 @@ export default function SideBar() {
                         to={RouteNames.LABORATORY}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Продукты</Typography>
@@ -263,7 +276,7 @@ export default function SideBar() {
               </List>
             </Toggler>
           </ListItem>
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -271,7 +284,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Технолог</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -284,7 +297,7 @@ export default function SideBar() {
                         to={RouteNames.CANS_DASH}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Ёмкости</Typography>
@@ -300,7 +313,7 @@ export default function SideBar() {
                         to={RouteNames.CANS_LIST}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Список ёмкостей</Typography>
@@ -316,7 +329,7 @@ export default function SideBar() {
                         to={RouteNames.CANS_LOCATION}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Местоположение</Typography>
@@ -328,7 +341,7 @@ export default function SideBar() {
             </Toggler>
           </ListItem>
           {/*  */}
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -336,7 +349,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Весовой участок</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -349,7 +362,7 @@ export default function SideBar() {
                         to={RouteNames.INVENTORIES}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Переучеты</Typography>
@@ -365,7 +378,7 @@ export default function SideBar() {
                         to={RouteNames.TRACE_WGHT_REPORT}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Отчет по взвешиваниям</Typography>
@@ -381,7 +394,7 @@ export default function SideBar() {
                         to={RouteNames.TRACE_WGHT_SUMMARY}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         {/* <ScienceRoundedIcon /> */}
@@ -394,7 +407,7 @@ export default function SideBar() {
             </Toggler>
           </ListItem>
 
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -402,7 +415,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Прослеживаемость</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -415,7 +428,7 @@ export default function SideBar() {
                         to={RouteNames.TRACE_BATCHS}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Варки</Typography>
@@ -431,7 +444,7 @@ export default function SideBar() {
                         to={RouteNames.TRACE_TRADEMARKS}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         {/* <ScienceRoundedIcon /> */}
@@ -448,7 +461,7 @@ export default function SideBar() {
                         to={RouteNames.TRACE_UPLOAD_BOILS}
                         color="neutral"
                         underline="none"
-                        sx={{ display: "flex", gap: 1 }}
+                        sx={{ display: 'flex', gap: 1 }}
                         onClick={() => closeSidebar()}
                       >
                         <Typography level="title-sm">Загрузка варок</Typography>
@@ -470,7 +483,7 @@ export default function SideBar() {
                   to={RouteNames.FOREMAN}
                   color="neutral"
                   underline="none"
-                  sx={{ display: "flex", gap: 1 }}
+                  sx={{ display: 'flex', gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
                   <FactoryRoundedIcon />
@@ -479,7 +492,7 @@ export default function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -487,7 +500,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Отчеты</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -499,7 +512,7 @@ export default function SideBar() {
                       to={RouteNames.TIME_REPORT}
                       color="neutral"
                       underline="none"
-                      sx={{ display: "flex", gap: 1 }}
+                      sx={{ display: 'flex', gap: 1 }}
                       onClick={() => closeSidebar()}
                     >
                       <Typography level="title-sm">Тайминг сводок</Typography>
@@ -513,7 +526,7 @@ export default function SideBar() {
                       to={RouteNames.BOILS_REPORT}
                       color="neutral"
                       underline="none"
-                      sx={{ display: "flex", gap: 1 }}
+                      sx={{ display: 'flex', gap: 1 }}
                       onClick={() => closeSidebar()}
                     >
                       <Typography level="title-sm">Основы</Typography>
@@ -523,7 +536,7 @@ export default function SideBar() {
               </List>
             </Toggler>
           </ListItem>
-          <ListItem sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <ListItemButton role="menuitem">
               <ListItemContent>
                 <Link
@@ -531,7 +544,7 @@ export default function SideBar() {
                   to={RouteNames.EMPLOYERS}
                   color="neutral"
                   underline="none"
-                  sx={{ display: "flex", gap: 1 }}
+                  sx={{ display: 'flex', gap: 1 }}
                   onClick={() => closeSidebar()}
                 >
                   <PersonRoundedIcon />
@@ -540,7 +553,7 @@ export default function SideBar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem nested sx={{ display: { xs: "none", sm: "initial" } }}>
+          <ListItem nested sx={{ display: { xs: 'none', sm: 'initial' } }}>
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
@@ -548,7 +561,7 @@ export default function SideBar() {
                   <ListItemContent>
                     <Typography level="title-sm">Администратор</Typography>
                   </ListItemContent>
-                  <KeyboardArrowDownIcon sx={{ transform: open ? "rotate(180deg)" : "none" }} />
+                  <KeyboardArrowDownIcon sx={{ transform: open ? 'rotate(180deg)' : 'none' }} />
                 </ListItemButton>
               )}
             >
@@ -560,7 +573,7 @@ export default function SideBar() {
                       to={RouteNames.USERS_LIST}
                       color="neutral"
                       underline="none"
-                      sx={{ display: "flex", gap: 1 }}
+                      sx={{ display: 'flex', gap: 1 }}
                       onClick={() => closeSidebar()}
                     >
                       <Typography level="title-sm">Пользователи</Typography>
@@ -574,7 +587,7 @@ export default function SideBar() {
                       to={RouteNames.UI_PAGE}
                       color="neutral"
                       underline="none"
-                      sx={{ display: "flex", gap: 1 }}
+                      sx={{ display: 'flex', gap: 1 }}
                       onClick={() => closeSidebar()}
                     >
                       <Typography level="title-sm">UI Page</Typography>
@@ -589,11 +602,11 @@ export default function SideBar() {
         <List
           size="sm"
           sx={{
-            display: { xs: "none", sm: "initial" },
-            mt: "auto",
+            display: { xs: 'none', sm: 'initial' },
+            mt: 'auto',
             flexGrow: 0,
-            "--ListItem-radius": (theme) => theme.vars.radius.sm,
-            "--List-gap": "8px",
+            '--ListItem-radius': (theme) => theme.vars.radius.sm,
+            '--List-gap': '8px',
             mb: 2,
           }}
         >

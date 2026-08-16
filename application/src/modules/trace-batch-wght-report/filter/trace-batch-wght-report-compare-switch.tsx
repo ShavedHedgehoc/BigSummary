@@ -1,18 +1,20 @@
-import { useShallow } from "zustand/react/shallow";
+import { useShallow } from 'zustand/react/shallow';
 
-import { Box, FormControl, FormHelperText, Switch } from "@mui/joy";
-import { Typography } from "@mui/joy";
-import { useTraceBatchWghtReportFilterStore } from "../store/use-trace-batch-wght-report-filter-store";
-import { TraceBatchWghtReportFilterParams } from "./trace-batch-wght-report-filter-params";
+import { Box, FormControl, FormHelperText, Switch } from '@mui/joy';
+import { Typography } from '@mui/joy';
+import { useTraceBatchWghtReportFilterStore } from '../store/use-trace-batch-wght-report-filter-store';
+import { TraceBatchWghtReportFilterParams } from './trace-batch-wght-report-filter-params';
 
 export default function TraceBatchWghtReportCompareSwitch() {
   const toFilter = useTraceBatchWghtReportFilterStore(useShallow((state) => state.filter.compare));
-  const changeFilter = useTraceBatchWghtReportFilterStore(useShallow((state) => state.changeFilter));
+  const changeFilter = useTraceBatchWghtReportFilterStore(
+    useShallow((state) => state.changeFilter),
+  );
 
   return (
-    <Box sx={{ display: "flex", pt: 2, alignItems: "stretch" }}>
+    <Box sx={{ display: 'flex', pt: 2, alignItems: 'stretch' }}>
       <FormControl size="sm" id={TraceBatchWghtReportFilterParams.COMPARE}>
-        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "stretch", gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', gap: 2 }}>
           {toFilter ? <Typography color="neutral">НЕТ</Typography> : <Typography>НЕТ</Typography>}
 
           <Switch
@@ -24,7 +26,7 @@ export default function TraceBatchWghtReportCompareSwitch() {
             onChange={(event) =>
               changeFilter({
                 key: TraceBatchWghtReportFilterParams.COMPARE,
-                value: event.target.checked ? "true" : "false",
+                value: event.target.checked ? 'true' : 'false',
               })
             }
           />

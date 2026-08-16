@@ -1,21 +1,21 @@
-import { useShallow } from "zustand/react/shallow";
-import { useBoilsFilterStore } from "./store/use-boils-filter-store";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import FilterButton, { FilterButtonProps } from "../../shared/ui/filter-button";
+import { useShallow } from 'zustand/react/shallow';
+import { useBoilsFilterStore } from './store/use-boils-filter-store';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import FilterButton, { FilterButtonProps } from '../../shared/ui/filter-button';
 
 export default function BoilsFilterClearButton() {
   const clearFilter = useBoilsFilterStore(useShallow((state) => state.clearFilter));
   const filter = useBoilsFilterStore(useShallow((state) => state.filter));
 
   const disableClearButtonCondition =
-    filter.boil === "" &&
-    filter.marking === "" &&
-    filter.baseCode === "" &&
+    filter.boil === '' &&
+    filter.marking === '' &&
+    filter.baseCode === '' &&
     filter.states.length === 0 &&
     filter.plants.length === 0;
 
   const clearButtonProps: FilterButtonProps = {
-    label: "Сбросить",
+    label: 'Сбросить',
     disabled: disableClearButtonCondition,
     startDecorator: <DeleteOutlineIcon />,
     onClick: () => clearFilter(),

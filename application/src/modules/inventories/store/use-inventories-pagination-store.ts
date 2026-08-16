@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 export const useInventoriesPaginationStore = create<PaginationStore>()((set) => ({
   page: 1,

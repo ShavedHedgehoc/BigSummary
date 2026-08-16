@@ -1,23 +1,27 @@
-import { useShallow } from "zustand/react/shallow";
-import { useQuery } from "@tanstack/react-query";
+import { useShallow } from 'zustand/react/shallow';
+import { useQuery } from '@tanstack/react-query';
 
-import { useCansFilterStore } from "./store/use-cans-filter-store";
-import { CansFilterParams } from "./cans-filter-params";
+import { useCansFilterStore } from './store/use-cans-filter-store';
+import { CansFilterParams } from './cans-filter-params';
 import FilterMultiSelector, {
   FilterMultiSelectorOption,
   FilterMultiSelectorProps,
-} from "../../../shared/ui/filter-multi-selector";
+} from '../../../shared/ui/filter-multi-selector';
 
-import TraceCansService from "../../../shared/api/services/trace-cans-service";
+import TraceCansService from '../../../shared/api/services/trace-cans-service';
 
 export default function CansFilterVolumeSelector() {
   const filter = useCansFilterStore(useShallow((state) => state.filter));
   const changeFilter = useCansFilterStore(useShallow((state) => state.changeFilter));
-  const volumeSelectorOptions = useCansFilterStore(useShallow((state) => state.volumeSelectorOptions));
-  const fillVolumeSelectorOptions = useCansFilterStore(useShallow((state) => state.fillVolumeSelectorOptions));
+  const volumeSelectorOptions = useCansFilterStore(
+    useShallow((state) => state.volumeSelectorOptions),
+  );
+  const fillVolumeSelectorOptions = useCansFilterStore(
+    useShallow((state) => state.fillVolumeSelectorOptions),
+  );
 
   useQuery({
-    queryKey: ["cans_volumes_options"],
+    queryKey: ['cans_volumes_options'],
     queryFn: async () => {
       const data = await TraceCansService.getCanVolumes();
       if (data) {
@@ -39,8 +43,8 @@ export default function CansFilterVolumeSelector() {
   const stateSelectorProps: FilterMultiSelectorProps = {
     id: CansFilterParams.VOLUMES,
     selectedOptions: filter.volumes,
-    placeholder: "Выберите объем",
-    label: "Поиск по объему",
+    placeholder: 'Выберите объем',
+    label: 'Поиск по объему',
     options: volumeOptions,
     changeFilter: ({ key, value, values }: { key: string; value: string; values: number[] | [] }) =>
       changeFilter({ key, value, values }),

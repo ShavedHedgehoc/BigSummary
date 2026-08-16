@@ -8,7 +8,7 @@
 //   }
 // }
 
-import { $api } from "../http";
+import { $api } from '../http';
 
 export interface IOccupation {
   id: number;

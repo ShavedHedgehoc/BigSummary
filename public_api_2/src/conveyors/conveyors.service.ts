@@ -12,7 +12,7 @@ export class ConveyorsService {
     private readonly conveyorService: typeof Conveyor,
     private readonly recordsService: RecordsService,
     private readonly historiesService: HistoriesService,
-  ) { }
+  ) {}
 
   async findAll() {
     const conveyors = await this.conveyorService.findAll();
@@ -23,7 +23,7 @@ export class ConveyorsService {
     conveyor,
     record_id,
     barcode,
-    allRecords
+    allRecords,
   }: {
     conveyor: string | undefined;
     record_id: number | undefined;
@@ -34,7 +34,7 @@ export class ConveyorsService {
       conveyor_name: conveyor,
       record_id: record_id,
       barcode: barcode,
-      allRecords: allRecords
+      allRecords: allRecords,
     });
 
     const recordsResult: TasksResponse = await Promise.all(
@@ -50,10 +50,10 @@ export class ConveyorsService {
           plan: item.plan,
           state: state?.historyType?.value ?? null,
           state_description: state?.historyType?.description ?? null,
-          plant: item.doc?.plants?.value ?? null
-        }
+          plant: item.doc?.plants?.value ?? null,
+        };
       }),
-    )
+    );
 
     return recordsResult;
   }

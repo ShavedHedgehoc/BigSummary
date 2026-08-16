@@ -5,7 +5,7 @@ import { TaskRow, TasksResponse } from 'src/conveyors/dto/tasks.response';
 
 @Controller('conveyor-tasks')
 export class ConveyorTasksController {
-  constructor(private readonly conveyorService: ConveyorsService) { }
+  constructor(private readonly conveyorService: ConveyorsService) {}
 
   @Get()
   @ApiOperation({ summary: 'Получить задачи конвейеров' })
@@ -15,7 +15,7 @@ export class ConveyorTasksController {
   @ApiQuery({ name: 'allRecords', required: false, type: Boolean, description: 'Отдать все записи' })
   @ApiOkResponse({
     description: 'Список задач',
-    type: [TaskRow]
+    type: [TaskRow],
   })
   getTasks(
     @Query('conveyor') conveyor?: string,
@@ -23,6 +23,11 @@ export class ConveyorTasksController {
     @Query('barcode') barcode?: string,
     @Query('allRecords') allRecords?: boolean,
   ): Promise<TasksResponse> {
-    return this.conveyorService.getTasks({ conveyor: conveyor, record_id: record_id, barcode: barcode, allRecords: allRecords });
+    return this.conveyorService.getTasks({
+      conveyor: conveyor,
+      record_id: record_id,
+      barcode: barcode,
+      allRecords: allRecords,
+    });
   }
 }

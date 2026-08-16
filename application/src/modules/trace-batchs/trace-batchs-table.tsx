@@ -1,20 +1,20 @@
-import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
-import { useTraceBatchsFilterStore } from "./store/use-trace-batchs-filter-store";
-import { useTraceBatchsPaginationStore } from "./store/use-trace-batchs-pagination-store";
-import { useTraceBatchs } from "./use-trace-batchs";
-import TraceBatchsTableRow from "./trace-batchs-table-row";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
+import { useTraceBatchsFilterStore } from './store/use-trace-batchs-filter-store';
+import { useTraceBatchsPaginationStore } from './store/use-trace-batchs-pagination-store';
+import { useTraceBatchs } from './use-trace-batchs';
+import TraceBatchsTableRow from './trace-batchs-table-row';
 
 const commonThead = [
-  { width: 60, value: "Варка" },
-  { width: 80, value: "Артикул" },
-  { width: 60, value: "Дата варки" },
-  { width: 60, value: "Площадка" },
-  { width: 80, value: "Действия" },
+  { width: 60, value: 'Варка' },
+  { width: 80, value: 'Артикул' },
+  { width: 60, value: 'Дата варки' },
+  { width: 60, value: 'Площадка' },
+  { width: 80, value: 'Действия' },
 ];
 
 export default function TraceBatchsTable() {
@@ -24,7 +24,11 @@ export default function TraceBatchsTable() {
   const total = useTraceBatchsPaginationStore(useShallow((state) => state.total));
   const setTotal = useTraceBatchsPaginationStore(useShallow((state) => state.setTotal));
   const setPage = useTraceBatchsPaginationStore(useShallow((state) => state.setPage));
-  const { isPending, data, isSuccess } = useTraceBatchs({ filter: filter, limit: limit, page: page });
+  const { isPending, data, isSuccess } = useTraceBatchs({
+    filter: filter,
+    limit: limit,
+    page: page,
+  });
 
   //REmove useeffects
 

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface CansHistoryModalStore {
   open: boolean;
@@ -15,7 +15,7 @@ export const useCansHistoryModalStore = create<CansHistoryModalStore>()((set) =>
   open: false,
   can_id: null,
   //   boil_value: null,
-  title: "",
+  title: '',
   setOpen: (value) => set(() => ({ open: value })),
   setCanId: (value) => set(() => ({ can_id: value })),
   setTitle: (value) => set(() => ({ title: value })),

@@ -1,14 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  AllowNull,
-  AutoIncrement,
-  Column,
-  DataType,
-  HasMany,
-  Model,
-  PrimaryKey,
-  Table,
-} from 'sequelize-typescript';
+import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import Doc from './docs.model';
 import Boil from './boil.model';
 import History from './histories.model';

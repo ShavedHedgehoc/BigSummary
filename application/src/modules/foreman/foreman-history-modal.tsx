@@ -1,26 +1,30 @@
-import IconButton from "@mui/joy/IconButton";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import Typography from "@mui/joy/Typography";
-import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
-import ModalLayout from "../../shared/layouts/modal-layout";
-import TableLayout from "../../shared/layouts/table-layout";
-import { useRecordHistories } from "../../shared/api/use-record-histories";
-import { useForemanHistoryModalStore } from "./store/use-foreman-history-modal-store";
-import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
-import { rowScope } from "../../shared/helpers/status-conditions";
-import { StyledTypography } from "../../shared/ui/styled-typography";
-import { useShallow } from "zustand/react/shallow";
-import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
-import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
-import { useAuthStore } from "../auth/store/auth-store";
+import IconButton from '@mui/joy/IconButton';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Typography from '@mui/joy/Typography';
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import ModalLayout from '../../shared/layouts/modal-layout';
+import TableLayout from '../../shared/layouts/table-layout';
+import { useRecordHistories } from '../../shared/api/use-record-histories';
+import { useForemanHistoryModalStore } from './store/use-foreman-history-modal-store';
+import { formatDateToString, formatTimeToString } from '../../shared/helpers/date-time-formatters';
+import { rowScope } from '../../shared/helpers/status-conditions';
+import { StyledTypography } from '../../shared/ui/styled-typography';
+import { useShallow } from 'zustand/react/shallow';
+import { useCreateHistoryDirect } from '../../shared/api/use-create-history-direct';
+import { useNoteModalStore } from '../../shared/components/note-modal/use-note-modal-store';
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
+import { useAuthStore } from '../auth/store/auth-store';
 
 export default function ForemanHistoryModal() {
   const open = useForemanHistoryModalStore(useShallow((state) => state.open));
-  const cancelStartButtonEnabled = useForemanHistoryModalStore(useShallow((state) => state.cancelStartButtonEnabled));
-  const cancelFinishButtonEnabled = useForemanHistoryModalStore(useShallow((state) => state.cancelFinishButtonEnabled));
+  const cancelStartButtonEnabled = useForemanHistoryModalStore(
+    useShallow((state) => state.cancelStartButtonEnabled),
+  );
+  const cancelFinishButtonEnabled = useForemanHistoryModalStore(
+    useShallow((state) => state.cancelFinishButtonEnabled),
+  );
   const record_id = useForemanHistoryModalStore(useShallow((state) => state.record_id));
   const title = useForemanHistoryModalStore(useShallow((state) => state.title));
   const setOpen = useForemanHistoryModalStore(useShallow((state) => state.setOpen));
@@ -29,11 +33,11 @@ export default function ForemanHistoryModal() {
   const addHistoryDirect = useCreateHistoryDirect();
 
   const history_table_thead: TheadProperties[] = [
-    { width: 50, padding: "18px 6px", value: "Дата" },
-    { width: 50, padding: "18px 6px", value: "Время" },
-    { width: 100, padding: "18px 6px", value: "Статус записи" },
-    { width: 80, padding: "18px 6px", value: "Автор записи" },
-    { width: 50, padding: "18px 6px", value: "Комментарий" },
+    { width: 50, padding: '18px 6px', value: 'Дата' },
+    { width: 50, padding: '18px 6px', value: 'Время' },
+    { width: 100, padding: '18px 6px', value: 'Статус записи' },
+    { width: 80, padding: '18px 6px', value: 'Автор записи' },
+    { width: 50, padding: '18px 6px', value: 'Комментарий' },
   ];
 
   const modalProps = {
@@ -51,11 +55,11 @@ export default function ForemanHistoryModal() {
       const data: AddHistoryDto = {
         record_id: record_id,
         boil_value: null, //add state to store
-        historyType: "product_pass", // condition between boil & record = > state
+        historyType: 'product_pass', // condition between boil & record = > state
         userId: user.id,
         employeeId: null,
         note: null,
-        history_note: "Отмена ошибочного внесения",
+        history_note: 'Отмена ошибочного внесения',
       };
       setOpen(false);
       addHistoryDirect(data);
@@ -67,11 +71,11 @@ export default function ForemanHistoryModal() {
       const data: AddHistoryDto = {
         record_id: record_id,
         boil_value: null, //add state to store
-        historyType: "product_in_progress", // condition between boil & record = > state
+        historyType: 'product_in_progress', // condition between boil & record = > state
         userId: user.id,
         employeeId: null,
         note: null,
-        history_note: "Отмена ошибочного внесения",
+        history_note: 'Отмена ошибочного внесения',
       };
       setOpen(false);
       addHistoryDirect(data);
@@ -90,21 +94,27 @@ export default function ForemanHistoryModal() {
     const scope = rowScope(row.historyType.value);
     return (
       <tr key={row.id}>
-        <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+        <td scope={scope} style={{ width: 50, textAlign: 'center', padding: '18px 6px' }}>
           <Typography level="body-xs">{formatDateToString(row.createdAt)}</Typography>
         </td>
-        <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+        <td scope={scope} style={{ width: 50, textAlign: 'center', padding: '18px 6px' }}>
           <Typography level="body-xs">{formatTimeToString(row.createdAt)}</Typography>
         </td>
-        <td scope={scope} style={{ width: 100, textAlign: "center", padding: "18px 6px" }}>
+        <td scope={scope} style={{ width: 100, textAlign: 'center', padding: '18px 6px' }}>
           <StyledTypography text={row.historyType.description} state={row.historyType.value} />
         </td>
-        <td scope={scope} style={{ width: 80, textAlign: "center", padding: "18px 6px" }}>
-          <Typography level="body-xs">{row.user ? row.user.name : row.employee ? row.employee.name : "-"}</Typography>
+        <td scope={scope} style={{ width: 80, textAlign: 'center', padding: '18px 6px' }}>
+          <Typography level="body-xs">
+            {row.user ? row.user.name : row.employee ? row.employee.name : '-'}
+          </Typography>
         </td>
-        <td scope={scope} style={{ width: 50, textAlign: "center", padding: "6px 6px" }}>
+        <td scope={scope} style={{ width: 50, textAlign: 'center', padding: '6px 6px' }}>
           {row.note_id && (
-            <IconButton variant="plain" size="sm" onClick={() => handleNoteModalButtonClick(row.note_id)}>
+            <IconButton
+              variant="plain"
+              size="sm"
+              onClick={() => handleNoteModalButtonClick(row.note_id)}
+            >
               <InfoOutlinedIcon />
             </IconButton>
           )}
@@ -115,12 +125,12 @@ export default function ForemanHistoryModal() {
 
   const ButtonsComponent = () => {
     return (
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }}>
         <Button
           color="neutral"
           variant="outlined"
-          size={"sm"}
-          sx={{ fontWeight: "normal", fontSize: "small", display: { xs: "none", sm: "block" } }}
+          size={'sm'}
+          sx={{ fontWeight: 'normal', fontSize: 'small', display: { xs: 'none', sm: 'block' } }}
           onClick={() => setOpen(false)}
         >
           Закрыть
@@ -129,8 +139,8 @@ export default function ForemanHistoryModal() {
           <Button
             color="neutral"
             variant="outlined"
-            size={"sm"}
-            sx={{ fontWeight: "normal", fontSize: "small" }}
+            size={'sm'}
+            sx={{ fontWeight: 'normal', fontSize: 'small' }}
             onClick={() => handleCancelStartButtonClick()}
           >
             Отменить начало фасовки
@@ -140,8 +150,8 @@ export default function ForemanHistoryModal() {
           <Button
             color="neutral"
             variant="outlined"
-            size={"sm"}
-            sx={{ fontWeight: "normal", fontSize: "small" }}
+            size={'sm'}
+            sx={{ fontWeight: 'normal', fontSize: 'small' }}
             onClick={() => handleCancelFinishButtonClick()}
           >
             Отменить окончание фасовки
@@ -150,8 +160,8 @@ export default function ForemanHistoryModal() {
         <Button
           color="neutral"
           variant="outlined"
-          size={"sm"}
-          sx={{ fontWeight: "normal", fontSize: "small", display: { xs: "block", sm: "none" } }}
+          size={'sm'}
+          sx={{ fontWeight: 'normal', fontSize: 'small', display: { xs: 'block', sm: 'none' } }}
           onClick={() => setOpen(false)}
         >
           Закрыть

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Box, ButtonGroup, IconButton } from "@mui/joy";
+import * as React from 'react';
+import { Box, ButtonGroup, IconButton } from '@mui/joy';
 
 export interface FilterSwitchButtonProps {
   trueDecorator: React.ReactNode;
@@ -11,7 +11,13 @@ export interface FilterSwitchButtonProps {
 export default function FilterSwitchButton(props: FilterSwitchButtonProps) {
   return (
     <Box
-      sx={{ display: "flex", alignItems: "center", justifyContent: "center", py: 1, border: "0.5px solid tertiary" }}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        py: 1,
+        border: '0.5px solid tertiary',
+      }}
     >
       <ButtonGroup size="sm">
         <IconButton disabled={props.condition} onClick={() => props.onClick()}>

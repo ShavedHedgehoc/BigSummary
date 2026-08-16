@@ -1,8 +1,8 @@
-import { useShallow } from "zustand/react/shallow";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
-import { getTomorrowDate } from "../../../shared/helpers/date-time-formatters";
-import { useTraceBatchWghtReportFilterStore } from "../store/use-trace-batch-wght-report-filter-store";
+import { useShallow } from 'zustand/react/shallow';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import FilterButton, { FilterButtonProps } from '../../../shared/ui/filter-button';
+import { getTomorrowDate } from '../../../shared/helpers/date-time-formatters';
+import { useTraceBatchWghtReportFilterStore } from '../store/use-trace-batch-wght-report-filter-store';
 
 export default function TraceBatchWghtReportFilterClearButton() {
   const clearFilter = useTraceBatchWghtReportFilterStore(useShallow((state) => state.clearFilter));
@@ -11,14 +11,14 @@ export default function TraceBatchWghtReportFilterClearButton() {
   const disableDocumentFilterClearButton =
     filter.startDate === getTomorrowDate() &&
     filter.endDate === getTomorrowDate() &&
-    filter.batchName === "" &&
-    filter.productId === "" &&
+    filter.batchName === '' &&
+    filter.productId === '' &&
     filter.plants.length === 0 &&
     filter.compare &&
     !filter.sortByBatch;
 
   const clearButtonProps: FilterButtonProps = {
-    label: "Сбросить",
+    label: 'Сбросить',
     disabled: disableDocumentFilterClearButton,
     startDecorator: <DeleteOutlineIcon />,
     onClick: () => clearFilter(),

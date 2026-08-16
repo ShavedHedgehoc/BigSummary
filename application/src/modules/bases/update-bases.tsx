@@ -1,11 +1,20 @@
-import React from "react";
-import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
-import MainPageHeader from "../../shared/components/headers/MainPageHeader";
+import React from 'react';
+import BreadCrumbHeader from '../../shared/components/headers/BreadCrumbHeader';
+import MainPageHeader from '../../shared/components/headers/MainPageHeader';
 
-import Ajv, { SchemaObject } from "ajv/dist/jtd";
-import * as XLSX from "xlsx";
-import { Box, Button, DialogContent, FormControl, Modal, ModalDialog, ModalOverflow, Typography } from "@mui/joy";
-import { useUpdateBases } from "../bases-upload/use-update-bases";
+import Ajv, { SchemaObject } from 'ajv/dist/jtd';
+import * as XLSX from 'xlsx';
+import {
+  Box,
+  Button,
+  DialogContent,
+  FormControl,
+  Modal,
+  ModalDialog,
+  ModalOverflow,
+  Typography,
+} from '@mui/joy';
+import { useUpdateBases } from '../bases-upload/use-update-bases';
 
 interface IXLSData {
   code: string;
@@ -18,15 +27,21 @@ export interface PendingModalProps {
   width: number;
 }
 
-function PendingModal({ props, children }: { props: PendingModalProps; children: React.ReactNode }) {
+function PendingModal({
+  props,
+  children,
+}: {
+  props: PendingModalProps;
+  children: React.ReactNode;
+}) {
   return (
     <React.Fragment>
       <Modal
         open={props.open}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 999999,
         }}
       >
@@ -36,21 +51,21 @@ function PendingModal({ props, children }: { props: PendingModalProps; children:
             variant="solid"
             sx={[
               {
-                display: "flex",
-                borderRadius: "sm",
-                borderWidth: "1px",
-                backgroundColor: "var(--joy-palette-background-level1)",
+                display: 'flex',
+                borderRadius: 'sm',
+                borderWidth: '1px',
+                backgroundColor: 'var(--joy-palette-background-level1)',
               },
             ]}
           >
             <DialogContent>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                   gap: 2,
                   mt: 2,
-                  overflow: "hidden",
+                  overflow: 'hidden',
                   maxHeight: `${props.height}px`,
                   minHeight: `${props.minHeight}px`,
                   minWidth: `${props.width}px`,
@@ -67,7 +82,7 @@ function PendingModal({ props, children }: { props: PendingModalProps; children:
   );
 }
 export default function UpdateBases() {
-  const [fileName, setFileName] = React.useState("");
+  const [fileName, setFileName] = React.useState('');
   const [file, setFile] = React.useState<File>();
 
   const [dataForUpload, setDataForUpload] = React.useState({} as BulkUpdateBasesDto);
@@ -93,14 +108,14 @@ export default function UpdateBases() {
     setIsValid(false);
     setDataForUpload({} as BulkUpdateBasesDto);
     setFile(undefined);
-    setFileName("");
+    setFileName('');
     setErrs(() => []);
   };
   const ajv = new Ajv({ allErrors: true });
   const valSchema: SchemaObject = {
     properties: {
-      code: { type: "string" },
-      marking: { type: "string" },
+      code: { type: 'string' },
+      marking: { type: 'string' },
     },
   };
   const parse = ajv.compileParser(valSchema);
@@ -142,25 +157,25 @@ export default function UpdateBases() {
 
   return (
     <React.Fragment>
-      <BreadCrumbHeader breadcrumbs={["Планировщик", "Обновление основ"]} />
-      <MainPageHeader pageTitle={"Обновление основ"} />
+      <BreadCrumbHeader breadcrumbs={['Планировщик', 'Обновление основ']} />
+      <MainPageHeader pageTitle={'Обновление основ'} />
       <PendingModal props={modalProps}>
         <div>Loading</div>
       </PendingModal>
 
       <Box
         sx={{
-          borderRadius: "sm",
+          borderRadius: 'sm',
           py: 2,
-          display: { xs: "none", sm: "flex" },
-          flexWrap: "wrap",
+          display: { xs: 'none', sm: 'flex' },
+          flexWrap: 'wrap',
           gap: 1.5,
-          "& > *": {
-            minWidth: { xs: "120px", md: "160px" },
+          '& > *': {
+            minWidth: { xs: '120px', md: '160px' },
           },
         }}
       >
-        <Box sx={{ gap: 3, display: "flex", flexDirection: "column", width: "100%" }}>
+        <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column', width: '100%' }}>
           {/* <UploadPendingModal />
         <ErrorModal />
 
@@ -168,15 +183,15 @@ export default function UpdateBases() {
 
           <Box
             sx={{
-              border: "1px solid",
+              border: '1px solid',
               borderRadius: 5,
-              borderColor: "divider",
-              display: "flex",
-              flexDirection: "column",
+              borderColor: 'divider',
+              display: 'flex',
+              flexDirection: 'column',
               gap: 2,
               px: 2,
               py: 2,
-              width: "100%",
+              width: '100%',
             }}
           >
             <Typography color="neutral" level="h4">
@@ -184,19 +199,21 @@ export default function UpdateBases() {
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
                 gap: 2,
-                width: "100%",
+                width: '100%',
               }}
             >
-              <Typography level="body-sm">{fileName.split("\\").slice(-1)[0] || "Файл не выбран"}</Typography>
+              <Typography level="body-sm">
+                {fileName.split('\\').slice(-1)[0] || 'Файл не выбран'}
+              </Typography>
               <FormControl size="sm">
                 <input
                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                   id="raised-button-file"
                   type="file"
                   value={fileName}
@@ -208,7 +225,7 @@ export default function UpdateBases() {
                     size="sm"
                     component="span"
                     disabled={file !== undefined}
-                    sx={{ display: file !== undefined ? "none" : "block" }}
+                    sx={{ display: file !== undefined ? 'none' : 'block' }}
                   >
                     Выберите файл
                   </Button>
@@ -217,7 +234,7 @@ export default function UpdateBases() {
               <Button
                 size="sm"
                 disabled={file === undefined}
-                sx={{ display: file === undefined ? "none" : "block" }}                
+                sx={{ display: file === undefined ? 'none' : 'block' }}
                 onClick={() => clearData()}
               >
                 Очистить
@@ -227,15 +244,15 @@ export default function UpdateBases() {
 
           <Box
             sx={{
-              border: "1px solid",
+              border: '1px solid',
               borderRadius: 5,
-              borderColor: "divider",
-              display: "flex",
-              flexDirection: "column",
+              borderColor: 'divider',
+              display: 'flex',
+              flexDirection: 'column',
               gap: 2,
               px: 2,
               py: 2,
-              width: "100%",
+              width: '100%',
             }}
           >
             <Typography color="neutral" level="h4">
@@ -243,12 +260,12 @@ export default function UpdateBases() {
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
                 gap: 2,
-                width: "100%",
+                width: '100%',
               }}
             >
               {!isValid && errs.length === 0 && (
@@ -270,7 +287,7 @@ export default function UpdateBases() {
               <Button
                 size="sm"
                 disabled={file === undefined || errs.length > 0 || isValid}
-                sx={{ display: "block" }}
+                sx={{ display: 'block' }}
                 onClick={() => validate()}
               >
                 Проверить файл
@@ -279,15 +296,15 @@ export default function UpdateBases() {
           </Box>
           <Box
             sx={{
-              border: "1px solid",
+              border: '1px solid',
               borderRadius: 5,
-              borderColor: "divider",
-              display: "flex",
-              flexDirection: "column",
+              borderColor: 'divider',
+              display: 'flex',
+              flexDirection: 'column',
               gap: 2,
               px: 2,
               py: 2,
-              width: "100%",
+              width: '100%',
             }}
           >
             <Typography color="neutral" level="h4">
@@ -295,12 +312,12 @@ export default function UpdateBases() {
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
                 gap: 2,
-                width: "100%",
+                width: '100%',
               }}
             >
               <Typography level="body-sm" color="neutral">
@@ -310,7 +327,7 @@ export default function UpdateBases() {
               <Button
                 size="sm"
                 disabled={!isValid}
-                sx={{ display: "block" }}
+                sx={{ display: 'block' }}
                 onClick={() => updateBases(dataForUpload)}
               >
                 Загрузка
@@ -319,13 +336,13 @@ export default function UpdateBases() {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
               gap: 2,
               px: 2,
               py: 2,
-              width: "100%",
+              width: '100%',
             }}
           >
             {/* <SummaryUploadStepper file={props.file} isValid={props.isValid} errs={props.errs} /> */}

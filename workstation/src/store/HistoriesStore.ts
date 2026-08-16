@@ -1,6 +1,6 @@
-import { action, computed, makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { action, computed, makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 export interface HistoriePayload {
   record_id: number | null;
@@ -16,7 +16,7 @@ export interface HistoriePayload {
 
 export default class HistoriesStore {
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this, {
       isError: computed,
@@ -39,7 +39,7 @@ export default class HistoriesStore {
   async addHistories(payload: HistoriePayload) {
     const json = JSON.stringify(payload);
     try {
-      this.setError("");
+      this.setError('');
       this.setPending(true);
       await $api.post(`/histories`, json);
     } catch (error) {

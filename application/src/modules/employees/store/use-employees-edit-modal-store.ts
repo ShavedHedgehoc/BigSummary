@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface EditModalStore {
   id: number | null;
@@ -21,8 +21,8 @@ export const useEmployeesEditModalStore = create<EditModalStore>()(
     (set) => ({
       id: null,
       open: false,
-      name: "",
-      barcode: "",
+      name: '',
+      barcode: '',
       occupation: null,
       occupationsOptions: [],
       setId: (val: number) => set(() => ({ id: val })),
@@ -30,9 +30,9 @@ export const useEmployeesEditModalStore = create<EditModalStore>()(
       setName: (val: string) => set(() => ({ name: val })),
       setBarcode: (val: string) => set(() => ({ barcode: val })),
       setOccupation: (val: number) => set(() => ({ occupation: val })),
-      clearData: () => set(() => ({ name: "", barcode: "", occupation: null })),
+      clearData: () => set(() => ({ name: '', barcode: '', occupation: null })),
       fillOccupationOptions: (values) => set(() => ({ occupationsOptions: [...values] })),
     }),
-    { name: "EmployeeEditModalStore", store: "useEmployeeEditModalStore" }
-  )
+    { name: 'EmployeeEditModalStore', store: 'useEmployeeEditModalStore' },
+  ),
 );

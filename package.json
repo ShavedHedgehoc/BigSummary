@@ -1,0 +1,32 @@
+{
+    "name": "repo",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        "db:generate": "pnpm --filter @repo/db-postgres generate",
+        "api:dev": "pnpm --filter api_v2 dev",
+        "monorepo:dev": "pnpm --filter \"./apps/**\" --parallel run dev",
+        "schema": "pnpm --filter api_v2 schema",
+        "monorepo:lint": "pnpm --filter \"./apps/**\"  run lint",
+        "monorepo:typecheck": "pnpm --filter \"./apps/**\"  run type-check",
+        "monorepo:format": "prettier --write ."
+    },
+    "devDependencies": {
+        "prettier": "^3.9.6",
+        "typescript": "^5.9.3"
+    },
+    "pnpm": {
+        "overrides": {
+            "@types/react": "^19.0.0",
+            "@types/react-dom": "^19.0.0",
+            "zod": "^4.4.2",
+            "@trpc/server": "10.45.0",
+            "@trpc/client": "10.45.0",
+            "@trpc/react-query": "10.45.0"
+        }
+    }
+}

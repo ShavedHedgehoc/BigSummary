@@ -1,7 +1,7 @@
-import { useShallow } from "zustand/react/shallow";
-import { useBoilsReportFilterStore } from "../store/use-boils-report-filter-store";
-import { BoilsReportFilterParams } from "./boils-report-filter-params";
-import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
+import { useShallow } from 'zustand/react/shallow';
+import { useBoilsReportFilterStore } from '../store/use-boils-report-filter-store';
+import { BoilsReportFilterParams } from './boils-report-filter-params';
+import FilterInput, { FilterInputProps } from '../../../shared/ui/filter-input';
 
 export default function BoilsReportFilterMarkingInput() {
   const filter = useBoilsReportFilterStore(useShallow((state) => state.filter));
@@ -10,9 +10,9 @@ export default function BoilsReportFilterMarkingInput() {
   const inputProps: FilterInputProps = {
     id: BoilsReportFilterParams.MARKING,
     value: filter.marking,
-    disabled: filter.marking === "",
-    label: "Поиск по артикулу",
-    placeholder: "Артикул",
+    disabled: filter.marking === '',
+    label: 'Поиск по артикулу',
+    placeholder: 'Артикул',
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

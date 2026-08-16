@@ -1,8 +1,8 @@
-import * as React from "react";
-import { useSearchParams } from "react-router-dom";
-import { Params } from "../../shared/router/params";
-import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
-import MainPageHeader from "../../shared/components/headers/MainPageHeader";
+import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Params } from '../../shared/router/params';
+import BreadCrumbHeader from '../../shared/components/headers/BreadCrumbHeader';
+import MainPageHeader from '../../shared/components/headers/MainPageHeader';
 
 export default function TraceBatchWeightingsSummaryDetailHeader() {
   const [searchParams] = useSearchParams();
@@ -12,9 +12,13 @@ export default function TraceBatchWeightingsSummaryDetailHeader() {
   return (
     <React.Fragment>
       <BreadCrumbHeader
-        breadcrumbs={["Весовой участок", "Выработка сотрудников", `${authorName}, ${startDate} - ${endDate}`]}
+        breadcrumbs={[
+          'Весовой участок',
+          'Выработка сотрудников',
+          `${authorName}, ${startDate} - ${endDate}`,
+        ]}
       />
-      <MainPageHeader pageTitle={"Выработка"} />
+      <MainPageHeader pageTitle={'Выработка'} />
     </React.Fragment>
   );
 }

@@ -15,7 +15,7 @@ export class RecordsService {
   constructor(
     @InjectModel(Record)
     private recordsService: typeof Record,
-  ) { }
+  ) {}
 
   async getRecordById(id: number) {
     const record = await this.recordsService.findByPk(id);
@@ -26,7 +26,7 @@ export class RecordsService {
     conveyor_name,
     record_id,
     barcode,
-    allRecords
+    allRecords,
   }: {
     conveyor_name: string | undefined;
     record_id: number | undefined;
@@ -64,11 +64,10 @@ export class RecordsService {
       where: recordWhereCondition,
       include: [
         {
-          model: Doc, as: 'doc',
+          model: Doc,
+          as: 'doc',
           where: { date: new Date(date) },
-          include: [
-            { model: Plant, as: 'plants' }
-          ]
+          include: [{ model: Plant, as: 'plants' }],
         },
         { model: Conveyor, as: 'conveyor', where: { ...conveyorFilter } },
         { model: Product, as: 'product' },

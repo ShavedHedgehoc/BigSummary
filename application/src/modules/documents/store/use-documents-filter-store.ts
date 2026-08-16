@@ -1,13 +1,13 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 // import { BoilsFilterParams } from "../boils-filter-params";
-import { IPlant } from "../../../types";
-import { devtools } from "zustand/middleware";
-import { DocumentsFilterParams } from "../documents-filter-params";
+import { IPlant } from '../../../types';
+import { devtools } from 'zustand/middleware';
+import { DocumentsFilterParams } from '../documents-filter-params';
 import {
   getCurrentDay,
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
-} from "../../../shared/helpers/date-time-formatters";
+} from '../../../shared/helpers/date-time-formatters';
 
 interface DocumentsFilterStore {
   filter: FetchDocumentsFilter;
@@ -65,6 +65,6 @@ export const useDocumentsFilterStore = create<DocumentsFilterStore>()(
     },
     setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
     fillPlantSelectorOptions: (values) =>
-      set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Все", abb: "" }, ...values] })),
-  }))
+      set(() => ({ plantSelectorOptions: [{ id: 999999, value: 'Все', abb: '' }, ...values] })),
+  })),
 );

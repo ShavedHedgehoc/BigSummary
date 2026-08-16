@@ -1,16 +1,16 @@
-import * as React from "react";
-import { Box, FormControl, FormLabel, Input, Sheet, Typography, Button } from "@mui/joy";
-import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import { Box, FormControl, FormLabel, Input, Sheet, Typography, Button } from '@mui/joy';
+import { useNavigate } from 'react-router-dom';
 
-import LoginPendingModal from "../../shared/components/login-pending-modal";
-import { useLogin } from "./use-login";
-import { useRegister } from "./use-register";
+import LoginPendingModal from '../../shared/components/login-pending-modal';
+import { useLogin } from './use-login';
+import { useRegister } from './use-register';
 
 export default function Login() {
   const [isLogin, setIsLogin] = React.useState(true);
-  const [name, setName] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const [name, setName] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
   const navigate = useNavigate();
 
@@ -19,12 +19,12 @@ export default function Login() {
 
   const handleLogin = async () => {
     await login({ email, password });
-    navigate("/");
+    navigate('/');
   };
 
   const handleRegister = async () => {
     await register({ name, email, password });
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -34,33 +34,33 @@ export default function Login() {
         className="MainContent"
         sx={{
           flex: 1,
-          display: { xs: "none", sm: "flex" },
-          flexDirection: "column",
+          display: { xs: 'none', sm: 'flex' },
+          flexDirection: 'column',
           minWidth: 0,
-          height: "100dvh",
+          height: '100dvh',
           gap: 1,
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <form>
           <Sheet
             sx={{
-              width: "300px",
-              mx: "auto",
+              width: '300px',
+              mx: 'auto',
               my: 4, // margin top & bottom
               py: 3, // padding top & bottom
               px: 2, // padding left & right
-              display: "flex",
-              flexDirection: "column",
+              display: 'flex',
+              flexDirection: 'column',
               gap: 2,
-              borderRadius: "sm",
-              boxShadow: "md",
+              borderRadius: 'sm',
+              boxShadow: 'md',
             }}
-            variant={"outlined"}
+            variant={'outlined'}
           >
             <div>
-              <Typography level="h4">{isLogin ? "Вход" : "Регистрация"}</Typography>
+              <Typography level="h4">{isLogin ? 'Вход' : 'Регистрация'}</Typography>
             </div>
             {!isLogin && (
               <FormControl>
@@ -102,15 +102,17 @@ export default function Login() {
             </FormControl>
             {isLogin && <Button onClick={() => handleLogin()}>Войти</Button>}
             {!isLogin && <Button onClick={() => handleRegister()}>Зарегистрироваться</Button>}
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-              <Typography level="body-sm">{isLogin ? "В первый раз? " : "Уже зарегистрирован? "}</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Typography level="body-sm">
+                {isLogin ? 'В первый раз? ' : 'Уже зарегистрирован? '}
+              </Typography>
               <Typography
                 level="body-sm"
                 color="primary"
                 onClick={() => setIsLogin(!isLogin)}
-                sx={{ textDecoration: "underline", cursor: "pointer" }}
+                sx={{ textDecoration: 'underline', cursor: 'pointer' }}
               >
-                {isLogin ? "Зарегистрироваться" : "Войти"}
+                {isLogin ? 'Зарегистрироваться' : 'Войти'}
               </Typography>
             </Box>
           </Sheet>
@@ -121,23 +123,23 @@ export default function Login() {
           className="MainContent"
           sx={{
             flex: 1,
-            display: { xs: "flex", sm: "none" },
-            flexDirection: "column",
+            display: { xs: 'flex', sm: 'none' },
+            flexDirection: 'column',
             minWidth: 0,
-            height: "100dvh",
+            height: '100dvh',
             gap: 3,
-            mx: "auto",
+            mx: 'auto',
 
-            my: "auto", // margin top & bottom
+            my: 'auto', // margin top & bottom
             py: 3, // padding top & bottom
             px: 3, // padding left & right
 
-            alignItems: "left",
-            justifyContent: "flex-start",
+            alignItems: 'left',
+            justifyContent: 'flex-start',
           }}
         >
           <div>
-            <Typography level="h4">{isLogin ? "Вход" : "Регистрация"}</Typography>
+            <Typography level="h4">{isLogin ? 'Вход' : 'Регистрация'}</Typography>
           </div>
           {!isLogin && (
             <FormControl>
@@ -187,15 +189,17 @@ export default function Login() {
               Зарегистрироваться
             </Button>
           )}
-          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-            <Typography level="body-sm">{isLogin ? "В первый раз? " : "Уже зарегистрирован? "}</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Typography level="body-sm">
+              {isLogin ? 'В первый раз? ' : 'Уже зарегистрирован? '}
+            </Typography>
             <Typography
               level="body-sm"
               color="primary"
               onClick={() => setIsLogin(!isLogin)}
-              sx={{ textDecoration: "underline", cursor: "pointer" }}
+              sx={{ textDecoration: 'underline', cursor: 'pointer' }}
             >
-              {isLogin ? "Зарегистрироваться" : "Войти"}
+              {isLogin ? 'Зарегистрироваться' : 'Войти'}
             </Typography>
           </Box>
         </Box>

@@ -1,6 +1,6 @@
-import { makeAutoObservable } from "mobx";
-import { $api } from "../http";
-import handleError from "../http/handleError";
+import { makeAutoObservable } from 'mobx';
+import { $api } from '../http';
+import handleError from '../http/handleError';
 
 export interface IConveyor {
   id: number;
@@ -11,7 +11,7 @@ export interface IConveyor {
 export default class ConveyorStore {
   conveyor: IConveyor | null = null;
   pending: boolean = false;
-  error = "";
+  error = '';
   constructor() {
     makeAutoObservable(this);
   }

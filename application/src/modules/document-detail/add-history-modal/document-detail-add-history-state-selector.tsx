@@ -1,30 +1,30 @@
-import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import { useQuery } from "@tanstack/react-query";
-import { useDocumentDetailAddHistoryModalFormStore } from "../store/use-document-detail-add-history-modal-form-store";
+import * as React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import { useQuery } from '@tanstack/react-query';
+import { useDocumentDetailAddHistoryModalFormStore } from '../store/use-document-detail-add-history-modal-form-store';
 
-import HistoryTypeService from "../../../shared/api/services/history-types-service";
-import { Box, FormControl, FormHelperText, Option, Select, SelectStaticProps } from "@mui/joy";
-import { useDocumentDetailAddHistoryModalStore } from "../store/use-document-detail-add-history-modal-store";
+import HistoryTypeService from '../../../shared/api/services/history-types-service';
+import { Box, FormControl, FormHelperText, Option, Select, SelectStaticProps } from '@mui/joy';
+import { useDocumentDetailAddHistoryModalStore } from '../store/use-document-detail-add-history-modal-store';
 
 export default function DocumentDetailAddHistoryModalStateSelector() {
-  const action: SelectStaticProps["action"] = React.useRef(null);
+  const action: SelectStaticProps['action'] = React.useRef(null);
   const selectedHistoryType = useDocumentDetailAddHistoryModalFormStore(
-    useShallow((state) => state.selectedHistoryType)
+    useShallow((state) => state.selectedHistoryType),
   );
   const setSelectedHistoryType = useDocumentDetailAddHistoryModalFormStore(
-    useShallow((state) => state.setSelectedHistoryType)
+    useShallow((state) => state.setSelectedHistoryType),
   );
   const historyTypeSelectorOptions = useDocumentDetailAddHistoryModalFormStore(
-    useShallow((state) => state.historyTypeSelectorOptions)
+    useShallow((state) => state.historyTypeSelectorOptions),
   );
   const fillHistoryTypeSelectorOptions = useDocumentDetailAddHistoryModalFormStore(
-    useShallow((state) => state.fillHistoryTypeSelectorOptions)
+    useShallow((state) => state.fillHistoryTypeSelectorOptions),
   );
   const row = useDocumentDetailAddHistoryModalStore(useShallow((state) => state.row));
 
   useQuery({
-    queryKey: ["history_types_options"],
+    queryKey: ['history_types_options'],
     queryFn: async () => {
       const data = row?.water_base_id
         ? await HistoryTypeService.getAllHistoryTypes()
@@ -39,20 +39,20 @@ export default function DocumentDetailAddHistoryModalStateSelector() {
   });
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <FormControl size="sm" id={"plants"} sx={{ width: "100%" }}>
+    <Box sx={{ display: 'flex' }}>
+      <FormControl size="sm" id={'plants'} sx={{ width: '100%' }}>
         <FormHelperText>Выбор статуса</FormHelperText>
         <Select
           action={action}
           size="sm"
-          placeholder={"Выберите статус"}
+          placeholder={'Выберите статус'}
           value={selectedHistoryType}
           slotProps={{
-            button: { sx: { whiteSpace: "nowrap" } },
+            button: { sx: { whiteSpace: 'nowrap' } },
             listbox: { sx: { zIndex: 999999 } },
           }}
           sx={{
-            display: "flex",
+            display: 'flex',
             flexGrow: 1,
             mt: 1,
           }}

@@ -1,6 +1,6 @@
-import { useShallow } from "zustand/react/shallow";
-import { useEmployeeAddModalStore } from "../store/use-employees-add-modal-store";
-import { Input } from "@mui/joy";
+import { useShallow } from 'zustand/react/shallow';
+import { useEmployeeAddModalStore } from '../store/use-employees-add-modal-store';
+import { Input } from '@mui/joy';
 
 export default function BarcodeInput() {
   const barcode = useEmployeeAddModalStore(useShallow((state) => state.barcode));
@@ -8,12 +8,12 @@ export default function BarcodeInput() {
   return (
     <Input
       sx={{
-        "&:focus-within": {
-          "--Input-focusedHighlight": "var(--joy-palette-neutral-400)",
+        '&:focus-within': {
+          '--Input-focusedHighlight': 'var(--joy-palette-neutral-400)',
         },
-        minWidth: "200px",
+        minWidth: '200px',
 
-        display: "flex",
+        display: 'flex',
         flexShrink: 1,
       }}
       value={barcode}

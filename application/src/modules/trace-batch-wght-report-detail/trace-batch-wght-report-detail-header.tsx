@@ -1,14 +1,20 @@
-import * as React from "react";
+import * as React from 'react';
 
-import BreadCrumbHeader from "../../shared/components/headers/BreadCrumbHeader";
+import BreadCrumbHeader from '../../shared/components/headers/BreadCrumbHeader';
 
-import MainPageHeader from "../../shared/components/headers/MainPageHeader";
-import { FetchTraceBatchWghtReportDetailDto } from "../../shared/api/services/trace-batchs-service";
+import MainPageHeader from '../../shared/components/headers/MainPageHeader';
+import { FetchTraceBatchWghtReportDetailDto } from '../../shared/api/services/trace-batchs-service';
 
-export default function TraceBatchWghtReportDetailHeader({ dto }: { dto: FetchTraceBatchWghtReportDetailDto }) {
+export default function TraceBatchWghtReportDetailHeader({
+  dto,
+}: {
+  dto: FetchTraceBatchWghtReportDetailDto;
+}) {
   return (
     <React.Fragment>
-      <BreadCrumbHeader breadcrumbs={["Весовой участок", "Отчет по взвешиваниям", `${dto.batchName}`]} />
+      <BreadCrumbHeader
+        breadcrumbs={['Весовой участок', 'Отчет по взвешиваниям', `${dto.batchName}`]}
+      />
       <MainPageHeader pageTitle={`Варка ${dto.batchName}`} />
     </React.Fragment>
   );

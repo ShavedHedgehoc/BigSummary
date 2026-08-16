@@ -1,11 +1,11 @@
-import { useShallow } from "zustand/react/shallow";
-import { useUserUpdateModalStore } from "../store/use-update-user-modal-store";
-import { Box } from "@mui/joy";
-import { IUpdateUserDto } from "../../../shared/api/services/user-service";
-import ModalButton, { ModalButtonProps } from "../../../shared/ui/modal-button";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import { useUpdateUser } from "../use-update-user";
+import { useShallow } from 'zustand/react/shallow';
+import { useUserUpdateModalStore } from '../store/use-update-user-modal-store';
+import { Box } from '@mui/joy';
+import { IUpdateUserDto } from '../../../shared/api/services/user-service';
+import ModalButton, { ModalButtonProps } from '../../../shared/ui/modal-button';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import { useUpdateUser } from '../use-update-user';
 
 export default function UpdateUserModalButtons() {
   const setOpen = useUserUpdateModalStore(useShallow((state) => state.setOpen));
@@ -40,24 +40,24 @@ export default function UpdateUserModalButtons() {
   };
 
   const closeButtonProps: ModalButtonProps = {
-    label: "Закрыть",
+    label: 'Закрыть',
     startDecorator: <CloseOutlinedIcon />,
     onClick: () => handleClose(),
   };
 
   const saveButtonProps: ModalButtonProps = {
-    label: "Сохранить",
+    label: 'Сохранить',
     startDecorator: <SaveOutlinedIcon />,
     onClick: () => handleSave(),
   };
   return (
     <Box
       sx={{
-        display: "flex",
-        width: "100%",
-        flexDirection: "row",
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'row',
         gap: 2,
-        justifyContent: "flex-end",
+        justifyContent: 'flex-end',
       }}
     >
       <ModalButton {...saveButtonProps} />

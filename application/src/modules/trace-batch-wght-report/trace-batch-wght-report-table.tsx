@@ -1,24 +1,24 @@
-import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
-import { useTraceBatchWghtReportFilterStore } from "./store/use-trace-batch-wght-report-filter-store";
-import { useTraceBatchWghtReportPaginationStore } from "./store/use-trace-batch-wght-report-pagination-store";
-import { useTraceBatchWghtReport } from "./use-trace-batch-wght-report";
-import TraceBatchWghtReportTableRow from "./trace-batch-wght-report-table-row";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
+import { useTraceBatchWghtReportFilterStore } from './store/use-trace-batch-wght-report-filter-store';
+import { useTraceBatchWghtReportPaginationStore } from './store/use-trace-batch-wght-report-pagination-store';
+import { useTraceBatchWghtReport } from './use-trace-batch-wght-report';
+import TraceBatchWghtReportTableRow from './trace-batch-wght-report-table-row';
 
 const commonThead = [
-  { width: 30, value: "Дата" },
-  { width: 30, value: "Площадка" },
-  { width: 30, value: "Партия" },
+  { width: 30, value: 'Дата' },
+  { width: 30, value: 'Площадка' },
+  { width: 30, value: 'Партия' },
 
-  { width: 30, value: "Код 1С" },
-  { width: 120, value: "Наименование" },
-  { width: 20, value: "-" },
-  { width: 20, value: "План" },
-  { width: 20, value: "Факт" },
+  { width: 30, value: 'Код 1С' },
+  { width: 120, value: 'Наименование' },
+  { width: 20, value: '-' },
+  { width: 20, value: 'План' },
+  { width: 20, value: 'Факт' },
 ];
 
 export default function TraceBatchWghtReportTable() {
@@ -28,7 +28,11 @@ export default function TraceBatchWghtReportTable() {
   const total = useTraceBatchWghtReportPaginationStore(useShallow((state) => state.total));
   const setTotal = useTraceBatchWghtReportPaginationStore(useShallow((state) => state.setTotal));
   const setPage = useTraceBatchWghtReportPaginationStore(useShallow((state) => state.setPage));
-  const { isPending, data, isSuccess } = useTraceBatchWghtReport({ filter: filter, limit: limit, page: page });
+  const { isPending, data, isSuccess } = useTraceBatchWghtReport({
+    filter: filter,
+    limit: limit,
+    page: page,
+  });
 
   //REmove useeffects
 
@@ -55,7 +59,9 @@ export default function TraceBatchWghtReportTable() {
   return (
     <TableLayout thead={commonThead}>
       {isSuccess &&
-        data.rows.map((row) => <TraceBatchWghtReportTableRow row={row} key={`${row.product_id + row.BatchNumber}`} />)}
+        data.rows.map((row) => (
+          <TraceBatchWghtReportTableRow row={row} key={`${row.product_id + row.BatchNumber}`} />
+        ))}
     </TableLayout>
   );
 }

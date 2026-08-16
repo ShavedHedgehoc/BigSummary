@@ -41,7 +41,7 @@ export class HistoriesService {
     private basesService: BasesService,
     private notesService: NotesService,
     private apiErrorsService: ApiErrorsService,
-  ) { }
+  ) {}
 
   private replaceEscapeChars(textString: string) {
     textString = textString
@@ -59,10 +59,10 @@ export class HistoriesService {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + process.env.EXPRESS_API_TOKEN,
-      }
-    }
+        "Content-Type": "application/json",
+        authorization: "Bearer " + process.env.EXPRESS_API_TOKEN,
+      },
+    };
 
     for (const history of hystories) {
       const [$record, $user, $historyType, $note] = await Promise.all([
@@ -84,13 +84,11 @@ export class HistoriesService {
         ? await $lastRecord.$get("apparatus")
         : null;
 
-
-
       const esc = (val: string | null) => this.replaceEscapeChars(val || "-");
 
       let text = "";
       let chatType = "TECHNOLOGIST";
-      let $plant = null
+      let $plant = null;
 
       const commonHeader =
         `${esc($user?.name)}:\n` +
@@ -121,7 +119,6 @@ export class HistoriesService {
           break;
       }
 
-
       if (text && $plant?.abb) {
         const plantPrefix = PLANT_MAP[$plant.abb] || $plant.abb;
         const envKey = `${plantPrefix}_${chatType}_CHAT_ID`;
@@ -130,12 +127,12 @@ export class HistoriesService {
           const data = {
             group_chat_id: chatId,
             notification: {
-              status: 'ok',
-              body: text
-            }
-          }
+              status: "ok",
+              body: text,
+            },
+          };
           try {
-            await axios.post(process.env.EXPRESS_API_URL, data, config)
+            await axios.post(process.env.EXPRESS_API_URL, data, config);
           } catch (error) {
             console.error(`Ошибка отправки: ${error.message}`);
           }

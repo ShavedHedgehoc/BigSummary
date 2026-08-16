@@ -80,9 +80,9 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
     const lastTwoSymbols = val.substring(val.length - 2);
 
     let offset = 0;
-    if (lastTwoSymbols === "RS" || lastTwoSymbols === "SR") {
+    if (lastTwoSymbols === 'RS' || lastTwoSymbols === 'SR') {
       offset = 2;
-    } else if (["Z", "Y", "S", "R", "X"].includes(lastSymbol)) {
+    } else if (['Z', 'Y', 'S', 'R', 'X'].includes(lastSymbol)) {
       offset = 1;
     }
 
@@ -90,12 +90,12 @@ export default class Boil extends Model<Boil, BoilsCreationsAttrs> {
     const potentialTwoDigitYear = val.substring(yearEndIdx - 2, yearEndIdx);
 
     if (!isNaN(Number(potentialTwoDigitYear)) && potentialTwoDigitYear.length === 2) {
-      instance.year = Number("20" + potentialTwoDigitYear);
+      instance.year = Number('20' + potentialTwoDigitYear);
       instance.letter = val.substring(yearEndIdx - 3, yearEndIdx - 2);
       instance.number = Number(val.substring(0, yearEndIdx - 3));
     } else {
       const oneDigitYear = val.substring(yearEndIdx - 1, yearEndIdx);
-      instance.year = Number("202" + oneDigitYear);
+      instance.year = Number('202' + oneDigitYear);
       instance.letter = val.substring(yearEndIdx - 2, yearEndIdx - 1);
       instance.number = Number(val.substring(0, yearEndIdx - 2));
     }

@@ -1,14 +1,14 @@
-import { Box, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
-import { Check } from "@mui/icons-material";
-import { useShallow } from "zustand/react/shallow";
-import { useRegulationsUpsertFormStore } from "./store/use-regulations-upsert-form-store";
+import { Box, Step, StepIndicator, Stepper, Typography } from '@mui/joy';
+import { Check } from '@mui/icons-material';
+import { useShallow } from 'zustand/react/shallow';
+import { useRegulationsUpsertFormStore } from './store/use-regulations-upsert-form-store';
 
 export default function RegulationsUpsertStepper() {
   const file = useRegulationsUpsertFormStore(useShallow((state) => state.file));
   const isValid = useRegulationsUpsertFormStore(useShallow((state) => state.isValid));
   const errs = useRegulationsUpsertFormStore(useShallow((state) => state.errs));
   return (
-    <Box sx={{ mt: 4, width: "100%" }}>
+    <Box sx={{ mt: 4, width: '100%' }}>
       <Stepper size="lg">
         <Step
           orientation="vertical"

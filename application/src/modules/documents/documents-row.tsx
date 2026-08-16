@@ -1,11 +1,11 @@
-import { Typography, Box } from "@mui/joy";
+import { Typography, Box } from '@mui/joy';
 
-import { useNavigate } from "react-router-dom";
-import { useDeleteDocument } from "./use-delete-document";
-import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import TableButton from "../../shared/ui/table-button";
-import { formatDateToString } from "../../shared/helpers/date-time-formatters";
+import { useNavigate } from 'react-router-dom';
+import { useDeleteDocument } from './use-delete-document';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import TableButton from '../../shared/ui/table-button';
+import { formatDateToString } from '../../shared/helpers/date-time-formatters';
 
 export default function DocumentsRow({ row }: { row: IDocumentRow }) {
   const { deleteDocument, deletePending } = useDeleteDocument();
@@ -14,9 +14,9 @@ export default function DocumentsRow({ row }: { row: IDocumentRow }) {
 
   const selClass = (item: IDocumentRow) => {
     if (Number(item.historiesCount) === 0) {
-      return "list-group-item list-group-item-light";
+      return 'list-group-item list-group-item-light';
     }
-    return "success";
+    return 'success';
   };
 
   const StyledTypography = ({ text }: { text: string | number }) => {
@@ -36,30 +36,30 @@ export default function DocumentsRow({ row }: { row: IDocumentRow }) {
 
   return (
     <tr key={row.id}>
-      <td style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 64, textAlign: 'center', padding: '12px 6px' }}>
         <Typography level="body-xs">{formatDateToString(row.date)}</Typography>
       </td>
-      <td style={{ width: 96, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 96, textAlign: 'center', padding: '12px 6px' }}>
         <Typography level="body-xs">{row.plant}</Typography>
       </td>
-      <td style={{ width: 80, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 80, textAlign: 'center', padding: '12px 6px' }}>
         <Typography level="body-xs">{row.recordsCount}</Typography>
       </td>
-      <td style={{ width: 48, textAlign: "center", padding: "12px 6px" }}>
-        {selClass(row) === "success" ? (
+      <td style={{ width: 48, textAlign: 'center', padding: '12px 6px' }}>
+        {selClass(row) === 'success' ? (
           <StyledTypography text={row.historiesCount} />
         ) : (
           <Typography level="body-xs">{row.historiesCount}</Typography>
         )}
       </td>
 
-      <td style={{ width: 64, textAlign: "center", padding: "12px 6px" }}>
+      <td style={{ width: 64, textAlign: 'center', padding: '12px 6px' }}>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
             gap: 1,
           }}
         >

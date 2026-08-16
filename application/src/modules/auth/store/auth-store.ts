@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export interface IUserSettings {
   plant_id: number;
@@ -28,21 +28,21 @@ interface AuthStore {
 export const useAuthStore = create<AuthStore>()(
   devtools(
     (set) => ({
-      accessToken: localStorage.getItem("accessToken") || null,
+      accessToken: localStorage.getItem('accessToken') || null,
       user: null,
       isAuth: false,
       lastCheckTime: null,
       setToken(accessToken) {
-        if (accessToken) localStorage.setItem("accessToken", accessToken);
+        if (accessToken) localStorage.setItem('accessToken', accessToken);
         set(() => ({ accessToken: accessToken }));
       },
       clearToken() {
-        localStorage.removeItem("accessToken");
+        localStorage.removeItem('accessToken');
       },
       setUser: (value) => set(() => ({ user: value ? value : null })),
       setAuth: (value) => set(() => ({ isAuth: value })),
       setLastCheckTime: (value) => set(() => ({ lastCheckTime: value })),
     }),
-    { name: "AuthStore", store: "useAuthStore" }
-  )
+    { name: 'AuthStore', store: 'useAuthStore' },
+  ),
 );

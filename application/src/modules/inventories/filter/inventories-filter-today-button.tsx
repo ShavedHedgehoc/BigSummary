@@ -1,9 +1,9 @@
-import { useShallow } from "zustand/react/shallow";
+import { useShallow } from 'zustand/react/shallow';
 
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import FilterButton, { FilterButtonProps } from "../../../shared/ui/filter-button";
-import { getCurrentDay } from "../../../shared/helpers/date-time-formatters";
-import { useInventoriesFilterStore } from "../store/use-inventories-filter-store";
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import FilterButton, { FilterButtonProps } from '../../../shared/ui/filter-button';
+import { getCurrentDay } from '../../../shared/helpers/date-time-formatters';
+import { useInventoriesFilterStore } from '../store/use-inventories-filter-store';
 
 export default function InventoriesFilterTodayButton() {
   const setDayToToday = useInventoriesFilterStore(useShallow((state) => state.setDayToToday));
@@ -14,7 +14,7 @@ export default function InventoriesFilterTodayButton() {
     filter.endDate === getCurrentDay().toJSON().slice(0, 10);
 
   const clearButtonProps: FilterButtonProps = {
-    label: "Сегодня",
+    label: 'Сегодня',
 
     disabled: disableDocumentFilterTodayButton,
     startDecorator: <CalendarMonthOutlinedIcon />,

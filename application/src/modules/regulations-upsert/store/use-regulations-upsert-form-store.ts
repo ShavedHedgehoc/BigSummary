@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export interface IXLSRegulationsData {
   code: string;
@@ -38,7 +38,7 @@ interface RegulationsUpsertFormStore {
 export const useRegulationsUpsertFormStore = create<RegulationsUpsertFormStore>()(
   devtools((set) => ({
     file: undefined,
-    fileName: "",
+    fileName: '',
     isValid: false,
     errs: [],
     dataForUpload: [],
@@ -51,7 +51,7 @@ export const useRegulationsUpsertFormStore = create<RegulationsUpsertFormStore>(
       set(() => ({
         isValid: false,
         file: undefined,
-        fileName: "",
+        fileName: '',
         errs: [],
         errsModalShow: false,
         dataForUpload: [],
@@ -59,5 +59,5 @@ export const useRegulationsUpsertFormStore = create<RegulationsUpsertFormStore>(
     setErrs: (values) => set(() => ({ errs: values })),
     addErrs: (value) => set((state) => ({ errs: [...state.errs, value] })),
     setDataForUpload: (arr) => set(() => ({ dataForUpload: [...arr] })),
-  }))
+  })),
 );

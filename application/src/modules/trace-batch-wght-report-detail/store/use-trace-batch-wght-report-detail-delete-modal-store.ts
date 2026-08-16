@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { ITraceBatchWghtReportDetailData } from "../../../shared/api/services/trace-batchs-service";
+import { create } from 'zustand';
+import { ITraceBatchWghtReportDetailData } from '../../../shared/api/services/trace-batchs-service';
 
 interface TraceBatchWghtReportDetailDeleteModalStore {
   open: boolean;
@@ -10,13 +10,12 @@ interface TraceBatchWghtReportDetailDeleteModalStore {
   setTitle: (value: string) => void;
 }
 
-export const useTraceBatchWghtReportDetailDeleteModalStore = create<TraceBatchWghtReportDetailDeleteModalStore>()(
-  (set) => ({
+export const useTraceBatchWghtReportDetailDeleteModalStore =
+  create<TraceBatchWghtReportDetailDeleteModalStore>()((set) => ({
     open: false,
     row: null,
-    title: "",
+    title: '',
     setOpen: (value) => set(() => ({ open: value })),
     setRow: (value) => set(() => ({ row: value })),
     setTitle: (value) => set(() => ({ title: value })),
-  })
-);
+  }));

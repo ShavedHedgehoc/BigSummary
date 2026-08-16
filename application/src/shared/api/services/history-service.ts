@@ -1,6 +1,6 @@
-import { $api } from "../http";
-import { AxiosResponse } from "axios";
-import { IHistory } from "../../../types";
+import { $api } from '../http';
+import { AxiosResponse } from 'axios';
+import { IHistory } from '../../../types';
 
 export interface HistoryCreateDto {
   boil: string;
@@ -53,11 +53,15 @@ export default class HistoryService {
   static async createHistory(data: AddHistoryDto): Promise<AxiosResponse<HistoryCreateResponce>> {
     return $api.post(`/histories`, data);
   }
-  static async createHistoryDirect(data: AddHistoryDto): Promise<AxiosResponse<HistoryCreateResponce>> {
+  static async createHistoryDirect(
+    data: AddHistoryDto,
+  ): Promise<AxiosResponse<HistoryCreateResponce>> {
     return $api.post(`/histories/direct`, data);
   }
 
-  static async createHistoryBaseCheck(data: AddHistoryDto): Promise<AxiosResponse<HistoryCreateResponce>> {
+  static async createHistoryBaseCheck(
+    data: AddHistoryDto,
+  ): Promise<AxiosResponse<HistoryCreateResponce>> {
     return $api.post(`/histories/base_check`, data);
   }
   static async deleteHistory(id: number): Promise<AxiosResponse> {

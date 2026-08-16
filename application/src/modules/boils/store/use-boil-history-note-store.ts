@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface BoilHistoryNoteStore {
   historyNote: string;
@@ -8,7 +8,7 @@ interface BoilHistoryNoteStore {
 
 export const useBoilHistoryNoteStore = create<BoilHistoryNoteStore>()(
   devtools((set) => ({
-    historyNote: "",
+    historyNote: '',
     setHistoryNote: (value) => set(() => ({ historyNote: value })),
-  }))
+  })),
 );

@@ -1,20 +1,20 @@
-import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import TableLayout from "../../shared/layouts/table-layout";
+import * as React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import TableLayout from '../../shared/layouts/table-layout';
 
-import TableLoaderComponent from "../../shared/components/table-loader";
-import TableNotFoundComponent from "../../shared/components/table-not-found";
-import { useDocumentsFilterStore } from "./store/use-documents-filter-store";
-import { useDocumentsPaginationStore } from "./store/use-documents-pagination-store";
-import { useDocuments } from "./use-documents";
-import DocumentsRow from "./documents-row";
+import TableLoaderComponent from '../../shared/components/table-loader';
+import TableNotFoundComponent from '../../shared/components/table-not-found';
+import { useDocumentsFilterStore } from './store/use-documents-filter-store';
+import { useDocumentsPaginationStore } from './store/use-documents-pagination-store';
+import { useDocuments } from './use-documents';
+import DocumentsRow from './documents-row';
 
 const commonThead = [
-  { width: 64, value: "Дата" },
-  { width: 64, value: "Площадка" },
-  { width: 64, value: "Строк сводки" },
-  { width: 64, value: "Записей" },
-  { width: 64, value: "Действия" },
+  { width: 64, value: 'Дата' },
+  { width: 64, value: 'Площадка' },
+  { width: 64, value: 'Строк сводки' },
+  { width: 64, value: 'Записей' },
+  { width: 64, value: 'Действия' },
 ];
 
 export default function DocumentsTable() {

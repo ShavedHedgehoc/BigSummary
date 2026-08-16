@@ -5,7 +5,8 @@ export function checkBarcode(value: string): boolean {
 
 export function parseBoilCard(value: string) {
   // const re = /^\([0-9]{1,4}[A-L][0-9][X-Z,S,R]{0,1}[S,R]{0,1}\)\([0-9]{1,4}\)\([0-9]{1,5}[/]\)\([0-9]{6}\)$/; // old re
-  const re = /^\([0-9]{1,4}[A-L][0-9]{1,2}[X-Z,S,R]{0,1}[S,R]{0,1}\)\([0-9]{1,4}\)\([0-9]{1,5}[/]\)\([0-9]{6}\)$/; //new re
+  const re =
+    /^\([0-9]{1,4}[A-L][0-9]{1,2}[X-Z,S,R]{0,1}[S,R]{0,1}\)\([0-9]{1,4}\)\([0-9]{1,5}[/]\)\([0-9]{6}\)$/; //new re
   const isBoilCard = re.test(value);
   if (isBoilCard) {
     const re2 = /(?<=\()([^)]+)(?=\))/g;
@@ -16,7 +17,6 @@ export function parseBoilCard(value: string) {
   }
   return [null, null];
 }
-
 
 export function parseProductCard(value: string) {
   // const reGP =
@@ -29,17 +29,10 @@ export function parseProductCard(value: string) {
   const reGP =
     /^[0-9]{6}#[\w/,\d.\sа-яА-ЯёЁ]+#[0-9]{1,4}[A-L][0-9]{1,2}[X-ZR]?[SR]?#\d{2}\.\d{2}\.\d{4}#\d{1,3}#\d+$|^[0-9]{6}##[0-9]{1,4}[A-L][0-9]{1,2}[X-ZR]?[SR]?#\d{2}\.\d{2}\.\d{4}#\d{1,3}#\d+$/;
 
-
-  const reNZ = /^[0-9]{6}#NZ#[0-9]{1,4}[A-L][0-9]{1,2}[X-Z,S,R]{0,1}[S,R]{0,1}#\d{2}.\d{2}.\d{4}#\d+$/;
-
-
-
-
-
-
+  const reNZ =
+    /^[0-9]{6}#NZ#[0-9]{1,4}[A-L][0-9]{1,2}[X-Z,S,R]{0,1}[S,R]{0,1}#\d{2}.\d{2}.\d{4}#\d+$/;
 
   const reCode = /\d+(?=#)/;
-
 
   // const reBatch = /(?<=#)[0-9]{1,4}[A-L][0-9][X-Z,S,R]{0,1}[S,R]{0,1}(?=#)/;
   const reBatch = /(?<=#)[0-9]{1,4}[A-L][0-9]{1,2}[X-Z,S,R]{0,1}[S,R]{0,1}(?=#)/;

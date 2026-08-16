@@ -1,12 +1,12 @@
-import { create } from "zustand";
-import { IPlant } from "../../../types";
+import { create } from 'zustand';
+import { IPlant } from '../../../types';
 import {
   getCurrentDay,
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
-} from "../../../shared/helpers/date-time-formatters";
-import { devtools } from "zustand/middleware";
-import { InventoriesFilterParams } from "../filter/inventories-filter-params";
+} from '../../../shared/helpers/date-time-formatters';
+import { devtools } from 'zustand/middleware';
+import { InventoriesFilterParams } from '../filter/inventories-filter-params';
 
 interface InventoriesFilterStore {
   filter: FetchInventoryDocsFilter;
@@ -64,6 +64,6 @@ export const useInventoriesFilterStore = create<InventoriesFilterStore>()(
     },
     setSelectedPlant: (value) => set(() => ({ selectedPlant: value })),
     fillPlantSelectorOptions: (values) =>
-      set(() => ({ plantSelectorOptions: [{ id: 999999, value: "Все", abb: "" }, ...values] })),
-  }))
+      set(() => ({ plantSelectorOptions: [{ id: 999999, value: 'Все', abb: '' }, ...values] })),
+  })),
 );

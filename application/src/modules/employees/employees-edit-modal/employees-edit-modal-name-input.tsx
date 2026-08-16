@@ -1,6 +1,6 @@
-import Input from "@mui/joy/Input";
-import { useShallow } from "zustand/react/shallow";
-import { useEmployeesEditModalStore } from "../store/use-employees-edit-modal-store";
+import Input from '@mui/joy/Input';
+import { useShallow } from 'zustand/react/shallow';
+import { useEmployeesEditModalStore } from '../store/use-employees-edit-modal-store';
 
 export default function EmployeesEditModalNameInput() {
   const name = useEmployeesEditModalStore(useShallow((state) => state.name));
@@ -8,11 +8,11 @@ export default function EmployeesEditModalNameInput() {
   return (
     <Input
       sx={{
-        "&:focus-within": {
-          "--Input-focusedHighlight": "var(--joy-palette-neutral-400)",
+        '&:focus-within': {
+          '--Input-focusedHighlight': 'var(--joy-palette-neutral-400)',
         },
-        minWidth: "200px",
-        display: "flex",
+        minWidth: '200px',
+        display: 'flex',
         flexShrink: 1,
       }}
       value={name}

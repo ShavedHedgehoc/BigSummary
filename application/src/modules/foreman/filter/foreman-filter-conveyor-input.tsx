@@ -1,7 +1,7 @@
-import { useShallow } from "zustand/react/shallow";
-import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
-import { useForemanFilterStore } from "../store/use-foreman-filter-store";
-import { ForemanFilterParams } from "./foreman-filter-params";
+import { useShallow } from 'zustand/react/shallow';
+import FilterInput, { FilterInputProps } from '../../../shared/ui/filter-input';
+import { useForemanFilterStore } from '../store/use-foreman-filter-store';
+import { ForemanFilterParams } from './foreman-filter-params';
 
 export default function ForemanFilterConveyorInput() {
   const filter = useForemanFilterStore(useShallow((state) => state.filter));
@@ -10,9 +10,9 @@ export default function ForemanFilterConveyorInput() {
   const inputProps: FilterInputProps = {
     id: ForemanFilterParams.CONVEYOR,
     value: filter.conveyor,
-    disabled: filter.conveyor === "",
-    label: "Поиск по конвейеру",
-    placeholder: "Конвейер",
+    disabled: filter.conveyor === '',
+    label: 'Поиск по конвейеру',
+    placeholder: 'Конвейер',
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

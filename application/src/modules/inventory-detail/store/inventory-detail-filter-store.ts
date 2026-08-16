@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { FetchInventoryRowsFilter } from "../../../shared/api/services/inventory-rows-service";
-import { InventoryDetailFilterParams } from "./inventory-detail-filter-params";
+import { create } from 'zustand';
+import { FetchInventoryRowsFilter } from '../../../shared/api/services/inventory-rows-service';
+import { InventoryDetailFilterParams } from './inventory-detail-filter-params';
 
 export interface InventoryDetailFilterStore {
   filter: FetchInventoryRowsFilter;
@@ -13,7 +13,7 @@ export interface InventoryDetailFilterStore {
 export const expDaysValues = [30, 45, 60, 90];
 
 export const initFilterValue: FetchInventoryRowsFilter = {
-  productCode: "",
+  productCode: '',
   dayToExpire: expDaysValues[0],
   toFilter: false,
 };
@@ -31,12 +31,17 @@ export const useInventoryDetailFilterStore = create<InventoryDetailFilterStore>(
         break;
       case InventoryDetailFilterParams.DAY_TO_EXPIRE:
         set((state) => ({
-          filter: { ...state.filter, dayToExpire: values?.length ? values[0] : state.filter.dayToExpire },
+          filter: {
+            ...state.filter,
+            dayToExpire: values?.length ? values[0] : state.filter.dayToExpire,
+          },
         }));
         break;
 
       case InventoryDetailFilterParams.TO_FILTER:
-        set((state) => ({ filter: { ...state.filter, toFilter: value === "true" ? true : false } }));
+        set((state) => ({
+          filter: { ...state.filter, toFilter: value === 'true' ? true : false },
+        }));
         break;
 
       default:

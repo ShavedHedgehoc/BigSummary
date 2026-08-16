@@ -1,6 +1,6 @@
-import { Pagination, PaginationProps } from "../../shared/components/pagination/pagination";
-import { useShallow } from "zustand/react/shallow";
-import { useUsersPaginationStore } from "./store/use-users-pagination-store";
+import { Pagination, PaginationProps } from '../../shared/components/pagination/pagination';
+import { useShallow } from 'zustand/react/shallow';
+import { useUsersPaginationStore } from './store/use-users-pagination-store';
 
 export default function UsersPagination() {
   const paginationProps: PaginationProps = {

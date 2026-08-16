@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface LoginFormStore {
   isLogin: boolean;
@@ -13,9 +13,9 @@ interface LoginFormStore {
 
 export const useLoginFormStore = create<LoginFormStore>()((set) => ({
   isLogin: true,
-  name: "",
-  email: "",
-  password: "",
+  name: '',
+  email: '',
+  password: '',
   setIsLogin: (value) => set(() => ({ isLogin: value })),
   setName: (value) => set(() => ({ name: value })),
   setEmail: (value) => set(() => ({ email: value })),

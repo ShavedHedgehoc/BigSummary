@@ -1,7 +1,7 @@
-import { useShallow } from "zustand/react/shallow";
-import { useForemanFilterStore } from "../store/use-foreman-filter-store";
-import { ForemanFilterParams } from "./foreman-filter-params";
-import FilterInput, { FilterInputProps } from "../../../shared/ui/filter-input";
+import { useShallow } from 'zustand/react/shallow';
+import { useForemanFilterStore } from '../store/use-foreman-filter-store';
+import { ForemanFilterParams } from './foreman-filter-params';
+import FilterInput, { FilterInputProps } from '../../../shared/ui/filter-input';
 
 export default function ForemanFilterMarkingInput() {
   const filter = useForemanFilterStore(useShallow((state) => state.filter));
@@ -10,9 +10,9 @@ export default function ForemanFilterMarkingInput() {
   const inputProps: FilterInputProps = {
     id: ForemanFilterParams.MARKING,
     value: filter.marking,
-    disabled: filter.marking === "",
-    label: "Поиск по артикулу",
-    placeholder: "Артикул",
+    disabled: filter.marking === '',
+    label: 'Поиск по артикулу',
+    placeholder: 'Артикул',
     changeFilter: ({ key, value }: { key: string; value: string }) => changeFilter({ key, value }),
   };
 

@@ -1,8 +1,8 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
-import { FetchTrademarksFilter } from "../../../shared/api/services/trace-trademark-service";
-import { TrademarksFilterParams } from "../filter/trademarks-filter-params";
+import { FetchTrademarksFilter } from '../../../shared/api/services/trace-trademark-service';
+import { TrademarksFilterParams } from '../filter/trademarks-filter-params';
 
 interface TrademarksFilterStore {
   filter: FetchTrademarksFilter;
@@ -11,9 +11,9 @@ interface TrademarksFilterStore {
 }
 
 const initFilterValue: FetchTrademarksFilter = {
-  trademark: "",
-  product_code: "",
-  product_name: "",
+  trademark: '',
+  product_code: '',
+  product_name: '',
 };
 
 export const useTrademarksFilterStore = create<TrademarksFilterStore>()(
@@ -41,5 +41,5 @@ export const useTrademarksFilterStore = create<TrademarksFilterStore>()(
           break;
       }
     },
-  }))
+  })),
 );

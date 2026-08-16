@@ -1,27 +1,29 @@
-import IconButton from "@mui/joy/IconButton";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import Typography from "@mui/joy/Typography";
-import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
-import ModalLayout from "../../shared/layouts/modal-layout";
-import TableLayout from "../../shared/layouts/table-layout";
-import TableLoaderComponent from "../../shared/components/table-loader";
-import { formatDateToString, formatTimeToString } from "../../shared/helpers/date-time-formatters";
-import { rowScope } from "../../shared/helpers/status-conditions";
-import { StyledTypography } from "../../shared/ui/styled-typography";
-import { useShallow } from "zustand/react/shallow";
-import { useNoteModalStore } from "../../shared/components/note-modal/use-note-modal-store";
-import { useBoilsHistories } from "../../shared/api/use-boils-histories";
-import { useBoilHistoryModalStore } from "./store/use-boil-history-modal-store";
-import { useCreateHistoryDirect } from "../../shared/api/use-create-history-direct";
-import { useAuthStore } from "../auth/store/auth-store";
+import IconButton from '@mui/joy/IconButton';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Typography from '@mui/joy/Typography';
+import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
+import ModalLayout from '../../shared/layouts/modal-layout';
+import TableLayout from '../../shared/layouts/table-layout';
+import TableLoaderComponent from '../../shared/components/table-loader';
+import { formatDateToString, formatTimeToString } from '../../shared/helpers/date-time-formatters';
+import { rowScope } from '../../shared/helpers/status-conditions';
+import { StyledTypography } from '../../shared/ui/styled-typography';
+import { useShallow } from 'zustand/react/shallow';
+import { useNoteModalStore } from '../../shared/components/note-modal/use-note-modal-store';
+import { useBoilsHistories } from '../../shared/api/use-boils-histories';
+import { useBoilHistoryModalStore } from './store/use-boil-history-modal-store';
+import { useCreateHistoryDirect } from '../../shared/api/use-create-history-direct';
+import { useAuthStore } from '../auth/store/auth-store';
 
 export default function BoilHistoryModal() {
   const open = useBoilHistoryModalStore(useShallow((state) => state.open));
   const boilId = useBoilHistoryModalStore(useShallow((state) => state.boil_id));
   const boilValue = useBoilHistoryModalStore(useShallow((state) => state.boil_value));
 
-  const cancelButtonEnabled = useBoilHistoryModalStore(useShallow((state) => state.cancelButtonEnabled));
+  const cancelButtonEnabled = useBoilHistoryModalStore(
+    useShallow((state) => state.cancelButtonEnabled),
+  );
   const title = useBoilHistoryModalStore(useShallow((state) => state.title));
   const setOpen = useBoilHistoryModalStore(useShallow((state) => state.setOpen));
 
@@ -30,11 +32,11 @@ export default function BoilHistoryModal() {
   const user = useAuthStore(useShallow((state) => state.user));
 
   const history_table_thead: TheadProperties[] = [
-    { width: 50, padding: "18px 6px", value: "Дата" },
-    { width: 50, padding: "18px 6px", value: "Время" },
-    { width: 100, padding: "18px 6px", value: "Статус записи" },
-    { width: 80, padding: "18px 6px", value: "Автор записи" },
-    { width: 50, padding: "18px 6px", value: "Комментарий" },
+    { width: 50, padding: '18px 6px', value: 'Дата' },
+    { width: 50, padding: '18px 6px', value: 'Время' },
+    { width: 100, padding: '18px 6px', value: 'Статус записи' },
+    { width: 80, padding: '18px 6px', value: 'Автор записи' },
+    { width: 50, padding: '18px 6px', value: 'Комментарий' },
   ];
 
   const modalProps = {
@@ -52,11 +54,11 @@ export default function BoilHistoryModal() {
       const data: AddHistoryDto = {
         record_id: null,
         boil_value: boilValue,
-        historyType: "base_check", // condition between boil & record = > state
+        historyType: 'base_check', // condition between boil & record = > state
         userId: user.id,
         employeeId: null,
         note: null,
-        history_note: "Отмена ошибочного внесения",
+        history_note: 'Отмена ошибочного внесения',
       };
       setOpen(false);
       addHistoryDirect(data);
@@ -74,21 +76,27 @@ export default function BoilHistoryModal() {
     const scope = rowScope(row.historyType.value);
     return (
       <tr key={row.id}>
-        <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+        <td scope={scope} style={{ width: 50, textAlign: 'center', padding: '18px 6px' }}>
           <Typography level="body-xs">{formatDateToString(row.createdAt)}</Typography>
         </td>
-        <td scope={scope} style={{ width: 50, textAlign: "center", padding: "18px 6px" }}>
+        <td scope={scope} style={{ width: 50, textAlign: 'center', padding: '18px 6px' }}>
           <Typography level="body-xs">{formatTimeToString(row.createdAt)}</Typography>
         </td>
-        <td scope={scope} style={{ width: 100, textAlign: "center", padding: "18px 6px" }}>
+        <td scope={scope} style={{ width: 100, textAlign: 'center', padding: '18px 6px' }}>
           <StyledTypography text={row.historyType.description} state={row.historyType.value} />
         </td>
-        <td scope={scope} style={{ width: 80, textAlign: "center", padding: "18px 6px" }}>
-          <Typography level="body-xs">{row.user ? row.user.name : row.employee ? row.employee.name : "-"}</Typography>
+        <td scope={scope} style={{ width: 80, textAlign: 'center', padding: '18px 6px' }}>
+          <Typography level="body-xs">
+            {row.user ? row.user.name : row.employee ? row.employee.name : '-'}
+          </Typography>
         </td>
-        <td scope={scope} style={{ width: 50, textAlign: "center", padding: "6px 6px" }}>
+        <td scope={scope} style={{ width: 50, textAlign: 'center', padding: '6px 6px' }}>
           {row.note_id && (
-            <IconButton variant="plain" size="sm" onClick={() => handleNoteModalButtonClick(row.note_id)}>
+            <IconButton
+              variant="plain"
+              size="sm"
+              onClick={() => handleNoteModalButtonClick(row.note_id)}
+            >
               <InfoOutlinedIcon />
             </IconButton>
           )}
@@ -99,12 +107,12 @@ export default function BoilHistoryModal() {
 
   const ButtonsComponent = () => {
     return (
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 1 }}>
         <Button
           color="neutral"
           variant="outlined"
-          size={"sm"}
-          sx={{ fontWeight: "normal", fontSize: "small" }}
+          size={'sm'}
+          sx={{ fontWeight: 'normal', fontSize: 'small' }}
           onClick={() => setOpen(false)}
         >
           Закрыть
@@ -113,8 +121,8 @@ export default function BoilHistoryModal() {
           <Button
             color="neutral"
             variant="outlined"
-            size={"sm"}
-            sx={{ fontWeight: "normal", fontSize: "small" }}
+            size={'sm'}
+            sx={{ fontWeight: 'normal', fontSize: 'small' }}
             onClick={() => handleCancelButtonClick()}
           >
             Отменить последнюю запись

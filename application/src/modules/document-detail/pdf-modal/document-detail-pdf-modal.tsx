@@ -1,8 +1,8 @@
 // import * as React from "react";
-import { useShallow } from "zustand/react/shallow";
-import { usePDFModalStore } from "../store/use-pdf-modal-store";
-import ModalLayout from "../../../shared/layouts/modal-layout";
-import DocumentDetailPDFView from "./document-detail-pdf-view";
+import { useShallow } from 'zustand/react/shallow';
+import { usePDFModalStore } from '../store/use-pdf-modal-store';
+import ModalLayout from '../../../shared/layouts/modal-layout';
+import DocumentDetailPDFView from './document-detail-pdf-view';
 
 // const ModalLayout = React.lazy(() => import("../../../shared/layouts/modal-layout"));
 // const DocumentDetailPDFView = React.lazy(() => import("./document-detail-pdf-view"));
@@ -21,7 +21,7 @@ export default function DocumentDetailPDFModal() {
   const modalProps = {
     open: open,
     onClose: () => onClose(),
-    title: "История статусов",
+    title: 'История статусов',
     height: 600,
     minHeight: 600,
     width: 800,
