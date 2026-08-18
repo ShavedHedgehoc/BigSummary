@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router';
-import { usePlants } from '../../shared/api/use-plants';
+// import { usePlants } from '../../shared/api/use-plants';
 import InfoPage from '../../shared/components/info-page';
 import TechLayout from '../../shared/layouts/tech-layout';
 
@@ -8,18 +8,25 @@ import CansHeader from './cans-header';
 import AppFooter from '../app-footer';
 import CansFilterModal from './cans-filter/cans-filter-modal';
 import CansHistoryModal from './cans-history/cans-history-modal';
+import { trpc } from '../../shared/api/trpc';
 
 export default function Cans() {
   let [searchParams] = useSearchParams();
   const plant = searchParams.get('plant');
-  const { data } = usePlants(plant);
 
-  if (!data) {
-    return <InfoPage message="Площадка из строки поиска отсутствует в базе данных..." />;
-  }
+  // const { data } = usePlants(plant);
+
+  // if (!data) {
+  //   return <InfoPage message="Площадка из строки поиска отсутствует в базе данных..." />;
+  // }
 
   if (plant === null) {
     return <InfoPage message=" Отсутствует выбор площадки в строке поиска..." />;
+  }
+
+  const { data } = trpc.dash.plant.getPlantByValue.useQuery({ value: plant });
+  if (!data) {
+    return <InfoPage message="Площадка из строки поиска отсутствует в базе данных..." />;
   }
 
   return (

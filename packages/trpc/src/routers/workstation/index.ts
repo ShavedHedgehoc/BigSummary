@@ -5,6 +5,6 @@ import { workstationEmployeeRouter } from './employee/index';
 
 export const workstationRouter = router({
   employee: workstationEmployeeRouter,
-  coveyor: workstationConveyorRouter,
+  conveyor: workstationConveyorRouter,
   // terminals: workstationTerminalsRouter, <-- новые роутеры для воркстейшена добавляются сюда
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDoc } from '../../shared/api/use-doc';
-import { IPlant } from '../../shared/api/services/plant-service';
+// import { IPlant } from '../../shared/api/services/plant-service';
 import ListIcon from '../../shared/components/icons/list-icon';
 import CardIcon from '../../shared/components/icons/card-icon';
 import EyeIcon from '../../shared/components/icons/eye-icon';
@@ -10,8 +10,9 @@ import SummaryRow from './summary-row';
 import SummaryCard from './summary-card';
 import { useSummaryViewStore } from './store/use-summary-view-store';
 import { useShallow } from 'zustand/react/shallow';
+import { TDashPlantByValueOutput } from '@repo/schemas';
 
-export default function SummaryView(plant: IPlant) {
+export default function SummaryView(plant: TDashPlantByValueOutput) {
   const notScrollingCardsQuantity = window.innerWidth > 1280 ? 48 : 42;
   const notScrollingRowsQuantity = 14;
   const scrollDelay = 30000;
@@ -102,16 +103,18 @@ export default function SummaryView(plant: IPlant) {
             <>
               <div
                 className={` grid  sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6  grid-rows-14 gap-2  overflow-hidden pb-2 w-full
-                ${scrolling &&
+                ${
+                  scrolling &&
                   !hideFinished &&
                   recordsCount > notScrollingCardsQuantity &&
                   'animate-[slide1_15s_linear_infinite] absolute top-0 w-full'
-                  }
-                ${scrolling &&
+                }
+                ${
+                  scrolling &&
                   hideFinished &&
                   activeRecordsCount > notScrollingCardsQuantity &&
                   'animate-[slide1_15s_linear_infinite] absolute top-0 w-full'
-                  }`}
+                }`}
               >
                 {isSuccess &&
                   data.records &&
@@ -129,16 +132,17 @@ export default function SummaryView(plant: IPlant) {
               </div>
               <div
                 className={` card-anim grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 grid-rows-14 gap-2 overflow-hidden absolute top-0 w-full pb-2                
-                 ${scrolling
-                    ? hideFinished
-                      ? activeRecordsCount > notScrollingCardsQuantity
-                        ? 'animate-[slide2_15s_linear_infinite]'
-                        : 'invisible'
-                      : recordsCount > notScrollingCardsQuantity
-                        ? 'animate-[slide2_15s_linear_infinite]'
-                        : 'invisible'
-                    : 'invisible'
-                  }
+                 ${
+                   scrolling
+                     ? hideFinished
+                       ? activeRecordsCount > notScrollingCardsQuantity
+                         ? 'animate-[slide2_15s_linear_infinite]'
+                         : 'invisible'
+                       : recordsCount > notScrollingCardsQuantity
+                         ? 'animate-[slide2_15s_linear_infinite]'
+                         : 'invisible'
+                     : 'invisible'
+                 }
                 `}
               >
                 {isSuccess &&
@@ -161,16 +165,18 @@ export default function SummaryView(plant: IPlant) {
             <>
               <div
                 className={`grid  grid-cols-1 grid-rows-14 gap-2  overflow-hidden pb-2
-                ${scrolling &&
+                ${
+                  scrolling &&
                   !hideFinished &&
                   recordsCount > notScrollingRowsQuantity &&
                   'animate-[slide1_45s_linear_infinite] absolute top-0 w-full'
-                  }
-                ${scrolling &&
+                }
+                ${
+                  scrolling &&
                   hideFinished &&
                   activeRecordsCount > notScrollingRowsQuantity &&
                   'animate-[slide1_45s_linear_infinite] absolute top-0 w-full'
-                  }`}
+                }`}
               >
                 {isSuccess &&
                   data.records &&
@@ -189,16 +195,17 @@ export default function SummaryView(plant: IPlant) {
 
               <div
                 className={`grid grid-cols-1 grid-row-14  gap-2 overflow-hidden absolute top-0 w-full pb-2                
-                 ${scrolling
-                    ? hideFinished
-                      ? activeRecordsCount > notScrollingRowsQuantity
-                        ? 'animate-[slide2_45s_linear_infinite]'
-                        : 'invisible'
-                      : recordsCount > notScrollingRowsQuantity
-                        ? 'animate-[slide2_45s_linear_infinite]'
-                        : 'invisible'
-                    : 'invisible'
-                  }`}
+                 ${
+                   scrolling
+                     ? hideFinished
+                       ? activeRecordsCount > notScrollingRowsQuantity
+                         ? 'animate-[slide2_45s_linear_infinite]'
+                         : 'invisible'
+                       : recordsCount > notScrollingRowsQuantity
+                         ? 'animate-[slide2_45s_linear_infinite]'
+                         : 'invisible'
+                     : 'invisible'
+                 }`}
               >
                 {isSuccess &&
                   data.records &&

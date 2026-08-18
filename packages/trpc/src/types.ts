@@ -1,5 +1,5 @@
 import type {
-  // TRegisteredUser,
+  TRegisteredUser,
   TGetWorkstationEmployeeByBarcodeInput,
   TWorkstationEmployeeByBarcodeOutput,
   TGetWorkstationConveyorByBarcodeInput,
@@ -40,5 +40,5 @@ export interface ITrpcContext {
   // planService: IPlanService;
   res: any;
   req: any;
-  // user: TRegisteredUser | null;
+  user: TRegisteredUser | null;
 }

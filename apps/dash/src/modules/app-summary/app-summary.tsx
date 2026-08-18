@@ -8,7 +8,7 @@ import TechLayout from '../../shared/layouts/tech-layout';
 import AppFooter from '../app-footer';
 import AppSummaryHeader from './app-summary-header';
 import AppSummaryViewTemp from './app-summary-view-temp';
-import { trpc } from '../../shared/trpc';
+import { trpc } from '../../shared/api/trpc';
 
 export default function AppSummary() {
   let [searchParams] = useSearchParams();
@@ -20,12 +20,9 @@ export default function AppSummary() {
   }
   const { data, isSuccess } = trpc.dash.plant.getPlantByValue.useQuery({ value: plant });
 
-
   if (!data) {
     return <InfoPage message="Площадка из строки поиска отсутствует в базе данных..." />;
   }
-
-
 
   return (
     <TechLayout>

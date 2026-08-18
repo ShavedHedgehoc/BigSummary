@@ -3,8 +3,9 @@ import { nodeHTTPRequestHandler } from '@trpc/server/adapters/node-http';
 import { appRouter } from '@repo/trpc';
 import { TrpcService } from './trpc.service';
 import { Request, Response } from 'express';
-import { renderTrpcStudio } from '@srawad/trpc-studio';
-import trpcSchema from './schema.json';
+// import { renderTrpcStudio } from '@srawad/trpc-studio';
+// import trpcSchema from './schema.json';
+import { renderTrpcPanel } from '@ajayche/trpc-panel';
 
 @Controller('trpc')
 export class TrpcController {
@@ -16,18 +17,20 @@ export class TrpcController {
   @Get('studio')
   getStudio(@Res() res: Response) {
     if (process.env.NODE_ENV !== 'production') {
-      const html = renderTrpcStudio(appRouter, {
+      const html = renderTrpcPanel(appRouter, {
         url: `http://localhost:${process.env.API_PORT || 7000}/trpc`,
         transformer: 'superjson',
-        inputSchemas: trpcSchema.inputs,
-        outputSchemas: trpcSchema.outputs,
+        // inputSchemas: trpcSchema.inputs,
+        // outputSchemas: trpcSchema.outputs,
         meta: {
           title: 'tRPC Api',
-          version: '1.0.0',
+          description: '1.0.0',
         },
       });
-      res.send(html);
+      res.setHeader('Content-Type', 'text/html');
+      return res.send(html);
     }
+    return res.status(404).send('Not Found');
   }
 
   @All(':path')

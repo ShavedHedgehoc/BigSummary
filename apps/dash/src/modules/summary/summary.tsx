@@ -3,10 +3,10 @@ import { useSearchParams } from 'react-router';
 // import { usePlants } from '../../shared/api/use-plants';
 import InfoPage from '../../shared/components/info-page';
 import SummaryView from './summary-view';
-import { trpc } from '../../shared/trpc';
+import { trpc } from '../../shared/api/trpc';
 
 export default function Summary() {
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const plant = searchParams.get('plant');
   // const { data, isSuccess } = usePlants(plant);
 

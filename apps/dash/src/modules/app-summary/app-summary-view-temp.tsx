@@ -16,8 +16,6 @@ export default function AppSummaryViewTemp(plant: IPlant) {
 
   const interval = React.useRef(scrollDelay);
 
-
-
   const current = useAppSummaryStore(useShallow((state) => state.current));
 
   const { data, isSuccess, isPending } = useAppDoc(plant.id, current);
@@ -69,10 +67,11 @@ export default function AppSummaryViewTemp(plant: IPlant) {
         <div className="overflow-y-auto scrollbar-none h-full">
           <div
             className={` grid  sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6  grid-rows-12 gap-2  overflow-hidden  w-full
-                ${scrolling &&
-              recordsCount > notScrollingCardsQuantity &&
-              'animate-[slide1_15s_linear_infinite] absolute top-0 w-full'
-              }
+                ${
+                  scrolling &&
+                  recordsCount > notScrollingCardsQuantity &&
+                  'animate-[slide1_15s_linear_infinite] absolute top-0 w-full'
+                }
                 `}
           >
             {isSuccess &&
@@ -81,12 +80,13 @@ export default function AppSummaryViewTemp(plant: IPlant) {
           </div>
           <div
             className={` card-anim grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 grid-rows-12 gap-2 overflow-hidden absolute top-0 w-full pb-2                
-                 ${scrolling
-                ? recordsCount > notScrollingCardsQuantity
-                  ? 'animate-[slide2_15s_linear_infinite]'
-                  : 'invisible'
-                : 'invisible'
-              }
+                 ${
+                   scrolling
+                     ? recordsCount > notScrollingCardsQuantity
+                       ? 'animate-[slide2_15s_linear_infinite]'
+                       : 'invisible'
+                     : 'invisible'
+                 }
                 `}
           >
             {isSuccess &&
