@@ -1,11 +1,12 @@
 import { useShallow } from 'zustand/react/shallow';
-import TracePlantService, { ITracePlant } from '../../../shared/api/services/trace-plant-service';
 import { useCansFilterStore } from '../store/use-cans-filter-store';
-import { useQuery } from '@tanstack/react-query';
 import { CansFilterParams } from './cans-filter-params';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import clsx from 'clsx';
 import DownIcon from '../../../shared/components/icons/down-icon';
+import { trpc } from '../../../shared/api';
+import { useEffect } from 'react';
+import { ITracePlant } from '@repo/schemas';
 
 export default function CansFilterPlantSelector() {
   const changeFilter = useCansFilterStore(useShallow((state) => state.changeFilter));
@@ -18,16 +19,13 @@ export default function CansFilterPlantSelector() {
     useShallow((state) => state.fillPlantSelectorOptions),
   );
 
-  useQuery({
-    queryKey: ['trace_plants_options', 'cans'],
-    queryFn: async () => {
-      const data = await TracePlantService.getAllPlants();
-      if (data) {
-        fillPlantSelectorOptions(data);
-        return data;
-      }
-    },
-  });
+  const { data } = trpc.dash.trace.plant.getAllPlants.useQuery();
+  useEffect(() => {
+    if (data) {
+      fillPlantSelectorOptions(data);
+    }
+  }, [data]);
+
 
   const handleChange = (item: ITracePlant) => {
     setSelectedPlant(item);

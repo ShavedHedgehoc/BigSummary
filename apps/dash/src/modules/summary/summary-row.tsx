@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router';
-import { IDocRow } from '../../shared/api/services/doc-service';
+
 import { RouteNames } from '../../shared/router/route-names';
 import { formatTimeToString } from '../../shared/helpers/date-time-formatters';
+import { TRecordDetailResponse } from '@repo/schemas';
 
-export default function SummaryRow(item: IDocRow) {
+export default function SummaryRow(item: TRecordDetailResponse) {
   const navigate = useNavigate();
   return (
     <div
@@ -67,7 +68,7 @@ export default function SummaryRow(item: IDocRow) {
                 : 'invisible'
             }`}
           >
-            {formatTimeToString(item.stateTime)}
+            {item.stateTime && formatTimeToString(item.stateTime)}
           </div>
         </div>
       </div>

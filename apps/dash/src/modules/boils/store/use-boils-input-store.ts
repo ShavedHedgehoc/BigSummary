@@ -1,12 +1,12 @@
 import { create } from 'zustand';
-import { FetchBoilsFilter } from '../../../shared/api/services/boil-service';
+import { IBoilListFilter } from '@repo/schemas';
 
 interface BoilsInputStore {
-  filter: FetchBoilsFilter;
+  filter: IBoilListFilter;
   setValue: (value: string) => void;
 }
 
-const initFilterValue: FetchBoilsFilter = {
+const initFilterValue: IBoilListFilter = {
   baseCode: '',
   boil: '',
   marking: '',

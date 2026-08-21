@@ -1,12 +1,12 @@
 import { useShallow } from 'zustand/react/shallow';
 import { useCansFilterStore } from '../store/use-cans-filter-store';
-import { useQuery } from '@tanstack/react-query';
 import { CansFilterParams } from './cans-filter-params';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import clsx from 'clsx';
 import DownIcon from '../../../shared/components/icons/down-icon';
 import ListCheckIcon from '../../../shared/components/icons/list-check-icon';
-import TraceCanStatesService from '../../../shared/api/services/trace-can-state-service';
+import { trpc } from '../../../shared/api';
+import { useEffect } from 'react';
 
 export default function CansFilterStateSelector() {
   const filter = useCansFilterStore(useShallow((state) => state.filter));
@@ -18,16 +18,14 @@ export default function CansFilterStateSelector() {
     useShallow((state) => state.fillStateSelectorOptions),
   );
 
-  useQuery({
-    queryKey: ['trace_states_options', 'cans'],
-    queryFn: async () => {
-      const data = await TraceCanStatesService.getCanStates();
-      if (data) {
-        fillStateSelectorOptions(data);
-        return data;
-      }
-    },
-  });
+
+
+  const { data } = trpc.dash.trace.canState.getAllCanStates.useQuery();
+  useEffect(() => {
+    if (data) {
+      fillStateSelectorOptions(data);
+    }
+  }, [data]);
 
   const handleChange = (items: number[]) => {
     changeFilter({ key: CansFilterParams.STATES, value: '', values: items });

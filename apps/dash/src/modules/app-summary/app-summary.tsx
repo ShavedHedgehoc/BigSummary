@@ -7,11 +7,11 @@ import TechLayout from '../../shared/layouts/tech-layout';
 
 import AppFooter from '../app-footer';
 import AppSummaryHeader from './app-summary-header';
-import AppSummaryViewTemp from './app-summary-view-temp';
+import AppSummaryViewTemp from './app-summary-view';
 import { trpc } from '../../shared/api/trpc';
 
 export default function AppSummary() {
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const plant = searchParams.get('plant');
 
   // const { data, isSuccess } = usePlants(plant);

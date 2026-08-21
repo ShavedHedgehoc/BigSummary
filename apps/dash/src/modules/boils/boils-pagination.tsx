@@ -5,6 +5,7 @@ import ArrowLeftIcon from '../../shared/components/icons/arrow-left-icon';
 import DoubleArrowRightIcon from '../../shared/components/icons/double-arrow-right-icon';
 import ArrowRightIcon from '../../shared/components/icons/arrow-rigth-icon';
 import clsx from 'clsx';
+import React from 'react';
 
 export default function BoilsPagination() {
   const page = useBoilsPaginationStore(useShallow((state) => state.page));
@@ -14,6 +15,17 @@ export default function BoilsPagination() {
   const decreasePage = useBoilsPaginationStore(useShallow((state) => state.decreasePage));
   const setPage = useBoilsPaginationStore(useShallow((state) => state.setPage));
   const pages = Math.ceil(total / limit);
+
+  React.useEffect(() => {
+    setPage(1);
+  }, [limit, setPage]); // Следим строго за изменением лимита
+
+  // 2. ЗАЩИТНЫЙ ЭФФЕКТ: Сброс, если текущая страница стала больше максимальной из-за фильтров
+  React.useEffect(() => {
+    if (pages > 0 && page > pages) {
+      setPage(pages);
+    }
+  }, [pages, page, setPage]);
 
   const decreaseButtonsDisabled = page === 1 || total === 0;
   const increaseButtonsDisabled = page === pages || pages === 0;

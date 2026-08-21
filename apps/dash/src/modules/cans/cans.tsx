@@ -11,7 +11,7 @@ import CansHistoryModal from './cans-history/cans-history-modal';
 import { trpc } from '../../shared/api/trpc';
 
 export default function Cans() {
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const plant = searchParams.get('plant');
 
   // const { data } = usePlants(plant);

@@ -21,7 +21,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
           transformer: superjson,
         }),
       ],
-    })
+    }),
   );
 
   return (
@@ -126,7 +126,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
 //               if (!refreshPromise) {
 //                 // Вызываем мутацию рефреша через подготовленный vanillaClient
 //                 refreshPromise = vanillaClient.mutation('auth.refresh') as Promise<RefreshResponse>;
-
 
 //                 refreshPromise
 //                   .then((res) => {

@@ -7,7 +7,8 @@
     },
     "scripts": {
         "preinstall": "npx only-allow pnpm",
-        "db:generate": "pnpm --filter @repo/db-postgres generate",
+        "knip": "knip",
+        "db:generate": "pnpm --filter @repo/db-postgres --filter @repo/db-mssql generate",
         "api:dev": "pnpm --filter api_v2 dev",
         "monorepo:dev": "pnpm --filter \"./apps/**\" --parallel run dev",
         "schema": "pnpm --filter api_v2 schema",
@@ -17,7 +18,8 @@
     },
     "devDependencies": {
         "prettier": "^3.9.6",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "knip": "^6.9.0"
     },
     "pnpm": {
         "overrides": {

@@ -14,9 +14,19 @@ export default function CansView() {
   const [recordsCount, setRecordsCount] = React.useState(0);
 
   const interval = React.useRef(scrollDelay);
-  const { isPending, data, isSuccess } = useCans({ filter: filter });
+  const { isLoading, data, isSuccess } = useCans({ filter: filter });
 
-  const resetTimer = () => {
+  // const resetTimer = () => {
+  //   setScrolling(false);
+  //   clearInterval(interval.current);
+  //   // interval.current = setInterval(() => {
+  //   interval.current = window.setInterval(() => {
+  //     setScrolling(true);
+  //   }, scrollDelay);
+  //   return () => clearInterval(interval.current);
+  // };
+
+  const resetTimer = React.useCallback(() => {
     setScrolling(false);
     clearInterval(interval.current);
     // interval.current = setInterval(() => {
@@ -24,22 +34,22 @@ export default function CansView() {
       setScrolling(true);
     }, scrollDelay);
     return () => clearInterval(interval.current);
-  };
-
-  const countRecords = () => {
-    setRecordsCount(isSuccess && data ? data.length : 0);
-  };
-
-  React.useEffect(() => {
-    resetTimer();
   }, []);
 
+  // React.useEffect(() => {
+  //   resetTimer();
+  // }, []);
+
   React.useEffect(() => {
     resetTimer();
-    countRecords();
-  }, [data]);
 
-  if (isPending) {
+    const countRecords = () => {
+      setRecordsCount(isSuccess && data ? data.length : 0);
+    };
+    countRecords();
+  }, [data, isSuccess, resetTimer]);
+
+  if (isLoading) {
     return <InfoPage message="Загружаю..." />;
   }
 

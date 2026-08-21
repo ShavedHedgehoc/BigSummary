@@ -10,7 +10,7 @@ export default function BoilsKeyboard() {
   const keyboard = useRef<SimpleKeyboard | null>(null);
   const setValue = useBoilsInputStore(useShallow((state) => state.setValue));
 
-  React.useEffect(() => setValue(''), []);
+  React.useEffect(() => setValue(''), [setValue]);
 
   return (
     <div className="flex w-full rounded-xl border1 border-slate-600 px-2 py-2 bg-gray-950">

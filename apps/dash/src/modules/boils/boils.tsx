@@ -9,7 +9,7 @@ import BoilsView from './boils-view';
 import { trpc } from '../../shared/api/trpc';
 
 export default function Boils() {
-  let [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const plant = searchParams.get('plant');
   // const { data } = usePlants(plant);
 

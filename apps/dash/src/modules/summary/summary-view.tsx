@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDoc } from '../../shared/api/use-doc';
+// import { useDoc } from '../../shared/api/use-doc';
 // import { IPlant } from '../../shared/api/services/plant-service';
 import ListIcon from '../../shared/components/icons/list-icon';
 import CardIcon from '../../shared/components/icons/card-icon';
@@ -11,6 +11,7 @@ import SummaryCard from './summary-card';
 import { useSummaryViewStore } from './store/use-summary-view-store';
 import { useShallow } from 'zustand/react/shallow';
 import { TDashPlantByValueOutput } from '@repo/schemas';
+import { trpc } from '../../shared/api';
 
 export default function SummaryView(plant: TDashPlantByValueOutput) {
   const notScrollingCardsQuantity = window.innerWidth > 1280 ? 48 : 42;
@@ -27,7 +28,11 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
 
   const interval = React.useRef(scrollDelay);
 
-  const { data, isSuccess } = useDoc(plant.id);
+  // const { data, isSuccess } = useDoc(plant.id);
+  const { data, isSuccess } = trpc.dash.doc.getDocDataCurrent.useQuery(
+    { plantId: plant.id },
+    { refetchInterval: 10000 },
+  );
 
   const resetTimer = () => {
     setScrolling(false);
@@ -39,14 +44,14 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
     return () => clearInterval(interval.current);
   };
 
-  const countRecords = () => {
-    const activeRecord =
-      isSuccess && data.records
-        ? data.records.filter((x) => x.stateValue !== 'product_finished')
-        : [];
-    setRecordsCount(isSuccess && data.records ? data.records.length : 0);
-    setActiveRecordsCount(activeRecord.length);
-  };
+  // const countRecords = () => {
+  //   const activeRecord =
+  //     isSuccess && data.records
+  //       ? data.records.filter((x) => x.stateValue !== 'product_finished')
+  //       : [];
+  //   setRecordsCount(isSuccess && data.records ? data.records.length : 0);
+  //   setActiveRecordsCount(activeRecord.length);
+  // };
 
   const switchHide = () => {
     setHideFinished((prev) => !prev);
@@ -61,10 +66,17 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
   }, []);
 
   React.useEffect(() => {
+    const countRecords = () => {
+      const activeRecord = data?.records
+        ? data.records.filter((x) => x.stateValue !== 'product_finished')
+        : [];
+      setRecordsCount(data?.records ? data.records.length : 0);
+      setActiveRecordsCount(activeRecord.length);
+    };
     countRecords();
-  }, [data]);
+  }, [data, isSuccess]);
 
-  if (isSuccess && data.records.length === 0) {
+  if (isSuccess && data?.records.length === 0) {
     return <InfoPage message="Записей не найдено..." />;
   }
 
@@ -117,7 +129,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                 }`}
               >
                 {isSuccess &&
-                  data.records &&
+                  data?.records &&
                   hideFinished &&
                   data.records.map(
                     (item) =>
@@ -126,7 +138,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                       ),
                   )}
                 {isSuccess &&
-                  data.records &&
+                  data?.records &&
                   !hideFinished &&
                   data.records.map((item) => <SummaryCard {...item} key={`card_${item.id}`} />)}
               </div>
@@ -145,8 +157,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                  }
                 `}
               >
-                {isSuccess &&
-                  data.records &&
+                {data?.records &&
                   hideFinished &&
                   data.records.map(
                     (item) =>
@@ -154,8 +165,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                         <SummaryCard {...item} key={`inv_card_${item.id}`} />
                       ),
                   )}
-                {isSuccess &&
-                  data.records &&
+                {data?.records &&
                   !hideFinished &&
                   data.records.map((item) => <SummaryCard {...item} key={`inv_card_${item.id}`} />)}
               </div>
@@ -178,8 +188,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                   'animate-[slide1_45s_linear_infinite] absolute top-0 w-full'
                 }`}
               >
-                {isSuccess &&
-                  data.records &&
+                {data?.records &&
                   hideFinished &&
                   data.records.map(
                     (item) =>
@@ -187,8 +196,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                         <SummaryRow {...item} key={`row_${item.id}`} />
                       ),
                   )}
-                {isSuccess &&
-                  data.records &&
+                {data?.records &&
                   !hideFinished &&
                   data.records.map((item) => <SummaryRow {...item} key={`row_${item.id}`} />)}
               </div>
@@ -207,8 +215,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                      : 'invisible'
                  }`}
               >
-                {isSuccess &&
-                  data.records &&
+                {data?.records &&
                   hideFinished &&
                   data.records.map(
                     (item) =>
@@ -216,8 +223,7 @@ export default function SummaryView(plant: TDashPlantByValueOutput) {
                         <SummaryRow {...item} key={`inv_row_${item.id}`} />
                       ),
                   )}
-                {isSuccess &&
-                  data.records &&
+                {data?.records &&
                   !hideFinished &&
                   data.records.map((item) => <SummaryRow {...item} key={`inv_row_${item.id}`} />)}
               </div>

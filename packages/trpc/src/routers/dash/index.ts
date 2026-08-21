@@ -1,6 +1,9 @@
 import { router } from '../../trpc';
-import { dashPlantRouter } from './plant';
+import { dashMainRouter } from './main';
+import { dashTraceRouter } from './trace';
 
 export const dashRouter = router({
-  plant: dashPlantRouter,
+  main: dashMainRouter,
+  trace: dashTraceRouter
+
 });

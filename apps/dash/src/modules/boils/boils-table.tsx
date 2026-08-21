@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useBoilsInputStore } from './store/use-boils-input-store';
-import { useBoils } from './use-boils';
 import { useBoilsPaginationStore } from './store/use-boils-pagination-store';
 import clsx from 'clsx';
 import BarcodeIcon from '../../shared/components/icons/barcode-icon';
 import { useBoilsBarcodeModalStore } from './store/use-boils-barcode-modal-store';
+import { trpc } from '../../shared/api';
 // import clsx from "clsx";
 
 export default function BoilsTable() {
   const filter = useBoilsInputStore(useShallow((state) => state.filter));
-  const total = useBoilsPaginationStore(useShallow((state) => state.total));
+  // const total = useBoilsPaginationStore(useShallow((state) => state.total));
   const setTotal = useBoilsPaginationStore(useShallow((state) => state.setTotal));
-  const setPage = useBoilsPaginationStore(useShallow((state) => state.setPage));
+  // const setPage = useBoilsPaginationStore(useShallow((state) => state.setPage));
   const limit = useBoilsPaginationStore(useShallow((state) => state.limit));
   const page = useBoilsPaginationStore(useShallow((state) => state.page));
   const setOpen = useBoilsBarcodeModalStore(useShallow((state) => state.setOpen));
@@ -20,37 +20,46 @@ export default function BoilsTable() {
   const setCode = useBoilsBarcodeModalStore(useShallow((state) => state.setCode));
   const setMarking = useBoilsBarcodeModalStore(useShallow((state) => state.setMarking));
 
-  const { isPending, data, isSuccess } = useBoils({ filter: filter, limit: limit, page: page });
+  // const { isLoading, data, isSuccess } = useBoils({ filter: filter, limit: limit, page: page });
+  const { isLoading, data, isSuccess } = trpc.dash.main.boil.getBoilList.useQuery(
+    { filter: filter, limit: limit, page: page },
+    { refetchInterval: 10000 },
+  );
 
   const handleBarcodeButtonClick = ({
     code,
     boil,
     marking,
   }: {
-    code: string;
-    boil: string;
-    marking: string;
+    code: string | null;
+    boil: string | null;
+    marking: string | null;
   }) => {
-    setCode(code);
-    setBoil(boil);
-    setMarking(marking);
+    setCode(code ?? '-');
+    setBoil(boil ?? '-');
+    setMarking(marking ?? '-');
     setOpen(true);
   };
 
+  // React.useEffect(() => {
+  //   if (data && data.total !== total) {
+  //     setTotal(data.total);
+  //     setPage(1);
+  //   }
+  // }, [data?.total]);
+
+  // React.useEffect(() => {
+  //   if (limit) {
+  //     setPage(1);
+  //   }
+  // }, [limit]);
   React.useEffect(() => {
-    if (data && data.total !== total) {
+    if (data?.total !== undefined) {
       setTotal(data.total);
-      setPage(1);
     }
-  }, [data?.total]);
+  }, [data?.total, setTotal]);
 
-  React.useEffect(() => {
-    if (limit) {
-      setPage(1);
-    }
-  }, [limit]);
-
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="flex flex-grow rounded-xl  items-center justify-center text-4xl text-slate-400 bg-gray-950">
         Loading
@@ -58,7 +67,7 @@ export default function BoilsTable() {
     );
   }
 
-  if (isSuccess && data.total === 0) {
+  if (isSuccess && data?.total === 0) {
     return (
       <div className="flex flex-grow rounded-xl  items-center justify-center text-4xl text-slate-400 bg-gray-950">
         Записи не найдены...
@@ -68,7 +77,7 @@ export default function BoilsTable() {
 
   return (
     <div className="flex flex-grow rounded-xl border border-slate-900 bg-gray-950">
-      {isSuccess && data.total > 0 && (
+      {isSuccess && data?.total && data?.total > 0 && (
         <div className="h-0 min-h-full overflow-y-auto  w-full  rounded-xl  scrollbar-none border1 border-slate-600">
           <div className="h-full min-h-0 ">
             <table className="table-auto text-slate-300 w-full">

@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { FetchCansFilter, ITraceCanVolume } from '../../../shared/api/services/trace-can-service';
 import { CansFilterParams } from '../cans-filter/cans-filter-params';
-import { ITracePlant } from '../../../shared/api/services/trace-plant-service';
-import { ITraceCanState } from '../../../shared/api/services/trace-can-state-service';
+
+// import { ITraceCanState } from '../../../shared/api/services/trace-can-state-service';
+import { ITraceCanState, ITracePlant } from '@repo/schemas';
 
 interface FilterFormField {
   key: string;

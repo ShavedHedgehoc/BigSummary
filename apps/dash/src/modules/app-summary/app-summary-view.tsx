@@ -1,12 +1,15 @@
 import React from 'react';
-import { IPlant } from '../../shared/api/services/plant-service';
+// import { IPlant } from '../../shared/api/services/plant-service';
 import InfoPage from '../../shared/components/info-page';
-import AppSummaryCard from './app-summary-card';
-import { useAppDoc } from '../../shared/api/use-app-doc';
+// import AppSummaryCard from "./app-summary-card";
+// import { useAppDoc } from '../../shared/api/use-app-doc';
 import { useAppSummaryStore } from './store/use-app-summary-store';
 import { useShallow } from 'zustand/react/shallow';
+import SummaryCard from '../summary/summary-card';
+import { TDashPlantByValueOutput } from '@repo/schemas';
+import { trpc } from '../../shared/api';
 
-export default function AppSummaryView(plant: IPlant) {
+export default function AppSummaryView(plant: TDashPlantByValueOutput) {
   const notScrollingCardsQuantity = window.innerWidth > 1280 ? 48 : 30;
   const scrollDelay = 3000;
 
@@ -17,7 +20,11 @@ export default function AppSummaryView(plant: IPlant) {
 
   const current = useAppSummaryStore(useShallow((state) => state.current));
 
-  const { data, isSuccess, isPending } = useAppDoc(plant.id, current);
+  // const { data, isSuccess, isLoading } = useAppDoc(plant.id, current);
+  const { data, isSuccess, isLoading } = trpc.dash.doc.getDocDataCurrentApp.useQuery(
+    { current, plantId: plant.id },
+    { refetchInterval: 10000 },
+  );
 
   const resetTimer = () => {
     setScrolling(false);
@@ -29,9 +36,10 @@ export default function AppSummaryView(plant: IPlant) {
     return () => clearInterval(interval.current);
   };
 
-  const countRecords = () => {
+  const countRecords = React.useCallback(() => {
+    if (!data) return;
     setRecordsCount(isSuccess && data.records ? data.records.length : 0);
-  };
+  }, [data, isSuccess]);
 
   React.useEffect(() => {
     resetTimer();
@@ -39,13 +47,13 @@ export default function AppSummaryView(plant: IPlant) {
 
   React.useEffect(() => {
     countRecords();
-  }, [data]);
+  }, [countRecords]);
 
-  if (isPending) {
+  if (isLoading) {
     return <InfoPage message="Загружаю..." />;
   }
 
-  if (isSuccess && data.records.length === 0) {
+  if (isSuccess && data?.records.length === 0) {
     return <InfoPage message="Записей не найдено..." />;
   }
 
@@ -65,7 +73,7 @@ export default function AppSummaryView(plant: IPlant) {
       >
         <div className="overflow-y-auto scrollbar-none h-full">
           <div
-            className={` grid  sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6  grid-rows-14 gap-2  overflow-hidden  w-full
+            className={` grid  sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6  grid-rows-12 gap-2  overflow-hidden  w-full
                 ${
                   scrolling &&
                   recordsCount > notScrollingCardsQuantity &&
@@ -74,11 +82,11 @@ export default function AppSummaryView(plant: IPlant) {
                 `}
           >
             {isSuccess &&
-              data.records &&
-              data.records.map((item) => <AppSummaryCard {...item} key={`card_${item.id}`} />)}
+              data?.records &&
+              data.records.map((item) => <SummaryCard {...item} key={`card_${item.id}`} />)}
           </div>
           <div
-            className={` card-anim grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 grid-rows-14 gap-2 overflow-hidden absolute top-0 w-full pb-2                
+            className={` card-anim grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 grid-rows-12 gap-2 overflow-hidden absolute top-0 w-full pb-2                
                  ${
                    scrolling
                      ? recordsCount > notScrollingCardsQuantity
@@ -89,8 +97,8 @@ export default function AppSummaryView(plant: IPlant) {
                 `}
           >
             {isSuccess &&
-              data.records &&
-              data.records.map((item) => <AppSummaryCard {...item} key={`inv_card_${item.id}`} />)}
+              data?.records &&
+              data.records.map((item) => <SummaryCard {...item} key={`inv_card_${item.id}`} />)}
           </div>
         </div>
       </div>

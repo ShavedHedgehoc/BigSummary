@@ -19,6 +19,8 @@ model api_errors {
 model apparatuses {
   id    Int    @id @default(autoincrement())
   value String @unique @db.VarChar(255)
+
+  records records[]
 }
 
 model bases {
@@ -40,6 +42,8 @@ model boils {
   histories     histories[]
   semi_products semi_products[]
   tube_records  tube_records[]
+  records       records[]
+  plants        plants?         @relation(fields: [plant_id], references: [id])
 
   @@index([plant_id, year(sort: Desc), letter(sort: Desc), number(sort: Desc), id, value, base_id])
   @@index([base_id], map: "idx_boils_base_id")
@@ -47,8 +51,9 @@ model boils {
 }
 
 model cans {
-  id    Int    @id @default(autoincrement())
-  value String @unique @db.VarChar(255)
+  id      Int       @id @default(autoincrement())
+  value   String    @unique @db.VarChar(255)
+  records records[]
 }
 
 model conveyors {
@@ -101,6 +106,7 @@ model histories {
   history_types history_types? @relation(fields: [historyTypeId], references: [id], onDelete: Cascade)
   records       records?       @relation(fields: [record_id], references: [id], onDelete: Cascade)
   users         users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notes         notes?         @relation(fields: [note_id], references: [id], onDelete: Cascade)
 
   @@index([record_id, createdAt], map: "idx_hist_record_createdat")
   @@index([boil_id, createdAt, id, record_id, historyTypeId, userId, employeeId, note, note_id, plant_id, updatedAt], map: "idx_histories_boil_createdat_include")
@@ -133,8 +139,9 @@ model marking_sample {
 }
 
 model notes {
-  id    Int     @id @default(autoincrement())
-  value String? @db.VarChar(255)
+  id        Int         @id @default(autoincrement())
+  value     String?     @db.VarChar(255)
+  histories histories[]
 }
 
 model occupations {
@@ -150,6 +157,7 @@ model plants {
   abb           String?         @db.VarChar(10)
   docs          docs[]
   user_settings user_settings[]
+  boils         boils[]
 }
 
 model products {
@@ -163,6 +171,8 @@ model products {
   series        series?         @relation(fields: [serieId], references: [id], onDelete: Cascade)
   regulations   regulations[]
   semi_products semi_products[]
+
+  records records[]
 }
 
 model record_counters {
@@ -225,7 +235,12 @@ model records {
   conveyors          conveyors?           @relation(fields: [conveyorId], references: [id], onDelete: Restrict)
   docs               docs?                @relation(fields: [doc_id], references: [id], onDelete: Cascade)
   workshops          workshops?           @relation(fields: [workshopId], references: [id], onDelete: Cascade)
-  semi_products      semi_products[]
+  products           products?            @relation(fields: [productId], references: [id], onDelete: Cascade)
+  boils              boils?               @relation(fields: [boilId], references: [id], onDelete: Cascade)
+  apparatuses        apparatuses?         @relation(fields: [apparatusId], references: [id], onDelete: Cascade)
+  cans               cans?                @relation(fields: [canId], references: [id], onDelete: Cascade)
+
+  semi_products semi_products[]
 
   @@index([apparatusId], map: "idx_records_apparatusid")
   @@index([boilId], map: "idx_records_boilid")

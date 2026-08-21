@@ -8,9 +8,9 @@ import {
 
 export default function CansHistoryTable() {
   const canId = useCansHistoryModalStore(useShallow((state) => state.canId));
-  const { data, isSuccess, isPending } = useCanRecords(canId);
+  const { data, isSuccess, isLoading } = useCanRecords(canId);
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="h-0 min-h-full overflow-y-auto  w-full  rounded-xl  scrollbar-none">
         <div className="h-full min-h-0 text-slate-200 font-semibold flex items-center justify-center">
@@ -46,7 +46,7 @@ export default function CansHistoryTable() {
             </thead>
             <tbody>
               {data.map((item) => (
-                <tr className="text-1xl">
+                <tr className="text-1xl" key={`row${item.CreateDate}`}>
                   <td className="border-b  border-gray-800 px-4 py-4 text-center">
                     {formatDateToString(item.CreateDate)}
                   </td>

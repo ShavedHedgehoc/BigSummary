@@ -1,0 +1,40 @@
+{
+    "$schema": "https://unpkg.com",
+    "ignore": [
+        "api",
+        "workstation"
+    ],
+    "workspaces": {
+        ".": {
+            "ignoreDependencies": [
+                "prettier-plugin-tailwindcss"
+            ]
+        },
+        "apps/api": {
+            "project": [
+                "src/**/*.ts"
+            ],
+            "ignoreDependencies": [
+                "superjson"
+            ]
+        },
+        "packages/db": {
+            "project": [
+                "src/**/*.ts"
+            ],
+            "ignore": [],
+            "ignoreDependencies": [
+                "@prisma/client"
+            ]
+        },
+        "packages/trpc": {
+            "ignore": [],
+            "ignoreDependencies": [
+                "@repo/db",
+                "@types/express",
+                "@types/express-serve-static-core",
+                "zod"
+            ]
+        }
+    }
+}
