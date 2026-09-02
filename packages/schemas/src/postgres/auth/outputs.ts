@@ -15,7 +15,6 @@ export const loginResponseSchema = z.object({
 
 export const loginTrpcResponseSchema = z.object({
   user: userSchema,
-  accessToken: z.string(),
 });
 
 export type TRegisteredUser = z.infer<typeof userSchema>;

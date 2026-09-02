@@ -4,8 +4,8 @@ import { TTracePlantListResponse } from '@repo/schemas';
 
 @Injectable()
 export class TracePlantCommonService {
-    async getAllPlants(): Promise<TTracePlantListResponse> {
-        const plants = await mssqlPrisma.plants.findMany({});
-        return plants
-    }
+  async getAllPlants(): Promise<TTracePlantListResponse> {
+    const plants = await mssqlPrisma.plants.findMany({});
+    return plants;
+  }
 }

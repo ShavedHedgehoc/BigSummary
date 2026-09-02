@@ -4,6 +4,5 @@ import { dashTraceRouter } from './trace';
 
 export const dashRouter = router({
   main: dashMainRouter,
-  trace: dashTraceRouter
-
+  trace: dashTraceRouter,
 });

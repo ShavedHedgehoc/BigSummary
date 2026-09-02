@@ -1,25 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { pgPrisma } from '@repo/db-postgres';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { IDashPlantService } from '@repo/trpc';
-import { TRPCError } from '@trpc/server';
-import { TGetDashPlantByValueInput, TDashPlantByValueOutput } from '@repo/schemas';
+import { TGetPlantByValueInput, TPlantByValueOutput } from '@repo/schemas';
+import { PlantCommonService } from './plant.common.service';
 
 @Injectable()
 export class DashPlantService implements IDashPlantService {
-  async getPlantByValue(input: TGetDashPlantByValueInput): Promise<TDashPlantByValueOutput> {
-    const { value } = input;
-
-    const plant = await pgPrisma.plants.findFirst({
-      where: { value },
-    });
-
-    if (!plant) {
-      throw new TRPCError({
-        code: 'NOT_FOUND',
-        message: `Площадка  ${value} не найдена`,
-      });
-    }
-
-    return plant;
+  constructor(
+    @Inject(forwardRef(() => PlantCommonService))
+    private plantCommonService: PlantCommonService,
+  ) {}
+  async getPlantByValue(input: TGetPlantByValueInput): Promise<TPlantByValueOutput> {
+    return this.plantCommonService.getPlantByValue(input);
   }
 }

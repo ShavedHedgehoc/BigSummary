@@ -21,13 +21,12 @@ export class DocCommonService {
     private semiProductService: SemiProductCommonService,
     @Inject(forwardRef(() => RegulationCommonService))
     private regulationCommonService: RegulationCommonService,
-  ) { }
+  ) {}
 
   private async recordResult(
     item: TRecordWithRelations,
     plantId: number,
   ): Promise<TRecordDetailResponse> {
-    // type from schemas here
     const [histories, fact, semiProducts, regulation] = await Promise.all([
       this.historyCommonService.getAllHistoriesByRecIdAndBoilId(item.id, item.water_base_id),
       this.recordCounterService.getTaskSum(item.id),
@@ -79,6 +78,7 @@ export class DocCommonService {
     });
 
     const recordsData = await this.recordCommonService.getRecordsByDocId(doc.id);
+
     const recordsResult = await Promise.all(
       recordsData.map((item) => this.recordResult(item, doc.plantId)),
     );
@@ -114,28 +114,44 @@ export class DocCommonService {
   }
 
   async getCurrentDocByPlantId(plantId: number): Promise<docs> {
-    const offset = 3;
-    const date = new Date(
-      new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0),
-    );
+    const moscowDateStr = new Date().toLocaleDateString('en-CA', {
+      timeZone: 'Europe/Moscow',
+    });
+
+    const startOfDay = new Date(`${moscowDateStr}T00:00:00+03:00`);
+    const endOfDay = new Date(`${moscowDateStr}T23:59:59.999+03:00`);
+
     const doc = await pgPrisma.docs.findFirst({
       where: {
         plantId: plantId,
-        date: date,
+        date: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
       },
     });
+
     return doc;
   }
 
   async getTomorrowDocByPlantId(plantId: number): Promise<docs> {
-    const offset = 3 + 24;
-    const date = new Date(
-      new Date(new Date().getTime() + offset * 3600 * 1000).setHours(12, 0, 0, 0),
-    );
+    const now = new Date();
+    const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+    const moscowTomorrowStr = tomorrow.toLocaleDateString('en-CA', {
+      timeZone: 'Europe/Moscow',
+    });
+
+    const startOfTomorrow = new Date(`${moscowTomorrowStr}T00:00:00+03:00`);
+    const endOfTomorrow = new Date(`${moscowTomorrowStr}T23:59:59.999+03:00`);
+
     const doc = await pgPrisma.docs.findFirst({
       where: {
         plantId: plantId,
-        date: date,
+        date: {
+          gte: startOfTomorrow,
+          lte: endOfTomorrow,
+        },
       },
     });
     return doc;

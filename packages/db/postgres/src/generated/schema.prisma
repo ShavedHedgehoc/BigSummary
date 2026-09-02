@@ -12,8 +12,8 @@ model api_errors {
   id        Int      @id @default(autoincrement())
   dto       String?  @db.VarChar(255)
   message   String?  @db.VarChar(255)
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
 }
 
 model apparatuses {
@@ -180,8 +180,8 @@ model record_counters {
   record_id     Int?
   task_uid      String?  @unique @db.VarChar(255)
   counter_value Int
-  createdAt     DateTime @db.Timestamptz(6)
-  updatedAt     DateTime @db.Timestamptz(6)
+  createdAt     DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime @updatedAt @db.Timestamptz(6)
   records       records? @relation(fields: [record_id], references: [id], onDelete: Cascade)
 }
 
@@ -277,8 +277,8 @@ model roles {
   id          Int          @id @default(autoincrement())
   value       String       @unique @db.VarChar(255)
   description String       @unique @db.VarChar(255)
-  createdAt   DateTime     @db.Timestamptz(6)
-  updatedAt   DateTime     @db.Timestamptz(6)
+  createdAt   DateTime     @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime     @updatedAt @db.Timestamptz(6)
   user_roles  user_roles[]
 }
 
@@ -308,8 +308,8 @@ model tokens {
   id        Int      @id @default(autoincrement())
   userId    Int?
   token     String   @unique @db.VarChar(3000)
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
   users     users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId], map: "idx_tokens_user_id")
@@ -521,8 +521,8 @@ model users {
   email         String         @unique @db.VarChar(255)
   password      String         @db.VarChar(255)
   banned        Boolean?       @default(false)
-  createdAt     DateTime       @db.Timestamptz(6)
-  updatedAt     DateTime       @db.Timestamptz(6)
+  createdAt     DateTime       @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime       @updatedAt @db.Timestamptz(6)
   histories     histories[]
   tokens        tokens[]
   user_roles    user_roles[]

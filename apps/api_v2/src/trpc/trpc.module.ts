@@ -8,9 +8,29 @@ import { DocModule } from '../main/doc/doc.module';
 import { BoilModule } from '../main/boil/boil.module';
 import { TracePlantModule } from '../trace/plant/trace-plant.module';
 import { TraceCanStateModule } from '../trace/can-state/can-state.module';
+import { TraceCanModule } from '../trace/can/can.module';
+import { TraceCanRecordModule } from '../trace/can-record/can-record.module';
+import { HealthModule } from '../health/health.module';
+import { HistoryModule } from '../main/history/history.module';
+import { RecordModule } from '../main/record/record.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [EmployeeModule, ConveyorModule, PlantModule, DocModule, BoilModule, TracePlantModule, TraceCanStateModule],
+  imports: [
+    AuthModule,
+    HealthModule,
+    EmployeeModule,
+    HistoryModule,
+    ConveyorModule,
+    PlantModule,
+    DocModule,
+    BoilModule,
+    RecordModule,
+    TracePlantModule,
+    TraceCanModule,
+    TraceCanStateModule,
+    TraceCanRecordModule,
+  ],
   providers: [
     {
       provide: 'TRPC_SERVICE',
@@ -19,4 +39,4 @@ import { TraceCanStateModule } from '../trace/can-state/can-state.module';
   ],
   controllers: [TrpcController],
 })
-export class TrpcModule { }
+export class TrpcModule {}

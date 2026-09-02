@@ -1,0 +1,21 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
+export default defineConfig({
+  plugins: [react(), tsconfigPaths()],
+  server: {
+    host: true,
+    port: 4000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:7000',
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      '/trpc_api': {
+        target: 'http://localhost:8000',
+        rewrite: (path) => path.replace(/^\/trpc_api/, '/trpc'),
+      },
+    },
+  },
+});

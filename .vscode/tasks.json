@@ -60,6 +60,15 @@
       "problemMatcher": [],
       "group": "build",
       "detail": "Запускает режим разработки (dev) для всех приложений в apps/"
+    },
+    {
+      "label": "Build",
+      "type": "npm",
+      "script": "build",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": "build",
+      "detail": "Сборка всех приложений в apps/"
     }
   ]
 }

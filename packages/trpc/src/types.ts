@@ -4,8 +4,8 @@ import type {
   TWorkstationEmployeeByBarcodeOutput,
   TGetWorkstationConveyorByBarcodeInput,
   TWorkstationConveyorByBarcodeOutput,
-  TGetDashPlantByValueInput,
-  TDashPlantByValueOutput,
+  TGetPlantByValueInput,
+  TPlantByValueOutput,
   TDocDetailResponse,
   TGetDashDocRowInput,
   TRecordDetailResponse,
@@ -13,11 +13,36 @@ import type {
   TGetDashDocDataCurentAppInput,
   TGetBoilListInput,
   TBoilListResponse,
-  TGetDashTracePlantByValueInput,
-  TDashTracePlantByValueOutput,
   TTracePlantListResponse,
   TTraceCanStateListResponse,
+  TGetDashTraceCanDataListInput,
+  TDashTraceCanDataListResponse,
+  TDashTraceCanVolumeListResponse,
+  TDashTraceCanRecordListResponse,
+  TGetDashTraceCanRecordListInput,
+  THealthCheckOutput,
+  TGetWorkstationHistoryListInput,
+  TWorkstationHistoryListResponse,
+  TWorkstationRelatedRecordListInput,
+  TWorkstationRelatedRecordListResponse,
+  TCreateWorkstationHistoryInput,
+  TWorkstationCreateHistoryResponse,
+  TLoginInput,
+  TLoginResponse,
+  TRegisterInput,
 } from '@repo/schemas';
+
+export interface IHealthService {
+  check: () => Promise<THealthCheckOutput | null>;
+}
+
+export interface IAuthService {
+  login: (input: TLoginInput) => Promise<TLoginResponse>;
+  register: (input: TRegisterInput) => Promise<TLoginResponse>;
+  me: (userId: number) => Promise<TLoginResponse['user']>;
+  logout: (refreshToken: string) => Promise<{ success: boolean }>;
+  refresh: (refreshToken: string) => Promise<TLoginResponse>;
+}
 
 export interface IWorkstationEmployeeService {
   getEmployeeByBarcode: (
@@ -32,12 +57,29 @@ export interface IWorkstationConveyorService {
 }
 
 export interface IDashPlantService {
-  getPlantByValue: (input: TGetDashPlantByValueInput) => Promise<TDashPlantByValueOutput | null>;
+  getPlantByValue: (input: TGetPlantByValueInput) => Promise<TPlantByValueOutput | null>;
+}
+
+export interface IWorkstationPlantService {
+  getPlantByValue: (input: TGetPlantByValueInput) => Promise<TPlantByValueOutput | null>;
+}
+export interface IWorkstationHistoryService {
+  getLastEmployeeHistoriesByPlantId: (
+    input: TGetWorkstationHistoryListInput,
+  ) => Promise<TWorkstationHistoryListResponse | null>;
+  createHistory: (
+    input: TCreateWorkstationHistoryInput,
+  ) => Promise<TWorkstationCreateHistoryResponse | null>;
+}
+
+export interface IWorkstationRecordService {
+  getRelatedRecords: (
+    input: TWorkstationRelatedRecordListInput,
+  ) => Promise<TWorkstationRelatedRecordListResponse | null>;
 }
 
 export interface IDashTracePlantService {
-  // getPlantByValue: (input: TGetDashTracePlantByValueInput) => Promise<TDashTracePlantByValueOutput | null>;
-  getAllPlants: () => Promise<TTracePlantListResponse | null>
+  getAllPlants: () => Promise<TTracePlantListResponse | null>;
 }
 
 export interface IDashBoilService {
@@ -53,26 +95,36 @@ export interface IDashDocService {
 }
 
 export interface IDashTraceCanStateService {
-  getAllCanStates: () => Promise<TTraceCanStateListResponse | null>
+  getAllCanStates: () => Promise<TTraceCanStateListResponse | null>;
 }
 
+export interface IDashTraceCanRecordService {
+  getLastCanRecordListByCanId: (
+    input: TGetDashTraceCanRecordListInput,
+  ) => Promise<TDashTraceCanRecordListResponse | null>;
+}
+
+export interface IDashTraceCanService {
+  getCanVolumesList: () => Promise<TDashTraceCanVolumeListResponse | null>;
+  getCanDataList: (
+    input: TGetDashTraceCanDataListInput,
+  ) => Promise<TDashTraceCanDataListResponse | null>;
+}
 export interface ITrpcContext {
   workstationEmployeeService: IWorkstationEmployeeService;
   workstationConveyorService: IWorkstationConveyorService;
   dashPlantService: IDashPlantService;
+  workstationPlantService: IDashPlantService;
+  workstationHistoryService: IWorkstationHistoryService;
+  workstationRecordService: IWorkstationRecordService;
   dashTracePlantService: IDashTracePlantService;
+  dashTraceCanService: IDashTraceCanService;
   dashTraceCanStateService: IDashTraceCanStateService;
+  dashTraceCanRecordService: IDashTraceCanRecordService;
   dashDocService: IDashDocService;
   dashBoilService: IDashBoilService;
-  // authService: IAuthService;
-  // trademarkService: ITrademarkService;
-  // boilService: IBoilService;
-  // cellService: ICellService;
-  // materialService: IMaterialService;
-  // userService: IUserService;
-  // roleService: IRoleService;
-  // lotService: ILotService;
-  // planService: IPlanService;
+  healthService: IHealthService;
+  authService: IAuthService;
   res: any;
   req: any;
   user: TRegisteredUser | null;

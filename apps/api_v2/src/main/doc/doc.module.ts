@@ -12,4 +12,4 @@ import { RegulationModule } from '../regulation/regulation.module';
   exports: [DashDocService],
   providers: [DashDocService, DocCommonService],
 })
-export class DocModule { }
+export class DocModule {}

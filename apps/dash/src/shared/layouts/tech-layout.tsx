@@ -28,7 +28,7 @@ TechLayout.Header = Header;
 TechLayout.Main = Main;
 TechLayout.Footer = Footer;
 
-export default function TechLayout({ children }: { children: React.ReactNode }) {
+export function TechLayout({ children }: { children: React.ReactNode }) {
   return (
     <React.Fragment>
       <div className="flex h-dvh flex-col bg-gray-950">{children}</div>

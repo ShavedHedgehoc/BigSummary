@@ -1,20 +1,3 @@
-// interface IBoilRow {
-//   id: number;
-//   value: string;
-//   recordsCount: number;
-//   historiesCount: number;
-//   state: string;
-//   state_id: number;
-//   stateValue: string;
-//   base_code: string;
-//   base_marking: string;
-//   plant: string;
-// }
-
-// interface IBoilReportData {
-//   rows: IBoilReportRow[];
-//   total: number;
-// }
 import { z } from 'zod';
 
 export const boilDetailOutputSchema = z.object({

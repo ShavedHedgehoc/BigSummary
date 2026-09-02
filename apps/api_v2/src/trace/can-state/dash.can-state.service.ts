@@ -5,12 +5,12 @@ import { TraceCanStateCommonService } from './can-state.common.service';
 
 @Injectable()
 export class DashTraceCanStateService implements IDashTraceCanStateService {
-    constructor(
-        @Inject(forwardRef(() => TraceCanStateCommonService))
-        private traceCanStateCommonService: TraceCanStateCommonService,
-    ) { }
+  constructor(
+    @Inject(forwardRef(() => TraceCanStateCommonService))
+    private traceCanStateCommonService: TraceCanStateCommonService,
+  ) {}
 
-    async getAllCanStates(): Promise<TTraceCanStateListResponse> {
-        return this.traceCanStateCommonService.getAllStates()
-    }
+  async getAllCanStates(): Promise<TTraceCanStateListResponse> {
+    return this.traceCanStateCommonService.getAllStates();
+  }
 }

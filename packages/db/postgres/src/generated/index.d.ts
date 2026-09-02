@@ -54299,16 +54299,16 @@ export namespace Prisma {
   export type api_errorsCreateInput = {
     dto?: string | null
     message?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type api_errorsUncheckedCreateInput = {
     id?: number
     dto?: string | null
     message?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type api_errorsUpdateInput = {
@@ -54330,8 +54330,8 @@ export namespace Prisma {
     id?: number
     dto?: string | null
     message?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type api_errorsUpdateManyMutationInput = {
@@ -55119,8 +55119,8 @@ export namespace Prisma {
   export type record_countersCreateInput = {
     task_uid?: string | null
     counter_value: number
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     records?: recordsCreateNestedOneWithoutRecord_countersInput
   }
 
@@ -55129,8 +55129,8 @@ export namespace Prisma {
     record_id?: number | null
     task_uid?: string | null
     counter_value: number
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_countersUpdateInput = {
@@ -55155,8 +55155,8 @@ export namespace Prisma {
     record_id?: number | null
     task_uid?: string | null
     counter_value: number
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_countersUpdateManyMutationInput = {
@@ -55580,8 +55580,8 @@ export namespace Prisma {
   export type rolesCreateInput = {
     value: string
     description: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user_roles?: user_rolesCreateNestedManyWithoutRolesInput
   }
 
@@ -55589,8 +55589,8 @@ export namespace Prisma {
     id?: number
     value: string
     description: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user_roles?: user_rolesUncheckedCreateNestedManyWithoutRolesInput
   }
 
@@ -55615,8 +55615,8 @@ export namespace Prisma {
     id?: number
     value: string
     description: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type rolesUpdateManyMutationInput = {
@@ -55729,8 +55729,8 @@ export namespace Prisma {
 
   export type tokensCreateInput = {
     token: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     users?: usersCreateNestedOneWithoutTokensInput
   }
 
@@ -55738,8 +55738,8 @@ export namespace Prisma {
     id?: number
     userId?: number | null
     token: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type tokensUpdateInput = {
@@ -55761,8 +55761,8 @@ export namespace Prisma {
     id?: number
     userId?: number | null
     token: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type tokensUpdateManyMutationInput = {
@@ -56928,8 +56928,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesCreateNestedManyWithoutUsersInput
     tokens?: tokensCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesCreateNestedManyWithoutUsersInput
@@ -56942,8 +56942,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutUsersInput
     tokens?: tokensUncheckedCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesUncheckedCreateNestedManyWithoutUsersInput
@@ -56983,8 +56983,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type usersUpdateManyMutationInput = {
@@ -63394,8 +63394,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     tokens?: tokensCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
@@ -63407,8 +63407,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     tokens?: tokensUncheckedCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
@@ -64610,16 +64610,16 @@ export namespace Prisma {
   export type record_countersCreateWithoutRecordsInput = {
     task_uid?: string | null
     counter_value: number
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_countersUncheckedCreateWithoutRecordsInput = {
     id?: number
     task_uid?: string | null
     counter_value: number
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_countersCreateOrConnectWithoutRecordsInput = {
@@ -65549,8 +65549,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
@@ -65562,8 +65562,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
@@ -67110,16 +67110,16 @@ export namespace Prisma {
   export type rolesCreateWithoutUser_rolesInput = {
     value: string
     description: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type rolesUncheckedCreateWithoutUser_rolesInput = {
     id?: number
     value: string
     description: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type rolesCreateOrConnectWithoutUser_rolesInput = {
@@ -67132,8 +67132,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesCreateNestedManyWithoutUsersInput
     tokens?: tokensCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
@@ -67145,8 +67145,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutUsersInput
     tokens?: tokensUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
@@ -67244,8 +67244,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesCreateNestedManyWithoutUsersInput
     tokens?: tokensCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesCreateNestedManyWithoutUsersInput
@@ -67257,8 +67257,8 @@ export namespace Prisma {
     email: string
     password: string
     banned?: boolean | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutUsersInput
     tokens?: tokensUncheckedCreateNestedManyWithoutUsersInput
     user_roles?: user_rolesUncheckedCreateNestedManyWithoutUsersInput
@@ -67368,15 +67368,15 @@ export namespace Prisma {
 
   export type tokensCreateWithoutUsersInput = {
     token: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type tokensUncheckedCreateWithoutUsersInput = {
     id?: number
     token: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type tokensCreateOrConnectWithoutUsersInput = {
@@ -68848,8 +68848,8 @@ export namespace Prisma {
     id?: number
     task_uid?: string | null
     counter_value: number
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_regulationsCreateManyRecordsInput = {
@@ -69763,8 +69763,8 @@ export namespace Prisma {
   export type tokensCreateManyUsersInput = {
     id?: number
     token: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type user_rolesCreateManyUsersInput = {

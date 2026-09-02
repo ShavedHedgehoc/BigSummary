@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  overflow: hidden;
+}
+
+html,
+body,
+#root {
+  background-color: #030712;
+  /* Точный эквивалент bg-gray-950 */
+  color: #e2e8f0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}

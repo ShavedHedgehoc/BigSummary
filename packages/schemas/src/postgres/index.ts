@@ -4,3 +4,7 @@ export * from './plant';
 export * from './auth';
 export * from './doc';
 export * from './boil';
+export * from './history';
+export * from './record';
+export * from './counter';
+export * from './user-roles';

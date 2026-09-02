@@ -3,8 +3,6 @@ import { nodeHTTPRequestHandler } from '@trpc/server/adapters/node-http';
 import { appRouter } from '@repo/trpc';
 import { TrpcService } from './trpc.service';
 import { Request, Response } from 'express';
-// import { renderTrpcStudio } from '@srawad/trpc-studio';
-// import trpcSchema from './schema.json';
 import { renderTrpcPanel } from '@ajayche/trpc-panel';
 
 @Controller('trpc')
@@ -20,8 +18,6 @@ export class TrpcController {
       const html = renderTrpcPanel(appRouter, {
         url: `http://localhost:${process.env.API_PORT || 7000}/trpc`,
         transformer: 'superjson',
-        // inputSchemas: trpcSchema.inputs,
-        // outputSchemas: trpcSchema.outputs,
         meta: {
           title: 'tRPC Api',
           description: '1.0.0',

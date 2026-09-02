@@ -4,8 +4,8 @@ import { TTraceCanStateListResponse } from '@repo/schemas';
 
 @Injectable()
 export class TraceCanStateCommonService {
-    async getAllStates(): Promise<TTraceCanStateListResponse> {
-        const states = await mssqlPrisma.canStates.findMany({});
-        return states
-    }
+  async getAllStates(): Promise<TTraceCanStateListResponse> {
+    const states = await mssqlPrisma.canStates.findMany({});
+    return states;
+  }
 }

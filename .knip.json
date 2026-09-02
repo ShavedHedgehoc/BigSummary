@@ -1,28 +1,57 @@
 {
     "$schema": "https://unpkg.com",
-    "ignore": [
-        "api",
-        "workstation"
-    ],
+    "ignore": [],
     "workspaces": {
         ".": {
-            "ignoreDependencies": [
-                "prettier-plugin-tailwindcss"
-            ]
+            "ignore": [
+                "api/**",
+                "workstation/**",
+                "application/**",
+                "public_api/**",
+                "public_api_2/**"
+            ],
+            "ignoreDependencies": []
         },
-        "apps/api": {
+        "apps/api_v2": {
             "project": [
                 "src/**/*.ts"
             ],
             "ignoreDependencies": [
-                "superjson"
+                "superjson",
+                "bcryptjs",
+                "dotenv"
             ]
         },
-        "packages/db": {
+        "apps/dash": {
+            "entry": [
+                "src/app/main.{ts,tsx}"
+            ],
+            "ignore": [
+                "src/shared/ui/**"
+            ],
+            "project": [
+                "src/**/*.{ts,tsx}"
+            ],
+            "ignoreDependencies": []
+        },
+        "packages/db/postgres": {
             "project": [
                 "src/**/*.ts"
             ],
-            "ignore": [],
+            "ignore": [
+                "**/generated/**/*"
+            ],
+            "ignoreDependencies": [
+                "@prisma/client"
+            ]
+        },
+        "packages/db/mssql": {
+            "project": [
+                "src/**/*.ts"
+            ],
+            "ignore": [
+                "**/generated/**/*"
+            ],
             "ignoreDependencies": [
                 "@prisma/client"
             ]
@@ -30,7 +59,6 @@
         "packages/trpc": {
             "ignore": [],
             "ignoreDependencies": [
-                "@repo/db",
                 "@types/express",
                 "@types/express-serve-static-core",
                 "zod"

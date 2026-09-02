@@ -1,10 +1,10 @@
 import { publicProcedure, router } from '../../../../trpc';
-import { getDashPlantByValueSchema, dashPlantByValueOutputSchema } from '@repo/schemas';
+import { getPlantByValueSchema, plantByValueOutputSchema } from '@repo/schemas';
 
 export const dashMainPlantRouter = router({
   getPlantByValue: publicProcedure
-    .input(getDashPlantByValueSchema)
-    .output(dashPlantByValueOutputSchema.nullable())
+    .input(getPlantByValueSchema)
+    .output(plantByValueOutputSchema.nullable())
     .query(async ({ ctx, input }) => {
       return ctx.dashPlantService.getPlantByValue(input);
     }),

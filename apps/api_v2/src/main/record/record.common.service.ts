@@ -40,4 +40,31 @@ export class RecordCommonService {
     });
     return records;
   }
+
+  async getCurrentRecordByBoilAndCode(boilValue: string, code: string, plantId: number | null) {
+    const moscowDateStr = new Date().toLocaleDateString('en-CA', {
+      timeZone: 'Europe/Moscow',
+    });
+
+    const startOfDay = new Date(`${moscowDateStr}T00:00:00+03:00`);
+    const endOfDay = new Date(`${moscowDateStr}T23:59:59.999+03:00`);
+    const record = await pgPrisma.records.findFirst({
+      where: {
+        docs: {
+          date: {
+            gte: startOfDay,
+            lte: endOfDay,
+          },
+          plantId,
+        },
+        boils: {
+          value: boilValue,
+        },
+        products: {
+          code1C: code,
+        },
+      },
+    });
+    return record;
+  }
 }
