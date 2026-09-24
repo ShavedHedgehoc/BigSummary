@@ -8,3 +8,4 @@ export * from './history';
 export * from './record';
 export * from './counter';
 export * from './user-roles';
+export * from './history-type';

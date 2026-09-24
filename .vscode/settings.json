@@ -10,9 +10,10 @@
   "workbench.startupEditor": "none",
   "window.commandCenter": false,
   "git.autoRepositoryDetection": "subFolders",
-  "editor.formatOnSave": true,
   "git.ignoreLimitWarning": true,
   "js/ts.tsdk.path": "node_modules/typescript/lib",
   "npm.autoDetect": "off",
-  "js/ts.tsc.autoDetect": "off"
+  "js/ts.tsc.autoDetect": "off",
+  "editor.formatOnSave": true,    
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

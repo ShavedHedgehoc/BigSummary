@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { LabBoilList } from '@/widgets/lab-boils-list';
 
-export default async function LaboratoryBoilsPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function LaboratoryBoilsPage({ searchParams }: PageProps) {
+  return <LabBoilList searchParams={searchParams} />;
 }

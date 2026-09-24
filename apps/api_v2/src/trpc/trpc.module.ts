@@ -14,6 +14,7 @@ import { HealthModule } from '../health/health.module';
 import { HistoryModule } from '../main/history/history.module';
 import { RecordModule } from '../main/record/record.module';
 import { AuthModule } from '../auth/auth.module';
+import { HistoryTypeModule } from '../main/history-type/history-type.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthModule } from '../auth/auth.module';
     HealthModule,
     EmployeeModule,
     HistoryModule,
+    HistoryTypeModule,
     ConveyorModule,
     PlantModule,
     DocModule,

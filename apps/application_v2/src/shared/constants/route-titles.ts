@@ -5,7 +5,6 @@ export const STATIC_TITLES: Record<string, string> = {
   [ROUTE_PATH.FORBIDDEN]: 'Доступ запрещен',
   [ROUTE_PATH.PLANNER]: 'Планировщик',
   [ROUTE_PATH.PLANNER_SUMMARIES]: 'Список сводок',
-  [ROUTE_PATH.PLANNER_SUMMARY_UPLOAD]: 'Загрузка сводок',
   [ROUTE_PATH.PLANNER_CONVEYORS]: 'Конвейеры',
   [ROUTE_PATH.LAB]: 'Лаборатория',
   [ROUTE_PATH.LAB_BOILS]: 'Основы',
@@ -29,6 +28,5 @@ export const STATIC_TITLES: Record<string, string> = {
 };
 
 export const DYNAMIC_PATTERNS = [
-  { path: 'boil-detail/:boilId', title: 'Информация по варке' },
-  { path: 'lot-detail/:lotId', title: 'Информация по квазипартии' },
+  { path: `${[ROUTE_PATH.PLANNER_SUMMARIES]}/[docId]`, title: 'Подробная информация' },
 ];

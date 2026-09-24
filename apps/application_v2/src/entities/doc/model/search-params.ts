@@ -1,0 +1,21 @@
+import { getMonthBounds } from '@/shared/lib';
+import type { TGetApplicationDocListInput } from '@repo/schemas';
+import {
+  type inferParserType,
+  parseAsArrayOf,
+  parseAsInteger,
+  parseAsIsoDate,
+  createSearchParamsCache,
+  parseAsString,
+} from 'nuqs/server';
+
+export const docListParamsSchema = {
+  startDate: parseAsIsoDate.withDefault(getMonthBounds().start),
+  endDate: parseAsIsoDate.withDefault(getMonthBounds().end),
+  plants: parseAsArrayOf(parseAsString).withDefault([]),
+  limit: parseAsInteger.withDefault(10),
+  page: parseAsInteger.withDefault(1),
+} satisfies Record<keyof TGetApplicationDocListInput, unknown>;
+
+export type DocListParams = inferParserType<typeof docListParamsSchema>;
+export const docListParamsCache = createSearchParamsCache(docListParamsSchema);

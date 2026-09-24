@@ -45,14 +45,6 @@
       "detail": "Генерирует типы Prisma для всех пакетов"
     },
     {
-      "label": "TRPC: Generate schema",
-      "type": "npm",
-      "script": "schema",
-      "problemMatcher": [],
-      "group": "build",
-      "detail": "Генерирует схему trpc для studio "
-    },
-    {
       "label": "Monorepo: Start All Apps",
       "type": "npm",
       "script": "monorepo:dev",
@@ -62,7 +54,7 @@
       "detail": "Запускает режим разработки (dev) для всех приложений в apps/"
     },
     {
-      "label": "Build",
+      "label": "Monorepo: build",
       "type": "npm",
       "script": "build",
       "isBackground": true,

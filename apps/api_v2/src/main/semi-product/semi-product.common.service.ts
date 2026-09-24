@@ -20,4 +20,25 @@ export class SemiProductCommonService {
     }));
     return mappedSemiproducts;
   }
+
+  async getSemiProductsByRecordIds(recordIds: number[]): Promise<Record<number, TSemiProduct[]>> {
+    const items = await pgPrisma.semi_products.findMany({
+      where: { record_id: { in: recordIds } },
+      include: {
+        products: true,
+        boils: true,
+      },
+    });
+
+    const grouped: Record<number, TSemiProduct[]> = {};
+    for (const item of items) {
+      if (!grouped[item.record_id]) grouped[item.record_id] = [];
+      grouped[item.record_id].push({
+        code: item.products?.code1C,
+        marking: item.products?.marking,
+        boil_value: item.boils?.value,
+      });
+    }
+    return grouped;
+  }
 }

@@ -8,7 +8,7 @@ import { useEmployeeStore } from '@/entities/employee';
 import { useRelatedRecordsStore } from '@/entities/record';
 import { useConveyorStore } from '@/entities/conveyor';
 import { MessageWindow } from './message-window';
-import { TCreateWorkstationHistoryInput } from '@repo/schemas';
+import { TCreateHistoryInput } from '@repo/schemas';
 import { useHistoriesStore } from '@/entities/history/model/use-history-store';
 import { trpc } from '@/shared/api';
 
@@ -78,7 +78,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
   );
 
   const processHistory = React.useCallback(
-    async (payload: TCreateWorkstationHistoryInput) => {
+    async (payload: TCreateHistoryInput) => {
       const success = await addHistories(payload);
       if (!success) {
         const actualError = useHistoriesStore.getState().error;
@@ -103,7 +103,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
       if (!employee) return processMessage(ProcessMessages.EMPLOYEE_UNDEFINED, 'fail');
       const [boil, baseCode] = parseBoilCard(value);
       if (boil && baseCode) {
-        const payload: TCreateWorkstationHistoryInput = {
+        const payload: TCreateHistoryInput = {
           record_id: null,
           boil_value: boil,
           code: null,
@@ -113,6 +113,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
           userId: null,
           employeeId: employee.id,
           note: ProcessMessages.NOTE,
+          history_note: null,
         };
         await processHistory(payload);
         return;
@@ -139,7 +140,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
       }
       const relatedRecord = relatedRecords.filter((item) => item.conveyorId === updatedConveyor.id);
       if (relatedRecord.length > 0) {
-        const payload: TCreateWorkstationHistoryInput = {
+        const payload: TCreateHistoryInput = {
           record_id: relatedRecord[0].id,
           boil_value: null,
           code: null,
@@ -149,6 +150,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
           employeeId: employee.id,
           historyType: 'product_check',
           note: ProcessMessages.NOTE,
+          history_note: null,
         };
         await processHistory(payload);
         return;
@@ -171,7 +173,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
         } else if (updatedRecords.length > 1) {
           return;
         } else {
-          const payload: TCreateWorkstationHistoryInput = {
+          const payload: TCreateHistoryInput = {
             record_id: null,
             boil_value: boil,
             code: code,
@@ -181,6 +183,7 @@ export function BarcodeScanningWizard({ plantId }: IBarcodeScanningWizard) {
             employeeId: employee.id,
             historyType: 'product_check',
             note: ProcessMessages.NOTE,
+            history_note: null,
           };
           await processHistory(payload);
           return;

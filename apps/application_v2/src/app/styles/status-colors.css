@@ -1,0 +1,33 @@
+:root {
+  --status-fail: oklch(0.627 0.265 30.384);
+  --status-fail-icon: oklch(0.627 0.265 30.384);
+
+  --status-wait: oklch(0.769 0.188 70.08);
+  --status-wait-icon: oklch(0.64 0.17 65.5);
+
+  --status-success: oklch(0.627 0.194 149.251);
+  --status-success-icon: oklch(0.52 0.19 145.4);
+
+  --status-progress: oklch(0.769 0.188 70.08);
+  --status-progress-icon: oklch(0.64 0.17 65.5);
+
+  --status-undefined: oklch(0.556 0.03 257.417);
+  --status-undefined-icon: oklch(0.556 0.03 257.417);
+}
+
+.dark {
+  --status-fail: oklch(0.704 0.191 22.216);
+  --status-fail-icon: oklch(0.704 0.191 22.216);
+
+  --status-wait: oklch(0.828 0.189 84.429);
+  --status-wait-icon: oklch(0.828 0.189 84.429);
+
+  --status-success: oklch(0.795 0.184 151.159);
+  --status-success-icon: oklch(0.795 0.184 151.159);
+
+  --status-progress: oklch(0.828 0.189 84.429);
+  --status-progress-icon: oklch(0.828 0.189 84.429);
+
+  --status-undefined: oklch(0.817 0.022 253.948);
+  --status-undefined-icon: oklch(0.708 0.022 254.898);
+}

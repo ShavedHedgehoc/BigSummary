@@ -12,7 +12,6 @@
         "api:dev": "pnpm --filter api_v2 dev",
         "monorepo:dev": "pnpm --filter \"./apps/**\" --parallel run dev",
         "build": "pnpm --filter \"./apps/**\" --parallel run build",
-        "schema": "pnpm --filter api_v2 schema",
         "monorepo:lint": "pnpm --filter \"./apps/**\"  run lint",
         "monorepo:typecheck": "pnpm --filter \"./apps/**\"  run type-check",
         "monorepo:format": "prettier --write .",

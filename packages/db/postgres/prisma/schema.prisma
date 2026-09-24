@@ -31,19 +31,21 @@ model bases {
 }
 
 model boils {
-  id            Int             @id @default(autoincrement())
-  value         String          @unique @db.VarChar(255)
-  base_id       Int?
-  letter        String?         @db.VarChar(255)
-  year          Decimal?        @db.Decimal
-  number        Decimal?        @db.Decimal
-  plant_id      Int?
-  bases         bases?          @relation(fields: [base_id], references: [id], onDelete: NoAction)
-  histories     histories[]
-  semi_products semi_products[]
-  tube_records  tube_records[]
-  records       records[]
-  plants        plants?         @relation(fields: [plant_id], references: [id])
+  id                    Int             @id @default(autoincrement())
+  value                 String          @unique @db.VarChar(255)
+  base_id               Int?
+  letter                String?         @db.VarChar(255)
+  year                  Decimal?        @db.Decimal
+  number                Decimal?        @db.Decimal
+  plant_id              Int?
+  bases                 bases?          @relation(fields: [base_id], references: [id], onDelete: NoAction)
+  histories             histories[]
+  semi_products         semi_products[]
+  tube_records          tube_records[]
+  records               records[]       @relation("MainBoil")
+  records_organic_bases records[]       @relation("OrganicBaseRelation")
+  records_water_bases   records[]       @relation("WaterBaseRelation")
+  plants                plants?         @relation(fields: [plant_id], references: [id])
 
   @@index([plant_id, year(sort: Desc), letter(sort: Desc), number(sort: Desc), id, value, base_id])
   @@index([base_id], map: "idx_boils_base_id")
@@ -67,8 +69,8 @@ model docs {
   id        Int       @id @default(autoincrement())
   plantId   Int?
   date      DateTime  @db.Timestamptz(6)
-  createdAt DateTime  @db.Timestamptz(6)
-  updatedAt DateTime  @db.Timestamptz(6)
+  createdAt DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(6)
   plants    plants?   @relation(fields: [plantId], references: [id], onDelete: Cascade)
   records   records[]
 
@@ -81,8 +83,8 @@ model employees {
   name           String           @unique @db.VarChar(255)
   barcode        String           @unique @db.VarChar(255)
   occupationId   Int?
-  createdAt      DateTime         @db.Timestamptz(6)
-  updatedAt      DateTime         @db.Timestamptz(6)
+  createdAt      DateTime         @default(now()) @db.Timestamptz(6)
+  updatedAt      DateTime         @updatedAt @db.Timestamptz(6)
   occupations    occupations?     @relation(fields: [occupationId], references: [id], onDelete: Cascade)
   histories      histories[]
   tube_histories tube_histories[]
@@ -97,8 +99,8 @@ model histories {
   userId        Int?
   employeeId    Int?
   note          String?        @db.VarChar(255)
-  createdAt     DateTime       @db.Timestamptz(6)
-  updatedAt     DateTime       @db.Timestamptz(6)
+  createdAt     DateTime       @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime       @updatedAt @db.Timestamptz(6)
   note_id       Int?
   plant_id      Int?
   boils         boils?         @relation(fields: [boil_id], references: [id], onDelete: Cascade)
@@ -131,9 +133,9 @@ model history_types {
 
 model marking_sample {
   id                 Int                  @id @default(autoincrement())
-  value              String?              @db.VarChar(255)
-  createdAt          DateTime             @db.Timestamptz(6)
-  updatedAt          DateTime             @db.Timestamptz(6)
+  value              String               @unique @db.VarChar(255)
+  createdAt          DateTime             @default(now()) @db.Timestamptz(6)
+  updatedAt          DateTime             @updatedAt @db.Timestamptz(6)
   record_regulations record_regulations[]
   regulations        regulations[]
 }
@@ -166,8 +168,8 @@ model products {
   marking       String          @db.VarChar(255)
   name          String?         @db.VarChar(255)
   serieId       Int?
-  createdAt     DateTime        @db.Timestamptz(6)
-  updatedAt     DateTime        @db.Timestamptz(6)
+  createdAt     DateTime        @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime        @updatedAt @db.Timestamptz(6)
   series        series?         @relation(fields: [serieId], references: [id], onDelete: Cascade)
   regulations   regulations[]
   semi_products semi_products[]
@@ -202,8 +204,8 @@ model record_regulations {
   marking_sample_id     Int?
   inc_color             String?         @db.VarChar(255)
   marking_feature       String?         @db.VarChar(255)
-  createdAt             DateTime        @db.Timestamptz(6)
-  updatedAt             DateTime        @db.Timestamptz(6)
+  createdAt             DateTime        @default(now()) @db.Timestamptz(6)
+  updatedAt             DateTime        @updatedAt @db.Timestamptz(6)
   marking_sample        marking_sample? @relation(fields: [marking_sample_id], references: [id], onDelete: NoAction)
   records               records?        @relation(fields: [record_id], references: [id], onDelete: Cascade)
 
@@ -223,8 +225,8 @@ model records {
   bbf                String               @db.VarChar(255)
   note               String               @db.VarChar(1024)
   workshopId         Int?
-  createdAt          DateTime             @db.Timestamptz(6)
-  updatedAt          DateTime             @db.Timestamptz(6)
+  createdAt          DateTime             @default(now()) @db.Timestamptz(6)
+  updatedAt          DateTime             @updatedAt @db.Timestamptz(6)
   isSet              Boolean?
   organic_base_id    Int?
   water_base_id      Int?
@@ -232,14 +234,16 @@ model records {
   histories          histories[]
   record_counters    record_counters[]
   record_regulations record_regulations[]
+  boils              boils?               @relation("MainBoil", fields: [boilId], references: [id], onDelete: Cascade)
+  water_bases        boils?               @relation("WaterBaseRelation", fields: [water_base_id], references: [id], onDelete: Restrict)
+  organic_bases      boils?               @relation("OrganicBaseRelation", fields: [organic_base_id], references: [id], onDelete: Restrict)
   conveyors          conveyors?           @relation(fields: [conveyorId], references: [id], onDelete: Restrict)
   docs               docs?                @relation(fields: [doc_id], references: [id], onDelete: Cascade)
   workshops          workshops?           @relation(fields: [workshopId], references: [id], onDelete: Cascade)
   products           products?            @relation(fields: [productId], references: [id], onDelete: Cascade)
-  boils              boils?               @relation(fields: [boilId], references: [id], onDelete: Cascade)
-  apparatuses        apparatuses?         @relation(fields: [apparatusId], references: [id], onDelete: Cascade)
-  cans               cans?                @relation(fields: [canId], references: [id], onDelete: Cascade)
 
+  apparatuses   apparatuses?    @relation(fields: [apparatusId], references: [id], onDelete: Cascade)
+  cans          cans?           @relation(fields: [canId], references: [id], onDelete: Cascade)
   semi_products semi_products[]
 
   @@index([apparatusId], map: "idx_records_apparatusid")
@@ -287,8 +291,8 @@ model semi_products {
   record_id  Int?
   product_id Int?
   boil_id    Int?
-  createdAt  DateTime  @db.Timestamptz(6)
-  updatedAt  DateTime  @db.Timestamptz(6)
+  createdAt  DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt  DateTime  @updatedAt @db.Timestamptz(6)
   boils      boils?    @relation(fields: [boil_id], references: [id], onDelete: Cascade)
   products   products? @relation(fields: [product_id], references: [id], onDelete: Cascade)
   records    records?  @relation(fields: [record_id], references: [id], onDelete: Cascade)

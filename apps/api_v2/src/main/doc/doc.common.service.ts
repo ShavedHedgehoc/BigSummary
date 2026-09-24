@@ -1,7 +1,11 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { docs, pgPrisma } from '@repo/db-postgres';
 import { TDocDetailResponse, TRecordDetailResponse } from '@repo/schemas';
-import { RecordCommonService, TRecordWithRelations } from '../record/record.common.service';
+import {
+  RecordCommonService,
+  recordWithRelationsInclude,
+  TRecordWithRelations,
+} from '../record/record.common.service';
 import { HistoryCommonService } from '../history/history.common.service';
 import { RecordCounterService } from '../record-counter/record-counter.service';
 import { SemiProductCommonService } from '../semi-product/semi-product.common.service';
@@ -78,10 +82,79 @@ export class DocCommonService {
     });
 
     const recordsData = await this.recordCommonService.getRecordsByDocId(doc.id);
+    const recordIds = recordsData.map((r) => r.id);
 
-    const recordsResult = await Promise.all(
-      recordsData.map((item) => this.recordResult(item, doc.plantId)),
-    );
+    if (recordsData.length === 0) {
+      return {
+        id: doc.id,
+        plantId: doc.plantId,
+        date: doc.date,
+        createdAt: doc.createdAt,
+        updatedAt: doc.updatedAt,
+        plant: plant?.value ?? null,
+        records: [],
+      };
+    }
+
+    const [allHistoriesGrouped, allFactsMap, allSemiProductsGrouped, allRegulationsMap] =
+      await Promise.all([
+        this.historyCommonService.getHistoriesForRecords(
+          recordsData.map((r) => ({ id: r.id, water_base_id: r.water_base_id })),
+        ),
+        this.recordCounterService.getTaskSumsForRecordIds(recordIds),
+        this.semiProductService.getSemiProductsByRecordIds(recordIds), // <-- Добавили батчинг
+        this.regulationCommonService.getRegulationsByRecordIds(recordIds), // <-- Добавили батчинг
+      ]);
+
+    // const recordsResult = await Promise.all(
+    //   recordsData.map((item) => this.recordResult(item, doc.plantId)),
+    // );
+
+    const nowTime = Date.now();
+
+    // 4. Линейный маппинг в памяти без ожидания Promise (O(1) доступ)
+    const recordsResult: TRecordDetailResponse[] = recordsData.map((item) => {
+      const histories = allHistoriesGrouped[item.id] ?? [];
+      const fact = allFactsMap[item.id] ?? 0;
+      const semiProducts = allSemiProductsGrouped[item.id] ?? [];
+      const regulation = allRegulationsMap[item.id] ?? null;
+
+      const historiesCount = histories.length;
+      const lastHistory = historiesCount > 0 ? histories[histories.length - 1] : null;
+      const history_note = lastHistory?.notes?.value ?? null;
+      const state = lastHistory ? lastHistory.history_types.description : '-';
+      const stateValue = lastHistory ? lastHistory.history_types.value : null;
+      const stateTime = lastHistory ? lastHistory.createdAt : null;
+
+      const isUpdated = stateTime ? nowTime - new Date(stateTime).getTime() < 1000 * 60 * 2 : false;
+
+      return {
+        id: item.id,
+        productId: item.products.code1C,
+        product: item.products.marking,
+        boil: item.boils ? item.boils.value : '-',
+        plan: item.plan,
+        fact: fact,
+        apparatus: item.apparatuses ? item.apparatuses.value : '-',
+        bbf: item.bbf,
+        dm: item.dm,
+        note: item.note,
+        can: item.cans ? item.cans.value : '-',
+        conveyor: item.conveyors.value,
+        workshop: item.workshops.value,
+        historiesCount: historiesCount,
+        state: state,
+        stateValue: stateValue,
+        stateTime: stateTime,
+        isSet: item.isSet,
+        isUpdated: isUpdated,
+        semiProducts: semiProducts,
+        regulation: regulation,
+        water_base_id: item.water_base_id,
+        plant_id: doc.plantId,
+        history_note: history_note,
+      };
+    });
 
     return {
       id: doc.id,
@@ -95,21 +168,44 @@ export class DocCommonService {
   }
 
   async getDocDetailRow(recordId: number): Promise<TRecordDetailResponse> {
-    const record = await this.recordCommonService.getRecordById(recordId);
+    // const record = await this.recordCommonService.getRecordById(recordId);
+    // if (!record) {
+    //   throw new TRPCError({
+    //     code: 'NOT_FOUND',
+    //     message: 'Запись на найдена',
+    //   });
+    // }
+    // const doc = await pgPrisma.docs.findUnique({ where: { id: record.doc_id } });
+    // if (!doc) {
+    //   throw new TRPCError({
+    //     code: 'NOT_FOUND',
+    //     message: `Связанный документ с ID ${record.doc_id} не найден в системе`,
+    //   });
+    // }
+    // const result = await this.recordResult(record, doc.plantId);
+    // return result;
+    const record = await pgPrisma.records.findUnique({
+      where: { id: recordId },
+      include: {
+        ...recordWithRelationsInclude,
+        docs: true,
+      },
+    });
+
     if (!record) {
       throw new TRPCError({
         code: 'NOT_FOUND',
-        message: 'Запись на найдена',
+        message: 'Запись не найдена',
       });
     }
-    const doc = await pgPrisma.docs.findUnique({ where: { id: record.doc_id } });
-    if (!doc) {
+
+    if (!record.docs) {
       throw new TRPCError({
         code: 'NOT_FOUND',
-        message: `Связанный документ с ID ${record.doc_id} не найден в системе`,
+        message: `Связанный документ для записи ID ${recordId} не найден в системе`,
       });
     }
-    const result = await this.recordResult(record, doc.plantId);
+    const result = await this.recordResult(record, record.docs.plantId);
     return result;
   }
 

@@ -25,11 +25,32 @@ import type {
   TWorkstationHistoryListResponse,
   TWorkstationRelatedRecordListInput,
   TWorkstationRelatedRecordListResponse,
-  TCreateWorkstationHistoryInput,
-  TWorkstationCreateHistoryResponse,
+  TCreateHistoryInput,
+  TCreateHistoryResponse,
   TLoginInput,
   TLoginResponse,
   TRegisterInput,
+  TGetApplicationDocListInput,
+  TApplicationDocListResponse,
+  TApplicationPlantListResponse,
+  TApplicationDeleteDocInput,
+  TApplicationDeleteDocResponse,
+  TApplicationUploadDocInput,
+  TApplicationUploadDocResponse,
+  TApplicationDocStatsResponse,
+  TApplicationGetDocStatsInput,
+  TApplicationGetDocDetailInput,
+  TApplicationDocDetailResponse,
+  TApplicationDeleteDocRowResponse,
+  TApplicationDeleteDocRowInput,
+  TApplicationHistoryTypeListResponse,
+  TApplicationDeleteHistoryInput,
+  TApplicationDeleteHistoryResponse,
+  TApplicationUpdateDocRowResponse,
+  TApplicationUpdateDocRowInput,
+  TGetApplicationLabBoilListInput,
+  TApplicationBoilListResponse,
+  TApplicationGetCurrentDocInput,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -43,7 +64,7 @@ export interface IAuthService {
   logout: (refreshToken: string) => Promise<{ success: boolean }>;
   refresh: (refreshToken: string) => Promise<TLoginResponse>;
 }
-
+// workstation
 export interface IWorkstationEmployeeService {
   getEmployeeByBarcode: (
     input: TGetWorkstationEmployeeByBarcodeInput,
@@ -56,10 +77,6 @@ export interface IWorkstationConveyorService {
   ) => Promise<TWorkstationConveyorByBarcodeOutput | null>;
 }
 
-export interface IDashPlantService {
-  getPlantByValue: (input: TGetPlantByValueInput) => Promise<TPlantByValueOutput | null>;
-}
-
 export interface IWorkstationPlantService {
   getPlantByValue: (input: TGetPlantByValueInput) => Promise<TPlantByValueOutput | null>;
 }
@@ -67,15 +84,18 @@ export interface IWorkstationHistoryService {
   getLastEmployeeHistoriesByPlantId: (
     input: TGetWorkstationHistoryListInput,
   ) => Promise<TWorkstationHistoryListResponse | null>;
-  createHistory: (
-    input: TCreateWorkstationHistoryInput,
-  ) => Promise<TWorkstationCreateHistoryResponse | null>;
+  createHistory: (input: TCreateHistoryInput) => Promise<TCreateHistoryResponse | null>;
 }
 
 export interface IWorkstationRecordService {
   getRelatedRecords: (
     input: TWorkstationRelatedRecordListInput,
   ) => Promise<TWorkstationRelatedRecordListResponse | null>;
+}
+
+// dash
+export interface IDashPlantService {
+  getPlantByValue: (input: TGetPlantByValueInput) => Promise<TPlantByValueOutput | null>;
 }
 
 export interface IDashTracePlantService {
@@ -110,7 +130,54 @@ export interface IDashTraceCanService {
     input: TGetDashTraceCanDataListInput,
   ) => Promise<TDashTraceCanDataListResponse | null>;
 }
+
+// application
+
+export interface IApplicationBoilService {
+  getBoilList: (
+    input: TGetApplicationLabBoilListInput,
+  ) => Promise<TApplicationBoilListResponse | null>;
+}
+
+export interface IApplicationDocService {
+  getDocList: (input: TGetApplicationDocListInput) => Promise<TApplicationDocListResponse | null>;
+  deleteDoc: (input: TApplicationDeleteDocInput) => Promise<TApplicationDeleteDocResponse>;
+  deleteDocRow: (input: TApplicationDeleteDocRowInput) => Promise<TApplicationDeleteDocRowResponse>;
+  updateDocRow: (input: TApplicationUpdateDocRowInput) => Promise<TApplicationUpdateDocRowResponse>;
+  uploadData: (input: TApplicationUploadDocInput) => Promise<TApplicationUploadDocResponse>;
+  getStats: (input: TApplicationGetDocStatsInput) => Promise<TApplicationDocStatsResponse | null>;
+  getDetails: (
+    input: TApplicationGetDocDetailInput,
+  ) => Promise<TApplicationDocDetailResponse | null>;
+  getCurrentDoc: (
+    input: TApplicationGetCurrentDocInput,
+  ) => Promise<TApplicationDocDetailResponse | null>;
+}
+
+export interface IApplicationPlantService {
+  getPlantList: () => Promise<TApplicationPlantListResponse | null>;
+}
+
+export interface IApplicationHistoryTypeService {
+  getAllHistoryTypeList: () => Promise<TApplicationHistoryTypeListResponse | null>;
+  getProductHistoryTypeList: () => Promise<TApplicationHistoryTypeListResponse | null>;
+  getBoilHistoryTypeList: () => Promise<TApplicationHistoryTypeListResponse | null>;
+}
+
+export interface IApplicationHistoryService {
+  createHistory: (input: TCreateHistoryInput) => Promise<TCreateHistoryResponse | null>;
+  directCreateHistory: (input: TCreateHistoryInput) => Promise<TCreateHistoryResponse | null>;
+  deleteHistory: (
+    input: TApplicationDeleteHistoryInput,
+  ) => Promise<TApplicationDeleteHistoryResponse>;
+}
+
 export interface ITrpcContext {
+  applicationBoilService: IApplicationBoilService;
+  applicationDocService: IApplicationDocService;
+  applicationPlantService: IApplicationPlantService;
+  applicationHistoryService: IApplicationHistoryService;
+  applicationHistoryTypeService: IApplicationHistoryTypeService;
   workstationEmployeeService: IWorkstationEmployeeService;
   workstationConveyorService: IWorkstationConveyorService;
   dashPlantService: IDashPlantService;

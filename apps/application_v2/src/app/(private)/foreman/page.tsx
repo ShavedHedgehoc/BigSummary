@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { ForemanProductList } from '@/widgets/foreman-product-list';
 
-export default async function ForemanPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function ForemanPage({ searchParams }: PageProps) {
+  return <ForemanProductList searchParams={searchParams} />;
 }

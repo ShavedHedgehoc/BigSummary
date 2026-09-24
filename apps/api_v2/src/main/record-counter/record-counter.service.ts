@@ -14,4 +14,26 @@ export class RecordCounterService {
     });
     return result._sum.counter_value;
   }
+
+  async getTaskSumsForRecordIds(ids: number[]): Promise<Record<number, number>> {
+    if (!ids || ids.length === 0) return {};
+    const aggregations = await pgPrisma.record_counters.groupBy({
+      by: ['record_id'],
+      _sum: {
+        counter_value: true,
+      },
+      where: {
+        record_id: {
+          in: ids,
+        },
+      },
+    });
+
+    const sumsMap: Record<number, number> = {};
+
+    for (const item of aggregations) {
+      sumsMap[item.record_id] = item._sum.counter_value ?? 0;
+    }
+    return sumsMap;
+  }
 }

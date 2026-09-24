@@ -2,11 +2,11 @@
 
 import React from 'react';
 
-import { TRPCProvider } from '@/shared/api'; // Импортируем ваш новый провайдер
+import { TRPCProvider } from '@/shared/api';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { Toaster } from 'sonner';
-import { AppSessionProvider } from '@/entiities/user';
+import { AppSessionProvider } from '@/entities/user';
 import { ApiGuard } from '@/widgets/api-guard';
 import { ThemeProvider } from './theme-provider';
 import { NuqsProvider } from './nuqs-provider';

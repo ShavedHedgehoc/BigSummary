@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 import { trpcVanilla } from '@/shared/api';
-import { TCreateWorkstationHistoryInput } from '@repo/schemas';
+import { TCreateHistoryInput } from '@repo/schemas';
 import { TRPCClientError } from '@trpc/client';
 
 interface HistoriesState {
   pending: boolean;
   isError: boolean;
   error: string;
-  addHistories: (payload: TCreateWorkstationHistoryInput) => Promise<boolean>;
+  addHistories: (payload: TCreateHistoryInput) => Promise<boolean>;
 }
 
 export const useHistoriesStore = create<HistoriesState>((set) => ({

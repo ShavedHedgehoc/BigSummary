@@ -22,7 +22,7 @@ import {
   technologistNavItems,
   weighSectionNavItems,
 } from './items';
-import { useAuth } from '@/entiities/user';
+import { useAuth } from '@/entities/user';
 import { NavWithSubs } from './nav-with-subs';
 import { Atom, ChartBar, Cog, FlaskConical, Pickaxe, SquareChartGantt } from 'lucide-react';
 import { DB_ROLES, ROUTE_PATH, STATIC_TITLES } from '@/shared/constants';
@@ -37,8 +37,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href="#">
-                <HedgehogIcon className="size-5!" />
-                <span className="text-base font-semibold">Электросводка 2.0</span>
+                <HedgehogIcon className="size-5!  text-foreground dark:text-foreground" />
+                <span className="text-base font-semibold text-foreground dark:text-foreground">
+                  Электросводка 2.0
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

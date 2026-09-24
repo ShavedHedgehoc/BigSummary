@@ -17,6 +17,11 @@ import { WorkstationPlantService } from '../main/plant/workstation.plant.service
 import { WorkstationHistoryService } from '../main/history/workstation.history.service';
 import { WorkstationRecordService } from '../main/record/workstation.record.service';
 import { AuthService } from '../auth/auth.service';
+import { ApplicationDocService } from '../main/doc/application.doc.service';
+import { ApplicationPlantService } from '../main/plant/application.plant.service';
+import { ApplicationHistoryTypeService } from '../main/history-type/application.history-type.service';
+import { ApplicationHistoryService } from '../main/history/application.history.service';
+import { ApplicationBoilService } from 'src/main/boil/application.boil.service';
 
 @Injectable()
 export class TrpcService {
@@ -26,11 +31,20 @@ export class TrpcService {
     private readonly healthService: HealthService,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    @Inject(forwardRef(() => ApplicationBoilService))
+    private readonly applicationBoilService: ApplicationBoilService,
+    @Inject(forwardRef(() => ApplicationDocService))
+    private readonly applicationDocService: ApplicationDocService,
+    @Inject(forwardRef(() => ApplicationHistoryService))
+    private readonly applicationHistoryService: ApplicationHistoryService,
+    @Inject(forwardRef(() => ApplicationHistoryTypeService))
+    private readonly applicationHistoryTypeService: ApplicationHistoryTypeService,
+    @Inject(forwardRef(() => ApplicationPlantService))
+    private readonly applicationPlantService: ApplicationPlantService,
     @Inject(forwardRef(() => WorkstationEmployeeService))
     private readonly workstationEmployeeService: WorkstationEmployeeService,
     @Inject(forwardRef(() => WorkstationHistoryService))
     private readonly workstationHistoryService: WorkstationHistoryService,
-
     @Inject(forwardRef(() => WorkstationRecordService))
     private readonly workstationRecordService: WorkstationRecordService,
     @Inject(forwardRef(() => WorkstationConveyorService))
@@ -103,6 +117,11 @@ export class TrpcService {
     return {
       healthService: this.healthService,
       authService: this.authService,
+      applicationBoilService: this.applicationBoilService,
+      applicationDocService: this.applicationDocService,
+      applicationHistoryService: this.applicationHistoryService,
+      applicationHistoryTypeService: this.applicationHistoryTypeService,
+      applicationPlantService: this.applicationPlantService,
       workstationEmployeeService: this.workstationEmployeeService,
       workstationHistoryService: this.workstationHistoryService,
       workstationConveyorService: this.workstationConveyorService,

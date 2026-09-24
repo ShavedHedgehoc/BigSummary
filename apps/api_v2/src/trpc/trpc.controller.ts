@@ -34,8 +34,8 @@ export class TrpcController {
     const trpcService = this.trpcService;
     return nodeHTTPRequestHandler({
       path: req.params.path,
-      req: req as any,
-      res: res as any,
+      req: req,
+      res: res,
       router: appRouter,
       createContext: async (opts) => {
         const baseContext = await trpcService.createContext(opts);

@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Geist } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { AppProvider } from './_providers/app-provider';
 import { cn } from '@/shared/lib';
-import './globals.css';
+import './styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Summary 2.0',
   description: 'Summary application',
 };
 
-const geist = Geist({
-  subsets: ['latin'],
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
   variable: '--font-sans',
 });
 
@@ -24,9 +24,10 @@ const geistMono = localFont({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={cn(geist.variable, geistMono.variable)} suppressHydrationWarning>
+    <html lang="ru" className={cn(geistMono.variable, inter.variable)} suppressHydrationWarning>
       <body
         className={cn(
+          inter.className,
           'bg-background text-foreground font-sans antialiased',
           'min-h-screen min-w-full flex flex-col',
         )}

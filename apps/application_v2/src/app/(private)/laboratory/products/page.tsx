@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { LabProductList } from '@/widgets/lab-product-list';
 
-export default async function LaboratoryProductsPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function LaboratoryProductsPage({ searchParams }: PageProps) {
+  return <LabProductList searchParams={searchParams} />;
 }

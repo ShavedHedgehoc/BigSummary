@@ -1,9 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { pgPrisma, Prisma } from '@repo/db-postgres';
 import {
-  TCreateWorkstationHistoryInput,
+  TCreateHistoryInput,
+  TCreateHistoryResponse,
   TGetWorkstationHistoryListInput,
-  TWorkstationCreateHistoryResponse,
   TWorkstationHistoryListResponse,
 } from '@repo/schemas';
 import { IWorkstationHistoryService } from '@repo/trpc';
@@ -62,9 +62,7 @@ export class WorkstationHistoryService implements IWorkstationHistoryService {
     return histories;
   }
 
-  async createHistory(
-    input: TCreateWorkstationHistoryInput,
-  ): Promise<TWorkstationCreateHistoryResponse> {
+  async createHistory(input: TCreateHistoryInput): Promise<TCreateHistoryResponse> {
     return this.historyCommonService.createHistory(input);
   }
 }

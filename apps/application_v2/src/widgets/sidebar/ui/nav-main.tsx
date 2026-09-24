@@ -15,7 +15,7 @@ export function NavMain({ items }: { items: TNavItem[] }) {
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton className="text-sm" asChild>
                 <Link href={item.url}>
                   {item.icon}
                   <span>{item.title}</span>

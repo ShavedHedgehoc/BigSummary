@@ -27,7 +27,7 @@ export function NavWithSubs({
         <Collapsible className="group/collapsible">
           <SidebarMenuItem>
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton className="text-sm">
                 {icon}
                 <span>{header}</span>
                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -36,7 +36,7 @@ export function NavWithSubs({
             <CollapsibleContent>
               <SidebarMenuSub>
                 {items.map((item) => (
-                  <SidebarMenuButton asChild key={item.url}>
+                  <SidebarMenuButton asChild key={item.url} className="text-sm">
                     <Link href={item.url}>
                       {item.icon}
                       <span>{item.title}</span>

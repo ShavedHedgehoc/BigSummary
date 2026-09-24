@@ -22,6 +22,16 @@
                 "dotenv"
             ]
         },
+         "apps/application_v2": {
+      "entry": ["pages/**/*.{js,jsx,ts,tsx}", "app/**/*.{js,jsx,ts,tsx}"], 
+      "project": ["src/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
+      "ignore": [
+    "src/shared/ui/**/*",
+    "src/shared/assets/**/*",
+    "src/widgets/doc-list/ui/cards.tsx"
+  ],
+  "ignoreDependencies": ["tailwindcss", "shadcn", "framer-motion", "@base-ui/react", "tw-animate-css", "zustand"]
+    },
         "apps/dash": {
             "entry": [
                 "src/app/main.{ts,tsx}"

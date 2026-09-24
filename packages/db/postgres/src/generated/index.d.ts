@@ -4390,6 +4390,8 @@ export namespace Prisma {
     semi_products: number
     tube_records: number
     records: number
+    records_organic_bases: number
+    records_water_bases: number
   }
 
   export type BoilsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4397,6 +4399,8 @@ export namespace Prisma {
     semi_products?: boolean | BoilsCountOutputTypeCountSemi_productsArgs
     tube_records?: boolean | BoilsCountOutputTypeCountTube_recordsArgs
     records?: boolean | BoilsCountOutputTypeCountRecordsArgs
+    records_organic_bases?: boolean | BoilsCountOutputTypeCountRecords_organic_basesArgs
+    records_water_bases?: boolean | BoilsCountOutputTypeCountRecords_water_basesArgs
   }
 
   // Custom InputTypes
@@ -4435,6 +4439,20 @@ export namespace Prisma {
    * BoilsCountOutputType without action
    */
   export type BoilsCountOutputTypeCountRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: recordsWhereInput
+  }
+
+  /**
+   * BoilsCountOutputType without action
+   */
+  export type BoilsCountOutputTypeCountRecords_organic_basesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: recordsWhereInput
+  }
+
+  /**
+   * BoilsCountOutputType without action
+   */
+  export type BoilsCountOutputTypeCountRecords_water_basesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: recordsWhereInput
   }
 
@@ -8649,6 +8667,8 @@ export namespace Prisma {
     semi_products?: boolean | boils$semi_productsArgs<ExtArgs>
     tube_records?: boolean | boils$tube_recordsArgs<ExtArgs>
     records?: boolean | boils$recordsArgs<ExtArgs>
+    records_organic_bases?: boolean | boils$records_organic_basesArgs<ExtArgs>
+    records_water_bases?: boolean | boils$records_water_basesArgs<ExtArgs>
     plants?: boolean | boils$plantsArgs<ExtArgs>
     _count?: boolean | BoilsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["boils"]>
@@ -8694,6 +8714,8 @@ export namespace Prisma {
     semi_products?: boolean | boils$semi_productsArgs<ExtArgs>
     tube_records?: boolean | boils$tube_recordsArgs<ExtArgs>
     records?: boolean | boils$recordsArgs<ExtArgs>
+    records_organic_bases?: boolean | boils$records_organic_basesArgs<ExtArgs>
+    records_water_bases?: boolean | boils$records_water_basesArgs<ExtArgs>
     plants?: boolean | boils$plantsArgs<ExtArgs>
     _count?: boolean | BoilsCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -8714,6 +8736,8 @@ export namespace Prisma {
       semi_products: Prisma.$semi_productsPayload<ExtArgs>[]
       tube_records: Prisma.$tube_recordsPayload<ExtArgs>[]
       records: Prisma.$recordsPayload<ExtArgs>[]
+      records_organic_bases: Prisma.$recordsPayload<ExtArgs>[]
+      records_water_bases: Prisma.$recordsPayload<ExtArgs>[]
       plants: Prisma.$plantsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9123,6 +9147,8 @@ export namespace Prisma {
     semi_products<T extends boils$semi_productsArgs<ExtArgs> = {}>(args?: Subset<T, boils$semi_productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$semi_productsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     tube_records<T extends boils$tube_recordsArgs<ExtArgs> = {}>(args?: Subset<T, boils$tube_recordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tube_recordsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     records<T extends boils$recordsArgs<ExtArgs> = {}>(args?: Subset<T, boils$recordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recordsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    records_organic_bases<T extends boils$records_organic_basesArgs<ExtArgs> = {}>(args?: Subset<T, boils$records_organic_basesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recordsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    records_water_bases<T extends boils$records_water_basesArgs<ExtArgs> = {}>(args?: Subset<T, boils$records_water_basesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recordsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     plants<T extends boils$plantsArgs<ExtArgs> = {}>(args?: Subset<T, boils$plantsArgs<ExtArgs>>): Prisma__plantsClient<$Result.GetResult<Prisma.$plantsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9638,6 +9664,54 @@ export namespace Prisma {
    * boils.records
    */
   export type boils$recordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the records
+     */
+    select?: recordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the records
+     */
+    omit?: recordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recordsInclude<ExtArgs> | null
+    where?: recordsWhereInput
+    orderBy?: recordsOrderByWithRelationInput | recordsOrderByWithRelationInput[]
+    cursor?: recordsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecordsScalarFieldEnum | RecordsScalarFieldEnum[]
+  }
+
+  /**
+   * boils.records_organic_bases
+   */
+  export type boils$records_organic_basesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the records
+     */
+    select?: recordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the records
+     */
+    omit?: recordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recordsInclude<ExtArgs> | null
+    where?: recordsWhereInput
+    orderBy?: recordsOrderByWithRelationInput | recordsOrderByWithRelationInput[]
+    cursor?: recordsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecordsScalarFieldEnum | RecordsScalarFieldEnum[]
+  }
+
+  /**
+   * boils.records_water_bases
+   */
+  export type boils$records_water_basesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the records
      */
@@ -16730,7 +16804,7 @@ export namespace Prisma {
 
   export type Marking_sampleGroupByOutputType = {
     id: number
-    value: string | null
+    value: string
     createdAt: Date
     updatedAt: Date
     _count: Marking_sampleCountAggregateOutputType | null
@@ -16802,7 +16876,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      value: string | null
+      value: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["marking_sample"]>
@@ -24920,11 +24994,13 @@ export namespace Prisma {
     histories?: boolean | records$historiesArgs<ExtArgs>
     record_counters?: boolean | records$record_countersArgs<ExtArgs>
     record_regulations?: boolean | records$record_regulationsArgs<ExtArgs>
+    boils?: boolean | records$boilsArgs<ExtArgs>
+    water_bases?: boolean | records$water_basesArgs<ExtArgs>
+    organic_bases?: boolean | records$organic_basesArgs<ExtArgs>
     conveyors?: boolean | records$conveyorsArgs<ExtArgs>
     docs?: boolean | records$docsArgs<ExtArgs>
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     products?: boolean | records$productsArgs<ExtArgs>
-    boils?: boolean | records$boilsArgs<ExtArgs>
     apparatuses?: boolean | records$apparatusesArgs<ExtArgs>
     cans?: boolean | records$cansArgs<ExtArgs>
     semi_products?: boolean | records$semi_productsArgs<ExtArgs>
@@ -24949,11 +25025,13 @@ export namespace Prisma {
     organic_base_id?: boolean
     water_base_id?: boolean
     dm?: boolean
+    boils?: boolean | records$boilsArgs<ExtArgs>
+    water_bases?: boolean | records$water_basesArgs<ExtArgs>
+    organic_bases?: boolean | records$organic_basesArgs<ExtArgs>
     conveyors?: boolean | records$conveyorsArgs<ExtArgs>
     docs?: boolean | records$docsArgs<ExtArgs>
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     products?: boolean | records$productsArgs<ExtArgs>
-    boils?: boolean | records$boilsArgs<ExtArgs>
     apparatuses?: boolean | records$apparatusesArgs<ExtArgs>
     cans?: boolean | records$cansArgs<ExtArgs>
   }, ExtArgs["result"]["records"]>
@@ -24976,11 +25054,13 @@ export namespace Prisma {
     organic_base_id?: boolean
     water_base_id?: boolean
     dm?: boolean
+    boils?: boolean | records$boilsArgs<ExtArgs>
+    water_bases?: boolean | records$water_basesArgs<ExtArgs>
+    organic_bases?: boolean | records$organic_basesArgs<ExtArgs>
     conveyors?: boolean | records$conveyorsArgs<ExtArgs>
     docs?: boolean | records$docsArgs<ExtArgs>
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     products?: boolean | records$productsArgs<ExtArgs>
-    boils?: boolean | records$boilsArgs<ExtArgs>
     apparatuses?: boolean | records$apparatusesArgs<ExtArgs>
     cans?: boolean | records$cansArgs<ExtArgs>
   }, ExtArgs["result"]["records"]>
@@ -25010,31 +25090,37 @@ export namespace Prisma {
     histories?: boolean | records$historiesArgs<ExtArgs>
     record_counters?: boolean | records$record_countersArgs<ExtArgs>
     record_regulations?: boolean | records$record_regulationsArgs<ExtArgs>
+    boils?: boolean | records$boilsArgs<ExtArgs>
+    water_bases?: boolean | records$water_basesArgs<ExtArgs>
+    organic_bases?: boolean | records$organic_basesArgs<ExtArgs>
     conveyors?: boolean | records$conveyorsArgs<ExtArgs>
     docs?: boolean | records$docsArgs<ExtArgs>
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     products?: boolean | records$productsArgs<ExtArgs>
-    boils?: boolean | records$boilsArgs<ExtArgs>
     apparatuses?: boolean | records$apparatusesArgs<ExtArgs>
     cans?: boolean | records$cansArgs<ExtArgs>
     semi_products?: boolean | records$semi_productsArgs<ExtArgs>
     _count?: boolean | RecordsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type recordsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    boils?: boolean | records$boilsArgs<ExtArgs>
+    water_bases?: boolean | records$water_basesArgs<ExtArgs>
+    organic_bases?: boolean | records$organic_basesArgs<ExtArgs>
     conveyors?: boolean | records$conveyorsArgs<ExtArgs>
     docs?: boolean | records$docsArgs<ExtArgs>
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     products?: boolean | records$productsArgs<ExtArgs>
-    boils?: boolean | records$boilsArgs<ExtArgs>
     apparatuses?: boolean | records$apparatusesArgs<ExtArgs>
     cans?: boolean | records$cansArgs<ExtArgs>
   }
   export type recordsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    boils?: boolean | records$boilsArgs<ExtArgs>
+    water_bases?: boolean | records$water_basesArgs<ExtArgs>
+    organic_bases?: boolean | records$organic_basesArgs<ExtArgs>
     conveyors?: boolean | records$conveyorsArgs<ExtArgs>
     docs?: boolean | records$docsArgs<ExtArgs>
     workshops?: boolean | records$workshopsArgs<ExtArgs>
     products?: boolean | records$productsArgs<ExtArgs>
-    boils?: boolean | records$boilsArgs<ExtArgs>
     apparatuses?: boolean | records$apparatusesArgs<ExtArgs>
     cans?: boolean | records$cansArgs<ExtArgs>
   }
@@ -25045,11 +25131,13 @@ export namespace Prisma {
       histories: Prisma.$historiesPayload<ExtArgs>[]
       record_counters: Prisma.$record_countersPayload<ExtArgs>[]
       record_regulations: Prisma.$record_regulationsPayload<ExtArgs>[]
+      boils: Prisma.$boilsPayload<ExtArgs> | null
+      water_bases: Prisma.$boilsPayload<ExtArgs> | null
+      organic_bases: Prisma.$boilsPayload<ExtArgs> | null
       conveyors: Prisma.$conveyorsPayload<ExtArgs> | null
       docs: Prisma.$docsPayload<ExtArgs> | null
       workshops: Prisma.$workshopsPayload<ExtArgs> | null
       products: Prisma.$productsPayload<ExtArgs> | null
-      boils: Prisma.$boilsPayload<ExtArgs> | null
       apparatuses: Prisma.$apparatusesPayload<ExtArgs> | null
       cans: Prisma.$cansPayload<ExtArgs> | null
       semi_products: Prisma.$semi_productsPayload<ExtArgs>[]
@@ -25469,11 +25557,13 @@ export namespace Prisma {
     histories<T extends records$historiesArgs<ExtArgs> = {}>(args?: Subset<T, records$historiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$historiesPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     record_counters<T extends records$record_countersArgs<ExtArgs> = {}>(args?: Subset<T, records$record_countersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$record_countersPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     record_regulations<T extends records$record_regulationsArgs<ExtArgs> = {}>(args?: Subset<T, records$record_regulationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$record_regulationsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    boils<T extends records$boilsArgs<ExtArgs> = {}>(args?: Subset<T, records$boilsArgs<ExtArgs>>): Prisma__boilsClient<$Result.GetResult<Prisma.$boilsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    water_bases<T extends records$water_basesArgs<ExtArgs> = {}>(args?: Subset<T, records$water_basesArgs<ExtArgs>>): Prisma__boilsClient<$Result.GetResult<Prisma.$boilsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
+    organic_bases<T extends records$organic_basesArgs<ExtArgs> = {}>(args?: Subset<T, records$organic_basesArgs<ExtArgs>>): Prisma__boilsClient<$Result.GetResult<Prisma.$boilsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     conveyors<T extends records$conveyorsArgs<ExtArgs> = {}>(args?: Subset<T, records$conveyorsArgs<ExtArgs>>): Prisma__conveyorsClient<$Result.GetResult<Prisma.$conveyorsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     docs<T extends records$docsArgs<ExtArgs> = {}>(args?: Subset<T, records$docsArgs<ExtArgs>>): Prisma__docsClient<$Result.GetResult<Prisma.$docsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     workshops<T extends records$workshopsArgs<ExtArgs> = {}>(args?: Subset<T, records$workshopsArgs<ExtArgs>>): Prisma__workshopsClient<$Result.GetResult<Prisma.$workshopsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     products<T extends records$productsArgs<ExtArgs> = {}>(args?: Subset<T, records$productsArgs<ExtArgs>>): Prisma__productsClient<$Result.GetResult<Prisma.$productsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
-    boils<T extends records$boilsArgs<ExtArgs> = {}>(args?: Subset<T, records$boilsArgs<ExtArgs>>): Prisma__boilsClient<$Result.GetResult<Prisma.$boilsPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     apparatuses<T extends records$apparatusesArgs<ExtArgs> = {}>(args?: Subset<T, records$apparatusesArgs<ExtArgs>>): Prisma__apparatusesClient<$Result.GetResult<Prisma.$apparatusesPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     cans<T extends records$cansArgs<ExtArgs> = {}>(args?: Subset<T, records$cansArgs<ExtArgs>>): Prisma__cansClient<$Result.GetResult<Prisma.$cansPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     semi_products<T extends records$semi_productsArgs<ExtArgs> = {}>(args?: Subset<T, records$semi_productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$semi_productsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
@@ -25979,6 +26069,63 @@ export namespace Prisma {
   }
 
   /**
+   * records.boils
+   */
+  export type records$boilsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the boils
+     */
+    select?: boilsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the boils
+     */
+    omit?: boilsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: boilsInclude<ExtArgs> | null
+    where?: boilsWhereInput
+  }
+
+  /**
+   * records.water_bases
+   */
+  export type records$water_basesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the boils
+     */
+    select?: boilsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the boils
+     */
+    omit?: boilsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: boilsInclude<ExtArgs> | null
+    where?: boilsWhereInput
+  }
+
+  /**
+   * records.organic_bases
+   */
+  export type records$organic_basesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the boils
+     */
+    select?: boilsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the boils
+     */
+    omit?: boilsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: boilsInclude<ExtArgs> | null
+    where?: boilsWhereInput
+  }
+
+  /**
    * records.conveyors
    */
   export type records$conveyorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26052,25 +26199,6 @@ export namespace Prisma {
      */
     include?: productsInclude<ExtArgs> | null
     where?: productsWhereInput
-  }
-
-  /**
-   * records.boils
-   */
-  export type records$boilsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the boils
-     */
-    select?: boilsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the boils
-     */
-    omit?: boilsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: boilsInclude<ExtArgs> | null
-    where?: boilsWhereInput
   }
 
   /**
@@ -51687,6 +51815,8 @@ export namespace Prisma {
     semi_products?: Semi_productsListRelationFilter
     tube_records?: Tube_recordsListRelationFilter
     records?: RecordsListRelationFilter
+    records_organic_bases?: RecordsListRelationFilter
+    records_water_bases?: RecordsListRelationFilter
     plants?: XOR<PlantsNullableScalarRelationFilter, plantsWhereInput> | null
   }
 
@@ -51703,6 +51833,8 @@ export namespace Prisma {
     semi_products?: semi_productsOrderByRelationAggregateInput
     tube_records?: tube_recordsOrderByRelationAggregateInput
     records?: recordsOrderByRelationAggregateInput
+    records_organic_bases?: recordsOrderByRelationAggregateInput
+    records_water_bases?: recordsOrderByRelationAggregateInput
     plants?: plantsOrderByWithRelationInput
   }
 
@@ -51722,6 +51854,8 @@ export namespace Prisma {
     semi_products?: Semi_productsListRelationFilter
     tube_records?: Tube_recordsListRelationFilter
     records?: RecordsListRelationFilter
+    records_organic_bases?: RecordsListRelationFilter
+    records_water_bases?: RecordsListRelationFilter
     plants?: XOR<PlantsNullableScalarRelationFilter, plantsWhereInput> | null
   }, "id" | "value">
 
@@ -52132,7 +52266,7 @@ export namespace Prisma {
     OR?: marking_sampleWhereInput[]
     NOT?: marking_sampleWhereInput | marking_sampleWhereInput[]
     id?: IntFilter<"marking_sample"> | number
-    value?: StringNullableFilter<"marking_sample"> | string | null
+    value?: StringFilter<"marking_sample"> | string
     createdAt?: DateTimeFilter<"marking_sample"> | Date | string
     updatedAt?: DateTimeFilter<"marking_sample"> | Date | string
     record_regulations?: Record_regulationsListRelationFilter
@@ -52141,7 +52275,7 @@ export namespace Prisma {
 
   export type marking_sampleOrderByWithRelationInput = {
     id?: SortOrder
-    value?: SortOrderInput | SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     record_regulations?: record_regulationsOrderByRelationAggregateInput
@@ -52150,19 +52284,19 @@ export namespace Prisma {
 
   export type marking_sampleWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    value?: string
     AND?: marking_sampleWhereInput | marking_sampleWhereInput[]
     OR?: marking_sampleWhereInput[]
     NOT?: marking_sampleWhereInput | marking_sampleWhereInput[]
-    value?: StringNullableFilter<"marking_sample"> | string | null
     createdAt?: DateTimeFilter<"marking_sample"> | Date | string
     updatedAt?: DateTimeFilter<"marking_sample"> | Date | string
     record_regulations?: Record_regulationsListRelationFilter
     regulations?: RegulationsListRelationFilter
-  }, "id">
+  }, "id" | "value">
 
   export type marking_sampleOrderByWithAggregationInput = {
     id?: SortOrder
-    value?: SortOrderInput | SortOrder
+    value?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: marking_sampleCountOrderByAggregateInput
@@ -52177,7 +52311,7 @@ export namespace Prisma {
     OR?: marking_sampleScalarWhereWithAggregatesInput[]
     NOT?: marking_sampleScalarWhereWithAggregatesInput | marking_sampleScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"marking_sample"> | number
-    value?: StringNullableWithAggregatesFilter<"marking_sample"> | string | null
+    value?: StringWithAggregatesFilter<"marking_sample"> | string
     createdAt?: DateTimeWithAggregatesFilter<"marking_sample"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"marking_sample"> | Date | string
   }
@@ -52611,11 +52745,13 @@ export namespace Prisma {
     histories?: HistoriesListRelationFilter
     record_counters?: Record_countersListRelationFilter
     record_regulations?: Record_regulationsListRelationFilter
+    boils?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
+    water_bases?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
+    organic_bases?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
     conveyors?: XOR<ConveyorsNullableScalarRelationFilter, conveyorsWhereInput> | null
     docs?: XOR<DocsNullableScalarRelationFilter, docsWhereInput> | null
     workshops?: XOR<WorkshopsNullableScalarRelationFilter, workshopsWhereInput> | null
     products?: XOR<ProductsNullableScalarRelationFilter, productsWhereInput> | null
-    boils?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
     apparatuses?: XOR<ApparatusesNullableScalarRelationFilter, apparatusesWhereInput> | null
     cans?: XOR<CansNullableScalarRelationFilter, cansWhereInput> | null
     semi_products?: Semi_productsListRelationFilter
@@ -52642,11 +52778,13 @@ export namespace Prisma {
     histories?: historiesOrderByRelationAggregateInput
     record_counters?: record_countersOrderByRelationAggregateInput
     record_regulations?: record_regulationsOrderByRelationAggregateInput
+    boils?: boilsOrderByWithRelationInput
+    water_bases?: boilsOrderByWithRelationInput
+    organic_bases?: boilsOrderByWithRelationInput
     conveyors?: conveyorsOrderByWithRelationInput
     docs?: docsOrderByWithRelationInput
     workshops?: workshopsOrderByWithRelationInput
     products?: productsOrderByWithRelationInput
-    boils?: boilsOrderByWithRelationInput
     apparatuses?: apparatusesOrderByWithRelationInput
     cans?: cansOrderByWithRelationInput
     semi_products?: semi_productsOrderByRelationAggregateInput
@@ -52676,11 +52814,13 @@ export namespace Prisma {
     histories?: HistoriesListRelationFilter
     record_counters?: Record_countersListRelationFilter
     record_regulations?: Record_regulationsListRelationFilter
+    boils?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
+    water_bases?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
+    organic_bases?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
     conveyors?: XOR<ConveyorsNullableScalarRelationFilter, conveyorsWhereInput> | null
     docs?: XOR<DocsNullableScalarRelationFilter, docsWhereInput> | null
     workshops?: XOR<WorkshopsNullableScalarRelationFilter, workshopsWhereInput> | null
     products?: XOR<ProductsNullableScalarRelationFilter, productsWhereInput> | null
-    boils?: XOR<BoilsNullableScalarRelationFilter, boilsWhereInput> | null
     apparatuses?: XOR<ApparatusesNullableScalarRelationFilter, apparatusesWhereInput> | null
     cans?: XOR<CansNullableScalarRelationFilter, cansWhereInput> | null
     semi_products?: Semi_productsListRelationFilter
@@ -54438,6 +54578,8 @@ export namespace Prisma {
     semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
     records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
     plants?: plantsCreateNestedOneWithoutBoilsInput
   }
 
@@ -54453,6 +54595,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
     records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsUpdateInput = {
@@ -54465,6 +54609,8 @@ export namespace Prisma {
     semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
     records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
     plants?: plantsUpdateOneWithoutBoilsNestedInput
   }
 
@@ -54480,6 +54626,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
     records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type boilsCreateManyInput = {
@@ -54590,8 +54738,8 @@ export namespace Prisma {
 
   export type docsCreateInput = {
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plants?: plantsCreateNestedOneWithoutDocsInput
     records?: recordsCreateNestedManyWithoutDocsInput
   }
@@ -54600,8 +54748,8 @@ export namespace Prisma {
     id?: number
     plantId?: number | null
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     records?: recordsUncheckedCreateNestedManyWithoutDocsInput
   }
 
@@ -54626,8 +54774,8 @@ export namespace Prisma {
     id?: number
     plantId?: number | null
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type docsUpdateManyMutationInput = {
@@ -54647,8 +54795,8 @@ export namespace Prisma {
   export type employeesCreateInput = {
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     occupations?: occupationsCreateNestedOneWithoutEmployeesInput
     histories?: historiesCreateNestedManyWithoutEmployeesInput
     tube_histories?: tube_historiesCreateNestedManyWithoutEmployeesInput
@@ -54660,8 +54808,8 @@ export namespace Prisma {
     name: string
     barcode: string
     occupationId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_histories?: tube_historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -54695,8 +54843,8 @@ export namespace Prisma {
     name: string
     barcode: string
     occupationId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type employeesUpdateManyMutationInput = {
@@ -54717,8 +54865,8 @@ export namespace Prisma {
 
   export type historiesCreateInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     boils?: boilsCreateNestedOneWithoutHistoriesInput
     employees?: employeesCreateNestedOneWithoutHistoriesInput
@@ -54736,8 +54884,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -54777,8 +54925,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -54855,24 +55003,24 @@ export namespace Prisma {
   }
 
   export type marking_sampleCreateInput = {
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     record_regulations?: record_regulationsCreateNestedManyWithoutMarking_sampleInput
     regulations?: regulationsCreateNestedManyWithoutMarking_sampleInput
   }
 
   export type marking_sampleUncheckedCreateInput = {
     id?: number
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutMarking_sampleInput
     regulations?: regulationsUncheckedCreateNestedManyWithoutMarking_sampleInput
   }
 
   export type marking_sampleUpdateInput = {
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     record_regulations?: record_regulationsUpdateManyWithoutMarking_sampleNestedInput
@@ -54881,7 +55029,7 @@ export namespace Prisma {
 
   export type marking_sampleUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutMarking_sampleNestedInput
@@ -54890,20 +55038,20 @@ export namespace Prisma {
 
   export type marking_sampleCreateManyInput = {
     id?: number
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type marking_sampleUpdateManyMutationInput = {
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type marking_sampleUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -55042,8 +55190,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     series?: seriesCreateNestedOneWithoutProductsInput
     regulations?: regulationsCreateNestedManyWithoutProductsInput
     semi_products?: semi_productsCreateNestedManyWithoutProductsInput
@@ -55056,8 +55204,8 @@ export namespace Prisma {
     marking: string
     name?: string | null
     serieId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsUncheckedCreateNestedManyWithoutProductsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutProductsInput
     records?: recordsUncheckedCreateNestedManyWithoutProductsInput
@@ -55094,8 +55242,8 @@ export namespace Prisma {
     marking: string
     name?: string | null
     serieId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type productsUpdateManyMutationInput = {
@@ -55189,8 +55337,8 @@ export namespace Prisma {
     packaging_note?: string | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     marking_sample?: marking_sampleCreateNestedOneWithoutRecord_regulationsInput
     records?: recordsCreateNestedOneWithoutRecord_regulationsInput
   }
@@ -55212,8 +55360,8 @@ export namespace Prisma {
     marking_sample_id?: number | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_regulationsUpdateInput = {
@@ -55274,8 +55422,8 @@ export namespace Prisma {
     marking_sample_id?: number | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_regulationsUpdateManyMutationInput = {
@@ -55321,20 +55469,20 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -55352,8 +55500,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -55371,17 +55519,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -55423,8 +55571,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -55438,8 +55586,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
   }
 
@@ -55635,8 +55781,8 @@ export namespace Prisma {
   }
 
   export type semi_productsCreateInput = {
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     boils?: boilsCreateNestedOneWithoutSemi_productsInput
     products?: productsCreateNestedOneWithoutSemi_productsInput
     records?: recordsCreateNestedOneWithoutSemi_productsInput
@@ -55647,8 +55793,8 @@ export namespace Prisma {
     record_id?: number | null
     product_id?: number | null
     boil_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type semi_productsUpdateInput = {
@@ -55673,8 +55819,8 @@ export namespace Prisma {
     record_id?: number | null
     product_id?: number | null
     boil_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type semi_productsUpdateManyMutationInput = {
@@ -59491,6 +59637,20 @@ export namespace Prisma {
     connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
   }
 
+  export type recordsCreateNestedManyWithoutOrganic_basesInput = {
+    create?: XOR<recordsCreateWithoutOrganic_basesInput, recordsUncheckedCreateWithoutOrganic_basesInput> | recordsCreateWithoutOrganic_basesInput[] | recordsUncheckedCreateWithoutOrganic_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutOrganic_basesInput | recordsCreateOrConnectWithoutOrganic_basesInput[]
+    createMany?: recordsCreateManyOrganic_basesInputEnvelope
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+  }
+
+  export type recordsCreateNestedManyWithoutWater_basesInput = {
+    create?: XOR<recordsCreateWithoutWater_basesInput, recordsUncheckedCreateWithoutWater_basesInput> | recordsCreateWithoutWater_basesInput[] | recordsUncheckedCreateWithoutWater_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutWater_basesInput | recordsCreateOrConnectWithoutWater_basesInput[]
+    createMany?: recordsCreateManyWater_basesInputEnvelope
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+  }
+
   export type plantsCreateNestedOneWithoutBoilsInput = {
     create?: XOR<plantsCreateWithoutBoilsInput, plantsUncheckedCreateWithoutBoilsInput>
     connectOrCreate?: plantsCreateOrConnectWithoutBoilsInput
@@ -59522,6 +59682,20 @@ export namespace Prisma {
     create?: XOR<recordsCreateWithoutBoilsInput, recordsUncheckedCreateWithoutBoilsInput> | recordsCreateWithoutBoilsInput[] | recordsUncheckedCreateWithoutBoilsInput[]
     connectOrCreate?: recordsCreateOrConnectWithoutBoilsInput | recordsCreateOrConnectWithoutBoilsInput[]
     createMany?: recordsCreateManyBoilsInputEnvelope
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+  }
+
+  export type recordsUncheckedCreateNestedManyWithoutOrganic_basesInput = {
+    create?: XOR<recordsCreateWithoutOrganic_basesInput, recordsUncheckedCreateWithoutOrganic_basesInput> | recordsCreateWithoutOrganic_basesInput[] | recordsUncheckedCreateWithoutOrganic_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutOrganic_basesInput | recordsCreateOrConnectWithoutOrganic_basesInput[]
+    createMany?: recordsCreateManyOrganic_basesInputEnvelope
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+  }
+
+  export type recordsUncheckedCreateNestedManyWithoutWater_basesInput = {
+    create?: XOR<recordsCreateWithoutWater_basesInput, recordsUncheckedCreateWithoutWater_basesInput> | recordsCreateWithoutWater_basesInput[] | recordsUncheckedCreateWithoutWater_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutWater_basesInput | recordsCreateOrConnectWithoutWater_basesInput[]
+    createMany?: recordsCreateManyWater_basesInputEnvelope
     connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
   }
 
@@ -59599,6 +59773,34 @@ export namespace Prisma {
     deleteMany?: recordsScalarWhereInput | recordsScalarWhereInput[]
   }
 
+  export type recordsUpdateManyWithoutOrganic_basesNestedInput = {
+    create?: XOR<recordsCreateWithoutOrganic_basesInput, recordsUncheckedCreateWithoutOrganic_basesInput> | recordsCreateWithoutOrganic_basesInput[] | recordsUncheckedCreateWithoutOrganic_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutOrganic_basesInput | recordsCreateOrConnectWithoutOrganic_basesInput[]
+    upsert?: recordsUpsertWithWhereUniqueWithoutOrganic_basesInput | recordsUpsertWithWhereUniqueWithoutOrganic_basesInput[]
+    createMany?: recordsCreateManyOrganic_basesInputEnvelope
+    set?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    disconnect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    delete?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    update?: recordsUpdateWithWhereUniqueWithoutOrganic_basesInput | recordsUpdateWithWhereUniqueWithoutOrganic_basesInput[]
+    updateMany?: recordsUpdateManyWithWhereWithoutOrganic_basesInput | recordsUpdateManyWithWhereWithoutOrganic_basesInput[]
+    deleteMany?: recordsScalarWhereInput | recordsScalarWhereInput[]
+  }
+
+  export type recordsUpdateManyWithoutWater_basesNestedInput = {
+    create?: XOR<recordsCreateWithoutWater_basesInput, recordsUncheckedCreateWithoutWater_basesInput> | recordsCreateWithoutWater_basesInput[] | recordsUncheckedCreateWithoutWater_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutWater_basesInput | recordsCreateOrConnectWithoutWater_basesInput[]
+    upsert?: recordsUpsertWithWhereUniqueWithoutWater_basesInput | recordsUpsertWithWhereUniqueWithoutWater_basesInput[]
+    createMany?: recordsCreateManyWater_basesInputEnvelope
+    set?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    disconnect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    delete?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    update?: recordsUpdateWithWhereUniqueWithoutWater_basesInput | recordsUpdateWithWhereUniqueWithoutWater_basesInput[]
+    updateMany?: recordsUpdateManyWithWhereWithoutWater_basesInput | recordsUpdateManyWithWhereWithoutWater_basesInput[]
+    deleteMany?: recordsScalarWhereInput | recordsScalarWhereInput[]
+  }
+
   export type plantsUpdateOneWithoutBoilsNestedInput = {
     create?: XOR<plantsCreateWithoutBoilsInput, plantsUncheckedCreateWithoutBoilsInput>
     connectOrCreate?: plantsCreateOrConnectWithoutBoilsInput
@@ -59670,6 +59872,34 @@ export namespace Prisma {
     connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
     update?: recordsUpdateWithWhereUniqueWithoutBoilsInput | recordsUpdateWithWhereUniqueWithoutBoilsInput[]
     updateMany?: recordsUpdateManyWithWhereWithoutBoilsInput | recordsUpdateManyWithWhereWithoutBoilsInput[]
+    deleteMany?: recordsScalarWhereInput | recordsScalarWhereInput[]
+  }
+
+  export type recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput = {
+    create?: XOR<recordsCreateWithoutOrganic_basesInput, recordsUncheckedCreateWithoutOrganic_basesInput> | recordsCreateWithoutOrganic_basesInput[] | recordsUncheckedCreateWithoutOrganic_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutOrganic_basesInput | recordsCreateOrConnectWithoutOrganic_basesInput[]
+    upsert?: recordsUpsertWithWhereUniqueWithoutOrganic_basesInput | recordsUpsertWithWhereUniqueWithoutOrganic_basesInput[]
+    createMany?: recordsCreateManyOrganic_basesInputEnvelope
+    set?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    disconnect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    delete?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    update?: recordsUpdateWithWhereUniqueWithoutOrganic_basesInput | recordsUpdateWithWhereUniqueWithoutOrganic_basesInput[]
+    updateMany?: recordsUpdateManyWithWhereWithoutOrganic_basesInput | recordsUpdateManyWithWhereWithoutOrganic_basesInput[]
+    deleteMany?: recordsScalarWhereInput | recordsScalarWhereInput[]
+  }
+
+  export type recordsUncheckedUpdateManyWithoutWater_basesNestedInput = {
+    create?: XOR<recordsCreateWithoutWater_basesInput, recordsUncheckedCreateWithoutWater_basesInput> | recordsCreateWithoutWater_basesInput[] | recordsUncheckedCreateWithoutWater_basesInput[]
+    connectOrCreate?: recordsCreateOrConnectWithoutWater_basesInput | recordsCreateOrConnectWithoutWater_basesInput[]
+    upsert?: recordsUpsertWithWhereUniqueWithoutWater_basesInput | recordsUpsertWithWhereUniqueWithoutWater_basesInput[]
+    createMany?: recordsCreateManyWater_basesInputEnvelope
+    set?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    disconnect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    delete?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    connect?: recordsWhereUniqueInput | recordsWhereUniqueInput[]
+    update?: recordsUpdateWithWhereUniqueWithoutWater_basesInput | recordsUpdateWithWhereUniqueWithoutWater_basesInput[]
+    updateMany?: recordsUpdateManyWithWhereWithoutWater_basesInput | recordsUpdateManyWithWhereWithoutWater_basesInput[]
     deleteMany?: recordsScalarWhereInput | recordsScalarWhereInput[]
   }
 
@@ -60604,6 +60834,24 @@ export namespace Prisma {
     connect?: record_regulationsWhereUniqueInput | record_regulationsWhereUniqueInput[]
   }
 
+  export type boilsCreateNestedOneWithoutRecordsInput = {
+    create?: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
+    connectOrCreate?: boilsCreateOrConnectWithoutRecordsInput
+    connect?: boilsWhereUniqueInput
+  }
+
+  export type boilsCreateNestedOneWithoutRecords_water_basesInput = {
+    create?: XOR<boilsCreateWithoutRecords_water_basesInput, boilsUncheckedCreateWithoutRecords_water_basesInput>
+    connectOrCreate?: boilsCreateOrConnectWithoutRecords_water_basesInput
+    connect?: boilsWhereUniqueInput
+  }
+
+  export type boilsCreateNestedOneWithoutRecords_organic_basesInput = {
+    create?: XOR<boilsCreateWithoutRecords_organic_basesInput, boilsUncheckedCreateWithoutRecords_organic_basesInput>
+    connectOrCreate?: boilsCreateOrConnectWithoutRecords_organic_basesInput
+    connect?: boilsWhereUniqueInput
+  }
+
   export type conveyorsCreateNestedOneWithoutRecordsInput = {
     create?: XOR<conveyorsCreateWithoutRecordsInput, conveyorsUncheckedCreateWithoutRecordsInput>
     connectOrCreate?: conveyorsCreateOrConnectWithoutRecordsInput
@@ -60626,12 +60874,6 @@ export namespace Prisma {
     create?: XOR<productsCreateWithoutRecordsInput, productsUncheckedCreateWithoutRecordsInput>
     connectOrCreate?: productsCreateOrConnectWithoutRecordsInput
     connect?: productsWhereUniqueInput
-  }
-
-  export type boilsCreateNestedOneWithoutRecordsInput = {
-    create?: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
-    connectOrCreate?: boilsCreateOrConnectWithoutRecordsInput
-    connect?: boilsWhereUniqueInput
   }
 
   export type apparatusesCreateNestedOneWithoutRecordsInput = {
@@ -60723,6 +60965,36 @@ export namespace Prisma {
     deleteMany?: record_regulationsScalarWhereInput | record_regulationsScalarWhereInput[]
   }
 
+  export type boilsUpdateOneWithoutRecordsNestedInput = {
+    create?: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
+    connectOrCreate?: boilsCreateOrConnectWithoutRecordsInput
+    upsert?: boilsUpsertWithoutRecordsInput
+    disconnect?: boilsWhereInput | boolean
+    delete?: boilsWhereInput | boolean
+    connect?: boilsWhereUniqueInput
+    update?: XOR<XOR<boilsUpdateToOneWithWhereWithoutRecordsInput, boilsUpdateWithoutRecordsInput>, boilsUncheckedUpdateWithoutRecordsInput>
+  }
+
+  export type boilsUpdateOneWithoutRecords_water_basesNestedInput = {
+    create?: XOR<boilsCreateWithoutRecords_water_basesInput, boilsUncheckedCreateWithoutRecords_water_basesInput>
+    connectOrCreate?: boilsCreateOrConnectWithoutRecords_water_basesInput
+    upsert?: boilsUpsertWithoutRecords_water_basesInput
+    disconnect?: boilsWhereInput | boolean
+    delete?: boilsWhereInput | boolean
+    connect?: boilsWhereUniqueInput
+    update?: XOR<XOR<boilsUpdateToOneWithWhereWithoutRecords_water_basesInput, boilsUpdateWithoutRecords_water_basesInput>, boilsUncheckedUpdateWithoutRecords_water_basesInput>
+  }
+
+  export type boilsUpdateOneWithoutRecords_organic_basesNestedInput = {
+    create?: XOR<boilsCreateWithoutRecords_organic_basesInput, boilsUncheckedCreateWithoutRecords_organic_basesInput>
+    connectOrCreate?: boilsCreateOrConnectWithoutRecords_organic_basesInput
+    upsert?: boilsUpsertWithoutRecords_organic_basesInput
+    disconnect?: boilsWhereInput | boolean
+    delete?: boilsWhereInput | boolean
+    connect?: boilsWhereUniqueInput
+    update?: XOR<XOR<boilsUpdateToOneWithWhereWithoutRecords_organic_basesInput, boilsUpdateWithoutRecords_organic_basesInput>, boilsUncheckedUpdateWithoutRecords_organic_basesInput>
+  }
+
   export type conveyorsUpdateOneWithoutRecordsNestedInput = {
     create?: XOR<conveyorsCreateWithoutRecordsInput, conveyorsUncheckedCreateWithoutRecordsInput>
     connectOrCreate?: conveyorsCreateOrConnectWithoutRecordsInput
@@ -60761,16 +61033,6 @@ export namespace Prisma {
     delete?: productsWhereInput | boolean
     connect?: productsWhereUniqueInput
     update?: XOR<XOR<productsUpdateToOneWithWhereWithoutRecordsInput, productsUpdateWithoutRecordsInput>, productsUncheckedUpdateWithoutRecordsInput>
-  }
-
-  export type boilsUpdateOneWithoutRecordsNestedInput = {
-    create?: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
-    connectOrCreate?: boilsCreateOrConnectWithoutRecordsInput
-    upsert?: boilsUpsertWithoutRecordsInput
-    disconnect?: boilsWhereInput | boolean
-    delete?: boilsWhereInput | boolean
-    connect?: boilsWhereUniqueInput
-    update?: XOR<XOR<boilsUpdateToOneWithWhereWithoutRecordsInput, boilsUpdateWithoutRecordsInput>, boilsUncheckedUpdateWithoutRecordsInput>
   }
 
   export type apparatusesUpdateOneWithoutRecordsNestedInput = {
@@ -62307,20 +62569,20 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
   }
@@ -62336,8 +62598,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -62406,6 +62668,8 @@ export namespace Prisma {
     semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
     records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
     plants?: plantsCreateNestedOneWithoutBoilsInput
   }
 
@@ -62420,6 +62684,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
     records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsCreateOrConnectWithoutBasesInput = {
@@ -62479,8 +62745,8 @@ export namespace Prisma {
 
   export type historiesCreateWithoutBoilsInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     employees?: employeesCreateNestedOneWithoutHistoriesInput
     history_types?: history_typesCreateNestedOneWithoutHistoriesInput
@@ -62496,8 +62762,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -62513,8 +62779,8 @@ export namespace Prisma {
   }
 
   export type semi_productsCreateWithoutBoilsInput = {
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     products?: productsCreateNestedOneWithoutSemi_productsInput
     records?: recordsCreateNestedOneWithoutSemi_productsInput
   }
@@ -62523,8 +62789,8 @@ export namespace Prisma {
     id?: number
     record_id?: number | null
     product_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type semi_productsCreateOrConnectWithoutBoilsInput = {
@@ -62578,15 +62844,15 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
@@ -62607,8 +62873,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -62626,6 +62892,116 @@ export namespace Prisma {
 
   export type recordsCreateManyBoilsInputEnvelope = {
     data: recordsCreateManyBoilsInput | recordsCreateManyBoilsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type recordsCreateWithoutOrganic_basesInput = {
+    plan: number
+    bbf: string
+    note: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isSet?: boolean | null
+    dm?: string
+    histories?: historiesCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
+    record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
+    docs?: docsCreateNestedOneWithoutRecordsInput
+    workshops?: workshopsCreateNestedOneWithoutRecordsInput
+    products?: productsCreateNestedOneWithoutRecordsInput
+    apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
+    cans?: cansCreateNestedOneWithoutRecordsInput
+    semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+  }
+
+  export type recordsUncheckedCreateWithoutOrganic_basesInput = {
+    id?: number
+    doc_id?: number | null
+    productId?: number | null
+    boilId?: number | null
+    apparatusId?: number | null
+    canId?: number | null
+    conveyorId?: number | null
+    plan: number
+    bbf: string
+    note: string
+    workshopId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isSet?: boolean | null
+    water_base_id?: number | null
+    dm?: string
+    histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
+    record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
+    semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+  }
+
+  export type recordsCreateOrConnectWithoutOrganic_basesInput = {
+    where: recordsWhereUniqueInput
+    create: XOR<recordsCreateWithoutOrganic_basesInput, recordsUncheckedCreateWithoutOrganic_basesInput>
+  }
+
+  export type recordsCreateManyOrganic_basesInputEnvelope = {
+    data: recordsCreateManyOrganic_basesInput | recordsCreateManyOrganic_basesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type recordsCreateWithoutWater_basesInput = {
+    plan: number
+    bbf: string
+    note: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isSet?: boolean | null
+    dm?: string
+    histories?: historiesCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersCreateNestedManyWithoutRecordsInput
+    record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
+    conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
+    docs?: docsCreateNestedOneWithoutRecordsInput
+    workshops?: workshopsCreateNestedOneWithoutRecordsInput
+    products?: productsCreateNestedOneWithoutRecordsInput
+    apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
+    cans?: cansCreateNestedOneWithoutRecordsInput
+    semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
+  }
+
+  export type recordsUncheckedCreateWithoutWater_basesInput = {
+    id?: number
+    doc_id?: number | null
+    productId?: number | null
+    boilId?: number | null
+    apparatusId?: number | null
+    canId?: number | null
+    conveyorId?: number | null
+    plan: number
+    bbf: string
+    note: string
+    workshopId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isSet?: boolean | null
+    organic_base_id?: number | null
+    dm?: string
+    histories?: historiesUncheckedCreateNestedManyWithoutRecordsInput
+    record_counters?: record_countersUncheckedCreateNestedManyWithoutRecordsInput
+    record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutRecordsInput
+    semi_products?: semi_productsUncheckedCreateNestedManyWithoutRecordsInput
+  }
+
+  export type recordsCreateOrConnectWithoutWater_basesInput = {
+    where: recordsWhereUniqueInput
+    create: XOR<recordsCreateWithoutWater_basesInput, recordsUncheckedCreateWithoutWater_basesInput>
+  }
+
+  export type recordsCreateManyWater_basesInputEnvelope = {
+    data: recordsCreateManyWater_basesInput | recordsCreateManyWater_basesInput[]
     skipDuplicates?: boolean
   }
 
@@ -62779,6 +63155,38 @@ export namespace Prisma {
     data: XOR<recordsUpdateManyMutationInput, recordsUncheckedUpdateManyWithoutBoilsInput>
   }
 
+  export type recordsUpsertWithWhereUniqueWithoutOrganic_basesInput = {
+    where: recordsWhereUniqueInput
+    update: XOR<recordsUpdateWithoutOrganic_basesInput, recordsUncheckedUpdateWithoutOrganic_basesInput>
+    create: XOR<recordsCreateWithoutOrganic_basesInput, recordsUncheckedCreateWithoutOrganic_basesInput>
+  }
+
+  export type recordsUpdateWithWhereUniqueWithoutOrganic_basesInput = {
+    where: recordsWhereUniqueInput
+    data: XOR<recordsUpdateWithoutOrganic_basesInput, recordsUncheckedUpdateWithoutOrganic_basesInput>
+  }
+
+  export type recordsUpdateManyWithWhereWithoutOrganic_basesInput = {
+    where: recordsScalarWhereInput
+    data: XOR<recordsUpdateManyMutationInput, recordsUncheckedUpdateManyWithoutOrganic_basesInput>
+  }
+
+  export type recordsUpsertWithWhereUniqueWithoutWater_basesInput = {
+    where: recordsWhereUniqueInput
+    update: XOR<recordsUpdateWithoutWater_basesInput, recordsUncheckedUpdateWithoutWater_basesInput>
+    create: XOR<recordsCreateWithoutWater_basesInput, recordsUncheckedCreateWithoutWater_basesInput>
+  }
+
+  export type recordsUpdateWithWhereUniqueWithoutWater_basesInput = {
+    where: recordsWhereUniqueInput
+    data: XOR<recordsUpdateWithoutWater_basesInput, recordsUncheckedUpdateWithoutWater_basesInput>
+  }
+
+  export type recordsUpdateManyWithWhereWithoutWater_basesInput = {
+    where: recordsScalarWhereInput
+    data: XOR<recordsUpdateManyMutationInput, recordsUncheckedUpdateManyWithoutWater_basesInput>
+  }
+
   export type plantsUpsertWithoutBoilsInput = {
     update: XOR<plantsUpdateWithoutBoilsInput, plantsUncheckedUpdateWithoutBoilsInput>
     create: XOR<plantsCreateWithoutBoilsInput, plantsUncheckedCreateWithoutBoilsInput>
@@ -62809,20 +63217,20 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
   }
@@ -62838,8 +63246,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -62880,19 +63288,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -62909,8 +63317,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -62971,19 +63379,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -63000,8 +63408,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -63082,8 +63490,8 @@ export namespace Prisma {
 
   export type historiesCreateWithoutEmployeesInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     boils?: boilsCreateNestedOneWithoutHistoriesInput
     history_types?: history_typesCreateNestedOneWithoutHistoriesInput
@@ -63099,8 +63507,8 @@ export namespace Prisma {
     historyTypeId?: number | null
     userId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -63274,6 +63682,8 @@ export namespace Prisma {
     semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
     records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
     plants?: plantsCreateNestedOneWithoutBoilsInput
   }
 
@@ -63288,6 +63698,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
     records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsCreateOrConnectWithoutHistoriesInput = {
@@ -63298,8 +63710,8 @@ export namespace Prisma {
   export type employeesCreateWithoutHistoriesInput = {
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     occupations?: occupationsCreateNestedOneWithoutEmployeesInput
     tube_histories?: tube_historiesCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsCreateNestedManyWithoutEmployeesInput
@@ -63310,8 +63722,8 @@ export namespace Prisma {
     name: string
     barcode: string
     occupationId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     tube_histories?: tube_historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsUncheckedCreateNestedManyWithoutEmployeesInput
   }
@@ -63343,19 +63755,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -63373,8 +63785,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -63453,6 +63865,8 @@ export namespace Prisma {
     semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
     records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
     plants?: plantsUpdateOneWithoutBoilsNestedInput
   }
 
@@ -63467,6 +63881,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
     records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type employeesUpsertWithoutHistoriesInput = {
@@ -63543,16 +63959,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -63639,8 +64055,8 @@ export namespace Prisma {
 
   export type historiesCreateWithoutHistory_typesInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     boils?: boilsCreateNestedOneWithoutHistoriesInput
     employees?: employeesCreateNestedOneWithoutHistoriesInput
@@ -63656,8 +64072,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -63702,8 +64118,8 @@ export namespace Prisma {
     packaging_note?: string | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     records?: recordsCreateNestedOneWithoutRecord_regulationsInput
   }
 
@@ -63723,8 +64139,8 @@ export namespace Prisma {
     packaging_note?: string | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_regulationsCreateOrConnectWithoutMarking_sampleInput = {
@@ -63856,8 +64272,8 @@ export namespace Prisma {
 
   export type historiesCreateWithoutNotesInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     boils?: boilsCreateNestedOneWithoutHistoriesInput
     employees?: employeesCreateNestedOneWithoutHistoriesInput
@@ -63874,8 +64290,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
   }
 
@@ -63908,8 +64324,8 @@ export namespace Prisma {
   export type employeesCreateWithoutOccupationsInput = {
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesCreateNestedManyWithoutEmployeesInput
     tube_histories?: tube_historiesCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsCreateNestedManyWithoutEmployeesInput
@@ -63919,8 +64335,8 @@ export namespace Prisma {
     id?: number
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_histories?: tube_historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -63966,16 +64382,16 @@ export namespace Prisma {
 
   export type docsCreateWithoutPlantsInput = {
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     records?: recordsCreateNestedManyWithoutDocsInput
   }
 
   export type docsUncheckedCreateWithoutPlantsInput = {
     id?: number
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     records?: recordsUncheckedCreateNestedManyWithoutDocsInput
   }
 
@@ -64018,6 +64434,8 @@ export namespace Prisma {
     semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
     records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsUncheckedCreateWithoutPlantsInput = {
@@ -64031,6 +64449,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
     records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsCreateOrConnectWithoutPlantsInput = {
@@ -64167,8 +64587,8 @@ export namespace Prisma {
   }
 
   export type semi_productsCreateWithoutProductsInput = {
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     boils?: boilsCreateNestedOneWithoutSemi_productsInput
     records?: recordsCreateNestedOneWithoutSemi_productsInput
   }
@@ -64177,8 +64597,8 @@ export namespace Prisma {
     id?: number
     record_id?: number | null
     boil_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type semi_productsCreateOrConnectWithoutProductsInput = {
@@ -64195,19 +64615,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -64224,8 +64644,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -64318,19 +64738,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -64348,8 +64768,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -64382,16 +64802,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -64421,17 +64841,17 @@ export namespace Prisma {
   }
 
   export type marking_sampleCreateWithoutRecord_regulationsInput = {
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsCreateNestedManyWithoutMarking_sampleInput
   }
 
   export type marking_sampleUncheckedCreateWithoutRecord_regulationsInput = {
     id?: number
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsUncheckedCreateNestedManyWithoutMarking_sampleInput
   }
 
@@ -64444,19 +64864,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -64474,8 +64894,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -64502,7 +64922,7 @@ export namespace Prisma {
   }
 
   export type marking_sampleUpdateWithoutRecord_regulationsInput = {
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     regulations?: regulationsUpdateManyWithoutMarking_sampleNestedInput
@@ -64510,7 +64930,7 @@ export namespace Prisma {
 
   export type marking_sampleUncheckedUpdateWithoutRecord_regulationsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     regulations?: regulationsUncheckedUpdateManyWithoutMarking_sampleNestedInput
@@ -64534,16 +64954,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -64574,8 +64994,8 @@ export namespace Prisma {
 
   export type historiesCreateWithoutRecordsInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     boils?: boilsCreateNestedOneWithoutHistoriesInput
     employees?: employeesCreateNestedOneWithoutHistoriesInput
@@ -64591,8 +65011,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -64646,8 +65066,8 @@ export namespace Prisma {
     packaging_note?: string | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     marking_sample?: marking_sampleCreateNestedOneWithoutRecord_regulationsInput
   }
 
@@ -64667,8 +65087,8 @@ export namespace Prisma {
     marking_sample_id?: number | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type record_regulationsCreateOrConnectWithoutRecordsInput = {
@@ -64679,6 +65099,108 @@ export namespace Prisma {
   export type record_regulationsCreateManyRecordsInputEnvelope = {
     data: record_regulationsCreateManyRecordsInput | record_regulationsCreateManyRecordsInput[]
     skipDuplicates?: boolean
+  }
+
+  export type boilsCreateWithoutRecordsInput = {
+    value: string
+    letter?: string | null
+    year?: Decimal | DecimalJsLike | number | string | null
+    number?: Decimal | DecimalJsLike | number | string | null
+    bases?: basesCreateNestedOneWithoutBoilsInput
+    histories?: historiesCreateNestedManyWithoutBoilsInput
+    semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
+    tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
+    plants?: plantsCreateNestedOneWithoutBoilsInput
+  }
+
+  export type boilsUncheckedCreateWithoutRecordsInput = {
+    id?: number
+    value: string
+    base_id?: number | null
+    letter?: string | null
+    year?: Decimal | DecimalJsLike | number | string | null
+    number?: Decimal | DecimalJsLike | number | string | null
+    plant_id?: number | null
+    histories?: historiesUncheckedCreateNestedManyWithoutBoilsInput
+    semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
+    tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
+  }
+
+  export type boilsCreateOrConnectWithoutRecordsInput = {
+    where: boilsWhereUniqueInput
+    create: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
+  }
+
+  export type boilsCreateWithoutRecords_water_basesInput = {
+    value: string
+    letter?: string | null
+    year?: Decimal | DecimalJsLike | number | string | null
+    number?: Decimal | DecimalJsLike | number | string | null
+    bases?: basesCreateNestedOneWithoutBoilsInput
+    histories?: historiesCreateNestedManyWithoutBoilsInput
+    semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
+    tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
+    records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    plants?: plantsCreateNestedOneWithoutBoilsInput
+  }
+
+  export type boilsUncheckedCreateWithoutRecords_water_basesInput = {
+    id?: number
+    value: string
+    base_id?: number | null
+    letter?: string | null
+    year?: Decimal | DecimalJsLike | number | string | null
+    number?: Decimal | DecimalJsLike | number | string | null
+    plant_id?: number | null
+    histories?: historiesUncheckedCreateNestedManyWithoutBoilsInput
+    semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
+    tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+  }
+
+  export type boilsCreateOrConnectWithoutRecords_water_basesInput = {
+    where: boilsWhereUniqueInput
+    create: XOR<boilsCreateWithoutRecords_water_basesInput, boilsUncheckedCreateWithoutRecords_water_basesInput>
+  }
+
+  export type boilsCreateWithoutRecords_organic_basesInput = {
+    value: string
+    letter?: string | null
+    year?: Decimal | DecimalJsLike | number | string | null
+    number?: Decimal | DecimalJsLike | number | string | null
+    bases?: basesCreateNestedOneWithoutBoilsInput
+    histories?: historiesCreateNestedManyWithoutBoilsInput
+    semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
+    tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
+    records?: recordsCreateNestedManyWithoutBoilsInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
+    plants?: plantsCreateNestedOneWithoutBoilsInput
+  }
+
+  export type boilsUncheckedCreateWithoutRecords_organic_basesInput = {
+    id?: number
+    value: string
+    base_id?: number | null
+    letter?: string | null
+    year?: Decimal | DecimalJsLike | number | string | null
+    number?: Decimal | DecimalJsLike | number | string | null
+    plant_id?: number | null
+    histories?: historiesUncheckedCreateNestedManyWithoutBoilsInput
+    semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
+    tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
+  }
+
+  export type boilsCreateOrConnectWithoutRecords_organic_basesInput = {
+    where: boilsWhereUniqueInput
+    create: XOR<boilsCreateWithoutRecords_organic_basesInput, boilsUncheckedCreateWithoutRecords_organic_basesInput>
   }
 
   export type conveyorsCreateWithoutRecordsInput = {
@@ -64699,8 +65221,8 @@ export namespace Prisma {
 
   export type docsCreateWithoutRecordsInput = {
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plants?: plantsCreateNestedOneWithoutDocsInput
   }
 
@@ -64708,8 +65230,8 @@ export namespace Prisma {
     id?: number
     plantId?: number | null
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type docsCreateOrConnectWithoutRecordsInput = {
@@ -64735,8 +65257,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     series?: seriesCreateNestedOneWithoutProductsInput
     regulations?: regulationsCreateNestedManyWithoutProductsInput
     semi_products?: semi_productsCreateNestedManyWithoutProductsInput
@@ -64748,8 +65270,8 @@ export namespace Prisma {
     marking: string
     name?: string | null
     serieId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsUncheckedCreateNestedManyWithoutProductsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -64757,36 +65279,6 @@ export namespace Prisma {
   export type productsCreateOrConnectWithoutRecordsInput = {
     where: productsWhereUniqueInput
     create: XOR<productsCreateWithoutRecordsInput, productsUncheckedCreateWithoutRecordsInput>
-  }
-
-  export type boilsCreateWithoutRecordsInput = {
-    value: string
-    letter?: string | null
-    year?: Decimal | DecimalJsLike | number | string | null
-    number?: Decimal | DecimalJsLike | number | string | null
-    bases?: basesCreateNestedOneWithoutBoilsInput
-    histories?: historiesCreateNestedManyWithoutBoilsInput
-    semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
-    tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
-    plants?: plantsCreateNestedOneWithoutBoilsInput
-  }
-
-  export type boilsUncheckedCreateWithoutRecordsInput = {
-    id?: number
-    value: string
-    base_id?: number | null
-    letter?: string | null
-    year?: Decimal | DecimalJsLike | number | string | null
-    number?: Decimal | DecimalJsLike | number | string | null
-    plant_id?: number | null
-    histories?: historiesUncheckedCreateNestedManyWithoutBoilsInput
-    semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
-    tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
-  }
-
-  export type boilsCreateOrConnectWithoutRecordsInput = {
-    where: boilsWhereUniqueInput
-    create: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
   }
 
   export type apparatusesCreateWithoutRecordsInput = {
@@ -64818,8 +65310,8 @@ export namespace Prisma {
   }
 
   export type semi_productsCreateWithoutRecordsInput = {
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     boils?: boilsCreateNestedOneWithoutSemi_productsInput
     products?: productsCreateNestedOneWithoutSemi_productsInput
   }
@@ -64828,8 +65320,8 @@ export namespace Prisma {
     id?: number
     product_id?: number | null
     boil_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type semi_productsCreateOrConnectWithoutRecordsInput = {
@@ -64900,6 +65392,126 @@ export namespace Prisma {
   export type record_regulationsUpdateManyWithWhereWithoutRecordsInput = {
     where: record_regulationsScalarWhereInput
     data: XOR<record_regulationsUpdateManyMutationInput, record_regulationsUncheckedUpdateManyWithoutRecordsInput>
+  }
+
+  export type boilsUpsertWithoutRecordsInput = {
+    update: XOR<boilsUpdateWithoutRecordsInput, boilsUncheckedUpdateWithoutRecordsInput>
+    create: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
+    where?: boilsWhereInput
+  }
+
+  export type boilsUpdateToOneWithWhereWithoutRecordsInput = {
+    where?: boilsWhereInput
+    data: XOR<boilsUpdateWithoutRecordsInput, boilsUncheckedUpdateWithoutRecordsInput>
+  }
+
+  export type boilsUpdateWithoutRecordsInput = {
+    value?: StringFieldUpdateOperationsInput | string
+    letter?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    bases?: basesUpdateOneWithoutBoilsNestedInput
+    histories?: historiesUpdateManyWithoutBoilsNestedInput
+    semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
+    tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
+    plants?: plantsUpdateOneWithoutBoilsNestedInput
+  }
+
+  export type boilsUncheckedUpdateWithoutRecordsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    value?: StringFieldUpdateOperationsInput | string
+    base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    letter?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    plant_id?: NullableIntFieldUpdateOperationsInput | number | null
+    histories?: historiesUncheckedUpdateManyWithoutBoilsNestedInput
+    semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
+    tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
+  }
+
+  export type boilsUpsertWithoutRecords_water_basesInput = {
+    update: XOR<boilsUpdateWithoutRecords_water_basesInput, boilsUncheckedUpdateWithoutRecords_water_basesInput>
+    create: XOR<boilsCreateWithoutRecords_water_basesInput, boilsUncheckedCreateWithoutRecords_water_basesInput>
+    where?: boilsWhereInput
+  }
+
+  export type boilsUpdateToOneWithWhereWithoutRecords_water_basesInput = {
+    where?: boilsWhereInput
+    data: XOR<boilsUpdateWithoutRecords_water_basesInput, boilsUncheckedUpdateWithoutRecords_water_basesInput>
+  }
+
+  export type boilsUpdateWithoutRecords_water_basesInput = {
+    value?: StringFieldUpdateOperationsInput | string
+    letter?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    bases?: basesUpdateOneWithoutBoilsNestedInput
+    histories?: historiesUpdateManyWithoutBoilsNestedInput
+    semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
+    tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
+    records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    plants?: plantsUpdateOneWithoutBoilsNestedInput
+  }
+
+  export type boilsUncheckedUpdateWithoutRecords_water_basesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    value?: StringFieldUpdateOperationsInput | string
+    base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    letter?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    plant_id?: NullableIntFieldUpdateOperationsInput | number | null
+    histories?: historiesUncheckedUpdateManyWithoutBoilsNestedInput
+    semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
+    tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+  }
+
+  export type boilsUpsertWithoutRecords_organic_basesInput = {
+    update: XOR<boilsUpdateWithoutRecords_organic_basesInput, boilsUncheckedUpdateWithoutRecords_organic_basesInput>
+    create: XOR<boilsCreateWithoutRecords_organic_basesInput, boilsUncheckedCreateWithoutRecords_organic_basesInput>
+    where?: boilsWhereInput
+  }
+
+  export type boilsUpdateToOneWithWhereWithoutRecords_organic_basesInput = {
+    where?: boilsWhereInput
+    data: XOR<boilsUpdateWithoutRecords_organic_basesInput, boilsUncheckedUpdateWithoutRecords_organic_basesInput>
+  }
+
+  export type boilsUpdateWithoutRecords_organic_basesInput = {
+    value?: StringFieldUpdateOperationsInput | string
+    letter?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    bases?: basesUpdateOneWithoutBoilsNestedInput
+    histories?: historiesUpdateManyWithoutBoilsNestedInput
+    semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
+    tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
+    records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
+    plants?: plantsUpdateOneWithoutBoilsNestedInput
+  }
+
+  export type boilsUncheckedUpdateWithoutRecords_organic_basesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    value?: StringFieldUpdateOperationsInput | string
+    base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    letter?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    plant_id?: NullableIntFieldUpdateOperationsInput | number | null
+    histories?: historiesUncheckedUpdateManyWithoutBoilsNestedInput
+    semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
+    tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type conveyorsUpsertWithoutRecordsInput = {
@@ -65004,42 +65616,6 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
-  export type boilsUpsertWithoutRecordsInput = {
-    update: XOR<boilsUpdateWithoutRecordsInput, boilsUncheckedUpdateWithoutRecordsInput>
-    create: XOR<boilsCreateWithoutRecordsInput, boilsUncheckedCreateWithoutRecordsInput>
-    where?: boilsWhereInput
-  }
-
-  export type boilsUpdateToOneWithWhereWithoutRecordsInput = {
-    where?: boilsWhereInput
-    data: XOR<boilsUpdateWithoutRecordsInput, boilsUncheckedUpdateWithoutRecordsInput>
-  }
-
-  export type boilsUpdateWithoutRecordsInput = {
-    value?: StringFieldUpdateOperationsInput | string
-    letter?: NullableStringFieldUpdateOperationsInput | string | null
-    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    bases?: basesUpdateOneWithoutBoilsNestedInput
-    histories?: historiesUpdateManyWithoutBoilsNestedInput
-    semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
-    tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
-    plants?: plantsUpdateOneWithoutBoilsNestedInput
-  }
-
-  export type boilsUncheckedUpdateWithoutRecordsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    value?: StringFieldUpdateOperationsInput | string
-    base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    letter?: NullableStringFieldUpdateOperationsInput | string | null
-    year?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    number?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    plant_id?: NullableIntFieldUpdateOperationsInput | number | null
-    histories?: historiesUncheckedUpdateManyWithoutBoilsNestedInput
-    semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
-    tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
-  }
-
   export type apparatusesUpsertWithoutRecordsInput = {
     update: XOR<apparatusesUpdateWithoutRecordsInput, apparatusesUncheckedUpdateWithoutRecordsInput>
     create: XOR<apparatusesCreateWithoutRecordsInput, apparatusesUncheckedCreateWithoutRecordsInput>
@@ -65097,17 +65673,17 @@ export namespace Prisma {
   }
 
   export type marking_sampleCreateWithoutRegulationsInput = {
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     record_regulations?: record_regulationsCreateNestedManyWithoutMarking_sampleInput
   }
 
   export type marking_sampleUncheckedCreateWithoutRegulationsInput = {
     id?: number
-    value?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     record_regulations?: record_regulationsUncheckedCreateNestedManyWithoutMarking_sampleInput
   }
 
@@ -65120,8 +65696,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     series?: seriesCreateNestedOneWithoutProductsInput
     semi_products?: semi_productsCreateNestedManyWithoutProductsInput
     records?: recordsCreateNestedManyWithoutProductsInput
@@ -65133,8 +65709,8 @@ export namespace Prisma {
     marking: string
     name?: string | null
     serieId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutProductsInput
     records?: recordsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -65156,7 +65732,7 @@ export namespace Prisma {
   }
 
   export type marking_sampleUpdateWithoutRegulationsInput = {
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     record_regulations?: record_regulationsUpdateManyWithoutMarking_sampleNestedInput
@@ -65164,7 +65740,7 @@ export namespace Prisma {
 
   export type marking_sampleUncheckedUpdateWithoutRegulationsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    value?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     record_regulations?: record_regulationsUncheckedUpdateManyWithoutMarking_sampleNestedInput
@@ -65257,6 +65833,8 @@ export namespace Prisma {
     histories?: historiesCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsCreateNestedManyWithoutBoilsInput
     records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
     plants?: plantsCreateNestedOneWithoutBoilsInput
   }
 
@@ -65271,6 +65849,8 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutBoilsInput
     tube_records?: tube_recordsUncheckedCreateNestedManyWithoutBoilsInput
     records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsCreateOrConnectWithoutSemi_productsInput = {
@@ -65282,8 +65862,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     series?: seriesCreateNestedOneWithoutProductsInput
     regulations?: regulationsCreateNestedManyWithoutProductsInput
     records?: recordsCreateNestedManyWithoutProductsInput
@@ -65295,8 +65875,8 @@ export namespace Prisma {
     marking: string
     name?: string | null
     serieId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsUncheckedCreateNestedManyWithoutProductsInput
     records?: recordsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -65310,20 +65890,20 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     workshops?: workshopsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
   }
@@ -65340,8 +65920,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -65376,6 +65956,8 @@ export namespace Prisma {
     histories?: historiesUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
     records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
     plants?: plantsUpdateOneWithoutBoilsNestedInput
   }
 
@@ -65390,6 +65972,8 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
     records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type productsUpsertWithoutSemi_productsInput = {
@@ -65444,17 +66028,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
   }
@@ -65486,8 +66070,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsCreateNestedManyWithoutProductsInput
     semi_products?: semi_productsCreateNestedManyWithoutProductsInput
     records?: recordsCreateNestedManyWithoutProductsInput
@@ -65498,8 +66082,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     regulations?: regulationsUncheckedCreateNestedManyWithoutProductsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutProductsInput
     records?: recordsUncheckedCreateNestedManyWithoutProductsInput
@@ -65906,8 +66490,8 @@ export namespace Prisma {
   export type employeesCreateWithoutTube_historiesInput = {
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     occupations?: occupationsCreateNestedOneWithoutEmployeesInput
     histories?: historiesCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsCreateNestedManyWithoutEmployeesInput
@@ -65918,8 +66502,8 @@ export namespace Prisma {
     name: string
     barcode: string
     occupationId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_sessions?: tube_sessionsUncheckedCreateNestedManyWithoutEmployeesInput
   }
@@ -66654,6 +67238,8 @@ export namespace Prisma {
     histories?: historiesCreateNestedManyWithoutBoilsInput
     semi_products?: semi_productsCreateNestedManyWithoutBoilsInput
     records?: recordsCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsCreateNestedManyWithoutWater_basesInput
     plants?: plantsCreateNestedOneWithoutBoilsInput
   }
 
@@ -66668,6 +67254,8 @@ export namespace Prisma {
     histories?: historiesUncheckedCreateNestedManyWithoutBoilsInput
     semi_products?: semi_productsUncheckedCreateNestedManyWithoutBoilsInput
     records?: recordsUncheckedCreateNestedManyWithoutBoilsInput
+    records_organic_bases?: recordsUncheckedCreateNestedManyWithoutOrganic_basesInput
+    records_water_bases?: recordsUncheckedCreateNestedManyWithoutWater_basesInput
   }
 
   export type boilsCreateOrConnectWithoutTube_recordsInput = {
@@ -66853,6 +67441,8 @@ export namespace Prisma {
     histories?: historiesUpdateManyWithoutBoilsNestedInput
     semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
     records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
     plants?: plantsUpdateOneWithoutBoilsNestedInput
   }
 
@@ -66867,6 +67457,8 @@ export namespace Prisma {
     histories?: historiesUncheckedUpdateManyWithoutBoilsNestedInput
     semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
     records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type tube_conveyorsUpsertWithoutTube_recordsInput = {
@@ -66940,8 +67532,8 @@ export namespace Prisma {
   export type employeesCreateWithoutTube_sessionsInput = {
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     occupations?: occupationsCreateNestedOneWithoutEmployeesInput
     histories?: historiesCreateNestedManyWithoutEmployeesInput
     tube_histories?: tube_historiesCreateNestedManyWithoutEmployeesInput
@@ -66952,8 +67544,8 @@ export namespace Prisma {
     name: string
     barcode: string
     occupationId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     histories?: historiesUncheckedCreateNestedManyWithoutEmployeesInput
     tube_histories?: tube_historiesUncheckedCreateNestedManyWithoutEmployeesInput
   }
@@ -67333,8 +67925,8 @@ export namespace Prisma {
 
   export type historiesCreateWithoutUsersInput = {
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
     boils?: boilsCreateNestedOneWithoutHistoriesInput
     employees?: employeesCreateNestedOneWithoutHistoriesInput
@@ -67350,8 +67942,8 @@ export namespace Prisma {
     historyTypeId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -67505,19 +68097,19 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
-    organic_base_id?: number | null
-    water_base_id?: number | null
     dm?: string
     histories?: historiesCreateNestedManyWithoutRecordsInput
     record_counters?: record_countersCreateNestedManyWithoutRecordsInput
     record_regulations?: record_regulationsCreateNestedManyWithoutRecordsInput
+    boils?: boilsCreateNestedOneWithoutRecordsInput
+    water_bases?: boilsCreateNestedOneWithoutRecords_water_basesInput
+    organic_bases?: boilsCreateNestedOneWithoutRecords_organic_basesInput
     conveyors?: conveyorsCreateNestedOneWithoutRecordsInput
     docs?: docsCreateNestedOneWithoutRecordsInput
     products?: productsCreateNestedOneWithoutRecordsInput
-    boils?: boilsCreateNestedOneWithoutRecordsInput
     apparatuses?: apparatusesCreateNestedOneWithoutRecordsInput
     cans?: cansCreateNestedOneWithoutRecordsInput
     semi_products?: semi_productsCreateNestedManyWithoutRecordsInput
@@ -67534,8 +68126,8 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -67583,8 +68175,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -67598,17 +68190,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
   }
@@ -67673,6 +68265,8 @@ export namespace Prisma {
     semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
     records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
     plants?: plantsUpdateOneWithoutBoilsNestedInput
   }
 
@@ -67687,6 +68281,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
     records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type boilsUncheckedUpdateManyWithoutBasesInput = {
@@ -67705,8 +68301,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -67715,8 +68311,8 @@ export namespace Prisma {
     id?: number
     record_id?: number | null
     product_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type tube_recordsCreateManyBoilsInput = {
@@ -67741,11 +68337,49 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
+    dm?: string
+  }
+
+  export type recordsCreateManyOrganic_basesInput = {
+    id?: number
+    doc_id?: number | null
+    productId?: number | null
+    boilId?: number | null
+    apparatusId?: number | null
+    canId?: number | null
+    conveyorId?: number | null
+    plan: number
+    bbf: string
+    note: string
+    workshopId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isSet?: boolean | null
+    water_base_id?: number | null
+    dm?: string
+  }
+
+  export type recordsCreateManyWater_basesInput = {
+    id?: number
+    doc_id?: number | null
+    productId?: number | null
+    boilId?: number | null
+    apparatusId?: number | null
+    canId?: number | null
+    conveyorId?: number | null
+    plan: number
+    bbf: string
+    note: string
+    workshopId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isSet?: boolean | null
+    organic_base_id?: number | null
     dm?: string
   }
 
@@ -67855,12 +68489,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
@@ -67912,6 +68546,134 @@ export namespace Prisma {
     dm?: StringFieldUpdateOperationsInput | string
   }
 
+  export type recordsUpdateWithoutOrganic_basesInput = {
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    dm?: StringFieldUpdateOperationsInput | string
+    histories?: historiesUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
+    record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
+    docs?: docsUpdateOneWithoutRecordsNestedInput
+    workshops?: workshopsUpdateOneWithoutRecordsNestedInput
+    products?: productsUpdateOneWithoutRecordsNestedInput
+    apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
+    cans?: cansUpdateOneWithoutRecordsNestedInput
+    semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+  }
+
+  export type recordsUncheckedUpdateWithoutOrganic_basesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    productId?: NullableIntFieldUpdateOperationsInput | number | null
+    boilId?: NullableIntFieldUpdateOperationsInput | number | null
+    apparatusId?: NullableIntFieldUpdateOperationsInput | number | null
+    canId?: NullableIntFieldUpdateOperationsInput | number | null
+    conveyorId?: NullableIntFieldUpdateOperationsInput | number | null
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    workshopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    dm?: StringFieldUpdateOperationsInput | string
+    histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
+    record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
+    semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+  }
+
+  export type recordsUncheckedUpdateManyWithoutOrganic_basesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    productId?: NullableIntFieldUpdateOperationsInput | number | null
+    boilId?: NullableIntFieldUpdateOperationsInput | number | null
+    apparatusId?: NullableIntFieldUpdateOperationsInput | number | null
+    canId?: NullableIntFieldUpdateOperationsInput | number | null
+    conveyorId?: NullableIntFieldUpdateOperationsInput | number | null
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    workshopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    dm?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type recordsUpdateWithoutWater_basesInput = {
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    dm?: StringFieldUpdateOperationsInput | string
+    histories?: historiesUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
+    record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
+    conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
+    docs?: docsUpdateOneWithoutRecordsNestedInput
+    workshops?: workshopsUpdateOneWithoutRecordsNestedInput
+    products?: productsUpdateOneWithoutRecordsNestedInput
+    apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
+    cans?: cansUpdateOneWithoutRecordsNestedInput
+    semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
+  }
+
+  export type recordsUncheckedUpdateWithoutWater_basesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    productId?: NullableIntFieldUpdateOperationsInput | number | null
+    boilId?: NullableIntFieldUpdateOperationsInput | number | null
+    apparatusId?: NullableIntFieldUpdateOperationsInput | number | null
+    canId?: NullableIntFieldUpdateOperationsInput | number | null
+    conveyorId?: NullableIntFieldUpdateOperationsInput | number | null
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    workshopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    dm?: StringFieldUpdateOperationsInput | string
+    histories?: historiesUncheckedUpdateManyWithoutRecordsNestedInput
+    record_counters?: record_countersUncheckedUpdateManyWithoutRecordsNestedInput
+    record_regulations?: record_regulationsUncheckedUpdateManyWithoutRecordsNestedInput
+    semi_products?: semi_productsUncheckedUpdateManyWithoutRecordsNestedInput
+  }
+
+  export type recordsUncheckedUpdateManyWithoutWater_basesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    productId?: NullableIntFieldUpdateOperationsInput | number | null
+    boilId?: NullableIntFieldUpdateOperationsInput | number | null
+    apparatusId?: NullableIntFieldUpdateOperationsInput | number | null
+    canId?: NullableIntFieldUpdateOperationsInput | number | null
+    conveyorId?: NullableIntFieldUpdateOperationsInput | number | null
+    plan?: IntFieldUpdateOperationsInput | number
+    bbf?: StringFieldUpdateOperationsInput | string
+    note?: StringFieldUpdateOperationsInput | string
+    workshopId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
+    dm?: StringFieldUpdateOperationsInput | string
+  }
+
   export type recordsCreateManyCansInput = {
     id?: number
     doc_id?: number | null
@@ -67923,8 +68685,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -67938,17 +68700,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
   }
@@ -68006,8 +68768,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -68021,16 +68783,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -68089,8 +68851,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -68104,16 +68866,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -68168,8 +68930,8 @@ export namespace Prisma {
     historyTypeId?: number | null
     userId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -68289,8 +69051,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -68349,8 +69111,8 @@ export namespace Prisma {
     packaging_note?: string | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type regulationsCreateManyMarking_sampleInput = {
@@ -68483,8 +69245,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     plant_id?: number | null
   }
 
@@ -68530,8 +69292,8 @@ export namespace Prisma {
     id?: number
     name: string
     barcode: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type employeesUpdateWithoutOccupationsInput = {
@@ -68566,8 +69328,8 @@ export namespace Prisma {
   export type docsCreateManyPlantsInput = {
     id?: number
     date: Date | string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type user_settingsCreateManyPlantsInput = {
@@ -68630,6 +69392,8 @@ export namespace Prisma {
     semi_products?: semi_productsUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUpdateManyWithoutBoilsNestedInput
     records?: recordsUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUpdateManyWithoutWater_basesNestedInput
   }
 
   export type boilsUncheckedUpdateWithoutPlantsInput = {
@@ -68643,6 +69407,8 @@ export namespace Prisma {
     semi_products?: semi_productsUncheckedUpdateManyWithoutBoilsNestedInput
     tube_records?: tube_recordsUncheckedUpdateManyWithoutBoilsNestedInput
     records?: recordsUncheckedUpdateManyWithoutBoilsNestedInput
+    records_organic_bases?: recordsUncheckedUpdateManyWithoutOrganic_basesNestedInput
+    records_water_bases?: recordsUncheckedUpdateManyWithoutWater_basesNestedInput
   }
 
   export type boilsUncheckedUpdateManyWithoutPlantsInput = {
@@ -68674,8 +69440,8 @@ export namespace Prisma {
     id?: number
     record_id?: number | null
     boil_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type recordsCreateManyProductsInput = {
@@ -68689,8 +69455,8 @@ export namespace Prisma {
     bbf: string
     note: string
     workshopId?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -68774,16 +69540,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     workshops?: workshopsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput
@@ -68838,8 +69604,8 @@ export namespace Prisma {
     userId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -68868,16 +69634,16 @@ export namespace Prisma {
     marking_sample_id?: number | null
     inc_color?: string | null
     marking_feature?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type semi_productsCreateManyRecordsInput = {
     id?: number
     product_id?: number | null
     boil_id?: number | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type historiesUpdateWithoutRecordsInput = {
@@ -69047,8 +69813,8 @@ export namespace Prisma {
     code1C: string
     marking: string
     name?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type productsUpdateWithoutSeriesInput = {
@@ -69754,8 +70520,8 @@ export namespace Prisma {
     historyTypeId?: number | null
     employeeId?: number | null
     note?: string | null
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     note_id?: number | null
     plant_id?: number | null
   }
@@ -69855,8 +70621,8 @@ export namespace Prisma {
     plan: number
     bbf: string
     note: string
-    createdAt: Date | string
-    updatedAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     isSet?: boolean | null
     organic_base_id?: number | null
     water_base_id?: number | null
@@ -69870,16 +70636,16 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isSet?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    organic_base_id?: NullableIntFieldUpdateOperationsInput | number | null
-    water_base_id?: NullableIntFieldUpdateOperationsInput | number | null
     dm?: StringFieldUpdateOperationsInput | string
     histories?: historiesUpdateManyWithoutRecordsNestedInput
     record_counters?: record_countersUpdateManyWithoutRecordsNestedInput
     record_regulations?: record_regulationsUpdateManyWithoutRecordsNestedInput
+    boils?: boilsUpdateOneWithoutRecordsNestedInput
+    water_bases?: boilsUpdateOneWithoutRecords_water_basesNestedInput
+    organic_bases?: boilsUpdateOneWithoutRecords_organic_basesNestedInput
     conveyors?: conveyorsUpdateOneWithoutRecordsNestedInput
     docs?: docsUpdateOneWithoutRecordsNestedInput
     products?: productsUpdateOneWithoutRecordsNestedInput
-    boils?: boilsUpdateOneWithoutRecordsNestedInput
     apparatuses?: apparatusesUpdateOneWithoutRecordsNestedInput
     cans?: cansUpdateOneWithoutRecordsNestedInput
     semi_products?: semi_productsUpdateManyWithoutRecordsNestedInput

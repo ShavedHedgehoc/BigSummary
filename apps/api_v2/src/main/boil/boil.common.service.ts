@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { pgPrisma, Prisma } from '@repo/db-postgres';
-import { TBoilDetailResponse, TBoilListResponse, TGetBoilListInput } from '@repo/schemas';
+import {
+  TApplicationBoilItem,
+  TApplicationBoilListResponse,
+  TBoilDetailResponse,
+  TBoilListResponse,
+  TGetBoilListInput,
+} from '@repo/schemas';
 
 const boilWithRelationsInclude = {
   bases: true,
@@ -8,21 +14,34 @@ const boilWithRelationsInclude = {
   records: true,
   histories: {
     include: {
+      employees: true,
       history_types: true,
+      notes: true,
+      users: true,
     },
     orderBy: {
       id: 'asc',
     },
   },
-} as const;
+} satisfies Prisma.boilsInclude;
 
 type TBoilWithRelations = Prisma.boilsGetPayload<{
   include: typeof boilWithRelationsInclude;
 }>;
 
+type TBoilRowResult<T extends boolean> = T extends true
+  ? TApplicationBoilItem
+  : TBoilDetailResponse;
+type TBoilListResult<T extends boolean> = T extends true
+  ? TApplicationBoilListResponse
+  : TBoilListResponse;
+
 @Injectable()
 export class BoilCommonService {
-  private boilResult(item: TBoilWithRelations): TBoilDetailResponse {
+  private boilResult<T extends boolean>(
+    item: TBoilWithRelations,
+    includeHistories: T,
+  ): TBoilRowResult<T> {
     const recordsCount = item.records.length;
     const historiesCount = item.histories.length;
     const lastHistory = historiesCount > 0 ? item.histories[item.histories.length - 1] : null;
@@ -30,18 +49,42 @@ export class BoilCommonService {
     const stateValue = lastHistory ? lastHistory.history_types.value : null;
     const stateId = lastHistory ? lastHistory.history_types.id : null;
 
+    if (includeHistories) {
+      return {
+        id: item.id,
+        boilValue: item.value,
+        baseCode: item.bases?.code ?? null,
+        baseMarking: item.bases?.marking ?? null,
+        recordsCount,
+        historiesCount,
+        state,
+        stateId,
+        stateValue,
+        plant: item.plants?.abb ?? null,
+        histories: item.histories.map((h) => ({
+          id: h.id,
+          value: h.history_types?.value ?? null,
+          description: h.history_types?.description ?? null,
+          note: h.note,
+          history_note: h.notes?.value ?? null,
+          employee: h.employees?.name ?? null,
+          user: h.users?.name ?? null,
+          createdAt: h.createdAt,
+        })),
+      } as TBoilRowResult<T>;
+    }
     return {
       id: item.id,
       value: item.value,
       base_code: item.bases?.code ?? null,
       base_marking: item.bases?.marking ?? null,
-      recordsCount: recordsCount,
-      historiesCount: historiesCount,
-      state: state,
+      recordsCount,
+      historiesCount,
+      state,
       state_id: stateId,
-      stateValue: stateValue,
+      stateValue,
       plant: item.plants?.abb ?? null,
-    };
+    } as TBoilRowResult<T>;
   }
 
   private async getBoilsIdsByHistoryTypeIds(typeArr: number[]): Promise<number[]> {
@@ -73,8 +116,10 @@ export class BoilCommonService {
     return validHistories.map((h) => h.boil_id);
   }
 
-  async getBoilList(input: TGetBoilListInput): Promise<TBoilListResponse> {
-    const { filter, limit, page } = input;
+  async getBoilList<T extends boolean = false>(
+    input: TGetBoilListInput & { includeHistories?: T },
+  ): Promise<TBoilListResult<T>> {
+    const { filter, limit, page, includeHistories = false as T } = input;
     const andConditions: Prisma.boilsWhereInput[] = [];
     if (filter.baseCode !== '') {
       andConditions.push({
@@ -130,7 +175,14 @@ export class BoilCommonService {
       }),
     ]);
 
-    const rows = items.map((item) => this.boilResult(item));
-    return { rows, total };
+    // const rows = items.map((item) => this.boilResult(item));
+    // return { rows, total };
+    const rows = items.map((item) => this.boilResult(item, includeHistories));
+    if (includeHistories) {
+      const totalPages = Math.ceil(total / limit);
+      return { rows, total, totalPages } as unknown as TBoilListResult<T>;
+    }
+
+    return { rows, total } as unknown as TBoilListResult<T>;
   }
 }

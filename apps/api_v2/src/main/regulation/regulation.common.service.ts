@@ -47,4 +47,35 @@ export class RegulationCommonService {
       marking_sample_value: regulation.marking_sample?.value ?? null,
     };
   }
+
+  async getRegulationsByRecordIds(
+    recordIds: number[],
+  ): Promise<Record<number, TRegulation | null>> {
+    const items = await pgPrisma.record_regulations.findMany({
+      where: { record_id: { in: recordIds } },
+      include: {
+        marking_sample: true,
+      },
+    });
+    const map: Record<number, TRegulation> = {};
+    for (const item of items) {
+      map[item.record_id] = {
+        org_base_min_weight: item.org_base_min_weight?.toString() ?? null,
+        org_base_max_weight: item.org_base_max_weight?.toString() ?? null,
+        water_base_min_weight: item.water_base_min_weight?.toString() ?? null,
+        water_base_max_weight: item.water_base_max_weight?.toString() ?? null,
+        per_box: item.per_box ?? 0,
+        box_per_row: item.box_per_row ?? 0,
+        row_on_pallet: item.row_on_pallet ?? 0,
+        gasket: item.gasket ?? '-',
+        seal: item.seal ?? false,
+        technician_note: item.technician_note ?? null,
+        packaging_note: item.packaging_note ?? null,
+        inc_color: item.inc_color ?? null,
+        marking_feature: item.marking_feature ?? null,
+        marking_sample_value: item.marking_sample?.value ?? null,
+      };
+    }
+    return map;
+  }
 }

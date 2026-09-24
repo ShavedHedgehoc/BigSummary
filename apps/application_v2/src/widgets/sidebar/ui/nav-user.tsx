@@ -1,4 +1,4 @@
-import { useAuth } from '@/entiities/user';
+import { useAuth } from '@/entities/user';
 import {
   Avatar,
   AvatarFallback,

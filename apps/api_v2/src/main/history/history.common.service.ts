@@ -1,8 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { pgPrisma, Prisma } from '@repo/db-postgres';
-import { TCreateWorkstationHistoryInput, TWorkstationCreateHistoryResponse } from '@repo/schemas';
+import { TCreateHistoryInput, TCreateHistoryResponse } from '@repo/schemas';
 import { TRPCError } from '@trpc/server';
 import { RecordCommonService } from '../record/record.common.service';
+import { prepareBoilData } from 'src/shared';
 
 const historyWithRelationsInclude = {
   history_types: true,
@@ -54,6 +55,7 @@ type TRPCErrorCode =
   | 'TOO_MANY_REQUESTS'
   | 'CLIENT_CLOSED_REQUEST';
 
+type TPrismaCtx = Prisma.TransactionClient | typeof pgPrisma;
 @Injectable()
 export class HistoryCommonService {
   constructor(
@@ -61,19 +63,40 @@ export class HistoryCommonService {
     private recordCommonService: RecordCommonService,
   ) {}
 
-  private async getOrCreateBoilByValue(value: string) {
+  // private async getOrCreateBoilByValue(value: string) {
+  //   if (value === '-' || !value) {
+  //     return null;
+  //   }
+
+  //   const boil = await pgPrisma.boils.upsert({
+  //     where: {
+  //       value: value,
+  //     },
+  //     update: {},
+  //     create: {
+  //       value: value,
+  //     },
+  //   });
+  //   return boil;
+  // }
+  async getOrCreateBoilByValue(value: string, tx: TPrismaCtx = pgPrisma) {
     if (value === '-' || !value) {
       return null;
     }
-    const boil = await pgPrisma.boils.upsert({
+    const boilData = prepareBoilData(value);
+    const boil = await tx.boils.upsert({
       where: {
         value: value,
       },
       update: {},
       create: {
         value: value,
+        year: boilData.year,
+        letter: boilData.letter,
+        number: boilData.number,
       },
     });
+
     return boil;
   }
 
@@ -101,10 +124,18 @@ export class HistoryCommonService {
     return note;
   }
 
-  private async createNewHistory(
-    input: TCreateWorkstationHistoryInput,
-  ): Promise<TWorkstationCreateHistoryResponse> {
-    const { historyType, note, boil_value, base_code, plant_id, record_id, employeeId } = input;
+  async createNewHistory(input: TCreateHistoryInput): Promise<TCreateHistoryResponse> {
+    const {
+      historyType,
+      note,
+      history_note,
+      boil_value,
+      base_code,
+      plant_id,
+      record_id,
+      employeeId,
+      userId,
+    } = input;
     const type = await pgPrisma.history_types.findFirst({
       where: {
         value: historyType,
@@ -137,8 +168,8 @@ export class HistoryCommonService {
     const boil_id = isBase ? boil.id : null;
 
     let note_id: number | null = null;
-    if (note && note.trim() !== '') {
-      const historyNote = await this.сreateNoteByValue(note);
+    if (history_note && history_note.trim() !== '') {
+      const historyNote = await this.сreateNoteByValue(history_note);
       note_id = historyNote ? historyNote.id : null;
     }
 
@@ -146,14 +177,54 @@ export class HistoryCommonService {
       record_id: rec_id,
       boil_id: boil_id,
       note_id: note_id,
+      note: note,
       historyTypeId: type.id,
       plant_id: plant_id,
       employeeId: employeeId,
+      userId: userId,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+
     const history = await pgPrisma.histories.create({ data: createDto });
     return history;
+  }
+
+  async getHistoriesForRecords(
+    records: Array<{ id: number; water_base_id: number | null }>,
+    typeIds?: number[],
+  ): Promise<Record<number, THistoryWithRelations[]>> {
+    const recordIds = records.map((r) => r.id);
+    const boilIds = records.map((r) => r.water_base_id).filter((id): id is number => id !== null);
+    const hasTypeFilter = typeIds && typeIds.length > 0;
+
+    const allHistories = await pgPrisma.histories.findMany({
+      where: {
+        AND: [
+          {
+            OR: [
+              { record_id: { in: recordIds } },
+              ...(boilIds.length > 0 ? [{ boil_id: { in: boilIds } }] : []),
+            ],
+          },
+
+          ...(hasTypeFilter ? [{ historyTypeId: { in: typeIds } }] : []),
+        ],
+      },
+      include: historyWithRelationsInclude,
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const grouped: Record<number, THistoryWithRelations[]> = {};
+
+    for (const record of records) {
+      grouped[record.id] = allHistories.filter((history) => {
+        const matchRecord = history.record_id === record.id;
+        const matchBoil = record.water_base_id !== null && history.boil_id === record.water_base_id;
+        return matchRecord || matchBoil;
+      });
+    }
+    return grouped;
   }
 
   async getAllHistoriesByRecIdAndBoilId(
@@ -217,9 +288,7 @@ export class HistoryCommonService {
     throw new TRPCError({ code, message });
   }
 
-  private async findRecordId(
-    input: TCreateWorkstationHistoryInput,
-  ): Promise<number | null | undefined> {
+  private async findRecordId(input: TCreateHistoryInput): Promise<number | null | undefined> {
     const { boil_value, code, plant_id, record_id } = input;
 
     if (boil_value && code) {
@@ -233,9 +302,8 @@ export class HistoryCommonService {
     return record_id;
   }
 
-  private async findBoilValue(input: TCreateWorkstationHistoryInput): Promise<string | null> {
+  private async findBoilValue(input: TCreateHistoryInput): Promise<string | null> {
     const { boil_value, record_id } = input;
-
     if (!boil_value && record_id) {
       const record = await pgPrisma.records.findUnique({
         where: { id: record_id },
@@ -256,13 +324,13 @@ export class HistoryCommonService {
         return waterBase?.value ?? null;
       }
     }
+
     return boil_value ?? null;
   }
 
-  async createHistory(
-    input: TCreateWorkstationHistoryInput,
-  ): Promise<TWorkstationCreateHistoryResponse> {
+  async createHistory(input: TCreateHistoryInput): Promise<TCreateHistoryResponse> {
     const { historyType } = input;
+
     const findedRecordId = await this.findRecordId(input);
     const findedBoilValue = await this.findBoilValue(input);
 

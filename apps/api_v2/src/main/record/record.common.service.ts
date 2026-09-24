@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { pgPrisma, Prisma } from '@repo/db-postgres';
 
-const recordWithRelationsInclude = {
+export const recordWithRelationsInclude = {
   products: true,
   boils: true,
   apparatuses: true,
