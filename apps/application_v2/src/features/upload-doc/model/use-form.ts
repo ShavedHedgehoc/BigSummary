@@ -1,9 +1,4 @@
-import {
-  ACCEPTED_FILE_TYPES,
-  uploadDocFormSchema,
-  UploadDocFormValues,
-  useDocListUiParams,
-} from '@/entities/doc';
+import { ACCEPTED_FILE_TYPES, uploadDocFormSchema, UploadDocFormValues } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { useXlsxParser } from '../lib/use-xlsx-parser';
@@ -12,8 +7,6 @@ import { useUploadDocData } from './use-upload-doc-data';
 import { TApplicationUploadDocInput } from '@repo/schemas';
 
 export const useDocUploadForm = () => {
-  const { setParams } = useDocListUiParams();
-
   const {
     validate,
     errors,
@@ -53,29 +46,22 @@ export const useDocUploadForm = () => {
       summaryDate: data.date,
       plantId: Number(data.plantId),
       update: data.update,
-      // update: false,
       rows: fileData,
     };
     upload(dto);
     form.reset();
     resetXlsx();
-    // setParams({ "upload-summary": false });
   }
 
   const handleClose = () => {
     form.reset();
-    // setParams({ "upload-summary": false });
-  };
-
-  const handleErrorView = () => {
-    setParams({ 'view-errors': true });
   };
 
   return {
     form,
     uploadPending,
     handleClose,
-    handleErrorView,
+
     onSubmit,
     validate,
     resetXlsx,

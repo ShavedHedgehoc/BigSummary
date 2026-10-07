@@ -1,5 +1,6 @@
-import { useDocListSearchParams, type DocListParams } from '@/entities/doc';
-import { getMonthBounds, getToday, useIsMobile } from '@/shared/lib';
+'use client';
+
+import { useIsMobile } from '@/shared/lib';
 import {
   Button,
   FilterDatePicker,
@@ -14,21 +15,39 @@ import {
   SheetTrigger,
 } from '@/shared/ui';
 import { TApplicationPlantListResponse } from '@repo/schemas';
-import { format } from 'date-fns';
 import { Calendar, Search, SlidersHorizontal, Trash } from 'lucide-react';
 import { useId, useMemo, useState, useSyncExternalStore } from 'react';
 
+// 1. Описываем интерфейс пропсов: компонент принимает чистые стейты и методы снаружи
 interface TDocListFilterProps {
   plantData: TApplicationPlantListResponse;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  selectedPlants: string[] | undefined;
+  isDirty: boolean;
+  isNotToday: boolean;
+  onDateChange: (type: 'start' | 'end', val: Date | undefined) => void;
+  handleSetToday: () => void;
+  handleResetAll: () => void;
+  onFilterChange: (newFilters: { plants?: string[] | null; states?: string[] | null }) => void;
 }
 
-const formatDateToString = (date: Date) => format(date, 'yyyy-MM-dd');
-
-export function DocListFilter({ plantData = [] }: TDocListFilterProps) {
+export function DocListFilter({
+  plantData = [],
+  startDate,
+  endDate,
+  selectedPlants,
+  isDirty,
+  isNotToday,
+  onDateChange,
+  handleSetToday,
+  handleResetAll,
+  onFilterChange,
+}: TDocListFilterProps) {
   const isMobile = useIsMobile();
-  const { params, setParams } = useDocListSearchParams();
   const [open, setOpen] = useState(false);
-  const selectorId = useId();
+
+  const plantSelectorId = useId();
 
   const isMounted = useSyncExternalStore(
     subscribeToNothing,
@@ -51,76 +70,24 @@ export function DocListFilter({ plantData = [] }: TDocListFilterProps) {
     return baseItems;
   }, [plantData]);
 
-  const currentBounds = getMonthBounds();
-  const isDirty =
-    params.startDate.toISOString() !== currentBounds.start.toISOString() ||
-    params.endDate.toISOString() !== currentBounds.end.toISOString() ||
-    (params.plants && params.plants.length > 0);
-
-  const todayStr = formatDateToString(getToday());
-  const isNotToday =
-    formatDateToString(params.startDate) !== todayStr ||
-    formatDateToString(params.endDate) !== todayStr;
-
-  const handleSetToday = () => {
-    const freshToday = getToday();
-    setParams({ startDate: freshToday, endDate: freshToday, page: 1 }, { shallow: false });
-  };
-
-  const handleDateChange = (type: 'start' | 'end', val: Date | undefined) => {
-    if (!val) {
-      setParams(
-        { [type === 'start' ? 'startDate' : 'endDate']: null, page: 1 },
-        { shallow: false },
-      );
-      return;
-    }
-
-    const normalizedDate = new Date(val);
-    normalizedDate.setHours(12, 0, 0, 0);
-    const updates: Partial<DocListParams> = { page: 1 };
-
-    if (type === 'start') {
-      updates.startDate = normalizedDate;
-      if (params.endDate && normalizedDate > params.endDate) {
-        updates.endDate = normalizedDate;
-      }
-    } else {
-      updates.endDate = normalizedDate;
-      if (params.startDate && normalizedDate < params.startDate) {
-        updates.startDate = normalizedDate;
-      }
-    }
-    setParams(updates, { shallow: false });
-  };
-
   const filterFields = (
     <>
       <FilterDatePicker
         className="w-full"
-        value={params.startDate}
-        onChange={(val) => handleDateChange('start', val)}
+        value={startDate}
+        onChange={(val) => onDateChange('start', val)}
       />
       <FilterDatePicker
         className="w-full"
-        value={params.endDate}
-        onChange={(val) => handleDateChange('end', val)}
+        value={endDate}
+        onChange={(val) => onDateChange('end', val)}
       />
-
       <FilterSelector
-        id={selectorId}
+        id={plantSelectorId}
         className="w-full"
         items={plantListItems}
-        value={params.plants ?? []}
-        onChange={(val) => {
-          setParams(
-            {
-              plants: val || null,
-              page: 1,
-            },
-            { shallow: false },
-          );
-        }}
+        value={selectedPlants}
+        onChange={(value) => onFilterChange({ plants: value })}
       />
     </>
   );
@@ -134,7 +101,11 @@ export function DocListFilter({ plantData = [] }: TDocListFilterProps) {
             Фильтры {isDirty && <span className="ml-2 h-2 w-2 rounded-full bg-primary" />}
           </Button>
         </SheetTrigger>
-        <SheetContent side="bottom" className="h-[90vh] overflow-y-auto">
+        <SheetContent
+          side="bottom"
+          className="h-[90vh] overflow-y-auto"
+          onOpenAutoFocus={(e) => e.preventDefault()}
+        >
           <SheetHeader>
             <SheetTitle>Фильтры</SheetTitle>
             <SheetDescription className="sr-only">Фильтрация документов</SheetDescription>
@@ -153,7 +124,7 @@ export function DocListFilter({ plantData = [] }: TDocListFilterProps) {
               <FilterResetButton
                 mobile
                 isDirty={isDirty}
-                onClick={() => setParams(null)}
+                onClick={handleResetAll}
                 icon={<Trash className="h-4 w-4" />}
                 label="Сброс"
                 className="h-9 w-full"
@@ -171,21 +142,20 @@ export function DocListFilter({ plantData = [] }: TDocListFilterProps) {
   if (!isMounted) return <div className="h-10" />;
 
   return (
-    <div className="grid grid-cols-[1fr_1fr_1fr_auto_auto] @max-6xl:grid-cols-3 @max-4xl:grid-cols-2 gap-3 w-full items-end max-w-6xl">
+    <div className="grid grid-cols-[1fr_1fr_1fr_auto_auto] @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl">
       {filterFields}
       <FilterResetButton
-        mobile={isMobile}
-
-        className="w-auto! @max-6xl:w-full!  px-5 h-8! flex items-center justify-center text-xs transition-all"
+        mobile={false}
+        className="w-auto! @max-6xl:w-full! px-5 h-8! flex items-center justify-center text-xs transition-all"
         onClick={handleSetToday}
         isDirty={isNotToday}
         icon={<Calendar className="h-4 w-4" />}
         label="Сегодня"
       />
       <FilterResetButton
-        mobile={isMobile}
-        className="w-auto! @max-6xl:w-full!  px-5 h-8! flex items-center justify-center text-xs transition-all"
-        onClick={() => setParams(null)}
+        mobile={false}
+        className="w-auto! @max-6xl:w-full! px-5 h-8! flex items-center justify-center text-xs transition-all"
+        onClick={handleResetAll}
         isDirty={isDirty}
         icon={<Trash className="h-4 w-4" />}
         label="Сброс"

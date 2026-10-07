@@ -1,60 +1,18 @@
-import { useEffect, useMemo, useRef, useTransition } from 'react';
-import { keepPreviousData } from '@tanstack/react-query';
-import { trpc } from '@/shared/api';
+import { useMemo } from 'react';
 import { useIsMobile } from '@/shared/lib';
-import {
-  baseRecordColumns,
-  useForemanProductListSearchParams,
-  useForemanProductListUiParams,
-} from '@/entities/record';
+import { useRecordListSearchParams } from '@/entities/record';
+import { useForemanProductListUiParams } from './use-foreman-product-list-ui-params';
+import { foremanProductListColumns } from '../ui/columns';
 
 export function useForemanProductList() {
   const isMobile = useIsMobile();
-  const [, startTransition] = useTransition();
-  const isInitialAutoSelectDone = useRef(false);
 
-  const { params, setParams } = useForemanProductListSearchParams();
+  const { data, plantData, stateData, isLoading, params, setParams } =
+    useRecordListSearchParams('foreman');
   const { params: uiParams, setParams: setUiParams } = useForemanProductListUiParams();
 
-  const { data: plantData } = trpc.application.main.plant.getPlantList.useQuery(undefined, {
-    staleTime: Infinity,
-    gcTime: 1000 * 60 * 60,
-  });
-
-  const plantId = params.plants?.[0] ?? null;
-  const isEnabled = Boolean(plantId && plantId !== 'All');
-
-  const { data: queryData, isLoading } = trpc.application.main.doc.getCurrentDoc.useQuery(params, {
-    placeholderData: keepPreviousData,
-    staleTime: 30 * 1000,
-    enabled: isEnabled,
-  });
-
-  const data = isEnabled ? queryData : null;
-
-  const { data: stateData } = trpc.application.main.historyType.getProductHistoryTypeList.useQuery(
-    undefined,
-    { staleTime: Infinity, gcTime: 1000 * 60 * 60 },
-  );
-
-  useEffect(() => {
-    if (isInitialAutoSelectDone.current || !plantData?.length) return;
-
-    if (params.plants?.length) {
-      isInitialAutoSelectDone.current = true;
-      return;
-    }
-
-    const firstPlantId = String(plantData[0].id);
-    isInitialAutoSelectDone.current = true;
-
-    startTransition(() => {
-      setParams({ plants: [firstPlantId] }, { shallow: false });
-    });
-  }, [plantData, params.plants, setParams]);
-
   const columns = useMemo(() => {
-    const base = [...baseRecordColumns];
+    const base = [...foremanProductListColumns];
     return base.filter((col) => (isMobile ? !col.meta?.hideOnMobile : !col.meta?.hideOnDesktop));
   }, [isMobile]);
 

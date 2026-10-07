@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { read, utils } from 'xlsx';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
-import { summaryValidationSchema } from '@/entities/doc/model/schema';
+import { summaryValidationSchema } from '@/features/upload-doc/model/schema';
 import { TApplicationUploadDocRecordRowInput } from '@repo/schemas';
 import { type TApplicationUploadDocRecordRowValError as ValError } from '@repo/schemas';
 

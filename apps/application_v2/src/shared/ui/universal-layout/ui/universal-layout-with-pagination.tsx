@@ -19,10 +19,8 @@ interface UniversalLayoutWithPaginationProps {
 
 export function UniversalLayoutWithPagination({
   isLoading,
-
   pageHeader,
   subHeader,
-
   filters,
   pagination,
 
@@ -53,7 +51,11 @@ export function UniversalLayoutWithPagination({
       {subHeader}
       <div className={cn('w-full transition-all @container @max-6xl/main:hidden')}>{filters}</div>
       <div className="flex flex-row w-full gap-6 h-full min-h-0">
-        <div className="flex flex-col grow min-h-0 gap-4 justify-between">
+        <div
+          className={cn(
+            'flex flex-col grow min-h-0 gap-4 justify-between @container @max-6xl/main:hidden',
+          )}
+        >
           <div className="relative min-h-0 max-h-full flex shrink @container">
             <ScrollArea className="h-full w-full rounded-xl border ">
               {isLoading ? tableSkeleton : table}
@@ -61,7 +63,6 @@ export function UniversalLayoutWithPagination({
           </div>
           <div className="pt-2">{pagination}</div>
         </div>
-
         {sidebarPanel}
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { getMonthBounds } from '@/shared/lib';
-import type { TGetApplicationDocListInput } from '@repo/schemas';
+import { baseRecordParamsSchema, getMonthBounds } from '@/shared/lib';
+import type { TApplicationGetDocDetailInput, TGetApplicationDocListInput } from '@repo/schemas';
 import {
   type inferParserType,
   parseAsArrayOf,
@@ -17,5 +17,12 @@ export const docListParamsSchema = {
   page: parseAsInteger.withDefault(1),
 } satisfies Record<keyof TGetApplicationDocListInput, unknown>;
 
+export const docRecordParamsSchema = {
+  ...baseRecordParamsSchema,
+} satisfies Record<keyof Omit<TApplicationGetDocDetailInput, 'docId'>, unknown>;
+
 export type DocListParams = inferParserType<typeof docListParamsSchema>;
 export const docListParamsCache = createSearchParamsCache(docListParamsSchema);
+
+export type DocDetailParams = inferParserType<typeof docRecordParamsSchema>;
+export const docRecordListParamsCache = createSearchParamsCache(docRecordParamsSchema);

@@ -2,9 +2,11 @@ import { throttle } from 'nuqs';
 import { ComponentProps } from 'react';
 import { useLabProductList } from '../model/use-lab-product-list';
 import { ProductListFilter } from '@/features/filter-product-list';
+import { useRecordListSearchParams } from '@/entities/record/lib/use-search-params';
 
 export default function LabProductListFilter() {
-  const { plantData, stateData, params, setParams, setUiParams } = useLabProductList();
+  const { setUiParams } = useLabProductList();
+  const { plantData, stateData, params, setParams } = useRecordListSearchParams('lab');
 
   type TFilterProps = ComponentProps<typeof ProductListFilter>;
   type TThrottleArgs = Parameters<TFilterProps['onFilterChangeThrottle']>[0];
@@ -24,7 +26,20 @@ export default function LabProductListFilter() {
   };
 
   const handleResetAll = () => {
-    setParams(null, { shallow: false });
+    setParams(
+      {
+        boil: null,
+        productCode: null,
+        marking: null,
+        conveyor: null,
+        states: [],
+        plants: params.plants,
+      },
+      {
+        shallow: true,
+      },
+    );
+
     setUiParams({ selectedRecordId: null }, { shallow: true });
   };
 

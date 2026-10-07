@@ -1,10 +1,10 @@
-import { labBoilListParamsCache } from '@/entities/boil';
+import { boilListParamsCache } from '@/entities/boil';
 import LabBoilListView from './lab-boil-list-view';
 
 type LabBoilListProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 export async function LabBoilList({ searchParams }: LabBoilListProps) {
-  await labBoilListParamsCache.parse(searchParams);
+  await boilListParamsCache.parse(searchParams);
   return <LabBoilListView />;
 }

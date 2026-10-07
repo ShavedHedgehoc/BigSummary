@@ -5,3 +5,4 @@
 .env.production.local
 .env.local
 /node_modules
+packages/db/postgres/src/generated/

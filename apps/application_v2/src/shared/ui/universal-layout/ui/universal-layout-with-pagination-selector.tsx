@@ -63,8 +63,13 @@ export function UniversalLayoutWithPaginationSelector({
       >
         {filters}
       </div>
-      <div className="flex flex-row w-full gap-6 h-full min-h-0">
-        <div className="flex flex-col grow min-h-0 gap-4 justify-between">
+      <div className="flex flex-row w-full gap-4 h-full min-h-0">
+        <div
+          className={cn(
+            'flex flex-col grow min-h-0 gap-4 justify-between @container',
+            hasSelection && '@max-6xl/main:hidden',
+          )}
+        >
           <div className="relative min-h-0 max-h-full flex shrink @container">
             <ScrollArea className="h-full w-full rounded-xl border ">
               {isLoading ? tableSkeleton : table}

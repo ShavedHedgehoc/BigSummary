@@ -45,7 +45,7 @@ export function UploadDocForm({ plantData = [] }: TUploadDocFormProps) {
 
   return (
     <FormProvider {...form}>
-      <Tabs defaultValue="form" className="w-full h-full flex flex-col min-h-0">
+      <Tabs defaultValue="form" className="w-full h-full flex flex-col min-h-0 px-4">
         <TabsList className="grid w-full grid-cols-2 mb-4">
           <TabsTrigger value="form">Форма загрузки</TabsTrigger>
           <TabsTrigger value="errors" disabled={!hasErrors} className="text-status-fail">
@@ -54,7 +54,7 @@ export function UploadDocForm({ plantData = [] }: TUploadDocFormProps) {
         </TabsList>
 
         <TabsContent value="form" className="grow min-h-0 m-0 flex flex-col">
-          <div className="w-full h-full flex flex-col gap-5 py-2 px-1">
+          <div className="w-full h-full flex flex-col gap-5 py-2 ">
             <div className="shrink-0 pt-2 border-t border-dashed border-border/60">
               <ValidationStatusButton
                 type="button"

@@ -1,6 +1,6 @@
 import { TCreateHistoryInput } from '@repo/schemas';
 import { TCancelHistoryButtonUiProps } from './types';
-import { useAuth, useRoles } from '@/entities/user';
+import { useAuth, useRoles } from '@/entities/user/index.client';
 import { DB_ROLES } from '@/shared/constants';
 import { useUndoHistory } from './use-undo-history';
 
@@ -14,7 +14,12 @@ export const useUndoButton = (props: TCancelHistoryButtonUiProps) => {
   const labBoilCancelStates = ['base_correct', 'base_fail', 'plug_pass', 'base_continue'];
   const labProductCancelStates = ['product_correct', 'product_fail', 'product_pass'];
   const foremanCancelStates = ['product_in_progress', 'product_finished'];
-  const lastState = props.row?.stateValue ?? '-';
+
+  const lastState =
+    props.row && 'stateValue' in props.row && typeof props.row.stateValue === 'string'
+      ? props.row.stateValue
+      : '';
+
   const isStateCancellable =
     (props.mode === 'laboratory_boils' && labBoilCancelStates.includes(lastState)) ||
     (props.mode === 'laboratory_products' && labProductCancelStates.includes(lastState)) ||

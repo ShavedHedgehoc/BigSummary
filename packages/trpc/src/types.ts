@@ -51,6 +51,21 @@ import type {
   TGetApplicationLabBoilListInput,
   TApplicationBoilListResponse,
   TApplicationGetCurrentDocInput,
+  TApplicationRoleListResponse,
+  TApplicationUserListResponse,
+  TGetApplicationUserListInput,
+  TApplicationUpdateUserInput,
+  TApplicationUpdateUserResponse,
+  TApplicationChangeUserAccessInput,
+  TApplicationChangeUserAccessResponse,
+  TApplicationResetUserPasswordInput,
+  TApplicationResetUserPasswordResponse,
+  TApplicationChangeUserPasswordResponse,
+  TApplicationChangeUserPasswordInput,
+  TApplicationDeleteUserInput,
+  TApplicationDeleteUserResponse,
+  TApplicationUpdateUserRolesInput,
+  TApplicationUpdateUserRolesResponse,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -172,12 +187,38 @@ export interface IApplicationHistoryService {
   ) => Promise<TApplicationDeleteHistoryResponse>;
 }
 
+export interface IApplicationRoleService {
+  getRoleList: () => Promise<TApplicationRoleListResponse | null>;
+}
+
+export interface IApplicationUserService {
+  getUserList: (
+    input: TGetApplicationUserListInput,
+  ) => Promise<TApplicationUserListResponse | null>;
+  updateUser: (input: TApplicationUpdateUserInput) => Promise<TApplicationUpdateUserResponse>;
+  changeUserAccess: (
+    input: TApplicationChangeUserAccessInput,
+  ) => Promise<TApplicationChangeUserAccessResponse>;
+  resetUserPassword: (
+    input: TApplicationResetUserPasswordInput,
+  ) => Promise<TApplicationResetUserPasswordResponse>;
+  changeUserPassword: (
+    input: TApplicationChangeUserPasswordInput,
+  ) => Promise<TApplicationChangeUserPasswordResponse>;
+  deleteUser: (input: TApplicationDeleteUserInput) => Promise<TApplicationDeleteUserResponse>;
+  updateUserRoles: (
+    input: TApplicationUpdateUserRolesInput,
+  ) => Promise<TApplicationUpdateUserRolesResponse>;
+}
+
 export interface ITrpcContext {
   applicationBoilService: IApplicationBoilService;
   applicationDocService: IApplicationDocService;
   applicationPlantService: IApplicationPlantService;
   applicationHistoryService: IApplicationHistoryService;
   applicationHistoryTypeService: IApplicationHistoryTypeService;
+  applicationRoleService: IApplicationRoleService;
+  applicationUserService: IApplicationUserService;
   workstationEmployeeService: IWorkstationEmployeeService;
   workstationConveyorService: IWorkstationConveyorService;
   dashPlantService: IDashPlantService;

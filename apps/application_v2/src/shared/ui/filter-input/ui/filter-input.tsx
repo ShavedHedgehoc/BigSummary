@@ -9,14 +9,14 @@ export interface IFilterInputProps extends Omit<
   'value' | 'onChange'
 > {
   value: string | undefined;
-  onChange: (val: string | undefined) => void;
+  onChange: (val: string | undefined | null) => void;
   className?: string;
 }
 
 export function FilterInput({ value, onChange, className, ...props }: IFilterInputProps) {
   const handleReset = (e: React.MouseEvent) => {
     e.preventDefault();
-    onChange(undefined);
+    onChange(null);
   };
 
   const hasValue = Boolean(value);
@@ -29,6 +29,7 @@ export function FilterInput({ value, onChange, className, ...props }: IFilterInp
         {...props}
         value={value || ''}
         autoComplete="off"
+        autoFocus={false}
         onChange={(e) => onChange(e.target.value || undefined)}
         className={cn(
           'h-8 w-full rounded-md border border-input bg-background px-3 text-xs transition-colors',

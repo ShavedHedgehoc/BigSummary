@@ -56,7 +56,7 @@ export function FilterMultiSelector<T extends string>({
 
   const handleClearAll = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.stopPropagation();
-    onChange(undefined);
+    onChange([]);
   };
 
   return (

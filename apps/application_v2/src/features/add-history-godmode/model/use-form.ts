@@ -3,7 +3,7 @@ import { TApplicationDocDetailRowItem, TCreateHistoryInput } from '@repo/schemas
 import { useForm, useWatch } from 'react-hook-form';
 import { addHistoryFormSchema, AddHistoryFormValues } from '../lib';
 import { useDirectAddHistory } from './use-direct-add-history';
-import { useAuth } from '@/entities/user';
+import { useAuth } from '@/entities/user/index.client';
 import { trpc } from '@/shared/api';
 import React from 'react';
 import { ISelectorWithIconListItem } from '@/shared/ui';
@@ -63,17 +63,20 @@ export const useAddHistoryForm = ({ row, onSuccess }: UseAddHistoryFormProps) =>
   }
 
   const stateListItems = React.useMemo(() => {
+    const isHasBase = row?.waterBaseId;
+
     const baseItems: ISelectorWithIconListItem[] = [{ value: 'All', description: 'Не выбрано' }];
     if (Array.isArray(statesData)) {
+      const parsedStatesData = isHasBase ? statesData : statesData.filter((x) => !x.for_boil);
       baseItems.push(
-        ...statesData.map((state) => ({
+        ...parsedStatesData.map((state) => ({
           value: state.value,
           description: state.description,
         })),
       );
     }
     return baseItems;
-  }, [statesData]);
+  }, [statesData, row?.waterBaseId]);
 
   return {
     form,

@@ -175,8 +175,6 @@ export class BoilCommonService {
       }),
     ]);
 
-    // const rows = items.map((item) => this.boilResult(item));
-    // return { rows, total };
     const rows = items.map((item) => this.boilResult(item, includeHistories));
     if (includeHistories) {
       const totalPages = Math.ceil(total / limit);

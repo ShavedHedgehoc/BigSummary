@@ -6,7 +6,7 @@ import { TRPCProvider } from '@/shared/api';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { Toaster } from 'sonner';
-import { AppSessionProvider } from '@/entities/user';
+import { AppSessionProvider } from '@/entities/user/index.client';
 import { ApiGuard } from '@/widgets/api-guard';
 import { ThemeProvider } from './theme-provider';
 import { NuqsProvider } from './nuqs-provider';

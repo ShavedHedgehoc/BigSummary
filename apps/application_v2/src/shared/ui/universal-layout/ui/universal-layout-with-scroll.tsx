@@ -55,7 +55,6 @@ export function UniversalLayoutWithScroll({
     <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-6 h-[calc(100vh-(--spacing(16)))] w-full overflow-hidden @container-main">
       {pageHeader}
       {subHeader}
-
       <div
         className={cn('w-full transition-all @container', hasSelection && '@max-6xl/main:hidden')}
       >

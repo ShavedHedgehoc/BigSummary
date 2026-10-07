@@ -102,17 +102,11 @@ export class DocCommonService {
           recordsData.map((r) => ({ id: r.id, water_base_id: r.water_base_id })),
         ),
         this.recordCounterService.getTaskSumsForRecordIds(recordIds),
-        this.semiProductService.getSemiProductsByRecordIds(recordIds), // <-- Добавили батчинг
-        this.regulationCommonService.getRegulationsByRecordIds(recordIds), // <-- Добавили батчинг
+        this.semiProductService.getSemiProductsByRecordIds(recordIds),
+        this.regulationCommonService.getRegulationsByRecordIds(recordIds),
       ]);
 
-    // const recordsResult = await Promise.all(
-    //   recordsData.map((item) => this.recordResult(item, doc.plantId)),
-    // );
-
     const nowTime = Date.now();
-
-    // 4. Линейный маппинг в памяти без ожидания Promise (O(1) доступ)
     const recordsResult: TRecordDetailResponse[] = recordsData.map((item) => {
       const histories = allHistoriesGrouped[item.id] ?? [];
       const fact = allFactsMap[item.id] ?? 0;
@@ -168,22 +162,6 @@ export class DocCommonService {
   }
 
   async getDocDetailRow(recordId: number): Promise<TRecordDetailResponse> {
-    // const record = await this.recordCommonService.getRecordById(recordId);
-    // if (!record) {
-    //   throw new TRPCError({
-    //     code: 'NOT_FOUND',
-    //     message: 'Запись на найдена',
-    //   });
-    // }
-    // const doc = await pgPrisma.docs.findUnique({ where: { id: record.doc_id } });
-    // if (!doc) {
-    //   throw new TRPCError({
-    //     code: 'NOT_FOUND',
-    //     message: `Связанный документ с ID ${record.doc_id} не найден в системе`,
-    //   });
-    // }
-    // const result = await this.recordResult(record, doc.plantId);
-    // return result;
     const record = await pgPrisma.records.findUnique({
       where: { id: recordId },
       include: {

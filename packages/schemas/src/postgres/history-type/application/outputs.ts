@@ -1,8 +1,9 @@
 import { z } from 'zod';
+import { historyStatusSchema } from '../types';
 
 export const applicationHistoryTypeListItemSchema = z.object({
   id: z.number().int(),
-  value: z.string(),
+  value: historyStatusSchema,
   description: z.string(),
   for_boil: z.boolean(),
 });

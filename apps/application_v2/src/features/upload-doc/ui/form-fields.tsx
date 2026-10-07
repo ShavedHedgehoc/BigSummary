@@ -1,6 +1,4 @@
 import { Controller, useFormContext } from 'react-hook-form';
-
-import { UploadDocFormValues } from '@/entities/doc';
 import {
   DatePicker,
   Field,
@@ -12,9 +10,9 @@ import {
   SelectorWithIcon,
   Switch,
 } from '@/shared/ui';
-
 import React from 'react';
 import { Factory } from 'lucide-react';
+import { UploadDocFormValues } from '../model/schema';
 
 export function DateField() {
   const { control } = useFormContext<UploadDocFormValues>();

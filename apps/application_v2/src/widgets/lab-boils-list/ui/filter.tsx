@@ -2,9 +2,11 @@ import { BoilListFilter } from '@/features/filter-boil-list';
 import { useLabBoilList } from '../model/use-lab-boil-list';
 import { throttle } from 'nuqs';
 import { ComponentProps } from 'react';
+import { useBoilListSearchParams } from '@/entities/boil';
 
 export default function LabBoilListFilter() {
-  const { plantData, stateData, params, setParams, setUiParams } = useLabBoilList();
+  const { setUiParams } = useLabBoilList();
+  const { params, setParams, stateData, plantData } = useBoilListSearchParams('lab');
 
   type TFilterProps = ComponentProps<typeof BoilListFilter>;
   type TThrottleArgs = Parameters<TFilterProps['onFilterChangeThrottle']>[0];
@@ -23,9 +25,26 @@ export default function LabBoilListFilter() {
     setUiParams({ selectedBoilId: null }, { shallow: true });
   };
 
-  const handleReset = () => [setParams(null)];
+  const resetParams = () => {
+    setParams(
+      {
+        boil: null,
+        baseCode: null,
+        marking: null,
+        states: [],
+        // plants: params.plants,
+        plants: [],
+        page: 1,
+      },
+      {
+        shallow: true,
+      },
+    );
+  };
+
+  const handleReset = () => resetParams();
   const handleResetAll = () => {
-    setParams(null, { shallow: false });
+    resetParams();
     setUiParams({ selectedBoilId: null }, { shallow: true });
   };
 

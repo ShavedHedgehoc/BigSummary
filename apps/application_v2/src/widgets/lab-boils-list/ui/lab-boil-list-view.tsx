@@ -45,7 +45,7 @@ export default function LabBoilListView() {
           data && (
             <SidePanel
               mode="laboratory_boils"
-              row={selectedRow ?? null}
+              row={selectedRow ?? undefined}
               className="w-full m-0 @min-6xl/main:w-110 shrink-0 h-full max-w-2xl"
               onClose={clearSelected}
             />

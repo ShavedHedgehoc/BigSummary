@@ -1,10 +1,12 @@
 import { z } from 'zod';
+import { applicationUserSettingsOutputSchema } from '../user-settings';
 
 export const userSchema = z.object({
   id: z.number(),
   name: z.string(),
   email: z.string(),
   roles: z.array(z.string()),
+  settings: applicationUserSettingsOutputSchema,
 });
 
 export const loginResponseSchema = z.object({

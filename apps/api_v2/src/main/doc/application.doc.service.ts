@@ -240,7 +240,8 @@ export class ApplicationDocService implements IApplicationDocService {
     const [allHistoriesGrouped, allFactsMap] = await Promise.all([
       this.historyCommonService.getHistoriesForRecords(
         recordsData.map((r) => ({ id: r.id, water_base_id: r.water_base_id })),
-        states.map((s) => Number(s)),
+        // states.map((s) => Number(s)),
+        (states ?? []).map((s) => Number(s)),
       ),
       this.recordCounterService.getTaskSumsForRecordIds(recordIds),
     ]);

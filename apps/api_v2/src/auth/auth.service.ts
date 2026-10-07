@@ -14,7 +14,10 @@ export class AuthService implements IAuthService {
   private async validateUser(input: TLoginInput): Promise<UserWithRoles> {
     const user = await pgPrisma.users.findUnique({
       where: { email: input.email },
-      include: { user_roles: { include: { roles: true } } },
+      include: {
+        user_roles: { include: { roles: true } },
+        user_settings: { include: { plants: true } },
+      },
     });
     if (!user) {
       throw new HttpException('Пользователь с таким email не найден', HttpStatus.NOT_FOUND);
@@ -55,7 +58,10 @@ export class AuthService implements IAuthService {
   async me(userId: number): Promise<TRegisteredUser> {
     const user = await pgPrisma.users.findUnique({
       where: { id: userId },
-      include: { user_roles: { include: { roles: true } } },
+      include: {
+        user_roles: { include: { roles: true } },
+        user_settings: { include: { plants: true } },
+      },
     });
 
     if (!user) {
@@ -128,6 +134,7 @@ export class AuthService implements IAuthService {
         user_roles: {
           include: { roles: true },
         },
+        user_settings: { include: { plants: true } },
       },
     });
 
@@ -158,38 +165,88 @@ export class AuthService implements IAuthService {
     };
   }
 
+  // async register(input: TRegisterInput): Promise<TLoginResponse> {
+  //   const candidate = await pgPrisma.users.findUnique({ where: { email: input.email } });
+  //   if (candidate) throw new Error('Пользователь с таким email уже существует!');
+
+  //   const hashPassword = await bcrypt.hash(input.password, 5);
+  //   const user = await pgPrisma.users.create({
+  //     data: {
+  //       name: input.name,
+  //       email: input.email,
+  //       password: hashPassword,
+
+  //       user_roles: {
+  //         create: {
+  //           roles: {
+  //             connect: {
+  //               value: 'USER',
+  //             },
+  //           },
+  //         },
+  //       },
+  //       user_settings: {
+  //         create: {},
+  //       },
+  //     },
+  //     include: {
+  //       user_roles: { include: { roles: true } },
+  //       user_settings: { include: { plants: true } },
+  //     },
+  //   });
+
+  //   const tokens = await this.generateTokens(user);
+  //   await pgPrisma.tokens.create({
+  //     data: { userId: user.id, token: tokens.refreshToken },
+  //   });
+
+  //   return {
+  //     user: mapper.toRegisteredUserData(user),
+  //     accessToken: tokens.accessToken,
+  //     refreshToken: tokens.refreshToken,
+  //   };
+  // }
   async register(input: TRegisterInput): Promise<TLoginResponse> {
     const candidate = await pgPrisma.users.findUnique({ where: { email: input.email } });
     if (candidate) throw new Error('Пользователь с таким email уже существует!');
 
     const hashPassword = await bcrypt.hash(input.password, 5);
-    const user = await pgPrisma.users.create({
-      data: {
-        name: input.name,
-        email: input.email,
-        password: hashPassword,
-        user_roles: {
-          create: {
-            roles: {
-              connect: {
-                value: 'USER',
+
+    return await pgPrisma.$transaction(async (tx) => {
+      const user = await tx.users.create({
+        data: {
+          name: input.name,
+          email: input.email,
+          password: hashPassword,
+          user_roles: {
+            create: {
+              roles: {
+                connect: {
+                  value: 'USER',
+                },
               },
             },
           },
+
+          user_settings: {
+            create: {},
+          },
         },
-      },
-      include: { user_roles: { include: { roles: true } } },
-    });
 
-    const tokens = await this.generateTokens(user);
-    await pgPrisma.tokens.create({
-      data: { userId: user.id, token: tokens.refreshToken },
+        include: {
+          user_roles: { include: { roles: true } },
+          user_settings: { include: { plants: true } },
+        },
+      });
+      const tokens = await this.generateTokens(user);
+      await tx.tokens.create({
+        data: { userId: user.id, token: tokens.refreshToken },
+      });
+      return {
+        user: mapper.toRegisteredUserData(user),
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+      };
     });
-
-    return {
-      user: mapper.toRegisteredUserData(user),
-      accessToken: tokens.accessToken,
-      refreshToken: tokens.refreshToken,
-    };
   }
 }

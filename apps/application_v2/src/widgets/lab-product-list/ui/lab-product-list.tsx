@@ -1,10 +1,14 @@
-import { labProductListParamsCache } from '@/entities/record';
+import { recordListParamsCache } from '@/entities/record';
 import LabProductListView from './lab-product-list-view';
-
 type LabProductListProps = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams:
+    | Promise<{ [key: string]: string | string[] | undefined }>
+    | { [key: string]: string | string[] | undefined };
 };
+
 export async function LabProductList({ searchParams }: LabProductListProps) {
-  await labProductListParamsCache.parse(searchParams);
+  const resolvedParams = await searchParams;
+  recordListParamsCache.parse(resolvedParams);
+
   return <LabProductListView />;
 }

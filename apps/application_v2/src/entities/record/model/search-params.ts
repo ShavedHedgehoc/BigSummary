@@ -1,33 +1,17 @@
-import type { TApplicationGetCurrentDocInput, TApplicationGetDocDetailInput } from '@repo/schemas';
+import { baseRecordParamsSchema } from '@/shared/lib';
+import type { TApplicationGetCurrentDocInput } from '@repo/schemas';
 import {
   createSearchParamsCache,
   parseAsString,
   parseAsArrayOf,
-  parseAsBoolean,
+  inferParserType,
 } from 'nuqs/server';
 
-export const docDetailParamsSchema = {
-  boil: parseAsString.withDefault(''),
-  productCode: parseAsString.withDefault(''),
-  marking: parseAsString.withDefault(''),
-  conveyor: parseAsString.withDefault(''),
-  haveRecord: parseAsBoolean.withDefault(false),
-  boilAsc: parseAsBoolean.withDefault(false),
-  states: parseAsArrayOf(parseAsString).withDefault([]),
-} satisfies Record<keyof Omit<TApplicationGetDocDetailInput, 'docId'>, unknown>;
-
-export const currentDocParamsSchema = {
-  boil: parseAsString.withDefault(''),
-  productCode: parseAsString.withDefault(''),
-  marking: parseAsString.withDefault(''),
-  conveyor: parseAsString.withDefault(''),
-  haveRecord: parseAsBoolean.withDefault(false),
-  boilAsc: parseAsBoolean.withDefault(false),
-  states: parseAsArrayOf(parseAsString).withDefault([]),
-  plants: parseAsArrayOf(parseAsString).withDefault([]),
+export const recordListParamsSchema = {
+  ...baseRecordParamsSchema,
+  plants: parseAsArrayOf(parseAsString),
 } satisfies Record<keyof TApplicationGetCurrentDocInput, unknown>;
 
-export const docDetailParamsCache = createSearchParamsCache(docDetailParamsSchema);
+export type RecordListParams = inferParserType<typeof recordListParamsSchema>;
 
-export const labProductListParamsCache = createSearchParamsCache(currentDocParamsSchema);
-export const foremanProductListParamsCache = createSearchParamsCache(currentDocParamsSchema);
+export const recordListParamsCache = createSearchParamsCache(recordListParamsSchema);

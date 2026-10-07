@@ -247,7 +247,7 @@ export const summaryValidationSchema: JSONSchemaType<TApplicationUploadDocRecord
     technician_note: {
       type: 'string',
       minLength: 1,
-      maxLength: 50,
+      maxLength: 255,
       errorMessage: {
         minLength: '',
         maxLength: '',

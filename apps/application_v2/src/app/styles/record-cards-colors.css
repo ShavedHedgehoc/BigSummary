@@ -1,0 +1,61 @@
+:root {
+  /* --- Пустые и базовые карточки (Светло-серый / Белый с рамкой) --- */
+  --record-card-undefined: oklch(0.985 0 0); /* Идеальный белый фон */
+  --record-card-undefined-foreground: oklch(0.205 0 0); /* Контрастный почти черный текст */
+
+  /* Серые базовые статусы (base_check, base_fail и т.д.) */
+  --record-card-base: oklch(0.92 0.005 257.4); /* Мягкий серый фон (zinc-200/stone-100) */
+  --record-card-base-foreground: oklch(0.205 0 0);
+  --record-card-base-badge-fail: oklch(0.55 0.18 26); /* Глубокий красный для брака основы */
+  --record-card-base-badge-success: oklch(
+    0.52 0.16 145
+  ); /* Глубокий зеленый для допуска пробки/основы */
+  --record-card-base-badge-wait: oklch(0.58 0.15 70); /* Темно-оранжевый для проверок основы */
+  /* Оранжево-коричневый для текста "Основа на пробе" */
+  --record-card-base-badge-fail: oklch(0.55 0.18 26); /* Глубокий красный для брака основы */
+  --record-card-base-badge-success: oklch(
+    0.52 0.16 145
+  ); /* Глубокий зеленый для допуска пробки/основы */
+  --record-card-base-badge-wait: oklch(0.58 0.15 70); /* Темно-оранжевый для проверок основы */
+
+  /* --- Яркие цветные карточки (Текст строго БЕЛЫЙ для читаемости) --- */
+  --record-card-fail: oklch(0.577 0.245 27.325); /* Насыщенный красный (Брак) */
+  --record-card-wait: oklch(0.769 0.188 70.08); /* Теплый желто-оранжевый (Ожидание) */
+  --record-card-process: oklch(0.541 0.184 246.33); /* Глубокий синий (Фасуется) */
+  --record-card-success: oklch(0.627 0.194 149.251); /* Сочный зеленые (Допуск на фасовку) */
+  --record-card-finished: oklch(0.704 0.223 325.26); /* Пурпурный (Завершено) */
+
+  --record-card-bright-foreground: oklch(1 0 0); /* Чистый белый текст для цветных фонов */
+}
+
+.dark {
+  /* --- Тёмная тема (Dark Mode) --- */
+  --record-card-undefined: oklch(0.205 0 0); /* Фон совпадает с bg-card Shadcn */
+  --record-card-undefined-foreground: oklch(0.708 0 0); /* Приглушенный серый текст */
+
+  /* ИСПРАВЛЕНО: Оригинальные темные фоны из вашего кода MUI Joy */
+  --record-card-base: oklch(0.439 0.046 242); /* Серый фон (#475569) */
+  --record-card-base-foreground: oklch(1 0 0); /* Белый текст */
+
+  /* ИСПРАВЛЕНО: Светлые пастельные цвета для статусов на сером фоне (чтобы читались в темноте) */
+  --record-card-base-badge-fail: oklch(0.8 0.12 26); /* Нежно-красный */
+  --record-card-base-badge-success: oklch(0.82 0.11 145); /* Нежно-зеленый */
+  --record-card-base-badge-wait: oklch(0.84 0.1 70); /* Нежно-желтый */
+
+  /* ИСПРАВЛЕНО: Оригинальные темные цвета фонов из кода MUI Joy */
+
+  /* --record-card-fail: #b91c1c;
+  --record-card-wait: #a16207;
+  --record-card-success: #15803d;
+  --record-card-process: #0369a1;
+  --record-card-finished: #a21caf;
+  --record-card-undefined: #475569; */
+
+  --record-card-fail: oklch(0.467 0.183 24.32);
+  --record-card-wait: oklch(0.505 0.138 78.43);
+  --record-card-process: oklch(0.465 0.145 224.23);
+  --record-card-success: oklch(0.485 0.155 142.92);
+  --record-card-finished: oklch(0.468 0.207 325.6);
+
+  --record-card-bright-foreground: oklch(1 0 0); /* Белый текст */
+}

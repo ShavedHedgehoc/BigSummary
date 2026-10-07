@@ -1,4 +1,4 @@
-import { useRoles } from '@/entities/user';
+import { useRoles } from '@/entities/user/index.client';
 import { DB_ROLES } from '@/shared/constants';
 import { Button } from '@/shared/ui';
 import {
@@ -19,9 +19,10 @@ import { useState } from 'react';
 
 interface IDeleteDocRowButtonProps {
   row?: TApplicationDocDetailRowItem;
+  onSuccess?: () => void;
 }
 
-export function DeleteDocRowButton({ row }: IDeleteDocRowButtonProps) {
+export function DeleteDocRowButton({ row, onSuccess }: IDeleteDocRowButtonProps) {
   const { hasRole } = useRoles();
   const { deleteDocRow, isPending: deletePending } = useDeleteDocRow();
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,15 @@ export function DeleteDocRowButton({ row }: IDeleteDocRowButtonProps) {
   const isCanDelete = allowDelete && row.isCanDeleted;
 
   const handleDeleteClick = () => {
-    deleteDocRow({ id: row.id });
+    deleteDocRow(
+      { id: row.id },
+      {
+        onSuccess: () => {
+          setIsOpen(false);
+          onSuccess?.();
+        },
+      },
+    );
   };
 
   return (

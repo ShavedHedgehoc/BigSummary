@@ -1,10 +1,11 @@
 'use client';
 
-import { getStatusConfig, TInputStatus } from '@/entities/history';
+import { getStatusConfig } from '@/entities/history';
 import { cn } from '@/shared/lib';
+import { THistoryStatus } from '@repo/schemas';
 
 interface TDocStatusProps {
-  state: TInputStatus | null | string;
+  state: THistoryStatus | null | string;
   stateDescription: string | null;
 }
 

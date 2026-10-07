@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import { Inter } from 'next/font/google';
 import { AppProvider } from './_providers/app-provider';
@@ -8,6 +8,13 @@ import './styles/globals.css';
 export const metadata: Metadata = {
   title: 'Summary 2.0',
   description: 'Summary application',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
 };
 
 const inter = Inter({
@@ -29,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={cn(
           inter.className,
           'bg-background text-foreground font-sans antialiased',
-          'min-h-screen min-w-full flex flex-col',
+          'min-h-svh h-svh w-screen overflow-hidden flex flex-col',
         )}
       >
         <AppProvider>{children}</AppProvider>

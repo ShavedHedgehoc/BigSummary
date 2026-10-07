@@ -1,18 +1,9 @@
 import { cn } from '@/shared/lib';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shared/ui';
 import { TCommonHistoryItem } from '@repo/schemas';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import { HelpCircle } from 'lucide-react';
 import { getStatusConfig } from '../model';
+import { HistoryNoteCell } from './history-note-cell';
 
 export const baseHistoryColumns: ColumnDef<TCommonHistoryItem>[] = [
   {
@@ -66,61 +57,12 @@ export const baseHistoryColumns: ColumnDef<TCommonHistoryItem>[] = [
     header: () => (
       <div className="text-left font-semibold text-xs text-muted-foreground">Прим.</div>
     ),
-
-    cell: ({ row }) => {
-      const note = row.original.history_note;
-      if (!note) {
-        return <div className="text-left text-xs text-muted-foreground/50 pl-2">—</div>;
-      }
-      return (
-        <div className="flex justify-start pl-1">
-          <TooltipProvider delayDuration={200}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="text-muted-foreground hover:text-foreground transition-colors cursor-help p-1 rounded-md hover:bg-muted"
-                  aria-label="Показать примечание"
-                >
-                  <HelpCircle className="h-4 w-4" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" align="start" className="max-w-xs wrap-break-words">
-                <p className="text-xs">{note}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      );
-    },
+    cell: ({ row }) => <HistoryNoteCell note={row.original.history_note} />,
   },
   {
     accessorKey: 'mobile-note',
     meta: { grow: false, hideOnMobile: false, hideOnDesktop: true },
-    header: () => (
-      <div className="text-left font-semibold text-xs text-muted-foreground">Прим.</div>
-    ),
-    cell: ({ row }) => {
-      const note = row.original.history_note;
-      if (!note) {
-        return <div className="text-left text-xs text-muted-foreground/50 pl-2">—</div>;
-      }
-      return (
-        <Popover>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              className="text-muted-foreground hover:text-foreground transition-colors cursor-help p-1 rounded-md hover:bg-muted"
-              aria-label="Показать примечание"
-            >
-              <HelpCircle className="h-4 w-4" />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-60 text-xs p-3">
-            <p>{note}</p>
-          </PopoverContent>
-        </Popover>
-      );
-    },
+    header: () => null,
+    cell: ({ row }) => <HistoryNoteCell note={row.original.history_note} />,
   },
 ];

@@ -1,12 +1,10 @@
-import {
-  useDocDetailSearchParams,
-  useDocDetailUiParams,
-  baseRecordColumns,
-} from '@/entities/record';
 import { trpc } from '@/shared/api';
 import { useIsMobile } from '@/shared/lib';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { useDocDetailUiParams } from './use-doc-detail-ui-params';
+import { useDocDetailSearchParams } from '@/entities/doc/lib/use-search-params';
+import { docDetailProductListColumns } from '../ui/columns';
 
 export function useDocDetail(docId?: number) {
   const isMobile = useIsMobile();
@@ -21,6 +19,7 @@ export function useDocDetail(docId?: number) {
   const { data, isLoading } = trpc.application.main.doc.getDetail.useQuery(queryArgs!, {
     placeholderData: keepPreviousData,
     staleTime: 30 * 1000,
+    refetchInterval: 30 * 1000,
     enabled: !!queryArgs,
   });
 
@@ -32,7 +31,7 @@ export function useDocDetail(docId?: number) {
   const hasSelectedRow = uiParams.selectedRecordId !== '';
 
   const columns = useMemo(() => {
-    const base = [...baseRecordColumns];
+    const base = [...docDetailProductListColumns];
     return base.filter((col) => (isMobile ? !col.meta?.hideOnMobile : !col.meta?.hideOnDesktop));
   }, [isMobile]);
 

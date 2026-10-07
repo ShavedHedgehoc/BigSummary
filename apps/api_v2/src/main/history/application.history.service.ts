@@ -18,7 +18,6 @@ export class ApplicationHistoryService implements IApplicationHistoryService {
   ) {}
 
   async directCreateHistory(input: TCreateHistoryInput): Promise<TCreateHistoryResponse> {
-    console.log(input);
     const { boil_value, historyType, record_id } = input;
     let boilValue = boil_value === '-' ? null : boil_value;
 

@@ -1,3 +1,4 @@
+import { cn } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 import { X } from 'lucide-react';
 
@@ -9,6 +10,7 @@ export interface IPanelTab<T extends string = string> {
 interface SideBarPanelHeaderProps<T extends string = string> {
   tabs: readonly IPanelTab<T>[];
   activeTab: T;
+  showCloseButtonOnDesktop: boolean;
   onTabChange: (tabId: T) => void;
   onClose?: () => void;
 }
@@ -16,6 +18,7 @@ interface SideBarPanelHeaderProps<T extends string = string> {
 export function SidebarPanelHeader<T extends string>({
   tabs,
   activeTab,
+  showCloseButtonOnDesktop,
   onTabChange,
   onClose,
 }: SideBarPanelHeaderProps<T>) {
@@ -36,7 +39,10 @@ export function SidebarPanelHeader<T extends string>({
         <Button
           variant="ghost"
           size="sm"
-          className="text-xs h-8 font-medium text-destructive hover:bg-destructive/10 px-3 @min-6xl/main:hidden flex items-center shrink-0"
+          className={cn(
+            'text-xs h-8 font-medium text-destructive hover:bg-destructive/10 px-3 flex items-center shrink-0',
+            !showCloseButtonOnDesktop && '@min-6xl/main:hidden',
+          )}
           onClick={onClose}
         >
           <X className="w-3.5 h-3.5" />

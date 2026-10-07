@@ -4,12 +4,12 @@ import { TCreateHistoryInput } from '@repo/schemas';
 import { useCreateHistory } from './use-create-history';
 import { changeStateFormSchema, ChangeStateFormValues } from '../lib/schema';
 import { useMemo } from 'react';
-import { useAuth } from '@/entities/user';
+import { useAuth } from '@/entities/user/index.client';
 import { THistoryMutationContextProps } from '@/entities/history';
 import { BOILS_OPTIONS, FOREMAN_OPTIONS, PRODUCTS_OPTIONS } from './constants';
 
 export const useChangeStateForm = (props: THistoryMutationContextProps, onClose?: () => void) => {
-  const { row, mode } = props;
+  const { mode } = props;
   const { user } = useAuth();
   const { createHistoryAsync, isPending } = useCreateHistory();
 
@@ -49,7 +49,10 @@ export const useChangeStateForm = (props: THistoryMutationContextProps, onClose?
     (!noteValue?.trim() && isCommentRequired);
   const resetDisable = !isDirty || isSubmitting;
 
-  const currentStatus = row?.stateValue ?? '';
+  const currentStatus =
+    props.row && 'stateValue' in props.row && typeof props.row.stateValue === 'string'
+      ? props.row.stateValue
+      : '';
 
   const activeOptions = useMemo(() => {
     if (mode === 'laboratory_boils') {
@@ -87,13 +90,13 @@ export const useChangeStateForm = (props: THistoryMutationContextProps, onClose?
   }, [mode, currentStatus]);
 
   async function onSubmit(data: ChangeStateFormValues) {
-    if (!row) return;
+    if (!props.row) return;
 
     try {
       if (mode === 'laboratory_boils') {
         const dto: TCreateHistoryInput = {
           record_id: null,
-          boil_value: row.boilValue,
+          boil_value: props.row.boilValue,
           base_code: null,
           plant_id: null,
           historyType: data.state,
@@ -107,7 +110,7 @@ export const useChangeStateForm = (props: THistoryMutationContextProps, onClose?
       }
       if (mode === 'laboratory_products' || mode === 'foreman') {
         const dto: TCreateHistoryInput = {
-          record_id: row.id,
+          record_id: props.row.id,
           boil_value: null,
           base_code: null,
           plant_id: null,

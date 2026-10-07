@@ -1,4 +1,8 @@
-import { TApplicationBoilItem, TApplicationDocDetailRowItem } from '@repo/schemas';
+import {
+  TApplicationBoilItem,
+  TApplicationDocDetailRowItem,
+  TApplicationUserItem,
+} from '@repo/schemas';
 
 type TBoilHistoryType = 'base_continue' | 'base_correct' | 'plug_pass' | 'base_fail' | 'base_check';
 type TProductHistoryType = 'product_pass' | 'product_fail' | 'product_check';
@@ -7,8 +11,13 @@ type TPlannerHistoryType = 'product_in_progress' | 'product_finished';
 
 export type THistoryMutationContextProps =
   | {
+      mode: 'dash';
+      row: TApplicationDocDetailRowItem | undefined;
+      onChange?: never;
+    }
+  | {
       mode: 'planner';
-      row: TApplicationDocDetailRowItem | null;
+      row: TApplicationDocDetailRowItem | undefined;
       onChange?: (value: TPlannerHistoryType) => void;
     }
   | {
@@ -17,21 +26,22 @@ export type THistoryMutationContextProps =
       onChange?: never;
     }
   | {
+      mode: 'admin_users';
+      row: TApplicationUserItem | undefined;
+      onChange?: never;
+    }
+  | {
       mode: 'laboratory_boils';
-      row: TApplicationBoilItem | null;
+      row: TApplicationBoilItem | undefined;
       onChange?: (value: TBoilHistoryType) => void;
     }
   | {
       mode: 'laboratory_products';
-      row: TApplicationDocDetailRowItem | null;
+      row: TApplicationDocDetailRowItem | undefined;
       onChange?: (value: TProductHistoryType) => void;
     }
   | {
       mode: 'foreman';
-      row: TApplicationDocDetailRowItem | null;
+      row: TApplicationDocDetailRowItem | undefined;
       onChange?: (value: TForemanHistoryType) => void;
     };
-
-export type THistorySidePanelContext = THistoryMutationContextProps & {
-  onClose?: () => void;
-};

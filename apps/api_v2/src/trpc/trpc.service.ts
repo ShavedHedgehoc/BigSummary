@@ -21,7 +21,9 @@ import { ApplicationDocService } from '../main/doc/application.doc.service';
 import { ApplicationPlantService } from '../main/plant/application.plant.service';
 import { ApplicationHistoryTypeService } from '../main/history-type/application.history-type.service';
 import { ApplicationHistoryService } from '../main/history/application.history.service';
-import { ApplicationBoilService } from 'src/main/boil/application.boil.service';
+import { ApplicationBoilService } from '../main/boil/application.boil.service';
+import { ApplicationUserService } from '../main/user/application.user.service';
+import { ApplicationRoleService } from 'src/main/role/application.role.service';
 
 @Injectable()
 export class TrpcService {
@@ -41,6 +43,10 @@ export class TrpcService {
     private readonly applicationHistoryTypeService: ApplicationHistoryTypeService,
     @Inject(forwardRef(() => ApplicationPlantService))
     private readonly applicationPlantService: ApplicationPlantService,
+    @Inject(forwardRef(() => ApplicationRoleService))
+    private readonly applicationRoleService: ApplicationRoleService,
+    @Inject(forwardRef(() => ApplicationUserService))
+    private readonly applicationUserService: ApplicationUserService,
     @Inject(forwardRef(() => WorkstationEmployeeService))
     private readonly workstationEmployeeService: WorkstationEmployeeService,
     @Inject(forwardRef(() => WorkstationHistoryService))
@@ -121,7 +127,9 @@ export class TrpcService {
       applicationDocService: this.applicationDocService,
       applicationHistoryService: this.applicationHistoryService,
       applicationHistoryTypeService: this.applicationHistoryTypeService,
+      applicationRoleService: this.applicationRoleService,
       applicationPlantService: this.applicationPlantService,
+      applicationUserService: this.applicationUserService,
       workstationEmployeeService: this.workstationEmployeeService,
       workstationHistoryService: this.workstationHistoryService,
       workstationConveyorService: this.workstationConveyorService,

@@ -25,7 +25,18 @@ export default function DocDetailFilter() {
   };
 
   const handleResetAll = () => {
-    setParams(null, { shallow: false });
+    setParams(
+      {
+        boil: null,
+        productCode: null,
+        marking: null,
+        conveyor: null,
+        states: [],
+      },
+      {
+        shallow: true,
+      },
+    );
     setUiParams({ selectedRecordId: null }, { shallow: true });
   };
 

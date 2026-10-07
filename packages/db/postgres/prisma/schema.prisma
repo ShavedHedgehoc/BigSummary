@@ -103,11 +103,11 @@ model histories {
   updatedAt     DateTime       @updatedAt @db.Timestamptz(6)
   note_id       Int?
   plant_id      Int?
-  boils         boils?         @relation(fields: [boil_id], references: [id], onDelete: Cascade)
+  boils         boils?         @relation(fields: [boil_id], references: [id], onDelete:Restrict)
   employees     employees?     @relation(fields: [employeeId], references: [id], onDelete: Restrict)
   history_types history_types? @relation(fields: [historyTypeId], references: [id], onDelete: Cascade)
-  records       records?       @relation(fields: [record_id], references: [id], onDelete: Cascade)
-  users         users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  records       records?       @relation(fields: [record_id], references: [id], onDelete:Restrict)
+  users         users?         @relation(fields: [userId], references: [id], onDelete:Restrict)
   notes         notes?         @relation(fields: [note_id], references: [id], onDelete: Cascade)
 
   @@index([record_id, createdAt], map: "idx_hist_record_createdat")
@@ -524,7 +524,7 @@ model users {
   name          String         @db.VarChar(255)
   email         String         @unique @db.VarChar(255)
   password      String         @db.VarChar(255)
-  banned        Boolean?       @default(false)
+  banned        Boolean       @default(false)
   createdAt     DateTime       @default(now()) @db.Timestamptz(6)
   updatedAt     DateTime       @updatedAt @db.Timestamptz(6)
   histories     histories[]

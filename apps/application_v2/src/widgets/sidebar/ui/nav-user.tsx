@@ -1,8 +1,8 @@
-import { useAuth } from '@/entities/user';
+import { useAuth } from '@/entities/user/index.client';
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
+  // AvatarImage,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -40,7 +40,7 @@ export function NavUser({ user }: { user: TRegisteredUser }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.name} alt={user.name} />
+                {/* <AvatarImage src={user.name} alt={user.name} /> */}
                 <AvatarFallback className="rounded-lg text-xs">{initials || 'XX'}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -59,7 +59,7 @@ export function NavUser({ user }: { user: TRegisteredUser }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.name} alt={user.name} />
+                  {/* <AvatarImage src={user.name} alt={user.name} /> */}
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">

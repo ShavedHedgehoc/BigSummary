@@ -78,9 +78,11 @@ export function TablePagination<T extends TPaginationParams>({
             </SelectContent>
           </Select>
         </div>
-        <div className="md:hidden flex w-fit items-center justify-center text-sm font-medium">
-          Страница: {params.page} из {totalPages}
-        </div>
+        {totalPages > 0 && (
+          <div className="md:hidden flex w-fit items-center justify-center text-sm font-medium">
+            Страница: {params.page} из {totalPages}
+          </div>
+        )}
         <div className="ml-auto flex items-center gap-2 lg:ml-0">
           <Button
             variant="outline"

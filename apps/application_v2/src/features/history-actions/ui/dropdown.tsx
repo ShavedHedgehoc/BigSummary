@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
 } from '@/shared/ui';
 import { ClipboardList, MoreHorizontal } from 'lucide-react';
-import { useAuth } from '@/entities/user';
+import { useAuth } from '@/entities/user/index.client';
 import { useDeleteHistory } from '../model';
 
 interface IRowDropdownProps {

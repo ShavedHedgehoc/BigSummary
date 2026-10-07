@@ -1,4 +1,4 @@
-import { useRoles } from '@/entities/user';
+import { useRoles } from '@/entities/user/index.client';
 import { DB_ROLES } from '@/shared/constants';
 import { Button } from '@/shared/ui';
 import { ArrowLeft, Plus } from 'lucide-react';

@@ -1,33 +1,41 @@
+'use client';
+
 import { useQueryStates } from 'nuqs';
-import { docListParamsSchema } from '../model';
+import { docListParamsSchema, docRecordParamsSchema } from '../model';
+import { trpc } from '@/shared/api';
+import { keepPreviousData } from '@tanstack/react-query';
 
 export function useDocListSearchParams() {
+  /* Справочники */
+  const { data: plantData } = trpc.application.main.plant.getPlantList.useQuery(undefined, {
+    staleTime: Infinity,
+    gcTime: 1000 * 60 * 60,
+  });
+
   const [params, setParams] = useQueryStates(docListParamsSchema, {
     shallow: false,
     history: 'replace',
     clearOnDefault: true,
   });
-  return { params, setParams };
+
+  const { data, isLoading } = trpc.application.main.doc.getDocList.useQuery(params, {
+    placeholderData: keepPreviousData,
+    staleTime: 30 * 1000,
+    refetchInterval: 30 * 1000,
+  });
+  return { plantData: plantData ?? [], data, isLoading, params, setParams };
 }
 
-// import { useQueryStates } from 'nuqs';
-// import { docListParamsSchema } from './schema';
-// import { useAuth } from '@/shared/hooks'; // ваш хук авторизации на клиенте
+const docDetailWithDefaultsSchema = {
+  ...docRecordParamsSchema,
+  states: docRecordParamsSchema.states.withDefault([]),
+};
 
-// export function useDocListSearchParams() {
-//   const { user } = useAuth();
-//   const [params, setParams] = useQueryStates(docListParamsSchema);
-
-//   // Если в URL нет выбранных площадок, подставляем дефолтную из профиля
-//   const activePlants = params.plants.length > 0
-//     ? params.plants
-//     : [user?.settings?.defaultPlantId || 'All'];
-
-//   return {
-//     params: {
-//       ...params,
-//       plants: activePlants
-//     },
-//     setParams
-//   };
-// }
+export function useDocDetailSearchParams() {
+  const [params, setParams] = useQueryStates(docDetailWithDefaultsSchema, {
+    shallow: true,
+    history: 'replace',
+    clearOnDefault: true,
+  });
+  return { params, setParams };
+}

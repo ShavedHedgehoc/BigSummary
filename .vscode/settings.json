@@ -15,5 +15,7 @@
   "npm.autoDetect": "off",
   "js/ts.tsc.autoDetect": "off",
   "editor.formatOnSave": true,    
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+   "workbench.editor.enablePreview": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true
 }

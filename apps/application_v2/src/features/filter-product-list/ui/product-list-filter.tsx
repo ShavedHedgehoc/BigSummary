@@ -58,7 +58,13 @@ export function ProductListFilter({
   const isMobile = useIsMobile();
 
   const [open, setOpen] = useState(false);
-  const selectorId = useId();
+
+  const codeId = useId();
+  const markingId = useId();
+  const boilId = useId();
+  const conveyorId = useId();
+  const stateSelectorId = useId();
+  const plantSelectorId = useId();
 
   const isMounted = useSyncExternalStore(
     subscribeToNothing,
@@ -94,8 +100,7 @@ export function ProductListFilter({
   }, [stateData]);
 
   const activeFieldsCount = useMemo(() => {
-    let count = 4;
-
+    let count = 5;
     if (showPlants) count += 1;
     return count;
   }, [showPlants]);
@@ -111,35 +116,39 @@ export function ProductListFilter({
   const filterFields = (
     <>
       <FilterInput
-        id={'code'}
+        id={codeId}
         className="w-full"
         placeholder="Поиск по коду 1С"
         value={productCode ?? ''}
         onChange={(value) => onFilterChangeThrottle({ productCode: value })}
       />
+
       <FilterInput
-        id={'marking'}
+        id={markingId}
         className="w-full"
         placeholder="Поиск по артикулу"
         value={marking ?? ''}
         onChange={(value) => onFilterChangeThrottle({ marking: value })}
       />
+
       <FilterInput
-        id={'boil'}
+        id={boilId}
         className="w-full"
         placeholder="Поиск по партии"
         value={boil ?? ''}
         onChange={(value) => onFilterChangeThrottle({ boil: value })}
       />
+
       <FilterInput
-        id={'conveyor'}
+        id={conveyorId}
         className="w-full"
         placeholder="Поиск по конвейеру"
         value={conveyor ?? ''}
         onChange={(value) => onFilterChangeThrottle({ conveyor: value })}
       />
+
       <FilterMultiSelector
-        id={selectorId}
+        id={stateSelectorId}
         className="w-full"
         placeholder="Статус"
         items={stateListItems}
@@ -148,7 +157,7 @@ export function ProductListFilter({
       />
       {showPlants && (
         <FilterSelector
-          id={selectorId}
+          id={plantSelectorId}
           className="w-full"
           items={plantListItems}
           value={selectedPlants ?? []}
@@ -197,12 +206,11 @@ export function ProductListFilter({
 
   return (
     <div
-      className="grid gap-3 w-full items-end max-w-6xl @max-4xl:grid-cols-2 @max-6xl:grid-cols-3"
-      style={{
-        gridTemplateColumns: `repeat(${activeFieldsCount}, minmax(0, 1fr)) auto`,
-      }}
+      style={{ '--fields-count': activeFieldsCount } as React.CSSProperties}
+      className="grid grid-cols-[repeat(var(--fields-count),1fr)_auto] @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl"
     >
       {filterFields}
+
       <FilterResetButton
         mobile={false}
         className="w-auto! @max-6xl:w-full!  px-5 h-8! flex items-center justify-center text-xs transition-all"

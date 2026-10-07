@@ -1,5 +1,5 @@
 import { useQueryStates } from 'nuqs';
-import { labBoilListUiSchema } from '../model';
+import { labBoilListUiSchema } from './ui-schema';
 
 export function useLabBoilListUiParams() {
   const [params, setParams] = useQueryStates(labBoilListUiSchema, {

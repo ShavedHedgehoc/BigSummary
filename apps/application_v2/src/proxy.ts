@@ -22,7 +22,7 @@ function matchMiddlewarePath(pattern: string, pathname: string): boolean {
 export async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
-  if (path.startsWith('/api') || path.includes('trpc_api')) {
+  if (path.startsWith('/api') || path.includes('trpc_api') || path.includes('trpc')) {
     return NextResponse.next();
   }
   const accessToken = req.cookies.get('accessToken')?.value;
@@ -53,7 +53,10 @@ export async function proxy(req: NextRequest) {
     const isAdmin = userRoles.includes(DB_ROLES.ADMIN);
     const isPlanner = userRoles.includes(DB_ROLES.PLANNER);
 
-    const adminRoutes = [ROUTE_PATH.ADMIN, ROUTE_PATH.ADMIN_USERS];
+    const adminRoutes = [
+      // ROUTE_PATH.ADMIN,
+      ROUTE_PATH.ADMIN_USERS,
+    ];
 
     const plannerRoutes = [
       ROUTE_PATH.PLANNER,

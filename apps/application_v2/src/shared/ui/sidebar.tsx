@@ -167,7 +167,12 @@ function Sidebar({
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+      <Sheet
+        open={openMobile}
+        onOpenChange={setOpenMobile}
+        modal={false} // add for supress warning
+        {...props}
+      >
         <SheetContent
           dir={dir}
           data-sidebar="sidebar"
@@ -434,6 +439,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
       className={cn('group/menu-item relative', className)}
+
       {...props}
     />
   );

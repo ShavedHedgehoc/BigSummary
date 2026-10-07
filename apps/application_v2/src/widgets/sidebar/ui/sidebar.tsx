@@ -22,7 +22,7 @@ import {
   technologistNavItems,
   weighSectionNavItems,
 } from './items';
-import { useAuth } from '@/entities/user';
+import { useAuth } from '@/entities/user/index.client';
 import { NavWithSubs } from './nav-with-subs';
 import { Atom, ChartBar, Cog, FlaskConical, Pickaxe, SquareChartGantt } from 'lucide-react';
 import { DB_ROLES, ROUTE_PATH, STATIC_TITLES } from '@/shared/constants';

@@ -1,3 +1,4 @@
+import { THistoryStatus } from '@repo/schemas';
 import {
   CheckCircle2Icon,
   Hourglass,
@@ -6,19 +7,6 @@ import {
   TriangleAlert,
   type LucideIcon,
 } from 'lucide-react';
-
-export type TInputStatus =
-  | 'base_fail'
-  | 'product_fail'
-  | 'base_check'
-  | 'product_check'
-  | 'product_correct'
-  | 'product_in_progress'
-  | 'base_correct'
-  | 'plug_pass'
-  | 'product_pass'
-  | 'product_finished'
-  | 'base_continue';
 
 type TOutputStatus =
   'fail' | 'wait' | 'need_correct' | 'success' | 'success_pass' | 'progress' | 'undefined';
@@ -75,7 +63,7 @@ const STATUS_STYLES: Record<TOutputStatus, IStateStyle> = {
   },
 };
 
-const STATUS_MAP: Record<TInputStatus, TOutputStatus> = {
+const STATUS_MAP: Record<THistoryStatus, TOutputStatus> = {
   base_fail: 'fail',
   product_fail: 'fail',
   base_check: 'wait',
@@ -89,18 +77,18 @@ const STATUS_MAP: Record<TInputStatus, TOutputStatus> = {
   base_continue: 'success_pass',
 };
 
-function isInputStatus(status: unknown): status is TInputStatus {
+function isInputStatus(status: unknown): status is THistoryStatus {
   return typeof status === 'string' && status in STATUS_MAP;
 }
 
-function getCommonState(state: TInputStatus | null | string): TOutputStatus {
+function getCommonState(state: THistoryStatus | null | string): TOutputStatus {
   if (!state || !isInputStatus(state)) {
     return 'undefined';
   }
   return STATUS_MAP[state];
 }
 
-export function getStatusConfig(state: TInputStatus | null | string): IStateStyle {
+export function getStatusConfig(state: THistoryStatus | null | string): IStateStyle {
   const commonState = getCommonState(state);
   return STATUS_STYLES[commonState];
 }

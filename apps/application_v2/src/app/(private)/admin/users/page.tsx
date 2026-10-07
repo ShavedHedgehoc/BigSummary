@@ -1,7 +1,13 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+// import { UnderConstructionCard } from '@/shared/ui';
+import { UserList } from '@/widgets/user-list';
 
-export default async function AdminUsersPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function AdminUserListPage({ searchParams }: PageProps) {
+  return <UserList searchParams={searchParams} />;
+  // return <UnderConstructionCard />;
 }

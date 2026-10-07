@@ -1,55 +1,11 @@
-import {
-  Button,
-  Checkbox,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shared/ui';
 import { TApplicationDocDetailRowItem } from '@repo/schemas';
 import { ColumnDef } from '@tanstack/react-table';
-import { useDocDetailUiParams } from '../lib';
-import { Check, HelpCircle, X } from 'lucide-react';
+
 import { TableStatus } from '@/entities/history';
-
-function SelectHeader() {
-  const { params, setParams } = useDocDetailUiParams();
-  const hasSelectedRow = params.selectedRecordId !== '';
-
-  return (
-    <div className="flex justify-center items-center mx-auto ">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-7 w-7 text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-colors"
-        disabled={!hasSelectedRow}
-        onClick={() => setParams({ selectedRecordId: '' })}
-        title="Сбросить выбор строки"
-      >
-        {params.selectedRecordId ? <X className="h-4 w-4" /> : <Check className="h-4 w-4" />}
-      </Button>
-    </div>
-  );
-}
-
-function SelectCell({ recordId }: { recordId: number }) {
-  const { params, setParams } = useDocDetailUiParams();
-  const isSelected = Number(params.selectedRecordId) === recordId;
-
-  return (
-    <div className="flex justify-center items-center mx-auto">
-      <Checkbox
-        checked={isSelected}
-        onCheckedChange={(checked) => {
-          setParams({ selectedRecordId: checked ? recordId.toString() : '' });
-        }}
-        aria-label="Выбрать строку"
-      />
-    </div>
-  );
-}
+import { RecordNoteCell } from './record-note-cell';
 
 export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
+  /* Мобильные колонки, показываются либо они, либо форма */
   {
     id: 'mobile-product-info',
     meta: { grow: true, hideOnDesktop: true },
@@ -84,10 +40,17 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
       );
     },
   },
+
+  /* 
+  Колонки для экранов меньше FullHD, показываются вместе с формой, пока есть место. 
+  Если места нет и форма активна - заменяются на форму.
+   header всегда text-xs text-muted-foreground
+   cell text-[11px]
+  */
   {
     id: 'md-product-info',
     meta: { grow: true, hideOnMobile: true, showBelowXL: true },
-    header: () => <div className="text-left">Продукт</div>,
+    header: () => <div className="text-xs text-muted-foreground text-left">Продукт</div>,
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-0.5 py-1 text-left">
@@ -106,7 +69,7 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     id: 'md-conveyor-info',
     meta: { grow: true, hideOnMobile: true, showBelowXL: true },
-    header: () => <div className="text-left font-semibold ">Данные</div>,
+    header: () => <div className="text-xs text-muted-foreground text-left ">Данные</div>,
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-0.5 py-1 text-left  min-w-0 w-full">
@@ -125,10 +88,13 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
     },
   },
 
+  /* Колонки для FullHD и больше. Показываются всегда вместе с формой 
+  header всегда text-xs text-muted-foreground
+  */
   {
     accessorKey: 'code',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left ">Код 1С</div>,
+    header: () => <div className="text-left text-xs text-muted-foreground">Код 1С</div>,
     cell: ({ row }) => {
       return <div className="text-left font-mono ">{row.original.productCode}</div>;
     },
@@ -136,13 +102,13 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     accessorKey: 'marking',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left ">Артикул</div>,
+    header: () => <div className="text-left text-xs text-muted-foreground">Артикул</div>,
     cell: ({ row }) => <div className="text-left  font-medium">{row.original.marking}</div>,
   },
   {
     accessorKey: 'boil',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left ">Партия</div>,
+    header: () => <div className="text-left text-xs text-muted-foreground">Партия</div>,
     cell: ({ row }) => {
       return <div className="text-left ">{row.original.boil}</div>;
     },
@@ -150,7 +116,7 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     accessorKey: 'plan',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-right ">План</div>,
+    header: () => <div className="text-right text-xs text-muted-foreground">План</div>,
     cell: ({ row }) => (
       <div className="text-right  font-medium tabular-nums">
         {row.original.plan.toLocaleString()}
@@ -160,7 +126,7 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     accessorKey: 'apparat',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left ">Аппарат</div>,
+    header: () => <div className="text-left text-xs text-muted-foreground">Аппарат</div>,
     cell: ({ row }) => {
       return <div className="text-left ">{row.original.apparatus}</div>;
     },
@@ -168,7 +134,7 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     accessorKey: 'can',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left ">Емкость</div>,
+    header: () => <div className="text-left text-xs text-muted-foreground">Емкость</div>,
     cell: ({ row }) => {
       return <div className="text-left ">{row.original.can}</div>;
     },
@@ -176,7 +142,7 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     accessorKey: 'conveyor',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left ">Конвейер</div>,
+    header: () => <div className="text-left text-xs text-muted-foreground">Конвейер</div>,
     cell: ({ row }) => {
       return <div className="text-left ">{row.original.conveyor}</div>;
     },
@@ -184,63 +150,24 @@ export const baseRecordColumns: ColumnDef<TApplicationDocDetailRowItem>[] = [
   {
     accessorKey: 'note',
     meta: { grow: false, hideOnMobile: true, hideBelowXL: true },
-    header: () => <div className="text-left font-semibold">Прим.</div>,
-    cell: ({ row }) => {
-      const note = row.original.note;
-      if (!note) {
-        return <div className="text-left text-xs text-muted-foreground/50 pl-2">—</div>;
-      }
-
-      return (
-        <div className="flex justify-start pl-1">
-          <TooltipProvider delayDuration={200}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  className="text-muted-foreground hover:text-foreground transition-colors cursor-help p-1 rounded-md hover:bg-muted"
-                  aria-label="Показать примечание"
-                >
-                  <HelpCircle className="h-4 w-4" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" align="start" className="max-w-xs wrap-break-words">
-                <p className="text-xs">{note}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      );
-    },
+    header: () => <div className="text-left text-xs text-muted-foreground">Прим.</div>,
+    cell: ({ row }) => <RecordNoteCell note={row.original.note} />,
   },
-
+  /* Статус, на больших экранах всегда справа */
   {
     accessorKey: 'state',
     meta: { grow: false, hideOnMobile: true },
-    header: () => <div className="text-center font-semibold">Статус</div>,
+    header: () => <div className="text-right text-xs text-muted-foreground">Статус</div>,
     cell: ({ row }) => {
       return (
-        <div className="flex justify-center w-full ">
+        <div className="flex justify-right w-full ">
           <TableStatus state={row.original.stateValue} stateDescription={row.original.state} />
         </div>
       );
     },
   },
-  {
-    id: 'select',
-    meta: { grow: false },
-    size: 40,
-    header: () => (
-      <div className="flex items-center justify-center h-full w-10 pr-4 shrink-0!">
-        <SelectHeader />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center h-full w-10 pr-4 shrink-0!">
-        <SelectCell recordId={row.original.id} />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  /* 
+  Селектор. Показывается на всех экранах 
+  Перенесен в виджеты.
+  */
 ];

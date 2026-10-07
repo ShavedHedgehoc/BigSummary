@@ -151,7 +151,11 @@ export function BoilListFilter({
             Фильтры {isDirty && <span className="ml-2 h-2 w-2 rounded-full bg-primary" />}
           </Button>
         </SheetTrigger>
-        <SheetContent side="bottom" className="h-[90vh] overflow-y-auto">
+        <SheetContent
+          side="bottom"
+          className="h-[90vh] overflow-y-auto"
+          onOpenAutoFocus={(e) => e.preventDefault()}
+        >
           <SheetHeader>
             <SheetTitle>Фильтры</SheetTitle>
             <SheetDescription className="sr-only">Фильтрация документов</SheetDescription>
@@ -180,7 +184,7 @@ export function BoilListFilter({
   if (!isMounted) return <div className="h-10" />;
 
   return (
-    <div className="grid grid-cols-[repeat(5,1fr)_auto] @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl">
+    <div className="grid grid-cols-[repeat(5,1fr)_auto] @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl ">
       {filterFields}
 
       <FilterResetButton

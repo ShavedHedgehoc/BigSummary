@@ -11,28 +11,31 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/shared/ui';
-import { useDocListUiParams } from '@/entities/doc';
 
-export function DeleteDocDialog() {
-  const { params, setParams } = useDocListUiParams();
+interface IDeleteDocDialogProps {
+  deleteId: number | null;
+  onDelete: () => void;
+}
+
+export function DeleteDocDialog({ deleteId, onDelete }: IDeleteDocDialogProps) {
   const { deleteDoc, isPending: deletePending } = useDeleteDoc();
 
   const handleConfirmDelete = () => {
-    if (!params.deleteId) return;
+    if (!deleteId) return;
 
     deleteDoc(
-      { id: params.deleteId },
+      { id: deleteId },
       {
-        onSettled: () => setParams({ deleteId: null }),
+        onSettled: () => onDelete(),
       },
     );
   };
 
   return (
     <AlertDialog
-      open={params.deleteId !== null}
+      open={deleteId !== null}
       onOpenChange={(open) => {
-        if (!open) setParams({ deleteId: null });
+        if (!open) onDelete();
       }}
     >
       <AlertDialogContent>

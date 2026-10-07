@@ -43,6 +43,7 @@ export function FilterSelector<T extends string>({
   const [open, setOpen] = useState(false);
 
   const currentValue = (value?.[0] ?? 'All') as T | 'All';
+  // const currentValue = (value && value.length > 0 ? value[0] : 'All') as T | 'All';
 
   const currentDescription = useMemo(() => {
     return items.find((x) => (x.value as string) === currentValue)?.description || 'Все';
@@ -50,7 +51,7 @@ export function FilterSelector<T extends string>({
 
   const handleSelect = (itemValue: string) => {
     if (itemValue === 'All') {
-      onChange(undefined);
+      onChange([]);
     } else {
       onChange([itemValue as T]);
     }

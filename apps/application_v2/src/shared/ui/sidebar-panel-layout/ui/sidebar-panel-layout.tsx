@@ -9,6 +9,7 @@ interface SidebarPanelLayoutlProps<T extends string = string> {
   renderContent: Record<T, ReactNode>;
   onClose?: () => void;
   className?: string;
+  showCloseButtonOnDesktop?: boolean;
 }
 
 export function SidebarPanelLayout<T extends string>({
@@ -17,6 +18,7 @@ export function SidebarPanelLayout<T extends string>({
   renderContent,
   onClose,
   className = '',
+  showCloseButtonOnDesktop = false,
 }: SidebarPanelLayoutlProps<T>) {
   const [activeTab, setActiveTab] = useState<T>(defaultTab);
 
@@ -29,6 +31,7 @@ export function SidebarPanelLayout<T extends string>({
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onClose={onClose}
+        showCloseButtonOnDesktop={showCloseButtonOnDesktop}
       />
       <div className="grow min-h-0 w-full flex flex-col overflow-y-auto">
         {renderContent[activeTab]}

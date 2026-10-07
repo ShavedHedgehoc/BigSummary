@@ -7,6 +7,7 @@ export function useDirectAddHistory() {
     onSuccess: () => {
       toast.success('Запись добавлена');
       utils.application.main.doc.getDetail.invalidate();
+      utils.application.main.doc.getCurrentDoc.invalidate();
     },
     onError: (err) => {
       toast.error(err.message || 'Произошла ошибка при создании');

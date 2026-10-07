@@ -2,24 +2,34 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import './status-colors.css';
+@import './record-cards-colors.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-status-fail: var(--status-fail);
   --color-status-fail-icon: var(--status-fail-icon);
-
   --color-status-wait: var(--status-wait);
   --color-status-wait-icon: var(--status-wait-icon);
-
   --color-status-success: var(--status-success);
   --color-status-success-icon: var(--status-success-icon);
-
   --color-status-progress: var(--status-progress);
   --color-status-progress-icon: var(--status-progress-icon);
-
   --color-status-undefined: var(--status-undefined);
   --color-status-undefined-icon: var(--status-undefined-icon);
+  --color-record-card-undefined: var(--record-card-undefined);
+  --color-record-card-undefined-fg: var(--record-card-undefined-foreground);
+  --color-record-card-base: var(--record-card-base);
+  --color-record-card-base-fg: var(--record-card-base-foreground);
+  --color-record-card-base-badge-fail: var(--record-card-base-badge-fail);
+  --color-record-card-base-badge-success: var(--record-card-base-badge-success);
+  --color-record-card-base-badge-wait: var(--record-card-base-badge-wait);
+  --color-record-card-fail: var(--record-card-fail);
+  --color-record-card-wait: var(--record-card-wait);
+  --color-record-card-process: var(--record-card-process);
+  --color-record-card-success: var(--record-card-success);
+  --color-record-card-finished: var(--record-card-finished);
+  --color-record-card-bright-fg: var(--record-card-bright-foreground);
   --font-heading: var(--font-sans);
   --font-sans: 'Inter Variable', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -60,6 +70,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --breakpoint-3xl: 120rem; /* 1920px */
+  --breakpoint-4xl: 160rem; /* 2560px (4K) */
 }
 
 :root {

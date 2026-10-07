@@ -1,7 +1,15 @@
 import { Prisma } from '@repo/db-postgres';
+import { TApplicationUserSettingsItem } from '@repo/schemas';
 
 export type UserWithRoles = Prisma.usersGetPayload<{
-  include: { user_roles: { include: { roles: true } } };
+  include: {
+    user_roles: { include: { roles: true } };
+    user_settings: { include: { plants: true } };
+  };
+}>;
+
+type SettingsWithPlants = Prisma.user_settingsGetPayload<{
+  include: { plants: true };
 }>;
 
 export interface IUserData {
@@ -9,8 +17,21 @@ export interface IUserData {
   name: string;
   email: string;
   roles: string[];
-  // settings: IUserSettings;
+  settings: TApplicationUserSettingsItem;
 }
+
+const toMappedSettings = (settings: SettingsWithPlants): TApplicationUserSettingsItem => {
+  if (!settings) {
+    return {
+      plant: '-',
+      plant_id: null,
+    };
+  }
+  return {
+    plant: settings.plants?.value ?? '-',
+    plant_id: settings.plant_id,
+  };
+};
 
 export const toRegisteredUserData = (user: UserWithRoles): IUserData => {
   return {
@@ -18,6 +39,6 @@ export const toRegisteredUserData = (user: UserWithRoles): IUserData => {
     name: user.name,
     email: user.email,
     roles: user.user_roles.map((ur) => ur.roles.value ?? ''),
-    // settings: user.user_settings,
+    settings: toMappedSettings(user.user_settings),
   };
 };

@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { Dash } from '@/widgets/dash';
 
-export default async function DashPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function DashPage({ searchParams }: PageProps) {
+  return <Dash searchParams={searchParams} />;
 }

@@ -54,17 +54,6 @@ export const applicationDocDetailHeaderSchema = z.object({
   plant: z.string().nullable(),
 });
 
-// export const applicationHistorySchema = z.object({
-//   id: z.number().int().positive(),
-//   value: z.string().nullable(),
-//   description: z.string().nullable(),
-//   note: z.string().nullable(),
-//   history_note: z.string().nullable(),
-//   employee: z.string().nullable(),
-//   user: z.string().nullable(),
-//   createdAt: z.coerce.date(),
-// });
-
 export const applicationDocDetailRowSchema = z.object({
   id: z.number().int().positive(),
   productCode: z.string(),
@@ -119,7 +108,6 @@ export type TApplicationParsedSemiproductItem = z.infer<
 >;
 export type TApplicationDocStatsResponse = z.infer<typeof applicationDocStatsResponseSchema>;
 export type TApplicationDocDetailHeader = z.infer<typeof applicationDocDetailHeaderSchema>;
-// export type TApplicationHistoryItem = z.infer<typeof applicationHistorySchema>;
 export type TApplicationDocDetailRowItem = z.infer<typeof applicationDocDetailRowSchema>;
 export type TApplicationDocDetailResponse = z.infer<typeof applicationDocDetailOutputSchema>;
 export type TApplicationUpdateDocRowResponse = z.infer<typeof applicationUpdateDocRowOutputSchema>;
