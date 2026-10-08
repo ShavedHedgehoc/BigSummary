@@ -94,9 +94,10 @@ RUN cp -r apps/api_v2/dist /app/isolated/dist
 
 # 5. ИСПРАВЛЕНО (Раскомментировано): Принудительно возвращаем бинарники CLI Prisma и TSX,
 # которые pnpm deploy стер при сборке продакшн-версии
-RUN mkdir -p /app/isolated/node_modules/prisma /app/isolated/node_modules/tsx && \
-    cp -r node_modules/prisma/* /app/isolated/node_modules/prisma/ && \
-    cp -r node_modules/tsx/* /app/isolated/node_modules/tsx/
+# RUN mkdir -p /app/isolated/node_modules/prisma /app/isolated/node_modules/tsx && \
+#     cp -r node_modules/prisma/* /app/isolated/node_modules/prisma/ && \
+#     cp -r node_modules/tsx/* /app/isolated/node_modules/tsx/
+RUN cd /app/isolated && npm install --no-save prisma@6.19.0 tsx
 
 # ==========================================
 FROM node:20-alpine3.20 AS runtime
