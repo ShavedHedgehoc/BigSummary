@@ -2,9 +2,9 @@ name: Monorepo CI
 
 on:
   push:
-    branches: [repo] #[main]
+    branches: [1repo] #[main]
   pull_request:
-    branches: [repo] #[main]
+    branches: [1repo] #[main]
 
 jobs:
   pre-flight:
