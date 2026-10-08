@@ -46,7 +46,7 @@ services:
     container_name: public_api_container
     build:
       context: .
-      dockerfile: apps/public_api_2/Dockerfile
+      dockerfile: apps/public_api_v2/Dockerfile
       args:
         - NODE_ENV=production
     environment:

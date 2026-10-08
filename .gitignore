@@ -8,3 +8,4 @@
 packages/db/postgres/src/generated/
 packages/db/mssql/src/generated/
 !.development.env
+!.env.example

@@ -8,7 +8,7 @@ RUN npm install -g pnpm@10
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
 # Копируем package.json для кэширования зависимостей
-COPY apps/public_api_2/package.json ./apps/public_api_2/
+COPY apps/public_api_v2/package.json ./apps/public_api_v2/
 COPY packages/db/postgres/package.json ./packages/db/postgres/
 COPY packages/schemas/package.json ./packages/schemas/
 
@@ -16,7 +16,7 @@ COPY packages/schemas/package.json ./packages/schemas/
 RUN pnpm install --frozen-lockfile
 
 # Копируем исходный код
-COPY apps/public_api_2 ./apps/public_api_2
+COPY apps/public_api_v2 ./apps/public_api_v2
 COPY packages/db/postgres ./packages/db/postgres
 COPY packages/schemas ./packages/schemas
 
@@ -24,13 +24,13 @@ COPY packages/schemas ./packages/schemas
 RUN pnpm --filter @repo/db-postgres generate
 
 # 2. Собираем приложение NestJS (создает папку dist)
-RUN pnpm --filter @repo/public_api_2 build
+RUN pnpm --filter @repo/public_api_v2 build
 
 # 3. Изолируем приложение и его prod-зависимости в папку /app/isolated
-RUN pnpm --filter @repo/public_api_2 --prod deploy /app/isolated
+RUN pnpm --filter @repo/public_api_v2 --prod deploy /app/isolated
 
 # 4. Копируем скомпилированные файлы внутрь изолированной папки
-RUN cp -r apps/public_api_2/dist /app/isolated/dist
+RUN cp -r apps/public_api_v2/dist /app/isolated/dist
 
 # 5. Копируем сгенерированный клиент Prisma в node_modules локального пакета БД внутри isolated
 RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/node_modules/@prisma/client && \
