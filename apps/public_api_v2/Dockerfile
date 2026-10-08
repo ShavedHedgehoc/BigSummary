@@ -8,7 +8,7 @@ RUN npm install -g pnpm@10
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
 # Копируем package.json для кэширования зависимостей
-COPY apps/public_api_2/package.json ./apps/public_api_2/
+COPY apps/public_api_v2/package.json ./apps/public_api_v2/
 COPY packages/db/postgres/package.json ./packages/db/postgres/
 COPY packages/schemas/package.json ./packages/schemas/
 
