@@ -33,8 +33,8 @@ RUN pnpm --filter @repo/public_api_v2 --prod deploy /app/isolated --legacy
 RUN cp -r apps/public_api_v2/dist /app/isolated/dist
 
 # 5. Копируем сгенерированный клиент Prisma в node_modules локального пакета БД внутри isolated
-RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/node_modules/@prisma/client && \
-    cp -r packages/db/postgres/node_modules/@prisma/client/* /app/isolated/node_modules/@repo/db-postgres/node_modules/@prisma/client/
+RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/src/generated && \
+    cp -r packages/db/postgres/src/generated/* /app/isolated/node_modules/@repo/db-postgres/src/generated/
 
 # ==========================================
 FROM node:20-alpine3.20 AS runtime
