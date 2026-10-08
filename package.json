@@ -15,12 +15,15 @@
         "monorepo:lint": "pnpm --filter \"./apps/**\"  run lint",
         "monorepo:typecheck": "pnpm --filter \"./apps/**\"  run type-check",
         "monorepo:format": "prettier --write .",
-        "test": "pnpm -r test"
+        "monorepo:format:check": "prettier --check .",
+        "test": "pnpm -r test",
+        "pre-flight": "pnpm monorepo:format:check && pnpm monorepo:lint && pnpm monorepo:typecheck && pnpm knip && pnpm build"
     },
     "devDependencies": {
+        "eslint-plugin-import": "^2.32.0",
+        "knip": "^6.9.0",
         "prettier": "^3.9.6",
-        "typescript": "^5.9.3",
-        "knip": "^6.9.0"
+        "typescript": "^5.9.3"
     },
     "pnpm": {
         "overrides": {

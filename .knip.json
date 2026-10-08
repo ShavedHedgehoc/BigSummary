@@ -1,78 +1,55 @@
 {
-    "$schema": "https://unpkg.com",
-    "ignore": [],
-    "workspaces": {
-        ".": {
-            "ignore": [
-                "api/**",
-                "workstation/**",
-                "application/**",
-                "public_api/**",
-                "public_api_2/**"
-            ],
-            "ignoreDependencies": []
-        },
-        "apps/api_v2": {
-            "project": [
-                "src/**/*.ts"
-            ],
-            "ignoreDependencies": [
-                "superjson",
-                "bcryptjs",
-                "dotenv"
-            ]
-        },
-         "apps/application_v2": {
-      "entry": ["pages/**/*.{js,jsx,ts,tsx}", "app/**/*.{js,jsx,ts,tsx}"], 
+  "$schema": "https://unpkg.com",
+  "ignore": [],
+  "workspaces": {
+    ".": {
+      "ignore": ["api/**", "application/**"],
+      "ignoreDependencies": ["eslint-plugin-import"]
+    },
+    "apps/api_v2": {
+      "project": ["src/**/*.ts"],
+      "ignoreDependencies": ["superjson", "bcryptjs", "dotenv", "prisma", "tsx"]
+    },
+    "apps/public_api_v2": {
+      "project": ["src/**/*.ts"],
+      "ignoreDependencies": ["superjson", "bcryptjs", "dotenv", "prisma", "tsx"]
+    },
+    "apps/application_v2": {
+      "entry": ["pages/**/*.{js,jsx,ts,tsx}", "app/**/*.{js,jsx,ts,tsx}"],
       "project": ["src/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
       "ignore": [
-    "src/shared/ui/**/*",
-    "src/shared/assets/**/*",
-    "src/widgets/doc-list/ui/cards.tsx"
-  ],
-  "ignoreDependencies": ["tailwindcss", "shadcn", "framer-motion", "@base-ui/react", "tw-animate-css", "zustand"]
+        "src/shared/ui/**/*",
+        "src/shared/assets/**/*",
+        "src/widgets/doc-list/ui/cards.tsx"
+      ],
+      "ignoreDependencies": [
+        "tailwindcss",
+        "shadcn",
+        "framer-motion",
+        "@base-ui/react",
+        "tw-animate-css",
+        "zustand"
+      ]
     },
-        "apps/dash": {
-            "entry": [
-                "src/app/main.{ts,tsx}"
-            ],
-            "ignore": [
-                "src/shared/ui/**"
-            ],
-            "project": [
-                "src/**/*.{ts,tsx}"
-            ],
-            "ignoreDependencies": []
-        },
-        "packages/db/postgres": {
-            "project": [
-                "src/**/*.ts"
-            ],
-            "ignore": [
-                "**/generated/**/*"
-            ],
-            "ignoreDependencies": [
-                "@prisma/client"
-            ]
-        },
-        "packages/db/mssql": {
-            "project": [
-                "src/**/*.ts"
-            ],
-            "ignore": [
-                "**/generated/**/*"
-            ],
-            "ignoreDependencies": [
-                "@prisma/client"
-            ]
-        },
-        "packages/trpc": {
-            "ignore": [],
-            "ignoreDependencies": [
-                "@types/express",
-                "@types/express-serve-static-core",
-                "zod"
-            ]
-        }
+    "apps/dash": {
+      "entry": ["src/app/main.{ts,tsx}"],
+      "ignore": ["src/shared/ui/**"],
+      "project": ["src/**/*.{ts,tsx}"],
+      "ignoreDependencies": []
+    },
+    "packages/db/postgres": {
+      "project": ["src/**/*.ts"],
+      "ignore": ["**/generated/**/*"],
+      "ignoreDependencies": ["@prisma/client"]
+    },
+    "packages/db/mssql": {
+      "project": ["src/**/*.ts"],
+      "ignore": ["**/generated/**/*"],
+      "ignoreDependencies": ["@prisma/client"]
+    },
+    "packages/trpc": {
+      "ignore": [],
+      "ignoreDependencies": ["@types/express", "@types/express-serve-static-core", "zod"]
     }
+  }
 }
