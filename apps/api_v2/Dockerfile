@@ -88,11 +88,6 @@ RUN pnpm --filter @repo/api_v2 --prod deploy /app/isolated --legacy
 # 4. Копируем скомпилированную папку dist в isolated
 RUN cp -r apps/api_v2/dist /app/isolated/dist
 
-# 5. ИСПРАВЛЕНО: УДАЛЕНЫ строки cp -r для папок src/generated, вызывавшие ошибку.
-# Копируем только папку prisma со схемами и SQL-миграциями для выполнения migrate deploy
-RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/prisma && \
-    cp -r packages/db/postgres/prisma/* /app/isolated/node_modules/@repo/db-postgres/prisma/
-
 # 6. Копируем бинарники CLI Prisma и TSX для запуска в рантайме
 RUN cp -r node_modules/prisma /app/isolated/node_modules/prisma && \
     cp -r node_modules/tsx /app/isolated/node_modules/tsx
