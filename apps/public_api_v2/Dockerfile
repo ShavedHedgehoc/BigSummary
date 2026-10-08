@@ -36,6 +36,9 @@ RUN cp -r apps/public_api_v2/dist /app/isolated/dist
 RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/src/generated && \
     cp -r packages/db/postgres/src/generated/* /app/isolated/node_modules/@repo/db-postgres/src/generated/
 
+RUN mkdir -p /app/isolated/node_modules/@repo/schemas/src && \
+    cp -r packages/schemas/src/* /app/isolated/node_modules/@repo/schemas/src/
+    
 # ==========================================
 FROM node:20-alpine3.20 AS runtime
 RUN apk add --no-cache openssl
@@ -44,6 +47,7 @@ WORKDIR /app
 # Копируем готовую автономную папку isolated
 COPY --from=builder /app/isolated ./
 
-# EXPOSE 7100
 
-CMD ["node", "dist/main"]
+
+
+

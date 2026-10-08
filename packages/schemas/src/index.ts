@@ -1,3 +1,3 @@
-export * from './postgres/index';
-export * from './mssql/index';
-export * from './health/index';
+export * from './postgres';
+export * from './mssql';
+export * from './health';
