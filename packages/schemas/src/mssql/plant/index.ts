@@ -1,2 +1,2 @@
-export * from './dash';
-export * from './common';
+export * from './dash/index';
+export * from './common/index';

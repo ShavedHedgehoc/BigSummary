@@ -1,3 +1,3 @@
-export * from './common';
-export * from './dash';
-export * from './application';
+export * from './common/index';
+export * from './dash/index';
+export * from './application/index';

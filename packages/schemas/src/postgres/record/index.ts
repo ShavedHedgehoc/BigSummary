@@ -1,2 +1,2 @@
-export * from './workstation';
-export * from './application';
+export * from './workstation/index';
+export * from './application/index';

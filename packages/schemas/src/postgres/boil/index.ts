@@ -1,2 +1,2 @@
-export * from './common';
-export * from './application';
+export * from './common/index';
+export * from './application/index';
