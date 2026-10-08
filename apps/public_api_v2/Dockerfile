@@ -27,7 +27,7 @@ RUN pnpm --filter @repo/db-postgres generate
 RUN pnpm --filter @repo/public_api_v2 build
 
 # 3. Изолируем приложение и его prod-зависимости в папку /app/isolated
-RUN pnpm --filter @repo/public_api_v2 --prod deploy /app/isolated
+RUN pnpm --filter @repo/public_api_v2 --prod deploy /app/isolated --legacy
 
 # 4. Копируем скомпилированные файлы внутрь изолированной папки
 RUN cp -r apps/public_api_v2/dist /app/isolated/dist
