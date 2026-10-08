@@ -26,9 +26,7 @@ jobs:
       - name: Lint & Type Check All
         run: |
           pnpm monorepo:lint
-          pnpm monorepo:typecheck
-          pnpm --filter "./packages/**" run lint --if-present
-          pnpm --filter "./packages/**" run type-check --if-present
+          pnpm monorepo:typecheck          
       - name: Knip Cleanliness Check
         run: npx knip --reporter github-actions
   build-check:
