@@ -88,9 +88,9 @@ RUN pnpm --filter @repo/api_v2 --prod deploy /app/isolated --legacy
 # 4. Копируем скомпилированную папку dist в isolated
 RUN cp -r apps/api_v2/dist /app/isolated/dist
 
-# 6. Копируем бинарники CLI Prisma и TSX для запуска в рантайме
-RUN cp -r node_modules/prisma /app/isolated/node_modules/prisma && \
-    cp -r node_modules/tsx /app/isolated/node_modules/tsx
+# # 6. Копируем бинарники CLI Prisma и TSX для запуска в рантайме
+# RUN cp -r node_modules/prisma /app/isolated/node_modules/prisma && \
+#     cp -r node_modules/tsx /app/isolated/node_modules/tsx
 
 # ==========================================
 FROM node:20-alpine3.20 AS runtime
@@ -101,4 +101,5 @@ WORKDIR /app
 COPY --from=builder /app/isolated ./
 
 # Сначала запускаем миграции по прямой схеме, а затем стартуем API через локальный tsx
-CMD ["sh", "-c", "node node_modules/prisma/build/index.js migrate deploy --schema=./node_modules/@repo/db-postgres/prisma/schema.prisma && node node_modules/tsx/dist/cli.mjs dist/main"]
+# CMD ["sh", "-c", "node node_modules/prisma/build/index.js migrate deploy --schema=./node_modules/@repo/db-postgres/prisma/schema.prisma && node node_modules/tsx/dist/cli.mjs dist/main"]
+CMD ["sh", "-c", "npx prisma migrate deploy --schema=./node_modules/@repo/db-postgres/prisma/schema.prisma && npx tsx dist/main"]
