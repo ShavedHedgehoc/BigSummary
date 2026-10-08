@@ -6,7 +6,10 @@
   "types": "./src/index.ts",
   "scripts": {
     "generate": "prisma generate",
-    "db:pull:dev": "dotenv -e .env.development -- prisma db pull"
+    "db:migrate:dev": "dotenv -e ./../../../.development.env prisma migrate dev",
+    "db:pull:dev": "dotenv -e ./../../../.development.env -- prisma db pull",
+    "db:migrate:diff": "prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql",
+    "db:migrate:init": "dotenv -e ./../../../.development.env -- prisma migrate resolve --applied 0_init"
   },
   "dependencies": {
     "@prisma/client": "~6.2.0"

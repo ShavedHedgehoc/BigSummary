@@ -6,7 +6,7 @@
   "types": "./src/index.ts",
   "scripts": {
     "generate": "prisma generate",
-    "db:pull:dev": "dotenv -e .env.development -- prisma db pull"
+    "db:pull:dev": "dotenv -e ./../../../.development.env -- prisma db pull"
   },
   "dependencies": {
     "@prisma/client": "~6.2.0"

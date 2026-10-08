@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/main.ts",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only --env-file=../../.development.env src/main.ts",
     "build": "nest build",
     "start:prod": "node dist/main",
     "start": "nest start",

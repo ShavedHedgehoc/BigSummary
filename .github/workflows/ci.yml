@@ -1,0 +1,58 @@
+name: Monorepo CI
+
+on:
+  push:
+    branches: [repo] #[main]
+  pull_request:
+    branches: [repo] #[main]
+
+jobs:
+  pre-flight:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Generate Postgres Prisma
+        run: npx prisma@6.19.0 generate --schema=./packages/db/postgres/prisma/schema.prisma
+      - name: Generate Mssql Prisma
+        run: npx prisma@6.19.0 generate --schema=./packages/db/mssql/prisma/schema.prisma
+      - name: Lint & Type Check All
+        run: |
+          pnpm monorepo:lint
+          pnpm monorepo:typecheck
+      - name: Knip Cleanliness Check
+        run: npx knip --reporter github-actions
+  build-check:
+    needs: pre-flight
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ["@repo/api_v2", "@repo/public_api_v2","@repo/application_v2", "@repo/dash", "@repo/workstation"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Generate Postgres Prisma
+        if: matrix.package == '@repo/api_v2' || matrix.package == '@repo/public_api_v2'
+        run: npx prisma@6.19.0 generate --schema=./packages/db/postgres/prisma/schema.prisma        
+      - name: Generate Mssql Prisma
+        if: matrix.package == '@repo/api_v2'
+        run: npx prisma@6.19.0 generate --schema=./packages/db/mssql/prisma/schema.prisma      
+      - name: Build ${{ matrix.package }}
+         run: pnpm --filter "${{ matrix.package }}" build

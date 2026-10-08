@@ -40,8 +40,7 @@ model boils {
   plant_id              Int?
   bases                 bases?          @relation(fields: [base_id], references: [id], onDelete: NoAction)
   histories             histories[]
-  semi_products         semi_products[]
-  tube_records          tube_records[]
+  semi_products         semi_products[] 
   records               records[]       @relation("MainBoil")
   records_organic_bases records[]       @relation("OrganicBaseRelation")
   records_water_bases   records[]       @relation("WaterBaseRelation")
@@ -86,9 +85,7 @@ model employees {
   createdAt      DateTime         @default(now()) @db.Timestamptz(6)
   updatedAt      DateTime         @updatedAt @db.Timestamptz(6)
   occupations    occupations?     @relation(fields: [occupationId], references: [id], onDelete: Cascade)
-  histories      histories[]
-  tube_histories tube_histories[]
-  tube_sessions  tube_sessions[]
+  histories      histories[]  
 }
 
 model histories {
@@ -319,185 +316,15 @@ model tokens {
   @@index([userId], map: "idx_tokens_user_id")
 }
 
-model tube_assembly {
-  id                    Int                  @id @default(autoincrement())
-  tube_record_id        Int?
-  tube_material_id      Int?
-  tube_conveyor_post_id Int?
-  createdAt             DateTime             @db.Timestamptz(6)
-  updatedAt             DateTime             @db.Timestamptz(6)
-  tube_conveyor_posts   tube_conveyor_posts? @relation(fields: [tube_conveyor_post_id], references: [id], onDelete: Cascade)
-  tube_materials        tube_materials?      @relation(fields: [tube_material_id], references: [id], onDelete: Cascade)
-  tube_records          tube_records?        @relation(fields: [tube_record_id], references: [id], onDelete: NoAction)
-}
 
-model tube_conveyor_posts {
-  id            Int             @id @default(autoincrement())
-  name          String          @unique @db.VarChar(255)
-  tube_assembly tube_assembly[]
-}
 
-model tube_conveyors {
-  id            Int             @id @default(autoincrement())
-  name          String?         @db.VarChar(255)
-  barcode       String?         @unique @db.VarChar(255)
-  tube_records  tube_records[]
-  tube_sessions tube_sessions[]
-}
 
-model tube_histories {
-  id                   Int                   @id @default(autoincrement())
-  tube_record_id       Int?
-  tube_history_type_id Int?
-  employee_id          Int?
-  note                 String?               @db.VarChar(255)
-  tube_history_note_id Int?
-  createdAt            DateTime              @db.Timestamptz(6)
-  updatedAt            DateTime              @db.Timestamptz(6)
-  employees            employees?            @relation(fields: [employee_id], references: [id], onDelete: Cascade)
-  tube_histories_notes tube_histories_notes? @relation(fields: [tube_history_note_id], references: [id], onDelete: NoAction)
-  tube_history_types   tube_history_types?   @relation(fields: [tube_history_type_id], references: [id], onDelete: Cascade)
-  tube_records         tube_records?         @relation(fields: [tube_record_id], references: [id], onDelete: NoAction)
-}
 
-model tube_histories_notes {
-  id             Int              @id @default(autoincrement())
-  value          String?          @db.VarChar(255)
-  tube_histories tube_histories[]
-}
 
-model tube_history_types {
-  id             Int              @id @default(autoincrement())
-  value          String           @unique @db.VarChar(255)
-  description    String           @unique @db.VarChar(255)
-  tube_histories tube_histories[]
-}
 
-model tube_materials {
-  id                  Int                   @id @default(autoincrement())
-  code_1C             String?               @unique @db.VarChar(255)
-  name                String?               @db.VarChar(255)
-  tube_assembly       tube_assembly[]
-  tube_specifications tube_specifications[]
-}
 
-model tube_parameters {
-  id                                      Int           @id @default(autoincrement())
-  tube_record_id                          Int?
-  press_speed_min                         Int?
-  press_speed_max                         Int?
-  molding_time_min                        Int?
-  molding_time_max                        Int?
-  turning_automate_speed_min              Int?
-  turning_automate_speed_max              Int?
-  annealing_furnace_temp_min              Int?
-  annealing_furnace_temp_max              Int?
-  cap_machine_speed_min                   Int?
-  cap_machine_speed_max                   Int?
-  caps_machine_air_pressure_min           Float?
-  caps_machine_air_pressure_max           Float?
-  grips_forward_min                       Int?
-  grips_forward_max                       Int?
-  grips_opening_left_min                  Int?
-  grips_opening_left_max                  Int?
-  grips_opening_right_min                 Int?
-  grips_opening_right_max                 Int?
-  grips_closing_min                       Int?
-  grips_closing_max                       Int?
-  injection_start_min                     Int?
-  injection_start_max                     Int?
-  injection_end_min                       Int?
-  injection_end_max                       Int?
-  tube_start_position_min                 Int?
-  tube_start_position_max                 Int?
-  tube_end_position_min                   Int?
-  tube_end_position_max                   Int?
-  padding_machine_speed_min               Int?
-  padding_machine_speed_max               Int?
-  padding_machine_air_pressure_min        Float?
-  padding_machine_air_pressure_max        Float?
-  padding_furnace_temp_min                Int?
-  padding_furnace_temp_max                Int?
-  offset_furnace_temp_min                 Int?
-  offset_furnace_temp_max                 Int?
-  printer_motor_speed_min                 Int?
-  printer_motor_speed_max                 Int?
-  holders_motor_speed_min                 Int?
-  holders_motor_speed_max                 Int?
-  station_motor_speed_min                 Int?
-  station_motor_speed_max                 Int?
-  ink_injection_time_min                  Int?
-  ink_injection_time_max                  Int?
-  lacquer_machine_speed_min               Int?
-  lacquer_machine_speed_max               Int?
-  lacquer_machine_air_pressure_min        Float?
-  lacquer_machine_air_pressure_max        Float?
-  feed_can_air_pressure_min               Float?
-  feed_can_air_pressure_max               Float?
-  nozzle_regulator_air_pressure_min       Float?
-  nozzle_regulator_air_pressure_max       Float?
-  cells_speed_min                         Int?
-  cells_speed_max                         Int?
-  injection_start_position_min            Int?
-  injection_start_position_max            Int?
-  injection_end_position_min              Int?
-  injection_end_position_max              Int?
-  tube_molding_start_position_min         Int?
-  tube_molding_start_position_max         Int?
-  tube_molding_end_position_min           Int?
-  tube_molding_end_position_max           Int?
-  polimerrization_furnace_temperature_min Int?
-  polimerrization_furnace_temperature_max Int?
-  tube_records                            tube_records? @relation(fields: [tube_record_id], references: [id], onDelete: Cascade)
-}
 
-model tube_products {
-  id                  Int                   @id @default(autoincrement())
-  code_1C             String?               @unique @db.VarChar(255)
-  marking             String?               @db.VarChar(255)
-  name                String?               @db.VarChar(255)
-  tube_records        tube_records[]
-  tube_specifications tube_specifications[]
-}
 
-model tube_records {
-  id               Int               @id @default(autoincrement())
-  tube_product_id  Int?
-  tube_conveyor_id Int?
-  boil_id          Int?
-  plan             Int
-  start_date       DateTime?         @db.Date
-  finished         Boolean?          @default(false)
-  createdAt        DateTime          @db.Timestamptz(6)
-  updatedAt        DateTime          @db.Timestamptz(6)
-  tube_assembly    tube_assembly[]
-  tube_histories   tube_histories[]
-  tube_parameters  tube_parameters[]
-  boils            boils?            @relation(fields: [boil_id], references: [id], onDelete: Cascade)
-  tube_conveyors   tube_conveyors?   @relation(fields: [tube_conveyor_id], references: [id], onDelete: Cascade)
-  tube_products    tube_products?    @relation(fields: [tube_product_id], references: [id], onDelete: Cascade)
-}
-
-model tube_sessions {
-  id             Int             @id @default(autoincrement())
-  conveyor_id    Int?
-  employee_id    Int?
-  finished       Boolean?        @default(false)
-  createdAt      DateTime        @db.Timestamptz(6)
-  updatedAt      DateTime        @db.Timestamptz(6)
-  tube_conveyors tube_conveyors? @relation(fields: [conveyor_id], references: [id], onDelete: Cascade)
-  employees      employees?      @relation(fields: [employee_id], references: [id], onDelete: Cascade)
-}
-
-model tube_specifications {
-  id               Int             @id @default(autoincrement())
-  tube_product_id  Int?
-  tube_material_id Int?
-  createdAt        DateTime        @db.Timestamptz(6)
-  updatedAt        DateTime        @db.Timestamptz(6)
-  tube_materials   tube_materials? @relation(fields: [tube_material_id], references: [id], onDelete: Cascade)
-  tube_products    tube_products?  @relation(fields: [tube_product_id], references: [id], onDelete: Cascade)
-}
 
 model user_roles {
   id     Int   @id @default(autoincrement())
