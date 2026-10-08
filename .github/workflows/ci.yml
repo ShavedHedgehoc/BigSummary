@@ -21,14 +21,14 @@ jobs:
           cache: 'pnpm'
       - name: Install
         run: pnpm install --frozen-lockfile
-      - name: Generate Postgres Prisma
-        run: npx prisma@6.19.0 generate --schema=./packages/db/postgres/prisma/schema.prisma
-      - name: Generate Mssql Prisma
-        run: npx prisma@6.19.0 generate --schema=./packages/db/mssql/prisma/schema.prisma
+      - name: Generate All Prisma Clients
+        run: pnpm db:generate
       - name: Lint & Type Check All
         run: |
           pnpm monorepo:lint
           pnpm monorepo:typecheck
+          pnpm --filter "./packages/**" run lint --if-present
+          pnpm --filter "./packages/**" run type-check --if-present
       - name: Knip Cleanliness Check
         run: npx knip --reporter github-actions
   build-check:
@@ -48,11 +48,11 @@ jobs:
           cache: 'pnpm'
       - name: Install
         run: pnpm install --frozen-lockfile
-      - name: Generate Postgres Prisma
-        if: matrix.package == '@repo/api_v2' || matrix.package == '@repo/public_api_v2'
-        run: npx prisma@6.19.0 generate --schema=./packages/db/postgres/prisma/schema.prisma        
-      - name: Generate Mssql Prisma
+      - name: Generate Prisma for API v2
         if: matrix.package == '@repo/api_v2'
-        run: npx prisma@6.19.0 generate --schema=./packages/db/mssql/prisma/schema.prisma      
+        run: pnpm db:generate        
+      - name: Generate Prisma for Public API
+        if: matrix.package == '@repo/public_api_v2'
+        run: pnpm --filter @repo/db-postgres generate
       - name: Build ${{ matrix.package }}
         run: pnpm --filter "${{ matrix.package }}" build
