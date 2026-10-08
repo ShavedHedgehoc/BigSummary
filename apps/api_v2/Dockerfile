@@ -11,6 +11,7 @@ COPY apps/api_v2/package.json ./apps/api_v2/
 COPY packages/db/postgres/package.json ./packages/db/postgres/
 COPY packages/db/mssql/package.json ./packages/db/mssql/
 COPY packages/schemas/package.json ./packages/schemas/
+COPY packages/trpc/package.json ./packages/trpc/
 
 RUN pnpm install --frozen-lockfile
 
@@ -18,6 +19,7 @@ COPY apps/api_v2 ./apps/api_v2
 COPY packages/db/postgres ./packages/db/postgres
 COPY packages/db/mssql ./packages/db/mssql
 COPY packages/schemas ./packages/schemas
+COPY packages/trpc ./packages/trpc
 
 RUN pnpm --filter @repo/db-postgres generate
 RUN pnpm --filter @repo/db-mssql generate
