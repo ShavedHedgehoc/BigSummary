@@ -55,4 +55,4 @@ jobs:
         if: matrix.package == '@repo/api_v2'
         run: npx prisma@6.19.0 generate --schema=./packages/db/mssql/prisma/schema.prisma      
       - name: Build ${{ matrix.package }}
-         run: pnpm --filter "${{ matrix.package }}" build
+        run: pnpm --filter "${{ matrix.package }}" build
