@@ -97,7 +97,7 @@ RUN cp -r apps/api_v2/dist /app/isolated/dist
 # RUN mkdir -p /app/isolated/node_modules/prisma /app/isolated/node_modules/tsx && \
 #     cp -r node_modules/prisma/* /app/isolated/node_modules/prisma/ && \
 #     cp -r node_modules/tsx/* /app/isolated/node_modules/tsx/
-RUN cd /app/isolated && pnpm add prisma@6.19.0 tsx --save-dev
+
 
 # ==========================================
 FROM node:20-alpine3.20 AS runtime
