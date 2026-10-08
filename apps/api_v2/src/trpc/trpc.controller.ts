@@ -13,16 +13,34 @@ export class TrpcController {
   ) {}
 
   @Get('studio')
-  getStudio(@Res() res: Response) {
+  getStudio(@Req() req: Request, @Res() res: Response) {
+    // getStudio(@Res() res: Response) {
     if (process.env.NODE_ENV !== 'production') {
+      // const html = renderTrpcPanel(appRouter, {
+      //   url: `http://localhost:${process.env.API_PORT || 7000}/trpc`,
+      //   transformer: 'superjson',
+      //   meta: {
+      //     title: 'tRPC Api',
+      //     description: '1.0.0',
+      //   },
+      // });
+      // res.setHeader('Content-Type', 'text/html');
+      // return res.send(html);
+      const host = req.headers.host || `localhost:${process.env.API_PORT || 7000}`;
+      const protocol = req.protocol || 'http';
+
       const html = renderTrpcPanel(appRouter, {
-        url: `http://localhost:${process.env.API_PORT || 7000}/trpc`,
+        // 2. ИСПРАВЛЕНО: Вместо жесткого localhost генерируем URL динамически.
+        // Теперь, если вы зашли по IP http://172.21.65,
+        // запросы полетят на этот же IP, и браузер больше не заблокирует их по CORS.
+        url: `${protocol}://${host}/trpc`,
         transformer: 'superjson',
         meta: {
           title: 'tRPC Api',
           description: '1.0.0',
         },
       });
+
       res.setHeader('Content-Type', 'text/html');
       return res.send(html);
     }
