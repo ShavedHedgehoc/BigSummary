@@ -81,7 +81,8 @@ services:
       retries: 10
       start_period: 10s
     networks:
-      - postgres      
+      - postgres    
+      - general  
   public_api:
     container_name: public_api_container
     build:
@@ -106,7 +107,7 @@ services:
     ports:
       - ${PUBLIC_API_PORT}:${PUBLIC_API_PORT}
     networks:
-      - postgres  
+      - postgres        
   workstation:
     container_name: workstation_container
     build:
