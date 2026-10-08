@@ -5,14 +5,21 @@ WORKDIR /app
 RUN npm install -g pnpm@10
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+
 COPY apps/workstation/package.json ./apps/workstation/
+COPY packages/schemas/package.json ./packages/schemas/
+COPY packages/trpc/package.json ./packages/trpc/
 
 RUN pnpm install --frozen-lockfile
 
 COPY apps/workstation ./apps/workstation
+COPY packages/schemas ./packages/schemas
+COPY packages/trpc ./packages/trpc
+
 RUN pnpm --filter @repo/workstation build
 
 FROM nginx:1.25-alpine AS runtime
+
 COPY --from=builder /app/apps/workstation/dist /usr/share/nginx/html
 
-CMD ["sh", "-c", "sed -i 's/listen 80;/listen '${WORKSTATION_PORT}';/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "sed -i 's/listen       80;/listen       '\${WORKSTATION_PORT}';/g' /etc/nginx/conf.d/default.conf && sed -i '/location \\/ {/,/}/ s|index  index.html index.htm;|try_files uri uri/ /index.html;|' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]

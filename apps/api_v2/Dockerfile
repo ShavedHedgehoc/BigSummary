@@ -35,14 +35,11 @@ RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/src/generated && \
 # RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/src/generated && \
 #     cp -r packages/db/postgres/src/generated/* /app/isolated/node_modules/@repo/db-postgres/src/generated/
 
-
-# ==========================================
 FROM node:20-alpine3.20 AS runtime
 RUN apk add --no-cache openssl
 WORKDIR /app
 
-# Копируем чистую автономную папку isolated
+
 COPY --from=builder /app/isolated ./
 
-# Сначала запускаем миграции по прямой схеме, а затем стартуем API через локальный tsx
 CMD ["sh", "-c", "npx prisma migrate deploy --schema=./node_modules/@repo/db-postgres/prisma/schema.prisma && npx tsx dist/main.js"]

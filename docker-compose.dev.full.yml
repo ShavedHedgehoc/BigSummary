@@ -59,7 +59,7 @@ services:
         max-file: "3"
     environment:
       NODE_ENV: "production"
-      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTRES_PORT}/${POSTGRES_DB}      
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}      
       MSSQL_DATABASE_URL: sqlserver://${MSSQL_HOST}:${MSSQL_PORT};database=${MSSQL_DB};user=${MSSQL_USERNAME};password=${MSSQL_PASSWORD};trustServerCertificate=true
       PORT: ${API_PORT}      
       KLP_TECHNOLOGIST_CHAT_ID: ${KLP_TECHNOLOGIST_CHAT_ID}
@@ -95,7 +95,7 @@ services:
         max-size: "10m"
         max-file: "3"
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTRES_PORT}/${POSTGRES_DB}            
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}            
       PUBLIC_API_PORT: ${PUBLIC_API_PORT}      
     depends_on:
       postgres:
@@ -147,7 +147,7 @@ services:
     networks:
       - general
     depends_on:
-      - app
+      # - app
       - workstation    
 volumes:
   summary-data:
