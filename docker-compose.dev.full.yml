@@ -2,6 +2,11 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres:16.2-alpine
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       POSTGRES_DB: "summary"
       POSTGRES_USER: ${POSTGRES_USERNAME}
@@ -11,12 +16,21 @@ services:
     ports:
       - "5432:5432"
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - postgres
-
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4:7.2
+    image: dpage/pgadmin4:9.18
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       PGADMIN_DEFAULT_EMAIL: "eagle221174@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "1"
@@ -28,45 +42,32 @@ services:
     restart: unless-stopped
     networks:
       - postgres
-
-  api:
-    container_name: api_container
+  public_api:
+    container_name: public_api_container
     build:
       context: .
-      dockerfile: docker/api/Dockerfile.prod
+      dockerfile: apps/public_api_2/Dockerfile
       args:
         - NODE_ENV=production
     environment:
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@postgres:5432/summary
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
       POSTGRES_USERNAME: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: "summary"
-      PORT: "7000"
-      BOT_TOKEN: ${BOT_TOKEN}
-      CHAT_ID: ${CHAT_ID}
+      PUBLIC_API_PORT: ${PUBLIC_API_PORT}      
     depends_on:
-      - postgres
-    ports:
-      - "7000:7000"
+      postgres:
+        condition: service_healthy
     restart: always
+    ports:
+      - ${PUBLIC_API_PORT}:${PUBLIC_API_PORT}
     networks:
-      - postgres
-      - general
-
+      - postgres      
 volumes:
   summary-data:
   pgadmin-data:
 networks:
-  general:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.18.0.0/16
-          gateway: 172.18.0.1
   postgres:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.19.0.0/16
-          gateway: 172.19.0.1
