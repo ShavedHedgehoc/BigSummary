@@ -1,3 +1,5 @@
 FROM nginx:1.25-alpine
 COPY packages/gateway/nginx.conf.template /etc/nginx/nginx.conf.template
-CMD ["sh", "-c", "envsubst '${API_PORT} ${WORKSTATION_PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
+CMD sed -i "s/listen       80;/listen       ${WORKSTATION_PORT};/g" /etc/nginx/conf.d/default.conf && \
+    sed -i '/location \/ {/,/}/ s|index  index.html index.htm;|try_files $uri $uri/ /index.html;|' /etc/nginx/conf.d/default.conf && \
+    exec nginx -g 'daemon off;'
