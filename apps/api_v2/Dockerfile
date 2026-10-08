@@ -92,11 +92,10 @@ RUN pnpm --filter @repo/api_v2 --prod deploy /app/isolated --legacy
 # 4. Копируем скомпилированную папку dist в isolated
 RUN cp -r apps/api_v2/dist /app/isolated/dist
 
-# 5. ИСПРАВЛЕНО (Раскомментировано): Принудительно возвращаем бинарники CLI Prisma и TSX,
-# которые pnpm deploy стер при сборке продакшн-версии
-# RUN mkdir -p /app/isolated/node_modules/prisma /app/isolated/node_modules/tsx && \
-#     cp -r node_modules/prisma/* /app/isolated/node_modules/prisma/ && \
-#     cp -r node_modules/tsx/* /app/isolated/node_modules/tsx/
+RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/src/generated && \
+    cp -r packages/db/postgres/src/generated/* /app/isolated/node_modules/@repo/db-postgres/src/generated/
+# RUN mkdir -p /app/isolated/node_modules/@repo/db-postgres/src/generated && \
+#     cp -r packages/db/postgres/src/generated/* /app/isolated/node_modules/@repo/db-postgres/src/generated/
 
 
 # ==========================================
