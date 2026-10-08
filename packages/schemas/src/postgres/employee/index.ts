@@ -1,1 +1,1 @@
-export * from './workstation/index';
+export * from './workstation';

@@ -1,1 +1,1 @@
-export * from './public_api/index';
+export * from './public_api';

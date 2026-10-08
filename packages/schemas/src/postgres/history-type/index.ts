@@ -1,2 +1,2 @@
-export * from './application/index';
+export * from './application';
 export * from './types';
