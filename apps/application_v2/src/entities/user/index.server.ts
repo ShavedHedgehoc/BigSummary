@@ -1,7 +1,4 @@
 export { baseUserColumns } from './ui/columns';
-export { UserRolesCell } from './ui/user-roles-cell';
-export { UserBannedCell } from './ui/user-banned-cell';
-export { UserNameCell } from './ui/user-name-cell';
 export {
   type UserListParams,
   userListParamsCache,

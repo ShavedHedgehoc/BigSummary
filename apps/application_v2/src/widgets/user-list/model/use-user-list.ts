@@ -4,8 +4,7 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { userListColumns } from '../ui/columns';
 import { ITablePaginationProps } from '@/shared/ui';
-import { useUserListSearchParams } from '@/entities/user/lib';
-import { UserListParams } from '@/entities/user/index.server';
+import { UserListParams, useUserListSearchParams } from '@/entities/user/index.server';
 import { useUserListUiParams } from './use-user-list-ui-params';
 
 export function useUserList() {

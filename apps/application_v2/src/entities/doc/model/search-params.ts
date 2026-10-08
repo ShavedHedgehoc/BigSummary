@@ -24,5 +24,5 @@ export const docRecordParamsSchema = {
 export type DocListParams = inferParserType<typeof docListParamsSchema>;
 export const docListParamsCache = createSearchParamsCache(docListParamsSchema);
 
-export type DocDetailParams = inferParserType<typeof docRecordParamsSchema>;
+// export type DocDetailParams = inferParserType<typeof docRecordParamsSchema>;
 export const docRecordListParamsCache = createSearchParamsCache(docRecordParamsSchema);

@@ -4,7 +4,7 @@ import {
   createSearchParamsCache,
   parseAsString,
   parseAsArrayOf,
-  inferParserType,
+  // inferParserType,
 } from 'nuqs/server';
 
 export const recordListParamsSchema = {
@@ -12,6 +12,5 @@ export const recordListParamsSchema = {
   plants: parseAsArrayOf(parseAsString),
 } satisfies Record<keyof TApplicationGetCurrentDocInput, unknown>;
 
-export type RecordListParams = inferParserType<typeof recordListParamsSchema>;
-
+// export type RecordListParams = inferParserType<typeof recordListParamsSchema>;
 export const recordListParamsCache = createSearchParamsCache(recordListParamsSchema);
