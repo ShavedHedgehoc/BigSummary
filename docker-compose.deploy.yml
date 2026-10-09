@@ -1,0 +1,190 @@
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:16.2-alpine
+    logging: &default-logging
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - summary-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - postgres
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:9.18
+    logging: *default-logging
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "eagle221174@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "1"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - postgres
+  api:
+    container_name: api_container
+    image: ghcr.io/shavedhedgehoc/bigsummary/api:latest    
+    logging: *default-logging
+    environment:
+      NODE_ENV: "production"
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}      
+      MSSQL_DATABASE_URL: sqlserver://${MSSQL_HOST}:${MSSQL_PORT};database=${MSSQL_DB};user=${MSSQL_USERNAME};password=${MSSQL_PASSWORD};trustServerCertificate=true
+      PORT: ${API_PORT}      
+      KLP_TECHNOLOGIST_CHAT_ID: ${KLP_TECHNOLOGIST_CHAT_ID}
+      PSK_TECHNOLOGIST_CHAT_ID: ${PSK_TECHNOLOGIST_CHAT_ID}
+      KLP_PACKAGING_CHAT_ID: ${KLP_PACKAGING_CHAT_ID}
+      PSK_PACKAGING_CHAT_ID: ${PSK_PACKAGING_CHAT_ID}
+      EXPRESS_API_URL: ${EXPRESS_API_URL}
+      EXPRESS_API_TOKEN: ${EXPRESS_API_TOKEN}      
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: always
+    ports:
+      - ${API_PORT}:${API_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost $$PORT || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    networks:
+      - postgres    
+      - general  
+  public_api:
+    container_name: public_api_container
+    image: ghcr.io/shavedhedgehoc/bigsummary/public_api:latest
+    logging: *default-logging
+    environment:
+      NODE_ENV: "production"
+      DATABASE_URL: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}            
+      PUBLIC_API_PORT: ${PUBLIC_API_PORT}      
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    restart: always
+    ports:
+      - ${PUBLIC_API_PORT}:${PUBLIC_API_PORT}
+    networks:
+      - postgres      
+  app:
+    container_name: app_container
+    image: ghcr.io/shavedhedgehoc/bigsummary/app:latest
+    logging: *default-logging
+    environment:
+      NODE_ENV: "production"
+      APP_PORT: ${APP_PORT}
+      INTERNAL_API_URL: http://api_container:${API_PORT}
+    depends_on:      
+      api:
+        condition: service_healthy
+    healthcheck:      
+      test: ["CMD-SHELL", "curl -L --fail http://localhost:$$APP_PORT/login || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: always
+    networks:
+      - general   
+  workstation:
+    container_name: workstation_container
+    image: ghcr.io/shavedhedgehoc/bigsummary/workstation:latest
+    logging: *default-logging
+    environment:
+      NODE_ENV: "production"
+      WORKSTATION_PORT: ${WORKSTATION_PORT}
+    depends_on:      
+      api:
+        condition: service_healthy
+    healthcheck:      
+      test: ["CMD-SHELL", "curl --fail http://localhost:${WORKSTATION_PORT}/ || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: always
+    networks:
+      - general   
+  dash:
+    container_name: dash_container
+    image: ghcr.io/shavedhedgehoc/bigsummary/dash:latest
+    logging: *default-logging
+    environment:
+      NODE_ENV: "production"
+      DASH_PORT: ${DASH_PORT}
+    depends_on:      
+      api:
+        condition: service_healthy
+    healthcheck:      
+      test: ["CMD-SHELL", "curl --fail http://localhost:${DASH_PORT}/ || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: always
+    networks:
+      - general 
+  nginx:
+    container_name: nginx_container
+    image: ghcr.io/shavedhedgehoc/bigsummary/nginx:latest
+    logging: *default-logging
+    restart: always
+    environment:
+      API_PORT: ${API_PORT}
+      WORKSTATION_PORT: ${WORKSTATION_PORT}
+      DASH_PORT: ${DASH_PORT}
+      APP_PORT: ${APP_PORT}
+    ports:
+      - "${WORKSTATION_PORT}:${WORKSTATION_PORT}"
+      - "${DASH_PORT}:${DASH_PORT}"
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:      
+      api:
+        condition: service_healthy
+      workstation:
+        condition: service_healthy
+      dash:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+    networks:      
+      - general      
+volumes:
+  summary-data:
+  pgadmin-data:
+networks:
+  general:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
+  postgres:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+          gateway: 172.19.0.1

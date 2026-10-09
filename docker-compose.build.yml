@@ -1,0 +1,37 @@
+services:
+  api:    
+    build:
+      context: .
+      dockerfile: apps/api_v2/Dockerfile
+      args:
+        - NODE_ENV=production        
+  public_api:    
+    build:
+      context: .
+      dockerfile: apps/public_api_v2/Dockerfile
+      args:
+        - NODE_ENV=production        
+  app:    
+    build:
+      context: .
+      dockerfile: apps/application_v2/Dockerfile
+      args:
+        - NODE_ENV=production
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}   
+  workstation:    
+    build:
+      context: .
+      dockerfile: apps/workstation/Dockerfile
+      args:
+        - NODE_ENV=production    
+  dash:    
+    build:
+      context: .
+      dockerfile: apps/dash/Dockerfile
+    environment:
+      NODE_ENV: "production"
+      DASH_PORT: ${DASH_PORT}    
+  nginx:    
+    build:
+      context: .
+      dockerfile: packages/gateway/Dockerfile
