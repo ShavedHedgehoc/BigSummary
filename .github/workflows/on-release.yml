@@ -30,8 +30,8 @@ jobs:
       
       - name: Bump & Push to Release
         run: |          
-          npm install -g pnpm@10
-          pnpm version patch -m "chore: release %s [skip ci]"
+          npm install -g pnpm@10          
+          pnpm version patch -r --no-git-checks -m "chore: release %s [skip ci]"
           git push origin release --follow-tags
       
       - name: Set up Docker Buildx
