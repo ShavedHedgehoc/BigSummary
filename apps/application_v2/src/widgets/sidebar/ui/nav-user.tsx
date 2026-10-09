@@ -46,6 +46,7 @@ export function NavUser({ user }: { user: TRegisteredUser }) {
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium ">{user.name}</span>
                 <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+                <span className="truncate text-xs text-muted-foreground">ver.2/1/0</span>
               </div>
               <EllipsisVerticalIcon className="ml-auto size-4" />
             </SidebarMenuButton>

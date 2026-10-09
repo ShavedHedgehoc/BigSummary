@@ -26,6 +26,7 @@ import { useAuth } from '@/entities/user/index.client';
 import { NavWithSubs } from './nav-with-subs';
 import { Atom, ChartBar, Cog, FlaskConical, Pickaxe, SquareChartGantt } from 'lucide-react';
 import { DB_ROLES, ROUTE_PATH, STATIC_TITLES } from '@/shared/constants';
+import pkg from '@@/package.json';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAuth();
@@ -35,11 +36,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
+            {/* <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <a href="#">
                 <HedgehogIcon className="size-5!  text-foreground dark:text-foreground" />
                 <span className="text-base font-semibold text-foreground dark:text-foreground">
                   Электросводка 2.0
+                </span>
+                <span className="text-[9px] font-mono font-normal text-muted-foreground bg-muted/60 px-1 py-0.2 rounded border border-border/40 select-none mr-0">
+                  v{pkg.version}
+                </span>
+              </a>
+            </SidebarMenuButton> */}
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
+              {/* ИСПРАВЛЕНО: Добавлен класс w-full flex items-center, чтобы flex-разметка работала корректно */}
+              <a href="#" className="w-full flex items-center">
+                <HedgehogIcon className="size-5! text-foreground dark:text-foreground" />
+                <span className="text-base font-semibold text-foreground dark:text-foreground">
+                  Электросводка 2.0
+                </span>
+                <span className="text-[9px] font-mono font-normal text-muted-foreground bg-muted/60 px-1 py-0.2 rounded border border-border/40 select-none ml-auto mt-auto">
+                  v{pkg.version}
                 </span>
               </a>
             </SidebarMenuButton>
