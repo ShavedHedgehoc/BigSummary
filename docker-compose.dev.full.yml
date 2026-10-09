@@ -204,7 +204,7 @@ services:
     ports:
       - "${WORKSTATION_PORT}:${WORKSTATION_PORT}"
       - "${DASH_PORT}:${DASH_PORT}"
-      - "${APP_PORT}:${APP_PORT}
+      - "${APP_PORT}:${APP_PORT}"
     depends_on:      
       api:
         condition: service_healthy
