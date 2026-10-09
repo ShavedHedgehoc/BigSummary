@@ -116,6 +116,7 @@ services:
       dockerfile: apps/application_v2/Dockerfile
       args:
         - NODE_ENV=production
+        - NEXT_PUBLIC_API_URL=http://localhost:${APP_PORT}
     logging:
       driver: "json-file"
       options:
