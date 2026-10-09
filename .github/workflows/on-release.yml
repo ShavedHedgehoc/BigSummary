@@ -29,8 +29,9 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Bump & Push to Release
-        run: |
-          npm version patch --include-workspace-root --workspaces -m "chore: release %s [skip ci]"
+        run: |          
+          npm install -g pnpm@10
+          pnpm version patch -m "chore: release %s [skip ci]"
           git push origin release --follow-tags
       
       - name: Set up Docker Buildx
