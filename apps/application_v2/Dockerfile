@@ -25,7 +25,7 @@ ENV NEXT_PUBLIC_API_URL=\$NEXT_PUBLIC_API_URL
 RUN pnpm --filter @repo/application_v2 build
 
 FROM node:20-alpine3.20 AS runtime
-RUN apk add --no-cache openssl
+RUN apk add --no-cache curl openssl
 WORKDIR /app
 
 ENV NODE_ENV=production
