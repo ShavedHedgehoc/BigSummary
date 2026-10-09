@@ -23,20 +23,39 @@ http {
     error_log /var/log/nginx/error.log;
 
     gzip on;
-    # application
-    # server {
-    #     listen 80 default;
-    #     location / {
-    #         proxy_pass http://app:3000;
-    #         proxy_pass_header Content-Type;
-    #     }
-    #     include /etc/nginx/mime.types;
-    #     location /api {
-    #         proxy_pass http://api:7000;
-    #     }
-    # }
+
     server {
-        listen ${WORKSTATION_PORT} default_server;
+        listen ${APP_PORT} default_server;
+        location / {
+            proxy_pass http://app:${APP_PORT};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location /_next/static/ {
+            proxy_pass http://app:${APP_PORT};
+            access_log off;
+            expires 365d;
+            add_header Cache-Control "public, max-age=31536000, immutable";
+        }
+
+        location /trpc_api {
+            rewrite ^/trpc_api(/.*)$ /trpc$1 break;
+            proxy_pass http://api:${API_PORT};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen ${WORKSTATION_PORT};
         location / {
             proxy_pass http://workstation:${WORKSTATION_PORT};
         }
@@ -51,7 +70,7 @@ http {
     }
 
     server {
-        listen ${DASH_PORT} default_server;
+        listen ${DASH_PORT};
         location / {
             proxy_pass http://dash:${DASH_PORT};
             proxy_set_header Host $host;
