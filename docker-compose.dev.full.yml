@@ -141,6 +141,9 @@ services:
       dockerfile: apps/dash/Dockerfile
     environment:
       DASH_PORT: ${DASH_PORT}
+    depends_on:      
+      api:
+        condition: service_healthy
     healthcheck:      
       test: ["CMD-SHELL", "curl --fail http://localhost:${DASH_PORT}/ || exit 1"]
       interval: 3s
