@@ -20,7 +20,8 @@ ARG NODE_ENV=production
 ENV NODE_ENV=production
 
 ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=\$NEXT_PUBLIC_API_URL
+# ENV NEXT_PUBLIC_API_URL=\$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 RUN pnpm --filter @repo/application_v2 build
 
@@ -35,4 +36,7 @@ COPY --from=builder /app/apps/application_v2/.next/standalone ./
 COPY --from=builder /app/apps/application_v2/.next/static ./apps/application_v2/.next/static
 COPY --from=builder /app/apps/application_v2/public ./apps/application_v2/public
 
-CMD PORT=${APP_PORT} node apps/application_v2/server.js
+# CMD PORT=${APP_PORT} node apps/application_v2/server.js
+USER root
+
+CMD PORT=${APP_PORT} HOSTNAME=0.0.0.0 node apps/application_v2/server.js
