@@ -133,7 +133,23 @@ services:
       start_period: 5s
     restart: always
     networks:
-      - general    
+      - general   
+  dash:
+    container_name: dash_container
+    build:
+      context: .
+      dockerfile: apps/dash/Dockerfile
+    environment:
+      DASH_PORT: ${DASH_PORT}
+    healthcheck:      
+      test: ["CMD-SHELL", "curl --fail http://localhost:${DASH_PORT}/ || exit 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: always
+    networks:
+      - general 
   nginx:
     container_name: nginx_container
     build:
@@ -148,12 +164,16 @@ services:
     environment:
       API_PORT: ${API_PORT}
       WORKSTATION_PORT: ${WORKSTATION_PORT}
+      DASH_PORT: ${DASH_PORT}
     ports:
       - "${WORKSTATION_PORT}:${WORKSTATION_PORT}"
+      - "${DASH_PORT}:${DASH_PORT}"
     depends_on:      
       api:
         condition: service_healthy
       workstation:
+        condition: service_healthy
+      dash:
         condition: service_healthy
     networks:      
       - general      
