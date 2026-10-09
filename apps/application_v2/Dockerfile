@@ -35,4 +35,4 @@ COPY --from=builder /app/apps/application_v2/.next/standalone ./
 COPY --from=builder /app/apps/application_v2/.next/static ./apps/application_v2/.next/static
 COPY --from=builder /app/apps/application_v2/public ./apps/application_v2/public
 
-CMD ["sh", "-c", "PORT=\${APP_PORT} node apps/application_v2/server.js"]
+CMD PORT=${APP_PORT} node apps/application_v2/server.js
