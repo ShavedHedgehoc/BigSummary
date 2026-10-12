@@ -8,6 +8,7 @@ export function useUploadDocData() {
       toast.success('Данные загружены');
       utils.application.main.doc.getDocList.invalidate();
       utils.application.main.doc.getStats.invalidate();
+      utils.application.main.doc.getCurrentDoc.invalidate();
     },
     onError: (err) => {
       toast.error(err.message || 'Произошла ошибка при удалении');

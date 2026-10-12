@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const applicationUserSettingsUpdateInputSchema = z.object({
-  plant_id: z.number().int(),
+  plant_id: z.number().int().nullable(),
 });
 
 export type TApplicationUserSettingsUpdateInput = z.infer<

@@ -46,15 +46,6 @@ export function useBoilListSearchParams(mode: TBoilSearchMode) {
     return undefined;
   }, [hasDefaultPlant, defaultPlantId, plantData]);
 
-  /* Мемоизировання схема */
-  // const dynamicSchema = useMemo(
-  //   () => ({
-  //     ...boilListParamsSchema,
-  //     states: boilListParamsSchema.states.withDefault(defaultStatusIds ?? []),
-  //     plants: boilListParamsSchema.plants.withDefault(firstPlantId ? [firstPlantId] : []),
-  //   }),
-  //   [defaultStatusIds, firstPlantId],
-  // );
   const dynamicSchema = useMemo(
     () => ({
       ...boilListParamsSchema,
@@ -64,12 +55,10 @@ export function useBoilListSearchParams(mode: TBoilSearchMode) {
     [defaultStatusIds, plantIdForReplace],
   );
 
-  /* Параметры */
   const [params, setParams] = useQueryStates(
     {
       ...dynamicSchema,
       states: boilListParamsSchema.states.withDefault(defaultStatusIds ?? []),
-      // plants: boilListParamsSchema.plants.withDefault(firstPlantId ? [firstPlantId] : []),
       plants: boilListParamsSchema.plants.withDefault(plantIdForReplace ? [plantIdForReplace] : []),
     },
     {

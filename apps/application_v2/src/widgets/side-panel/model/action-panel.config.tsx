@@ -12,6 +12,8 @@ import { DeleteDocRowButton } from '@/features/delete-doc-row';
 import { CancelHistoryButton } from '@/features/history-cancellation';
 import { TSidePanelContext } from '../ui/side-panel';
 import { DeleteUserButton } from '@/features/delete-user';
+import { ProcessUserTabs } from '@/features/process-user';
+import { UserFormSubheader } from '@/entities/user/index.client';
 
 interface IActionModeConfig {
   requiresRow: boolean;
@@ -35,8 +37,9 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
   admin_users: {
     requiresRow: true,
     headerTitle: null,
-    getSubheader: () => null,
-    renderForm: () => <></>,
+    getSubheader: (props) =>
+      props.row ? <UserFormSubheader row={props.row as TApplicationUserItem} /> : null,
+    renderForm: (props) => <ProcessUserTabs row={props.row as TApplicationUserItem} />,
     renderButton: (props) => (
       <DeleteUserButton row={props.row as TApplicationUserItem} onSuccess={props.clearSelected} />
     ),

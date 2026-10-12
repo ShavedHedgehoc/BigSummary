@@ -26,7 +26,7 @@ interface IDeleteDocRowButtonProps {
 export function DeleteUserButton({ row, onSuccess }: IDeleteDocRowButtonProps) {
   const { hasRole } = useRoles();
   const { user } = useAuth();
-  const { deleteUser, isPending: deletePending } = useDeleteUser();
+  const { deleteUserAsync, isPending: deletePending } = useDeleteUser();
   const [isOpen, setIsOpen] = useState(false);
 
   if (!row) return null;
@@ -35,14 +35,13 @@ export function DeleteUserButton({ row, onSuccess }: IDeleteDocRowButtonProps) {
   const isCanDelete = allowDelete && row.id !== user?.id;
 
   const handleDeleteClick = () => {
-    deleteUser(
+    setIsOpen(false);
+    deleteUserAsync(
       { id: row.id },
       {
-        onSuccess: () => {
-          setIsOpen(false);
+        onSettled: () => {
           onSuccess?.();
         },
-        onError: () => setIsOpen(false),
       },
     );
   };

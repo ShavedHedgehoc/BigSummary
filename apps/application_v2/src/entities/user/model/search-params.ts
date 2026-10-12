@@ -10,12 +10,10 @@ import {
 
 export const userListParamsSchema = {
   name: parseAsString.withDefault(''),
-  nameAsc: parseAsBoolean.withDefault(false),
+  nameAsc: parseAsBoolean.withDefault(true),
   email: parseAsString.withDefault(''),
-  // banned: parseAsArrayOf(parseAsString).withDefault([]),
-  // roles: parseAsArrayOf(parseAsString).withDefault([]),
-  banned: parseAsArrayOf(parseAsInteger),
-  roles: parseAsArrayOf(parseAsInteger),
+  banned: parseAsArrayOf(parseAsString),
+  roles: parseAsArrayOf(parseAsString),
   limit: parseAsInteger.withDefault(10),
   page: parseAsInteger.withDefault(1),
 } satisfies Record<keyof TGetApplicationUserListInput, unknown>;

@@ -33,7 +33,7 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
     showCloseButtonOnDesktop: false,
   },
   admin_users: {
-    requiresRow: false,
+    requiresRow: true,
     hasHistory: false,
     getTabs: () => [TABS.USER],
     showCloseButtonOnDesktop: false,

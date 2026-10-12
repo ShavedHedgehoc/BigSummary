@@ -25,6 +25,8 @@ import { TRPCError } from '@trpc/server';
 export class ApplicationUserService implements IApplicationUserService {
   async getUserList(input: TGetApplicationUserListInput): Promise<TApplicationUserListResponse> {
     const { name, email, banned, roles, limit = 10, page = 1, nameAsc = true } = input;
+    const numericRoles = roles ? roles.map(Number).filter((val) => !isNaN(val)) : [];
+    const numericBannedOptions = banned ? banned.map(Number).filter((val) => !isNaN(val)) : [];
     const where: Prisma.usersWhereInput = {};
 
     if (name !== '') {
@@ -36,17 +38,24 @@ export class ApplicationUserService implements IApplicationUserService {
     }
 
     if (banned && banned.length > 0) {
-      where.banned = banned[0] !== 1;
+      where.banned = numericBannedOptions[0] !== 1;
     }
 
-    if (roles && roles.length > 0) {
-      where.user_roles = {
-        some: {
-          roleId: {
-            in: roles,
+    if (numericRoles && numericRoles.length > 0) {
+      where.AND = where.AND || [];
+      const rolesConditions = numericRoles.map((roleId) => ({
+        user_roles: {
+          some: {
+            roleId: roleId,
           },
         },
-      };
+      }));
+
+      if (Array.isArray(where.AND)) {
+        where.AND.push(...rolesConditions);
+      } else {
+        where.AND = [where.AND, ...rolesConditions];
+      }
     }
 
     const [total, users] = await Promise.all([
@@ -54,7 +63,14 @@ export class ApplicationUserService implements IApplicationUserService {
       pgPrisma.users.findMany({
         where,
         include: {
-          user_roles: { include: { roles: true } },
+          user_roles: {
+            orderBy: {
+              roles: {
+                id: 'asc',
+              },
+            },
+            include: { roles: true },
+          },
           user_settings: { include: { plants: true } },
         },
 
