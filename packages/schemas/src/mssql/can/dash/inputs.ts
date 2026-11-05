@@ -1,12 +1,7 @@
 import { z } from 'zod';
+import { traceCanDataListInputSchema } from '../common';
 
-export const dashTraceCanDataListFilterSchema = z.object({
-  can: z.string().default(''),
-  volumes: z.array(z.number()).default([]),
-  states: z.array(z.number()).default([]),
-  plants: z.array(z.number()).default([]),
-  transit: z.boolean().default(false),
-});
+export const dashTraceCanDataListFilterSchema = traceCanDataListInputSchema.extend({});
 
 export const dashTraceCanDataListInputSchema = z.object({
   filter: dashTraceCanDataListFilterSchema,

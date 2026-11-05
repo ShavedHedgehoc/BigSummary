@@ -11,7 +11,7 @@ import { PageHeader } from '@/widgets/page-header';
 import { DeleteDocDialog } from '@/features/doc-list-actions';
 import { SidePanel } from '@/widgets/side-panel';
 import PlannerDocListFilter from './filter';
-import { usePlannerDocList } from '../model/use-planeer-doc-list';
+import { usePlannerDocList } from '../model/use-planner-doc-list';
 
 export default function DocListView() {
   const { isLoading, paginationProps, setUiParams, isMobile, params, columns, data, uiParams } =

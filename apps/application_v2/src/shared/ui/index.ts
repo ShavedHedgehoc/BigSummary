@@ -25,6 +25,7 @@ export * from './filter-date-picker';
 export * from './filter-input';
 export * from './filter-reset-button';
 export * from './filter-selector';
+export * from './filter-multi-selector';
 export * from './badge';
 export * from './scroll-area';
 export * from './date-picker';

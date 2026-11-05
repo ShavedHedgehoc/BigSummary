@@ -37,7 +37,7 @@ export function useCanView() {
 
   React.useEffect(() => {
     if (isSuccess && data) {
-      setRecordsCount(data.length);
+      setRecordsCount(data.rows.length);
     }
   }, [data, isSuccess]);
 

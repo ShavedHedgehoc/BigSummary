@@ -1,4 +1,5 @@
 export * from './plant';
-export * from './can-states';
+export * from './can-state';
 export * from './can';
-export * from './can-records';
+export * from './can-record';
+export * from './inventory';

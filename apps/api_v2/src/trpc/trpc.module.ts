@@ -17,6 +17,7 @@ import { AuthModule } from '../auth/auth.module';
 import { HistoryTypeModule } from '../main/history-type/history-type.module';
 import { UserModule } from '../main/user/user.module';
 import { RoleModule } from '../main/role/role.module';
+import { TraceInventoryModule } from '../trace/inventory/inventory.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { RoleModule } from '../main/role/role.module';
     TraceCanModule,
     TraceCanStateModule,
     TraceCanRecordModule,
+    TraceInventoryModule,
   ],
   providers: [
     {

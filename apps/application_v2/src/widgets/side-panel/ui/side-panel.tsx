@@ -21,7 +21,7 @@ export function SidePanel(props: TSidePanelProps) {
   const isMobile = useIsMobile();
   const { mode, row, onClose, className = '' } = props;
   const config = SIDE_PANEL_MODE_CONFIG[mode];
-  const currentStatus = mode === 'admin_users' ? '' : row?.stateValue;
+  const currentStatus = mode === 'admin_users' || mode === 'conveyors' ? '' : row?.stateValue;
 
   const tabs = useMemo(() => {
     return config.getTabs(currentStatus, isMobile);

@@ -11,7 +11,6 @@ export const ROUTE_PATH = {
   LAB_PRODUCTS: '/laboratory/products',
   TECH: '/technologist',
   TECH_CANS_DASH: '/technologist/cans_dash',
-  TECH_CANS_LIST: '/technologist/cans_list',
   TECH_CANS_LOCATION: '/technologist/cans_location',
   WEIGHT_SECTION: '/weight_section',
   WEIGHT_SECTION_INVENTORIES: '/weight_section/inventories',
@@ -22,7 +21,10 @@ export const ROUTE_PATH = {
   REPORTS: '/reports',
   REPORTS_TIMING: '/reports/timing',
   REPORTS_BOILS: '/reports/boils',
+  REPORTS_CORRECTIONS: '/reports/corrections',
   EMPLOYEES: '/employees',
   ADMIN: '/admin',
   ADMIN_USERS: '/admin/users',
+  ADMIN_UPDATE_BASES: '/admin/update_bases',
+  ADMIN_CANS_LIST: '/admin/cans_list',
 } as const;

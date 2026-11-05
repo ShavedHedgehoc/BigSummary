@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { ConveyorList } from '@/widgets/conveyor-list';
 
-export default async function PlannerConveyorsPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function PlannerConveyorsPage({ searchParams }: PageProps) {
+  return <ConveyorList searchParams={searchParams} />;
 }

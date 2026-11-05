@@ -23,7 +23,12 @@ import { ApplicationHistoryTypeService } from '../main/history-type/application.
 import { ApplicationHistoryService } from '../main/history/application.history.service';
 import { ApplicationBoilService } from '../main/boil/application.boil.service';
 import { ApplicationUserService } from '../main/user/application.user.service';
-import { ApplicationRoleService } from 'src/main/role/application.role.service';
+import { ApplicationRoleService } from '../main/role/application.role.service';
+import { ApplicationConveyorService } from '../main/conveyor/application.conveyor.service';
+import { ApplicationTracePlantService } from '../trace/plant/application.plant.service';
+import { ApplicationTraceCanService } from '../trace/can/application.can.service';
+import { ApplicationTraceCanStateService } from '../trace/can-state/application.can-state.service';
+import { ApplicationTraceInventoryService } from '../trace/inventory/application.inventory.service';
 
 @Injectable()
 export class TrpcService {
@@ -33,6 +38,16 @@ export class TrpcService {
     private readonly healthService: HealthService,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    @Inject(forwardRef(() => ApplicationTraceInventoryService))
+    private readonly applicationTraceInventoryService: ApplicationTraceInventoryService,
+    @Inject(forwardRef(() => ApplicationTraceCanService))
+    private readonly applicationTraceCanService: ApplicationTraceCanService,
+    @Inject(forwardRef(() => ApplicationTraceCanStateService))
+    private readonly applicationTraceCanStateService: ApplicationTraceCanStateService,
+    @Inject(forwardRef(() => ApplicationTracePlantService))
+    private readonly applicationTracePlantService: ApplicationTracePlantService,
+    @Inject(forwardRef(() => ApplicationConveyorService))
+    private readonly applicationConveyorService: ApplicationConveyorService,
     @Inject(forwardRef(() => ApplicationBoilService))
     private readonly applicationBoilService: ApplicationBoilService,
     @Inject(forwardRef(() => ApplicationDocService))
@@ -72,34 +87,11 @@ export class TrpcService {
 
   createContext = async (_opts: trpcExpress.CreateExpressContextOptions): Promise<ITrpcContext> => {
     const { req, res } = _opts;
-    // let user: TRegisteredUser | null = null;
-    // const req = _opts.req as trpcExpress.CreateExpressContextOptions['req'];
-    // const res = _opts.res;
     let user: TRegisteredUser | null = null;
-
-    // try {
-    //   let token = req?.cookies?.accessToken;
-    //   if (!token && req?.headers?.cookie) {
-    //     const cookies = Object.fromEntries(
-    //       req.headers.cookie.split('; ').map((c: string) => c.split('=')),
-    //     );
-    //     token = cookies['accessToken'];
-    //   }
-    //   if (token) {
-    //     const payload: TRegisteredUser = await this.jwtService.verifyAsync(token, {
-    //       secret: 'JWT_ACCESS_SECRET',
-    //     });
-    //     user = payload;
-    //   }
-    // } catch (_error) {
-    //   //empty
-    // }
     try {
-      // Используем опциональную цепочку и приведение типов для cookies
       const cookiesObj = req.cookies as Record<string, string> | undefined;
       let token: string | undefined = cookiesObj?.['accessToken'];
 
-      // Проверяем заголовки, если куки не распарсились автоматически
       const cookieHeader = req.headers.cookie;
       if (!token && typeof cookieHeader === 'string') {
         const cookies = Object.fromEntries(
@@ -123,7 +115,12 @@ export class TrpcService {
     return {
       healthService: this.healthService,
       authService: this.authService,
+      applicationTraceInventoryService: this.applicationTraceInventoryService,
+      applicationTraceCanStateService: this.applicationTraceCanStateService,
+      applicationTracePlantService: this.applicationTracePlantService,
+      applicationTraceCanService: this.applicationTraceCanService,
       applicationBoilService: this.applicationBoilService,
+      applicationConveyorService: this.applicationConveyorService,
       applicationDocService: this.applicationDocService,
       applicationHistoryService: this.applicationHistoryService,
       applicationHistoryTypeService: this.applicationHistoryTypeService,

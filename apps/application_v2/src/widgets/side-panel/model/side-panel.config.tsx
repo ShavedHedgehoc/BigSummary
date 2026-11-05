@@ -1,13 +1,14 @@
 import { TSidePanelProps } from '../ui/side-panel';
 
 interface ISidePanelTab {
-  id: 'action' | 'history';
+  id: 'action' | 'history' | 'can_history';
   label: string;
 }
 
 const TABS = {
   UPLOAD: { id: 'action', label: 'Загрузка данных' },
   USER: { id: 'action', label: 'Пользователь' },
+  CONVEYOR: { id: 'action', label: 'Конвейер' },
   HISTORY: { id: 'history', label: 'История статусов' },
   EDIT: { id: 'action', label: 'Редактирование' },
 } as const;
@@ -21,6 +22,12 @@ interface IModeStrategy {
 
 export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrategy> = {
   dash: {
+    requiresRow: true,
+    hasHistory: true,
+    getTabs: () => [TABS.HISTORY],
+    showCloseButtonOnDesktop: true,
+  },
+  can_dash: {
     requiresRow: true,
     hasHistory: true,
     getTabs: () => [TABS.HISTORY],
@@ -44,6 +51,13 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
     getTabs: () => [TABS.EDIT, TABS.HISTORY],
     showCloseButtonOnDesktop: false,
   },
+  conveyors: {
+    requiresRow: true,
+    getTabs: () => [TABS.CONVEYOR],
+    hasHistory: false,
+    showCloseButtonOnDesktop: false,
+  },
+
   laboratory_products: {
     requiresRow: true,
     hasHistory: true,

@@ -18,12 +18,12 @@ import { TApplicationUserItem } from '@repo/schemas';
 import { useState } from 'react';
 import { useDeleteUser } from '../model/use-delete-user';
 
-interface IDeleteDocRowButtonProps {
+interface IDeleteUserButtonProps {
   row?: TApplicationUserItem;
   onSuccess?: () => void;
 }
 
-export function DeleteUserButton({ row, onSuccess }: IDeleteDocRowButtonProps) {
+export function DeleteUserButton({ row, onSuccess }: IDeleteUserButtonProps) {
   const { hasRole } = useRoles();
   const { user } = useAuth();
   const { deleteUserAsync, isPending: deletePending } = useDeleteUser();

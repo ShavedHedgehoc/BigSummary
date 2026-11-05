@@ -117,7 +117,12 @@ export function UniversalLayoutWithCardScroll({
             )}
           >
             {isLoading ? (
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3 px-1">
+              <div
+                className={cn(
+                  'flex flex-col grow items-center justify-center h-full w-full',
+                  'text-muted-foreground/50 text-sm font-medium',
+                )}
+              >
                 <LoaderCard />
               </div>
             ) : isEmpty ? (
@@ -144,14 +149,11 @@ export function UniversalLayoutWithCardScroll({
           {hasSelection && (
             <motion.div
               initial={{ width: 0, opacity: 0, x: 20 }}
-              // animate={{ width: 'auto', opacity: 1, x: 0 }}
               animate={{ width: isMobile ? '100%' : 'auto', opacity: 1, x: 0 }}
               exit={{ width: 0, opacity: 0, x: 20 }}
               transition={{ type: 'spring', stiffness: 320, damping: 30 }}
-              // className="h-full shrink-0 overflow-hidden pt-1"
               className="h-full shrink-0 overflow-hidden pt-1 flex-1 @min-6xl/main:flex-none w-full"
             >
-              {/* <div className="w-full @min-6xl/main:w-110 h-full "> */}
               <div className="w-full @max-6xl/main:w-full @min-6xl/main:w-110 h-full">
                 {sidebarPanel}
               </div>

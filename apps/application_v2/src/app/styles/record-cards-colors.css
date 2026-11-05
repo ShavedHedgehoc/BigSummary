@@ -1,5 +1,4 @@
 :root {
-  /* --- Пустые и базовые карточки (Светло-серый / Белый с рамкой) --- */
   --record-card-undefined: oklch(0.985 0 0); /* Идеальный белый фон */
   --record-card-undefined-foreground: oklch(0.205 0 0); /* Контрастный почти черный текст */
 
@@ -41,15 +40,6 @@
   --record-card-base-badge-fail: oklch(0.8 0.12 26); /* Нежно-красный */
   --record-card-base-badge-success: oklch(0.82 0.11 145); /* Нежно-зеленый */
   --record-card-base-badge-wait: oklch(0.84 0.1 70); /* Нежно-желтый */
-
-  /* ИСПРАВЛЕНО: Оригинальные темные цвета фонов из кода MUI Joy */
-
-  /* --record-card-fail: #b91c1c;
-  --record-card-wait: #a16207;
-  --record-card-success: #15803d;
-  --record-card-process: #0369a1;
-  --record-card-finished: #a21caf;
-  --record-card-undefined: #475569; */
 
   --record-card-fail: oklch(0.467 0.183 24.32);
   --record-card-wait: oklch(0.505 0.138 78.43);

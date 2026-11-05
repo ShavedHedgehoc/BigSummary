@@ -1,0 +1,62 @@
+import { DB_ROLES, ROUTE_PATH } from '@/shared/constants';
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/shared/ui';
+import { ClipboardList, MoreHorizontal } from 'lucide-react';
+import { useAuth } from '@/entities/user/index.client';
+import { useRouter } from 'next/navigation';
+
+export function RowDropdown({
+  id,
+  isCantDelete,
+  onSelect,
+}: {
+  id: number;
+  isCantDelete: boolean;
+  onSelect: () => void;
+}) {
+  const router = useRouter();
+  const { user } = useAuth();
+  const allowedRole = DB_ROLES.WEIGHER;
+  const allowDelete = user?.roles.includes(allowedRole) ?? false;
+
+  const handleDetailClick = () => {
+    router.push(`${ROUTE_PATH.WEIGHT_SECTION_INVENTORIES}/${id}`);
+  };
+
+  const handleDeleteClick = () => {
+    onSelect();
+  };
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0 ">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Действия</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleDetailClick}>
+          <ClipboardList />
+          Подробно
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          variant={'destructive'}
+          onClick={handleDeleteClick}
+          disabled={!allowDelete || isCantDelete}
+        >
+          <ClipboardList />
+          Удалить
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

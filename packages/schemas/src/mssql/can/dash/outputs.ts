@@ -1,28 +1,18 @@
 import { z } from 'zod';
+import { traceCanDataOutputSchema, traceCanVolumeOutputSchema } from '../common';
 
-export const dashTraceCanDataOutputSchema = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  volume: z.number(),
-  baseContain: z.string().nullable(),
-  baseContainMarking: z.string().nullable(),
-  stateValue: z.string(),
-  state: z.string(),
-  stateTime: z.coerce.date().nullable(),
-  author: z.string().nullable(),
-  isUpdated: z.boolean(),
-  plant: z.string().nullable(),
-  transit: z.boolean(),
+export const dashTraceCanDataOutputSchema = traceCanDataOutputSchema.extend({});
+
+export const dashTraceCanDataListOutputSchema = z.object({
+  rows: z.array(dashTraceCanDataOutputSchema),
+  total: z.number().int(),
 });
 
-export const dashTraceCanVolumeOutputSchema = z.object({
-  volume: z.number(),
-});
-
-export const dashTraceCanVolumeListOutputSchema = z.array(dashTraceCanVolumeOutputSchema);
-export const dashTraceCanDataListOutputSchema = z.array(dashTraceCanDataOutputSchema);
-
-export type TDashTraceCanVolumeItem = z.infer<typeof dashTraceCanVolumeOutputSchema>;
-export type TDashTraceCanVolumeListResponse = z.infer<typeof dashTraceCanVolumeListOutputSchema>;
 export type TDashTraceCanDataItem = z.infer<typeof dashTraceCanDataOutputSchema>;
 export type TDashTraceCanDataListResponse = z.infer<typeof dashTraceCanDataListOutputSchema>;
+
+export const dashTraceCanVolumeOutputSchema = traceCanVolumeOutputSchema.extend({});
+
+export const dashTraceCanVolumeListOutputSchema = z.array(dashTraceCanVolumeOutputSchema);
+export type TDashTraceCanVolumeItem = z.infer<typeof dashTraceCanVolumeOutputSchema>;
+export type TDashTraceCanVolumeListResponse = z.infer<typeof dashTraceCanVolumeListOutputSchema>;

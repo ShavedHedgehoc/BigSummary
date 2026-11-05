@@ -14,16 +14,8 @@ interface DocDetailViewProps {
 }
 
 export default function DocDetailView({ docId }: DocDetailViewProps) {
-  const {
-    isLoading,
-    hasSelectedRow,
-    data,
-    // stateData,
-    columns,
-    isMobile,
-    selectedRow,
-    clearSelected,
-  } = useDocDetail(docId);
+  const { isLoading, hasSelectedRow, data, columns, isMobile, selectedRow, clearSelected } =
+    useDocDetail(docId);
 
   return (
     <UniversalLayoutWithScroll

@@ -16,7 +16,6 @@ export function UserFormSubheader({ row, className }: IUserFormSubheaderProps) {
         className,
       )}
     >
-      {/* Левая часть: Основная информация о пользователе */}
       <div className="flex flex-col gap-1 min-w-0">
         <span className="font-semibold text-sm text-foreground truncate select-all">
           {row.name}
@@ -25,8 +24,6 @@ export function UserFormSubheader({ row, className }: IUserFormSubheaderProps) {
           {row.email}
         </span>
       </div>
-
-      {/* Правая часть: Аккуратный бэйдж статуса доступа */}
       <div className="flex flex-col items-end gap-1 shrink-0">
         <span className="text-[10px] uppercase font-medium tracking-wider text-muted-foreground/60 select-none">
           Доступ

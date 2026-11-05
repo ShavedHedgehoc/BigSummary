@@ -13,8 +13,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  FilterMultiSelector,
 } from '@/shared/ui';
-import { FilterMultiSelector } from '@/shared/ui/filter-multi-selector';
 import { TApplicationHistoryTypeListResponse, TApplicationPlantListResponse } from '@repo/schemas';
 import { Search, SlidersHorizontal, Trash } from 'lucide-react';
 import { useId, useMemo, useState, useSyncExternalStore } from 'react';
@@ -176,7 +176,11 @@ export function ProductListFilter({
             Фильтры {isDirty && <span className="ml-2 h-2 w-2 rounded-full bg-primary" />}
           </Button>
         </SheetTrigger>
-        <SheetContent side="bottom" className="h-[90vh] overflow-y-auto">
+        <SheetContent
+          side="bottom"
+          className="h-[90vh] overflow-y-auto"
+          onOpenAutoFocus={(e) => e.preventDefault()}
+        >
           <SheetHeader>
             <SheetTitle>Фильтры</SheetTitle>
             <SheetDescription className="sr-only">Фильтрация документов</SheetDescription>

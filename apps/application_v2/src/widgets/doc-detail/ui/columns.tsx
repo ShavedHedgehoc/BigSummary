@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { GenericSelectCell, GenericSelectHeader } from '@/shared/ui';
 import { baseRecordColumns } from '@/entities/record';
-import { useDocDetailUiParams } from '../model/use-doc-detail-ui-params';
+import { useDocDetailUiParams } from '@/entities/doc';
 
 function SelectHeader() {
   const { params, setParams } = useDocDetailUiParams();

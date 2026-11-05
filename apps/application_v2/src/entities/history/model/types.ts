@@ -1,5 +1,7 @@
 import {
   TApplicationBoilItem,
+  TApplicationTraceCanDataItem,
+  TApplicationConveyorItem,
   TApplicationDocDetailRowItem,
   TApplicationUserItem,
 } from '@repo/schemas';
@@ -13,6 +15,11 @@ export type THistoryMutationContextProps =
   | {
       mode: 'dash';
       row: TApplicationDocDetailRowItem | undefined;
+      onChange?: never;
+    }
+  | {
+      mode: 'can_dash';
+      row: TApplicationTraceCanDataItem | undefined;
       onChange?: never;
     }
   | {
@@ -31,6 +38,11 @@ export type THistoryMutationContextProps =
       onChange?: never;
     }
   | {
+      mode: 'conveyors';
+      row: TApplicationConveyorItem | undefined;
+      onChange?: never;
+    }
+  | {
       mode: 'laboratory_boils';
       row: TApplicationBoilItem | undefined;
       onChange?: (value: TBoilHistoryType) => void;
@@ -45,3 +57,5 @@ export type THistoryMutationContextProps =
       row: TApplicationDocDetailRowItem | undefined;
       onChange?: (value: TForemanHistoryType) => void;
     };
+
+export type THistoryMode = Extract<THistoryMutationContextProps, { mode: string }>['mode'];

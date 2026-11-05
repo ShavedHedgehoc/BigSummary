@@ -18,7 +18,6 @@ import { TApplicationPlantListResponse } from '@repo/schemas';
 import { Calendar, Search, SlidersHorizontal, Trash } from 'lucide-react';
 import { useId, useMemo, useState, useSyncExternalStore } from 'react';
 
-// 1. Описываем интерфейс пропсов: компонент принимает чистые стейты и методы снаружи
 interface TDocListFilterProps {
   plantData: TApplicationPlantListResponse;
   startDate: Date | undefined;

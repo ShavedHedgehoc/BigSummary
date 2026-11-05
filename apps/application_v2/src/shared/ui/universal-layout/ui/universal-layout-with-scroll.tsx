@@ -14,7 +14,7 @@ interface UniversalLayoutWithScrollProps {
   filters: ReactNode;
   table: ReactNode;
   tableSkeleton: ReactNode;
-  sidebarPanel: ReactNode;
+  sidebarPanel?: ReactNode;
   emptyState?: ReactNode;
 }
 
@@ -35,7 +35,7 @@ export function UniversalLayoutWithScroll({
   if (isMobile) {
     return (
       <div className="flex flex-col gap-4 py-4 px-4 h-[calc(100vh-(--spacing(16)))] w-full overflow-hidden">
-        {hasSelection ? (
+        {hasSelection && sidebarPanel ? (
           sidebarPanel
         ) : (
           <div className="flex flex-col gap-4 flex-1 min-h-0">
@@ -60,7 +60,6 @@ export function UniversalLayoutWithScroll({
       >
         {filters}
       </div>
-
       <div className="flex flex-row w-full gap-4 h-full overflow-hidden">
         <div
           className={cn(
@@ -72,8 +71,7 @@ export function UniversalLayoutWithScroll({
             {isLoading ? tableSkeleton : table}
           </ScrollArea>
         </div>
-
-        {hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)}
+        {sidebarPanel && (hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />))}
       </div>
     </div>
   );
