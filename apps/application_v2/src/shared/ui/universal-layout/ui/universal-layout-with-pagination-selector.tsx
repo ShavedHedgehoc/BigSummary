@@ -77,7 +77,6 @@ export function UniversalLayoutWithPaginationSelector({
           </div>
           <div className="pt-2">{pagination}</div>
         </div>
-
         {hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)}
       </div>
     </div>

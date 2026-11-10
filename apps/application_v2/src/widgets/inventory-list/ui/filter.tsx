@@ -1,5 +1,4 @@
 import { DocListParams } from '@/entities/doc';
-import { DocListFilter } from '@/features/filter-doc-list';
 import { getMonthBounds, getToday } from '@/shared/lib';
 import { format } from 'date-fns';
 import { ComponentProps } from 'react';

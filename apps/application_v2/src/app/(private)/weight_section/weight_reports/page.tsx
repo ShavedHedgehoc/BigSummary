@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { WghtReport } from '@/widgets/wght-report';
 
-export default async function WeightSectionWeightReportsPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function WeightSectionWeightReportsPage({ searchParams }: PageProps) {
+  return <WghtReport searchParams={searchParams} />;
 }

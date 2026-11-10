@@ -21,6 +21,15 @@ export function NameField() {
             aria-invalid={fieldState.invalid}
             placeholder="Пожалуйста, введите ФИО"
             autoComplete="off"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                const passwordInput = document.getElementById('login-form-email');
+                if (passwordInput) {
+                  passwordInput.focus();
+                }
+              }
+            }}
             className={cn(
               'ring-0! ring-offset-0! shadow-none!',
               'outline-none! focus-visible:outline-none!',
@@ -49,6 +58,15 @@ export function EmailField() {
             aria-invalid={fieldState.invalid}
             placeholder="Пожалуйста, введите email"
             autoComplete="on"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                const passwordInput = document.getElementById('login-form-password');
+                if (passwordInput) {
+                  passwordInput.focus();
+                }
+              }
+            }}
             className={cn(
               'ring-0! ring-offset-0! shadow-none!',
               'outline-none! focus-visible:outline-none!',
@@ -87,6 +105,7 @@ export function PasswordField() {
               )}
             />
             <Button
+              type="button"
               variant="outline"
               className={cn(
                 'border-l-0 ',

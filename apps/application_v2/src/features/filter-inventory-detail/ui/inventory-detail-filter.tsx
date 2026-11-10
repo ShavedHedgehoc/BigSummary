@@ -15,7 +15,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/shared/ui';
-import { Calendar, Search, SlidersHorizontal, Trash } from 'lucide-react';
+import { Search, SlidersHorizontal, Trash } from 'lucide-react';
 import { useId, useMemo, useState, useSyncExternalStore } from 'react';
 
 interface TInventoryDetailFilterProps {

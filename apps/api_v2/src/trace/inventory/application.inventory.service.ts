@@ -22,18 +22,6 @@ const inventoryDocsWithRelationsInclude = {
 type TInventoryDocsWithRelations = Prisma.InventoryDocsGetPayload<{
   include: typeof inventoryDocsWithRelationsInclude;
 }>;
-// const inventoryDocDetailWithRelationsInclude = {
-//   Plants: true,
-//   InventoryRows: {
-//     include: {
-//       Products: true,
-//     },
-//   },
-// } satisfies Prisma.InventoryDocsInclude;
-
-// type TInventoryDocDetailWithRelations = Prisma.InventoryDocsGetPayload<{
-//   include: typeof inventoryDocDetailWithRelationsInclude;
-// }>;
 
 @Injectable()
 export class ApplicationTraceInventoryService implements IApplicationTraceInventoryService {

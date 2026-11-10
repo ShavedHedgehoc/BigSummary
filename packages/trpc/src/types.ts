@@ -82,6 +82,8 @@ import type {
   TApplicationTraceInventoryDetailResponse,
   TApplicationDeleteTraceInventoryResponse,
   TApplicationDeleteTraceInventoryInput,
+  TApplicationTraceBoilWghtReportResponse,
+  TGetApplicationGetTraceBoilWghtReportInput,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -163,6 +165,12 @@ export interface IDashTraceCanService {
 }
 
 // application
+
+export interface IApplicationTraceBoilService {
+  getWeightingReport: (
+    input: TGetApplicationGetTraceBoilWghtReportInput,
+  ) => Promise<TApplicationTraceBoilWghtReportResponse | null>;
+}
 
 export interface IApplicationTraceCanStateService {
   getAllCanStates: () => Promise<TTraceCanStateListResponse | null>;
@@ -268,6 +276,7 @@ export interface IApplicationUserService {
 }
 
 export interface ITrpcContext {
+  applicationTraceBoilService: IApplicationTraceBoilService;
   applicationTraceInventoryService: IApplicationTraceInventoryService;
   applicationTraceCanStateService: IApplicationTraceCanStateService;
   applicationTraceCanService: IApplicationTraceCanService;

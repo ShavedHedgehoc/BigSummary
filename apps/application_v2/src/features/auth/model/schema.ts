@@ -16,6 +16,18 @@ export const loginFormSchema = authSchema
       message: 'Имя обязательно для регистрации',
       path: ['name'],
     },
+  )
+  .refine(
+    (data) => {
+      if (data.isRegister && (!data.password || data.password.trim() === '')) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: 'Пароль обязателен для регистрации',
+      path: ['password'],
+    },
   );
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>;
