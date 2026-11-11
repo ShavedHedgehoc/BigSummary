@@ -66,6 +66,26 @@ import type {
   TApplicationDeleteUserResponse,
   TApplicationUpdateUserRolesInput,
   TApplicationUpdateUserRolesResponse,
+  TGetApplicationConveyorListInput,
+  TApplicationConveyorListResponse,
+  TApplicationUpdateConveyorInput,
+  TApplicationDeleteConveyorInput,
+  TApplicationUpdateConveyorResponse,
+  TApplicationDeleteConveyorResponse,
+  TGetApplicationTraceCanDataListInput,
+  TApplicationTraceCanDataListResponse,
+  TApplicationTraceCanVolumeListResponse,
+  TApplicationTraceCanLocationDataListResponse,
+  TApplicationGetTraceInventoryListInput,
+  TApplicationTraceInventoryListResponse,
+  TApplicationGetTraceInventoryDetailInput,
+  TApplicationTraceInventoryDetailResponse,
+  TApplicationDeleteTraceInventoryResponse,
+  TApplicationDeleteTraceInventoryInput,
+  TApplicationTraceBoilWghtReportResponse,
+  TGetApplicationGetTraceBoilWghtReportInput,
+  TApplicationUploadTraceBoilInput,
+  TApplicationUploadTraceBoilResponse,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -148,10 +168,59 @@ export interface IDashTraceCanService {
 
 // application
 
+export interface IApplicationTraceBoilService {
+  getWeightingReport: (
+    input: TGetApplicationGetTraceBoilWghtReportInput,
+  ) => Promise<TApplicationTraceBoilWghtReportResponse | null>;
+  uploadTraceBoils: (
+    input: TApplicationUploadTraceBoilInput,
+  ) => Promise<TApplicationUploadTraceBoilResponse>;
+}
+
+export interface IApplicationTraceCanStateService {
+  getAllCanStates: () => Promise<TTraceCanStateListResponse | null>;
+}
+
+export interface IApplicationTraceInventoryService {
+  getInventoryList: (
+    input: TApplicationGetTraceInventoryListInput,
+  ) => Promise<TApplicationTraceInventoryListResponse | null>;
+  getInventoryDetail: (
+    input: TApplicationGetTraceInventoryDetailInput,
+  ) => Promise<TApplicationTraceInventoryDetailResponse | null>;
+  deleteInventory: (
+    input: TApplicationDeleteTraceInventoryInput,
+  ) => Promise<TApplicationDeleteTraceInventoryResponse>;
+}
+
+export interface IApplicationTraceCanService {
+  getCanVolumesList: () => Promise<TApplicationTraceCanVolumeListResponse | null>;
+  getCanDataList: (
+    input: TGetApplicationTraceCanDataListInput,
+  ) => Promise<TApplicationTraceCanDataListResponse | null>;
+  getCanLocationDataList: () => Promise<TApplicationTraceCanLocationDataListResponse | null>;
+}
+
+export interface IApplicationTracePlantService {
+  getAllPlants: () => Promise<TTracePlantListResponse | null>;
+}
+
 export interface IApplicationBoilService {
   getBoilList: (
     input: TGetApplicationLabBoilListInput,
   ) => Promise<TApplicationBoilListResponse | null>;
+}
+
+export interface IApplicationConveyorService {
+  getConveyorList: (
+    input: TGetApplicationConveyorListInput,
+  ) => Promise<TApplicationConveyorListResponse | null>;
+  updateConveyor: (
+    input: TApplicationUpdateConveyorInput,
+  ) => Promise<TApplicationUpdateConveyorResponse>;
+  deleteConveyor: (
+    input: TApplicationDeleteConveyorInput,
+  ) => Promise<TApplicationDeleteConveyorResponse>;
 }
 
 export interface IApplicationDocService {
@@ -212,7 +281,13 @@ export interface IApplicationUserService {
 }
 
 export interface ITrpcContext {
+  applicationTraceBoilService: IApplicationTraceBoilService;
+  applicationTraceInventoryService: IApplicationTraceInventoryService;
+  applicationTraceCanStateService: IApplicationTraceCanStateService;
+  applicationTraceCanService: IApplicationTraceCanService;
+  applicationTracePlantService: IApplicationTracePlantService;
   applicationBoilService: IApplicationBoilService;
+  applicationConveyorService: IApplicationConveyorService;
   applicationDocService: IApplicationDocService;
   applicationPlantService: IApplicationPlantService;
   applicationHistoryService: IApplicationHistoryService;

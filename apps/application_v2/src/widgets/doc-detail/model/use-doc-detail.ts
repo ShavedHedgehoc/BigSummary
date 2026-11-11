@@ -2,9 +2,9 @@ import { trpc } from '@/shared/api';
 import { useIsMobile } from '@/shared/lib';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { useDocDetailUiParams } from './use-doc-detail-ui-params';
-import { useDocDetailSearchParams } from '@/entities/doc/lib/use-search-params';
+
 import { docDetailProductListColumns } from '../ui/columns';
+import { useDocDetailSearchParams, useDocDetailUiParams } from '@/entities/doc';
 
 export function useDocDetail(docId?: number) {
   const isMobile = useIsMobile();

@@ -43,10 +43,6 @@ export const technologistNavItems: TNavItem[] = [
     url: ROUTE_PATH.TECH_CANS_DASH,
   },
   {
-    title: STATIC_TITLES[ROUTE_PATH.TECH_CANS_LIST],
-    url: ROUTE_PATH.TECH_CANS_LIST,
-  },
-  {
     title: STATIC_TITLES[ROUTE_PATH.TECH_CANS_LOCATION],
     url: ROUTE_PATH.TECH_CANS_LOCATION,
   },
@@ -88,6 +84,10 @@ export const reportsNavItems: TNavItem[] = [
     title: STATIC_TITLES[ROUTE_PATH.REPORTS_BOILS],
     url: ROUTE_PATH.REPORTS_BOILS,
   },
+  {
+    title: STATIC_TITLES[ROUTE_PATH.REPORTS_CORRECTIONS],
+    url: ROUTE_PATH.REPORTS_CORRECTIONS,
+  },
 ];
 
 export const employeeNavItems: TNavItem[] = [
@@ -102,5 +102,13 @@ export const adminNavItems: TNavItem[] = [
   {
     title: STATIC_TITLES[ROUTE_PATH.ADMIN_USERS],
     url: ROUTE_PATH.ADMIN_USERS,
+  },
+  {
+    title: STATIC_TITLES[ROUTE_PATH.ADMIN_UPDATE_BASES],
+    url: ROUTE_PATH.ADMIN_UPDATE_BASES,
+  },
+  {
+    title: STATIC_TITLES[ROUTE_PATH.ADMIN_CANS_LIST],
+    url: ROUTE_PATH.ADMIN_CANS_LIST,
   },
 ];

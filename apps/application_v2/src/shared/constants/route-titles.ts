@@ -11,7 +11,6 @@ export const STATIC_TITLES: Record<string, string> = {
   [ROUTE_PATH.LAB_PRODUCTS]: 'Продукты',
   [ROUTE_PATH.TECH]: 'Технолог',
   [ROUTE_PATH.TECH_CANS_DASH]: 'Емкости',
-  [ROUTE_PATH.TECH_CANS_LIST]: 'Список емкостей',
   [ROUTE_PATH.TECH_CANS_LOCATION]: 'Местоположение емкостей',
   [ROUTE_PATH.WEIGHT_SECTION]: 'Весовой участок',
   [ROUTE_PATH.WEIGHT_SECTION_INVENTORIES]: 'Переучеты',
@@ -22,11 +21,18 @@ export const STATIC_TITLES: Record<string, string> = {
   [ROUTE_PATH.REPORTS]: 'Отчеты',
   [ROUTE_PATH.REPORTS_TIMING]: 'Тайминг сводок',
   [ROUTE_PATH.REPORTS_BOILS]: 'Основы',
+  [ROUTE_PATH.REPORTS_CORRECTIONS]: 'Корректировки',
   [ROUTE_PATH.EMPLOYEES]: 'Сотрудники',
   [ROUTE_PATH.ADMIN]: 'Администратор',
   [ROUTE_PATH.ADMIN_USERS]: 'Пользователи',
+  [ROUTE_PATH.ADMIN_UPDATE_BASES]: 'Обновление основ',
+  [ROUTE_PATH.ADMIN_CANS_LIST]: 'Список емкостей',
 };
 
 export const DYNAMIC_PATTERNS = [
   { path: `${[ROUTE_PATH.PLANNER_SUMMARIES]}/[docId]`, title: 'Подробная информация' },
+  {
+    path: `${[ROUTE_PATH.WEIGHT_SECTION_INVENTORIES]}/[inventoryId]`,
+    title: 'Подробная информация',
+  },
 ];

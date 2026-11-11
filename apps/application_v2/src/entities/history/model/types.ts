@@ -1,5 +1,7 @@
 import {
   TApplicationBoilItem,
+  TApplicationTraceCanDataItem,
+  TApplicationConveyorItem,
   TApplicationDocDetailRowItem,
   TApplicationUserItem,
 } from '@repo/schemas';
@@ -16,6 +18,11 @@ export type THistoryMutationContextProps =
       onChange?: never;
     }
   | {
+      mode: 'can_dash';
+      row: TApplicationTraceCanDataItem | undefined;
+      onChange?: never;
+    }
+  | {
       mode: 'planner';
       row: TApplicationDocDetailRowItem | undefined;
       onChange?: (value: TPlannerHistoryType) => void;
@@ -26,8 +33,18 @@ export type THistoryMutationContextProps =
       onChange?: never;
     }
   | {
+      mode: 'wght_report';
+      row?: never;
+      onChange?: never;
+    }
+  | {
       mode: 'admin_users';
       row: TApplicationUserItem | undefined;
+      onChange?: never;
+    }
+  | {
+      mode: 'conveyors';
+      row: TApplicationConveyorItem | undefined;
       onChange?: never;
     }
   | {
@@ -45,3 +62,5 @@ export type THistoryMutationContextProps =
       row: TApplicationDocDetailRowItem | undefined;
       onChange?: (value: TForemanHistoryType) => void;
     };
+
+export type THistoryMode = Extract<THistoryMutationContextProps, { mode: string }>['mode'];

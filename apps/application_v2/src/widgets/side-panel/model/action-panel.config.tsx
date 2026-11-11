@@ -4,6 +4,7 @@ import {
   TApplicationBoilItem,
   TApplicationPlantListResponse,
   TApplicationUserItem,
+  TApplicationConveyorItem,
 } from '@repo/schemas';
 import { EditDocRowForm } from '@/features/edit-doc-row';
 import { UploadDocForm } from '@/features/upload-doc';
@@ -12,6 +13,11 @@ import { DeleteDocRowButton } from '@/features/delete-doc-row';
 import { CancelHistoryButton } from '@/features/history-cancellation';
 import { TSidePanelContext } from '../ui/side-panel';
 import { DeleteUserButton } from '@/features/delete-user';
+import { ProcessUserTabs } from '@/features/process-user';
+import { UserFormSubheader } from '@/entities/user/index.client';
+import { DeleteConveyorButton } from '@/features/delete-conveyor';
+import { EditConveyorForm } from '@/features/edit-conveyor';
+import { UploadTraceBoilForm } from '@/features/upload-boils';
 
 interface IActionModeConfig {
   requiresRow: boolean;
@@ -32,13 +38,33 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
     renderForm: (_, plantData) => <UploadDocForm plantData={plantData} />,
     renderButton: () => null,
   },
+  wght_report: {
+    requiresRow: false,
+    headerTitle: null,
+    getSubheader: () => null,
+    renderForm: () => <UploadTraceBoilForm />,
+    renderButton: () => null,
+  },
   admin_users: {
     requiresRow: true,
     headerTitle: null,
-    getSubheader: () => null,
-    renderForm: () => <></>,
+    getSubheader: (props) =>
+      props.row ? <UserFormSubheader row={props.row as TApplicationUserItem} /> : null,
+    renderForm: (props) => <ProcessUserTabs row={props.row as TApplicationUserItem} />,
     renderButton: (props) => (
       <DeleteUserButton row={props.row as TApplicationUserItem} onSuccess={props.clearSelected} />
+    ),
+  },
+  conveyors: {
+    requiresRow: true,
+    headerTitle: 'Редактирование конвейера',
+    getSubheader: () => null,
+    renderForm: (props) => <EditConveyorForm row={props.row as TApplicationConveyorItem} />,
+    renderButton: (props) => (
+      <DeleteConveyorButton
+        row={props.row as TApplicationConveyorItem}
+        onSuccess={props.clearSelected}
+      />
     ),
   },
   planner: {
@@ -79,6 +105,13 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
     renderButton: (props) => <CancelHistoryButton {...props} />,
   },
   dash: {
+    requiresRow: false,
+    headerTitle: null,
+    getSubheader: () => null,
+    renderForm: () => null,
+    renderButton: () => null,
+  },
+  can_dash: {
     requiresRow: false,
     headerTitle: null,
     getSubheader: () => null,

@@ -2,6 +2,7 @@ import { AddHistoryButton, AddHistoryForm } from '@/features/add-history-godmode
 import { CancelHistoryButton } from '@/features/history-cancellation';
 import { TApplicationDocDetailRowItem } from '@repo/schemas';
 import { TSidePanelContext } from '../ui/side-panel';
+import { THistoryMode } from '@/entities/history';
 
 interface IHistoryModeConfig {
   getTitle: (isAction: boolean) => string;
@@ -15,7 +16,7 @@ interface IHistoryModeConfig {
 }
 
 export const HISTORY_PANEL_CONFIG: Record<
-  Exclude<TSidePanelContext['mode'], 'upload_doc' | 'admin_users'>,
+  Exclude<THistoryMode, 'upload_doc' | 'admin_users' | 'conveyors' | 'wght_report'>,
   IHistoryModeConfig
 > = {
   planner: {
@@ -67,5 +68,11 @@ export const HISTORY_PANEL_CONFIG: Record<
         }}
       />
     ),
+  },
+  can_dash: {
+    getTitle: () => 'История статусов',
+    hasSubheader: true,
+    getActionButton: () => null,
+    getActionForm: () => null,
   },
 };

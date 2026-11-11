@@ -155,10 +155,6 @@ export class ApplicationDocService implements IApplicationDocService {
     }
     const doc = await this.docCommonService.getCurrentDocByPlantId(plantId);
     if (!doc) {
-      // throw new TRPCError({
-      //   code: 'NOT_FOUND',
-      //   message: 'Документ не найден',
-      // });
       return { rows: [], header: null };
     }
     return this.getDetails({
@@ -240,7 +236,6 @@ export class ApplicationDocService implements IApplicationDocService {
     const [allHistoriesGrouped, allFactsMap] = await Promise.all([
       this.historyCommonService.getHistoriesForRecords(
         recordsData.map((r) => ({ id: r.id, water_base_id: r.water_base_id })),
-        // states.map((s) => Number(s)),
         (states ?? []).map((s) => Number(s)),
       ),
       this.recordCounterService.getTaskSumsForRecordIds(recordIds),
@@ -476,18 +471,6 @@ export class ApplicationDocService implements IApplicationDocService {
       ink_color: _ink_color,
       ...directFields
     } = dto;
-    // const boilConnect =
-    //   batch && batch !== '-'
-    //     ? { connectOrCreate: { where: { value: batch }, create: { value: batch } } }
-    //     : undefined;
-    // const waterBaseConnect =
-    //   boil1 && boil1 !== '-'
-    //     ? { connectOrCreate: { where: { value: boil1 }, create: { value: boil1 } } }
-    //     : undefined;
-    // const organicBaseConnect =
-    //   boil2 && boil2 !== '-'
-    //     ? { connectOrCreate: { where: { value: boil2 }, create: { value: boil2 } } }
-    //     : undefined;
     const dbBoil = await this.historyCommonService.getOrCreateBoilByValue(batch, tx);
     const dbWaterBase = await this.historyCommonService.getOrCreateBoilByValue(boil1, tx);
     const dbOrganicBase = await this.historyCommonService.getOrCreateBoilByValue(boil2, tx);
@@ -669,16 +652,6 @@ export class ApplicationDocService implements IApplicationDocService {
         });
 
         const semiProductsParsed = parseSemiproducts(row.semi_product);
-        // if (semiProductsParsed?.length) {
-        //   await tx.semi_products.createMany({
-        //     data: semiProductsParsed.map((item: TApplicationParsedSemiproductItem) => ({
-        //       record_id: record.id,
-        //       code: item.code,
-        //       marking: item.marking,
-        //       boil: item.boil,
-        //     })),
-        //   });
-        // }
         if (semiProductsParsed?.length) {
           for (const item of semiProductsParsed) {
             const dbProduct = await tx.products.upsert({

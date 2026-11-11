@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { CanDash } from '@/widgets/can-dash';
 
-export default async function TechnologistCansDashPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function TechnologistCansDashPage({ searchParams }: PageProps) {
+  return <CanDash searchParams={searchParams} />;
 }

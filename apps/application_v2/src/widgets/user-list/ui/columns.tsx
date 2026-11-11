@@ -1,8 +1,8 @@
 import { baseUserColumns } from '@/entities/user/index.server';
 import { TApplicationUserItem } from '@repo/schemas';
 import { ColumnDef } from '@tanstack/react-table';
-import { useUserListUiParams } from '../model/use-user-list-ui-params';
 import { GenericSelectCell, GenericSelectHeader } from '@/shared/ui';
+import { useUserListUiParams } from '@/entities/user/index.client';
 
 function SelectHeader() {
   const { params, setParams } = useUserListUiParams();

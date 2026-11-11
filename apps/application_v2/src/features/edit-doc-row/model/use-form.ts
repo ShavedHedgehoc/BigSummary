@@ -4,6 +4,7 @@ import { editDocRowFormSchema, EditDocRowFormValues } from '../lib';
 import { TApplicationDocDetailRowItem, TApplicationUpdateDocRowInput } from '@repo/schemas';
 import { useEffect } from 'react';
 import { useUpdateDocRow } from './use-update-doc-row';
+import { useDocDetailUiParams } from '@/entities/doc';
 
 interface UseEditDocRowFormProps {
   row?: TApplicationDocDetailRowItem;
@@ -11,6 +12,7 @@ interface UseEditDocRowFormProps {
 
 export const useEditDocRowForm = ({ row }: UseEditDocRowFormProps = {}) => {
   const { updateDocRowAsync: updateDocRowAsync } = useUpdateDocRow();
+  const { setParams: setUiParams } = useDocDetailUiParams();
   const form = useForm<EditDocRowFormValues>({
     resolver: zodResolver(editDocRowFormSchema),
     defaultValues: {
@@ -70,6 +72,7 @@ export const useEditDocRowForm = ({ row }: UseEditDocRowFormProps = {}) => {
     try {
       await updateDocRowAsync(dto);
       reset(data);
+      setUiParams({ selectedRecordId: null });
     } catch (error) {
       console.error('Ошибка сохранения:', error);
     }

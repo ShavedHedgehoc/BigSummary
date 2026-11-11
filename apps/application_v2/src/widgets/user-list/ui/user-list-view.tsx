@@ -10,18 +10,22 @@ import {
 import { PageHeader } from '@/widgets/page-header';
 import { SidePanel } from '@/widgets/side-panel';
 import { useUserList } from '../model/use-user-list';
+import AdminUserListFilter from './filter';
+import { ResetUserPasswordDialog } from '@/features/process-user';
 
 export default function UserListView() {
   const {
     isLoading,
     paginationProps,
     hasSelectedRow,
-    data,
+    userListData,
     columns,
     isMobile,
     params,
     selectedRow,
     clearSelected,
+    resetId,
+    onCloseResetDialog,
   } = useUserList();
 
   const paginationElement = isLoading ? (
@@ -36,21 +40,25 @@ export default function UserListView() {
         hasSelection={hasSelectedRow}
         isLoading={isLoading}
         pageHeader={<PageHeader />}
-        filters={<></>}
+        filters={<AdminUserListFilter />}
         pagination={paginationElement}
-        table={<DataTableNew data={data?.rows ?? []} columns={columns} isLoading={isLoading} />}
+        table={
+          <DataTableNew data={userListData?.rows ?? []} columns={columns} isLoading={isLoading} />
+        }
         tableSkeleton={<DataTableSkeleton columns={isMobile ? 3 : 5} rows={params.limit} />}
         sidebarPanel={
-          data && (
+          userListData && (
             <SidePanel
               mode="admin_users"
               row={selectedRow ?? undefined}
               className="w-full m-0 @min-6xl/main:w-110 shrink-0 h-full max-w-2xl"
               onClose={clearSelected}
+              clearSelected={clearSelected}
             />
           )
         }
       />
+      <ResetUserPasswordDialog resetId={resetId} onClose={onCloseResetDialog} />
     </div>
   );
 }

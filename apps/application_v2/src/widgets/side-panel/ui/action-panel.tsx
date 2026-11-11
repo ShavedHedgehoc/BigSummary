@@ -39,7 +39,7 @@ export function ActionPanel(props: TSidePanelContext) {
         </div>
       </CardContent>
 
-      {props.mode !== 'upload_doc' && (
+      {props.mode !== 'upload_doc' && props.mode !== 'wght_report' && (
         <CardFooter className="mt-auto border-t bg-muted/5 px-4 h-16 flex flex-col items-stretch justify-center shrink-0 w-full">
           <div className="max-w-2xl mx-auto w-full flex flex-col items-stretch">
             {config.renderButton(props)}

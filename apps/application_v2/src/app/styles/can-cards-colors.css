@@ -1,0 +1,56 @@
+:root {
+  /* --- Светлая тема (Light Mode) --- */
+  --can-card-undefined: oklch(0.985 0 0); /* Идеальный белый фон */
+  --can-card-undefined-foreground: oklch(0.205 0 0);
+
+  --can-card-from-product: oklch(0.92 0.005 257.4);
+  --can-card-from-product-foreground: oklch(0.205 0 0);
+
+  --can-card-washed: oklch(0.541 0.184 246.33);
+  --can-card-washed-foreground: oklch(1 0 0);
+
+  --can-card-ready: oklch(0.627 0.194 149.251);
+  --can-card-ready-foreground: oklch(1 0 0);
+
+  --can-card-carantine: oklch(0.577 0.245 27.325);
+  --can-card-carantine-foreground: oklch(1 0 0);
+
+  --can-card-desinfected: oklch(0.704 0.223 325.26);
+  --can-card-desinfected-foreground: oklch(1 0 0);
+
+  --can-card-need-wash: oklch(0.55 0.18 75); /* Насыщенный золотисто-коричневый */
+  --can-card-need-wash-foreground: oklch(1 0 0); /* Идеально белый текст */
+
+  --can-card-correct: oklch(0.85 0.19 85); /* Яркий, чистый желтый (сигнальный) */
+  --can-card-correct-foreground: oklch(0.15 0.05 85);
+  --can-card-bright-foreground: oklch(0.205 0 0);
+}
+
+.dark {
+  /* --- Тёмная тема (Dark Mode) --- */
+  --can-card-undefined: oklch(0.205 0 0);
+  --can-card-undefined-foreground: oklch(0.708 0 0);
+
+  --can-card-from-product: #f1f5f9;
+  --can-card-from-product-foreground: oklch(0.205 0 0);
+
+  --can-card-washed: oklch(0.465 0.145 224.23);
+  --can-card-washed-foreground: oklch(1 0 0);
+
+  --can-card-ready: oklch(0.485 0.155 142.92);
+  --can-card-ready-foreground: oklch(1 0 0);
+
+  --can-card-carantine: oklch(0.467 0.183 24.32);
+  --can-card-carantine-foreground: oklch(1 0 0);
+
+  --can-card-desinfected: oklch(0.468 0.207 325.6);
+  --can-card-desinfected-foreground: oklch(1 0 0);
+
+  --can-card-need-wash: #78350f;
+  --can-card-need-wash-foreground: oklch(1 0 0);
+
+  --can-card-correct: #facc15;
+  --can-card-correct-foreground: oklch(0.205 0 0);
+
+  --can-card-bright-foreground: oklch(1 0 0);
+}

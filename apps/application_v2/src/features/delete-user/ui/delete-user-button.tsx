@@ -18,15 +18,15 @@ import { TApplicationUserItem } from '@repo/schemas';
 import { useState } from 'react';
 import { useDeleteUser } from '../model/use-delete-user';
 
-interface IDeleteDocRowButtonProps {
+interface IDeleteUserButtonProps {
   row?: TApplicationUserItem;
   onSuccess?: () => void;
 }
 
-export function DeleteUserButton({ row, onSuccess }: IDeleteDocRowButtonProps) {
+export function DeleteUserButton({ row, onSuccess }: IDeleteUserButtonProps) {
   const { hasRole } = useRoles();
   const { user } = useAuth();
-  const { deleteUser, isPending: deletePending } = useDeleteUser();
+  const { deleteUserAsync, isPending: deletePending } = useDeleteUser();
   const [isOpen, setIsOpen] = useState(false);
 
   if (!row) return null;
@@ -35,14 +35,13 @@ export function DeleteUserButton({ row, onSuccess }: IDeleteDocRowButtonProps) {
   const isCanDelete = allowDelete && row.id !== user?.id;
 
   const handleDeleteClick = () => {
-    deleteUser(
+    setIsOpen(false);
+    deleteUserAsync(
       { id: row.id },
       {
-        onSuccess: () => {
-          setIsOpen(false);
+        onSettled: () => {
           onSuccess?.();
         },
-        onError: () => setIsOpen(false),
       },
     );
   };

@@ -19,7 +19,7 @@ const DEFAULT_STATES: Record<TRecordSearchMode, readonly THistoryStatus[]> = {
 
 export function useRecordListSearchParams(mode: TRecordSearchMode) {
   const { defaultPlantId, hasDefaultPlant } = useUserSettings();
-  /* Справочники */
+
   const { data: stateData } = trpc.application.main.historyType.getProductHistoryTypeList.useQuery(
     undefined,
     { staleTime: Infinity, gcTime: 1000 * 60 * 60 },
@@ -36,8 +36,6 @@ export function useRecordListSearchParams(mode: TRecordSearchMode) {
     ? stateData.filter((row) => targetStatusValues.includes(row.value)).map((row) => String(row.id))
     : undefined;
 
-  // const firstPlantId = plantData && plantData.length > 0 ? String(plantData[0].id) : undefined;
-  // const plantIdForReplace = hasDefaultPlant ? String(defaultPlantId) : firstPlantId;
   const plantIdForReplace = useMemo(() => {
     if (hasDefaultPlant && defaultPlantId !== null) {
       return String(defaultPlantId);
@@ -48,19 +46,6 @@ export function useRecordListSearchParams(mode: TRecordSearchMode) {
     return undefined;
   }, [hasDefaultPlant, defaultPlantId, plantData]);
 
-  /* Мемоизировання схема */
-  // const dynamicSchema = useMemo(
-  //   () => ({
-  //     ...recordListParamsSchema,
-  //     states: recordListParamsSchema.states.withDefault(defaultStatusIds ?? []),
-  //     // plants: recordListParamsSchema.plants.withDefault(firstPlantId ? [firstPlantId] : []),
-  //     plants: recordListParamsSchema.plants.withDefault(
-  //       plantIdForReplace ? [plantIdForReplace] : [],
-  //     ),
-  //   }),
-  //   // [defaultStatusIds, firstPlantId],
-  //   [defaultStatusIds, plantIdForReplace],
-  // );
   const dynamicSchema = useMemo(() => {
     return {
       ...recordListParamsSchema,

@@ -18,7 +18,7 @@ export function CanView() {
     return null;
   }
 
-  if (isSuccess && data?.length === 0) {
+  if (isSuccess && data?.rows.length === 0) {
     return <InfoPage message="Записей не найдено..." />;
   }
 
@@ -46,7 +46,8 @@ export function CanView() {
                 }
                 `}
           >
-            {isSuccess && data?.map((item) => <CanCard key={`Card_${item.id}`} item={item} />)}
+            {isSuccess &&
+              data?.rows?.map((item) => <CanCard key={`Card_${item.id}`} item={item} />)}
           </div>
           <div
             className={` card-anim grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 grid-rows-14 gap-2 overflow-hidden absolute top-0 w-full pt-1                
@@ -59,7 +60,8 @@ export function CanView() {
                  }
                 `}
           >
-            {isSuccess && data?.map((item) => <CanCard key={`Card_${item.id}`} item={item} />)}
+            {isSuccess &&
+              data?.rows?.map((item) => <CanCard key={`Card_${item.id}`} item={item} />)}
           </div>
         </div>
       </div>

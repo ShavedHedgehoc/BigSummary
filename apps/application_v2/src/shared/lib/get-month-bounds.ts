@@ -8,3 +8,7 @@ export const getMonthBounds = () => {
 export const getToday = (now = new Date()) => {
   return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
 };
+
+export const getTomorrow = (now = new Date()) => {
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+};

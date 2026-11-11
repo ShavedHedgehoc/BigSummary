@@ -22,6 +22,6 @@ export class DashTraceCanService implements IDashTraceCanService {
   async getCanDataList(
     input: TGetDashTraceCanDataListInput,
   ): Promise<TDashTraceCanDataListResponse> {
-    return this.traceCanCommonService.getCanDataList(input);
+    return this.traceCanCommonService.getCanDataList(input.filter);
   }
 }

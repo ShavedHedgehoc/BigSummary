@@ -3,6 +3,7 @@
 @import 'shadcn/tailwind.css';
 @import './status-colors.css';
 @import './record-cards-colors.css';
+@import './can-cards-colors.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -30,6 +31,25 @@
   --color-record-card-success: var(--record-card-success);
   --color-record-card-finished: var(--record-card-finished);
   --color-record-card-bright-fg: var(--record-card-bright-foreground);
+
+  --color-can-card-undefined: var(--can-card-undefined);
+  --color-can-card-undefined-foreground: var(--can-card-undefined-foreground);
+  --color-can-card-from-product: var(--can-card-from-product);
+  --color-can-card-from-product-foreground: var(--can-card-from-product-foreground);
+  --color-can-card-washed: var(--can-card-washed);
+  --color-can-card-washed-foreground: var(--can-card-washed-foreground);
+  --color-can-card-ready: var(--can-card-ready);
+  --color-can-card-ready-foreground: var(--can-card-ready-foreground);
+  --color-can-card-carantine: var(--can-card-carantine);
+  --color-can-card-carantine-foreground: var(--can-card-carantine-foreground);
+  --color-can-card-desinfected: var(--can-card-desinfected);
+  --color-can-card-desinfected-foreground: var(--can-card-desinfected-foreground);
+  --color-can-card-need-wash: var(--can-card-need-wash);
+  --color-can-card-need-wash-foreground: var(--can-card-need-wash-foreground);
+  --color-can-card-correct: var(--can-card-correct);
+  --color-can-card-correct-foreground: var(--can-card-correct-foreground);
+  --color-can-card-bright-foreground: var(--can-card-bright-foreground);
+
   --font-heading: var(--font-sans);
   --font-sans: 'Inter Variable', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);

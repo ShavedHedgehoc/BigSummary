@@ -11,8 +11,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  FilterMultiSelector,
 } from '@/shared/ui';
-import { FilterMultiSelector } from '@/shared/ui/filter-multi-selector';
+
 import { TApplicationHistoryTypeListResponse, TApplicationPlantListResponse } from '@repo/schemas';
 import { Search, SlidersHorizontal, Trash } from 'lucide-react';
 

@@ -1,7 +1,7 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { CanLocationDash } from '@/widgets/can-location-dash';
 
 export default async function TechnologistCansLocationPage() {
-  return <UnderConstructionCard />;
+  return <CanLocationDash />;
 }

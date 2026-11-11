@@ -10,7 +10,7 @@
     "build": "nest build",
     "start:prod": "node dist/main",
     "start": "nest start",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint": "cross-env NODE_ENV=development node --env-file=../../.development.env ./node_modules/eslint/bin/eslint.js \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "type-check": "tsc --noEmit"
   },
@@ -33,11 +33,13 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "superjson": "^2.2.6",
-    "tsx": "^4.23.15"
+    "tsx": "^4.23.15",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@nestjs/cli": "^11.0.21",
+    "@ts-safeql/eslint-plugin": "^5.4.2",
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^4.17.25",
     "@types/node": "^25.6.0",

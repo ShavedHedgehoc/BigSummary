@@ -63,22 +63,6 @@ export class HistoryCommonService {
     private recordCommonService: RecordCommonService,
   ) {}
 
-  // private async getOrCreateBoilByValue(value: string) {
-  //   if (value === '-' || !value) {
-  //     return null;
-  //   }
-
-  //   const boil = await pgPrisma.boils.upsert({
-  //     where: {
-  //       value: value,
-  //     },
-  //     update: {},
-  //     create: {
-  //       value: value,
-  //     },
-  //   });
-  //   return boil;
-  // }
   async getOrCreateBoilByValue(value: string, tx: TPrismaCtx = pgPrisma) {
     if (value === '-' || !value) {
       return null;

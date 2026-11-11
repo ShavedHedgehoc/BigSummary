@@ -5,8 +5,8 @@ export const getApplicationUserListInputSchema = z.object({
   name: z.string().default(''),
   nameAsc: z.boolean().default(true),
   email: z.string().default(''),
-  banned: z.array(z.number()).nullish(),
-  roles: z.array(z.number()).nullish(),
+  banned: z.array(z.string()).nullish(),
+  roles: z.array(z.string()).nullish(),
   limit: z.number().int().positive().default(10),
   page: z.number().int().nonnegative().default(1),
 });

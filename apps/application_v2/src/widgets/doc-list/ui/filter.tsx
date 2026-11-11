@@ -3,7 +3,7 @@ import { DocListFilter } from '@/features/filter-doc-list';
 import { getMonthBounds, getToday } from '@/shared/lib';
 import { format } from 'date-fns';
 import { ComponentProps } from 'react';
-import { usePlannerDocList } from '../model/use-planeer-doc-list';
+import { usePlannerDocList } from '../model/use-planner-doc-list';
 
 const formatDateToString = (date: Date) => format(date, 'yyyy-MM-dd');
 

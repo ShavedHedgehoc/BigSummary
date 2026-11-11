@@ -6,7 +6,7 @@ export function useDeleteUser() {
   const mutation = trpc.application.main.user.deleteUser.useMutation({
     onSuccess: () => {
       toast.success('Запись успешно удалена');
-      utils.application.main.user.getUserList.invalidate();
+      return utils.application.main.user.getUserList.invalidate();
     },
     onError: (err) => {
       toast.error(err.message || 'Произошла ошибка при удалении');

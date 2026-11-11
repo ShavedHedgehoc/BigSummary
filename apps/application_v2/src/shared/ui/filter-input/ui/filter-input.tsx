@@ -8,8 +8,8 @@ export interface IFilterInputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange'
 > {
-  value: string | undefined;
-  onChange: (val: string | undefined | null) => void;
+  value: string | undefined | null;
+  onChange: (val: string | null) => void;
   className?: string;
 }
 
@@ -30,7 +30,7 @@ export function FilterInput({ value, onChange, className, ...props }: IFilterInp
         value={value || ''}
         autoComplete="off"
         autoFocus={false}
-        onChange={(e) => onChange(e.target.value || undefined)}
+        onChange={(e) => onChange(e.target.value || null)}
         className={cn(
           'h-8 w-full rounded-md border border-input bg-background px-3 text-xs transition-colors',
           'pl-8',
@@ -48,7 +48,7 @@ export function FilterInput({ value, onChange, className, ...props }: IFilterInp
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              onChange(undefined);
+              onChange(null);
             }
           }}
           className={cn(

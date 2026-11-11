@@ -46,11 +46,6 @@ export function DocDetailSubHeader({ data, isLoading }: ISubheaderProps) {
   );
 }
 
-interface ISubheaderProps {
-  data?: TApplicationDocDetailResponse | null;
-  isLoading: boolean;
-}
-
 function DocDetailMobileSubHeaderSkeleton() {
   return (
     <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4 animate-pulse">

@@ -1,27 +1,15 @@
-import { trpc } from '@/shared/api';
 import { useIsMobile } from '@/shared/lib';
-import { keepPreviousData } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { userListColumns } from '../ui/columns';
 import { ITablePaginationProps } from '@/shared/ui';
 import { UserListParams, useUserListSearchParams } from '@/entities/user/index.server';
-import { useUserListUiParams } from './use-user-list-ui-params';
+import { useUserListUiParams } from '@/entities/user/index.client';
 
 export function useUserList() {
   const isMobile = useIsMobile();
 
-  const { params, setParams } = useUserListSearchParams();
+  const { userListData, isLoading, roleData, params, setParams } = useUserListSearchParams();
   const { params: uiParams, setParams: setUiParams } = useUserListUiParams();
-
-  const { data: roleData } = trpc.application.main.role.getRoleList.useQuery(undefined, {
-    staleTime: Infinity,
-    gcTime: 1000 * 60 * 60,
-  });
-
-  const { data, isLoading } = trpc.application.main.user.getUserList.useQuery(params, {
-    placeholderData: keepPreviousData,
-    staleTime: 30 * 1000,
-  });
 
   const columns = useMemo(() => {
     const base = [...userListColumns];
@@ -31,23 +19,30 @@ export function useUserList() {
   const hasSelectedRow = uiParams.selectedUserId !== '';
   const targetId = uiParams.selectedUserId ? Number(uiParams.selectedUserId) : null;
   const selectedRow =
-    data?.rows && targetId ? data.rows.find((row) => row.id === targetId) : undefined;
+    userListData?.rows && targetId
+      ? userListData.rows.find((row) => row.id === targetId)
+      : undefined;
 
-  const clearSelected = () => setUiParams({ selectedUserId: '' });
+  const clearSelected = () => setUiParams({ selectedUserId: null });
 
   const paginationProps: ITablePaginationProps<UserListParams> = {
-    total: data?.total ?? 0,
-    totalPages: data?.totalPages ?? 0,
+    total: userListData?.total ?? 0,
+    totalPages: userListData?.totalPages ?? 0,
     params: params,
     setParams: setParams,
     onClearSelection: clearSelected,
   };
 
+  const resetId = uiParams.resetPasswordUserId;
+
+  const onCloseResetDialog = () => setUiParams({ resetPasswordUserId: null }, { shallow: true });
+
   return {
     params,
     setParams,
+    uiParams,
     setUiParams,
-    data,
+    userListData,
     roleData,
     isLoading,
     columns,
@@ -56,5 +51,7 @@ export function useUserList() {
     clearSelected,
     isMobile,
     paginationProps,
+    resetId,
+    onCloseResetDialog,
   };
 }

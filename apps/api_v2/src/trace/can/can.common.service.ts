@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import {
+  TApplicationTraceCanDataItem,
+  TApplicationTraceCanDataListResponse,
   TDashTraceCanDataItem,
   TDashTraceCanDataListResponse,
-  TDashTraceCanVolumeListResponse,
-  TGetDashTraceCanDataListInput,
+  TGetTraceCanDataListInput,
+  TTraceCanVolumeListResponse,
 } from '@repo/schemas';
-import { CanRecords, mssqlPrisma, Prisma } from '@repo/db-mssql';
+import { mssqlPrisma, Prisma } from '@repo/db-mssql';
 
 const canWithRelationsInclude = {
   CanRecords: {
@@ -22,9 +24,11 @@ const canWithRelationsInclude = {
         },
       },
     },
+    orderBy: { CanRecordPK: 'desc' },
   },
   CanLocations: {
     include: { Plants: true },
+    orderBy: { CanLocationPK: 'desc' },
   },
 } satisfies Prisma.CansInclude;
 
@@ -32,48 +36,35 @@ type TCanWithRelations = Prisma.CansGetPayload<{
   include: typeof canWithRelationsInclude;
 }>;
 
-const offset = 3;
-
 @Injectable()
 export class TraceCanCommonService {
-  private isUpdated(state: CanRecords) {
-    return (
-      new Date().getTime() - (new Date(state.CreateDate).getTime() - offset * 3600 * 1000) <
-      1000 * 60 * 2
-    );
-  }
-
-  private stateTime(state: CanRecords) {
-    return new Date(new Date(state.CreateDate).getTime() - offset * 3600 * 1000);
-  }
-
-  private async getCanIdsByStateTypeIds(typeArr: number[]): Promise<number[]> {
+  private async getCanIdsByCanStateIds(typeArr: number[]): Promise<number[]> {
     if (typeArr.length === 0) {
       return [];
     }
 
-    const maxRecordsGroup = await mssqlPrisma.canRecords.groupBy({
+    const maxCanRecordIdsGroup = await mssqlPrisma.canRecords.groupBy({
       by: ['CanPK'],
       _max: {
         CanRecordPK: true,
       },
     });
 
-    const latestRecordsPKs = maxRecordsGroup
+    const latestCanRecordsIds = maxCanRecordIdsGroup
       .map((group) => group._max.CanRecordPK)
-      .filter((id): id is number => id !== null && id !== undefined);
+      .filter((CanRecordPK): CanRecordPK is number => CanRecordPK !== null);
 
-    if (latestRecordsPKs.length === 0) {
+    if (latestCanRecordsIds.length === 0) {
       return [];
     }
-    const validRecords = await mssqlPrisma.canRecords.findMany({
+    const validCans = await mssqlPrisma.canRecords.findMany({
       where: {
-        CanRecordPK: { in: latestRecordsPKs },
+        CanRecordPK: { in: latestCanRecordsIds },
         CanStatePK: { in: typeArr },
       },
       select: { CanPK: true },
     });
-    return validRecords.map((h) => h.CanPK);
+    return validCans.map((h) => h.CanPK);
   }
 
   private async getCanIdsByPlantIds(typeArr: number[]): Promise<number[]> {
@@ -81,79 +72,182 @@ export class TraceCanCommonService {
       return [];
     }
 
-    const maxLocationsGroup = await mssqlPrisma.canLocations.groupBy({
+    const maxCanLocationIdsGroup = await mssqlPrisma.canLocations.groupBy({
       by: ['CanPK'],
       _max: {
         CanLocationPK: true,
       },
     });
 
-    const latestLocationsPKs = maxLocationsGroup
+    const latestCanLocationsIds = maxCanLocationIdsGroup
       .map((group) => group._max.CanLocationPK)
-      .filter((id): id is number => id !== null && id !== undefined);
+      .filter((CanLocationPK): CanLocationPK is number => CanLocationPK !== null);
 
-    if (latestLocationsPKs.length === 0) {
+    if (latestCanLocationsIds.length === 0) {
       return [];
     }
-    const validLocations = await mssqlPrisma.canLocations.findMany({
+    const validCans = await mssqlPrisma.canLocations.findMany({
       where: {
-        CanLocationPK: { in: latestLocationsPKs },
+        CanLocationPK: { in: latestCanLocationsIds },
         PlantPK: { in: typeArr },
       },
       select: { CanPK: true },
     });
-    return validLocations.map((h) => h.CanPK);
+    return validCans.map((h) => h.CanPK);
   }
 
-  private async getCansIdsInTransit(condition: boolean): Promise<number[]> {
-    const maxLocationsGroup = await mssqlPrisma.canLocations.groupBy({
+  private async getCanIdsByTransit(isTransit: boolean): Promise<number[]> {
+    const maxCanLocationIdsGroup = await mssqlPrisma.canLocations.groupBy({
       by: ['CanPK'],
-      _max: {
-        CanLocationPK: true,
-      },
+      _max: { CanLocationPK: true },
     });
-    const latestLocationsPKs = maxLocationsGroup
+
+    const latestCanLocationsIds = maxCanLocationIdsGroup
       .map((group) => group._max.CanLocationPK)
-      .filter((id): id is number => id !== null && id !== undefined);
+      .filter((id): id is number => id !== null);
 
-    if (latestLocationsPKs.length === 0) {
-      return [];
-    }
+    if (latestCanLocationsIds.length === 0) return [];
 
-    const validLocations = await mssqlPrisma.canLocations.findMany({
+    const validCans = await mssqlPrisma.canLocations.findMany({
       where: {
-        CanLocationPK: { in: latestLocationsPKs },
-        Transit: condition,
+        CanLocationPK: { in: latestCanLocationsIds },
+        Transit: isTransit,
       },
       select: { CanPK: true },
     });
-
-    return validLocations.map((l) => l.CanPK);
+    return validCans.map((h) => h.CanPK);
   }
 
-  private canResult(item: TCanWithRelations): TDashTraceCanDataItem {
+  private canResult(item: TCanWithRelations, includeRecords: true): TApplicationTraceCanDataItem;
+  private canResult(item: TCanWithRelations, includeRecords: false): TDashTraceCanDataItem;
+  private canResult(
+    item: TCanWithRelations,
+    includeRecords: boolean,
+  ): TApplicationTraceCanDataItem | TDashTraceCanDataItem {
+    const nowTime = Date.now();
     const recordsCount = item.CanRecords.length;
     const locationsCount = item.CanLocations.length;
-    const lastRecord = recordsCount > 0 ? item.CanRecords[item.CanRecords.length - 1] : null;
-    const lastLocation =
-      locationsCount > 0 ? item.CanLocations[item.CanLocations.length - 1] : null;
+
+    const lastRecord = recordsCount > 0 ? item.CanRecords[0] : null;
+    const stateValue = lastRecord?.CanStates?.CanStateName ?? null;
+    const state = lastRecord?.CanStates?.CanStateDescription ?? null;
+    const stateTime = lastRecord?.CreateDate ?? null;
+    const isUpdated = stateTime ? nowTime - new Date(stateTime).getTime() < 1000 * 60 * 2 : false;
+    const baseContain = lastRecord?.Batchs?.BatchName ?? null;
+    const baseContainMarking =
+      lastRecord?.Batchs?.BtProducts?.[0]?.Products?.ProductMarking ?? null;
+    const author = lastRecord?.Authors?.AuthorName ?? null;
+
+    const lastLocation = locationsCount > 0 ? item.CanLocations[0] : null;
+    const transit = lastLocation?.Transit ?? null;
+    const plant = lastLocation?.Plants?.PlantAlias ?? null;
+
+    if (includeRecords) {
+      const states = [...item.CanRecords].slice(0, 20).map((record) => ({
+        state: record.CanStates?.CanStateDescription ?? null,
+        stateValue: record.CanStates?.CanStateName ?? null,
+        stateTime: record.CreateDate,
+        author: record.Authors?.AuthorName ?? null,
+        baseContain: record.Batchs?.BatchName ?? null,
+        baseContainMarking: record.Batchs?.BtProducts?.[0]?.Products?.ProductMarking ?? null,
+      }));
+      return {
+        id: item.CanPK,
+        name: item.CanName,
+        volume: item.CanVolume.toNumber(),
+        baseContain,
+        baseContainMarking,
+        stateValue,
+        state,
+        stateTime,
+        author,
+        isUpdated,
+        transit,
+        plant,
+        states,
+      };
+    }
     return {
       id: item.CanPK,
       name: item.CanName,
       volume: item.CanVolume.toNumber(),
-      baseContain: lastRecord?.Batchs?.BatchName ?? null,
-      baseContainMarking: lastRecord?.Batchs?.BtProducts?.[0]?.Products?.ProductMarking ?? null,
-      stateValue: lastRecord?.CanStates?.CanStateName ?? '-',
-      state: lastRecord?.CanStates?.CanStateDescription ?? '-',
-      stateTime: lastRecord ? this.stateTime(lastRecord) : null,
-      author: lastRecord?.Authors?.AuthorName ?? null,
-      isUpdated: lastRecord ? this.isUpdated(lastRecord) : false,
-      plant: lastLocation?.Plants?.PlantName ?? null,
-      transit: lastLocation?.Transit ?? false,
+      baseContain,
+      baseContainMarking,
+      stateValue,
+      state,
+      stateTime,
+      author,
+      isUpdated,
+      transit,
+      plant,
     };
   }
 
-  async getCanVolumesList(): Promise<TDashTraceCanVolumeListResponse> {
+  async getCanDataList(
+    input: TGetTraceCanDataListInput & { includeRecords: true },
+  ): Promise<TApplicationTraceCanDataListResponse>;
+  async getCanDataList(
+    input: TGetTraceCanDataListInput & { includeRecords?: false },
+  ): Promise<TDashTraceCanDataListResponse>;
+  async getCanDataList(input: TGetTraceCanDataListInput & { includeRecords?: boolean }) {
+    const { can, states, plants, volumes, transit, includeRecords = false } = input;
+
+    const andConditions: Prisma.CansWhereInput[] = [];
+
+    if (can !== '') {
+      andConditions.push({ CanName: { contains: can } });
+    }
+
+    if (states && states.length > 0) {
+      const ids = await this.getCanIdsByCanStateIds(states);
+      if (ids.length === 0) {
+        return { rows: [], total: 0 };
+      }
+      andConditions.push({
+        CanPK: { in: ids },
+      });
+    }
+    if (plants && plants.length > 0) {
+      const ids = await this.getCanIdsByPlantIds(plants);
+      if (ids.length === 0) {
+        return { rows: [], total: 0 };
+      }
+      andConditions.push({
+        CanPK: { in: ids },
+      });
+    }
+
+    if (typeof transit === 'boolean') {
+      const ids = await this.getCanIdsByTransit(transit);
+      if (ids.length === 0) {
+        return { rows: [], total: 0 };
+      }
+      andConditions.push({ CanPK: { in: ids } });
+    }
+
+    if (volumes && volumes.length > 0) {
+      andConditions.push({
+        CanVolume: { in: volumes },
+      });
+    }
+    const cans = await mssqlPrisma.cans.findMany({
+      where: { AND: andConditions },
+      include: canWithRelationsInclude,
+      orderBy: {
+        CanOrderValue: 'asc',
+      },
+    });
+
+    if (includeRecords) {
+      const rows = cans.map((item) => this.canResult(item, true));
+      return { rows, total: rows.length };
+    }
+
+    const rows = cans.map((item) => this.canResult(item, false));
+    return { rows, total: rows.length };
+  }
+
+  async getCanVolumesList(): Promise<TTraceCanVolumeListResponse> {
     const volumes = await mssqlPrisma.cans.findMany({
       select: {
         CanVolume: true,
@@ -161,46 +255,5 @@ export class TraceCanCommonService {
       distinct: ['CanVolume'],
     });
     return volumes.map((can) => ({ volume: can.CanVolume.toNumber() }));
-  }
-
-  async getCanDataList(
-    input: TGetDashTraceCanDataListInput,
-  ): Promise<TDashTraceCanDataListResponse> {
-    const { filter } = input;
-    const andConditions: Prisma.CansWhereInput[] = [];
-    if (filter.can !== '') {
-      andConditions.push({
-        CanName: { contains: filter.can },
-      });
-    }
-    if (filter.volumes && filter.volumes.length > 0) {
-      andConditions.push({
-        CanVolume: { in: filter.volumes },
-      });
-    }
-    if (filter.states && filter.states.length > 0) {
-      const idss = await this.getCanIdsByStateTypeIds(filter.states);
-      andConditions.push({
-        CanPK: { in: idss },
-      });
-    }
-    if (filter.plants && filter.plants.length > 0) {
-      const idsp = await this.getCanIdsByPlantIds(filter.plants);
-      andConditions.push({
-        CanPK: { in: idsp },
-      });
-    }
-    const idst = await this.getCansIdsInTransit(filter.transit);
-    andConditions.push({
-      CanPK: { in: idst },
-    });
-
-    const items = (await mssqlPrisma.cans.findMany({
-      where: { AND: andConditions },
-      include: canWithRelationsInclude,
-      orderBy: { CanOrderValue: 'asc' },
-    })) as TCanWithRelations[];
-
-    return items.map((item) => this.canResult(item));
   }
 }

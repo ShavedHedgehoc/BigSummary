@@ -6,14 +6,31 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/shared/ui';
 import { useState } from 'react';
 import { HISTORY_PANEL_CONFIG } from '../model/history-panel.config';
 import { TSidePanelContext } from './side-panel';
+import { CanStateTable } from '@/features/view-can-states/ui/can-state-table';
 
 export function HistoryPanel(props: TSidePanelContext) {
   const [isAction, setIsAction] = useState(false);
 
-  if (props.mode === 'upload_doc' || props.mode === 'admin_users' || !props.row) {
+  if (
+    props.mode === 'upload_doc' ||
+    props.mode === 'wght_report' ||
+    props.mode === 'admin_users' ||
+    props.mode === 'conveyors' ||
+    // props.mode === 'can_dash' ||
+    !props.row
+  ) {
     return null;
   }
   const config = HISTORY_PANEL_CONFIG[props.mode];
+
+  const renderSubheadere = props.mode === 'can_dash' ? null : <FormSubheader row={props.row} />;
+
+  const renderTable =
+    props.mode === 'can_dash' ? (
+      <CanStateTable rows={props.row.states ?? []} onClose={props.onClose} />
+    ) : (
+      <HistoryTable rows={props.row.histories ?? []} onClose={props.onClose} />
+    );
 
   return (
     <Card className="w-full h-full flex flex-col rounded-xl shadow-none ring-0 ring-offset-0 outline-none border-0 min-h-0 bg-card text-card-foreground">
@@ -22,9 +39,7 @@ export function HistoryPanel(props: TSidePanelContext) {
           <h2 className="mb-4 @max-6xl/main:mt-6 transition-all">{config.getTitle(isAction)}</h2>
         </div>
         {config.hasSubheader && (
-          <div className="max-w-2xl mx-auto w-full px-4 md:px-6">
-            <FormSubheader row={props.row} />
-          </div>
+          <div className="max-w-2xl mx-auto w-full px-4 md:px-6">{renderSubheadere}</div>
         )}
       </CardHeader>
       <CardContent className="grow overflow-y-auto p-0 min-h-0">
@@ -33,7 +48,7 @@ export function HistoryPanel(props: TSidePanelContext) {
             {config.getActionForm(props, setIsAction)}
           </div>
         ) : (
-          <HistoryTable rows={props.row.histories ?? []} onClose={props.onClose} />
+          renderTable
         )}
       </CardContent>
       <CardFooter className="mt-auto border-t border-border/40 bg-muted/20 px-4 h-14 flex items-center justify-center shrink-0 w-full">

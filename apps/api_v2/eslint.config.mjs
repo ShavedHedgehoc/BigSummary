@@ -3,10 +3,11 @@ import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import * as tsSafeQL from '@ts-safeql/eslint-plugin';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ['eslint.config.mjs', 'safeql.config.ts'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -25,8 +26,18 @@ export default tseslint.config(
       },
     },
   },
+
   {
+    plugins: {
+      '@ts-safeql': tsSafeQL,
+    },
     rules: {
+      '@ts-safeql/check-sql': [
+        'error',
+        {
+          useConfigFile: true,
+        },
+      ],
       // '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',

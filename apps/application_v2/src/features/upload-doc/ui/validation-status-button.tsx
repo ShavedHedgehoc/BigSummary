@@ -34,7 +34,7 @@ export function ValidationStatusButton({
         <div className="flex flex-row gap-2 w-full items-center justify-start text-destructive bg-red-50 dark:bg-transparent text-xs dark:border dark:border-destructive rounded-md p-2">
           <Ban className="h-4 w-4 shrink-0" />
           <span className="whitespace-normal text-left wrap-break-words">
-            {`В файле ${errors.length} ошибок. ${canViewErrors ?? 'Просмотр не доступен'}`}
+            {`В файле ${errors.length} ошибок. ${!canViewErrors ? 'Просмотр не доступен' : ''}`}
           </span>
         </div>
       ) : (

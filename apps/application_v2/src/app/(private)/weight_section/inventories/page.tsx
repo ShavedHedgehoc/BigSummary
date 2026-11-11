@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { InventoryList } from '@/widgets/inventory-list';
 
-export default async function WeightSectionInventoriesPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function WeightSectionInventoriesPage({ searchParams }: PageProps) {
+  return <InventoryList searchParams={searchParams} />;
 }
