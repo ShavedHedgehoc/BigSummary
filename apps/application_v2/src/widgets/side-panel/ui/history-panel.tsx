@@ -13,6 +13,7 @@ export function HistoryPanel(props: TSidePanelContext) {
 
   if (
     props.mode === 'upload_doc' ||
+    props.mode === 'wght_report' ||
     props.mode === 'admin_users' ||
     props.mode === 'conveyors' ||
     // props.mode === 'can_dash' ||
@@ -47,7 +48,6 @@ export function HistoryPanel(props: TSidePanelContext) {
             {config.getActionForm(props, setIsAction)}
           </div>
         ) : (
-          // <HistoryTable rows={props.row.histories ?? []} onClose={props.onClose} />
           renderTable
         )}
       </CardContent>

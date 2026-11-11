@@ -2,6 +2,7 @@ import { cn } from '@/shared/lib';
 import { TCommonTraceCanRecordItem } from '@repo/schemas';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
+import { CAN_STATE_CONFIG } from '../model/can-state-config';
 
 export const baseCanStateColumns: ColumnDef<TCommonTraceCanRecordItem>[] = [
   {
@@ -31,13 +32,15 @@ export const baseCanStateColumns: ColumnDef<TCommonTraceCanRecordItem>[] = [
       <div className="text-left font-semibold text-xs text-muted-foreground">Статус</div>
     ),
     cell: ({ row }) => {
-      //   const config = getStatusConfig(row.original.stateValue);
+      const currentStatus = row.original.stateValue;
+      const configKey = (currentStatus ?? 'null') as keyof typeof CAN_STATE_CONFIG;
+      const config = CAN_STATE_CONFIG[configKey];
       return (
         <div className="text-left tabular-nums  text-xs text-foreground ">
           <div className="text-[10px] uppercase text-foreground ">{row.original.author ?? '-'}</div>
           <div
             className={cn(
-              //   config.color,
+              config.text,
               'font-semibold  text-[10px] uppercase tracking-wider min-w-25 whitespace-normal wrap-break-words',
             )}
           >
@@ -71,18 +74,4 @@ export const baseCanStateColumns: ColumnDef<TCommonTraceCanRecordItem>[] = [
       );
     },
   },
-  //   {
-  //     accessorKey: 'desktop-note',
-  //     meta: { grow: false, hideOnMobile: true, hideOnDesktop: false },
-  //     header: () => (
-  //       <div className="text-left font-semibold text-xs text-muted-foreground">Прим.</div>
-  //     ),
-  //     cell: ({ row }) => <HistoryNoteCell note={row.original.history_note} />,
-  //   },
-  //   {
-  //     accessorKey: 'mobile-note',
-  //     meta: { grow: false, hideOnMobile: false, hideOnDesktop: true },
-  //     header: () => null,
-  //     cell: ({ row }) => <HistoryNoteCell note={row.original.history_note} />,
-  //   },
 ];

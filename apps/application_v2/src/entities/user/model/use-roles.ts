@@ -9,6 +9,7 @@ export function useRoles() {
   const isAdmin = userRoles.includes(DB_ROLES.ADMIN);
   const isPlanner = userRoles.includes(DB_ROLES.PLANNER);
   const isLaboratory = userRoles.includes(DB_ROLES.LABORATORY);
+  const isWeighter = userRoles.includes(DB_ROLES.WEIGHER);
 
   const hasRole = (role: string | string[]) => {
     if (Array.isArray(role)) {
@@ -22,6 +23,7 @@ export function useRoles() {
     isAdmin,
     isPlanner,
     isLaboratory,
+    isWeighter,
     hasRole,
   };
 }

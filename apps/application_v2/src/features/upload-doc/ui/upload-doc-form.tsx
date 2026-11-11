@@ -23,6 +23,7 @@ interface TUploadDocFormProps {
   plantData: TApplicationPlantListResponse;
 }
 
+const MAX_ERRORS_LENGTH = 1000 as const;
 export function UploadDocForm({ plantData = [] }: TUploadDocFormProps) {
   const { form, uploadPending, onSubmit, validate, resetXlsx, ...state } = useDocUploadForm();
 
@@ -40,6 +41,7 @@ export function UploadDocForm({ plantData = [] }: TUploadDocFormProps) {
   }, [plantData]);
 
   const hasErrors = state.errors && state.errors.length > 0;
+  const canViewErrors = hasErrors && state.errors.length < MAX_ERRORS_LENGTH;
 
   if (uploadPending) return <LoaderCard />;
 
@@ -48,7 +50,11 @@ export function UploadDocForm({ plantData = [] }: TUploadDocFormProps) {
       <Tabs defaultValue="form" className="w-full h-full flex flex-col min-h-0 px-4">
         <TabsList className="grid w-full grid-cols-2 mb-4">
           <TabsTrigger value="form">Форма загрузки</TabsTrigger>
-          <TabsTrigger value="errors" disabled={!hasErrors} className="text-status-fail">
+          <TabsTrigger
+            value="errors"
+            disabled={!hasErrors || !canViewErrors}
+            className="text-status-fail"
+          >
             Ошибки ({state.errors.length})
           </TabsTrigger>
         </TabsList>

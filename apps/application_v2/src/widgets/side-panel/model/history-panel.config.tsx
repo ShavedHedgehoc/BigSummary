@@ -16,7 +16,7 @@ interface IHistoryModeConfig {
 }
 
 export const HISTORY_PANEL_CONFIG: Record<
-  Exclude<THistoryMode, 'upload_doc' | 'admin_users' | 'conveyors'>,
+  Exclude<THistoryMode, 'upload_doc' | 'admin_users' | 'conveyors' | 'wght_report'>,
   IHistoryModeConfig
 > = {
   planner: {

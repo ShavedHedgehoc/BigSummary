@@ -33,6 +33,11 @@ export type THistoryMutationContextProps =
       onChange?: never;
     }
   | {
+      mode: 'wght_report';
+      row?: never;
+      onChange?: never;
+    }
+  | {
       mode: 'admin_users';
       row: TApplicationUserItem | undefined;
       onChange?: never;

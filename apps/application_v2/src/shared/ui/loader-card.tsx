@@ -2,7 +2,11 @@ import { Loader2 } from 'lucide-react';
 import { Card } from '@/shared/ui';
 import { cn } from '@/shared//lib';
 
-export function LoaderCard() {
+interface ILoaderCardProps {
+  message?: string;
+}
+
+export function LoaderCard({ message }: ILoaderCardProps) {
   return (
     <Card
       className={cn(
@@ -12,7 +16,7 @@ export function LoaderCard() {
       )}
     >
       <Loader2 className="h-6 w-6 animate-spin" />
-      <p>Загрузка данных...</p>
+      <p className="text-xl">{message || 'Загрузка данных...'}</p>
     </Card>
   );
 }

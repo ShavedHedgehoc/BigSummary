@@ -15,7 +15,6 @@ function SelectHeader() {
   return (
     <GenericSelectHeader
       selectedId={currentSelectedId}
-
       onClear={() => setParams({ selectedBatchId: '', selectedProductId: '' })}
     />
   );
@@ -40,12 +39,19 @@ function SelectCell({
     <GenericSelectCell
       recordId={recordId}
       selectedId={currentSelectedId}
-      onSelect={() =>
-        setParams({
-          selectedBatchId: String(batchId),
-          selectedProductId: String(productId),
-        })
-      }
+      onSelect={(nextId) => {
+        if (!nextId) {
+          setParams({
+            selectedBatchId: '',
+            selectedProductId: '',
+          });
+        } else {
+          setParams({
+            selectedBatchId: String(batchId),
+            selectedProductId: String(productId),
+          });
+        }
+      }}
     />
   );
 }

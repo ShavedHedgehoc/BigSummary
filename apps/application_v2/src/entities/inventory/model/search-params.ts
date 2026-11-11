@@ -31,5 +31,5 @@ export const inventoryDetailParamsSchema = {
   applyFilter: parseAsBoolean.withDefault(false),
 } satisfies Record<keyof Omit<TApplicationGetTraceInventoryDetailInput, 'inventoryId'>, unknown>;
 
-export type InventoryDetailParams = inferParserType<typeof inventoryDetailParamsSchema>;
-export const inventoryDetailParamsCache = createSearchParamsCache(inventoryDetailParamsSchema);
+// export type InventoryDetailParams = inferParserType<typeof inventoryDetailParamsSchema>;
+// export const inventoryDetailParamsCache = createSearchParamsCache(inventoryDetailParamsSchema);

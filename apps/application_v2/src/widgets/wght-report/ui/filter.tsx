@@ -7,6 +7,11 @@ import {
   useTraceBoilWghtReportSearchParams,
 } from '@/entities/trace-boil';
 import { TraceWghtReportFilter } from '@/features/filter-trace-wght-report';
+import { getToday, getTomorrow } from '@/shared/lib';
+import { format } from 'date-fns';
+import { DownloadWghtReportButton } from '@/features/download-wght-report';
+
+const formatDateToString = (date: Date) => format(date, 'yyyy-MM-dd');
 
 export default function WeightSectionWghtReportFilter() {
   const { setUiParams } = useWghtReport();
@@ -58,10 +63,13 @@ export default function WeightSectionWghtReportFilter() {
   const resetParams = () => {
     setParams(
       {
+        startDate: null,
+        endDate: null,
         productId: null,
         batchName: null,
         plants: null,
-
+        compare: true,
+        sortByBatch: false,
         page: 1,
       },
       {
@@ -70,11 +78,43 @@ export default function WeightSectionWghtReportFilter() {
     );
   };
 
-  const handleReset = () => resetParams();
+  const todayStr = formatDateToString(getToday());
+  const isNotToday =
+    formatDateToString(params.startDate) !== todayStr ||
+    formatDateToString(params.endDate) !== todayStr;
+
+  const tomorrowStr = formatDateToString(getTomorrow());
+  const isNotTomorrow =
+    formatDateToString(params.startDate) !== tomorrowStr ||
+    formatDateToString(params.endDate) !== tomorrowStr;
+
+  const handleSetToday = () => {
+    const freshToday = getToday();
+    setParams({ startDate: freshToday, endDate: freshToday, page: 1 }, { shallow: false });
+  };
+  const handleSetTomorrow = () => {
+    const freshTomorrow = getTomorrow();
+    setParams({ startDate: freshTomorrow, endDate: freshTomorrow, page: 1 }, { shallow: false });
+  };
+
   const handleResetAll = () => {
     resetParams();
-    setUiParams({ selectedBatchId: null, selectedProductId: null }, { shallow: true });
+    setUiParams(
+      {
+        selectedBatchId: null,
+        selectedProductId: null,
+      },
+      { shallow: true },
+    );
   };
+
+  const isDirty =
+    isNotToday ||
+    params.productId !== '' ||
+    params.batchName !== '' ||
+    (params.plants && params.plants.length > 0) ||
+    params.compare === false ||
+    params.sortByBatch === true;
 
   return (
     <TraceWghtReportFilter
@@ -83,12 +123,19 @@ export default function WeightSectionWghtReportFilter() {
       startDate={params.startDate}
       endDate={params.endDate}
       selectedPlants={params.plants}
+      compare={params.compare}
+      sortByBatch={params.sortByBatch}
       plantData={plantData}
+      isNotToday={isNotToday}
+      isNotTomorrow={isNotTomorrow}
+      isDirty={isDirty}
+      handleSetToday={handleSetToday}
+      handleSetTomorrow={handleSetTomorrow}
       onDateChange={onDateChange}
       onFilterChangeThrottle={onFilterChangeThrottle}
       onFilterChange={onFilterChange}
-      //   handleReset={handleReset}
       handleResetAll={handleResetAll}
+      actionButton={<DownloadWghtReportButton />}
     />
   );
 }

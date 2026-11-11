@@ -12,9 +12,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - summary-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - summary-data:/var/lib/postgresql/data    
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]

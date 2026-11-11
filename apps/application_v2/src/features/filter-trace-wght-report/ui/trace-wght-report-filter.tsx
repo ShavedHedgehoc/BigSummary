@@ -1,7 +1,6 @@
 'use client';
 
-import { DAYS_TO_EXPIRE_OPTIONS } from '@/entities/inventory';
-import { cn, useIsMobile } from '@/shared/lib';
+import { useIsMobile } from '@/shared/lib';
 import {
   Button,
   FilterDatePicker,
@@ -16,8 +15,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/shared/ui';
-import { TApplicationPlantListResponse, TTracePlantListResponse } from '@repo/schemas';
-import { Search, SlidersHorizontal, Trash } from 'lucide-react';
+import { TTracePlantListResponse } from '@repo/schemas';
+import { Calendar, Search, SlidersHorizontal, Trash } from 'lucide-react';
 import { useId, useMemo, useState, useSyncExternalStore } from 'react';
 
 interface TTraceWghtReportFilterProps {
@@ -27,12 +26,21 @@ interface TTraceWghtReportFilterProps {
   startDate: Date | undefined;
   endDate: Date | undefined;
   selectedPlants: string[] | undefined;
-  //   isNotToday: boolean;
+  compare: boolean;
+  sortByBatch: boolean;
+  isNotToday: boolean;
+  isNotTomorrow: boolean;
+  isDirty: boolean;
   actionButton?: React.ReactNode;
   onDateChange: (type: 'start' | 'end', val: Date | undefined) => void;
-  //   handleSetToday: () => void;
+  handleSetToday: () => void;
+  handleSetTomorrow: () => void;
   handleResetAll: () => void;
-  onFilterChange: (newFilters: { plants?: string[] | null }) => void;
+  onFilterChange: (newFilters: {
+    plants?: string[] | null;
+    compare?: boolean;
+    sortByBatch?: boolean;
+  }) => void;
   onFilterChangeThrottle: (newFilters: {
     productId?: string | null;
     batchName?: string | null;
@@ -46,11 +54,15 @@ export function TraceWghtReportFilter({
   startDate,
   endDate,
   selectedPlants,
-  //   isNotToday,
+  compare,
+  sortByBatch,
+  isNotToday,
+  isNotTomorrow,
+  isDirty,
   actionButton,
-
   onDateChange,
-  //   handleSetToday,
+  handleSetToday,
+  handleSetTomorrow,
   handleResetAll,
   onFilterChange,
   onFilterChangeThrottle,
@@ -58,11 +70,13 @@ export function TraceWghtReportFilter({
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
 
-  const plantSelectorId = useId();
-
+  const startDateId = useId();
+  const endDateId = useId();
   const productCodeId = useId();
-  //   const daysRestSelectorId = useId();
-  //   const daysToExpSelectorId = useId();
+  const batchNameId = useId();
+  const plantSelectorId = useId();
+  const compareSelectorId = useId();
+  const sortSelectorId = useId();
 
   const isMounted = useSyncExternalStore(
     subscribeToNothing,
@@ -76,7 +90,7 @@ export function TraceWghtReportFilter({
     if (Array.isArray(plantData)) {
       baseItems.push(
         ...plantData.map((plant) => ({
-          value: String(plant.PlantPK),
+          value: String(plant.PlantAlias),
           description: plant.PlantName,
         })),
       );
@@ -85,45 +99,36 @@ export function TraceWghtReportFilter({
     return baseItems;
   }, [plantData]);
 
-  const isDirty = Boolean(
-    productId !== '' || batchName !== '',
-    // isApplyFilter ||
-    // (selectedDaysToExp && selectedDaysToExp[0] !== DAYS_TO_EXPIRE_OPTIONS[0]),
+  const compareListItems = useMemo<IListItem[]>(
+    () => [
+      { value: 'true', description: 'Только несовпадения' },
+      { value: 'false', description: 'Все записи' },
+    ],
+    [],
   );
+
+  const compareValue = compare ? ['true'] : ['false'];
+
+  const sortListItems = useMemo<IListItem[]>(
+    () => [
+      { value: 'true', description: 'По партии' },
+      { value: 'false', description: 'По продукту' },
+    ],
+    [],
+  );
+
+  const sortValue = sortByBatch ? ['true'] : ['false'];
 
   const renderFilterFields = () => (
     <>
-      {/* <FilterInput
-        id={productCodeId}
-        className="w-full"
-        placeholder="Поиск по коду 1С"
-        value={productCode ?? ''}
-        onChange={(value) => onFilterChangeThrottle({ productCode: value })}
-      />
-      <FilterSelector
-        id={daysRestSelectorId}
-        className="w-full"
-        items={expFilterListItems}
-        value={selectedDaysToExp ?? []}
-        onChange={(value) => onFilterChange({ dayToExpireRest: value })}
-      />
-      <FilterSelector
-        id={daysToExpSelectorId}
-        className="w-full"
-        placeholder="Фильтр"
-        items={applyFilterListItems}
-        value={applyFilterValue}
-        onChange={(value) => {
-          const selectedString = Array.isArray(value) ? value[0] : value;
-          onFilterChange({ applyFilter: selectedString === 'true' });
-        }}
-      /> */}
       <FilterDatePicker
+        id={startDateId}
         className="w-full"
         value={startDate}
         onChange={(val) => onDateChange('start', val)}
       />
       <FilterDatePicker
+        id={endDateId}
         className="w-full"
         value={endDate}
         onChange={(val) => onDateChange('end', val)}
@@ -131,12 +136,13 @@ export function TraceWghtReportFilter({
       <FilterSelector
         id={plantSelectorId}
         className="w-full"
+        placeholder="Площадка"
         items={plantListItems}
         value={selectedPlants}
         onChange={(value) => onFilterChange({ plants: value })}
       />
       <FilterInput
-        id={batchName}
+        id={batchNameId}
         className="w-full"
         placeholder="Поиск по партии"
         value={batchName ?? ''}
@@ -149,7 +155,29 @@ export function TraceWghtReportFilter({
         value={productId ?? ''}
         onChange={(value) => onFilterChangeThrottle({ productId: value })}
       />
-      {actionButton}
+      <FilterSelector
+        id={compareSelectorId}
+        className="w-full"
+        placeholder="Совпадения"
+        items={compareListItems}
+        value={compareValue}
+        onChange={(value) => {
+          const selectedString = Array.isArray(value) ? value[0] : value;
+          onFilterChange({ compare: selectedString === 'true' });
+        }}
+      />
+      <FilterSelector
+        id={sortSelectorId}
+        className="w-full"
+        placeholder="Сортировка"
+        items={sortListItems}
+        value={sortValue}
+        onChange={(value) => {
+          const selectedString = Array.isArray(value) ? value[0] : value;
+          onFilterChange({ sortByBatch: selectedString === 'true' });
+        }}
+      />
+      {/* {actionButton} */}
     </>
   );
 
@@ -174,6 +202,23 @@ export function TraceWghtReportFilter({
           <div className="flex flex-col gap-4 px-2 py-4">
             {renderFilterFields()}
             <div className="flex flex-col gap-4 mt-4">
+              {actionButton}
+              <FilterResetButton
+                mobile
+                onClick={handleSetToday}
+                isDirty={isNotToday}
+                icon={<Calendar className="h-4 w-4" />}
+                label="Сегодня"
+                className="h-9 w-full"
+              />
+              <FilterResetButton
+                mobile
+                onClick={handleSetTomorrow}
+                isDirty={isNotTomorrow}
+                icon={<Calendar className="h-4 w-4" />}
+                label="Завтра"
+                className="h-9 w-full"
+              />
               <FilterResetButton
                 mobile
                 isDirty={isDirty}
@@ -195,25 +240,37 @@ export function TraceWghtReportFilter({
   if (!isMounted) return <div className="h-10" />;
 
   return (
-    <div
-      className={cn(
-        'grid',
-        actionButton
-          ? 'grid-cols-[1fr_1fr_1fr_1fr_auto_auto]'
-          : 'grid-cols-[1fr_1fr_1fr_auto_auto]',
-        '@max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl',
-      )}
-    >
-      {renderFilterFields()}
-
-      <FilterResetButton
-        mobile={false}
-        className="w-auto! @max-6xl:w-full! px-5 h-8! flex items-center justify-center text-xs transition-all"
-        onClick={handleResetAll}
-        isDirty={isDirty}
-        icon={<Trash className="h-4 w-4" />}
-        label="Сброс"
-      />
+    <div className="flex flex-col gap-3 w-full max-w-none ">
+      <div className="grid grid-cols-5 gap-2  @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl">
+        {renderFilterFields()}
+      </div>
+      <div className="flex items-center gap-2 w-full">
+        {actionButton}
+        <FilterResetButton
+          mobile={false}
+          className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
+          onClick={handleSetToday}
+          isDirty={isNotToday}
+          icon={<Calendar className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
+          label="Сегодня"
+        />
+        <FilterResetButton
+          mobile={false}
+          className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
+          onClick={handleSetTomorrow}
+          isDirty={isNotTomorrow}
+          icon={<Calendar className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
+          label="Завтра"
+        />
+        <FilterResetButton
+          mobile={false}
+          className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
+          onClick={handleResetAll}
+          isDirty={isDirty}
+          icon={<Trash className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
+          label="Сброс"
+        />
+      </div>
     </div>
   );
 }

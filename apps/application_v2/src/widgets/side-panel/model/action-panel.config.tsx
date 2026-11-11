@@ -17,6 +17,7 @@ import { ProcessUserTabs } from '@/features/process-user';
 import { UserFormSubheader } from '@/entities/user/index.client';
 import { DeleteConveyorButton } from '@/features/delete-conveyor';
 import { EditConveyorForm } from '@/features/edit-conveyor';
+import { UploadTraceBoilForm } from '@/features/upload-boils';
 
 interface IActionModeConfig {
   requiresRow: boolean;
@@ -35,6 +36,13 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
     headerTitle: null,
     getSubheader: () => null,
     renderForm: (_, plantData) => <UploadDocForm plantData={plantData} />,
+    renderButton: () => null,
+  },
+  wght_report: {
+    requiresRow: false,
+    headerTitle: null,
+    getSubheader: () => null,
+    renderForm: () => <UploadTraceBoilForm />,
     renderButton: () => null,
   },
   admin_users: {

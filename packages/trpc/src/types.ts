@@ -84,6 +84,8 @@ import type {
   TApplicationDeleteTraceInventoryInput,
   TApplicationTraceBoilWghtReportResponse,
   TGetApplicationGetTraceBoilWghtReportInput,
+  TApplicationUploadTraceBoilInput,
+  TApplicationUploadTraceBoilResponse,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -170,6 +172,9 @@ export interface IApplicationTraceBoilService {
   getWeightingReport: (
     input: TGetApplicationGetTraceBoilWghtReportInput,
   ) => Promise<TApplicationTraceBoilWghtReportResponse | null>;
+  uploadTraceBoils: (
+    input: TApplicationUploadTraceBoilInput,
+  ) => Promise<TApplicationUploadTraceBoilResponse>;
 }
 
 export interface IApplicationTraceCanStateService {

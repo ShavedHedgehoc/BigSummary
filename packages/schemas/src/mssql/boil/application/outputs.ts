@@ -20,6 +20,14 @@ export const applicationTraceBoilWghtReportOutputSchema = z.object({
   totalPages: z.number().int(),
 });
 
+export const applicationUploadTraceBoilOutputSchema = z.object({
+  value: z.number().nullable(),
+});
+
+export type TApplicationUploadTraceBoilResponse = z.infer<
+  typeof applicationUploadTraceBoilOutputSchema
+>;
+
 export type TApplicationTraceBoilWghtReportRowItem = z.infer<
   typeof applicationTraceBoilWghtRowOutputSchema
 >;

@@ -7,10 +7,10 @@ interface ICanCardConfig {
 }
 
 export const CAN_CARD_CONFIG: Record<TCanState | 'null', ICanCardConfig> = {
-  // 1. Брак продукта / Брак основы (Мягкий серый фон по вашему CSS)
+  // 1. Брак продукта / Брак основы
   can_from_product: {
     bg: 'bg-can-card-from-product border-transparent',
-    text: 'text-can-card-from-product-foreground', // Исправлена опечатка в porduct
+    text: 'text-can-card-from-product-foreground',
   },
 
   // 2. Мытая (Голубой фон)
