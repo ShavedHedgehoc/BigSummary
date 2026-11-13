@@ -177,7 +177,6 @@ export function WeightingListFilter({
           onFilterChange({ sortByBatch: selectedString === 'true' });
         }}
       />
-      {/* {actionButton} */}
     </>
   );
 
@@ -193,7 +192,10 @@ export function WeightingListFilter({
         <SheetContent
           side="bottom"
           className="h-[90vh] overflow-y-auto"
-          onOpenAutoFocus={(e) => e.preventDefault()}
+          onOpenAutoFocus={(e) => {
+            e.preventDefault();
+            document.getElementById('filters-sheet-title')?.focus();
+          }}
         >
           <SheetHeader>
             <SheetTitle>Фильтры</SheetTitle>
