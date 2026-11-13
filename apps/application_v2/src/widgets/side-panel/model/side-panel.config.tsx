@@ -1,7 +1,7 @@
 import { TSidePanelProps } from '../ui/side-panel';
 
 interface ISidePanelTab {
-  id: 'action' | 'history' | 'can_history';
+  id: 'action' | 'history';
   label: string;
 }
 
@@ -17,6 +17,7 @@ interface IModeStrategy {
   requiresRow: boolean;
   getTabs: (status: string | null | undefined, isMobile: boolean) => ISidePanelTab[];
   hasHistory: boolean;
+  canRenderWithoutRow?: boolean;
   showCloseButtonOnDesktop: boolean;
 }
 
@@ -40,10 +41,11 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
     showCloseButtonOnDesktop: false,
   },
   wght_report: {
-    requiresRow: false,
-    hasHistory: false,
-    getTabs: () => [TABS.UPLOAD],
+    requiresRow: true,
+    hasHistory: true,
+    getTabs: () => [TABS.HISTORY, TABS.UPLOAD],
     showCloseButtonOnDesktop: false,
+    canRenderWithoutRow: true,
   },
 
   admin_users: {

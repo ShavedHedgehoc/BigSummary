@@ -5,7 +5,7 @@ import { FileSpreadsheet } from 'lucide-react';
 import { useReportButton } from '../model/use-report-button';
 import { useIsMobile } from '@/shared/lib';
 
-export function DownloadWghtReportButton() {
+export function DownloadWeightingReportButton() {
   const { handleMakeReportClick, actionDisabled } = useReportButton();
   const isMobile = useIsMobile();
   return (

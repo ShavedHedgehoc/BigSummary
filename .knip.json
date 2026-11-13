@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com",
   "ignore": [],
+  "ignoreDependencies": ["node-sql-parser"],
   "workspaces": {
     ".": {
       "ignore": ["api/**", "application/**"],

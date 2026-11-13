@@ -16,7 +16,7 @@ interface IHistoryModeConfig {
 }
 
 export const HISTORY_PANEL_CONFIG: Record<
-  Exclude<THistoryMode, 'upload_doc' | 'admin_users' | 'conveyors' | 'wght_report'>,
+  Exclude<THistoryMode, 'upload_doc' | 'admin_users' | 'conveyors'>,
   IHistoryModeConfig
 > = {
   planner: {
@@ -70,6 +70,12 @@ export const HISTORY_PANEL_CONFIG: Record<
     ),
   },
   can_dash: {
+    getTitle: () => 'История статусов',
+    hasSubheader: true,
+    getActionButton: () => null,
+    getActionForm: () => null,
+  },
+  wght_report: {
     getTitle: () => 'История статусов',
     hasSubheader: true,
     getActionButton: () => null,

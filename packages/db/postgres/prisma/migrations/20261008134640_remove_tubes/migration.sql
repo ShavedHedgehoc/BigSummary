@@ -1,18 +1,18 @@
 /*
-  Warnings:
+Warnings:
 
-  - You are about to drop the `tube_assembly` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_conveyor_posts` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_conveyors` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_histories` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_histories_notes` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_history_types` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_materials` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_parameters` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_products` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_records` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_sessions` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tube_specifications` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_assembly` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_conveyor_posts` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_conveyors` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_histories` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_histories_notes` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_history_types` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_materials` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_parameters` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_products` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_records` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_sessions` table. If the table is not empty, all the data it contains will be lost.
+- You are about to drop the `tube_specifications` table. If the table is not empty, all the data it contains will be lost.
 
 */
 -- DropForeignKey

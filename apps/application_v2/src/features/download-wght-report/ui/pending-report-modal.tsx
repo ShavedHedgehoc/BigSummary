@@ -3,10 +3,10 @@
 import { ModalLayout } from '@/shared/ui';
 import { LoaderCard } from '@/shared/ui';
 import { useModalState } from '@/shared/lib';
-import { useWghtReportUiParams } from '@/entities/trace-boil';
+import { useWeightingListUiParams } from '@/entities/weighting';
 
 export function PendingReportModal() {
-  const { params, setParams } = useWghtReportUiParams();
+  const { params, setParams } = useWeightingListUiParams();
   const { isOpen, onOpenChange } = useModalState(params, setParams, 'pendingReport');
 
   return (

@@ -4,6 +4,7 @@ import {
   TApplicationConveyorItem,
   TApplicationDocDetailRowItem,
   TApplicationUserItem,
+  TApplicationTraceWeightingListPaginatedRowItem,
 } from '@repo/schemas';
 
 type TBoilHistoryType = 'base_continue' | 'base_correct' | 'plug_pass' | 'base_fail' | 'base_check';
@@ -34,7 +35,7 @@ export type THistoryMutationContextProps =
     }
   | {
       mode: 'wght_report';
-      row?: never;
+      row?: TApplicationTraceWeightingListPaginatedRowItem | undefined;
       onChange?: never;
     }
   | {

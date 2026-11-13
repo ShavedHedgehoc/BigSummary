@@ -1,11 +1,11 @@
 'use server';
 
-import { WghtReport } from '@/widgets/wght-report';
+import { WeightingList } from '@/widgets/weighting-list';
 
 type PageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function WeightSectionWeightReportsPage({ searchParams }: PageProps) {
-  return <WghtReport searchParams={searchParams} />;
+export default async function WeightSectionWeightingListPage({ searchParams }: PageProps) {
+  return <WeightingList searchParams={searchParams} />;
 }

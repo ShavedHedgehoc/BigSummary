@@ -17,6 +17,7 @@ interface UniversalLayoutWithPaginationSelectorProps {
   hasSelection: boolean;
   mobileSubHeader?: ReactNode;
   emptyState?: ReactNode;
+  hasActionPanel?: boolean;
 }
 
 export function UniversalLayoutWithPaginationSelector({
@@ -31,6 +32,7 @@ export function UniversalLayoutWithPaginationSelector({
   tableSkeleton,
   sidebarPanel,
   emptyState,
+  hasActionPanel = false,
 }: UniversalLayoutWithPaginationSelectorProps) {
   const isMobile = useIsMobile();
 
@@ -59,7 +61,11 @@ export function UniversalLayoutWithPaginationSelector({
       {pageHeader}
       {subHeader}
       <div
-        className={cn('w-full transition-all @container', hasSelection && '@max-6xl/main:hidden')}
+        className={cn(
+          'w-full transition-all @container',
+          // hasActionPanel ? '@max-6xl/main:hidden' :
+          hasSelection && '@max-6xl/main:hidden',
+        )}
       >
         {filters}
       </div>
@@ -67,6 +73,7 @@ export function UniversalLayoutWithPaginationSelector({
         <div
           className={cn(
             'flex flex-col grow min-h-0 gap-4 justify-between @container',
+            // hasActionPanel ? '@max-6xl/main:hidden' :
             hasSelection && '@max-6xl/main:hidden',
           )}
         >
@@ -77,7 +84,9 @@ export function UniversalLayoutWithPaginationSelector({
           </div>
           <div className="pt-2">{pagination}</div>
         </div>
-        {hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)}
+        <div className={cn('contents', !hasSelection && '@max-6xl/main:hidden')}>
+          {hasActionPanel || hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)}
+        </div>
       </div>
     </div>
   );

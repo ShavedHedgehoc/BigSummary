@@ -16,7 +16,6 @@ export const STATIC_TITLES: Record<string, string> = {
   [ROUTE_PATH.WEIGHT_SECTION_INVENTORIES]: 'Переучеты',
   [ROUTE_PATH.WEIGHT_SECTION_WEIGHT_REPORTS]: 'Отчет по взвешиваниям',
   [ROUTE_PATH.WEIGHT_SECTION_PRODUCTIVITY]: 'Выработка',
-  [ROUTE_PATH.WEIGHT_SECTION_BOILS_UPLOAD]: 'Загрузка варок',
   [ROUTE_PATH.FOREMAN]: 'Мастер',
   [ROUTE_PATH.REPORTS]: 'Отчеты',
   [ROUTE_PATH.REPORTS_TIMING]: 'Тайминг сводок',

@@ -73,7 +73,7 @@ export interface ITraceBatchWghtReportRowData {
   BatchNumber: number;
 }
 
-export interface ITraceBatchWghtReportData {
+export interface ITraceBatchweightingData {
   rows: ITraceBatchWghtReportRowData[];
   total: number;
 }
@@ -163,7 +163,7 @@ export default class TraceBatchService {
 
   static async getTraceBatchsWghtReport(
     dto: FetchTraceBatchWghtReportDto,
-  ): Promise<ITraceBatchWghtReportData> {
+  ): Promise<ITraceBatchweightingData> {
     const res = await $api.post(`/trace-batch/wght-report`, dto);
     return res.data;
   }

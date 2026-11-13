@@ -4,7 +4,7 @@ export function useUploadTraceBoilData() {
   const utils = trpc.useUtils();
   const mutation = trpc.application.trace.boil.uploadTraceBoils.useMutation({
     onSuccess: () => {
-      utils.application.trace.boil.getWghtReport.invalidate();
+      utils.application.trace.weighting.getWeightingList.invalidate();
     },
   });
   return {

@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Minus } from 'lucide-react';
 import { TableStatus } from '@/entities/history';
 import { cn } from 'cn';
-import { TableNoteCell } from '@/shared/ui';
+import { renderHeader, TableNoteCell } from '@/shared/ui';
 
 export const baseBoilListColumns: ColumnDef<TApplicationBoilItem>[] = [
   /* Мобильные колонки, показываются либо они, либо форма */
@@ -83,7 +83,7 @@ export const baseBoilListColumns: ColumnDef<TApplicationBoilItem>[] = [
   {
     id: 'md-product-info',
     meta: { grow: true, hideOnMobile: true, showBelowXL: true },
-    header: () => <div className="text-xs text-muted-foreground text-left">Продукт</div>,
+    header: renderHeader('Продукт'),
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-0.5 py-1 text-left">
@@ -103,7 +103,7 @@ export const baseBoilListColumns: ColumnDef<TApplicationBoilItem>[] = [
   {
     id: 'md-conveyor-info',
     meta: { grow: true, hideOnMobile: true, showBelowXL: true },
-    header: () => <div className="text-xs text-muted-foreground text-left ">Данные</div>,
+    header: renderHeader('Данные'),
     cell: ({ row }) => {
       return (
         <div className="flex flex-col gap-0.5 py-1 text-left  min-w-0 w-full">

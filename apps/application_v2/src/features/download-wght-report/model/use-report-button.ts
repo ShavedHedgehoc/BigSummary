@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { makeXLSX } from '../lib/make-xlsx';
-import { useTraceBoilWghtReportSearchParams, useWghtReportUiParams } from '@/entities/trace-boil';
+import { useWeightingListSearchParams, useWeightingListUiParams } from '@/entities/weighting';
 import { useRoles } from '@/entities/user/index.client';
 import { trpc } from '@/shared/api/trpc';
 
 export function useReportButton() {
-  const { params } = useTraceBoilWghtReportSearchParams();
-  const { setParams: setUiParams } = useWghtReportUiParams();
+  const { params } = useWeightingListSearchParams();
+  const { setParams: setUiParams } = useWeightingListUiParams();
   const { isWeighter } = useRoles();
   const [isPending, setIsPending] = useState(false);
   const utils = trpc.useUtils();
@@ -20,7 +20,7 @@ export function useReportButton() {
     setUiParams({ pendingReport: true });
 
     try {
-      const data = await utils.application.trace.boil.getWghtReport.fetch({
+      const data = await utils.application.trace.weighting.getWeightingList.fetch({
         ...params,
         getAllRows: true,
       });
