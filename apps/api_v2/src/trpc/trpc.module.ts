@@ -19,6 +19,7 @@ import { UserModule } from '../main/user/user.module';
 import { RoleModule } from '../main/role/role.module';
 import { TraceInventoryModule } from '../trace/inventory/inventory.module';
 import { TraceBoilModule } from '../trace/boil/boil.module';
+import { TraceWeightingModule } from '../trace/weighting/weighting.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { TraceBoilModule } from '../trace/boil/boil.module';
     TraceCanStateModule,
     TraceCanRecordModule,
     TraceInventoryModule,
+    TraceWeightingModule,
   ],
   providers: [
     {

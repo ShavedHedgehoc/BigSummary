@@ -13,7 +13,7 @@ export function ActionPanel(props: TSidePanelContext) {
   });
 
   const config = ACTION_PANEL_CONFIG[props.mode];
-  if (config.requiresRow && !props.row) return null;
+  if (config.requiresRow && !config.canRenderWithoutRow && !props.row) return null;
 
   const subheaderElement = config.getSubheader(props);
 

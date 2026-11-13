@@ -21,7 +21,8 @@ export function SidePanel(props: TSidePanelProps) {
   const isMobile = useIsMobile();
   const { mode, row, onClose, className = '' } = props;
   const config = SIDE_PANEL_MODE_CONFIG[mode];
-  const currentStatus = mode === 'admin_users' || mode === 'conveyors' ? '' : row?.stateValue;
+  const currentStatus =
+    mode === 'admin_users' || mode === 'conveyors' || mode === 'wght_report' ? '' : row?.stateValue;
 
   const tabs = useMemo(() => {
     return config.getTabs(currentStatus, isMobile);
@@ -39,8 +40,9 @@ export function SidePanel(props: TSidePanelProps) {
   }, [config.hasHistory, props]);
 
   const showCloseButtonOnDesktop = useMemo(() => config.showCloseButtonOnDesktop, [config]);
-
-  if (config.requiresRow && !row) return null;
+  const canShowPanel =
+    Boolean(row) || !config.requiresRow || config.hasHistory || config.canRenderWithoutRow;
+  if (!canShowPanel) return null;
 
   const defaultTab = tabs[0]?.id;
 

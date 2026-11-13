@@ -29,7 +29,8 @@ import { ApplicationTracePlantService } from '../trace/plant/application.plant.s
 import { ApplicationTraceCanService } from '../trace/can/application.can.service';
 import { ApplicationTraceCanStateService } from '../trace/can-state/application.can-state.service';
 import { ApplicationTraceInventoryService } from '../trace/inventory/application.inventory.service';
-import { ApplicationTraceBoilService } from 'src/trace/boil/application.boil.service';
+import { ApplicationTraceBoilService } from '../trace/boil/application.boil.service';
+import { ApplicationTraceWeightingService } from '../trace/weighting/application.weighting.service';
 
 @Injectable()
 export class TrpcService {
@@ -41,6 +42,8 @@ export class TrpcService {
     private readonly authService: AuthService,
     @Inject(forwardRef(() => ApplicationTraceInventoryService))
     private readonly applicationTraceInventoryService: ApplicationTraceInventoryService,
+    @Inject(forwardRef(() => ApplicationTraceWeightingService))
+    private readonly applicationTraceWeightingService: ApplicationTraceWeightingService,
     @Inject(forwardRef(() => ApplicationTraceBoilService))
     private readonly applicationTraceBoilService: ApplicationTraceBoilService,
     @Inject(forwardRef(() => ApplicationTraceCanService))
@@ -119,6 +122,7 @@ export class TrpcService {
       healthService: this.healthService,
       authService: this.authService,
       applicationTraceInventoryService: this.applicationTraceInventoryService,
+      applicationTraceWeightingService: this.applicationTraceWeightingService,
       applicationTraceCanStateService: this.applicationTraceCanStateService,
       applicationTracePlantService: this.applicationTracePlantService,
       applicationTraceCanService: this.applicationTraceCanService,

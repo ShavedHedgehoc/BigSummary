@@ -1,4 +1,7 @@
-import type { TApplicationTraceBoilWghtReportResponse } from '@repo/schemas';
+import type {
+  TApplicationTraceWeightingListResponse,
+  TApplicationTraceWeightingListRowItem,
+} from '@repo/schemas';
 import { format } from 'date-fns';
 import { Workbook } from 'exceljs';
 
@@ -8,7 +11,7 @@ export default function MakeReportPage({
   pageName,
 }: {
   workbook: Workbook;
-  data: TApplicationTraceBoilWghtReportResponse;
+  data: TApplicationTraceWeightingListResponse;
   pageName: string;
 }) {
   const sheet = workbook.addWorksheet(pageName, {
@@ -71,7 +74,7 @@ export default function MakeReportPage({
     };
   });
 
-  const rows = (data.rows ?? []).map((row) => {
+  const rows = (data.rows ?? []).map((row: TApplicationTraceWeightingListRowItem) => {
     const dateObj = row.batchDate ? new Date(row.batchDate) : null;
     return {
       date: dateObj ? format(dateObj, 'dd/MM/yyyy') : '-',

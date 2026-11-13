@@ -82,10 +82,14 @@ import type {
   TApplicationTraceInventoryDetailResponse,
   TApplicationDeleteTraceInventoryResponse,
   TApplicationDeleteTraceInventoryInput,
-  TApplicationTraceBoilWghtReportResponse,
-  TGetApplicationGetTraceBoilWghtReportInput,
+  // TApplicationTraceBoilWghtReportResponse,
+  // TGetApplicationGetTraceBoilWghtReportInput,
   TApplicationUploadTraceBoilInput,
   TApplicationUploadTraceBoilResponse,
+  TApplicationDeleteTraceWeightingInput,
+  TApplicationDeleteTraceWeightingResponse,
+  TApplicationTraceWeightingListInput,
+  TApplicationTraceWeightingListResponse,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -169,9 +173,9 @@ export interface IDashTraceCanService {
 // application
 
 export interface IApplicationTraceBoilService {
-  getWeightingReport: (
-    input: TGetApplicationGetTraceBoilWghtReportInput,
-  ) => Promise<TApplicationTraceBoilWghtReportResponse | null>;
+  // getWeightingReport: (
+  //   input: TGetApplicationGetTraceBoilWghtReportInput,
+  // ) => Promise<TApplicationTraceBoilWghtReportResponse | null>;
   uploadTraceBoils: (
     input: TApplicationUploadTraceBoilInput,
   ) => Promise<TApplicationUploadTraceBoilResponse>;
@@ -203,6 +207,16 @@ export interface IApplicationTraceCanService {
 
 export interface IApplicationTracePlantService {
   getAllPlants: () => Promise<TTracePlantListResponse | null>;
+}
+
+export interface IApplicationTraceWeightingService {
+  getWeightingList: (
+    input: TApplicationTraceWeightingListInput,
+  ) => Promise<TApplicationTraceWeightingListResponse | null>;
+
+  deleteWeighting: (
+    input: TApplicationDeleteTraceWeightingInput,
+  ) => Promise<TApplicationDeleteTraceWeightingResponse>;
 }
 
 export interface IApplicationBoilService {
@@ -286,6 +300,7 @@ export interface ITrpcContext {
   applicationTraceCanStateService: IApplicationTraceCanStateService;
   applicationTraceCanService: IApplicationTraceCanService;
   applicationTracePlantService: IApplicationTracePlantService;
+  applicationTraceWeightingService: IApplicationTraceWeightingService;
   applicationBoilService: IApplicationBoilService;
   applicationConveyorService: IApplicationConveyorService;
   applicationDocService: IApplicationDocService;

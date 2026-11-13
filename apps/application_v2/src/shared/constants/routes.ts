@@ -16,7 +16,6 @@ export const ROUTE_PATH = {
   WEIGHT_SECTION_INVENTORIES: '/weight_section/inventories',
   WEIGHT_SECTION_WEIGHT_REPORTS: '/weight_section/weight_reports',
   WEIGHT_SECTION_PRODUCTIVITY: '/weight_section/productivity',
-  WEIGHT_SECTION_BOILS_UPLOAD: '/weight_section/boils_upload',
   FOREMAN: '/foreman',
   REPORTS: '/reports',
   REPORTS_TIMING: '/reports/timing',

@@ -8,7 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { DbRoles } from '../../shared/db-roles';
 import { useAuthStore } from '../auth/store/auth-store';
 
-export default function TraceBatchWghtReportDetailTableRow({
+export default function TraceBatchWeightingDetailTableRow({
   row,
 }: {
   row: ITraceBatchWghtReportDetailData;

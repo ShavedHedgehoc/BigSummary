@@ -22,7 +22,10 @@
     "devDependencies": {
         "eslint-plugin-import": "^2.32.0",
         "knip": "^6.9.0",
+        "node-sql-parser": "^5.4.0",
         "prettier": "^3.9.6",
+        "prettier-plugin-embed": "^0.8.2",
+        "prettier-plugin-sql": "^0.20.0",
         "typescript": "^5.9.3"
     },
     "pnpm": {

@@ -4,6 +4,7 @@ import { applicationTraceCanRouter } from './can';
 import { applicationTraceCanStateRouter } from './can-state';
 import { applicationTraceInventoryRouter } from './inventory';
 import { applicationTracePlantRouter } from './plant';
+import { applicationTraceWeightingRouter } from './weighting';
 
 export const applicationTraceRouter = router({
   boil: applicationTraceBoilRouter,
@@ -11,4 +12,5 @@ export const applicationTraceRouter = router({
   canState: applicationTraceCanStateRouter,
   inventory: applicationTraceInventoryRouter,
   plant: applicationTracePlantRouter,
+  weighting: applicationTraceWeightingRouter,
 });

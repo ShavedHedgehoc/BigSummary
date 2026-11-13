@@ -1,6 +1,4 @@
 import {
-  applicationGetTraceBoilWghtReportInputSchema,
-  applicationTraceBoilWghtReportOutputSchema,
   applicationUploadTraceBoilInputSchema,
   applicationUploadTraceBoilOutputSchema,
 } from '@repo/schemas';
@@ -8,12 +6,6 @@ import { publicProcedure, router } from '../../../../trpc';
 import { TRPCError } from '@trpc/server';
 
 export const applicationTraceBoilRouter = router({
-  getWghtReport: publicProcedure
-    .input(applicationGetTraceBoilWghtReportInputSchema)
-    .output(applicationTraceBoilWghtReportOutputSchema.nullable())
-    .query(async ({ ctx, input }) => {
-      return ctx.applicationTraceBoilService.getWeightingReport(input);
-    }),
   uploadTraceBoils: publicProcedure
     .input(applicationUploadTraceBoilInputSchema)
     .output(applicationUploadTraceBoilOutputSchema)

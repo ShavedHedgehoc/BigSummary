@@ -3,7 +3,7 @@ import TableLoaderComponent from '../../shared/components/table-loader';
 import TableNotFoundComponent from '../../shared/components/table-not-found';
 import { useTraceBatchWghtReportDetail } from './use-trace-batch-wght-report-detail';
 import { FetchTraceBatchWghtReportDetailDto } from '../../shared/api/services/trace-batchs-service';
-import TraceBatchWghtReportDetailTableRow from './trace-batch-wght-report-detail-table-row';
+import TraceBatchWeightingDetailTableRow from './trace-batch-wght-report-detail-table-row';
 
 const commonThead = [
   { width: 20, value: 'Код 1С' },
@@ -18,7 +18,7 @@ const commonThead = [
   { width: 20, value: '' },
 ];
 
-export default function TraceBatchWghtReportDetailTable({
+export default function TraceBatchWeightingDetailTable({
   dto,
 }: {
   dto: FetchTraceBatchWghtReportDetailDto;
@@ -36,7 +36,7 @@ export default function TraceBatchWghtReportDetailTable({
   return (
     <TableLayout thead={commonThead}>
       {isSuccess &&
-        data.map((row) => <TraceBatchWghtReportDetailTableRow row={row} key={row.weighting_pk} />)}
+        data.map((row) => <TraceBatchWeightingDetailTableRow row={row} key={row.weighting_pk} />)}
     </TableLayout>
   );
 }

@@ -61,10 +61,6 @@ export const weighSectionNavItems: TNavItem[] = [
     title: STATIC_TITLES[ROUTE_PATH.WEIGHT_SECTION_PRODUCTIVITY],
     url: ROUTE_PATH.WEIGHT_SECTION_PRODUCTIVITY,
   },
-  {
-    title: STATIC_TITLES[ROUTE_PATH.WEIGHT_SECTION_BOILS_UPLOAD],
-    url: ROUTE_PATH.WEIGHT_SECTION_BOILS_UPLOAD,
-  },
 ];
 
 export const foremanNavItems: TNavItem[] = [

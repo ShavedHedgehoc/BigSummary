@@ -21,6 +21,7 @@ import { UploadTraceBoilForm } from '@/features/upload-boils';
 
 interface IActionModeConfig {
   requiresRow: boolean;
+  canRenderWithoutRow?: boolean;
   headerTitle: string | null;
   getSubheader: (props: TSidePanelContext) => React.ReactNode;
   renderForm: (
@@ -39,11 +40,12 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
     renderButton: () => null,
   },
   wght_report: {
-    requiresRow: false,
+    requiresRow: true,
     headerTitle: null,
     getSubheader: () => null,
     renderForm: () => <UploadTraceBoilForm />,
     renderButton: () => null,
+    canRenderWithoutRow: true,
   },
   admin_users: {
     requiresRow: true,
