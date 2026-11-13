@@ -10,6 +10,7 @@ const TABS = {
   USER: { id: 'action', label: 'Пользователь' },
   CONVEYOR: { id: 'action', label: 'Конвейер' },
   HISTORY: { id: 'history', label: 'История статусов' },
+  DETAIL: { id: 'history', label: 'Детальные записи' },
   EDIT: { id: 'action', label: 'Редактирование' },
 } as const;
 
@@ -43,7 +44,7 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
   wght_report: {
     requiresRow: true,
     hasHistory: true,
-    getTabs: () => [TABS.HISTORY, TABS.UPLOAD],
+    getTabs: () => [TABS.DETAIL, TABS.UPLOAD],
     showCloseButtonOnDesktop: false,
     canRenderWithoutRow: true,
   },

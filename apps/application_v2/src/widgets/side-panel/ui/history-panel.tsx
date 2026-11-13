@@ -8,6 +8,7 @@ import { HISTORY_PANEL_CONFIG } from '../model/history-panel.config';
 import { TSidePanelContext } from './side-panel';
 import { CanStateTable } from '@/features/view-can-states';
 import { WeightingDetailTable } from '@/features/view-weighting-detail';
+import { WeightingFormSubheader } from '@/entities/weighting';
 
 export function HistoryPanel(props: TSidePanelContext) {
   const [isAction, setIsAction] = useState(false);
@@ -30,7 +31,9 @@ export function HistoryPanel(props: TSidePanelContext) {
   const config = HISTORY_PANEL_CONFIG[props.mode];
 
   const renderSubheader =
-    props.mode === 'can_dash' || props.mode === 'wght_report' ? null : (
+    props.mode === 'can_dash' ? null : props.mode === 'wght_report' ? (
+      <WeightingFormSubheader row={props.row} />
+    ) : (
       <FormSubheader row={props.row} />
     );
 
@@ -46,9 +49,11 @@ export function HistoryPanel(props: TSidePanelContext) {
   return (
     <Card className="w-full h-full flex flex-col rounded-xl shadow-none ring-0 ring-offset-0 outline-none border-0 min-h-0 bg-card text-card-foreground">
       <CardHeader className="font-medium text-sm py-3 bg-muted/20 shrink-0 p-0">
-        <div className="max-w-2xl mx-auto w-full px-4 md:px-6">
-          <h2 className="mb-4 @max-6xl/main:mt-6 transition-all">{config.getTitle(isAction)}</h2>
-        </div>
+        {config.getTitle(isAction) && (
+          <div className="max-w-2xl mx-auto w-full px-4 md:px-6">
+            <h2 className="mb-4 @max-6xl/main:mt-6 transition-all">{config.getTitle(isAction)}</h2>
+          </div>
+        )}
         {config.hasSubheader && (
           <div className="max-w-2xl mx-auto w-full px-4 md:px-6">{renderSubheader}</div>
         )}

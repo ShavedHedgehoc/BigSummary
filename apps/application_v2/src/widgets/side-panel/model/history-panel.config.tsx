@@ -5,7 +5,7 @@ import { TSidePanelContext } from '../ui/side-panel';
 import { THistoryMode } from '@/entities/history';
 
 interface IHistoryModeConfig {
-  getTitle: (isAction: boolean) => string;
+  getTitle: (isAction: boolean) => string | null;
   hasSubheader: boolean;
   getActionButton: (
     props: TSidePanelContext,
@@ -76,7 +76,7 @@ export const HISTORY_PANEL_CONFIG: Record<
     getActionForm: () => null,
   },
   wght_report: {
-    getTitle: () => 'История статусов',
+    getTitle: () => null,
     hasSubheader: true,
     getActionButton: () => null,
     getActionForm: () => null,
