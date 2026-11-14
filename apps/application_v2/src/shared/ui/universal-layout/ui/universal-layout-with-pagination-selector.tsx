@@ -61,11 +61,7 @@ export function UniversalLayoutWithPaginationSelector({
       {pageHeader}
       {subHeader}
       <div
-        className={cn(
-          'w-full transition-all @container',
-          // hasActionPanel ? '@max-6xl/main:hidden' :
-          hasSelection && '@max-6xl/main:hidden',
-        )}
+        className={cn('w-full transition-all @container', hasSelection && '@max-6xl/main:hidden')}
       >
         {filters}
       </div>
@@ -73,7 +69,6 @@ export function UniversalLayoutWithPaginationSelector({
         <div
           className={cn(
             'flex flex-col grow min-h-0 gap-4 justify-between @container',
-            // hasActionPanel ? '@max-6xl/main:hidden' :
             hasSelection && '@max-6xl/main:hidden',
           )}
         >

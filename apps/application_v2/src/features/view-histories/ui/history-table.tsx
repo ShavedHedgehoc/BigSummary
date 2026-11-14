@@ -27,7 +27,12 @@ export function HistoryTable({ rows, onClose }: IHistoryViewProps) {
   return (
     <div className="h-full flex flex-col min-h-0">
       <ScrollArea className="h-full w-full min-h-0">
-        <DataTableNew data={rows ?? []} columns={columns} meta={{ onRowActionSuccess: onClose }} />
+        <DataTableNew
+          data={rows ?? []}
+          columns={columns}
+          meta={{ onRowActionSuccess: onClose }}
+          isCardTable={true}
+        />
       </ScrollArea>
     </div>
   );

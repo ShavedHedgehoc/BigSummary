@@ -3,6 +3,7 @@
 import { useQueryStates } from 'nuqs';
 import { trpc } from '@/shared/api';
 import { traceWeightingListParamsSchema } from '../model';
+import { keepPreviousData } from '@tanstack/react-query';
 
 export function useWeightingListSearchParams() {
   /* Справочники */
@@ -17,13 +18,11 @@ export function useWeightingListSearchParams() {
     clearOnDefault: true,
   });
 
-  const { data, isLoading } = trpc.application.trace.weighting.getWeightingList.useQuery(
-    { ...params, getAllRows: false as const },
-    {
-      // placeholderData: keepPreviousData,
+  const { data, isLoading, isFetching } =
+    trpc.application.trace.weighting.getWeightingList.useQuery(params, {
+      placeholderData: keepPreviousData,
       staleTime: 30 * 1000,
       refetchInterval: 30 * 1000,
-    },
-  );
-  return { plantData: plantData ?? [], data, isLoading, params, setParams };
+    });
+  return { plantData: plantData ?? [], data, isLoading, isFetching, params, setParams };
 }
