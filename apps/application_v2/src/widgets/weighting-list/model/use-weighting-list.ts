@@ -1,13 +1,10 @@
 import { useIsMobile } from '@/shared/lib';
-import { useMemo } from 'react';
-import { ITablePaginationProps } from '@/shared/ui';
-import {
-  TraceWeightingListParams,
-  useWeightingListSearchParams,
-  useWeightingListUiParams,
-} from '@/entities/weighting';
+import { useCallback, useMemo } from 'react';
+import { useWeightingListSearchParams, useWeightingListUiParams } from '@/entities/weighting';
 import { weightingListColumns } from '../ui/columns';
 import { TApplicationTraceWeightingListPaginatedRowItem } from '@repo/schemas';
+import { useExcludedProductsStore } from '@/features/view-excluded-products';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useWeightingList() {
   const isMobile = useIsMobile();
@@ -15,6 +12,7 @@ export function useWeightingList() {
   const {
     data: weightingData,
     isLoading,
+    isFetching,
     plantData,
     params,
     setParams,
@@ -50,13 +48,26 @@ export function useWeightingList() {
 
   const clearSelected = () => setUiParams({ selectedProductId: null, selectedBatchId: null });
 
-  const paginationProps: ITablePaginationProps<TraceWeightingListParams> = {
-    total: weightingData?.total ?? 0,
-    totalPages: weightingData?.totalPages ?? 0,
-    params: params,
-    setParams: setParams,
-    onClearSelection: clearSelected,
-  };
+  const { items, addExcludedProduct } = useExcludedProductsStore(
+    useShallow((state) => ({
+      items: state.items,
+      addExcludedProduct: state.addExcludedProduct,
+    })),
+  );
+
+  const isHasExcluded = items.length > 0;
+
+  const handleHideProduct = useCallback(
+    (cleanId: string, name?: string | null) => {
+      addExcludedProduct({ productId: cleanId, productName: name ?? cleanId });
+      setParams((prev) => {
+        const current = prev.excludeProductIds ?? [];
+        if (current.includes(cleanId)) return prev;
+        return { excludeProductIds: [...current, cleanId] };
+      });
+    },
+    [setParams, addExcludedProduct],
+  );
 
   return {
     params,
@@ -66,11 +77,13 @@ export function useWeightingList() {
     weightingData,
     plantData,
     isLoading,
+    isFetching,
     columns,
     hasSelectedRow,
     selectedRow,
     clearSelected,
     isMobile,
-    paginationProps,
+    handleHideProduct,
+    isHasExcluded,
   };
 }

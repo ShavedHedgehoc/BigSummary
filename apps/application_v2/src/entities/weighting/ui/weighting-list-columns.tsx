@@ -67,9 +67,9 @@ const ProductInfoStack = ({
       </div>
       {showPlanFactBadge && (
         <span className={cn('px-1 py-1 rounded w-fit', styles.badge)}>
-          План-Факт: {item.planQuantity.toLocaleString('ru-RU')}
+          План-Факт: {item.planQuantity ?? '-'}
           {' / '}
-          {item.factQuantity.toLocaleString('ru-RU')}
+          {item.factQuantity ?? '-'}
         </span>
       )}
     </div>
@@ -146,10 +146,10 @@ export const baseWeightingListColumns: ColumnDef<TApplicationTraceWeightingListR
           )}
         >
           <div className="flex items-center justify-end min-h-4">
-            {row.original.planQuantity.toLocaleString('ru-RU')}
+            {row.original.planQuantity ?? '-'}
           </div>
           <div className={cn('flex items-center justify-end min-h-4', styles.text)}>
-            {row.original.factQuantity.toLocaleString('ru-RU')}
+            {row.original.factQuantity ?? '-'}
           </div>
         </div>
       );
@@ -203,7 +203,7 @@ export const baseWeightingListColumns: ColumnDef<TApplicationTraceWeightingListR
     align: 'right',
     title: 'План',
     cellClassName: 'tabular-nums font-mono',
-    renderValue: (item) => item.planQuantity.toLocaleString('ru-RU'),
+    renderValue: (item) => item.planQuantity ?? '-',
   }),
 
   createReportColumn({
@@ -211,6 +211,6 @@ export const baseWeightingListColumns: ColumnDef<TApplicationTraceWeightingListR
     align: 'right',
     title: 'Факт',
     cellClassName: 'tabular-nums font-mono',
-    renderValue: (item) => item.factQuantity.toLocaleString('ru-RU'),
+    renderValue: (item) => item.factQuantity ?? '-',
   }),
 ];

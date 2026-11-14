@@ -68,7 +68,7 @@ export const baseWeightingDetailColumns: ColumnDef<TApplicationTraceWeightingDet
       const item = row.original;
       return (
         <div className={cn('font-mono tabular-nums flex items-center justify-end min-h-4 text-xs')}>
-          {item.quantity.toLocaleString('ru-RU')}
+          {item.quantity ?? '-'}
         </div>
       );
     },

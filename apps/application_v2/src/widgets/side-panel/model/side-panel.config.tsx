@@ -1,7 +1,7 @@
 import { TSidePanelProps } from '../ui/side-panel';
 
 interface ISidePanelTab {
-  id: 'action' | 'history';
+  id: 'action' | 'history' | 'view';
   label: string;
 }
 
@@ -10,8 +10,9 @@ const TABS = {
   USER: { id: 'action', label: 'Пользователь' },
   CONVEYOR: { id: 'action', label: 'Конвейер' },
   HISTORY: { id: 'history', label: 'История статусов' },
-  DETAIL: { id: 'history', label: 'Детальные записи' },
+  DETAIL: { id: 'history', label: 'Взвешивания' },
   EDIT: { id: 'action', label: 'Редактирование' },
+  EXCLUDED: { id: 'view', label: 'Исключения' },
 } as const;
 
 interface IModeStrategy {
@@ -44,7 +45,7 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
   wght_report: {
     requiresRow: true,
     hasHistory: true,
-    getTabs: () => [TABS.DETAIL, TABS.UPLOAD],
+    getTabs: () => [TABS.DETAIL, TABS.UPLOAD, TABS.EXCLUDED],
     showCloseButtonOnDesktop: false,
     canRenderWithoutRow: true,
   },

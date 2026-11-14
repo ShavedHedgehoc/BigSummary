@@ -16,6 +16,7 @@ interface UniversalLayoutWithScrollProps {
   tableSkeleton: ReactNode;
   sidebarPanel?: ReactNode;
   emptyState?: ReactNode;
+  hasActionPanel?: boolean;
 }
 
 export function UniversalLayoutWithScroll({
@@ -29,6 +30,7 @@ export function UniversalLayoutWithScroll({
   tableSkeleton,
   sidebarPanel,
   emptyState,
+  hasActionPanel = false,
 }: UniversalLayoutWithScrollProps) {
   const isMobile = useIsMobile();
 
@@ -71,7 +73,10 @@ export function UniversalLayoutWithScroll({
             {isLoading ? tableSkeleton : table}
           </ScrollArea>
         </div>
-        {sidebarPanel && (hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />))}
+        {/* {sidebarPanel && (hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />))} */}
+        <div className={cn('contents', !hasSelection && '@max-6xl/main:hidden')}>
+          {hasActionPanel || hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)}
+        </div>
       </div>
     </div>
   );

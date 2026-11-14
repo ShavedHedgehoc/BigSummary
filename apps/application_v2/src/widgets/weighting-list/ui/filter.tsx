@@ -2,16 +2,16 @@ import { throttle } from 'nuqs';
 import { ComponentProps } from 'react';
 
 import { useWeightingList } from '../model/use-weighting-list';
-import { TraceWeightingListParams, useWeightingListSearchParams } from '@/entities/weighting';
+import { useWeightingListSearchParams } from '@/entities/weighting';
 import { WeightingListFilter } from '@/features/filter-weighting-list';
-import { getToday, getTomorrow } from '@/shared/lib';
+import { getTomorrow } from '@/shared/lib';
 import { format } from 'date-fns';
 import { DownloadWeightingReportButton } from '@/features/download-wght-report';
 
 const formatDateToString = (date: Date) => format(date, 'yyyy-MM-dd');
 
 export default function WeightSectionWeightingFilter() {
-  const { setUiParams } = useWeightingList();
+  const { setUiParams, isHasExcluded } = useWeightingList();
   const { params, setParams, plantData } = useWeightingListSearchParams();
 
   type TFilterProps = ComponentProps<typeof WeightingListFilter>;
@@ -20,54 +20,37 @@ export default function WeightSectionWeightingFilter() {
 
   const onFilterChangeThrottle = (newFilters: TThrottleArgs) => {
     setParams(
-      { ...newFilters, page: 1 },
+      { ...newFilters },
       { shallow: false, throttleMs: 500, limitUrlUpdates: throttle(500) },
     );
     setUiParams({ selectedProductId: null, selectedBatchId: null }, { shallow: true });
   };
 
   const onFilterChange = (newFilters: TChangeArgs) => {
-    setParams({ ...newFilters, page: 1 }, { shallow: false });
+    setParams({ ...newFilters }, { shallow: false });
     setUiParams({ selectedProductId: null, selectedBatchId: null }, { shallow: true });
   };
 
-  const onDateChange = (type: 'start' | 'end', val: Date | undefined) => {
+  const onDateChange = (val: Date | undefined) => {
     if (!val) {
-      setParams(
-        { [type === 'start' ? 'startDate' : 'endDate']: null, page: 1 },
-        { shallow: false },
-      );
+      setParams({ batchDate: null });
       return;
     }
+
     const normalizedDate = new Date(val);
     normalizedDate.setHours(12, 0, 0, 0);
-    const updates: Partial<TraceWeightingListParams> = { page: 1 };
 
-    if (type === 'start') {
-      updates.startDate = normalizedDate;
-      if (params.endDate && normalizedDate > params.endDate) {
-        updates.endDate = normalizedDate;
-      }
-    } else {
-      updates.endDate = normalizedDate;
-      if (params.startDate && normalizedDate < params.startDate) {
-        updates.startDate = normalizedDate;
-      }
-    }
-    setParams(updates, { shallow: false });
+    setParams({ batchDate: normalizedDate });
   };
 
   const resetParams = () => {
     setParams(
       {
-        startDate: null,
-        endDate: null,
+        batchDate: null,
         productId: null,
         batchName: null,
         plants: null,
         compare: true,
-        sortByBatch: false,
-        page: 1,
       },
       {
         shallow: true,
@@ -75,24 +58,8 @@ export default function WeightSectionWeightingFilter() {
     );
   };
 
-  const todayStr = formatDateToString(getToday());
-  const isNotToday =
-    formatDateToString(params.startDate) !== todayStr ||
-    formatDateToString(params.endDate) !== todayStr;
-
   const tomorrowStr = formatDateToString(getTomorrow());
-  const isNotTomorrow =
-    formatDateToString(params.startDate) !== tomorrowStr ||
-    formatDateToString(params.endDate) !== tomorrowStr;
-
-  const handleSetToday = () => {
-    const freshToday = getToday();
-    setParams({ startDate: freshToday, endDate: freshToday, page: 1 }, { shallow: false });
-  };
-  const handleSetTomorrow = () => {
-    const freshTomorrow = getTomorrow();
-    setParams({ startDate: freshTomorrow, endDate: freshTomorrow, page: 1 }, { shallow: false });
-  };
+  const isNotTomorrow = formatDateToString(params.batchDate) !== tomorrowStr;
 
   const handleResetAll = () => {
     resetParams();
@@ -106,28 +73,22 @@ export default function WeightSectionWeightingFilter() {
   };
 
   const isDirty =
-    isNotToday ||
+    isNotTomorrow ||
     params.productId !== '' ||
     params.batchName !== '' ||
     (params.plants && params.plants.length > 0) ||
-    params.compare === false ||
-    params.sortByBatch === true;
+    params.compare === false;
 
   return (
     <WeightingListFilter
       productId={params.productId}
       batchName={params.batchName}
-      startDate={params.startDate}
-      endDate={params.endDate}
+      batchDate={params.batchDate}
       selectedPlants={params.plants}
       compare={params.compare}
-      sortByBatch={params.sortByBatch}
       plantData={plantData}
-      isNotToday={isNotToday}
-      isNotTomorrow={isNotTomorrow}
       isDirty={isDirty}
-      handleSetToday={handleSetToday}
-      handleSetTomorrow={handleSetTomorrow}
+      isHasExcluded={isHasExcluded}
       onDateChange={onDateChange}
       onFilterChangeThrottle={onFilterChangeThrottle}
       onFilterChange={onFilterChange}

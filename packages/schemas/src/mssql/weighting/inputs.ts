@@ -12,13 +12,15 @@ export const applicationTraceWeightingListInputSchema = z.object({
   batchName: z.string().default(''),
   productId: z.string().default(''),
   compare: z.boolean().default(true),
-  sortByBatch: z.boolean().default(false),
-  startDate: z.coerce.date().default(() => new Date()),
-  endDate: z.coerce.date().default(() => new Date()),
+  // sortByBatch: z.boolean().default(false),
+  batchDate: z.coerce.date().default(() => new Date()),
+  // startDate: z.coerce.date().default(() => new Date()),
+  // endDate: z.coerce.date().default(() => new Date()),
   plants: z.array(z.string()).nullish(),
-  page: z.number().min(1).default(1),
-  limit: z.number().min(1).max(100).default(10),
-  getAllRows: z.boolean().default(false),
+  excludeProductIds: z.array(z.string()).nullish(),
+  // page: z.number().min(1).default(1),
+  // limit: z.number().min(1).max(100000).default(10),
+  // getAllRows: z.boolean().default(false),
 });
 
 // // Base inferred type (getAllRows: boolean)

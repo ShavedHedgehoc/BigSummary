@@ -7,6 +7,7 @@ import { ActionPanel } from './action-panel';
 import { THistoryMutationContextProps } from '@/entities/history';
 import { useIsMobile } from '@/shared/lib';
 import { SIDE_PANEL_MODE_CONFIG } from '../model/side-panel.config';
+import { ViewPanel } from './view-panel';
 
 export type TSidePanelContext = THistoryMutationContextProps & {
   onClose?: () => void;
@@ -31,6 +32,7 @@ export function SidePanel(props: TSidePanelProps) {
   const renderContent = useMemo(() => {
     const content: Record<string, React.ReactNode> = {
       action: <ActionPanel {...props} />,
+      view: <ViewPanel {...props} />,
     };
 
     if (config.hasHistory) {

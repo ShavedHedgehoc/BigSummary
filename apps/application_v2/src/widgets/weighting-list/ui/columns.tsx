@@ -2,6 +2,7 @@ import { TApplicationTraceWeightingListRowItem } from '@repo/schemas';
 import { ColumnDef } from '@tanstack/react-table';
 import { GenericSelectCell, GenericSelectHeader } from '@/shared/ui';
 import { baseWeightingListColumns, useWeightingListUiParams } from '@/entities/weighting';
+import { HideCell } from './hide-cell';
 
 const getRowKey = (batchId: string | number, productId: string | number) =>
   `${batchId}_${productId}`;
@@ -58,6 +59,27 @@ function SelectCell({
 
 export const weightingListColumns: ColumnDef<TApplicationTraceWeightingListRowItem>[] = [
   ...baseWeightingListColumns,
+
+  {
+    id: 'hide',
+    meta: { grow: false },
+    size: 40,
+    cell: ({ row, table }) => {
+      const meta = table.options.meta as {
+        isFetching?: boolean;
+        onHideProduct?: (id: string, name?: string | null) => void;
+      };
+
+      return (
+        <HideCell
+          productId={row.original.productId}
+          productName={row.original.productName}
+          disabled={meta?.isFetching}
+          onHide={meta?.onHideProduct}
+        />
+      );
+    },
+  },
   /* Селектор. Показывается на всех экранах */
   {
     id: 'select',

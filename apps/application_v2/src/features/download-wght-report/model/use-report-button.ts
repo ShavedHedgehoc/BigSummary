@@ -20,10 +20,7 @@ export function useReportButton() {
     setUiParams({ pendingReport: true });
 
     try {
-      const data = await utils.application.trace.weighting.getWeightingList.fetch({
-        ...params,
-        getAllRows: true,
-      });
+      const data = await utils.application.trace.weighting.getWeightingList.fetch(params);
 
       if (data) {
         makeXLSX(data);

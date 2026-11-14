@@ -16,31 +16,22 @@ import {
   SheetTrigger,
 } from '@/shared/ui';
 import { TTracePlantListResponse } from '@repo/schemas';
-import { Calendar, Search, SlidersHorizontal, Trash } from 'lucide-react';
+import { Search, SlidersHorizontal, Trash, TriangleAlert } from 'lucide-react';
 import { useId, useMemo, useState, useSyncExternalStore } from 'react';
 
 interface TWeightingListFilterProps {
   productId: string;
   batchName: string;
   plantData: TTracePlantListResponse;
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  batchDate: Date | undefined;
   selectedPlants: string[] | undefined;
   compare: boolean;
-  sortByBatch: boolean;
-  isNotToday: boolean;
-  isNotTomorrow: boolean;
   isDirty: boolean;
+  isHasExcluded: boolean;
   actionButton?: React.ReactNode;
-  onDateChange: (type: 'start' | 'end', val: Date | undefined) => void;
-  handleSetToday: () => void;
-  handleSetTomorrow: () => void;
+  onDateChange: (val: Date | undefined) => void;
   handleResetAll: () => void;
-  onFilterChange: (newFilters: {
-    plants?: string[] | null;
-    compare?: boolean;
-    sortByBatch?: boolean;
-  }) => void;
+  onFilterChange: (newFilters: { plants?: string[] | null; compare?: boolean }) => void;
   onFilterChangeThrottle: (newFilters: {
     productId?: string | null;
     batchName?: string | null;
@@ -51,18 +42,13 @@ export function WeightingListFilter({
   productId,
   batchName,
   plantData = [],
-  startDate,
-  endDate,
+  batchDate,
   selectedPlants,
   compare,
-  sortByBatch,
-  isNotToday,
-  isNotTomorrow,
   isDirty,
+  isHasExcluded,
   actionButton,
   onDateChange,
-  handleSetToday,
-  handleSetTomorrow,
   handleResetAll,
   onFilterChange,
   onFilterChangeThrottle,
@@ -70,13 +56,11 @@ export function WeightingListFilter({
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
 
-  const startDateId = useId();
-  const endDateId = useId();
+  const batchDateId = useId();
   const productCodeId = useId();
   const batchNameId = useId();
   const plantSelectorId = useId();
   const compareSelectorId = useId();
-  const sortSelectorId = useId();
 
   const isMounted = useSyncExternalStore(
     subscribeToNothing,
@@ -109,29 +93,13 @@ export function WeightingListFilter({
 
   const compareValue = compare ? ['true'] : ['false'];
 
-  const sortListItems = useMemo<IListItem[]>(
-    () => [
-      { value: 'true', description: 'По партии' },
-      { value: 'false', description: 'По продукту' },
-    ],
-    [],
-  );
-
-  const sortValue = sortByBatch ? ['true'] : ['false'];
-
   const renderFilterFields = () => (
     <>
       <FilterDatePicker
-        id={startDateId}
+        id={batchDateId}
         className="w-full"
-        value={startDate}
-        onChange={(val) => onDateChange('start', val)}
-      />
-      <FilterDatePicker
-        id={endDateId}
-        className="w-full"
-        value={endDate}
-        onChange={(val) => onDateChange('end', val)}
+        value={batchDate}
+        onChange={(val) => onDateChange(val)}
       />
       <FilterSelector
         id={plantSelectorId}
@@ -166,17 +134,6 @@ export function WeightingListFilter({
           onFilterChange({ compare: selectedString === 'true' });
         }}
       />
-      <FilterSelector
-        id={sortSelectorId}
-        className="w-full"
-        placeholder="Сортировка"
-        items={sortListItems}
-        value={sortValue}
-        onChange={(value) => {
-          const selectedString = Array.isArray(value) ? value[0] : value;
-          onFilterChange({ sortByBatch: selectedString === 'true' });
-        }}
-      />
     </>
   );
 
@@ -207,22 +164,6 @@ export function WeightingListFilter({
               {actionButton}
               <FilterResetButton
                 mobile
-                onClick={handleSetToday}
-                isDirty={isNotToday}
-                icon={<Calendar className="h-4 w-4" />}
-                label="Сегодня"
-                className="h-9 w-full"
-              />
-              <FilterResetButton
-                mobile
-                onClick={handleSetTomorrow}
-                isDirty={isNotTomorrow}
-                icon={<Calendar className="h-4 w-4" />}
-                label="Завтра"
-                className="h-9 w-full"
-              />
-              <FilterResetButton
-                mobile
                 isDirty={isDirty}
                 onClick={handleResetAll}
                 icon={<Trash className="h-4 w-4" />}
@@ -242,36 +183,26 @@ export function WeightingListFilter({
   if (!isMounted) return <div className="h-10" />;
 
   return (
-    <div className="flex flex-col gap-3 w-full max-w-none ">
-      <div className="grid grid-cols-5 gap-2  @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl">
-        {renderFilterFields()}
-      </div>
-      <div className="flex items-center gap-2 w-full">
-        {actionButton}
-        <FilterResetButton
-          mobile={false}
-          className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
-          onClick={handleSetToday}
-          isDirty={isNotToday}
-          icon={<Calendar className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
-          label="Сегодня"
-        />
-        <FilterResetButton
-          mobile={false}
-          className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
-          onClick={handleSetTomorrow}
-          isDirty={isNotTomorrow}
-          icon={<Calendar className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
-          label="Завтра"
-        />
-        <FilterResetButton
-          mobile={false}
-          className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
-          onClick={handleResetAll}
-          isDirty={isDirty}
-          icon={<Trash className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
-          label="Сброс"
-        />
+    <div className="@container w-full">
+      <div className="flex flex-row items-end gap-5 w-full max-w-none @max-6xl:gep-3 @max-6xl:flex-col @max-6xl:items-stretch">
+        <div className="grid grid-cols-5 gap-3 w-full max-w-6xl items-end @max-6xl:grid-cols-3 @max-4xl:grid-cols-2">
+          {renderFilterFields()}
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0 @max-6xl:w-full">
+          {isHasExcluded && (
+            <TriangleAlert strokeWidth={2} className="h-5 w-5 text-destructive shrink-0" />
+          )}
+          {actionButton}
+          <FilterResetButton
+            mobile={false}
+            className="h-8 px-4 text-xs flex items-center justify-center border rounded-md whitespace-nowrap transition-all"
+            onClick={handleResetAll}
+            isDirty={isDirty}
+            icon={<Trash className="h-3.5 w-3.5 mr-1.5 shrink-0" />}
+            label="Сброс"
+          />
+        </div>
       </div>
     </div>
   );

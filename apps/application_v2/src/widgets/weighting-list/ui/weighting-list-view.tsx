@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  DataTableSkeleton,
-  PaginationSkeleton,
-  TablePagination,
-  DataTableNew,
-  UniversalLayoutWithPaginationSelector,
-} from '@/shared/ui';
+import { DataTableSkeleton, DataTableNew, UniversalLayoutWithScroll } from '@/shared/ui';
 import { PageHeader } from '@/widgets/page-header';
 import { SidePanel } from '@/widgets/side-panel';
 import { useWeightingList } from '../model/use-weighting-list';
@@ -16,35 +10,35 @@ import { PendingReportModal } from '@/features/download-wght-report';
 export default function WeightingListView() {
   const {
     isLoading,
-    paginationProps,
+    isFetching,
     hasSelectedRow,
     weightingData,
     columns,
     isMobile,
-    params,
     selectedRow,
     clearSelected,
+    handleHideProduct,
   } = useWeightingList();
-
-  const paginationElement = isLoading ? (
-    <PaginationSkeleton />
-  ) : (
-    <TablePagination {...paginationProps} />
-  );
-
   return (
     <div>
-      <UniversalLayoutWithPaginationSelector
+      <UniversalLayoutWithScroll
         hasActionPanel={true}
         hasSelection={hasSelectedRow}
         isLoading={isLoading}
         pageHeader={<PageHeader />}
         filters={<WeightSectionWeightingFilter />}
-        pagination={paginationElement}
         table={
-          <DataTableNew data={weightingData?.rows ?? []} columns={columns} isLoading={isLoading} />
+          <DataTableNew
+            meta={{
+              isFetching,
+              onHideProduct: handleHideProduct,
+            }}
+            data={weightingData?.rows ?? []}
+            columns={columns}
+            isLoading={isLoading}
+          />
         }
-        tableSkeleton={<DataTableSkeleton columns={isMobile ? 3 : 7} rows={params.limit} />}
+        tableSkeleton={<DataTableSkeleton columns={isMobile ? 3 : 7} rows={isMobile ? 10 : 15} />}
         sidebarPanel={
           <SidePanel
             mode="wght_report"
