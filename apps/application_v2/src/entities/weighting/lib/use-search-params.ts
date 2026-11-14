@@ -12,7 +12,7 @@ export function useWeightingListSearchParams() {
   });
 
   const [params, setParams] = useQueryStates(traceWeightingListParamsSchema, {
-    shallow: false,
+    shallow: true,
     history: 'replace',
     clearOnDefault: true,
   });

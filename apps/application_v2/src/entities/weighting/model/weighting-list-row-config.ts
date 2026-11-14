@@ -13,20 +13,20 @@ interface IWeightingListRowConfig {
 const WEIGHTING_LIST_ROW_CONFIG: Record<TRowVariant, IWeightingListRowConfig> = {
   error: {
     row: 'bg-status-fail',
-    text: 'text-status-fail',
-    mutedText: 'text-status-fail/80',
+    text: 'text-status-fail/80',
+    mutedText: 'text-status-fail/60',
     badge: 'text-destructive bg-destructive/20',
   },
   warning: {
     row: 'bg-status-wait',
-    text: 'text-status-wait',
-    mutedText: 'text-status-wait/80',
+    text: 'text-status-wait/80',
+    mutedText: 'text-status-wait/60',
     badge: 'text-status-wait bg-status-wait/20',
   },
   default: {
-    row: '',
-    text: 'text-foreground',
-    mutedText: 'text-muted-foreground',
+    row: 'bg-status-success',
+    text: 'text-status-success/80',
+    mutedText: 'text-status-success/60',
     badge: 'text-muted-foreground bg-muted/20',
   },
 };

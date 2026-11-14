@@ -119,7 +119,7 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
       getAllRows,
     } = input;
 
-    const safeLimit = Math.max(1, limit);
+    const safeLimit = Math.min(1000, Math.max(1, limit));
     const safePage = Math.max(1, page);
     const offset = safeLimit * (safePage - 1);
 
@@ -139,11 +139,39 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
     const escapeLike = (val: string) => val.replace(/[\\%_[\]]/g, '\\$&');
     const batchNameParam = batchName ? `%${escapeLike(batchName)}%` : null;
     const productIdParam = productId ? `%${escapeLike(productId)}%` : null;
-    const compareFlag = compare ? 1 : 0;
 
-    const plantFilter = plants?.length
-      ? Prisma.sql`AND Plant IN (${Prisma.join(plants)})`
+    const batchConditions: Prisma.Sql[] = [];
+
+    if (startDateParam) {
+      batchConditions.push(Prisma.sql`BatchDate >= ${startDateParam}`);
+    }
+    if (endDateParam) {
+      batchConditions.push(Prisma.sql`BatchDate < ${endDateParam}`);
+    }
+    if (batchNameParam) {
+      batchConditions.push(Prisma.sql`BatchName LIKE ${batchNameParam} ESCAPE '\\'`);
+    }
+    if (plants?.length) {
+      batchConditions.push(Prisma.sql`Plant IN (${Prisma.join(plants)})`);
+    }
+
+    const batchWhereClause = batchConditions.length
+      ? Prisma.sql`WHERE ${Prisma.join(batchConditions, ' AND ')}`
       : Prisma.empty;
+
+    const boilProductWhere = productIdParam
+      ? Prisma.sql`WHERE bl.ProductId LIKE ${productIdParam} ESCAPE '\\'`
+      : Prisma.empty;
+
+    const weightProductWhere = productIdParam
+      ? Prisma.sql`WHERE w.ProductId LIKE ${productIdParam} ESCAPE '\\'`
+      : Prisma.empty;
+
+    const compareHavingClause = compare
+      ? Prisma.sql`HAVING ABS(SUM(s.planQuantity) - SUM(s.factQuantity)) > 0.0001`
+      : Prisma.empty;
+
+    const t0 = performance.now();
 
     const orderClause = sortByBatch
       ? Prisma.raw('b.BatchYear ASC, b.BatchMonth ASC, b.BatchNumber ASC, prod.ProductName ASC')
@@ -153,51 +181,78 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
       totalCount: number;
     };
 
-    const rawRows = await mssqlPrisma.$queryRaw<RawReportRow[]>`
-      WITH FilteredBatches AS (
-        SELECT BatchPK, BatchName, Plant, BatchDate, BatchYear, BatchMonth, BatchNumber
-        FROM Batchs
-        WHERE (${startDateParam} IS NULL OR BatchDate >= CAST(${startDateParam} AS DATETIME))
-          AND (${endDateParam} IS NULL OR BatchDate < CAST(${endDateParam} AS DATETIME))
-          AND (${batchNameParam} IS NULL OR BatchName LIKE CAST(${batchNameParam} AS VARCHAR(255)) ESCAPE '\\')
-          ${plantFilter}
-      ),
-      MergedAgg AS (
-        SELECT
-          src.BatchPK AS batchId,
-          src.ProductId AS productId,
-          SUM(src.planQty) AS planQuantity,
-          SUM(src.factQty) AS factQuantity
-        FROM (
-          SELECT BatchPK, ProductId, Quantity AS planQty, CAST(0 AS FLOAT) AS factQty FROM Boils
+    const rawRows = await mssqlPrisma.$queryRaw<RawReportRow[]> /* sql */ `
+      WITH
+        FilteredBatches AS (
+          SELECT
+            BatchPK
+          FROM
+            Batchs
+            ${batchWhereClause}
+        ),
+        AllSums AS (
+          SELECT
+            bl.BatchPK AS batchId,
+            bl.ProductId AS productId,
+            SUM(bl.Quantity) AS planQuantity,
+            CAST(0 AS FLOAT) AS factQuantity
+          FROM
+            FilteredBatches b
+            INNER JOIN Boils bl ON bl.BatchPK = b.BatchPK
+            ${boilProductWhere}
+          GROUP BY
+            bl.BatchPK,
+            bl.ProductId
           UNION ALL
-          SELECT BatchPK, ProductId, CAST(0 AS FLOAT) AS planQty, Quantity AS factQty FROM Weightings
-        ) src
-        INNER JOIN FilteredBatches b ON b.BatchPK = src.BatchPK
-        WHERE (${productIdParam} IS NULL OR src.ProductId LIKE CAST(${productIdParam} AS VARCHAR(50)) ESCAPE '\\')
-        GROUP BY src.BatchPK, src.ProductId
-      )
+          SELECT
+            w.BatchPK AS batchId,
+            w.ProductId AS productId,
+            CAST(0 AS FLOAT) AS planQuantity,
+            SUM(w.Quantity) AS factQuantity
+          FROM
+            FilteredBatches b
+            INNER JOIN Weightings w ON w.BatchPK = b.BatchPK
+            ${weightProductWhere}
+          GROUP BY
+            w.BatchPK,
+            w.ProductId
+        ),
+        Grouped AS (
+          SELECT
+            s.batchId,
+            s.productId,
+            SUM(s.planQuantity) AS planQuantity,
+            SUM(s.factQuantity) AS factQuantity
+          FROM
+            AllSums s
+          GROUP BY
+            s.batchId,
+            s.productId
+            ${compareHavingClause}
+        )
       SELECT
-        m.batchId,
+        g.batchId,
         b.BatchName AS batchName,
         pl.PlantName AS plantName,
         b.BatchDate AS batchDate,
-        m.productId,
+        g.productId,
         COALESCE(prod.ProductName, '') AS productName,
-        CAST(m.planQuantity AS FLOAT) AS planQuantity,
-        CAST(m.factQuantity AS FLOAT) AS factQuantity,
+        CAST(g.planQuantity AS FLOAT) AS planQuantity,
+        CAST(g.factQuantity AS FLOAT) AS factQuantity,
         b.BatchYear AS batchYear,
         b.BatchMonth AS batchMonth,
         b.BatchNumber AS batchNumber,
-        COUNT(*) OVER() AS totalCount
-      FROM MergedAgg m
-      INNER JOIN FilteredBatches b ON b.BatchPK = m.batchId
-      LEFT JOIN Products prod ON prod.ProductId = m.productId
-      LEFT JOIN Plants pl ON b.Plant = pl.PlantAlias
-      WHERE (${compareFlag} = 0 OR ABS(m.planQuantity - m.factQuantity) > 0.0001)
-      ORDER BY ${orderClause}
-      ${getAllRows ? Prisma.empty : Prisma.raw(`OFFSET ${offset} ROWS FETCH NEXT ${safeLimit} ROWS ONLY`)}
-      OPTION (RECOMPILE);
+        COUNT(*) OVER () AS totalCount
+      FROM
+        Grouped g
+        INNER JOIN Batchs b ON b.BatchPK = g.batchId
+        LEFT JOIN Products prod ON prod.ProductId = g.productId
+        LEFT JOIN Plants pl ON b.Plant = pl.PlantAlias
+      ORDER BY
+        ${orderClause}
+        ${getAllRows
+          ? Prisma.empty
+          : Prisma.raw(`OFFSET ${offset} ROWS FETCH NEXT ${safeLimit} ROWS ONLY`)}
     `;
 
     const total = rawRows.length > 0 ? Number(rawRows[0].totalCount) : 0;
@@ -211,39 +266,59 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
       const relatedWeightings = await mssqlPrisma.$queryRaw<
         TApplicationTraceWeightingDetailItem[]
       > /* sql */ `
+        DECLARE @TargetWeightings
+        TABLE (
+          WeightingsPK INT PRIMARY KEY,
+          BatchPK INT,
+          ContainerPK INT NULL,
+          ProductId VARCHAR(50),
+          LotPK INT NULL,
+          DocumentPK INT NULL,
+          Quantity FLOAT
+        );
+
+        INSERT INTO
+          @TargetWeightings (
+            WeightingsPK,
+            BatchPK,
+            ContainerPK,
+            ProductId,
+            LotPK,
+            DocumentPK,
+            Quantity
+          )
+        SELECT
+          w.WeightingsPK,
+          w.BatchPK,
+          w.ContainerPK,
+          w.ProductId,
+          w.LotPK,
+          w.DocumentPK,
+          w.Quantity
+        FROM
+          Weightings w
+          INNER JOIN (
+            VALUES
+              ${Prisma.join(pairs)}
+          ) AS keys (BatchPK, ProductId) ON w.BatchPK = keys.BatchPK
+          AND w.ProductId = keys.ProductId;
+
         WITH
-          TargetWeightings AS (
-            SELECT
-              w.WeightingsPK,
-              w.BatchPK,
-              w.ContainerPK,
-              w.ProductId,
-              w.LotPK,
-              w.DocumentPK,
-              w.Quantity
+          DistinctContainers AS (
+            SELECT DISTINCT
+              ContainerPK
             FROM
-              Weightings w
-              INNER JOIN (
-                VALUES
-                  ${Prisma.join(pairs)}
-              ) AS keys (BatchPK, ProductId) ON w.BatchPK = keys.BatchPK
-              AND w.ProductId = keys.ProductId
+              @TargetWeightings
+            WHERE
+              ContainerPK IS NOT NULL
           ),
           ContainerCounts AS (
             SELECT
               w.ContainerPK,
-              COUNT(w.ContainerPK) AS recordsCnt
+              COUNT(*) AS recordsCnt
             FROM
-              Weightings w
-            WHERE
-              w.ContainerPK IN (
-                SELECT DISTINCT
-                  ContainerPK
-                FROM
-                  TargetWeightings
-                WHERE
-                  ContainerPK IS NOT NULL
-              )
+              DistinctContainers dc
+              INNER JOIN Weightings w ON w.ContainerPK = dc.ContainerPK
             GROUP BY
               w.ContainerPK
           ),
@@ -252,17 +327,9 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
               l.ContainerPK,
               MAX(doc.CreateDate) AS loadDate
             FROM
-              Loads l
+              DistinctContainers dc
+              INNER JOIN Loads l ON l.ContainerPK = dc.ContainerPK
               INNER JOIN Documents doc ON l.DocumentPK = doc.DocumentPK
-            WHERE
-              l.ContainerPK IN (
-                SELECT DISTINCT
-                  ContainerPK
-                FROM
-                  TargetWeightings
-                WHERE
-                  ContainerPK IS NOT NULL
-              )
             GROUP BY
               l.ContainerPK
           )
@@ -273,13 +340,13 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
           tw.ProductId AS productId,
           COALESCE(prod.ProductName, '') AS productName,
           l.LotName AS lotName,
-          CAST(tw.Quantity AS FLOAT) AS quantity,
+          tw.Quantity AS quantity,
           a.AuthorName AS authorName,
           d.CreateDate AS weightingDate,
           COALESCE(cc.recordsCnt, 0) AS containerRecordsCount,
           ld.loadDate AS loadingDate
         FROM
-          TargetWeightings tw
+          @TargetWeightings tw
           LEFT JOIN Products prod ON prod.ProductId = tw.ProductId
           LEFT JOIN Lots l ON l.LotPK = tw.LotPK
           LEFT JOIN Documents d ON d.DocumentPK = tw.DocumentPK
@@ -298,7 +365,6 @@ export class ApplicationTraceWeightingService implements IApplicationTraceWeight
         weightingsMap.set(key, list);
       }
     }
-
     const rows: TApplicationTraceWeightingListRowItem[] = rawRows.map(
       ({ totalCount: _, ...row }) => ({
         ...row,
