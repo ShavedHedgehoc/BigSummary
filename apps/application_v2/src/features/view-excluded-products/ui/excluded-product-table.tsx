@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useIsMobile } from '@/shared/lib';
 import { ScrollArea } from '@/shared/ui';
 import { DataTableNew } from '@/shared/ui/table-layout/ui/data-table-new';
@@ -14,16 +14,11 @@ interface IExcludedProductViewProps {
 }
 
 export function ExcludedProductsTable({ onClose, onRestore }: IExcludedProductViewProps) {
-  const { params, setParams } = useWeightingListSearchParams();
+  const { setParams } = useWeightingListSearchParams();
   const items = useExcludedProductsStore((s) => s.items);
   const removeExcludedProduct = useExcludedProductsStore((s) => s.removeExcludedProduct);
-  const syncFromIds = useExcludedProductsStore((s) => s.syncFromIds);
 
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    syncFromIds(params.excludeProductIds ?? []);
-  }, [params.excludeProductIds, syncFromIds]);
 
   const handleRestoreProduct = useCallback(
     (productId: string) => {

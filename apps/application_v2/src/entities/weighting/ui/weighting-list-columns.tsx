@@ -191,7 +191,7 @@ export const baseWeightingListColumns: ColumnDef<TApplicationTraceWeightingListR
     title: 'Наименование',
     hideBelowFullHD: false,
     grow: true,
-    cellClassName: 'font-medium min-w-0 max-w-100',
+    cellClassName: 'font-medium min-w-0 max-w-80',
     renderValue: (item) =>
       item.productName ? (
         <span className="leading-none truncate block">{item.productName}</span>
