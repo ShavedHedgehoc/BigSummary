@@ -1,5 +1,5 @@
 import { useIsMobile } from '@/shared/lib';
-import { useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { useWeightingListSearchParams, useWeightingListUiParams } from '@/entities/weighting';
 import { weightingListColumns } from '../ui/columns';
 import { TApplicationTraceWeightingListPaginatedRowItem } from '@repo/schemas';
@@ -18,6 +18,18 @@ export function useWeightingList() {
     setParams,
   } = useWeightingListSearchParams();
   const { params: uiParams, setParams: setUiParams } = useWeightingListUiParams();
+
+  const { items, syncFromIds, addExcludedProduct } = useExcludedProductsStore(
+    useShallow((state) => ({
+      items: state.items,
+      syncFromIds: state.syncFromIds,
+
+      addExcludedProduct: state.addExcludedProduct,
+    })),
+  );
+  useEffect(() => {
+    syncFromIds(params.excludeProductIds ?? []);
+  }, [params.excludeProductIds, syncFromIds]);
 
   const columns = useMemo(() => {
     const base = [...weightingListColumns];
@@ -48,17 +60,11 @@ export function useWeightingList() {
 
   const clearSelected = () => setUiParams({ selectedProductId: null, selectedBatchId: null });
 
-  const { items, addExcludedProduct } = useExcludedProductsStore(
-    useShallow((state) => ({
-      items: state.items,
-      addExcludedProduct: state.addExcludedProduct,
-    })),
-  );
-
   const isHasExcluded = items.length > 0;
 
   const handleHideProduct = useCallback(
     (cleanId: string, name?: string | null) => {
+      clearSelected();
       addExcludedProduct({ productId: cleanId, productName: name ?? cleanId });
       setParams((prev) => {
         const current = prev.excludeProductIds ?? [];
@@ -66,7 +72,7 @@ export function useWeightingList() {
         return { excludeProductIds: [...current, cleanId] };
       });
     },
-    [setParams, addExcludedProduct],
+    [clearSelected, setParams, addExcludedProduct],
   );
 
   return {

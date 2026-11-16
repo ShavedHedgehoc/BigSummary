@@ -188,7 +188,6 @@ export function WeightingListFilter({
         <div className="grid grid-cols-5 gap-3 w-full max-w-6xl items-end @max-6xl:grid-cols-3 @max-4xl:grid-cols-2">
           {renderFilterFields()}
         </div>
-
         <div className="flex items-center gap-2 shrink-0 @max-6xl:w-full">
           {isHasExcluded && (
             <TriangleAlert strokeWidth={2} className="h-5 w-5 text-destructive shrink-0" />
