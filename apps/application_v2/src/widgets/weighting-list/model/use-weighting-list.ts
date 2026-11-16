@@ -23,7 +23,6 @@ export function useWeightingList() {
     useShallow((state) => ({
       items: state.items,
       syncFromIds: state.syncFromIds,
-
       addExcludedProduct: state.addExcludedProduct,
     })),
   );

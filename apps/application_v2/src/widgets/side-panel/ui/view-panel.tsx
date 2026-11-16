@@ -49,7 +49,7 @@ export function ViewPanel(props: TSidePanelContext) {
         )}
       </CardContent>
       <CardFooter className="mt-auto border-t border-border/40 bg-muted/20 px-4 h-14 flex items-center justify-center shrink-0 w-full">
-        {config.getActionButton(props, isAction, setIsAction)}
+        {config.renderButton()}
       </CardFooter>
     </Card>
   );

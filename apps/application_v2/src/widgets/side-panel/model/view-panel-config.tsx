@@ -1,13 +1,10 @@
+import { ClearExcludedProductsButton } from '@/features/view-excluded-products';
 import { TSidePanelContext } from '../ui/side-panel';
 
 interface IViewModeConfig {
   getTitle: (isAction: boolean) => string | null;
   hasSubheader: boolean;
-  getActionButton: (
-    props: TSidePanelContext,
-    isAction: boolean,
-    setIsAction: (v: boolean) => void,
-  ) => React.ReactNode;
+  renderButton: () => React.ReactNode;
   getActionForm: (props: TSidePanelContext, setIsAction: (v: boolean) => void) => React.ReactNode;
 }
 
@@ -29,7 +26,7 @@ export const VIEW_PANEL_CONFIG: Record<
   wght_report: {
     getTitle: () => null,
     hasSubheader: true,
-    getActionButton: () => null,
+    renderButton: () => <ClearExcludedProductsButton />,
     getActionForm: () => null,
   },
 };
