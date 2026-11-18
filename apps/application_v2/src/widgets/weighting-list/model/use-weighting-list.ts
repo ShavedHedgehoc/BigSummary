@@ -17,6 +17,7 @@ export function useWeightingList() {
     params,
     setParams,
   } = useWeightingListSearchParams();
+
   const { params: uiParams, setParams: setUiParams } = useWeightingListUiParams();
 
   const { items, syncFromIds, addExcludedProduct } = useExcludedProductsStore(
@@ -26,6 +27,7 @@ export function useWeightingList() {
       addExcludedProduct: state.addExcludedProduct,
     })),
   );
+
   useEffect(() => {
     syncFromIds(params.excludeProductIds ?? []);
   }, [params.excludeProductIds, syncFromIds]);
@@ -43,7 +45,6 @@ export function useWeightingList() {
     if (!weightingData?.rows || !targetProductId || !targetBatchId) {
       return undefined;
     }
-
     for (const row of weightingData.rows) {
       if (
         'weightings' in row &&
@@ -53,11 +54,12 @@ export function useWeightingList() {
         return row;
       }
     }
-
     return undefined;
   }, [weightingData, targetProductId, targetBatchId]);
 
-  const clearSelected = () => setUiParams({ selectedProductId: null, selectedBatchId: null });
+  const clearSelected = useCallback(() => {
+    setUiParams({ selectedProductId: null, selectedBatchId: null });
+  }, [setUiParams]);
 
   const isHasExcluded = items.length > 0;
 

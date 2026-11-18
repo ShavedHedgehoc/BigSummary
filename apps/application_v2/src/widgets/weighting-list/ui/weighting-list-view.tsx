@@ -18,6 +18,7 @@ export default function WeightingListView() {
     selectedRow,
     clearSelected,
     handleHideProduct,
+    params,
   } = useWeightingList();
   return (
     <div>
@@ -36,6 +37,7 @@ export default function WeightingListView() {
             data={weightingData?.rows ?? []}
             columns={columns}
             isLoading={isLoading}
+            resetKey={params.toString()}
           />
         }
         tableSkeleton={<DataTableSkeleton columns={isMobile ? 3 : 7} rows={isMobile ? 10 : 15} />}

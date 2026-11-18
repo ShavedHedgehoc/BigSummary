@@ -146,6 +146,213 @@
 //     </Table>
 //   );
 // }
+
+// 'use client';
+
+// /* eslint-disable react-hooks/incompatible-library */
+// import { cn, useIsMobile } from '@/shared/lib';
+// import { Table, TableBody, TableCell, TableHead, TableRow } from '@/shared/ui';
+// import {
+//   type ColumnDef,
+//   flexRender,
+//   getCoreRowModel,
+//   TableMeta,
+//   useReactTable,
+// } from '@tanstack/react-table';
+// import { Loader2 } from 'lucide-react';
+// import { useEffect, useMemo, useRef, useState } from 'react';
+
+// interface CustomTableMeta {
+//   onRowActionSuccess?: () => void;
+//   [key: string]: unknown;
+// }
+
+// interface DataTableProps<TData, TValue> {
+//   columns: ColumnDef<TData, TValue>[];
+//   data: TData[];
+//   isLoading?: boolean;
+//   meta?: CustomTableMeta;
+//   chunkSize?: number;
+//   isCardTable?: boolean;
+// }
+
+// export function DataTableNew<TData, TValue>({
+//   columns,
+//   data,
+//   isLoading = false,
+//   meta,
+//   chunkSize = 50,
+//   isCardTable = false,
+// }: DataTableProps<TData, TValue>) {
+//   const [visibleCount, setVisibleCount] = useState(chunkSize);
+//   const loaderRef = useRef<HTMLDivElement | null>(null);
+
+//   useEffect(() => {
+//     setVisibleCount(chunkSize);
+//   }, [data, chunkSize]);
+
+//   const visibleData = useMemo(
+//     () => (data.length > visibleCount ? data.slice(0, visibleCount) : data),
+//     [data, visibleCount],
+//   );
+
+//   // 3. Подгружаем следующую порцию строк, когда пользователь докручивает до конца
+//   useEffect(() => {
+//     if (visibleCount >= data.length) return;
+
+//     const observer = new IntersectionObserver(
+//       (entries) => {
+//         if (entries[0]?.isIntersecting) {
+//           setVisibleCount((prev) => Math.min(prev + chunkSize, data.length));
+//         }
+//       },
+//       { rootMargin: '250px' }, // Подгружаем заранее за 250px до конца списка
+//     );
+
+//     const currentLoader = loaderRef.current;
+//     if (currentLoader) {
+//       observer.observe(currentLoader);
+//     }
+
+//     return () => {
+//       if (currentLoader) {
+//         observer.unobserve(currentLoader);
+//       }
+//     };
+//   }, [visibleCount, data.length, chunkSize]);
+
+//   const table = useReactTable({
+//     data: visibleData,
+//     columns,
+//     getCoreRowModel: getCoreRowModel(),
+//     meta: meta as TableMeta<TData> & CustomTableMeta,
+//   });
+
+//   const isMobile = useIsMobile();
+//   const hasRows = !!table.getRowModel().rows?.length;
+
+//   if ((isLoading && !hasRows) || !hasRows) {
+//     return (
+//       <div
+//         className={cn(
+//           'relative w-full grow flex flex-col',
+//           isMobile ? 'min-h-[calc(100svh-400px)]' : 'min-h-[calc(100svh-600px)]',
+//         )}
+//       >
+//         <div
+//           className={cn(
+//             'absolute inset-0 flex flex-col items-center justify-center',
+//             'text-center text-muted-foreground text-sm rounded-xl  z-20',
+//             isCardTable ? 'bg-card' : 'bg-background',
+//           )}
+//         >
+//           {isLoading ? (
+//             <div className="flex flex-col items-center justify-center gap-2">
+//               <Loader2 className="h-6 w-6 animate-spin" />
+//               <span>Загрузка данных...</span>
+//             </div>
+//           ) : (
+//             'Записи не найдены...'
+//           )}
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="w-full flex flex-col">
+//       <Table className="w-full border-separate border-spacing-0">
+//         <thead>
+//           {table.getHeaderGroups().map((headerGroup, groupIndex) => (
+//             <tr key={headerGroup.id} className="border-b-0 bg-transparent! hover:bg-transparent!">
+//               {headerGroup.headers.map((header) => {
+//                 const isGroup = header.column.getLeafColumns().length > 1;
+//                 const isSingle = !header.column.parent && !isGroup;
+//                 if (groupIndex === 1 && isSingle) return null;
+//                 const rowSpan = isSingle && groupIndex === 0 ? 2 : 1;
+//                 const colMeta = header.column.columnDef.meta;
+//                 const shouldGrow = colMeta?.grow;
+//                 const hideBelowFullHD = colMeta?.hideBelowFullHD;
+//                 const hideBelowXL = colMeta?.hideBelowXL;
+//                 const showBelowXL = colMeta?.showBelowXL;
+
+//                 const isSelectColumn = header.id === 'select';
+//                 return (
+//                   <TableHead
+//                     key={header.id}
+//                     colSpan={header.colSpan}
+//                     rowSpan={rowSpan}
+//                     style={{
+//                       width: isSelectColumn ? '44px' : shouldGrow ? 'auto' : header.getSize(),
+//                     }}
+//                     className={cn(
+//                       'dark:text-muted-foreground font-semibold align-middle transition-colors',
+//                       'h-10 py-2 px-4',
+//                       'hover:bg-transparent! dark:hover:bg-transparent!',
+//                       shouldGrow && 'w-full',
+//                       'sticky top-0 z-10 bg-background backdrop-blur-sm',
+//                       hideBelowXL && '@max-5xl:hidden',
+//                       hideBelowFullHD && '@max-7xl:hidden',
+//                       showBelowXL && 'hidden @max-5xl:table-cell',
+//                       isSelectColumn && 'w-11 shrink-0! min-w-11 p-0 text-center',
+//                     )}
+//                   >
+//                     {flexRender(header.column.columnDef.header, header.getContext())}
+//                   </TableHead>
+//                 );
+//               })}
+//             </tr>
+//           ))}
+//         </thead>
+
+//         <TableBody>
+//           {table.getRowModel().rows.map((row) => (
+//             <TableRow
+//               key={row.id}
+//               data-state={row.getIsSelected() && 'selected'}
+//               className={cn('h-12 hover:bg-muted/70 dark:hover:bg-muted transition-colors group')}
+//             >
+//               {row.getVisibleCells().map((cell) => {
+//                 const colMeta = cell.column.columnDef.meta;
+//                 const shouldGrow = colMeta?.grow;
+//                 const hideBelowFullHD = colMeta?.hideBelowFullHD;
+//                 const hideBelowXL = colMeta?.hideBelowXL;
+//                 const showBelowXL = colMeta?.showBelowXL;
+//                 const isSelectColumn = cell.column.id === 'select';
+//                 return (
+//                   <TableCell
+//                     key={cell.id}
+//                     style={{
+//                       width: isSelectColumn ? '44px' : shouldGrow ? 'auto' : cell.column.getSize(),
+//                     }}
+//                     className={cn(
+//                       'py-2 px-4 text-foreground text-sm align-middle',
+//                       shouldGrow && 'w-full truncate',
+//                       'group-odd:bg-muted/50',
+//                       'dark:group-odd:bg-muted/50',
+//                       hideBelowXL && '@max-5xl:hidden',
+//                       hideBelowFullHD && '@max-7xl:hidden',
+//                       showBelowXL && 'hidden @max-5xl:table-cell',
+//                       isSelectColumn && 'w-11 shrink-0! min-w-11 p-0 text-center',
+//                     )}
+//                   >
+//                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
+//                   </TableCell>
+//                 );
+//               })}
+//             </TableRow>
+//           ))}
+//         </TableBody>
+//       </Table>
+
+//       {visibleCount < data.length && (
+//         <div ref={loaderRef} className="py-3 text-center text-xs text-muted-foreground">
+//           ...
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
 'use client';
 
 /* eslint-disable react-hooks/incompatible-library */
@@ -173,6 +380,8 @@ interface DataTableProps<TData, TValue> {
   meta?: CustomTableMeta;
   chunkSize?: number;
   isCardTable?: boolean;
+  /** Опциональный ключ для принудительного сброса скролла (например, при смене фильтров или поиска) */
+  resetKey?: string | number;
 }
 
 export function DataTableNew<TData, TValue>({
@@ -182,55 +391,75 @@ export function DataTableNew<TData, TValue>({
   meta,
   chunkSize = 50,
   isCardTable = false,
+  resetKey,
 }: DataTableProps<TData, TValue>) {
   const [visibleCount, setVisibleCount] = useState(chunkSize);
   const loaderRef = useRef<HTMLDivElement | null>(null);
+  const dataLengthRef = useRef(data.length);
 
   useEffect(() => {
+    dataLengthRef.current = data.length;
+  }, [data.length]);
+
+  // Сбрасываем количество видимых строк только при явной смене фильтров/вкладки (resetKey)
+  useEffect(() => {
+    if (resetKey === undefined) return;
     setVisibleCount(chunkSize);
-  }, [data, chunkSize]);
+  }, [resetKey, chunkSize]);
+
+  // Сохраняем текущую глубину прокрутки при обновлении data,
+  // но аккуратно подрезаем, если после фильтрации записей стало меньше
+  const effectiveVisibleCount =
+    data.length > 0 ? Math.min(Math.max(visibleCount, chunkSize), data.length) : chunkSize;
 
   const visibleData = useMemo(
-    () => (data.length > visibleCount ? data.slice(0, visibleCount) : data),
-    [data, visibleCount],
+    () => (data.length > effectiveVisibleCount ? data.slice(0, effectiveVisibleCount) : data),
+    [data, effectiveVisibleCount],
   );
 
-  // 3. Подгружаем следующую порцию строк, когда пользователь докручивает до конца
+  const hasMore = effectiveVisibleCount < data.length;
+
   useEffect(() => {
-    if (visibleCount >= data.length) return;
+    const currentLoader = loaderRef.current;
+    if (!hasMore || !currentLoader) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          setVisibleCount((prev) => Math.min(prev + chunkSize, data.length));
+          setVisibleCount((prev) => {
+            const total = dataLengthRef.current;
+            const current = Math.max(prev, chunkSize);
+            return current < total ? Math.min(current + chunkSize, total) : prev;
+          });
         }
       },
-      { rootMargin: '250px' }, // Подгружаем заранее за 250px до конца списка
+      { rootMargin: '250px' },
     );
 
-    const currentLoader = loaderRef.current;
-    if (currentLoader) {
-      observer.observe(currentLoader);
-    }
+    observer.observe(currentLoader);
 
     return () => {
-      if (currentLoader) {
-        observer.unobserve(currentLoader);
-      }
+      observer.disconnect();
     };
-  }, [visibleCount, data.length, chunkSize]);
+  }, [chunkSize, hasMore]);
 
   const table = useReactTable({
     data: visibleData,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getRowId: (originalRow, index) => {
+      const rowWithId = originalRow as { id?: string | number; uuid?: string | number };
+      if (rowWithId?.id !== undefined && rowWithId?.id !== null) return String(rowWithId.id);
+      if (rowWithId?.uuid !== undefined && rowWithId?.uuid !== null) return String(rowWithId.uuid);
+      return String(index);
+    },
     meta: meta as TableMeta<TData> & CustomTableMeta,
   });
 
   const isMobile = useIsMobile();
   const hasRows = !!table.getRowModel().rows?.length;
 
-  if ((isLoading && !hasRows) || !hasRows) {
+  if (!hasRows) {
     return (
       <div
         className={cn(
@@ -241,7 +470,7 @@ export function DataTableNew<TData, TValue>({
         <div
           className={cn(
             'absolute inset-0 flex flex-col items-center justify-center',
-            'text-center text-muted-foreground text-sm rounded-xl  z-20',
+            'text-center text-muted-foreground text-sm rounded-xl z-20',
             isCardTable ? 'bg-card' : 'bg-background',
           )}
         >
@@ -344,7 +573,7 @@ export function DataTableNew<TData, TValue>({
         </TableBody>
       </Table>
 
-      {visibleCount < data.length && (
+      {hasMore && (
         <div ref={loaderRef} className="py-3 text-center text-xs text-muted-foreground">
           ...
         </div>
