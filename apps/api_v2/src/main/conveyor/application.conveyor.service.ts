@@ -48,32 +48,32 @@ export class ApplicationConveyorService implements IApplicationConveyorService {
       }
     }
 
-    const [total, conveyors] = await Promise.all([
-      pgPrisma.conveyors.count({ where }),
-      pgPrisma.conveyors.findMany({
-        where,
-        include: {
-          records: {
-            select: {
-              conveyorId: true,
-            },
-            take: 1,
+    const conveyors = await pgPrisma.conveyors.findMany({
+      where,
+      include: {
+        records: {
+          select: {
+            conveyorId: true,
           },
+          take: 1,
         },
-        orderBy: { value: 'asc' },
-        take: limit,
-        skip: limit * (page - 1),
-      }),
-    ]);
+      },
+    });
 
-    const formattedConveyors: TApplicationConveyorItem[] = conveyors.map((conveyor) => ({
+    conveyors.sort((a, b) => a.value.localeCompare(b.value, undefined, { numeric: true }));
+
+    const total = conveyors.length;
+    const totalPages = Math.ceil(total / limit);
+    const offset = limit * (page - 1);
+    const paginatedConveyors = conveyors.slice(offset, offset + limit);
+
+    const formattedConveyors: TApplicationConveyorItem[] = paginatedConveyors.map((conveyor) => ({
       id: conveyor.id,
       value: conveyor.value,
       barcode: conveyor.barcode,
       haveRecord: conveyor.records?.length > 0,
     }));
 
-    const totalPages = Math.ceil(total / limit);
     return { rows: formattedConveyors, total, totalPages };
   }
 
