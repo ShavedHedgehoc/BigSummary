@@ -120,7 +120,9 @@ export class BoilCommonService {
     input: TGetBoilListInput & { includeHistories?: T },
   ): Promise<TBoilListResult<T>> {
     const { filter, limit, page, includeHistories = false as T } = input;
-    const andConditions: Prisma.boilsWhereInput[] = [];
+
+    const andConditions: Prisma.boilsWhereInput[] = [{ bases: { isNot: null } }];
+
     if (filter.baseCode !== '') {
       andConditions.push({
         bases: { code: { contains: filter.baseCode, mode: 'insensitive' } },
@@ -133,7 +135,11 @@ export class BoilCommonService {
       });
     }
 
-    if (filter.marking !== '') {
+    if (filter.isOnlyEmptyMarking === true) {
+      andConditions.push({
+        bases: { marking: null },
+      });
+    } else if (filter.marking !== '') {
       andConditions.push({
         bases: { marking: { contains: filter.marking, mode: 'insensitive' } },
       });

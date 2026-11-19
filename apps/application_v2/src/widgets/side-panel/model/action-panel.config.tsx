@@ -18,6 +18,7 @@ import { UserFormSubheader } from '@/entities/user/index.client';
 import { DeleteConveyorButton } from '@/features/delete-conveyor';
 import { EditConveyorForm } from '@/features/edit-conveyor';
 import { UploadTraceBoilForm } from '@/features/upload-boils';
+import { UpdateBasesForm } from '@/features/update-bases';
 
 interface IActionModeConfig {
   requiresRow: boolean;
@@ -56,6 +57,14 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
     renderButton: (props) => (
       <DeleteUserButton row={props.row as TApplicationUserItem} onSuccess={props.clearSelected} />
     ),
+  },
+  admin_update_bases: {
+    requiresRow: true,
+    headerTitle: null,
+    getSubheader: () => null,
+    renderForm: () => <UpdateBasesForm />,
+    renderButton: () => null,
+    canRenderWithoutRow: true,
   },
   conveyors: {
     requiresRow: true,

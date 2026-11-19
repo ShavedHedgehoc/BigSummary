@@ -20,6 +20,7 @@ import { RoleModule } from '../main/role/role.module';
 import { TraceInventoryModule } from '../trace/inventory/inventory.module';
 import { TraceBoilModule } from '../trace/boil/boil.module';
 import { TraceWeightingModule } from '../trace/weighting/weighting.module';
+import { BaseModule } from '../main/base/base.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { TraceWeightingModule } from '../trace/weighting/weighting.module';
     PlantModule,
     DocModule,
     BoilModule,
+    BaseModule,
     RecordModule,
     RoleModule,
     UserModule,

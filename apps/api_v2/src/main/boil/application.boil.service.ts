@@ -16,13 +16,15 @@ export class ApplicationBoilService implements IApplicationBoilService {
   ) {}
 
   async getBoilList(input: TGetApplicationLabBoilListInput): Promise<TApplicationBoilListResponse> {
-    const { baseCode, boil, marking, boilAsc, states, plants, limit, page } = input;
+    const { baseCode, boil, marking, boilAsc, states, plants, isOnlyEmptyMarking, limit, page } =
+      input;
     const numericStates = states ? states.map(Number).filter((val) => !isNaN(val)) : [];
     const numericPlants = plants ? plants.map(Number).filter((val) => !isNaN(val)) : [];
     const filter: IBoilListFilter = {
       baseCode,
       boil,
       marking,
+      isOnlyEmptyMarking,
       haveRecord: false,
       boilAsc,
       states: numericStates,

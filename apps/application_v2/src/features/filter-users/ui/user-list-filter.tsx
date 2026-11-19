@@ -26,7 +26,6 @@ interface TUserListFilterProps {
   email: string;
   selectedBannedOptions: string[] | undefined;
   selectedRoles: string[] | undefined;
-
   onFilterChangeThrottle: (newFilters: { name?: string | null; email?: string | null }) => void;
   onFilterChange: (newFilters: { banned?: string[] | null; roles?: string[] | null }) => void;
   handleResetAll: () => void;

@@ -11,7 +11,7 @@ export function useUploadDocData() {
       utils.application.main.doc.getCurrentDoc.invalidate();
     },
     onError: (err) => {
-      toast.error(err.message || 'Произошла ошибка при удалении');
+      toast.error(err.message || 'Произошла ошибка при загрузке');
     },
   });
   return {

@@ -90,6 +90,8 @@ import type {
   TApplicationDeleteTraceWeightingResponse,
   TApplicationTraceWeightingListInput,
   TApplicationTraceWeightingListResponse,
+  TApplicationUpdateBaseInput,
+  TApplicationUpdateBaseResponse,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -173,9 +175,6 @@ export interface IDashTraceCanService {
 // application
 
 export interface IApplicationTraceBoilService {
-  // getWeightingReport: (
-  //   input: TGetApplicationGetTraceBoilWghtReportInput,
-  // ) => Promise<TApplicationTraceBoilWghtReportResponse | null>;
   uploadTraceBoils: (
     input: TApplicationUploadTraceBoilInput,
   ) => Promise<TApplicationUploadTraceBoilResponse>;
@@ -217,6 +216,10 @@ export interface IApplicationTraceWeightingService {
   deleteWeighting: (
     input: TApplicationDeleteTraceWeightingInput,
   ) => Promise<TApplicationDeleteTraceWeightingResponse>;
+}
+
+export interface IApplicationBaseService {
+  bulkUpdateBases: (input: TApplicationUpdateBaseInput) => Promise<TApplicationUpdateBaseResponse>;
 }
 
 export interface IApplicationBoilService {
@@ -301,6 +304,7 @@ export interface ITrpcContext {
   applicationTraceCanService: IApplicationTraceCanService;
   applicationTracePlantService: IApplicationTracePlantService;
   applicationTraceWeightingService: IApplicationTraceWeightingService;
+  applicationBaseService: IApplicationBaseService;
   applicationBoilService: IApplicationBoilService;
   applicationConveyorService: IApplicationConveyorService;
   applicationDocService: IApplicationDocService;
