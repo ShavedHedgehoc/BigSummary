@@ -9,11 +9,12 @@ import { DB_HISTORY_STATUSES } from '@/shared/constants';
 import { useMemo } from 'react';
 import { useUserSettings } from '@/entities/user/index.client';
 
-type TBoilSearchMode = 'lab' | 'technologist';
+type TBoilSearchMode = 'lab' | 'technologist' | 'admin';
 
 const DEFAULT_STATES: Record<TBoilSearchMode, THistoryStatus[]> = {
   lab: [DB_HISTORY_STATUSES.BASE_CHECK],
   technologist: [],
+  admin: [],
 } as const;
 
 export function useBoilListSearchParams(mode: TBoilSearchMode) {

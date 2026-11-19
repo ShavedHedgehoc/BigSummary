@@ -17,6 +17,7 @@ export const boilListParamsSchema = {
   plants: parseAsArrayOf(parseAsString).withDefault([]),
   limit: parseAsInteger.withDefault(10),
   page: parseAsInteger.withDefault(1),
+  isOnlyEmptyMarking: parseAsBoolean.withDefault(false),
 } satisfies Record<keyof TGetApplicationLabBoilListInput, unknown>;
 
 export type BoilListParams = inferParserType<typeof boilListParamsSchema>;

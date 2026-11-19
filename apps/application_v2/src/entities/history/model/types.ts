@@ -44,6 +44,11 @@ export type THistoryMutationContextProps =
       onChange?: never;
     }
   | {
+      mode: 'admin_update_bases';
+      row: TApplicationBoilItem | undefined;
+      onChange?: never;
+    }
+  | {
       mode: 'conveyors';
       row: TApplicationConveyorItem | undefined;
       onChange?: never;

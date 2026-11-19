@@ -32,9 +32,9 @@ export default function LabBoilListFilter() {
         baseCode: null,
         marking: null,
         states: [],
-        // plants: params.plants,
         plants: [],
         page: 1,
+        // isOnlyEmptyMarking: null,
       },
       {
         shallow: true,
@@ -61,6 +61,8 @@ export default function LabBoilListFilter() {
       onFilterChange={onFilterChange}
       handleReset={handleReset}
       handleResetAll={handleResetAll}
+      // filterEmptyMarking={true}
+      // isOnlyEmptyMarking={params.isOnlyEmptyMarking}
     />
   );
 }

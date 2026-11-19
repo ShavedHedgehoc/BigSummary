@@ -56,6 +56,12 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
     getTabs: () => [TABS.USER],
     showCloseButtonOnDesktop: false,
   },
+  admin_update_bases: {
+    requiresRow: true,
+    hasHistory: true,
+    getTabs: () => [TABS.UPLOAD, TABS.HISTORY],
+    showCloseButtonOnDesktop: false,
+  },
   planner: {
     requiresRow: true,
     hasHistory: true,

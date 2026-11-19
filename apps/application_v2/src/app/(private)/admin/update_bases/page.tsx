@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { AdminBoilList } from '@/widgets/admin-boil-list';
 
-export default async function AdminUpdateBasesPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function AdminUpdateBasesPage({ searchParams }: PageProps) {
+  return <AdminBoilList searchParams={searchParams} />;
 }

@@ -27,13 +27,20 @@ interface TBoilListFilterProps {
   marking: string | null;
   selectedPlants: string[] | undefined;
   selectedStates: string[] | undefined;
+  // added
+  filterEmptyMarking?: boolean;
+  isOnlyEmptyMarking?: boolean;
   onFilterChangeThrottle: (newFilters: {
     baseCode?: string | null;
     boil?: string | null;
     marking?: string | null;
     code?: string | null;
   }) => void;
-  onFilterChange: (newFilters: { plants?: string[] | null; states?: string[] | null }) => void;
+  onFilterChange: (newFilters: {
+    plants?: string[] | null;
+    states?: string[] | null;
+    isOnlyEmptyMarking?: boolean;
+  }) => void;
   handleReset: () => void;
   handleResetAll: () => void;
 }
@@ -46,6 +53,10 @@ export function BoilListFilter({
   marking,
   selectedPlants,
   selectedStates,
+  // added
+
+  filterEmptyMarking = false,
+  isOnlyEmptyMarking = false,
   onFilterChange,
   onFilterChangeThrottle,
   handleReset,
@@ -54,7 +65,9 @@ export function BoilListFilter({
   const isMobile = useIsMobile();
 
   const [open, setOpen] = useState(false);
-  const selectorId = useId();
+  const plantSelectorId = useId();
+  const stateSelectorId = useId();
+  const markingSelectorId = useId();
 
   const isMounted = useSyncExternalStore(
     subscribeToNothing,
@@ -92,13 +105,32 @@ export function BoilListFilter({
     return baseItems;
   }, [stateData]);
 
+  // added
+
+  const markingStateListItems = useMemo<IListItem[]>(
+    () => [
+      { value: 'false', description: 'Все' },
+      { value: 'true', description: 'Без артикула' },
+    ],
+    [],
+  );
+
+  const markingStateValue = isOnlyEmptyMarking ? ['true'] : ['false'];
+
   const isDirty = Boolean(
     baseCode !== '' ||
     marking !== '' ||
     boil !== '' ||
+    Boolean(isOnlyEmptyMarking) ||
     (selectedPlants && selectedPlants.length > 0) ||
     (selectedStates && selectedStates.length > 0),
   );
+
+  const activeFieldsCount = useMemo(() => {
+    let count = 5;
+    if (filterEmptyMarking) count += 1;
+    return count;
+  }, [filterEmptyMarking]);
 
   const filterFields = (
     <>
@@ -115,8 +147,10 @@ export function BoilListFilter({
         className="w-full"
         placeholder="Поиск по артикулу"
         value={marking ?? ''}
+        disabled={Boolean(isOnlyEmptyMarking)}
         onChange={(value) => onFilterChangeThrottle({ marking: value })}
       />
+
       <FilterInput
         id={'code'}
         className="w-full"
@@ -126,7 +160,7 @@ export function BoilListFilter({
       />
 
       <FilterMultiSelector
-        id={selectorId}
+        id={stateSelectorId}
         className="w-full"
         placeholder="Статус"
         items={stateListItems}
@@ -134,12 +168,30 @@ export function BoilListFilter({
         onChange={(value) => onFilterChange({ states: value })}
       />
       <FilterSelector
-        id={selectorId}
+        id={plantSelectorId}
         className="w-full"
+        placeholder="Площадка"
         items={plantListItems}
         value={selectedPlants ?? []}
         onChange={(value) => onFilterChange({ plants: value })}
       />
+      {filterEmptyMarking && (
+        <FilterSelector
+          id={markingSelectorId}
+          className="w-full"
+          placeholder="Артикулы"
+          items={markingStateListItems}
+          value={markingStateValue}
+          onChange={(value) => {
+            const selectedString = Array.isArray(value) ? value[0] : value;
+            const nextValue = selectedString === 'true';
+            onFilterChange({ isOnlyEmptyMarking: selectedString === 'true' });
+            if (nextValue && marking) {
+              onFilterChangeThrottle({ marking: '' });
+            }
+          }}
+        />
+      )}
     </>
   );
 
@@ -185,7 +237,10 @@ export function BoilListFilter({
   if (!isMounted) return <div className="h-10" />;
 
   return (
-    <div className="grid grid-cols-[repeat(5,1fr)_auto] @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl ">
+    <div
+      style={{ '--fields-count': activeFieldsCount } as React.CSSProperties}
+      className="grid grid-cols-[repeat(var(--fields-count),1fr)_auto] @max-4xl:grid-cols-2 @max-6xl:grid-cols-3 gap-3 w-full items-end max-w-6xl"
+    >
       {filterFields}
 
       <FilterResetButton

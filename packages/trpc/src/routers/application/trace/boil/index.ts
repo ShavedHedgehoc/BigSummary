@@ -15,7 +15,7 @@ export const applicationTraceBoilRouter = router({
       } catch (error: any) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: error.message || 'Ошибка удаления',
+          message: error.message || 'Ошибка загрузки',
           cause: error,
         });
       }

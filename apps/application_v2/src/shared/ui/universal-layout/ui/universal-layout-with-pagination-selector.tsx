@@ -80,7 +80,9 @@ export function UniversalLayoutWithPaginationSelector({
           <div className="pt-2">{pagination}</div>
         </div>
         <div className={cn('contents', !hasSelection && '@max-6xl/main:hidden')}>
-          {hasActionPanel || hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)}
+          {/* {hasActionPanel || hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />)} */}
+          {sidebarPanel &&
+            (hasActionPanel || hasSelection ? sidebarPanel : (emptyState ?? <EmptyState />))}
         </div>
       </div>
     </div>

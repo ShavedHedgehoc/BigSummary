@@ -41,6 +41,12 @@ export const HISTORY_PANEL_CONFIG: Record<
     getActionButton: (props) => <CancelHistoryButton {...props} />,
     getActionForm: () => null,
   },
+  admin_update_bases: {
+    getTitle: () => 'История статусов',
+    hasSubheader: true,
+    getActionButton: () => null,
+    getActionForm: () => null,
+  },
   laboratory_products: {
     getTitle: () => 'История статусов',
     hasSubheader: true,

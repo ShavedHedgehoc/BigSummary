@@ -8,6 +8,7 @@ export const boilListFilterSchema = z.object({
   boilAsc: z.boolean().default(true),
   states: z.array(z.number()).default([]),
   plants: z.array(z.number()).default([]),
+  isOnlyEmptyMarking: z.boolean().optional(),
 });
 
 export const getBoilListInputSchema = z.object({

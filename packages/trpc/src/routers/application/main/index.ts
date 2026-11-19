@@ -1,4 +1,5 @@
 import { router } from '../../../trpc';
+import { applicationBaseRouter } from './base';
 import { applicationMainBoilRouter } from './boil';
 import { applicationMainConveyorRouter } from './conveyor';
 import { applicationMainDocRouter } from './doc';
@@ -10,6 +11,7 @@ import { applicationMainUserRouter } from './user';
 
 export const applicationMainRouter = router({
   boil: applicationMainBoilRouter,
+  base: applicationBaseRouter,
   conveyor: applicationMainConveyorRouter,
   doc: applicationMainDocRouter,
   plant: applicationMainPlantRouter,

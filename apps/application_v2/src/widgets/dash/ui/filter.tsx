@@ -21,10 +21,7 @@ export default function DashFilter() {
   const isMobile = useIsMobile();
 
   const [open, setOpen] = useState(false);
-  const {
-    // params: uiParams,
-    setParams: setUiParams,
-  } = useDashUiParams();
+  const { setParams: setUiParams } = useDashUiParams();
   const { plantData, params, setParams } = useRecordListSearchParams('dash');
   const plantListItems = useMemo<IListItem[]>(() => {
     if (!Array.isArray(plantData)) return [];
@@ -43,8 +40,6 @@ export default function DashFilter() {
     setParams({ plants: value }, { shallow: false });
     setUiParams({ selectedRecordId: null }, { shallow: true });
   };
-
-  //   const hasSelectedRow = uiParams.selectedRecordId !== '';
 
   const filterFields = (
     <FilterSelector
@@ -86,12 +81,7 @@ export default function DashFilter() {
   if (!isMounted) return <div className="h-10 " />;
 
   return (
-    <div
-      className={cn(
-        'flex justify-end  w-full pr-2',
-        // !hasSelectedRow && 'pr-5'
-      )}
-    >
+    <div className={cn('flex justify-end  w-full pr-2')}>
       <div className="w-80">{filterFields}</div>
     </div>
   );

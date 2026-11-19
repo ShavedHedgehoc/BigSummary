@@ -10,6 +10,7 @@ export const getApplicationLabBoilListInput = z.object({
   plants: z.array(z.string()).nullish(),
   limit: z.number().int().positive().default(10),
   page: z.number().int().nonnegative().default(1),
+  isOnlyEmptyMarking: z.boolean().optional(),
 });
 
 export type TGetApplicationLabBoilListInput = z.infer<typeof getApplicationLabBoilListInput>;
