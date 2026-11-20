@@ -14,3 +14,5 @@ export * from './user-settings';
 export * from './regulation';
 export * from './semiproduct';
 export * from './base';
+export * from './occupation';
+export * from './employee';

@@ -13,6 +13,7 @@ const TABS = {
   DETAIL: { id: 'history', label: 'Взвешивания' },
   EDIT: { id: 'action', label: 'Редактирование' },
   EXCLUDED: { id: 'view', label: 'Исключения' },
+  ADD_EMPLOYEE: { id: 'view', label: 'Создание' },
 } as const;
 
 interface IModeStrategy {
@@ -49,7 +50,13 @@ export const SIDE_PANEL_MODE_CONFIG: Record<TSidePanelProps['mode'], IModeStrate
     showCloseButtonOnDesktop: false,
     canRenderWithoutRow: true,
   },
-
+  employees: {
+    requiresRow: true,
+    hasHistory: false,
+    getTabs: () => [TABS.EDIT, TABS.ADD_EMPLOYEE],
+    showCloseButtonOnDesktop: false,
+    canRenderWithoutRow: true,
+  },
   admin_users: {
     requiresRow: true,
     hasHistory: false,

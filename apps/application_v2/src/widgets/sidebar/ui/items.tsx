@@ -103,8 +103,4 @@ export const adminNavItems: TNavItem[] = [
     title: STATIC_TITLES[ROUTE_PATH.ADMIN_UPDATE_BASES],
     url: ROUTE_PATH.ADMIN_UPDATE_BASES,
   },
-  {
-    title: STATIC_TITLES[ROUTE_PATH.ADMIN_CANS_LIST],
-    url: ROUTE_PATH.ADMIN_CANS_LIST,
-  },
 ];

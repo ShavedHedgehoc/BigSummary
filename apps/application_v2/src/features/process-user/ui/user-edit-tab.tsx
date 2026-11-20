@@ -15,7 +15,6 @@ import {
 } from '@/shared/ui';
 import { TApplicationUserItem } from '@repo/schemas';
 import { useUserEditTab } from '../model/hooks/use-user-edit-tab';
-import React from 'react';
 
 interface IUserEditTabProps {
   row?: TApplicationUserItem;

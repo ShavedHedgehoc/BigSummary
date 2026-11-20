@@ -23,7 +23,9 @@ export function SidePanel(props: TSidePanelProps) {
   const { mode, row, onClose, className = '' } = props;
   const config = SIDE_PANEL_MODE_CONFIG[mode];
   const currentStatus =
-    mode === 'admin_users' || mode === 'conveyors' || mode === 'wght_report' ? '' : row?.stateValue;
+    mode === 'admin_users' || mode === 'conveyors' || mode === 'wght_report' || mode === 'employees'
+      ? ''
+      : row?.stateValue;
 
   const tabs = useMemo(() => {
     return config.getTabs(currentStatus, isMobile);

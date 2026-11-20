@@ -5,6 +5,7 @@ import {
   TApplicationPlantListResponse,
   TApplicationUserItem,
   TApplicationConveyorItem,
+  TApplicationEmployeeItem,
 } from '@repo/schemas';
 import { EditDocRowForm } from '@/features/edit-doc-row';
 import { UploadDocForm } from '@/features/upload-doc';
@@ -19,6 +20,8 @@ import { DeleteConveyorButton } from '@/features/delete-conveyor';
 import { EditConveyorForm } from '@/features/edit-conveyor';
 import { UploadTraceBoilForm } from '@/features/upload-boils';
 import { UpdateBasesForm } from '@/features/update-bases';
+import { DeleteEmployeeButton } from '@/features/delete-employee';
+import { EmployeeForm } from '@/features/process-employee';
 
 interface IActionModeConfig {
   requiresRow: boolean;
@@ -56,6 +59,24 @@ export const ACTION_PANEL_CONFIG: Record<TSidePanelContext['mode'], IActionModeC
     renderForm: (props) => <ProcessUserTabs row={props.row as TApplicationUserItem} />,
     renderButton: (props) => (
       <DeleteUserButton row={props.row as TApplicationUserItem} onSuccess={props.clearSelected} />
+    ),
+  },
+  employees: {
+    requiresRow: true,
+    headerTitle: null,
+    getSubheader: () => null,
+
+    // canRenderWithoutRow: true,
+    // getSubheader: (props) =>
+    //   props.row ? <UserFormSubheader row={props.row as TApplicationUserItem} /> : null,
+    renderForm: (props) => (
+      <EmployeeForm row={props.row as TApplicationEmployeeItem} mode={'edit'} />
+    ),
+    renderButton: (props) => (
+      <DeleteEmployeeButton
+        row={props.row as TApplicationEmployeeItem}
+        onSuccess={props.clearSelected}
+      />
     ),
   },
   admin_update_bases: {

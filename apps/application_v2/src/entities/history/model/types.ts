@@ -5,6 +5,7 @@ import {
   TApplicationDocDetailRowItem,
   TApplicationUserItem,
   TApplicationTraceWeightingListPaginatedRowItem,
+  TApplicationEmployeeItem,
 } from '@repo/schemas';
 
 type TBoilHistoryType = 'base_continue' | 'base_correct' | 'plug_pass' | 'base_fail' | 'base_check';
@@ -41,6 +42,11 @@ export type THistoryMutationContextProps =
   | {
       mode: 'admin_users';
       row: TApplicationUserItem | undefined;
+      onChange?: never;
+    }
+  | {
+      mode: 'employees';
+      row: TApplicationEmployeeItem | undefined;
       onChange?: never;
     }
   | {
