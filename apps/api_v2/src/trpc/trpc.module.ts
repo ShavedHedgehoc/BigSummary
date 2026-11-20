@@ -21,6 +21,7 @@ import { TraceInventoryModule } from '../trace/inventory/inventory.module';
 import { TraceBoilModule } from '../trace/boil/boil.module';
 import { TraceWeightingModule } from '../trace/weighting/weighting.module';
 import { BaseModule } from '../main/base/base.module';
+import { OccupationModule } from '../main/occupation/occupation.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { BaseModule } from '../main/base/base.module';
     HistoryModule,
     HistoryTypeModule,
     ConveyorModule,
+    OccupationModule,
     PlantModule,
     DocModule,
     BoilModule,

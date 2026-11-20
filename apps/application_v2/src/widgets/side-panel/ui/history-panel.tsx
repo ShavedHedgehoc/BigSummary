@@ -13,22 +13,6 @@ import { WeightingFormSubheader } from '@/entities/weighting';
 export function HistoryPanel(props: TSidePanelContext) {
   const [isAction, setIsAction] = useState(false);
 
-  //   const config = HISTORY_PANEL_CONFIG[props.mode as THistoryPanelMode];
-
-  // // 1. Для upload_doc, admin_users, conveyors конфига нет -> вернётся null
-  // if (!config) {
-  //   return null;
-  // }
-
-  // // 2. Если запись не выбрана: для wght_report и admin_update_bases показываем заглушку, для остальных — null
-  // if (!props.row) {
-  //   return config.showEmptyPlaceholder ? (
-  //     <div className="flex items-center justify-center grow h-full text-sm text-muted-foreground font-medium">
-  //       Выберите запись
-  //     </div>
-  //   ) : null;
-  // }
-
   if ((props.mode === 'wght_report' || props.mode === 'admin_update_bases') && !props.row) {
     return (
       <div className="flex items-center justify-center grow h-full text-sm text-muted-foreground font-medium">
@@ -40,6 +24,7 @@ export function HistoryPanel(props: TSidePanelContext) {
     props.mode === 'upload_doc' ||
     props.mode === 'admin_users' ||
     props.mode === 'conveyors' ||
+    props.mode === 'employees' ||
     !props.row
   ) {
     return null;

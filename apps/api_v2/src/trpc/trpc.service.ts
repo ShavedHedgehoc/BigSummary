@@ -32,6 +32,8 @@ import { ApplicationTraceInventoryService } from '../trace/inventory/application
 import { ApplicationTraceBoilService } from '../trace/boil/application.boil.service';
 import { ApplicationTraceWeightingService } from '../trace/weighting/application.weighting.service';
 import { ApplicationBaseService } from '../main/base/application.base.service';
+import { ApplicationOccupationService } from '../main/occupation/application.occupation.service';
+import { ApplicationEmployeeService } from '../main/employee/application.employee.service';
 
 @Injectable()
 export class TrpcService {
@@ -59,6 +61,8 @@ export class TrpcService {
     private readonly applicationBaseService: ApplicationBaseService,
     @Inject(forwardRef(() => ApplicationBoilService))
     private readonly applicationBoilService: ApplicationBoilService,
+    @Inject(forwardRef(() => ApplicationEmployeeService))
+    private readonly applicationEmployeeService: ApplicationEmployeeService,
     @Inject(forwardRef(() => ApplicationDocService))
     private readonly applicationDocService: ApplicationDocService,
     @Inject(forwardRef(() => ApplicationHistoryService))
@@ -67,6 +71,8 @@ export class TrpcService {
     private readonly applicationHistoryTypeService: ApplicationHistoryTypeService,
     @Inject(forwardRef(() => ApplicationPlantService))
     private readonly applicationPlantService: ApplicationPlantService,
+    @Inject(forwardRef(() => ApplicationOccupationService))
+    private readonly applicationOccupationService: ApplicationOccupationService,
     @Inject(forwardRef(() => ApplicationRoleService))
     private readonly applicationRoleService: ApplicationRoleService,
     @Inject(forwardRef(() => ApplicationUserService))
@@ -134,9 +140,11 @@ export class TrpcService {
       applicationBoilService: this.applicationBoilService,
       applicationConveyorService: this.applicationConveyorService,
       applicationDocService: this.applicationDocService,
+      applicationEmployeeService: this.applicationEmployeeService,
       applicationHistoryService: this.applicationHistoryService,
       applicationHistoryTypeService: this.applicationHistoryTypeService,
       applicationRoleService: this.applicationRoleService,
+      applicationOccupationService: this.applicationOccupationService,
       applicationPlantService: this.applicationPlantService,
       applicationUserService: this.applicationUserService,
       workstationEmployeeService: this.workstationEmployeeService,

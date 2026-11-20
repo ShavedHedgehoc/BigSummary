@@ -1,7 +1,11 @@
 'use server';
 
-import { UnderConstructionCard } from '@/shared/ui';
+import { EmployeeList } from '@/widgets/employee-list';
 
-export default async function EmployeesPage() {
-  return <UnderConstructionCard />;
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function EmployeesPage({ searchParams }: PageProps) {
+  return <EmployeeList searchParams={searchParams} />;
 }

@@ -27,6 +27,7 @@ const geistMono = localFont({
   variable: '--font-mono',
   weight: '100 900',
   display: 'swap',
+  preload: false,
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

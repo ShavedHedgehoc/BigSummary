@@ -5,7 +5,7 @@ export function useUpdateUser() {
   const utils = trpc.useUtils();
   const mutation = trpc.application.main.user.updateUser.useMutation({
     onSuccess: () => {
-      toast.success('Данные пользователя успешно обновлен');
+      toast.success('Данные пользователя успешно обновлены');
       utils.application.main.user.getUserList.invalidate();
     },
     onError: (err) => {

@@ -25,5 +25,4 @@ export const ROUTE_PATH = {
   ADMIN: '/admin',
   ADMIN_USERS: '/admin/users',
   ADMIN_UPDATE_BASES: '/admin/update_bases',
-  ADMIN_CANS_LIST: '/admin/cans_list',
 } as const;

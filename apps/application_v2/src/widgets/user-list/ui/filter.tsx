@@ -1,12 +1,10 @@
 import { throttle } from 'nuqs';
 import { ComponentProps } from 'react';
 import { useUserList } from '../model/use-user-list';
-import { useUserListSearchParams } from '@/entities/user/lib';
 import { UserListFilter } from '@/features/filter-users';
 
 export default function AdminUserListFilter() {
-  const { setUiParams } = useUserList();
-  const { params, setParams, roleData } = useUserListSearchParams();
+  const { params, setParams, roleData, setUiParams } = useUserList();
 
   type TFilterProps = ComponentProps<typeof UserListFilter>;
   type TThrottleArgs = Parameters<TFilterProps['onFilterChangeThrottle']>[0];

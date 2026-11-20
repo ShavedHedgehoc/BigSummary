@@ -25,7 +25,6 @@ export const STATIC_TITLES: Record<string, string> = {
   [ROUTE_PATH.ADMIN]: 'Администратор',
   [ROUTE_PATH.ADMIN_USERS]: 'Пользователи',
   [ROUTE_PATH.ADMIN_UPDATE_BASES]: 'Обновление основ',
-  [ROUTE_PATH.ADMIN_CANS_LIST]: 'Список емкостей',
 };
 
 export const DYNAMIC_PATTERNS = [

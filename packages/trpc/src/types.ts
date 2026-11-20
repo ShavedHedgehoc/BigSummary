@@ -82,8 +82,6 @@ import type {
   TApplicationTraceInventoryDetailResponse,
   TApplicationDeleteTraceInventoryResponse,
   TApplicationDeleteTraceInventoryInput,
-  // TApplicationTraceBoilWghtReportResponse,
-  // TGetApplicationGetTraceBoilWghtReportInput,
   TApplicationUploadTraceBoilInput,
   TApplicationUploadTraceBoilResponse,
   TApplicationDeleteTraceWeightingInput,
@@ -92,6 +90,15 @@ import type {
   TApplicationTraceWeightingListResponse,
   TApplicationUpdateBaseInput,
   TApplicationUpdateBaseResponse,
+  TApplicationOccupationListResponse,
+  TGetApplicationEmployeeListInput,
+  TApplicationEmployeeListResponse,
+  TApplicationUpdateEmployeeInput,
+  TApplicationUpdateEmployeeResponse,
+  TApplicationDeleteEmployeeInput,
+  TApplicationDeleteEmployeeResponse,
+  TApplicationCreateEmployeeInput,
+  TApplicationCreateEmployeeResponse,
 } from '@repo/schemas';
 
 export interface IHealthService {
@@ -255,6 +262,10 @@ export interface IApplicationDocService {
   ) => Promise<TApplicationDocDetailResponse | null>;
 }
 
+export interface IApplicationOccupationService {
+  getOccupationList: () => Promise<TApplicationOccupationListResponse | null>;
+}
+
 export interface IApplicationPlantService {
   getPlantList: () => Promise<TApplicationPlantListResponse | null>;
 }
@@ -296,6 +307,20 @@ export interface IApplicationUserService {
     input: TApplicationUpdateUserRolesInput,
   ) => Promise<TApplicationUpdateUserRolesResponse>;
 }
+export interface IApplicationEmployeeService {
+  getEmployeeList: (
+    input: TGetApplicationEmployeeListInput,
+  ) => Promise<TApplicationEmployeeListResponse | null>;
+  updateEmployee: (
+    input: TApplicationUpdateEmployeeInput,
+  ) => Promise<TApplicationUpdateEmployeeResponse>;
+  createEmployee: (
+    input: TApplicationCreateEmployeeInput,
+  ) => Promise<TApplicationCreateEmployeeResponse>;
+  deleteEmployee: (
+    input: TApplicationDeleteEmployeeInput,
+  ) => Promise<TApplicationDeleteEmployeeResponse>;
+}
 
 export interface ITrpcContext {
   applicationTraceBoilService: IApplicationTraceBoilService;
@@ -308,11 +333,13 @@ export interface ITrpcContext {
   applicationBoilService: IApplicationBoilService;
   applicationConveyorService: IApplicationConveyorService;
   applicationDocService: IApplicationDocService;
+  applicationOccupationService: IApplicationOccupationService;
   applicationPlantService: IApplicationPlantService;
   applicationHistoryService: IApplicationHistoryService;
   applicationHistoryTypeService: IApplicationHistoryTypeService;
   applicationRoleService: IApplicationRoleService;
   applicationUserService: IApplicationUserService;
+  applicationEmployeeService: IApplicationEmployeeService;
   workstationEmployeeService: IWorkstationEmployeeService;
   workstationConveyorService: IWorkstationConveyorService;
   dashPlantService: IDashPlantService;

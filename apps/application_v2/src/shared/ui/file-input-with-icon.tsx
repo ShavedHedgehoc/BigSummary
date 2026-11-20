@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { Folder } from 'lucide-react'; // Добавили иконку файла
+import { Folder } from 'lucide-react';
 import { Input } from '@/shared/ui';
 import { cn } from '@/shared/lib';
 
