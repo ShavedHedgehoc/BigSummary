@@ -1,6 +1,6 @@
 {
   "name": "@repo/gateway",
-  "version": "2.1.0",
+  "version": "2.2.1",
   "private": true,
   "description": "Nginx Reverse Proxy Gateway",
   "scripts": {
