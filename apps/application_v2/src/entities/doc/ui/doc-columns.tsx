@@ -94,7 +94,7 @@ export const baseDocColumns: ColumnDef<TApplicationDocItem>[] = [
               : ' text-emerald-600 dark:text-emerald-400',
           )}
         >
-          {row.original.historiesCount}
+          {row.original.recordsCount}
         </div>
       );
     },
